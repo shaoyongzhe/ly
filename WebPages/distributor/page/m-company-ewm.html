@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 ,minimum-scale =1, maximum-scale =1, user-scalable = no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>我的-公司-二维码</title>
+    <link type="text/css" href="/distributor/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="/distributor/css/lib.css" rel="stylesheet" />
+    <link type="text/css" href="/distributor/css/style1.css" rel="stylesheet" />
+    <link href="/distributor/css/weixintips.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/js/jquery/1.11.3/jquery.js"></script>
+    <script src="/js/jquery/toastr.min.js"></script>
+    <script type="text/javascript" src="/distributor/js/lib/jquery-toastr-extend.js"></script>
+    <script type="text/javascript" src="/distributor/js/lib/jquery-common-debug.js"></script>
+    <script type="text/javascript" src="/distributor/js/lib/common-debug.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t="+ new Date().getTime() +"\">");	document.writeln("<\/script>");	</script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/wx/weixinconfiginit-debug.js"></script>
+    <script src="/js/juicer-min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.getJSON2("/webapi/distributor/weixin/distributorinfo", function (data) {
+                var jsondata = data || {};
+                var tpl = document.getElementById('companytemplate').innerHTML;
+                var html = juicer(tpl, jsondata);
+                $('body').prepend(html);
+                $('#qrcode').attr('src', $('#qrcode').attr('orgsrc'));
+            });
+        });
+    </script>
+
+    <script id="companytemplate" type="text/template">
+        <div class="m-company-top">
+            <div class="userimg"><img src="{@if distributor_pic ==''}/distributor/image/cs04.jpg {@else}${distributor_pic}{@/if}" /></div>
+            <div class="userinfo">
+                <div class="zi">
+                    <span>${distributorname}</span><br />
+                    ${address}<br />
+                    ${mobilephone}
+                </div>
+            </div>
+        </div>
+    </script>
+</head>
+
+<body style="background:#fff;">
+    <div class="pin-spinner" style="display:block;">
+        <div class="pin-spinner-container pin-spinner-container1">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+        <div class="pin-spinner-container pin-spinner-container2">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+        <div class="pin-spinner-container pin-spinner-container3">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+    </div>
+    <div class="container-w">
+        <div class="ewmboxz" style="line-height:24px; padding:36px 0 30px 0;">
+            <img class="ewm" id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20" style="margin-bottom:10px; width:200px;" /><br />
+            扫一扫上面的二维码，成为超惠买惠粉！<br />
+            <span>——长按二维码，可保存到手机！——</span>
+        </div>
+    </div>
+
+
+    <div class="space" style="height:57px;"></div>
+    <footer>
+
+        <div class="bottom-nav">
+        </div>
+    </footer>
+
+</body>
+</html>
+

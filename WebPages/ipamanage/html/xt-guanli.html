@@ -1,0 +1,717 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>系统管理</title>
+        <link type="text/css" href="../web_style/style.css"  rel="stylesheet"/>
+        <script type="text/javascript" src="../web_js/jquery-1.11.3.min.js"></script>
+    </head>
+
+    <body>
+        <script type="text/javascript">
+
+            $(function () {
+
+                var length = $('ul.create-lan-class li').length;
+
+                $('ul.create-lan-class li').click(function () {
+
+                    $('ul.create-lan-class li').css('background', '#fff').css('color', '#333')
+                    $(this).css('background', '#249cfa').css('color', '#fff')
+                })
+
+                $('#show-createbox').click(function () {
+                    $('.create-lan-w').fadeIn(500)
+                })
+                $('#close-createbox').click(function () {
+                    $('.create-lan-w').fadeOut(500)
+                })
+
+                $('#delete-lan').click(function () {
+                    var type = $(this).attr('type')
+                    var flag = false;
+                    $('.tabbox-show[type=' + type + '] input').each(function () {
+                        if ($(this).prop('checked')) {
+                            flag = true;
+                        }
+                    })
+                    if (!flag) {
+                        $('.delete-lan-wab').fadeIn(500)
+                        return false;
+                    }
+                    $('.queding').attr('type', type)
+                    $('.delete-lan-w').fadeIn(500)
+                })
+
+                $('.quedingaaaa').click(function () {
+                    $('.delete-lan-wab').fadeOut(500)
+                })
+                $('#close-deletebox').click(function () {
+                    $('.delete-lan-w').fadeOut(500)
+                })
+
+                $('.change').click(function () {
+                    $('.add-lan-w').fadeIn(500)
+                })
+                $('#close-addbox').click(function () {
+                    $('.add-lan-w').fadeOut(500)
+                })
+                $('.quxiao').click(function () {
+                    $('.add-lan-w').fadeOut(500)
+                    $('.create-lan-w').fadeOut(500)
+                    $('.delete-lan-w').fadeOut(500)
+                })
+
+                $('.quxiao1').click(function () {
+                    $('.delete-lan-wab').fadeOut(500)
+
+                })
+
+                $('.delete').click(function () {
+                    var gid = $(this).attr("gid");
+//                    if ($(this).parent().prev().prev().prev().children('input').is(':checked')) {
+                    $('.queding').attr("gid", gid);
+                    $('.delete-lan-w').fadeIn(500)
+//                    }
+
+                })
+                $('.queding').click(function () {
+
+                    var gid = $(this).attr("gid");
+                    if (gid != '') {
+                        $('.tabcont-cont[gid=' + gid + ']').remove();
+                        $(this).attr("gid", '');
+                        $('.delete-lan-w').fadeOut(500)
+                    }
+                    var type = $(this).attr("type");
+                    if (type != '') {
+                        $('.tabbox-show[type=' + type + '] input').each(function () {
+                            if ($(this).prop('checked')) {
+                                var gid = $(this).parents('.tabcont-cont').attr('gid')
+                                $('.tabcont-cont[gid =' + gid + ']').remove();
+                            }
+                        })
+                        $(this).attr("type", '');
+                        $('.delete-lan-w').fadeOut(500)
+                    }
+                })
+
+                $(".tabcont-tit-one input[type='checkbox']").change(function () {
+                    $(".tabcont-cont-one input[type='checkbox']").prop('checked', $(this).is(':checked'));
+                });
+                $(".tabcont-cont-one input[type='checkbox']").change(function () {
+                    var flag = true;
+                    $(".tabcont-cont-one input[type='checkbox']").each(function () {
+                        if (!$(this).is(':checked'))
+                            flag = false;
+                    });
+                    $(".tabcont-tit-one input[type='checkbox']").prop('checked', flag);
+                });
+
+                var nimeitype = GetRequest();
+                var htmltype = nimeitype.type
+                $('[csq="del"]').attr('type', htmltype)
+
+
+            })
+
+            function GetRequest() {
+                var url = window.location.search; //获取url中"?"符后的字串 
+                var theRequest = new Object();
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("&");
+                    for (var i = 0; i < strs.length; i++) {
+                        theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                    }
+                }
+                return theRequest;
+            }
+
+
+        </script>
+        <!--修改用语浮层-->
+        <div class="add-lan-w">
+            <div class="create-lan">
+                <div class="create-lan-top">快捷用语<span id="close-addbox"><img src="../web_images/icon05.png" /></span></div>
+                <div class="create-lan-cont">
+                    <div class="singlebox">
+                        <div class="singlebox-l">类型：</div>
+                        <div class="singlebox-r">
+                            <ul class="create-lan-class">
+                                <li>全部类型</li>
+                                <li>基本信息</li>
+                                <li>海报信息</li>
+                                <li>更正说明</li>
+                                <li>门店要求</li>
+                                <li>优惠详情</li>
+                                <li>补充信息</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="singlebox">
+                        <div class="singlebox-l">内容：</div>
+                        <div class="singlebox-r">
+                            <textarea rows="12" placeholder="禁止在标题与说明描述中出现网址链接！"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box3">
+                    <div class="btnbox3">
+                        <button  style="width:160px; background:#249cfa; color:#fff; margin-right:10px;">确定</button>
+                        <button style="width:120px; background:#fff; color:#333;" class="quxiao">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--创建用语浮层-->
+
+        <div class="create-lan-w">
+            <div class="create-lan">
+                <div class="create-lan-top">快捷用语<span id="close-createbox"><img class="close2" src="../web_images/icon05.png" /></span></div>
+                <div class="create-lan-cont">
+                    <div class="singlebox">
+                        <div class="singlebox-l">类型：</div>
+                        <div class="singlebox-r">
+                            <ul class="create-lan-class">
+                                <li>全部类型</li>
+                                <li>基本信息</li>
+                                <li>海报信息</li>
+                                <li>更正说明</li>
+                                <li>门店要求</li>
+                                <li>优惠详情</li>
+                                <li>补充信息</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="singlebox">
+                        <div class="singlebox-l">内容：</div>
+                        <div class="singlebox-r">
+                            <textarea rows="12" placeholder="请输入您想创建的用语！"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box3">
+                    <div class="btnbox3">
+                        <button  style="width:160px; background:#249cfa; color:#fff; margin-right:10px;">确定</button>
+                        <button style="width:120px; background:#fff; color:#333;"  class="quxiao">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--删除用语浮层-->
+        <div class="delete-lan-w">
+            <div class="delete-lan">
+                <div class="create-lan-top">系统提示<span id="close-deletebox"><img class="close2" src="../web_images/icon05.png" /></span></div>
+                <div class="delete-lan-cont">
+                    <div class="img"><img src="../web_images/icon12.png" /></div>
+                    <div class="text" nimei="ABCD">
+                        <span>您确定彻底删除信息吗？</span><br />
+                        信息彻底删除后不可恢复
+                    </div>
+
+                </div>
+                <div class="btn-box3">
+                    <div class="btnbox3" style="margin-left:150px;">
+                        <button  style="width:160px; background:#249cfa; color:#fff; margin-right:10px;" type=""  gid="" class="queding">确定</button>
+                        <button style="width:120px; background:#fff; color:#333;"  class="quxiao">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--提示层-->
+        <div class="delete-lan-wab " style="display: none">
+            <div class="delete-lan">
+                <div class="create-lan-top">系统提示<span id="close-deletebox"><img class="close2" src="../web_images/icon05.png" /></span></div>
+                <div class="delete-lan-cont">
+                    <div class="img"><img src="../web_images/icon12.png" /></div>
+                    <div class="text" nimei="ABCD">
+                        <span>你没有选中要删除的元素！</span><br />
+                        请选中要删除的元素操作
+                    </div>
+
+                </div>
+                <div class="btn-box3">
+                    <div class="btnbox3" style="margin-left:150px;">
+                        <button  style="width:160px; background:#249cfa; color:#fff; margin-right:10px;" class="quedingaaaa">确定</button>
+                        <button style="width:120px; background:#fff; color:#333;"  class="quxiao1">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-n">
+            <div class="topnav">
+                <div class="logo">会员管理后台系统</div>
+                <ul class="nav">
+                    <a href="hd-shenhe.html"><li>活动审核</li></a>
+                    <a href="sh-tongji.html"><li >审核统计</li></a>
+                    <a href="xt-guanli.html"><li class="navbg">系统管理</li></a>
+                </ul>
+                <div class="userinfo">
+                    <a href="../html/login.html"><div class="loginout">退出</div></a>
+                    <div class="username">平台审核员</div>
+                    <div class="userimg"><img src="../web_images/cs02.jpg" /></div>
+                </div>
+            </div>
+            <div class="search">
+                <ul class="lan-class">
+                    <li li="1"><a href="../html/xt-guanli.html?type=1">全部类型</a></li>
+                    <li li="2"><a href="../html/xt-guanli.html?type=2">基本信息</a></li>
+                    <li li="3"><a href="../html/xt-guanli.html?type=3">海报信息</a></li>
+                    <li li="4"><a href="../html/xt-guanli.html?type=4">更正说明</a></li>
+                    <li li="5"><a href="../html/xt-guanli.html?type=5">门店要求</a></li>
+                    <li li="6"><a href="../html/xt-guanli.html?type=6">优惠详情</a></li>
+                    <li li="7"><a href="../html/xt-guanli.html?type=7">补充信息</a></li>
+                </ul>
+
+                <div class="opera-btn" id="delete-lan" csq="del" type="1">
+                    <img src="../web_images/icon11.png" />删除用语
+                </div>
+                <div class="opera-btn" id="show-createbox">
+                    <img src="../web_images/icon10.png" />创建用语
+                </div>
+            </div>
+            <div class="statebox" style="display:none;">
+                <div class="currenthdnum">当前共有<span>123</span>条待审核活动</div>
+                <div class="baocun">保存搜索条件</div>
+                <div class="yibaocun"><show class="show1">已保存(<span>1</span>)</show> <img src="../web_images/icon02.png" />
+                    <div class="show-yibaocun">更正置顶+北京+北京百鸿翔悦科技发展有限公司 <img class="close1" src="../web_images/icon03.png" /></div>
+                </div>
+                <div class="hd-guize">审核产品规则》</div>
+            </div>
+            <div class="tabcont-z">
+                <div class="tabcont-n">
+                    <div class="tabcont-tit">
+                        <div class="tabcont-tit-one perc1"><input style="margin:15px auto;" type="checkbox" /></div>
+                        <div class="tabcont-tit-one perc2">快捷用语</div>
+                        <div class="tabcont-tit-one perc3">类型</div>
+                        <div class="tabcont-tit-one perc4">操作</div>
+
+
+                    </div> 
+                    <!--全部类型-->
+                    <div class="tabbox-show" type="1">
+                        <div class="tabcont-cont" gid="1">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                全部类型
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">全部类型</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em gid="1" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <div class="tabcont-cont" gid="2">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                全部类型
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">全部类型</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em  gid="2" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <div class="tabcont-cont" gid="3">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                全部类型
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">全部类型</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em gid="3" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <div class="tabcont-cont"  gid="4">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                全部类型
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">全部类型</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em gid="4" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <div class="tabcont-cont" gid="5">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                全部类型
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">全部类型</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em  gid="5" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <div class="tabcont-cont"  gid="6">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                全部类型
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">全部类型</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em   gid="6" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <!-- 分页-->
+                        <div class="allpage-w">
+                            <div class="page-w">
+                                <div class="s-page s-page-1"><span>&lt;</span> <a href="#">上一页</a></div>
+                                <ul class="pagenum type_1">
+                                    <li class="front_1">...</li>
+
+                                    <li class="pitchOn"><a href="../html/xt-guanli.html?page=1&type=1">11</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=2&type=1">12</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=3&type=1">13</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=4&type=1">14</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=5&type=1">15</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=6&type=1">16</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=7&type=1">17</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=8&type=1">18</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=9&type=1">19</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=10&type=1">110</a></li>
+                                    <li class="back_1">...</li>
+                                </ul>
+                                <div class="x-page x-page-1"><a href="#">下一页 </a><span>&gt;</span></div>
+                                <div class="pagetext">共100页，到第<input type="text" />页<button>确定</button></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!--基本信息-->
+                    <div class="tabbox-show"  type="2" >
+                        <div class="tabcont-cont"  gid="26">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                基本信息
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">基本信息</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em  gid="26" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <!-- 分页-->
+                        <div class="allpage-w">
+                            <div class="page-w">
+                                <div class="s-page s-page-2"><span>&lt;</span> <a href="#">上一页</a></div>
+                                <ul class="pagenum type_2">
+                                    <li class="front_2">...</li>
+
+                                    <li class="pitchOn"><a href="../html/xt-guanli.html?page=1&type=2">21</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=2&type=2">22</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=3&type=2">23</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=4&type=2">24</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=5&type=2">25</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=6&type=2">26</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=7&type=2">27</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=8&type=2">28</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=9&type=2">29</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=10&type=2">210</a></li>
+                                    <li class="back_2">...</li>
+                                </ul>
+                                <div class="x-page x-page-2"><a href="#">下一页 </a><span>&gt;</span></div>
+                                <div class="pagetext">共100页，到第<input type="text" />页<button>确定</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--海报信息-->
+                    <div class="tabbox-show"  type="3" >
+                        <div class="tabcont-cont"  gid="36">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                海报信息
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">海报信息</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em gid="36" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <!-- 分页-->
+                        <div class="allpage-w">
+                            <div class="page-w">
+                                <div class="s-page s-page-3"><span>&lt;</span> <a href="#">上一页</a></div>
+                                <ul class="pagenum type_3">
+                                    <li class="front_3">...</li>
+
+                                    <li class="pitchOn"><a href="../html/xt-guanli.html?page=1&type=3">31</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=2&type=3">32</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=3&type=3">33</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=4&type=3">34</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=5&type=3">35</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=6&type=3">36</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=7&type=3">37</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=8&type=3">38</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=9&type=3">39</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=10&type=3">310</a></li>
+                                    <li class="back_3">...</li>
+                                </ul>
+                                <div class="x-page x-page-3"><a href="#">下一页 </a><span>&gt;</span></div>
+                                <div class="pagetext">共100页，到第<input type="text" />页<button>确定</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--更正说明-->
+                    <div class="tabbox-show"  type="4">
+                        <div class="tabcont-cont"  gid="46">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                更正说明
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">更正说明</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em  gid="46" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <!-- 分页-->
+                        <div class="allpage-w">
+                            <div class="page-w">
+                                <div class="s-page s-page-4"><span>&lt;</span> <a href="#">上一页</a></div>
+                                <ul class="pagenum type_4">
+                                    <li class="front_4">...</li>
+
+                                    <li class="pitchOn"><a href="../html/xt-guanli.html?page=1&type=4">41</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=2&type=4">42</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=3&type=4">43</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=4&type=4">44</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=5&type=4">45</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=6&type=4">46</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=7&type=4">47</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=8&type=4">48</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=9&type=4">49</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=10&type=4">410</a></li>
+                                    <li class="back_4">...</li>
+                                </ul>
+                                <div class="x-page x-page-4"><a href="#">下一页 </a><span>&gt;</span></div>
+                                <div class="pagetext">共100页，到第<input type="text" />页<button>确定</button></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--门店要求-->
+                    <div class="tabbox-show"  type="5" >
+                        <div class="tabcont-cont"  gid="56">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                门店要求
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">门店要求</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em  gid="56" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <!-- 分页-->
+                        <div class="allpage-w">
+                            <div class="page-w">
+                                <div class="s-page s-page-5"><span>&lt;</span> <a href="#">上一页</a></div>
+                                <ul class="pagenum type_5">
+                                    <li class="front_5">...</li>
+
+                                    <li class="pitchOn"><a href="../html/xt-guanli.html?page=1&type=5">51</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=2&type=5">52</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=3&type=5">53</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=4&type=5">54</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=5&type=5">55</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=6&type=5">56</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=7&type=5">57</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=8&type=5">58</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=9&type=5">59</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=10&type=5">510</a></li>
+                                    <li class="back_5">...</li>
+                                </ul>
+                                <div class="x-page x-page-5"><a href="#">下一页 </a><span>&gt;</span></div>
+                                <div class="pagetext">共100页，到第<input type="text" />页<button>确定</button></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--优惠详情-->
+                    <div class="tabbox-show"  type="6" >
+                        <div class="tabcont-cont"  gid="66">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                优惠详情
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">优惠详情</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em  gid="66" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <!-- 分页-->
+                        <div class="allpage-w">
+                            <div class="page-w">
+                                <div class="s-page s-page-6"><span>&lt;</span> <a href="#">上一页</a></div>
+                                <ul class="pagenum type_6">
+                                    <li class="front_6">...</li>
+
+                                    <li class="pitchOn"><a href="../html/xt-guanli.html?page=1&type=6">61</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=2&type=6">62</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=3&type=6">63</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=4&type=6">64</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=5&type=6">65</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=6&type=6">66</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=7&type=6">67</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=8&type=6">68</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=9&type=6">69</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=10&type=6">610</a></li>
+                                    <li class="back_6">...</li>
+                                </ul>
+                                <div class="x-page x-page-6"><a href="#">下一页 </a><span>&gt;</span></div>
+                                <div class="pagetext">共100页，到第<input type="text" />页<button>确定</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--补充信息-->
+                    <div class="tabbox-show"  type="7" >
+                        <div class="tabcont-cont" gid="76">
+                            <div class="tabcont-cont-one  perc1 lineheight40">
+                                <input type="checkbox" />
+                            </div>
+                            <div class="tabcont-cont-one perc2 lineheight40">
+                                补充信息
+                            </div>
+                            <div class="tabcont-cont-one perc3 lineheight40">补充信息</div>
+                            <div class="tabcont-cont-one perc4 lineheight40">
+                                <em class="change">修改</em> |<em  gid="76" class="delete"> 删除</em>
+                            </div>
+                        </div>
+                        <!-- 分页-->
+                        <div class="allpage-w">
+                            <div class="page-w">
+                                <div class="s-page s-page-7"><span>&lt;</span> <a href="#">上一页</a></div>
+                                <ul class="pagenum type_7">
+                                    <li class="front_7">...</li>
+
+                                    <li class="pitchOn"><a href="../html/xt-guanli.html?page=1&type=7">71</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=2&type=7">72</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=3&type=7">73</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=4&type=7">74</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=5&type=7">75</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=6&type=7">76</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=7&type=7">77</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=8&type=7">78</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=9&type=7">79</a></li>
+                                    <li><a href="../html/xt-guanli.html?page=10&type=7">710</a></li>
+                                    <li class="back_7">...</li>
+                                </ul>
+                                <div class="x-page x-page-7"><a href="#">下一页 </a><span>&gt;</span></div>
+                                <div class="pagetext">共100页，到第<input type="text" />页<button>确定</button></div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                <script type="text/javascript">
+
+                    $(function () {
+                        $('div[type="1"]').show();
+                        var type = getUrlParam('type');
+                        if (type == null) {
+                            type = 1;
+                        }
+                        $('ul.lan-class li').css('background', '#fff').css('color', '#333')
+                        $('.tabbox-show').hide()
+                        $('li[li="' + type + '"] a').css('background', '#249cfa').css('color', '#fff')
+                        $('div[type="' + type + '"]').show();
+                        for (i = 1; i < 8; i++) {
+                            page(i)
+                        }
+                        function page(num) {
+                            $('.front_' + num).hide();
+                            $('.back_' + num).hide();
+                            var lis = $('.type_' + num + ' li'),
+                                    //当面页数
+                                    page = getUrlParam('page'),
+                                    //总页数
+                                    total_page = lis.size() - 2;
+                            if (page == null) {
+                                page = 1;
+                            }
+                            if (total_page > 5) {
+                                lis.hide();
+                                $('.type_' + num).children().eq(page).show();
+                                //前面省略号
+                                if (page > 3) {
+                                    $('.front_' + num).show();
+                                }
+                                if (page > 2) {
+                                    $('.type_' + num).children().eq(parseInt(page) - 2).show();
+                                }
+                                if (page > 1) {
+                                    $('.type_' + num).children().eq(parseInt(page) - 1).show();
+                                }
+                                if (page == 1) {
+                                    $('.s-page-' + num).hide();
+                                }
+                                //后面省略号
+                                if (parseInt(page) + 2 < total_page) {
+                                    $('.back_' + num).show()
+                                }
+                                if (parseInt(page) + 1 <= total_page && parseInt(page) != total_page) {
+                                    $('.type_' + num).children().eq(parseInt(page) + 1).show();
+                                }
+                                if (parseInt(page) < total_page && parseInt(page) + 1 != total_page) {
+                                    $('.type_' + num).children().eq(parseInt(page) + 2).show();
+                                }
+                                if (page == total_page) {
+                                    $('.x-page-' + num).hide();
+                                }
+
+                            }
+                            lis.attr('class', '');
+                            $('.type_' + num).children().eq(page).attr('class', 'pitchOn');
+                        }
+
+
+                        function getUrlParam(name)
+                        {
+                            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+                            if (r != null)
+                                return unescape(r[2]);
+                            return null; //返回参数值
+                        }
+                    })
+                </script>
+
+            </div>
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 ,minimum-scale =1, maximum-scale =1, user-scalable = no" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <title>附近门店详情</title>
+    <link type="text/css" href="/consumer/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="/consumer/css/style1.css" rel="stylesheet" />
+    <link type="text/css" href="/consumer/css/weixintips.css" rel="stylesheet" />
+    <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/js/jquery/1.11.3/jquery.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    
+    <script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/consumer/js/lib/common-debug.js"></script>
+    <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
+    <script type="text/javascript" src="/consumer/js/lib/jquery-toastr-extend.js"></script>
+    <script type="text/javascript" src="/js/guid-debug.js"></script>
+    <script type="text/javascript" src="/js/wx/weixinconfiginit-debug.js"></script>
+    <script type="text/javascript" src="/js/wx/weixinshare-debug.js"></script>
+    <script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode-debug.js"></script>
+    <style>
+        .pin-spinner {
+            display: none;
+            width: 34px;
+            height: 34px;
+            position: fixed;
+            margin-left: -17px;
+            z-index: 999999999;
+            left: 50%;
+            top: 35%;
+        }
+
+        .pin-spinner-container1 > div, .pin-spinner-container2 > div, .pin-spinner-container3 > div {
+            width: 10px;
+            height: 10px;
+            background-color: #457486;
+            border-radius: 100%;
+            position: absolute;
+            -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+            animation: bouncedelay 1.2s infinite ease-in-out;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .pin-spinner .pin-spinner-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pin-spinner-container2 {
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .pin-spinner-container3 {
+            -webkit-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .pin-spinner-circle1 {
+            top: 0;
+            left: 0;
+        }
+
+        .pin-spinner-circle2 {
+            top: 0;
+            right: 0;
+        }
+
+        .pin-spinner-circle3 {
+            right: 0;
+            bottom: 0;
+        }
+
+        .pin-spinner-circle4 {
+            left: 0;
+            bottom: 0;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle1 {
+            -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle1 {
+            -webkit-animation-delay: -1s;
+            animation-delay: -1s;
+        }
+
+        .pin-spinner-container1 .pin-spinner-circle2 {
+            -webkit-animation-delay: -.9s;
+            animation-delay: -.9s;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle2 {
+            -webkit-animation-delay: -.8s;
+            animation-delay: -.8s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle2 {
+            -webkit-animation-delay: -.7s;
+            animation-delay: -.7s;
+        }
+
+        .pin-spinner-container1 .pin-spinner-circle3 {
+            -webkit-animation-delay: -.6s;
+            animation-delay: -.6s;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle3 {
+            -webkit-animation-delay: -.5s;
+            animation-delay: -.5s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle3 {
+            -webkit-animation-delay: -.4s;
+            animation-delay: -.4s;
+        }
+
+        .pin-spinner-container1 .pin-spinner-circle4 {
+            -webkit-animation-delay: -.3s;
+            animation-delay: -.3s;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle4 {
+            -webkit-animation-delay: -.2s;
+            animation-delay: -.2s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle4 {
+            -webkit-animation-delay: -.1s;
+            animation-delay: -.1s;
+        }
+
+        @-webkit-keyframes bouncedelay {
+            0%,80%,to {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bouncedelay {
+            0%,80%,to {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    </style>
+
+</head>
+<body  style="padding-bottom:90px;">
+    <div class="pin-spinner" style="display:block;">
+        <div class="pin-spinner-container pin-spinner-container1">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+        <div class="pin-spinner-container pin-spinner-container2">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+        <div class="pin-spinner-container pin-spinner-container3">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+    </div>
+    <div class="tip-w">
+        <div class="tip"><img src="/consumer/image/icon09.png" /></div>
+    </div>
+    <div id="list">
+    </div>
+    <footer>
+        <div class="space2"></div>
+        <div class="share">推荐给朋友 <img src="/consumer/image/icon07_2.png" /></div>
+        <div class="bottomnav">
+            <div class="logo" onclick="location.href='index.html'"><img src="/consumer/image/logo.png" /></div>
+            <a href="/consumer/page/retailerlist.html">
+                <div class="nav" style="background:#ff6600;"><img src="/consumer/image/icon02.png" /><br />附近门店</div>
+            </a>
+            <a href="/consumer/page/activitylist.html">
+                <div class="nav"><img src="/consumer/image/icon03.png" /><br />附近超惠</div>
+            </a>
+        </div>
+    </footer>
+    <script type="text/javascript">
+
+        var consumer_id = common.getUrlParam("consumer_id");
+
+        var retailerId = common.getUrlParam("retailer_id");
+        function loaddata(longitude, latitude) {
+            var search = window.location.search;
+            if (search.length > 0)
+                search = search.substr(1);
+            var ajaxdata = { type: "distributor to consumer", consumer_id: consumer_id, retailer_id: retailerId };
+            if (wxjsconfig.sharekey != null)
+                ajaxdata[wxjsconfig.sharekey] = "_";
+            var search = window.location.search;
+            if (search.length > 0) {
+                var keyvalue = [];
+                var key = "", value = "";
+                var paraString = search.substring(search.indexOf("?") + 1, search.length).split("&");
+                for (var i in paraString) {
+                    keyvalue = paraString[i].split("=");
+                    key = keyvalue[0];
+                    value = keyvalue[1];
+                    ajaxdata[key] = value;
+                }
+            }
+            if (longitude != undefined && longitude != '' && latitude != undefined && latitude != '') {
+                ajaxdata["longitude"] = longitude;
+                ajaxdata["latitude"] = latitude
+            }
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '/webapi/consumer/weixin/click_retailer',
+                data: ajaxdata,
+                beforeSend: function () { $(".pin-spinner").show(); },
+                complete: function () { $(".pin-spinner").hide(); },
+                success: function (jsondata) {
+
+                    $(".pin-spinner").hide();//数据请求成功即隐藏转圈动画
+
+                    jsondata = jsondata || {};
+                    if (jsondata.error) {
+                        toasterextend.showtips(jsondata.error, "error", false);
+                        return;
+                    }
+
+                    if (jsondata.user_notification != undefined) {
+                        toasterextend.showtips(jsondata.user_notification, "info");
+                        return;
+                    }
+
+                    if (jsondata.data[0].activitydata == undefined) {
+                        toasterextend.showtips("活动已下架", "info");
+                        return;
+                    }
+
+                    var itemsobj = jsondata.data[0];
+                    var picUrl = itemsobj.picture_url;
+                    if (picUrl == null || picUrl.length == 0)
+                        picUrl = "http://dl.oss.ipaloma.com/common/membership/default/membershipafb68af968d14999a2a66214ab13e913.png";
+
+                    var html = '<div class="storerimg1" style="height:225px;">'
+                                + '<div class="img"><img src="' + picUrl + '" /></div>'
+                                + '<div class="storename1">' + itemsobj.retailername + '<span>' + itemsobj.distance_text + '</span></div>'
+                                + '</div>'
+                                + '<div class="store2-w">'
+                                + ' <div class="store1-left">'
+                                + '<div class="address">' + itemsobj.address + '</div>'
+                                + ' </div>';
+                    if (itemsobj.mobilephone == null || itemsobj.mobilephone.length == 0)
+                        html += '<div class="store1-right" style="color:gray"> <img src="/consumer/image/icon01_gray.png" /><br /> 联系购买 </div>';
+                    else
+                        html += '     <a href="tel:' + itemsobj.mobilephone + '"> <div class="store1-right"> <img src="/consumer/image/icon01.png" /><br /> 联系购买 </div> </a>';
+                    html += ' </div><div class="title">超惠活动<span>(' + itemsobj.activity_count + ')</span></div><div class="active-w ajaxdata">';
+
+                    var n = itemsobj.activitydata.length;
+
+                    for (var i = 0; i < n; i++) {
+                        var obj = itemsobj.activitydata[i];
+                        html += '<div class="active-n bgwhite">'
+                          + '<div class="active-label"><div class="labellist">' + obj.activitykind + '</div></div>'
+                          + '<div class="activebox">'
+                          + '<div class="activebox-left"><div class="proname fbold showinline">' + obj.activitytitle + '</div><div class="giftinfo">';
+
+                        var imgUrl;
+
+                        //活动类型
+                        if (obj.activitykind == "有礼") {
+
+                            html += '<div class="zeng"><img src="/consumer/image/icon05.png" /></div><div class="zproname">' + obj.giftname + '</div>';
+                            imgUrl = "http://dl.oss.ipaloma.com/common/membership/default/pcc2a255b65f2340cc8d7b83b67f9251ab.png";
+
+                        } else if (obj.activitykind == "降价") {
+
+                            html += '<div class="nowprice">￥<span>' + obj.discountprice + '</span></div><div class="preprice"><div class="discount">' + obj.discount + '折</div><div class="price">￥' + obj.originalprice + '</div></div>';
+                            imgUrl = "http://dl.oss.ipaloma.com/common/membership/default/pc64ffc4952f844a859da9ac728644f0f7.png";
+
+                        } else if (obj.activitykind == "买赠" || obj.activitykind == "赠品") {
+
+                            //var cont = new numberCovert(obj.buycount).pri_ary() + '赠' + ($.isNumeric(obj.ruledesc) ? new numberCovert(obj.ruledesc).pri_ary() : obj.ruledesc);
+
+                            var cont = obj.buycount + '赠' + obj.giftcount;
+
+                            html += '<div class="nowprice">￥<span>' + obj.unitprice + '</span></div><div class="preprice"><div class="gift">买' + cont + '</div></div>';
+                            imgUrl = "http://dl.oss.ipaloma.com/common/membership/default/pcd3526ac7c342418c831626ae0aae4cb9.png";
+
+                        } else if (obj.activitykind == "套餐") {
+
+                            html += '<div class="nowprice">￥<span>' + obj.discountprice + '</span></div><div class="preprice"><div class="discount">已节省' + obj.sparevalue + '元</div><div class="price">￥' + obj.originalprice + '</div></div>';
+                            imgUrl = "http://dl.oss.ipaloma.com/common/membership/default/pc6ae38d0ba8914fe7aa69ee3ec6c91a1f.png";
+
+                        }
+                        if (obj.itempic != null && obj.itempic.length > 0)
+                            imgUrl = obj.itempic;
+
+                        html += '</div></div><div class="activebox-right">'
+                          + '<div class="proimgbox">'
+                          + '<div class="img"><img src="' + imgUrl + '" /></div><div class="' + (obj.activity_flag == 1 ? "pname2" : "pname1") + '">' + obj.time_to_end_text + '</div></div></div></div></div>';
+
+                    }
+                    html += "</div>";
+                    $("#list").html(html);
+                    if ($.isFunction(wxjsshare)) {
+                        wxjsshare(jsondata.share || {});
+                    }
+                    qrcode.show();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $(".pin-spinner").hide();//隐藏转圈动画
+
+                    var errormsg = "访问异常";
+
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText); 				
+						 errormsg = JSON.parse(json.Message).error;
+						 if(errormsg == undefined || errormsg == '')
+							errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+
+                    toasterextend.showtips(errormsg, "error");
+                }
+            });
+        };
+
+        $(function () {
+            var $divWidth = $('.storerimg1').width();
+            $('.storerimg1').css({ 'height': $divWidth * 3 / 5 });
+
+
+            $('.tip-w').click(function () {
+                $('.tip-w').fadeOut(200);
+            })
+
+            $('.share').click(function () {
+                $('.tip-w').fadeIn(200);
+            })
+
+            //$('.share').click(function () {
+            //    $('.tip-w').fadeIn(200).fadeOut(2500);
+
+            //})
+            if (retailerId.length == 0) {
+                location.href = 'retailerlist.html';
+                return;
+            }
+            loaddata();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <title>我的-个人</title>
+    <link rel="stylesheet" href="/retailer/css/weui.min.css" />
+    <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
+    <link href="/retailer/css/weixintips.css" rel="stylesheet" />
+
+    <script src="/js/jquery/1.11.3/jquery.js"></script>
+	
+    <script src="/retailer/js/common-buttom-nav-debug.js"></script>
+    <script src="/js/jquery/toastr.min.js"></script>
+    <script src="/retailer/js/lib/jquery-toastr-extend.js"></script>
+    <script src="/retailer/js/lib/jquery-common-debug.js"></script>
+    <script src="/retailer/js/lib/common-debug.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/js/wx/weixinconfiginit-debug.js"></script>
+    <style>
+        .pin-spinner {
+            display: none;
+            width: 34px;
+            height: 34px;
+            position: fixed;
+            margin-left: -17px;
+            z-index: 999999999;
+            left: 50%;
+            top: 35%;
+        }
+
+        .pin-spinner-container1 > div, .pin-spinner-container2 > div, .pin-spinner-container3 > div {
+            width: 10px;
+            height: 10px;
+            background-color: #457486;
+            border-radius: 100%;
+            position: absolute;
+            -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+            animation: bouncedelay 1.2s infinite ease-in-out;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        .pin-spinner .pin-spinner-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pin-spinner-container2 {
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .pin-spinner-container3 {
+            -webkit-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+
+        .pin-spinner-circle1 {
+            top: 0;
+            left: 0;
+        }
+
+        .pin-spinner-circle2 {
+            top: 0;
+            right: 0;
+        }
+
+        .pin-spinner-circle3 {
+            right: 0;
+            bottom: 0;
+        }
+
+        .pin-spinner-circle4 {
+            left: 0;
+            bottom: 0;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle1 {
+            -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle1 {
+            -webkit-animation-delay: -1s;
+            animation-delay: -1s;
+        }
+
+        .pin-spinner-container1 .pin-spinner-circle2 {
+            -webkit-animation-delay: -.9s;
+            animation-delay: -.9s;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle2 {
+            -webkit-animation-delay: -.8s;
+            animation-delay: -.8s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle2 {
+            -webkit-animation-delay: -.7s;
+            animation-delay: -.7s;
+        }
+
+        .pin-spinner-container1 .pin-spinner-circle3 {
+            -webkit-animation-delay: -.6s;
+            animation-delay: -.6s;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle3 {
+            -webkit-animation-delay: -.5s;
+            animation-delay: -.5s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle3 {
+            -webkit-animation-delay: -.4s;
+            animation-delay: -.4s;
+        }
+
+        .pin-spinner-container1 .pin-spinner-circle4 {
+            -webkit-animation-delay: -.3s;
+            animation-delay: -.3s;
+        }
+
+        .pin-spinner-container2 .pin-spinner-circle4 {
+            -webkit-animation-delay: -.2s;
+            animation-delay: -.2s;
+        }
+
+        .pin-spinner-container3 .pin-spinner-circle4 {
+            -webkit-animation-delay: -.1s;
+            animation-delay: -.1s;
+        }
+
+        @-webkit-keyframes bouncedelay {
+            0%,80%,to {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bouncedelay {
+            0%,80%,to {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pin-spinner" style="display:block;">
+        <div class="pin-spinner-container pin-spinner-container1">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+        <div class="pin-spinner-container pin-spinner-container2">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+        <div class="pin-spinner-container pin-spinner-container3">
+            <div class="pin-spinner-circle1"></div>
+            <div class="pin-spinner-circle2"></div>
+            <div class="pin-spinner-circle3"></div>
+            <div class="pin-spinner-circle4"></div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <div class="weui_cells weui_height6em">
+                <div class="weui_cell weui_GRbg_img">
+                    <div class="weui_GR150x150"><img id="personpic" src="http://dl.oss.ipaloma.com/common/membership/default/membershipf1c8c6aa63de4270a8d8f08dd27f174a.png" alt="" /></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div id="personname" class="Name16"></div>
+                        <div id="retailname" class="Store14"></div>
+                    </div>
+                    <div class="weui_cell_ft"><a id="invite_button" href="invite_staff.html" class="weui_btn weui_btn_primary" style="line-height:20px;padding:8px;display:none">邀 请<br />店 员</a></div>
+                </div>
+            </div>
+            <div class="weui_state">
+                <div class="weui_state_list">
+                    <div id="sharecount"> </div>
+                    <span>分享</span>
+                </div>
+                <div class="weui_state_list">
+                    <div id="fanscount"> </div>
+                    <span>惠粉</span>
+                </div>
+                <div class="weui_state_list">
+                    <div id="fansremaincount"> </div>
+                    <span>留存</span>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+            <div id="list">
+
+            </div>
+        </div>
+        <div class="weui_Kong"></div>
+    </div>
+    <div id="bottom-nav"></div>
+    <script type="text/javascript">
+        
+
+        var y = 0;
+        var W = '';
+        $(function () {
+           
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '/webapi/retailer/weixin/getpersonalpage',
+                beforeSend: function () { $(".pin-spinner").show(); },
+                complete: function () { $(".pin-spinner").hide(); },
+                success: function (json) {
+
+                    $(".pin-spinner").hide();//数据请求成功即隐藏转圈动画
+
+                    json = json || {};   /* 统一加这句话 */
+                    if (json.error) {
+                        toasterextend.showtips(json.error, "error");
+                        return;
+                    }
+
+                    if (json.user_notification != undefined) {
+                        toasterextend.showtips(json.user_notification, "info");
+                        return;
+                    }
+
+                    var employee = json.employee;
+                    var retailer = json.retailer;
+                    var coworkers = json.coworkers;
+                    var html = '';
+                    count = 0;
+
+                    if (typeof (employee.nickname) !== 'undefined') {
+                        $("#personname").html('<style=class:Name16>' + employee.nickname);
+                        $("#retailname").html('<style=class:Store14>' + retailer.retailername);
+						//employeesvalue.headimageurl != "" ? employeesvalue.headimageurl:"/retailer/image/photo4.png"
+						//$("#personpic").attr("src",)
+                    }
+                    if (typeof (employee.headimageurl) !== 'undefined') {                        
+						$("#personpic").attr("src",employee.headimageurl)
+                    }
+					//if(retailer)
+                    if (coworkers.length <= 1)
+                        html = handelsinglecowork(coworkers);
+                    else
+                        html = handelmulticowork(coworkers);
+
+                    $('#list').append(html);
+                    var contribute = json.contribute;
+
+                    if (typeof (contribute.sharecount) !== 'undefined') {
+                        change(contribute.sharecount);
+                        $("#sharecount").html('<strong>' + y + '<strong style=display:inline;font-size:14px>' + W + '</strong></strong>');
+                    }
+
+                    if (typeof (contribute.fansinhistorycount) !== 'undefined') {
+                        change(contribute.fansinhistorycount);
+                        $("#fanscount").html('<strong>' + y + '<strong style=display:inline;font-size:14px>' + W + '</strong></strong>');
+                    }
+
+                    if (typeof (contribute.percentageretained) !== 'undefined') {
+                        $("#fansremaincount").html('<strong><strong style=display:inline;font-size:14px>' + contribute.percentageretained + '</strong></strong>');
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    $(".pin-spinner").hide();//隐藏转圈动画
+
+                    var errormsg = "访问异常";
+
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = JSON.parse(json.Message).error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+
+                    toasterextend.showtips(errormsg, "error");
+                }
+            });
+        });
+
+        function handelsinglecowork(coworkers) {
+            if (coworkers.length == 0)
+                return "  <div class=\"weui_cells weui_top3em\">"
+                         + "   <div class=\"weui_cell\">"
+                          + "     <div class=\"weui_cell_bd weui_cell_primary\">"
+                            + "        <p id=\"emploeecount\">您还没有加入任何门店，请通过同店店员邀请加入</strong></p> </div></div></div>";
+
+            $("#invite_button").show();
+
+            var retailername = coworkers[0].retailername;
+            var employees = coworkers[0].employee;
+
+            var html = "  <div class=\"weui_cells weui_top3em\">"
+                    + "   <div class=\"weui_cell\">"
+                     + "     <div class=\"weui_cell_bd weui_cell_primary\">"
+                       + "        <p id=\"emploeecount" + employees[0].retailer_id + "\"><strong>店员管理（" + employees.length + "）</strong></p> </div></div></div>";
+
+            return html + fillemployee(employees);
+        }
+
+        function handelmulticowork(coworkers) {
+            $("#invite_button").hide();
+            var html = ''
+            $.each(coworkers, function (i, value) {
+                html += "<div class=\"weui_cells weui_top3em\">"
+						+ "	<div class=\"weui_cell\">"
+						+ "		<div class=\"weui_cell_bd weui_cell_primary\">"
+						+ "        <p id=\"emploeecount" + value.retailer_id + "\"><strong>" + value.retailername + "（" + value.employee.length + "）</strong></p> "
+						+ "		</div>"
+						+ "		<div><a href=\"invite_staff.html?retailer_id=" + value.retailer_id + "\" class=\"weui_btn weui_btn_primary\" style=\"line-height:20px;padding:8px;\">邀 请<br />店 员</a></div>"
+						+ "	</div>"
+						+ "</div>";
+
+                html += fillemployee(value.employee)
+            });
+            return html;
+        }
+
+        function fillemployee(employees) {
+            var html = '';
+            $.each(employees, function (i, employeesvalue) {
+                html += "<div  id=\"" + employeesvalue.guid + employeesvalue.retailer_id + "\" class=\"weui_cells\" >"
+                         + "<div class=\"weui_cell\">"
+                         + " <div class=\"weui_photo40x40\"><img src=\"" +  (employeesvalue.headimageurl != "" ? employeesvalue.headimageurl:"/retailer/image/photo4.png")  + " \" style=\"width:40px;display:block\"></div>"
+                         + "  <div class=\"weui_cell_bd weui_cell_primary\"><p>" + employeesvalue.nickname + "</p></div>"
+                         + " <div class=\"weui_cell_ft\"><a href=\"javascript:firm('" + employeesvalue.guid + "&" + employeesvalue.retailer_id + "');;\" class=\"weui_btn weui_btn_exit\" >退出本店</a></div></div></div>";
+            });
+            return html;
+        }
+
+
+        function change(x) {
+            if (x < 10000) {
+                y = x;
+                W = '';
+            }
+            if (x > 9999 && x < 100000000) {
+                y = x / 10000;
+                W = '万';
+            }
+            if (x > 99999999) {
+                y = x / 100000000;
+                W = '亿';
+            }
+        }
+
+        function firm(id) {
+            //利用对话框返回的值 （true 或者 false）
+            if (confirm("您确定退出本店吗？")) {
+                var canshu = id.split('&');
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '/webapi/retailer/weixin/removeemployee?accountid=' + canshu[0] + '&retailerid=' + canshu[1],
+                    beforeSend: function () { $(".pin-spinner").show() },
+                    complete: function () { $(".pin-spinner").hide(); },
+                    success: function (json) {
+
+                        $(".pin-spinner").hide();//数据请求成功即隐藏转圈动画
+
+                        if (json.error) {
+                            toasterextend.showtips("退出失败", "info");
+                        }
+                        else {
+                            toasterextend.showtips("退出成功", "info");
+                            $("#" + canshu[0] + canshu[1]).remove();
+                            var emcount = $("#emploeecount" + canshu[1]).text();
+                            var kuohaoqian = emcount.split("（");
+                            var kuohaohou = kuohaoqian[1].split("）");
+                            var count = parseInt(kuohaohou[0]) - 1;
+                            count = count > 0 ? count : 0;
+                            $("#emploeecount" + canshu[1]).text(kuohaoqian[0] + "（" + count + "）");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $(".pin-spinner").hide();//隐藏转圈动画
+
+                        var errormsg = "访问异常";
+
+                        if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+
+                        toasterextend.showtips(errormsg, "error");
+                    }
+                });
+            }
+        }
+
+        //弹出垂直菜单
+        $(".menu").click(function () {
+            if ($(this).hasClass("cura")) {
+                $(this).children(".new-sub").hide(); //当前菜单下的二级菜单隐藏
+                $(".menu").removeClass("cura");      //同一级的菜单项
+            } else {
+                $(".menu").removeClass("cura");      //移除所有的样式
+                $(this).addClass("cura");            //给当前菜单添加特定样式
+                $(".menu").children(".new-sub").slideUp("fast"); //隐藏所有的二级菜单
+                $(this).children(".new-sub").slideDown("fast"); //展示当前的二级菜单
+            }
+        });
+
+    </script>
+</body>
+</html>
+
