@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
     <meta name="viewport" content="width=device-width, initial-scale=1 ,minimum-scale =1, maximum-scale =1, user-scalable = no" />
+    <meta name="format-detection" content="telephone=no" />
     <title>定制发送时间</title>
 
     <link href="/distributor/css/bootstrap.css" rel="stylesheet" />
@@ -18,44 +18,26 @@
     <link href="/distributor/css/weixin.css" rel="stylesheet" />
     <link href="/distributor/css/weixintips.css" rel="stylesheet" />
 
-    <script src="/js/jquery/1.11.3/jquery.js"></script>
-    <script src="/js/jquery/toastr.min.js"></script>
-    <script src="/distributor/js/lib/jquery-toastr-extend.js"></script>
-    <script src="/distributor/js/lib/lib.js" type="text/javascript"></script>
-    <script src="/distributor/js/mobiscroll_002.js"></script>
-    <script src="/distributor/js/mobiscroll_004.js"></script>
-    <script src="/distributor/js/mobiscroll.js"></script>
-    <script src="/distributor/js/mobiscroll_003.js"></script>
-    <script src="/distributor/js/mobiscroll_005.js"></script>
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/js/wx/weixinconfiginit-debug.js"></script>
+
+    <script type="text/javascript" src="/js/wx/configinit.js"></script>
+
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script type="text/javascript" src="/distributor/js/lib/weixintips.js"></script>
+    <script type="text/javascript" src="/distributor/js/lib/lib.js"></script>
+    <script type="text/javascript" src="/distributor/js/lib/common.js"></script>
+    <script type="text/javascript" src="/distributor/js/mobiscroll_002.js"></script>
+    <script type="text/javascript" src="/distributor/js/mobiscroll_004.js"></script>
+    <script type="text/javascript" src="/distributor/js/mobiscroll.js"></script>
+    <script type="text/javascript" src="/distributor/js/mobiscroll_003.js"></script>
+    <script type="text/javascript" src="/distributor/js/mobiscroll_005.js"></script>
 </head>
 
 <body>
-    <div class="pin-spinner" style="display:block;">
-        <div class="pin-spinner-container pin-spinner-container1">
-            <div class="pin-spinner-circle1"></div>
-            <div class="pin-spinner-circle2"></div>
-            <div class="pin-spinner-circle3"></div>
-            <div class="pin-spinner-circle4"></div>
-        </div>
-        <div class="pin-spinner-container pin-spinner-container2">
-            <div class="pin-spinner-circle1"></div>
-            <div class="pin-spinner-circle2"></div>
-            <div class="pin-spinner-circle3"></div>
-            <div class="pin-spinner-circle4"></div>
-        </div>
-        <div class="pin-spinner-container pin-spinner-container3">
-            <div class="pin-spinner-circle1"></div>
-            <div class="pin-spinner-circle2"></div>
-            <div class="pin-spinner-circle3"></div>
-            <div class="pin-spinner-circle4"></div>
-        </div>
-    </div>
     <div class="autoHeight">
-    
-        <div class="weixin_page" style="overflow-y: auto;" >
+
+        <div class="weixin_page" style="overflow-y: auto;">
 
             <div class="condition_row line_height">
                 <input id="sendTime0" class="StatsHomeInput" value="" type="text" readonly="readonly" style="width: 100%; " placeholder="首次推送时间" />
@@ -87,7 +69,7 @@
                                 <em></em>
                                 <dl>
                                     <dd><a href="suppermarketactivitylist.html" class="on">超惠活动</a></dd>
-                                    <dd><a href="retaileractivitylist.html" class="">店铺活动</a></dd>
+                                    <dd><a href="noactivity.html" class="">店铺活动</a></dd>
                                 </dl>
                             </div>
                         </li>
@@ -153,12 +135,12 @@
                         json = json || {};
                         // In case of success, we redirect to the provided URL or the same page.
                         if (json.error) {
-                            toasterextend.showtips(json.error, "error", false);
+                            showTips(json.error, "error");
                             btnEnable(false, "btn-success");
                             return;
                         }
 
-                        $(".pin-spinner").hide();
+                       common.loading.hide();
 
                         if (json.length > 0) {
                             for (var j = 0; j < json.length; j++) {
@@ -170,16 +152,16 @@
                                 $("#sendTime" + orderinseq).val(tmpSendTime);
                             }
                         } else {
-                            toasterextend.showtips("无匹配数据！", "error", true);
+                            showTips("无匹配数据！", "error");
                         }
                         btnEnable(false, "btn-success");
                     },
                     complete: function (XMLHttpRequest, textStatus) {
-                        $(".pin-spinner").hide();
+                       common.loading.hide();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                        $(".pin-spinner").hide();//隐藏转圈动画
+                       common.loading.hide();//隐藏转圈动画
 
                         var errormsg = "访问异常";
 
@@ -190,7 +172,7 @@
                                 errormsg = "Http error: " + XMLHttpRequest.statusText;
                         }
 
-                        toasterextend.showtips(errormsg, "error");
+                        showTips(errormsg, "error");
                     }
                 });
             }
@@ -217,21 +199,21 @@
                             json = json || {};
                             // In case of success, we redirect to the provided URL or the same page.
                             if (json.success) {
-                                toasterextend.showtipsautoclose("推送时间修改成功！", "success");
+                                showTipsAutoClose("推送时间修改成功！", "success");
                             } else if (json.error) {
                                 toasterextend.showtips(json.error, "error");
                                 console.log(json.error);
                             }
                         },
                         beforeSend: function (XMLHttpRequest) {
-                            $(".pin-spinner").show();
+                           common.loading.show();
                         },
                         complete: function (XMLHttpRequest, textStatus) {
-                            $(".pin-spinner").hide();
+                           common.loading.hide();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                            $(".pin-spinner").hide();//隐藏转圈动画
+                           common.loading.hide();//隐藏转圈动画
 
                             var errormsg = "访问异常";
 
@@ -242,7 +224,7 @@
                                     errormsg = "Http error: " + XMLHttpRequest.statusText;
                             }
 
-                            toasterextend.showtips(errormsg, "error");
+                            showTips(errormsg, "error");
                         }
                     });
                 });

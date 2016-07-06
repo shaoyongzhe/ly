@@ -1,5 +1,12 @@
 $(function () {
-    $("#bottom-nav").load("common-bottom-nav.html", function () {
+    $("#bottom-nav").load("common-bottom-nav.html", function () {	
+		if( typeof(common) != 'undefined')
+		{
+			var activity_id = common.getUrlParam("activityid");
+			if(activity_id != "")
+				$("#fansmenu").attr("href",$("#fansmenu").attr("href") + "?activity_id=" + activity_id );		
+		}
+			
         $(".menu").click(function () {
             if ($(this).hasClass("cura")) {
                 $(this).children(".new-sub").hide(); //当前菜单下的二级菜单隐藏

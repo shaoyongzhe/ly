@@ -2363,6 +2363,6 @@ input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-se
 }
 
     .weui_DPcode img {
-        max-width: 70%;
+        max-width: 90%;
         overflow: hidden;
     }

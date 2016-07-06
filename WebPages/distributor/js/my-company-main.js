@@ -10,7 +10,7 @@
                     '${mobilephone}',
                 '</div>',
                 '<div class="ewm">',
-                    '<a href="m-company-ewm.html"><img id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20"/></a>',
+                    '<a href="m-company-ewm.html"><img id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetext=0&combineicon=0"/></a>',
                 '</div>',
             '</div>',
         '</div>',
@@ -24,9 +24,9 @@
                 '<div class="m-company-listbox1-right">',
                     '<div class="m-company-listbox2">',
                         '<div class="listbox-zi">',
-                            '${retaileractivitycount}<br />店铺活动',
+                            '<aa num="${sharecount}"></aa><br />分享',
                         '</div>',
-                    '</div>',
+                '</div>',
                     '<div class="m-company-listbox3">',
                         '<div class="listbox-zi">',
                             '${consumeractivitycount}<br />超惠活动',
@@ -37,17 +37,17 @@
             '<div class="m-company-listbox4-w">',
                 '<div class="m-company-listbox4" style="border-left:0;">',
                     '<div class="listbox-zi">',
-                        '<aa num="${sharecount}"></aa><br />分享',
+                        '<ab num="${activefanscount}"></ab><br />留存惠粉',
                     '</div>',
                 '</div>',
                 '<div class="m-company-listbox4">',
                     '<div class="listbox-zi">',
-                        '<ab num="${fansinhistorycount}"></ab><br />惠粉',
+                        '<ac num="${fansinhistorycount}"></ac><br />累计惠粉',
                     '</div>',
                 '</div>',
                 '<div class="m-company-listbox4">',
                     '<div class="listbox-zi">',
-                        '<ac>${percentageretained}</ac><br />留存',
+                        '<ad>${percentageretained}</ad><br />留存',
                     '</div>',
                 '</div>',
             '</div>',
@@ -80,8 +80,10 @@ suppermarketactivitylist.prototype.render = function () {
 
             var aa = $('aa').attr('num');
             var ab = $('ab').attr('num');
+            var ac = $('ac').attr('num');
             $('aa').text(common.str_pep_num(aa))
             $('ab').text(common.str_pep_num(ab))
+            $('ac').text(common.str_pep_num(ac))
 
        
         });

@@ -20,8 +20,12 @@
                 '分享',
             '</li>',
             '<li>',
+                '<span dd="dd" num="${activefanscount}">${activefanscount}</span><br />',
+                '留存惠粉',
+            '</li>',
+            '<li>',
                 '<span bb="bb" num="${fansinhistorycount}">${fansinhistorycount}</span><br />',
-                '惠粉',
+                '累计惠粉',
             '</li>',
             '<li>',
                 '<span cc="cc">${percentageretained}</span><br />',
@@ -49,8 +53,10 @@ employee.prototype.render = function () {
             containerstat.html(html);
             var aa = $('[aa=aa]').attr('num');
             var ab = $('[bb=bb]').attr('num');
+		    var dd = $('[dd=dd]').attr('num');
             $('[aa=aa]').text(common.str_pep_num(aa));
             $('[bb=bb]').text(common.str_pep_num(ab));
+		    $('[dd=dd]').text(common.str_pep_num(dd));
         });
     $.getJSON2("/webapi/distributor/weixin/employees", function (data) {
             var html = juicer(employeestemplate, data);

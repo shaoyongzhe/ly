@@ -3,16 +3,10 @@
     this.fanstemplate = [
     '<div class="show-yqhf">',
         '<div class="closebtn"><img src="../image/closebtn.png" /></div>',
-        '<div class="yqhf-box">',
-            '<div class="companyname">${distributorname}</div>',
-            '<div class="companyinfo">地址：${address}</div>',
-            '<div class="companyinfo">电话：${fixline}</div>',
-            '<div class="companyewm"><img id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20" /></div>',
-            '<div class="text1">',
-                '扫一扫上面的二维码,成为超惠买惠粉!<br />',
-            '</div>',
+        '<div class="yqhf-box">',            
+            '<div class="companyewm"><img style="width:90%;" id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20" /></div>',
             '<div class="text2">',
-                '——长按二维码,可保存到手机!——',
+                '<span style="color:#c2c2c2;font-size:18px; font-family:微软雅黑;">仅限手机使用</span>',
             '</div>',
         '</div>',
         '</div>'
@@ -35,7 +29,11 @@ invitationfans.prototype.render = function () {
         $.getJSON2("/webapi/distributor/weixin/distributorinfo", function (data) {
             var html = juicer(fanstemplate, data);
             container.html(html);
-            $("#qrcode").attr("src", $("#qrcode").attr("orgsrc"));
+			var activity_id = common.getUrlParam("activity_id");
+			if(activity_id != "")
+				$("#qrcode").attr("src", $("#qrcode").attr("orgsrc") + "&activity_id=" + activity_id);
+			else
+				$("#qrcode").attr("src", $("#qrcode").attr("orgsrc"));
             container.fadeIn(1000);
             $('.closebtn').click(function () {
                 $(window).unbind("touchmove");

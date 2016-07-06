@@ -31,8 +31,8 @@
                 var success = options.success;
                 options.success = function (data, textStatus) {
 
-                    if ($(".pin-spinner"))
-                        $(".pin-spinner").hide();
+                    if (common.loading)
+                       common.loading.hide();
 
                     data = data || {};
                     if (data.error) {
@@ -54,15 +54,15 @@
                 var beforeSend = options.beforeSend;
 
                 options.beforeSend = function (XMLHttpRequest) {
-                    $(".pin-spinner").show();
+                   common.loading.show();
                     if (beforeSend) {
                         beforeSend(httpRequest, status);
                     }
                 };
 
                 options.error = function (XMLHttpRequest, textStatus, errorThrown) {
-                    if ($(".pin-spinner"))
-                        $(".pin-spinner").hide();//隐藏转圈动画
+                    if (common.loading)
+                       common.loading.hide();//隐藏转圈动画
 
                     var errormsg = "访问异常";
 

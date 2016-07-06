@@ -15,9 +15,9 @@ function suppermarketactivitylist(container) {
                 '<div class="hdbox">',
                     '<div class="img">',
                         '{@if item.posterpic.length>0&&item.posterpic!=null }',
-                            '<img src="${item.posterpic}" />',
+                            '<img class="lazy" data-original="${item.posterpic}" />',
                         '{@else}',
-                            '<img src="http://dl.oss.ipaloma.com/common/membership/default/membershipa698672ecafd48f5bd2f2e202659399d.png" />',
+                            '<img class="lazy" data-original="http://dl.oss.ipaloma.com/common/membership/default/membershipa698672ecafd48f5bd2f2e202659399d.png" />',
                         '{@/if}',
                         '{@if item.currentstate=="进行中"}',
                         '<div class="state1"> ${item.currentstate} </div>',
@@ -27,7 +27,7 @@ function suppermarketactivitylist(container) {
                     '</div>',
                     '<div class="text">',
                         '<div class="hdname">${item.activitytitle}</div>',
-                        '<div class="hdnum">${item.serialnumber}<span><img src="../image/icon03.png" />${item.fanscount}</span></div>',
+                        '<div class="hdnum">${item.serialnumber}<span><img class="lazy" data-original="../image/icon03.png" />${item.fanscount}</span></div>',
                         '<div class="hdtime2">${item.begintime}&nbsp;至&nbsp;${item.endtime}</div>',
                     '</div>',
                 '</div>',
@@ -56,6 +56,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction) {
     $.getJSON2('/webapi/distributor/weixin/active_consumer_activities', ajaxdata, function (data) {
         var html = juicer(activitylisttemplate, data);
         container.html(html);
+		$("img.lazy").lazyload();
         if ($.isFunction(sharefunction)) {
             sharefunction(data.share || {});
         }

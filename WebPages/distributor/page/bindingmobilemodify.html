@@ -11,18 +11,16 @@
     <link href="/distributor/css/style.css" rel="stylesheet" />
     <link href="/distributor/css/weixin.css" rel="stylesheet" />
     <link href="/distributor/css/weixintips.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
+    <script type="text/javascript" src="/js/wx/configinit.js"></script>
 
-
-    <script type="text/javascript" src="/js/jquery/1.11.3/jquery.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script type="text/javascript" src="/distributor/js/lib/lib.js"> </script>
     <script type="text/javascript" src="/distributor/js/lib/weixintips.js"></script>
-    <script type="text/javascript" src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/distributor/js/lib/common-debug.js"></script>
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" ></script>
-    <script type="text/javascript" src="/js/wx/weixinconfiginit-debug.js"></script>
-
+    <script type="text/javascript" src="/distributor/js/lib/common.js"></script>
     <style>
         .imgStep {
             margin-left: -12px;
@@ -44,27 +42,6 @@
 </head>
 
 <body>
-    <div class="pin-spinner" style="display:block;">
-        <div class="pin-spinner-container pin-spinner-container1">
-            <div class="pin-spinner-circle1"></div>
-            <div class="pin-spinner-circle2"></div>
-            <div class="pin-spinner-circle3"></div>
-            <div class="pin-spinner-circle4"></div>
-        </div>
-        <div class="pin-spinner-container pin-spinner-container2">
-            <div class="pin-spinner-circle1"></div>
-            <div class="pin-spinner-circle2"></div>
-            <div class="pin-spinner-circle3"></div>
-            <div class="pin-spinner-circle4"></div>
-        </div>
-        <div class="pin-spinner-container pin-spinner-container3">
-            <div class="pin-spinner-circle1"></div>
-            <div class="pin-spinner-circle2"></div>
-            <div class="pin-spinner-circle3"></div>
-            <div class="pin-spinner-circle4"></div>
-        </div>
-    </div>
-
     <div class="autoHeight">
 
         <div class="weixin_page" style="overflow-y: auto;">
@@ -124,7 +101,7 @@
                             <em></em>
                             <dl>
                                 <dd><a href="suppermarketactivitylist.html" class="on">超惠活动</a></dd>
-                                <dd><a href="retaileractivitylist.html" class="">店铺活动</a></dd>
+                                <dd><a href="noactivity.html" class="">店铺活动</a></dd>
                             </dl>
                         </div>
                     </li>
@@ -243,8 +220,8 @@
                 dataType: 'json',
                 url: webapiurl,
                 data: { mobile: $('#mobile').val() },
-                beforeSend: function () { $(".pin-spinner").show(); },
-                complete: function () { $(".pin-spinner").hide(); },
+                beforeSend: function () {common.loading.show(); },
+                complete: function () {common.loading.hide(); },
                 success: function (msg) {
 
                     if (msg.error) {
@@ -266,7 +243,7 @@
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    $(".pin-spinner").hide();//隐藏转圈动画
+                   common.loading.hide();//隐藏转圈动画
 
                     var errormsg = "访问异常";
 
@@ -304,11 +281,11 @@
                 dataType: 'json',
                 url: rUrl,
                 data: { mobile: rMobile, verification: rVcode, newmobile: rNewMobile, newVerification: rNewVcode },
-                beforeSend: function () { $(".pin-spinner").show(); },
-                complete: function () { $(".pin-spinner").hide(); },
+                beforeSend: function () {common.loading.show(); },
+                complete: function () {common.loading.hide(); },
                 success: function (json) {
 
-                    $(".pin-spinner").hide();//数据请求成功即隐藏转圈动画
+                   common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     if (json.error) {
                         showTips(json.error, "error")
@@ -317,10 +294,14 @@
                     }
 
                     if (json.user_notification != undefined) {
+
+                        if (stepIdx == 2) {
+                            stepIdx++;
+                            stepChange();
+                        }
+
                         showTips(json.user_notification, "info");
                         LockButtonStyle(false, false);
-
-                        return;
                     }
                     stepIdx++;
                     stepChange();
@@ -328,7 +309,7 @@
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                    $(".pin-spinner").hide();//隐藏转圈动画
+                   common.loading.hide();//隐藏转圈动画
 
                     var errormsg = "访问异常";
 
@@ -372,6 +353,8 @@
 
             if (stepIdx == 3) {
 
+                $("#step3").removeClass("circleB").addClass("circle").show();
+
                 showTipsAutoClose("新手机认证通过！", "success");
                 return;
             }
@@ -400,7 +383,7 @@
         }
 
         $(function () {
-            $(".pin-spinner").hide();
+           common.loading.hide();
 
             $(window).on("orientationchange", function () {
                 psn = $("#step1").position().left;

@@ -17,12 +17,10 @@ function invitefans() {
             $("#retailertel").html(retailer.mobilephone);
     });
     //seajs.data.vars.retailer_id_consumer_register_generate_code
-    var src = "/webapi/consumer/weixin/register_generate_code?qrtype=22";
+    var src = "/webapi/consumer/weixin/register_generate_code?qrtype=2023";
     if (retailer_id != "")
         src += "&retailer_id=" + retailer_id;
-    if (activity_id != "" && activity_id != null)
-        src += "&activity_id=" + activity_id;
-
+    
     $("#retailerqrcode").attr("src", src);
 }
 $(function () {

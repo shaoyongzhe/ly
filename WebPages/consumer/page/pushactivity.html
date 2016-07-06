@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1 ,minimum-scale =1, maximum-scale =1, user-scalable = no" />
     <meta name="format-detection" content="telephone=no" />
 
-    <title>多活动列表</title>
+    <title>缤纷福利，新鲜上架!</title>
     <link type="text/css" href="/consumer/css/style_media.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/lib.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/style1_media.css" rel="stylesheet" />
@@ -31,7 +31,6 @@
             </a>
         </div>
     </footer>
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
@@ -40,17 +39,49 @@
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
+    <script type="text/javascript" src="/js/wx/location.js"></script>
 
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
-    <script type="text/javascript" src="/consumer/js/lib/lib.js"></script>
-    <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
+    <script src="/consumer/js/lib/lib.js" type="text/javascript"></script>
+    <script src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
-    <script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode.js"></script>
-    <script type="text/javascript" src="/consumer/js/cs-danhd-detail.js"></script>
+    <script type="text/javascript">
+        var qrcode = {};
+        qrcode.href = function () {
+            $("a[data-original]").each(function () {
+                var originalurl = $(this).data("original");
+                $(this).attr("href", originalurl);
+            });
+        };
+        qrcode.show = function () {
+            var original = common.getUrlParam("originalid");
+            var qrcode_url = "http://open.weixin.qq.com/qr/code/?username=" + original;
+            var qrtemtemplate = [
+                '<div class="ewmboxz1-w" id="shareqrcode">',
+                '<div class="ewmboxz1">',
+                '<img class="ewm" src="' + qrcode_url + '" /><br />',
+                '长按上方二维码图片关注超惠买<br />',
+                '<img class="adtext1" src="../image/adtext.png" />',
+                '</div>',
+                '</div>'
+            ].join('');
+            $("footer").before(qrtemtemplate);
+            var shareRegisterPage = "/consumer/page/shareqrcode.html?" + encodeURIComponent(qrcode_url);
+            $("a[data-original]").each(function () {
+                if ($(this).data("original").indexOf('.html') > -1) {
+                    var originalurl = $(this).data("original");
+                    $(this).attr("href", wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + originalurl)));
+                }
+            });
+
+        }
+    </script>
+    <script src="/consumer/js/cs-danhd-detail.js"></script>
     <script>
         pageType = 1;
         loaddata();
         function loaddata() {
+
             var ajaxdata = {};
             if (wxjsconfig.sharekey != null)
                 ajaxdata[wxjsconfig.sharekey] = "_";
@@ -72,11 +103,11 @@
                 dataType: 'json',
                 url: '/webapi/consumer/weixin/shareactivities',
                 data: ajaxdata,
-                beforeSend: function () {common.loading.show(); },
-                complete: function () {common.loading.hide(); },
+                beforeSend: function () { common.loading.show(); },
+                complete: function () { common.loading.hide(); },
                 success: function (jsondata) {
 
-                   common.loading.hide();//数据请求成功即隐藏转圈动画
+                    common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     jsondata = jsondata || {};
                     if (jsondata.error) {
@@ -133,13 +164,98 @@
                     $("#list").html(content);
                     loadCss();
                     $("img.lazy").lazyload();
-                    if ($.isFunction(wxjsshare)) {
-                        wxjsshare(jsondata.share || {});
+                    var wxjsshare = jsondata.share;
+
+                    if (wxjsshare != null) {
+                        for (prefix in wxjsshare) {
+                            wxjsshare[prefix] = decodeURIComponent(wxjsshare[prefix]);
+                        }
+                        var shareimg = wxjsconfig.shareimage;
+                        if (shareimg == '') {
+                            shareimg = wxjsshare.share_imgurl;
+                            if (shareimg == '' || shareimg == null) {
+                                var imgfirst = $("img[src^='http']");
+                                if (imgfirst.length > 0)
+                                    shareimg = imgfirst.eq(0).attr("src");
+                            }
+                        }
+
+                        var sharedesc = wxjsconfig.sharedesc;
+                        if (sharedesc == '') {
+                            sharedesc = wxjsshare.share_desc;
+                            if (sharedesc == '' || sharedesc == undefined) {
+                                var metaimgfirst = $("meta[name='description']");
+                                if (metaimgfirst.length > 0)
+                                    sharedesc = metaimgfirst.eq(0).attr("content");
+                            }
+                        }
+
+                        var sharetitle = wxjsconfig.sharetitle;
+                        if (sharetitle == '' || sharetitle == undefined) {
+                            sharetitle = wxjsshare.share_title;
+                            if (sharetitle == '' || sharetitle == undefined) {
+                                sharetitle = document.title;
+                            }
+                        }
+
+                        var jsonShare = {
+                            title: sharetitle,
+                            desc: sharedesc,//wxjssharedesc,
+                            link: document.URL,
+                            imgUrl: shareimg,//wxjsshareimage,
+                            trigger: function (res) {
+                                // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+                            },
+                            success: function (res) {
+                            },
+                            cancel: function (res) {
+                            },
+                            fail: function (res) {
+                            }
+                        };
+
+                        wx.ready(function () {
+                            wxjsconfig.menuitems = wxjsconfig.menuitems || [];
+                            if (wxjsconfig.menuitems.length == 0) {
+                                return;
+                            }
+                            wx.showMenuItems({
+                                menuList: wxjsconfig.menuitems,
+                                success: function (res) {
+                                },
+                                fail: function (res) {
+                                }
+                            });
+                            $.each(wxjsconfig.menuitems, function (i, item) {
+                                switch (item) {
+                                    case "menuItem:share:appMessage":
+                                        wx.onMenuShareAppMessage(jsonShare);
+                                        break;
+                                    case "menuItem:share:timeline":
+                                        wx.onMenuShareTimeline(jsonShare);
+                                        break;
+                                    case "menuItem:share:qq":
+                                        wx.onMenuShareQQ(jsonShare);
+                                        break;
+                                    case "menuItem:share:weiboApp":
+                                        wx.onMenuShareWeibo(jsonShare);
+                                        break;
+                                    case "menuItem:share:QZone":
+                                        wx.onMenuShareQZone(jsonShare);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            });
+                        });
+
+
+
                     }
                     qrcode.show();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                   common.loading.hide();//隐藏转圈动画
+                    common.loading.hide();//隐藏转圈动画
 
                     var errormsg = "访问异常";
 

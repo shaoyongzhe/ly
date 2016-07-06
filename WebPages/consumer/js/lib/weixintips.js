@@ -417,15 +417,24 @@ msg:消息内容
 title：消息标题
 shortCutFunction：消息类型：success  info  warning  error
 */
-function showTips(msg,  shortCutFunction) {
+function showTips(msg, shortCutFunction) {
     showTipsAttach(msg, "", shortCutFunction, false);
 }
-function showtips(msg,  shortCutFunction) {
+function showtips(msg, shortCutFunction) {
     showTipsAttach(msg, "", shortCutFunction, false);
 }
 
-function showTipsAutoClose(msg,  shortCutFunction) {
+function showTipsAutoClose(msg, shortCutFunction) {
     showTipsAttach(msg, "", shortCutFunction, true);
+}
+
+function runingTipsClose() {
+
+    if (!$toastlast.hide) {
+        $toastlast.hide = true;
+        $toastlast.hideDuration = 2;
+    }
+    $toastlast.click();
 }
 
 function showTipsAttach(msg, title, shortCutFunction, attachWindowClose) {
