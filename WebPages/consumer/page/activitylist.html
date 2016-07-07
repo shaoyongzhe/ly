@@ -11,7 +11,7 @@
     <link type="text/css" href="/consumer/css/style1.css" rel="stylesheet" />
     <link href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
-
+    
     <style>
         .storeintro-left {
             padding-right: 46px;
@@ -34,23 +34,23 @@
     <div class="active-w ajaxdata" id="list">
 
     </div>
-    <footer>
+<footer>
         <div class="space2"></div>
         <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
         <div class="bottomnav">
             <div class="logo"><a href="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
-            <a data-original="/consumer/page/retailerlist.html" href="javascript:void(0);">
+            <a href="/consumer/page/retailerlist.html" >
                 <div class="nav"><img src="/consumer/image/icon02.png" /><br />附近门店</div>
             </a>
-            <a data-original="/consumer/page/activitylist.html" href="javascript:void(0);">
+            <a href="/consumer/page/activitylist.html" >
                 <div class="nav" style="background:#ff6600;"><img src="/consumer/image/icon03.png" /><br />附近超惠</div>
             </a>
         </div>
     </footer>
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+	<script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
+    
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
@@ -81,12 +81,12 @@
             //    $('.tip-w').fadeIn(200).fadeOut(2500);
             //});
             loaddata(wxlocation.latitude, wxlocation.longitude);
-        });
+                    });
         function loaddata(longitude, latitude) {
 
             var ajaxdata = { type: "distributor to consumer", consumer_id: consumer_id };
             if (wxjsconfig.sharekey != null)
-                ajaxdata[wxjsconfig.sharekey] = "_";
+                ajaxdata[wxjsconfig.sharekey] = "_";            
 
             var search = window.location.search;
             if (search.length > 0) {
@@ -104,7 +104,7 @@
                 ajaxdata["longitude"] = longitude;
                 ajaxdata["latitude"] = latitude
             }
-
+           
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -119,19 +119,19 @@
                     jsondata = jsondata || {};
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
 
                     if (jsondata.user_notification != undefined) {
                         toasterextend.showtips(jsondata.user_notification, "info");
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
 
                     if (jsondata.data == undefined || jsondata.data.length == 0) {
                         $("#list").html(' <img class="lazy" data-original="/consumer/image/acnull.png"  style="width:100%;margin-top:120px;" />');
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
                     if ($.isFunction(wxjsshare)) {
@@ -171,7 +171,7 @@
                            + '<div class="img"><img class="lazy" data-original="/consumer/image/icon07.png" /></div><div class="storenum">' + obj.retailer_count + '</div></div></div></div></div></a>';
                     }
                     $("#list").html(content);
-                    $("img.lazy").lazyload();
+					$("img.lazy").lazyload();
                     qrcode.show();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -180,12 +180,12 @@
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                        var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
+                         var json = JSON.parse(XMLHttpRequest.responseText); 				
+						 errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+							errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
-                    qrcode.href();
+					qrcode.href();
                     toasterextend.showtips(errormsg, "error");
                 }
             });

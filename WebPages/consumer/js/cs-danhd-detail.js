@@ -69,7 +69,7 @@ function shareactivities() {
                 html += getActItem(obj.items[i]);
             if (pageType == 0) {
                 html += '</ul><div class="more-md-w"><div class="more-md"><div class="text">活动共有<span>' + obj.retailer_count + '</span>家门店参加<br />看看有没有您附近的!</div>'
-                    + '<a data-original="/consumer/page/retailerlist.html" href="javascript:void(0);"> <div class="btn">点击查看</div></a></div> </div>';
+                    + '<a href="/consumer/page/retailerlist.html" > <div class="btn">点击查看</div></a></div> </div>';
 
                 if (obj.description != '' && obj.description != null) {
                     html += '<div class="chdetail-textbox" style=" border-bottom:1px=border-bottom:1px solid #ccc;">'

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -32,7 +32,7 @@
     </div>
     <div id="list">
     </div>
-    <footer>
+	<footer>
         <div class="space2"></div>
         <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
         <div class="bottomnav">
@@ -87,27 +87,27 @@
                     jsondata = jsondata || {};
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
 
                     if (jsondata.user_notification != undefined) {
                         toasterextend.showtips(jsondata.user_notification, "info");
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
 
                     if (jsondata.data[0].activitydata == undefined) {
                         toasterextend.showtips("活动已下架", "info");
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
 
                     var itemsobj = jsondata.data[0];
                     var picUrl = itemsobj.picture_url;
-                    if (picUrl == null || picUrl.length == 0)
+                    if (picUrl == null || picUrl.length == 0 || picUrl.indexOf("membership510796a0ffe1490da9eed4d61a92e925.png") > 0) {
                         picUrl = "http://dl.oss.ipaloma.com/common/membership/testing/d70ed1628b90415ea973c08eac2f0907.png";
-
+                    }
                     var html = '<div class="storerimg1" style="height:225px;">'
                                 + '<div class="img"><img src="' + picUrl + '" /></div>'
                                 + '<div class="storename1">' + itemsobj.retailername + '<span>' + itemsobj.distance_text + '</span></div>'
@@ -158,11 +158,11 @@
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                         var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
+						 errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+							errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
-                    qrcode.href();
+					qrcode.href();
                     toasterextend.showtips(errormsg, "error");
                 }
             });

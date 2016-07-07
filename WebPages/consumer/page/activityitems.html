@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -44,7 +44,7 @@
             </a>
         </div>
     </footer>
-
+	
     <script>
         var activitiy_item_guid = common.getUrlParam("activitiy_item_guid");
         $(function () {
@@ -61,7 +61,7 @@
                 return;
             }
             loaddata(wxlocation.latitude, wxlocation.longitude);
-        });
+                    });
 
         function loaddata(longitude, latitude) {
             var ajaxdata = { activitiy_item_guid: activitiy_item_guid };
@@ -97,13 +97,13 @@
                     jsondata = jsondata || {};
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
 
                     if (jsondata.user_notification != undefined) {
                         toasterextend.showtips(jsondata.user_notification, "info");
-                        qrcode.href();
+						qrcode.href();
                         return;
                     }
 
@@ -159,12 +159,12 @@
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                        var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
+                         var json = JSON.parse(XMLHttpRequest.responseText); 				
+						 errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+							errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
-                    qrcode.href();
+					qrcode.href();
                     toasterextend.showtips(errormsg, "error");
                 }
             });

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -27,6 +27,12 @@
     <script type="text/javascript" src="/distributor/js/jquery-ui.js"></script>
     <script type="text/javascript" src="/distributor/js/jquery.unobtrusive-ajax.min.js"></script>
     <style>
+        input[type="number"], input[type="tel"] {
+            border-width: 0px 0px 1px 0px;
+            border-color: #2F5761;
+            background: none repeat scroll 0% 0% !important;
+            box-shadow: 3px 5px 5px #AFC8D1;
+        }
         .rowStyle {
             /*margin-top: 20%;
             width: 90%;
@@ -49,14 +55,14 @@
 
             <div class="condition_title condition_cursor baindding_offset rowStyle">
 
-                <input type="text" name="mobile" id="mobile" placeholder="手机号" class="bindMobile" />
+                <input type="tel" pattern="[^0-9]" autocomplete="off" maxlength="11" name="mobile" id="mobile" placeholder="手机号" class="bindMobile" />
                 <label style="width:90px;height:32px;"></label>
 
             </div>
 
             <div class="condition_title condition_cursor rowStyle baindding_offset" style="margin-top:10%">
 
-                <input type="text" name="verification" id="verification" placeholder="验证码" class="bindMobile" />
+                <input type="tel" min="0" max="999999" maxlength="6" pattern="[^0-9]" name="verification" id="verification" placeholder="验证码" class="bindMobile" />
                 <input type="button" id="GetVerification" class="bindVerifyBtn" style="padding-top: 0%;" onclick="VerificationClick()" value="获取验证码" />
 
             </div>
@@ -79,6 +85,26 @@
         var varCnum = 60;
 
         $(function () {
+
+
+            /*限制文本框只能输入数字*/
+            $("#verification").keyup(function () { $("#verification").val($("#verification").val().replace(/D|^0/g, "")); })
+                .bind("paste", function () { $("#verification").val($("#verification").val().replace(/D|^0/g, '')); })
+                .css("ime-mode", "disabled");
+
+            $("#verification").keyup(function () { $("#verification").val($("#verification").val().replace(/[^0-9]/g, '')); })
+                .bind("paste", function () { $("#verification").val($("#verification").val().replace(/[^0-9]/g, '')); })
+                .css("ime-mode", "disabled");
+
+
+            $("#mobile").keyup(function () { $("#mobile").val($("#mobile").val().replace(/D|^0/g, "")); })
+                .bind("paste", function () { $("#mobile").val($("#mobile").val().replace(/D|^0/g, '')); })
+                .css("ime-mode", "disabled");
+
+            $("#mobile").keyup(function () { $("#mobile").val($("#mobile").val().replace(/[^0-9]/g, '')); })
+                .bind("paste", function () { $("#mobile").val($("#mobile").val().replace(/[^0-9]/g, '')); })
+                .css("ime-mode", "disabled");
+
 
             $.fn.countDown = function (settings, to) {
                 settings = $.extend({
@@ -134,18 +160,6 @@
                     LockButtonStyle(false);
                 }
             });
-
-
-            //$.ajax2({
-            //    type: 'POST',
-            //    dataType: 'json',
-            //    url: '/webapi/distributor/weixin/verifymobilephonebysms',/* 替换API URL */
-            //    data: { mobile: $('#mobile').val() },
-            //    success: function (msg) {
-            //        $("#btnNextStep").removeAttr("disabled").removeClass("wbtnDisable").addClass("wbtn");
-            //        $("#btnNextStep").bind("click", function () { submits() });
-            //    }
-            //});
 
 
             //60秒后重发

@@ -89,7 +89,7 @@
             return flag;
         },
         getFlagCss: function (activityFlag) {
-            return activityFlag == 1 ? "pname2" : "pname1";
+            return activityFlag == 1 ? "pname1" : "pname2";
         },
         getActivityKind: function (itemObj) {
             //活动类型

@@ -287,16 +287,17 @@
                 toasterextend.showtips('店铺地址不能为空', "info");
                 return false;
             }
-            if (pictureUrl.val().trim() == '' || pictureUrl.get(0).files[0] == undefined) {
-                toasterextend.showtips('店铺图片不能为空', "info");
-                return false;
-            }
+            //if (pictureUrl.val().trim() == '' || pictureUrl.get(0).files[0] == undefined) {
+            //    toasterextend.showtips('店铺图片不能为空', "info");
+            //    return false;
+            //}
 
             var formData = new FormData();
             formData.append("retailername", updatename);
             formData.append("address", updatedadress);
             formData.append("mobilephone", updatetel);
-            formData.append("picture_url", pictureUrl.get(0).files[0]);
+            if (pictureUrl.val().trim().length > 0 && pictureUrl.get(0).files[0] != undefined)
+                formData.append("picture_url", pictureUrl.get(0).files[0]);
             formData.append("guid", retailerid);
             if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {
                 formData.append("antiaddress", antiaddress);

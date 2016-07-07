@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,6 +22,12 @@
     <script type="text/javascript" src="/distributor/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/distributor/js/lib/common.js"></script>
     <style>
+        input[type="number"], input[type="tel"] {
+            border-width: 0px 0px 1px 0px;
+            border-color: #2F5761;
+            background: none repeat scroll 0% 0% !important;
+            box-shadow: 3px 5px 5px #AFC8D1;
+        }
         .imgStep {
             margin-left: -12px;
             margin-top: -0px;
@@ -66,12 +72,12 @@
 
             <div class="baindding_offset" style="margin-top: 20%;width: 80%;min-height: 35px;max-height: 50px; margin-left: 12%;">
 
-                <input type="text" id="mobile" placeholder="旧手机号" class="bindMobile" value="" />
+                <input type="tel" pattern="[^0-9]" autocomplete="off" maxlength="11" id="mobile" placeholder="旧手机号" class="bindMobile" value="" />
                 <label class="unselectable mobileModifyHideBtn"> </label>
                 <!--</div>
 
                 <div class="condition_title  condition_row baindding_offset ">-->
-                <input type="text" id="verifycode" style="margin-top:5%" placeholder="验证码" class="bindMobile" />
+                <input type="tel" pattern="[^0-9]" autocomplete="off" maxlength="11" id="verifycode" style="margin-top:5%" placeholder="验证码" class="bindMobile" />
                 <label id="getVcode" class="bindVerifyBtn" style="">获取验证码</label>
             </div>
 
@@ -100,10 +106,11 @@
                         <div class="sub-nav">
                             <em></em>
                             <dl>
-                                <dd><a href="suppermarketactivitylist.html" class="on">超惠活动</a></dd>
+                                <dd><a href="suppermarketactivitylist.html" class="">超惠活动</a></dd>
                                 <dd><a href="noactivity.html" class="">店铺活动</a></dd>
                             </dl>
                         </div>
+                        <div class="sanjiao"></div>
                     </li>
                     <li junmo="result">
                         <a href="javascript:void(0);" class="v1">销售业绩</a>
@@ -114,7 +121,7 @@
                                 <dd><a href="/distributor/page/salesjobtodaysummary.html">今日统计</a></dd>
                             </dl>
                         </div>
-
+                        <div class="sanjiao"></div>
                     </li>
                     <li junmo="mine">
                         <a href="javascript:void(0);" class="v1">我的</a>
@@ -126,6 +133,7 @@
                                 <dd><a href="m-company.html">公司</a></dd>
                             </dl>
                         </div>
+                        <div class="sanjiao"></div>
                     </li>
                 </ul>
             </div>
@@ -134,19 +142,9 @@
 
     <script type="text/javascript">
 
-        /*
-            1、步骤1、2公用一组样式
-            2、加载数据是禁止按钮事件
-            3、60″内禁止触发多次获取验证码按钮
-            4、步骤二记忆步骤一手机号
-            5、
-        */
-
-
         var oldMobile = ""; //旧手机号
         var oldVcode = "";
         var stepIdx = 1;    //操作步骤
-
         var varCnum = 60;
 
         //还原按钮、光标缺省状态 cursorState True: 禁止  False：激活 hideCountdown True:去除旋转动画 False：动画保持原样
@@ -384,6 +382,53 @@
 
         $(function () {
            common.loading.hide();
+
+
+            ///*限制文本框只能输入数字*/
+            //$("#verifycode").keyup(function () {
+
+            //    $(this).val($(this).val().replace(/D|^0/g, ''));
+
+            //}).bind("paste", function () {
+
+            //    $(this).val($(this).val().replace(/D|^0/g, ''));
+
+            //}).css("ime-mode", "disabled");
+
+            //$("#verifycode").keyup(function () {
+
+            //    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+
+            //}).bind("paste", function () {
+
+            //    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+
+            //}).css("ime-mode", "disabled");
+
+
+
+
+            /*限制文本框只能输入数字*/
+            $("#verifycode").keyup(function () { $("#verifycode").val($("#verifycode").val().replace(/D|^0/g, "")); })
+                .bind("paste", function () { $("#verifycode").val($("#verifycode").val().replace(/D|^0/g, '')); })
+                .css("ime-mode", "disabled");
+
+            $("#verifycode").keyup(function () { $("#verifycode").val($("#verifycode").val().replace(/[^0-9]/g, '')); })
+                .bind("paste", function () { $("#verifycode").val($("#verifycode").val().replace(/[^0-9]/g, '')); })
+                .css("ime-mode", "disabled");
+
+
+            $("#mobile").keyup(function () { $("#mobile").val($("#mobile").val().replace(/D|^0/g, "")); })
+                .bind("paste", function () { $("#mobile").val($("#mobile").val().replace(/D|^0/g, '')); })
+                .css("ime-mode", "disabled");
+
+            $("#mobile").keyup(function () { $("#mobile").val($("#mobile").val().replace(/[^0-9]/g, '')); })
+                .bind("paste", function () { $("#mobile").val($("#mobile").val().replace(/[^0-9]/g, '')); })
+                .css("ime-mode", "disabled");
+
+
+
+
 
             $(window).on("orientationchange", function () {
                 psn = $("#step1").position().left;
