@@ -49,21 +49,22 @@
 
 <body>
     <div class="page">
-        <form id="fm" method="post" action="" enctype="multipart/form-data">
-            <div class="bd">
-                <div class="weui_cells weui_height6em">
-                    <div class="weui_cell weui_bg_img">
-                        <div class="weui_photo150x150"><img id="retailerimg" src="" alt="" /></div>
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <p id="retailername" class="Name16"></p>
-                            <p id="retaileradres" class="Store14"></p>
-                            <p id="retailertel" class="Store14"></p>
-                        </div>
-                        <div class="weui_cell_ft"><a id="idInviteRetailerEmployee" href="invite_staff.html" class="Derwei"><img src="/retailer/image/ewm_new.png" style="width:70px;height:auto;" alt="" /></a></div>
+        <div class="bd">
+            <div class="weui_cells weui_height6em">
+                <div class="weui_cell weui_bg_img">
+                    <div class="weui_photo150x150"><img id="retailerimg" src="" alt="" /></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p id="retailername" class="Name16"></p>
+                        <p id="retaileradres" class="Store14"></p>
+                        <p id="retailertel" class="Store14"></p>
                     </div>
+                    <div class="weui_cell_ft"><a id="idInviteRetailerEmployee" href="invite_staff.html" class="Derwei"><img src="/retailer/image/ewm_new.png" style="width:70px;height:auto;" alt="" /></a></div>
                 </div>
-                <div class="clear"></div>
-
+            </div>
+            <div class="clear"></div>
+            <form id="fm" method="post" action="/webapi/retailer/weixin/UpdateRetailerImg" enctype="multipart/form-data">
+                <input id="upload_img_name" type="hidden" />
+                <input type="submit" value="上传" />
                 <!--图片上传-->
                 <div class="weui_cells weui_cells_form weui_top3em">
                     <div class="weui_cell">
@@ -84,50 +85,51 @@
                         </div>
                     </div>
                 </div>
-                <!--信息修改或提交-->
-                <div class="weui_cells weui_cells_form">
-                    <div class="weui_cell">
-                        <div class="weui_cell_hd"><label class="weui_label">店铺：</label></div>
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <input id="updatename" name="retailername" class="weui_input" type="text" placeholder="请输入店铺名称" />
-                        </div>
-                    </div>
+            </form>
 
-                    <div class="weui_cell">
-                        <div class="weui_cell_hd"><label class="weui_label">地址：</label></div>
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <input id="updatedadress" name="address" class="weui_input" style="width:98%;" type="text" placeholder="请输入详细地址" />
-                        </div>
-
-                    </div>
-                    <div class="curr-addr" id="curr-addr">
-                        <div>
-                            当前位置：<label></label>
-                        </div>
-                        <div>
-                            <input type="button" class="btn" id="useCurrentAddr" value="使用当前位置" onclick="getAddr()" />
-                            <script>
-                                function getAddr() {
-                                    $("#updatedadress").val($("#curr-addr label").text());
-                                    useflag = true;
-                                }
-                            </script>
-                        </div>
-                    </div>
-                    <div class="weui_cell">
-                        <div class="weui_cell_hd"><label class="weui_label">电话：</label></div>
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <input id="updatetel" name="mobilephone" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话号码" />
-                            <input type="hidden" id="retailerid" name="retailerid" type="text" />
-                        </div>
+            <!--信息修改或提交-->
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">店铺：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="updatename" name="retailername" class="weui_input" type="text" placeholder="请输入店铺名称" />
                     </div>
                 </div>
 
-                <div class="weui_btn_area">
-                    <input type="button" value="确 定" id="btnUploadFile" class="weui_btn weui_btn_exit" style="height:36px;line-height:25px; padding-top:4px;font-size:16px" /></br>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">地址：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="updatedadress" name="address" class="weui_input" style="width:98%;" type="text" placeholder="请输入详细地址" />
+                    </div>
+
+                </div>
+                <div class="curr-addr" id="curr-addr">
+                    <div>
+                        当前位置：<label></label>
+                    </div>
+                    <div>
+                        <input type="button" class="btn" id="useCurrentAddr" value="使用当前位置" onclick="getAddr()" />
+                        <script>
+                            function getAddr() {
+                                $("#updatedadress").val($("#curr-addr label").text());
+                                useflag = true;
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">电话：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input id="updatetel" name="mobilephone" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话号码" />
+                        <input type="hidden" id="retailerid" name="retailerid" type="text" />
+                    </div>
                 </div>
             </div>
-        </form>
+
+            <div class="weui_btn_area">
+                <input type="button" value="确 定" id="btnUploadFile" class="weui_btn weui_btn_exit" style="height:36px;line-height:25px; padding-top:4px;font-size:16px" /></br>
+            </div>
+        </div>
         <div class="weui_Kong"></div>
 
     </div>
@@ -160,7 +162,10 @@
             });
             //保存内容
             $("#btnUploadFile").on("click", function () {
-                saveData();
+                if ($("#picture_url").val().trim().length > 0 && $("#picture_url").get(0).files[0])
+                    uploadImg();
+                else
+                    saveData();
             });
         });
         function getLoaction(latitude, longitude) {
@@ -221,7 +226,6 @@
                 beforeSend: function () { common.loading.show(); },
                 complete: function () { common.loading.hide(); },
                 success: function (json) {
-                    common.loading.hide();
                     json = json || {};   /* 统一加这句话 */
                     if (json.error) {
                         toasterextend.showtips(json.error, "error");
@@ -257,8 +261,6 @@
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    common.loading.hide();//隐藏转圈动画
-
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
@@ -273,11 +275,53 @@
             });
 
         }
+        function uploadImg() {
+            var formData = new FormData($("#fm")[0]);
+            $.ajax({
+                dataType: 'json',
+                type: 'POST',
+                url: "/webapi/retailer/weixin/UpdateRetailerImg",
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () { common.loading.show(); },
+                complete: function () { common.loading.hide(); },
+                success: function (json) {
+                    json = json || {};   /* 统一加这句话 */
+                    if (json.error) {
+                        toasterextend.showtips(json.error, "error");
+                        return;
+                    }
+                    if (json.user_notification != undefined) {
+                        toasterextend.showtips(json.user_notification, "info");
+                        return;
+                    }
+                    if (json.success && json.success.length > 0) {
+                        $("#upload_img_name").val(json.imgserverpath);
+                        saveData();
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var errormsg = "访问异常";
+
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = JSON.parse(json.Message).error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+
+                    toasterextend.showtips(errormsg, "error");
+                }
+            });
+        }
         function saveData() {
             var updatename = $("#updatename").val();
             var updatedadress = $("#updatedadress").val();
             var updatetel = $("#updatetel").val();
-            var pictureUrl = $("#picture_url");
+            var pictureUrl = $("#upload_img_name").val();
 
             if (updatename.trim() == '') {
                 toasterextend.showtips('店铺名称不能为空', "info");
@@ -287,61 +331,31 @@
                 toasterextend.showtips('店铺地址不能为空', "info");
                 return false;
             }
-            //if (pictureUrl.val().trim() == '' || pictureUrl.get(0).files[0] == undefined) {
-            //    toasterextend.showtips('店铺图片不能为空', "info");
-            //    return false;
-            //}
-
-            var formData = new FormData();
-            formData.append("retailername", updatename);
-            formData.append("address", updatedadress);
-            formData.append("mobilephone", updatetel);
-            if (pictureUrl.val().trim().length > 0 && pictureUrl.get(0).files[0] != undefined)
-                formData.append("picture_url", pictureUrl.get(0).files[0]);
-            formData.append("guid", retailerid);
+            var formData = { "retailername": updatename, "address": updatedadress, "mobilephone": updatetel, "picture_url": pictureUrl, "guid": retailerid };
             if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {
-                formData.append("antiaddress", antiaddress);
-                formData.append("districthash", districthash);
-                formData.append("province", province);
-                formData.append("city", city);
-                formData.append("district", district);
-                formData.append("longitude", xlongitude);
-                formData.append("latitude", xlatitude);
+                formData["antiaddress"] = antiaddress;
+                formData["districthash"] = districthash;
+                formData["province"] = province;
+                formData["city"] = city;
+                formData["district"] = district;
+                formData["longitude"] = xlongitude;
+                formData["latitude"] = xlatitude;
                 useflag = false;
             }
-            //xhr = new XMLHttpRequest();
-            ////dataType: 'json',
-            ////contentType: "application/json",
-            //xhr.onreadystatechange = function () {
-            //    if (xhr.readyState == 4 && xhr.status == 200) {
-            //        var responseText = xhr.responseText;
-            //        alert(responseText);
-            //    }
-            //};
-            //xhr.open("POST", "/webapi/retailer/weixin/updateretailer");
-            //xhr.send(formData);
-
             $.ajax({
                 type: 'post',
                 url: "/webapi/retailer/weixin/updateretailer",
                 dataType: 'json',
                 data: formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                complete: function () { useflag = false; },
+                beforeSend: function () { common.loading.show(); },
+                complete: function () { useflag = false; common.loading.hide(); },
                 success: function (data) {
-                    common.loading.hide();//隐藏转圈动画
-
                     data = data || {};   /* 统一加这句话 */
                     toasterextend.showtips("修改成功！", "info");
                     setTimeout(function () { window.location.reload(); }, 2000);
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    common.loading.hide();//隐藏转圈动画
-
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
