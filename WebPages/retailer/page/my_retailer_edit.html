@@ -62,9 +62,8 @@
                 </div>
             </div>
             <div class="clear"></div>
-            <form id="fm" method="post" action="/webapi/retailer/weixin/UpdateRetailerImg" enctype="multipart/form-data">
-                <input id="upload_img_name" type="hidden" />
-                <input type="submit" value="上传" />
+            <form id="fm" name="fm">
+                <input id="picture_url" name="picture_url" type="hidden" />                
                 <!--图片上传-->
                 <div class="weui_cells weui_cells_form weui_top3em">
                     <div class="weui_cell">
@@ -73,11 +72,11 @@
                                 <div class="weui_uploader_bd">
                                     <div class="weui_uploader_title_left">店铺图片</div>
                                     <div class="weui_uploader_input_wrp">
-                                        <input id="picture_url" class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=multiple />
+                                        <input name="picture_url_file" id="picture_url_file" class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=multiple />
                                     </div>
                                     <ul class="weui_uploader_files">
                                         <li class="weui_uploader_file">
-                                            <img src="" id="upload_img" style="width: 100%;height:79px; display: none;border:0">
+                                            <img id="upload_img" style="width: 100%;height:79px; display: none;border:0">
                                         </li>
                                     </ul>
                                 </div>
@@ -85,8 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
-
+            
             <!--信息修改或提交-->
             <div class="weui_cells weui_cells_form">
                 <div class="weui_cell">
@@ -129,6 +127,7 @@
             <div class="weui_btn_area">
                 <input type="button" value="确 定" id="btnUploadFile" class="weui_btn weui_btn_exit" style="height:36px;line-height:25px; padding-top:4px;font-size:16px" /></br>
             </div>
+			</form>
         </div>
         <div class="weui_Kong"></div>
 
@@ -154,18 +153,15 @@
             //加载数据
             loaddata();
             //上传图片
-            $("#picture_url").change(function () {
+            $("#picture_url_file").change(function () {
                 if (this.files && this.files[0]) {
                     $("#upload_img").attr("src", window.URL.createObjectURL(this.files[0]));
                     $("#upload_img").show();
                 }
             });
             //保存内容
-            $("#btnUploadFile").on("click", function () {
-                if ($("#picture_url").val().trim().length > 0 && $("#picture_url").get(0).files[0])
-                    uploadImg();
-                else
-                    saveData();
+            $("#btnUploadFile").on("click", function () {                
+                 saveData();
             });
         });
         function getLoaction(latitude, longitude) {
@@ -240,8 +236,8 @@
 
                     if (retailer.picture_url != null) {
                         $("#retailerimg").attr("src", retailer.picture_url);
-                        $("#upload_img").attr("src", retailer.picture_url);
-                        $("#upload_img").show();
+						$("#picture_url").val(retailer.picture_url);
+						$("#upload_img").attr("src",retailer.picture_url).show();						
                     }
 
                     if (typeof (retailer.retailername) !== 'undefined') {
@@ -275,83 +271,56 @@
             });
 
         }
-        function uploadImg() {
-            var formData = new FormData($("#fm")[0]);
-            $.ajax({
-                dataType: 'json',
-                type: 'POST',
-                url: "/webapi/retailer/weixin/UpdateRetailerImg",
-                data: formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                beforeSend: function () { common.loading.show(); },
-                complete: function () { common.loading.hide(); },
-                success: function (json) {
-                    json = json || {};   /* 统一加这句话 */
-                    if (json.error) {
-                        toasterextend.showtips(json.error, "error");
-                        return;
-                    }
-                    if (json.user_notification != undefined) {
-                        toasterextend.showtips(json.user_notification, "info");
-                        return;
-                    }
-                    if (json.success && json.success.length > 0) {
-                        $("#upload_img_name").val(json.imgserverpath);
-                        saveData();
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var errormsg = "访问异常";
-
-                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                        var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
-                        if (errormsg == undefined || errormsg == '')
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
-                    }
-
-                    toasterextend.showtips(errormsg, "error");
-                }
-            });
-        }
+        
         function saveData() {
-            var updatename = $("#updatename").val();
-            var updatedadress = $("#updatedadress").val();
-            var updatetel = $("#updatetel").val();
-            var pictureUrl = $("#upload_img_name").val();
+				var formData = new FormData($("#fm")[0]);
 
-            if (updatename.trim() == '') {
-                toasterextend.showtips('店铺名称不能为空', "info");
-                return false;
-            }
-            if (updatedadress.trim() == '') {
-                toasterextend.showtips('店铺地址不能为空', "info");
-                return false;
-            }
-            var formData = { "retailername": updatename, "address": updatedadress, "mobilephone": updatetel, "picture_url": pictureUrl, "guid": retailerid };
-            if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {
-                formData["antiaddress"] = antiaddress;
-                formData["districthash"] = districthash;
-                formData["province"] = province;
-                formData["city"] = city;
-                formData["district"] = district;
-                formData["longitude"] = xlongitude;
-                formData["latitude"] = xlatitude;
-                useflag = false;
-            }
+                var updatename = $("#updatename").val();
+                var updatedadress = $("#updatedadress").val();
+                var updatetel = $("#updatetel").val();
+
+                if (updatename.trim() == '') {
+                    toasterextend.showtips('店铺名称不能为空', "info");
+                    return false;
+                }
+                if (updatedadress.trim() == '') {
+                    toasterextend.showtips('店铺地址不能为空', "info");
+                    return false;
+                }
+				formData.append("retailername", updatename);
+				formData.append("address", updatedadress);
+				formData.append("mobilephone", updatetel);
+				formData.append("guid", retailerid);
+
+                if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {				
+
+					formData.append("antiaddress", antiaddress);
+					formData.append("districthash", districthash);					
+					formData.append("province", province);
+					formData.append("city", city);
+					formData.append("district", district);
+					formData.append("longitude", xlongitude);
+					formData.append("latitude", xlatitude);					
+                    useflag = false;
+                }
             $.ajax({
                 type: 'post',
-                url: "/webapi/retailer/weixin/updateretailer",
-                dataType: 'json',
-                data: formData,
+				url: "/webapi/retailer/weixin/updateretailer",
+				dataType: 'json',
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,			
                 beforeSend: function () { common.loading.show(); },
                 complete: function () { useflag = false; common.loading.hide(); },
                 success: function (data) {
                     data = data || {};   /* 统一加这句话 */
-                    toasterextend.showtips("修改成功！", "info");
+					var pictureimgfile =  document.getElementById("picture_url_file").files[0];
+					var msg_notification = "修改成功！";
+					if(pictureimgfile != undefined)
+						msg_notification += "图片正在更新中...";
+					toasterextend.showtips(msg_notification, "info");                    
                     setTimeout(function () { window.location.reload(); }, 2000);
 
                 },
@@ -364,7 +333,6 @@
                         if (errormsg == undefined || errormsg == '')
                             errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
-
                     toasterextend.showtips(errormsg, "error");
                 }
             });
