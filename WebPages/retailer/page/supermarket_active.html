@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -189,10 +189,12 @@
                         if (typeof (value.time_to_end_text) !== 'undefined')
                             listitem = listitem.replace("time_to_end_text", value.time_to_end_text);
                         
-                        if (typeof (value.time_to_end_text) !== 'undefined' && value.time_to_end_text.indexOf("开始") > 0) 
-                            listitem = listitem.replace("spanbackground", "background:rgba(51,51,51,.9");
-                        else
+                        if (typeof (value.time_to_end_text) !== 'undefined' && value.time_to_end_text.indexOf("开始") > 0) {
+                            listitem = listitem.replace("spanbackground", "background:rgba(51,51,51,.9)");
+                        }
+                        else {
                             listitem = listitem.replace("spanbackground", "");
+                        }
                     });
                     $('#list').html(listitem);
 					$("img.lazy").lazyload();
