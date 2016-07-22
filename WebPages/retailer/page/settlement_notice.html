@@ -44,10 +44,10 @@
             if (host == null || guid == null)
                 return;
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 dataType: 'json',
                 url: "/webapi/retailer/weixin/detailsbill",
-                data: { host: host, guid: guid },
+                data: { host: host, flowrootid: guid },
                 beforeSend: function () { common.loading.show(); },
                 complete: function () { common.loading.hide(); },
                 success: function (json) {
