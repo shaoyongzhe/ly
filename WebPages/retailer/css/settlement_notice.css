@@ -17,6 +17,7 @@ a {
 body {
     font-family: \5FAE\8F6F\96C5\9ED1;
     font-size: 16px;
+    padding-bottom:60px;
 }
 
 img {
@@ -98,9 +99,10 @@ li {
 .list .gprice label{
     width:auto;
     display:inline-block;
+    min-width:40%;
 }
-.list .gprice label:first-child{
-    min-width:50%;
+.list .gprice label:last-child{
+    text-align:right;
 }
 .list .gprice .unit{
     min-width:20%;

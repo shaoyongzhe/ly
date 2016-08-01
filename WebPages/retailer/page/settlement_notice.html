@@ -19,7 +19,7 @@
     <div id="list">
 
     </div>
-    <div class="container box">
+    <div class="container box" style="border-bottom:0">
         <div class="title">结算</div>
         <table cellpadding="0" cellspacing="0" id="setprice"></table>
     </div>
@@ -96,7 +96,7 @@
                         //处理value
                         var cont = data[val.inventorytype] ? data[val.inventorytype] : '';
                         cont += '<li class="gname"><div class="no"></div><div class="type">' + val.itemtype + '</div>' + val.itemname + ' <label class="fr">' + val.specification + '</label></li>'
-                             + '<li class="gprice"><label>' + val.itemcost + '</label><label class="unit">' + val.itemcount + '</label><label class="fr">' + val.itemcalculate + '</label></li>';
+                             + '<li class="gprice"><label>￥' + val.itemcost + '</label><label class="unit">' + val.itemcount + '</label><label>￥' + val.itemcalculate + '</label></li>';
                         data[val.inventorytype] = cont;
                     });
 
@@ -115,20 +115,20 @@
                             $(this).find(".no").text(i + 1);
                         });
                     });
-                    var priceHtml = '<tr><th>销售应收：</th><td>' + obj.detailsdata.xiaoshouyingshou + '</td></tr>'
-                        + '<tr><th>预&nbsp;&nbsp;存&nbsp;&nbsp;货：</th><td>' + obj.detailsdata.yucunhuo + '</td></tr>'
-                        + '<tr><th>退货应付：</th><td>' + obj.detailsdata.tuihuoyingfu + '</td></tr>';
+                    var priceHtml = '<tr><th>销售应收：</th><td>￥' + obj.detailsdata.xiaoshouyingshou + '</td></tr>'
+                        + '<tr><th>预&nbsp;&nbsp;存&nbsp;&nbsp;货：</th><td>￥' + obj.detailsdata.yucunhuo + '</td></tr>'
+                        + '<tr><th>退货应付：</th><td>￥' + obj.detailsdata.tuihuoyingfu + '</td></tr>';
                     if (obj.detailsdata.isreceive == 1) {
-                        priceHtml += '<tr><th>应收合计：</th><td>' + obj.detailsdata.yingshou_tui + '</td></tr>'
-                                  + '<tr><th>使用预存：</th><td>' + obj.detailsdata.shiyongyucun + '</td></tr>'
-                                  + '<tr><th>抹&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;零：</th><td>' + obj.detailsdata.moling + '</td></tr>'
-                                  + '<tr><th>实&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收：</th><td>' + obj.detailsdata.shishou_tui + '</td></tr>'
-                                  + '<tr><th>未&nbsp;&nbsp;收&nbsp;&nbsp;款：</th> <td>' + obj.detailsdata.weishou_tui + '</td></tr>';
+                        priceHtml += '<tr><th>应收合计：</th><td>￥' + obj.detailsdata.yingshou_tui + '</td></tr>'
+                                  + '<tr><th>使用预存：</th><td>￥' + obj.detailsdata.shiyongyucun + '</td></tr>'
+                                  + '<tr><th>抹&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;零：</th><td>￥' + obj.detailsdata.moling + '</td></tr>'
+                                  + '<tr><th>实&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收：</th><td>￥' + obj.detailsdata.shishou_tui + '</td></tr>'
+                                  + '<tr><th>未&nbsp;&nbsp;收&nbsp;&nbsp;款：</th> <td>￥' + obj.detailsdata.weishou_tui + '</td></tr>';
                     } else {
-                        priceHtml += '<tr><th>应退合计：</th><td>' + obj.detailsdata.yingshou_tui + '</td></tr>'
-                                  + '<tr><th>抹&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;零：</th><td>' + obj.detailsdata.moling + '</td></tr>'
-                                  + '<tr><th>实&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退：</th><td>' + obj.detailsdata.shishou_tui + '</td></tr>'
-                                  + '<tr><th>未&nbsp;&nbsp;退&nbsp;&nbsp;款：</th> <td>' + obj.detailsdata.weishou_tui + '</td></tr>';
+                        priceHtml += '<tr><th>应退合计：</th><td>￥' + obj.detailsdata.yingshou_tui + '</td></tr>'
+                                  + '<tr><th>抹&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;零：</th><td>￥' + obj.detailsdata.moling + '</td></tr>'
+                                  + '<tr><th>实&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退：</th><td>￥' + obj.detailsdata.shishou_tui + '</td></tr>'
+                                  + '<tr><th>未&nbsp;&nbsp;退&nbsp;&nbsp;款：</th> <td>￥' + obj.detailsdata.weishou_tui + '</td></tr>';
                     }
                     $("#setprice").html(priceHtml);
                 },
