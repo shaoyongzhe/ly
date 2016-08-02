@@ -117,10 +117,7 @@
                 originalcost = new Number(originalcost).toFixed(2);
                 $(this).val(originalcost);
                 var specialprice = new Number($(this).parent().find("input[name=specialprice]").val());
-                if ($.isNumeric(specialprice) && originalcost - specialprice > 1)
-                    $(this).parent().find(".d-cont").text((specialprice / originalcost * 10).toFixed(1) + "折");
-                else
-                    $(this).parent().find(".d-cont").text("");
+                $(this).parent().find(".d-cont").text(getDiscount(specialprice, originalcost));
             })
             $("#create input[name=specialprice]").blur(function () {
                 var specialprice = $(this).val();
@@ -132,11 +129,15 @@
                 specialprice = new Number(specialprice).toFixed(2);
                 $(this).val(specialprice);
                 var originalcost = new Number($(this).parent().find("input[name=originalcost]").val());
-                if ($.isNumeric(specialprice) && originalcost - specialprice > 1)
-                    $(this).parent().find(".d-cont").text((specialprice / originalcost * 10).toFixed(1) + "折");
-                else
-                    $(this).parent().find(".d-cont").text("");
+                $(this).parent().find(".d-cont").text(getDiscount(specialprice, originalcost));
             })
+            function getDiscount(specialprice, originalcost) {
+                if (specialprice > 0 && originalcost > 0 && originalcost > specialprice) {
+                    var discount = specialprice / originalcost * 10+'';
+                    return discount.substring(0, discount.lastIndexOf('.') + 2) + "折";
+                }
+                return "";
+            }
             $('.date').pickadate({ min: Date.now });
             $('.date-hour').click(function () {
                 var parent = this;
@@ -156,11 +157,14 @@
                     popup.close();
                 })
             });
+            $(".create textarea").keyup(function () {
+                $(this).next().text($(this).val().length + "/" + $(this).attr("maxlength"));
+            });
         }
         var activity = {
             //查询数据
             list: function () {
-                _ajax("GET", "http://membership-waibao.ipaloma.com/webapi/retailer/activities/",null, function (json) {
+                _ajax("GET", "http://membership-waibao.ipaloma.com/webapi/retailer/activities/", null, function (json) {
                     if (json.activities.length == 0)
                         return;
                     var releaseHtml = "";
