@@ -203,7 +203,7 @@
         var activity = {
             //查询数据
             list: function () {
-                _ajax("GET", "http://membership-waibao.ipaloma.com/webapi/retailer/owner/activities/",null, function (json) {
+                _ajax("GET", "/webapi/retailer/owner/activities/",null, function (json) {
                     if (json.activities.length == 0)
                         return;
                     var releaseHtml = "";
@@ -281,7 +281,7 @@
             del: function (obj) {
                 var activityid = $(obj.parentNode).attr("data-code");
                 popup.show(1, function () {
-                    _ajax("DELETE", 'http://membership-waibao.ipaloma.com/webapi/retailer/activities/' + activityid, null, function (json) {
+                    _ajax("DELETE", '/webapi/retailer/activities/' + activityid, null, function (json) {
                         if (json.activityid == activityid)
                             activity.delRelItem($(obj).parent().parent());
                     })
@@ -391,7 +391,7 @@
                     $(obj).closest(".relitem").next().remove();
                     return;
                 }
-                _ajax("GET", 'http://membership-waibao.ipaloma.com/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
+                _ajax("GET", '/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
                     if (json.state == "上架") {
                         popup.show(4, null);
                         return;
@@ -413,12 +413,12 @@
             },
             saveData: function (createObj, t, dataForm) {
                 var isUpdate = false;
-                var url = "http://membership-waibao.ipaloma.com/webapi/retailer/activities";
+                var url = "/webapi/retailer/activities";
                 var method = "POST";
                 if ($.trim(dataForm.activityid).length > 0 &&  $.trim(dataForm.activityid) != "0") {
                     isUpdate = true;
                     method = "PUT"
-                    url = "http://membership-waibao.ipaloma.com/webapi/retailer/activities/" + dataForm.activityid;
+                    url = "/webapi/retailer/activities/" + dataForm.activityid;
                 }
                 _ajax(method, url, dataForm, function (json) {
 
@@ -457,7 +457,7 @@
             },
             updateState: function (state, obj) {
                 var activityid = $(obj.parentNode).attr("data-code");
-                _ajax("PUT", 'http://membership-waibao.ipaloma.com/webapi/retailer/activities/' + activityid + "/" + state, null, function (json) {
+                _ajax("PUT", '/webapi/retailer/activities/' + activityid + "/" + state, null, function (json) {
                     
                     if (state == "up") {
                         var relObj = $(obj).parent().parent();
