@@ -726,7 +726,7 @@ a {
             color: #fff;
         }
 
-ul.m-self-listbox {
+/*ul.m-self-listbox {
     width: 100%;
     overflow: hidden;
     background: #39616b;
@@ -750,7 +750,7 @@ ul.m-self-listbox {
 
         ul.m-self-listbox li:last-child {
             border-right: 0;
-        }
+        }*/
 
 .title {
     width: 100%;
