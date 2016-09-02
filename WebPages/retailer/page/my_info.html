@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="/retailer/css/weui.min.css" />
     <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
     <link href="/retailer/css/weixintips.css" rel="stylesheet" />
-
+    <link href="/retailer/css/my_info.css" rel="stylesheet" />
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
-
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script src="/retailer/js/lib/jquery-common.js"></script>
@@ -32,105 +30,71 @@
                     <div class="weui_cell_ft"><a id="invite_button" href="invite_staff.html" class="weui_btn weui_btn_primary" style="line-height:20px;padding:8px;display:none">邀 请<br />店 员</a></div>
                 </div>
             </div>
-            <div class="weui_state">
-                <div class="weui_state_list">
-                    <div id="sharecount"> </div>
-                    <span>分享</span>
-                </div>
-                <div class="weui_state_list">
-                    <div id="fanscount"> </div>
-                    <span>累计拉粉</span>
-                </div>
-                <div class="weui_state_list">
-                    <div id="activefanscount"> </div>
-                    <span>留存惠粉</span>
-                </div>
-                <div class="weui_state_list">
-                    <div id="fansremaincount"> </div>
-                    <span>留存</span>
-                </div>
-            </div>
+            <p class="tab-font">我的贡献</p>
+            <div class="rmy-box" id="contribute"></div>
             <div class="clear"></div>
-
-            <div id="list">
-
-            </div>
+            <div id="list"></div>
         </div>
         <div class="weui_Kong"></div>
     </div>
     <div id="bottom-nav"></div>
     <script type="text/javascript">
         var y = 0;
-        var W = '';
         $(function () {
-
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
                 url: '/webapi/retailer/weixin/getpersonalpage',
-                beforeSend: function () {common.loading.show(); },
-                complete: function () {common.loading.hide(); },
+                beforeSend: function () { common.loading.show(); },
+                complete: function () { common.loading.hide(); },
                 success: function (json) {
-
-                   common.loading.hide();//数据请求成功即隐藏转圈动画
-
                     json = json || {};   /* 统一加这句话 */
                     if (json.error) {
                         toasterextend.showtips(json.error, "error");
                         return;
                     }
-
                     if (json.user_notification != undefined) {
                         toasterextend.showtips(json.user_notification, "info");
                         return;
                     }
-
                     var employee = json.employee;
-                    var retailer = json.retailer;
-                    var coworkers = json.coworkers;
                     var html = '';
                     count = 0;
-
+                    //头
                     if (typeof (employee.nickname) !== 'undefined') {
                         $("#personname").html('<style=class:Name16>' + employee.nickname);
-                        $("#retailname").html('<style=class:Store14>' + retailer.retailername);
-                        //employeesvalue.headimageurl != "" ? employeesvalue.headimageurl:"/retailer/image/photo4.png"
-                        //$("#personpic").attr("src",)
+                        $("#retailname").html('<style=class:Store14>' + json.retailer.retailername);
                     }
-                    if (typeof (employee.headimageurl) !== 'undefined') {
+                    if (typeof (employee.headimageurl) !== 'undefined')
                         $("#personpic").attr("src", employee.headimageurl)
-                    }
-                    //if(retailer)
-                    if (coworkers.length <= 1)
-                        html = handelsinglecowork(coworkers);
+
+                    //我的贡献
+                    var actfcount = getNumeric(json.contribute.activefanscount);
+                    var lostactcount = getNumeric(json.contribute.lostactivitycount);
+                    var conHtml = '<ul>'
+                     + '<li style="width:36%;"><div class="circle"><div class="pie_left"></div><div class="pie_right"></div></div></li>'
+                     + '<li><div class="b-green"><div class="b-title"><span></span>惠粉</div><div class="b-cont">' + actfcount + '</div></div></li>'
+                     + '<li><div class="b-gray"><div class="b-title"><span></span>流失</div><div class="b-cont">' + lostactcount + '</div></div></li></ul>'
+                     + '<div class="g-item"><div class="g-title">累计拉粉</div><div>' + getNumeric(json.contribute.fansinhistorycount) + '</div></div>'
+                     + '<div class="g-item" style="margin-left:2%"><div class="g-title">留存率</div><div>' + json.contribute.percentageretained + '</div></div>';
+                    if (json.contribute.distributorsharecount > 0) {
+                        conHtml += '<div class="o-item"><b>' + getNumeric(json.contribute.distributorsharecount) + '</b><br />商家超惠分享</div>'
+                                + '<div class="o-item" style="margin-left:2%"><b>' + getNumeric(json.contribute.retailersharecount) + '</b><br />本店超惠分享</div>';
+                    } else
+                        conHtml += '<div class="o-item" style="width:100%;"><b>' + getNumeric(json.contribute.retailersharecount) + '</b><br />本店超惠分享</div>';
+                    $("#contribute").html(conHtml);
+                    getPre((actfcount / lostactcount * 100));
+                    //店员
+                    if (json.coworkers.length <= 1)
+                        html = handelsinglecowork(json.coworkers);
                     else
-                        html = handelmulticowork(coworkers);
-
+                        html = handelmulticowork(json.coworkers);
                     $('#list').append(html);
-                    var contribute = json.contribute;
 
-                    if (typeof (contribute.sharecount) !== 'undefined') {
-                        change(contribute.sharecount);
-                        $("#sharecount").html('<strong>' + y + '<strong style=display:inline;font-size:14px>' + W + '</strong></strong>');
-                    }
-
-                    if (typeof (contribute.fansinhistorycount) !== 'undefined') {
-                        change(contribute.fansinhistorycount);
-                        $("#fanscount").html('<strong>' + y + '<strong style=display:inline;font-size:14px>' + W + '</strong></strong>');
-                    }
-
-                    if (typeof (contribute.activefanscount) !== 'undefined') {
-                        change(contribute.activefanscount);
-                        $("#activefanscount").html('<strong>' + y + '<strong style=display:inline;font-size:14px>' + W + '</strong></strong>');
-                    }
-
-                    if (typeof (contribute.percentageretained) !== 'undefined') {
-                        $("#fansremaincount").html('<strong><strong style=display:inline;font-size:14px>' + contribute.percentageretained + '</strong></strong>');
-                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-                   common.loading.hide();//隐藏转圈动画
+                    common.loading.hide();//隐藏转圈动画
 
                     var errormsg = "访问异常";
 
@@ -145,6 +109,18 @@
                 }
             });
         });
+      
+        function getNumeric(param) {
+            if (typeof (param) !== 'undefined' && $.isNumeric(param)) {
+                param = parseInt(param);
+                if (param >= 100000 && param < 100000000)
+                    param = param / 10000+ '万';
+                if (param >= 100000000)
+                    param = param / 100000000+ '亿';
+                return param;
+            }
+            return '';
+        }
 
         function handelsinglecowork(coworkers) {
             if (coworkers.length == 0)
@@ -195,23 +171,6 @@
             });
             return html;
         }
-
-
-        function change(x) {
-            if (x < 10000) {
-                y = x;
-                W = '';
-            }
-            if (x > 9999 && x < 100000000) {
-                y = x / 10000;
-                W = '万';
-            }
-            if (x > 99999999) {
-                y = x / 100000000;
-                W = '亿';
-            }
-        }
-
         function firm(id) {
             //利用对话框返回的值 （true 或者 false）
             if (confirm("您确定退出本店吗？")) {
@@ -220,11 +179,11 @@
                     type: 'GET',
                     dataType: 'json',
                     url: '/webapi/retailer/weixin/removeemployee?accountid=' + canshu[0] + '&retailerid=' + canshu[1],
-                    beforeSend: function () {common.loading.show() },
-                    complete: function () {common.loading.hide(); },
+                    beforeSend: function () { common.loading.show() },
+                    complete: function () { common.loading.hide(); },
                     success: function (json) {
 
-                       common.loading.hide();//数据请求成功即隐藏转圈动画
+                        common.loading.hide();//数据请求成功即隐藏转圈动画
 
                         if (json.error) {
                             toasterextend.showtips("退出失败", "info");
@@ -241,7 +200,7 @@
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                       common.loading.hide();//隐藏转圈动画
+                        common.loading.hide();//隐藏转圈动画
 
                         var errormsg = "访问异常";
 
@@ -254,7 +213,13 @@
                 });
             }
         }
-
+        function getPre(pre) {
+            if (pre <= 50) {
+                $(".pie_right").css("background", "#e8e7e6");
+                $(".pie_right").css("left", "-1px");
+            }
+            $(".pie_right").css("transform", "rotate(" + ((100 - pre) * 1.8) + "deg)");
+        }
         //弹出垂直菜单
         $(".menu").click(function () {
             if ($(this).hasClass("cura")) {

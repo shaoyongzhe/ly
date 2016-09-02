@@ -66,6 +66,7 @@ li {
     width:100%;
     box-sizing:border-box;
     line-height:22px;
+	min-height:30px;
     padding-bottom:8px;
 }
 .list .gname{
