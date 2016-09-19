@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="/retailer/css/weui.min.css" />
     <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
     <link rel="stylesheet" href="/retailer/css/weixintips.css" />
+
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
 
@@ -16,7 +18,7 @@
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/location.js"></script>
 
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    
     <script src="/retailer/js/lib/common.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <style>
@@ -64,25 +66,25 @@
             <div class="clear"></div>
             <form id="fm" name="fm">
                 <input id="picture_url" name="picture_url" type="hidden" />                
-                <!--图片上传-->
+            <!--图片上传-->
                 <div class="weui_cells weui_cells_form weui_top3em">
-                    <div class="weui_cell">
-                        <div class="weui_cell_bd weui_cell_primary">
-                            <div class="weui_uploader">
-                                <div class="weui_uploader_bd">
-                                    <div class="weui_uploader_title_left">店铺图片</div>
-                                    <div class="weui_uploader_input_wrp">
+                <div class="weui_cell">
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <div class="weui_uploader">
+                            <div class="weui_uploader_bd">
+                                <div class="weui_uploader_title_left">店铺图片</div>
+                                <div class="weui_uploader_input_wrp">
                                         <input name="picture_url_file" id="picture_url_file" class="weui_uploader_input" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" multiple=multiple />
-                                    </div>
-                                    <ul class="weui_uploader_files">
+                                </div>
+                                <ul class="weui_uploader_files">
                                         <li class="weui_uploader_file">
                                             <img id="upload_img" style="width: 100%;height:79px; display: none;border:0">
                                         </li>
-                                    </ul>
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             
             <!--信息修改或提交-->
@@ -132,7 +134,7 @@
         <div class="weui_Kong"></div>
 
     </div>
-    <div id="bottom-nav"></div>
+    <div id="bottom-nav"></div>   
 
     <script type="text/javascript">
         var antiaddress, districthash, province, city, district, xlatitude, xlongitude, useflag = false;
@@ -148,10 +150,14 @@
         $(function () {
             $("#curr-addr").hide();
             $("#useCurrentAddr").hide();
-            //加载位置
-            getLoaction(wxlocation.latitude, wxlocation.longitude);
-            //加载数据
-            loaddata();
+            waitloadaddress(function () {
+                //加载位置
+                getLoaction(wxlocation.latitude, wxlocation.longitude);
+				//加载数据
+				loaddata();				
+            });
+            
+            
             //上传图片
             $("#picture_url_file").change(function () {
                 if (this.files && this.files[0]) {
@@ -164,9 +170,12 @@
                  saveData();
             });
         });
-        function getLoaction(latitude, longitude) {
-            if (latitude == null || latitude == undefined || latitude.length == 0 || longitude.length == 0)
+        function getLoaction(latitude, longitude) {		
+				$("#test").val("getLoaction start");
+				$("#test").val("latitude latitude" + latitude);
+            if (latitude == null || longitude == undefined || latitude.length == 0 || longitude.length == 0)
                 return;
+			$("#test").val("ajax start");
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -193,8 +202,7 @@
                     district = json.district;
 
                     $("#curr-addr label").text(antiaddress);
-
-
+					
                     $("#curr-addr").show();
                     $("#useCurrentAddr").show();
                 },
@@ -207,7 +215,7 @@
                         var json = JSON.parse(XMLHttpRequest.responseText);
                         errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
 
                     toasterextend.showtips(errormsg, "error");
@@ -263,7 +271,7 @@
                         var json = JSON.parse(XMLHttpRequest.responseText);
                         errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
 
                     toasterextend.showtips(errormsg, "error");
@@ -271,7 +279,7 @@
             });
 
         }
-        
+
         function saveData() {
 				var formData = new FormData($("#fm")[0]);
 
@@ -292,7 +300,7 @@
 				formData.append("mobilephone", updatetel);
 				formData.append("guid", retailerid);
 
-                if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {				
+                if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {
 
 					formData.append("antiaddress", antiaddress);
 					formData.append("districthash", districthash);					
@@ -303,10 +311,10 @@
 					formData.append("latitude", xlatitude);					
                     useflag = false;
                 }
-            $.ajax({
-                type: 'post',
-				url: "/webapi/retailer/weixin/updateretailer",
-				dataType: 'json',
+                $.ajax({
+                    type: 'put',
+                    url: "/webapi/retailer/weixin/updateretailer",
+                    dataType: 'json',
 				data: formData,
 				async: false,
 				cache: false,
@@ -316,26 +324,35 @@
                 complete: function () { useflag = false; common.loading.hide(); },
                 success: function (data) {
                     data = data || {};   /* 统一加这句话 */
+				
+					if (data.error) {
+						toasterextend.showtips(data.error, "error");
+						return;
+					}
+					if (data.user_notification != undefined) {
+						toasterextend.showtips(data.user_notification, "info");
+						return;
+					}
 					var pictureimgfile =  document.getElementById("picture_url_file").files[0];
 					var msg_notification = "修改成功！";
 					if(pictureimgfile != undefined)
 						msg_notification += "图片正在更新中...";
 					toasterextend.showtips(msg_notification, "info");                    
-                    setTimeout(function () { window.location.reload(); }, 2000);
+                        setTimeout(function () { window.location.reload(); }, 2000);
 
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    var errormsg = "访问异常";
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var errormsg = "访问异常";
 
-                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                        var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
-                        if (errormsg == undefined || errormsg == '')
+                        if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                            var json = JSON.parse(XMLHttpRequest.responseText);
+                            errormsg = JSON.parse(json.Message).error;
+                            if (errormsg == undefined || errormsg == '')
                             errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        }
+                        toasterextend.showtips(errormsg, "error");
                     }
-                    toasterextend.showtips(errormsg, "error");
-                }
-            });
+                });
 
         }
         //弹出垂直菜单

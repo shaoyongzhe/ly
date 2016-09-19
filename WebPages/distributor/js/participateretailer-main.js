@@ -1,6 +1,7 @@
 function participateretailer(container) {
     this.container = $(container);
     //todo:修复currentstate
+
     this.activitylisttemplate = [
    '<div class="hd-chbox-w">',
         '<a href="suppermarketactivityitems.html?activity_id=${guid}">',
@@ -53,10 +54,10 @@ participateretailer.prototype.render = function (sharefunction) {
     var activitylisttemplate = this.activitylisttemplate;
     var container = this.container;
     var activity_id = common.getUrlParam('activity_id');
-    var ajaxdata = { activity_id: activity_id };
+    var ajaxdata = { activity_id: activity_id, activitytype: "activity" };
     if (wxjsconfig.sharekey != null)
         ajaxdata[wxjsconfig.sharekey] = "_";
-    $.getJSON2("/webapi/distributor/weixin/consumer_activity_retailers", ajaxdata, function (data) {
+    $.getJSON2("/webapi/distributor/weixin/retailers", ajaxdata, function (data) {
         var html = juicer(activitylisttemplate, data);
         container.html(html);
         if ($.isFunction(sharefunction)) {

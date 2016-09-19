@@ -20,10 +20,8 @@ qrcode.show = function () {
     if ("undefined" != typeof (wxjsconfig) && "undefined" != typeof (wxjsconfig.sharekey) && "undefined" != typeof (wxjsconfig.authurl)) {
 
         var search = window.location.search;
-
         var isshare = common.getUrlParam(wxjsconfig.sharekey);
         if (isshare != null && isshare != '' && search.length > 0) {
-
             var qrtype = common.getUrlParam("qrtype");
             var qrtypeNumber;
             if (qrtype != null && qrtype != '')

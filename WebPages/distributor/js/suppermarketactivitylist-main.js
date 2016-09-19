@@ -50,10 +50,10 @@ function suppermarketactivitylist(container) {
 suppermarketactivitylist.prototype.render = function (sharefunction) {
     var activitylisttemplate = this.activitylisttemplate;
     var container = this.container;
-    var ajaxdata = {};
+    var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "activity" };
     if (wxjsconfig.sharekey != null)
         ajaxdata[wxjsconfig.sharekey] = "_";
-    $.getJSON2('/webapi/distributor/weixin/active_consumer_activities', ajaxdata, function (data) {
+    $.getJSON2('/webapi/distributor/weixin/activities', ajaxdata, function (data) {
         var html = juicer(activitylisttemplate, data);
         container.html(html);
 		$("img.lazy").lazyload();
@@ -68,6 +68,3 @@ $(function () {
     var s = new suppermarketactivitylist(".container-w");
     s.render(wxjsshare);
 });
-
-
-
