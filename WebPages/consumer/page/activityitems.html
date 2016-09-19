@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,21 +9,27 @@
     <link type="text/css" href="/consumer/css/style1.css" rel="stylesheet" />
     <link href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
     <script type="text/javascript" src="/js/wx/location.js"></script>
 
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+
     <script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode.js"></script>
+    <style>
+        .active-num img {
+            width: 20px;
+            vertical-align: top;
+        }
+    </style>
 </head>
 <body>
     <div class="tip-w">
@@ -31,20 +37,23 @@
     </div>
     <div class="active-w ajaxdata" id="list">
     </div>
-	<footer>
+    <footer>
         <div class="space"></div>
         <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
         <div class="bottomnav">
-            <div class="logo"><a href="/consumer/page/index.html" ><img src="/consumer/image/logo.png" /></a></div>
-            <a href="/consumer/page/retailerlist.html">
+            <div class="logo"><a data-original="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
+            <a data-original="/consumer/page/retailerlist.html">
                 <div class="nav"><img src="/consumer/image/icon02.png" /><br />附近门店</div>
             </a>
-            <a href="/consumer/page/activitylist.html" >
+            <a data-original="/consumer/page/activitylist.html">
                 <div class="nav" style="background:#ff6600;"><img src="/consumer/image/icon03.png" /><br />附近超惠</div>
+            </a>
+            <a data-original="/consumer/page/supercouponslist.html">
+                <div class="nav" style="border-right:none"><img src="/consumer/image/icon11.png" style="margin:10px 0px 4px 0;" /><br />超惠券</div>
             </a>
         </div>
     </footer>
-	
+
     <script>
         var activitiy_item_guid = common.getUrlParam("activitiy_item_guid");
         $(function () {
@@ -60,11 +69,14 @@
                 location.href = 'retailerlist.html';
                 return;
             }
-            loaddata(wxlocation.latitude, wxlocation.longitude);
-                    });
+            waitloadaddress(function () {
+                loaddata(wxlocation.longitude, wxlocation.latitude);
+            });
+            
+        });
 
         function loaddata(longitude, latitude) {
-            var ajaxdata = { activitiy_item_guid: activitiy_item_guid };
+            var ajaxdata = {};
             if (wxjsconfig.sharekey != null)
                 ajaxdata[wxjsconfig.sharekey] = "_";
             var search = window.location.search;
@@ -86,24 +98,24 @@
             $.ajax({
                 type: 'GET',
                 dataType: "json",
-                url: '/webapi/consumer/weixin/click_activityitem',
+                url: '/webapi/consumer/weixin/activities/' + activitiy_item_guid,
                 data: ajaxdata,
-                beforeSend: function () {common.loading.show(); },
-                complete: function () {common.loading.hide(); },
+                beforeSend: function () { common.loading.show(); },
+                complete: function () { common.loading.hide(); },
                 success: function (jsondata) {
 
-                   common.loading.hide();//数据请求成功即隐藏转圈动画
+                    common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     jsondata = jsondata || {};
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);
-						qrcode.href();
+                        qrcode.href();
                         return;
                     }
 
                     if (jsondata.user_notification != undefined) {
                         toasterextend.showtips(jsondata.user_notification, "info");
-						qrcode.href();
+                        qrcode.href();
                         return;
                     }
 
@@ -137,12 +149,12 @@
                         var picUrl = obj.picture_url;
                         if (picUrl == null || picUrl.length == 0)
                             picUrl = "http://dl.oss.ipaloma.com/common/membership/default/membershipd5d2e2976e5b47d6bedcc459de2a260f.png";
-                        html += ' <div class="storelist"><div class="store1-w1"><a href="/consumer/page/retaileritems.html?retailer_id=' + obj.retailer_id + '">'
+                        html += ' <div class="storelist"><div class="store1-w1"><a data-original="/consumer/page/retaileritems.html?retailer_id=' + obj.retailer_id + '">'
                                 + '<div class="store1-left">'
                                 + '<div class="storerimg"><img src="' + picUrl + '" /></div>'
                                 + '<div class="textinfo">'
                                 + '<div class="storename">' + obj.retailername + '(' + obj.address + ')</div>'
-                                + ' <div class="active-num">共有活动<font>' + obj.activity_count + '</font>个</div>'
+                                + ' <div class="active-num" style="color: #ff6600;"><img src="/consumer/image/icon12.png" />&nbsp;&nbsp;' + obj.activity_count + ' &nbsp;&nbsp;&nbsp;&nbsp;<img src="/consumer/image/icon13.png" />&nbsp;&nbsp;' + obj.ticket_count + '</font></div>'
                                 + '</div></div></a>';
                         if (obj.mobilephone == null || obj.mobilephone.length == 0)
                             html += '<div class="store1-right" style="color:gray"> <img src="/consumer/image/icon01_gray.png" /><br /> 联系购买 </div>';
@@ -154,17 +166,17 @@
                     qrcode.show();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                   common.loading.hide();//隐藏转圈动画
+                    common.loading.hide();//隐藏转圈动画
 
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                         var json = JSON.parse(XMLHttpRequest.responseText); 				
-						 errormsg = JSON.parse(json.Message).error;
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-							errormsg = "Http error: " + XMLHttpRequest.statusText;
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
-					qrcode.href();
+                    qrcode.href();
                     toasterextend.showtips(errormsg, "error");
                 }
             });

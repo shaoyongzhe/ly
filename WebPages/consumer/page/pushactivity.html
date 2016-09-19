@@ -6,45 +6,327 @@
     <meta name="format-detection" content="telephone=no" />
 
     <title>缤纷福利，新鲜上架!</title>
+    <link href="//res.wx.qq.com/open/libs/weui/0.4.2/weui.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/style_media.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/lib.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/style1_media.css" rel="stylesheet" />
     <link href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
+    <link href="/consumer/css/style.css" rel="stylesheet" />
+    <link href="/consumer/css/suppercouponitems.css" rel="stylesheet" />
+    <style>
+        body {
+            background: #fff;
+        }
+
+        #tab_ul {
+            width: 100%;
+            height: 40px;
+            background: #f3f4f4;
+            color: #333333;
+            position: fixed;
+            z-index: 99;
+        }
+
+            #tab_ul li {
+                float: left;
+                width: 50%;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                font-size: 18px;
+            }
+
+            #tab_ul > .active {
+                color: #ff6a00;
+                border-bottom: solid 2px #ff6a00;
+                box-sizing: border-box;
+            }
+
+        .blx {
+            width: 100%;
+            height: 6px;
+            background: url(/consumer/image/supercoupons/circle.png) repeat-x top;
+            background-size: auto 6px;
+            z-index: 2;
+            position: absolute;
+        }
+
+        .blx_top {
+            top: -3px;
+        }
+
+        .blx_bottom {
+            bottom: -3px;
+        }
+        /***/
+
+        .div-list .div-top .li-img > .p_css1 {
+            background-color: #000000;
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+        }
+
+        .div-list .div-top .li-img > .p_css2 {
+            background-color: #fd5d61;
+            filter: alpha(opacity=80);
+            opacity: 0.8;
+        }
+
+        .jiangjia .div-down li {
+            border-right: solid 1px #fed4b8;
+        }
+
+        .youli .div-down li {
+            border-right: solid 1px #b1d6b6;
+        }
+
+        .maizeng .div-down li {
+            border-right: solid 1px #afd3ee;
+        }
+
+        .taocan .div-down li {
+            border-right: solid 1px #fae3a5;
+        }
+
+        .share {
+            left:0 !important;
+            margin-left:0;
+        }
+
+        .css_color1 {background:rgba(220,0,0,.8) none repeat scroll 0% 0%;
+        }
+          .css_color2 {background: rgba(51,51,51,.9) none repeat scroll 0% 0%;
+        }
+    </style>
 </head>
 <body style="background:#fff;">
     <div class="tip-w">
         <div class="tip"><img src="/consumer/image/icon09.png" /></div>
     </div>
+    <ul id="tab_ul" hidden>
+        <li id="li_left" class="active" onclick="tabClick(1)">超惠活动</li>
+        <li id="li_right" onclick="tabClick(2)">超惠券</li>
+    </ul>
+    <p style="width:100%; height:40px;"></p>
     <div id="list">
+    </div>
+    <div id="list1" hidden ms-controller="pushactivity" class="ms-controller">
+        <div class="duohdbox-w" style="border-bottom:none; " ms-repeat="array">
+            <div style="height: 255px;" class="duohdbox" cls="a" ms-click="ticketClick" ms-attr-id="ticket_{{$index}}">
+                <div style="border-radius: 0px;position:relative" class="adimg">
+                    <div class="blx blx_top"></div>
+                    <img style="display: block;"
+                         ms-attr-src="el.posterpic"
+                         class="lazy">
+                    <div class="blx blx_bottom"></div>
+                </div>
+                <div class="ceng1">
+                    <div class="tit">{{el.activitytitle}}</div>
+                    <div class="time">{{el.begintime}}至{{el.endtime}}</div>
+                    <div class="statebox">
+                        <div ms-attr-class="el.activity_flag==1?'statebtn1':'statebtn2'" style="width:100px; white-space:nowrap;overflow:hidden">{{el.activity_flag==1?'已生效':'未生效'}}</div>
+                        <div class="arrowbottom">
+                            <img style="display: inline;" src="/consumer/image/icon10.png" class="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div id="title-css" class="ceng3" style="display: none;">
+                    <div id="title-left">超惠券</div>
+                    <div ms-attr-class="el.activity_flag==1?'css_color1':'css_color2'"  id="title-right">{{el.activity_flag==1?'已生效':'未生效'}}</div>
+                    <div id="bianjiao"></div>
+                </div>
+            </div>
+            <div style="display: none;" class="duohdbox-cont">
+                <div class="dpdetail-info">
+                    <div class="hdname">{{el.activitytitle}}</div>
+                    <div class="hdtime1">
+                        <img style="display: inline;" src="/consumer/image/icon02_2.png" class="lazy">{{el.begintime}}至{{el.endtime}}
+                    </div>
+                </div>
+                <div class="chdetail-textbox" style="padding:30px 0px 15px 0px;">
+                    <div class="chtext-tit" style="margin-bottom:20px">
+                        <div class="bgline2"></div>
+                        <div class="bgcolor2"></div>
+                        <div class="tit">超惠券</div>
+                    </div>
+                    <div ms-repeat-item="el.items" ms-attr-class="div-list {{item.activitykind=='降价'?'jiangjia':item.activitykind=='有礼'?'youli':item.activitykind=='买赠'?'maizeng':'taocan'}}">
+                        <div class="div-top" style="padding: 30px 10px 30px 10px;">
+                            <div class="li-img">
+                                <img ms-attr-src="item.itempic" alt="">
+                                <p ms-attr-class="{{el.activity_flag=='1'?'state_sx':'state_wsx'}}">
+                                    {{el.time_to_end_text}}
+                                </p>
+                            </div>
+                            <div class="li-text" ms-if="item.activitykind=='降价'">
+                                <p>{{item.activitytitle}}</p>
+                                <!--<ul class="jiangjia_price">
+                                    <li>￥{{item.discountprice}}</li>
+                                    <li>
+                                        <span>{{item.discount}}折</span>
+                                        <p>￥{{item.originalprice}}</p>
+                                    </li>
+                                </ul>-->
+                                <table class="tbl_tc">
+                                    <tr>
+                                        <td rowspan="2" class="tbl_td_left">￥{{item.discountprice}}</td>
+                                        <td class="tbl_td_right"> <p>{{item.discount}}折</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-decoration:line-through;padding-left:8px;">￥{{item.originalprice}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="li-text" ms-if="item.activitykind=='有礼'">
+                                <p>{{item.activitytitle}}</p>
+                                <div class="pre">
+                                    <font>赠</font>
+                                    <div class="txt-r" style="">
+                                        {{item.giftname}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="li-text" ms-if="item.activitykind=='买赠'">
+                                <p>{{item.activitytitle}}</p>
+                                <ul class="jiangjia_price">
+                                    <li style="width:100%;padding-top:0;">￥{{item.unitprice}}<span style="font-size: 15px;">买{{item.buycount}}赠{{item.giftcount}}</span></li>
+
+                                </ul>
+                            </div>
+                            <div class="li-text" ms-if="item.activitykind=='套餐'">
+                                <p>{{item.activitytitle}}</p>
+                                <!--<ul class="jiangjia_price">
+                                    <li>￥{{item.discountprice}}</li>
+                                    <li>
+                                        <span>已节省{{item.sparevalue}}元</span>
+                                        <p>￥{{item.originalprice}}</p>
+                                    </li>
+                                </ul>-->
+                                <table class="tbl_tc">
+                                    <tr>
+                                        <td rowspan="2" class="tbl_td_left">￥{{item.discountprice}}</td>
+                                        <td class="tbl_td_right"> <p>已节省{{item.sparevalue}}元</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥{{item.originalprice}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="img_tag">
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="whiteblock"></div>
+                        <ul class="div-down  ">
+                            <li>
+                                {{item.itemtotalnum==null?'0':item.itemtotalnum}}
+                                <p>投放</p>
+                            </li>
+                            <li style="border-right:none">
+                                {{item.totalverifynum==null?'0':item.totalverifynum}}
+                                <p>已用</p>
+                            </li>
+                            <li style="border-right:none; ">
+                                &nbsp;
+                                <!--{{item.verifylimit==null?'0':item.verifylimit}}
+                                <p>今日可用</p>-->
+                            </li>
+                            <li style="width:40%;border-right:none">
+                                <div style="margin-top:9px" ms-attr-class="btn_css {{item.verifylimit>0?'btn_css1':' btn_css2'}}" ms-click="useticket(item)">
+                                    {{item.verifylimit>0?'码上用':item.state==0?'还未生效':item.state==1?'来晚了,已抢光':item.state==2?'明日再来':item.state==3?'您已用完':'码上用'}}
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                        </ul>
+                        <div class="rulecss " onclick="actionsheetclick()" ms-if="item.returnticket_id!=null&&item.returnticket_id!=''">
+                            已参加<font color="red"><b>{{item.participantnum}}</b></font>人
+                        </div>
+                        <hr />
+                    </div>
+                    <div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; ">
+                        <div class="more-md" style="border:none">
+                            <div class="text">
+                                共有<span>{{el.retailer_count}}</span>家门店可以用以上超惠券<br>找找你身边的门店吧!
+                            </div>
+                            <a data-original="/consumer/page/retailerlist.html">
+                                <div class="btn">点击查看</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <footer>
         <div class="space2"></div>
         <div class="share">推荐给朋友 <img src="/consumer/image/icon07_2.png" /></div>
         <div class="bottomnav">
-            <div class="logo1"><a href="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
-            <a href="/consumer/page/retailerlist.html" >
-                <div class="nav" style="background:#ff6600;" ><img src="/consumer/image/icon02.png" /><br />附近门店</div>
+            <div class="logo"><a data-original="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
+            <a data-original="/consumer/page/retailerlist.html">
+                <div class="nav" style="background:#ff6600;"><img src="/consumer/image/icon02.png" /><br />附近门店</div>
             </a>
-            <a href="/consumer/page/activitylist.html" >
+            <a data-original="/consumer/page/activitylist.html">
                 <div class="nav"><img src="/consumer/image/icon03.png" /><br />附近超惠</div>
+            </a>
+            <a data-original="/consumer/page/supercouponslist.html">
+                <div class="nav" style="border-right:none"><img src="/consumer/image/icon11.png" style="margin:10px 0px 4px 0;" /><br />超惠券</div>
             </a>
         </div>
     </footer>
+
+    <div id="actionSheet_wrap" hidden style="position: fixed; width: 100%; height: 100%; z-index: 9000; top:0; left:0; bottom:0; right:0">
+        <div style="display: none;z-index:9100;" class="weui_mask_transition" id="mask"></div>
+
+        <div class="weui_actionsheet" id="weui_actionsheet" style="z-index:9999;">
+            <div id="actionsheet_cancel"><img src="/consumer/image/shakegame/close.png" /></div>
+            <div class="article" style="background:#fff;overflow:auto">
+                <div class="bd">
+                    <article class="weui_article">
+                        <h1><b>手气红包 + 分享抽大奖 双重优惠 活动规则</b></h1>
+                        <section>
+                            <section>
+                                <h3><b style="color:red">优惠1：</b></h3>
+                                <p>
+                                    1、使用本券后，您将立即获得1个手气红包，领取后，手气红包将会进入您微信“我-钱包-零钱”里。<br />
+                                    2、红包数量有限，先到先得。<br />
+                                    3、微信红包的有限期为24小时，  请在24小时之内领取，否则红包将自动退回。<br />
+                                </p>
+                            </section>
+                            <section>
+                                <h3><b style="color:red">优惠2：</b></h3>
+                                <p>
+                                    1、使用本券后，按照界面“分享抽大奖”的指示操作，完成分享给好友或至朋友圈，  可立即获得3次<font style="font-size:15px;color:red">“抽大奖”</font>的机会，退出页面视为放弃，无法保留抽奖机会。<br />
+                                    2、奖品形式包括但不限于红包，优惠券等，以实际为准。
+                                </p>
+                            </section>
+                            <section>
+                                <h3><b style="color:red">注意事项：</b></h3>
+                                <p>
+                                    1、每天每个用户可以参与的活动次数由本次活动的超惠券决定，以超惠券每日可用数量为准。
+                                </p>
+                            </section>
+                        </section>
+                        <h1 style="text-align:center;color:#999"><b>本次活动最终解释权归超惠买所有</b></h1>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
-    <script type="text/javascript" src="/js/wx/share.js"></script>
+    <script src="/js/wx/share.js"></script>
     <script type="text/javascript" src="/js/wx/location.js"></script>
-
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="/consumer/js/lib/lib.js" type="text/javascript"></script>
     <script src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
+    <!--<script src="/consumer/js/lib/weixinshare-qrcode.js"></script>-->
+    <script src="/consumer/js/ticket_common.js"></script>
+    <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.js"></script>
     <script type="text/javascript">
         var qrcode = {};
         qrcode.href = function () {
@@ -81,7 +363,6 @@
         pageType = 1;
         loaddata();
         function loaddata() {
-
             var ajaxdata = {};
             if (wxjsconfig.sharekey != null)
                 ajaxdata[wxjsconfig.sharekey] = "_";
@@ -94,6 +375,8 @@
                     keyvalue = paraString[i].split("=");
                     key = keyvalue[0];
                     value = keyvalue[1];
+                    if (key == "activitytype")
+                        continue;
                     ajaxdata[key] = value;
                 }
             }
@@ -106,10 +389,11 @@
                 beforeSend: function () { common.loading.show(); },
                 complete: function () { common.loading.hide(); },
                 success: function (jsondata) {
-
+                    $("#tab_ul").show()
                     common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     jsondata = jsondata || {};
+
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);
                         return;
@@ -119,140 +403,78 @@
                         toasterextend.showtips(jsondata.user_notification, "info");
                         return;
                     }
+                    vm.jsondata = jsondata
+                    vm.activity = $.grep(jsondata.data, function (item) {
+                        return item.activitytype == "activity";//筛选出大于5的
+                    });
+
+                    vm.array = $.grep(jsondata.data, function (item) {
+                        return item.activitytype == "ticket";//
+                    });
+
+                    tabClick(vm.activitytype == "ticket" ? 2 : 1)
 
                     if (jsondata.data == undefined || jsondata.data.length == 0) {
-                        //$("#list").html(' <img src="/consumer/image/acnull.png"  style="width:100%;margin-top:120px;" />');
-                        return;
-                    }
+                        $("#list").css("text-align", "center")
+                        $("#list").html(' <img src="/consumer/image/msg_1.png"  style="width:60px;margin:120px 0 0 0;" /><p style="margin-bottom:40px">本次暂无超惠活动哦~</p>');
 
-                    var content = "";
-                    for (var i = 0; i < jsondata.data.length; i++) {
-                        var obj = jsondata.data[i];
-                        var n = obj.items.length;
-                        var itemhtml = "";
-                        for (var k = 0; k < n; k++)
-                            itemhtml += getActItem(obj.items[k]);
-                        content += '<div class="duohdbox-w" data-id="duohd_' + obj.activity_id + '">'
-                           + '<div class="duohdbox" cls=a> <div class="adimg"><img class="lazy" data-original="' + obj.posterpic + '" /></div>'
-                           + '<div class="ceng1"><div class="tit">' + obj.activitytitle + '</div><div class="time">' + obj.begintime + '至' + obj.endtime + '</div>'
-                           + '<div class="statebox"><div class="statebtn1">' + common.product.getFlag(obj.activity_flag) + '</div><div class="arrowbottom"><img class="lazy" data-original="/consumer/image/icon10.png" /></div></div></div><div class="ceng2">' + flag + '</div></div>'
-                           + '<div class="duohdbox-cont">'
-                           + '<div class="dpdetail-info"><div class="hdname">' + obj.activitytitle + '</div><div class="hdtime1"><img class="lazy" data-original="/consumer/image/icon02_2.png" />' + obj.begintime + '至' + obj.endtime + '</div></div>';
-                        if (obj.changes != null && obj.changes.length > 0) {
-                            content += '<div class="chdetail-textbox">'
-                            + '<div class="chtext-tit"><div class="bgline"></div><div class="bgcolor"></div><div class="tit">更正说明</div></div>';
-                            for (var j = 0; j < obj.changes.length; j++) {
-                                var change = obj.changes[j];
-                                content += '<div class="chdetail-cont">' + change.correctdescription + '</div>';
-                            }
-                            content += '</div>';
+                        $("#list1").css("text-align", "center")
+                        $("#list1").html(' <img src="/consumer/image/msg_2.png"  style="width:60px;margin:120px 0 0 0;" /><p style="margin-bottom:40px">本次暂无超惠券哦~</p>');
+                    } else {
+                        if (vm.activity.length == 0) {
+                            $("#list").css("text-align", "center")
+                            $("#list").html(' <img src="/consumer/image/msg_1.png"  style="width:60px;margin:120px 0 0 0;" /><p style="margin-bottom:40px">本次暂无超惠活动哦~</p>');
                         }
+                        else {
+                            var content = "";
+                            for (var i = 0; i < vm.activity.length; i++) {
+                                var obj = vm.activity[i];
+                                var n = obj.items.length;
+                                var itemhtml = "";
+                                for (var k = 0; k < n; k++)
+                                    itemhtml += getActItem(obj.items[k]);
+                                content += '<div class="duohdbox-w" data-id="duohd_' + obj.activity_id + '">'
+                                   + '<div id="activity_' + i + '" class="duohdbox" cls=a> <div class="adimg"><img class="lazy" data-original="' + obj.posterpic + '" /></div>'
+                                   + '<div class="ceng1"><div class="tit">' + obj.activitytitle + '</div><div class="time">' + obj.begintime + '至' + obj.endtime + '</div>'
+                                  + '<div class="statebox"><div class="statebtn1">' + common.product.getFlag(obj.activity_flag) + '</div><div class="arrowbottom"><img class="lazy" data-original="/consumer/image/icon10.png" /></div></div></div><div class="ceng2">' + common.product.getFlag(obj.activity_flag) + '</div></div>'
+                                   + '<div class="duohdbox-cont">'
+                                   + '<div class="dpdetail-info"><div class="hdname">' + obj.activitytitle + '</div><div class="hdtime1"><img class="lazy" data-original="/consumer/image/icon02_2.png" />' + obj.begintime + '至' + obj.endtime + '</div></div>';
+                                //if (obj.changes != null && obj.changes.length > 0) {
+                                //    content += '<div class="chdetail-textbox">'
+                                //    + '<div class="chtext-tit"><div class="bgline"></div><div class="bgcolor"></div><div class="tit">更正说明</div></div>';
+                                //    for (var j = 0; j < obj.changes.length; j++) {
+                                //        var change = obj.changes[j];
+                                //        content += '<div class="chdetail-cont">' + change.correctdescription + '</div>';
+                                //    }
+                                //    content += '</div>';
+                                //}
 
-                        content += '<div class="chdetail-textbox" style="padding-top:15px;">'
-                        + ' <div class="chtext-tit"><div class="bgline2"></div><div class="bgcolor2"></div><div class="tit">优惠详情</div></div>'
-                        + '<ul class="ul-list">' + itemhtml + '</ul>'
-                        + '<div class="more-md-w"><div class="more-md">'
-                        + '<div class="text">活动共有<span>' + obj.retailer_count + '</span>家门店参加<br />看看有没有您附近的! </div><a data-original="/consumer/page/retailerlist.html"> <div class="btn">点击查看</div></a></div></div>';
-                        if (obj.description != '' && obj.description != null) {
-                            content += '<div class="chdetail-textbox" style=" border-bottom:1px=border-bottom:1px solid #ccc;">'
-                            + '<div class="chtext-tit"><div class="bgline2"></div><div class="bgcolor2"></div><div class="tit">补充信息</div></div><div class="chdetail-cont2">' + obj.description + '</div>'
-                            + '</div>';
-                        }
-                        content += '</div></div></div>';
-
-                    }
-                    $("#list").html(content);
-                    loadCss();
-                    $("img.lazy").lazyload();
-                    var wxjsshare = jsondata.share;
-
-                    if (wxjsshare != null) {
-                        for (prefix in wxjsshare) {
-                            wxjsshare[prefix] = decodeURIComponent(wxjsshare[prefix]);
-                        }
-                        var shareimg = wxjsconfig.shareimage;
-                        if (shareimg == '') {
-                            shareimg = wxjsshare.share_imgurl;
-                            if (shareimg == '' || shareimg == null) {
-                                var imgfirst = $("img[src^='http']");
-                                if (imgfirst.length > 0)
-                                    shareimg = imgfirst.eq(0).attr("src");
-                            }
-                        }
-
-                        var sharedesc = wxjsconfig.sharedesc;
-                        if (sharedesc == '') {
-                            sharedesc = wxjsshare.share_desc;
-                            if (sharedesc == '' || sharedesc == undefined) {
-                                var metaimgfirst = $("meta[name='description']");
-                                if (metaimgfirst.length > 0)
-                                    sharedesc = metaimgfirst.eq(0).attr("content");
-                            }
-                        }
-
-                        var sharetitle = wxjsconfig.sharetitle;
-                        if (sharetitle == '' || sharetitle == undefined) {
-                            sharetitle = wxjsshare.share_title;
-                            if (sharetitle == '' || sharetitle == undefined) {
-                                sharetitle = document.title;
-                            }
-                        }
-
-                        var jsonShare = {
-                            title: sharetitle,
-                            desc: sharedesc,//wxjssharedesc,
-                            link: document.URL,
-                            imgUrl: shareimg,//wxjsshareimage,
-                            trigger: function (res) {
-                                // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-                            },
-                            success: function (res) {
-                            },
-                            cancel: function (res) {
-                            },
-                            fail: function (res) {
-                            }
-                        };
-
-                        wx.ready(function () {
-                            wxjsconfig.menuitems = wxjsconfig.menuitems || [];
-                            if (wxjsconfig.menuitems.length == 0) {
-                                return;
-                            }
-                            wx.showMenuItems({
-                                menuList: wxjsconfig.menuitems,
-                                success: function (res) {
-                                },
-                                fail: function (res) {
+                                content += '<div class="chdetail-textbox" style="padding-top:15px;">'
+                                + ' <div class="chtext-tit"><div class="bgline2"></div><div class="bgcolor2"></div><div class="tit">优惠详情</div></div>'
+                            + '<ul class="ul-list">' + itemhtml + '</ul>'
+                                + '<div class="more-md-w"><div class="more-md">'
+                                + '<div class="text">活动共有<span>' + obj.retailer_count + '</span>家门店参加<br />看看有没有您附近的! </div><a data-original="/consumer/page/retailerlist.html"> <div class="btn">点击查看</div></a></div></div>';
+                                if (obj.description != '' && obj.description != null) {
+                                    content += '<div class="chdetail-textbox" style=" border-bottom:1px=border-bottom:1px solid #ccc;">'
+                                    + '<div class="chtext-tit"><div class="bgline2"></div><div class="bgcolor2"></div><div class="tit">补充信息</div></div><div class="chdetail-cont2">' + obj.description + '</div>'
+                                        + '</div>';
                                 }
-                            });
-                            $.each(wxjsconfig.menuitems, function (i, item) {
-                                switch (item) {
-                                    case "menuItem:share:appMessage":
-                                        wx.onMenuShareAppMessage(jsonShare);
-                                        break;
-                                    case "menuItem:share:timeline":
-                                        wx.onMenuShareTimeline(jsonShare);
-                                        break;
-                                    case "menuItem:share:qq":
-                                        wx.onMenuShareQQ(jsonShare);
-                                        break;
-                                    case "menuItem:share:weiboApp":
-                                        wx.onMenuShareWeibo(jsonShare);
-                                        break;
-                                    case "menuItem:share:QZone":
-                                        wx.onMenuShareQZone(jsonShare);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            });
-                        });
+                                content += '</div></div></div>';
 
+                            }
+                            $("#list").html(content);
+                            loadCss();
+                            $("img.lazy").lazyload();
+                        }
 
-
+                        if (vm.array.length == 0) {
+                            $("#list1").css("text-align", "center")
+                            $("#list1").html(' <img src="/consumer/image/msg_2.png"  style="width:60px;margin:120px 0 0 0;" /><p style="margin-bottom:40px">本次暂无超惠券哦~</p>');
+                        }
                     }
-                    qrcode.show();
+
+
+                    setTimeout(function () { qrcode.show(); }, 500)
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     common.loading.hide();//隐藏转圈动画
@@ -272,31 +494,22 @@
 
         };
 
-
         function loadCss() {
+           
+            // $('.duohdbox').css({ 'height': $divWidth * 3 / 4 });
             var $divWidth = $('.duohdbox').width();
-            $('.duohdbox').css({ 'height': $divWidth * 3 / 4 });
-
-            $('.tip-w').click(function () {
-                $('.tip-w').fadeOut(200);
-            })
-
-            $('.share').click(function () {
-                $('.tip-w').fadeIn(200);
-            })
-
             //$('.share').click(function () {
             //    $('.tip-w').fadeIn(200).fadeOut(2500);
             //})
             $('.duohdbox').click(function () {
                 if ($(this).attr('cls') == 'a') {
                     $('.duohdbox-cont').hide();
+
                     $('.duohdbox').children('.ceng1').show();
                     $('.duohdbox').children('.ceng2').hide();
                     $('.duohdbox').css('padding', '10px');
                     $('.duohdbox').children('.adimg').css('border-radius', '5px');
                     $('.duohdbox').attr('cls', 'a');
-
 
                     $(this).next('.duohdbox-cont').show();
                     $(this).children('.ceng1').hide();
@@ -304,8 +517,8 @@
                     $(this).css('padding', '0px')
                     $(this).children('.adimg').css('border-radius', '0px')
                     $(this).attr('cls', 'b');
-                    $("html,body").animate({ scrollTop: $(this).offset().top }, 0);
 
+                    $("html,body").animate({ scrollTop: $(this).offset().top - 50 }, 0);
 
                 } else {
                     $('.duohdbox-cont').hide();
@@ -324,6 +537,115 @@
             })
         }
 
+        $(function () {
+            $('.share').click(function () {
+                $('.tip-w').fadeIn(200);
+            })
+            $('.tip-w').click(function () {
+                $('.tip-w').fadeOut(200);
+            })
+        });
+
+
+        function tabClick(type) {
+            var id = type == 1 ? "#li_left" : "#li_right";
+            $("#tab_ul li").removeClass("active")
+            $(id).addClass("active")
+            $("#list").css("display", type == 1 ? "block" : "none")
+            $("#list1").css("display", type != 1 ? "block" : "none")
+
+            setTimeout(function () {
+                vm.defaultShare(type)
+            }, 150)
+
+            var _wxjsshare = vm.jsondata.share;
+            var shareimg, sharedesc, sharetitle;
+            var share_url = document.URL;
+            if (type == 1 && vm.activity.length > 0) {
+                _wxjsshare.share_imgurl = vm.activity[0].posterpic
+                _wxjsshare.share_title = vm.activity.length > 1 ? "怕你还不知道，一大波优惠活动已疯狂来袭！" : "怕你还不知道，这个活动真的超级优惠！"
+                _wxjsshare.share_desc = vm.activity[0].activitytitle
+                _wxjsshare.activitytype=""
+            } else if (type == 2 && vm.array.length > 0) {
+                _wxjsshare.share_imgurl = vm.array[0].posterpic
+                _wxjsshare.share_title = vm.array.length > 1 ? "怕你还不知道，一大波超惠券已疯狂来袭！" : "怕你还不知道，这个活动真的超级优惠！"
+                _wxjsshare.share_desc = vm.array[0].activitytitle
+                _wxjsshare.activitytype = "ticket"
+                _wxjsshare.share_url = share_url + "&activitytype=ticket"
+            } else {
+                if (wxjsshare != null) {
+                    shareimg = _wxjsshare.share_imgurl;
+                    sharedesc = _wxjsshare.share_desc;
+                    sharetitle = _wxjsshare.share_title;
+                }
+            }
+            wxjsshare(_wxjsshare)
+        }
+
+        var vm = avalon.define({
+            $id: 'pushactivity',
+            array: [],//券列表
+            activity: [],//活动列表
+            jsondata: [],
+            activitytype: common.getUrlParam("activitytype"),
+            ticketClick: function () {
+                if ($(this).attr('cls') == 'a') {
+                    $('.blx').show();
+                    $('.duohdbox-cont').hide();
+                    $('.duohdbox').children('.ceng1').show();
+                    $('.duohdbox').children('.ceng3').hide();
+                    $('.duohdbox').css('padding', '10px');
+                    $('.duohdbox').children('.adimg').css('border-radius', '5px');
+                    $('.duohdbox').attr('cls', 'a');
+                    $(this).next('.duohdbox-cont').show();
+                    $(this).children('.ceng1').hide();
+                    $(this).children('.ceng3').show();
+                    $(this).css('padding', '0px')
+                    $(this).children('.adimg').css('border-radius', '0px')
+                    $(this).children('.adimg').children('.blx').hide();
+                    $(this).attr('cls', 'b');
+
+                    $("html,body").animate({ scrollTop: $(this).offset().top - 50 }, 0);
+
+                } else {
+
+                    $('.duohdbox-cont').hide();
+
+                    $('.duohdbox').children('.ceng1').show();
+                    $('.duohdbox').children('.ceng3').hide();
+                    $('.duohdbox').css('padding', '10px');
+                    $('.duohdbox').children('.adimg').css('border-radius', '5px');
+                    $('.duohdbox').attr('cls', 'a');
+
+                    $(this).next('.duohdbox-cont').hide();
+                    $(this).children('.ceng1').show();
+                    $(this).children('.adimg').children('.blx').show();
+                    $(this).css('padding', '10px');
+                    $(this).children('.adimg').css('border-radius', '5px');
+                    $(this).children('.ceng2').hide();
+                }
+            },
+            defaultShare: function (type) {
+                if (type == 1 && vm.activity.length == 1) {//只有一个时，默认展开
+                    if ($("#activity_0").attr('cls') == 'a') {
+                        $("#activity_0").click()
+                    }
+                } else if (type == 2 && vm.array.length == 1) {//只有一个时，默认展开
+                    if ($("#ticket_0").attr('cls') == 'a') {
+                        $("#ticket_0").click()
+                    }
+                }
+            },
+            useticket: function (el) {// 码上用
+                if (el.verifylimit > 0) {//可用状态，跳转到码上用核销界面
+                    var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + el.guid + "&verifylimit=" + el.verifylimit;
+                    var qrcode_url = "http://open.weixin.qq.com/qr/code/?username=" + common.getUrlParam("originalid");
+                    var shareRegisterPage = "/consumer/page/shareqrcode.html?" + encodeURIComponent(qrcode_url);
+                    var url = wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))
+                    location.href = url;
+                }
+            }
+        })
     </script>
 </body>
 </html>

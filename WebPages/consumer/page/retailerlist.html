@@ -5,12 +5,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1 ,minimum-scale =1, maximum-scale =1, user-scalable = no" />
     <meta name="format-detection" content="telephone=no" />
-    <title>附近门店1</title>
+    <title>附近门店</title>
 
     <link href="/consumer/css/style.css" rel="stylesheet" />
     <link href="/consumer/css/style1.css" rel="stylesheet" />
     <link href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />	
+    <style>
+        .ul-num { width:100%; color:#000
+        }
+            .ul-num li { width:33%; float:left; line-height:20px;white-space:nowrap; overflow:hidden
+        }
+                .ul-num li img { height:20px; vertical-align:bottom; margin-right:5px
+        }
+    </style>
 </head>
 <body style="padding-bottom:10px;">
     <div class="tip-w">
@@ -22,12 +30,15 @@
         <div class="space"></div>
         <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
         <div class="bottomnav">
-            <div class="logo"><a href="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
-            <a href="/consumer/page/retailerlist.html">
+            <div class="logo"><a data-original="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
+            <a data-original="/consumer/page/retailerlist.html">
                 <div class="nav" style="background:#ff6600;"><img src="/consumer/image/icon02.png" /><br />附近门店</div>
             </a>
-            <a href="/consumer/page/activitylist.html">
+            <a data-original="/consumer/page/activitylist.html">
                 <div class="nav"><img src="/consumer/image/icon03.png" /><br />附近超惠</div>
+            </a>
+            <a data-original="/consumer/page/supercouponslist.html">
+                <div class="nav" style="border-right:none"><img src="/consumer/image/icon11.png"  style="margin:10px 0px 4px 0;" /><br />超惠券</div>
             </a>
         </div>
     </footer>
@@ -60,11 +71,13 @@
         $('.share').click(function () {
             $('.tip-w').fadeIn(200);
         });
-            loaddata(wxlocation.latitude, wxlocation.longitude);
+        waitloadaddress(function () {
+            loaddata(wxlocation.longitude, wxlocation.latitude);
+        });
                 });
 
     function loaddata(longitude, latitude) {
-        var ajaxdata = { type: "distributor to consumer" };
+        var ajaxdata = { activitykind: "distributor_to_consumer" };//, activitytype: "activity"
 
         var search = window.location.search;
         if (search.length > 0) {
@@ -87,7 +100,7 @@
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '/webapi/consumer/weixin/nearby_retailer',
+            url: '/webapi/consumer/weixin/nearby/retailers',
             data: ajaxdata,
                 beforeSend: function () {common.loading.show(); },
                 complete: function () {common.loading.hide(); },
@@ -123,11 +136,15 @@
                         picUrl = "http://dl.oss.ipaloma.com/common/membership/default/membershipd5d2e2976e5b47d6bedcc459de2a260f.png";
                     html += '<div class="container-white">'
                          + '    <div class="store1-w">'
-                             + '      <a href="/consumer/page/retaileritems.html?retailer_id=' + obj.retailer_id + '">'
+                             + '      <a data-original="/consumer/page/retaileritems.html?retailer_id=' + obj.retailer_id + '">'
                          + '        <div class="store1-left">'
                          + '          <div class="storerimg"><img class="lazy" data-original="' + picUrl + '" /></div>'
                          + '          <div class="textinfo">'
-                         + '              <div class="storename">' + obj.retailername + '(' + obj.address + ')</div><div class="active-num">活动<font>' + obj.activity_count + '</font>个<span>' + obj.distance_text + '</span></div>'
+                         + '              <div class="storename">' + obj.retailername + '(' + obj.address + ')</div><ul class="ul-num">'
+                         + '<li><img src="/consumer/image/icon12.png">' + obj.activity_count + '</li>'
+                         + '<li style="color: #ff6600;"><img src="/consumer/image/icon13.png">' + obj.ticket_count + '</li>'
+                         + '<li>' + obj.distance_text + '</li>'
+                         + '</ul>'
                          + '          </div> </div> </a>';
                     if (obj.mobilephone == null || obj.mobilephone.length == 0)
                         html += '<div class="store1-right" style="color:gray"> <img class="lazy" data-original="/consumer/image/icon01_gray.png" /><br /> 联系购买 </div>';
@@ -168,7 +185,7 @@
     };
 
     function getDetail(retailer_id, obj) {
-        var html = '<a href="/consumer/page/retaileritems.html?retailer_id=' + retailer_id + '"><div class="active-n">'
+        var html = '<a data-original="/consumer/page/retaileritems.html?retailer_id=' + retailer_id + '"><div class="active-n">'
               + '    <div class="active-label"><div class="labellist">' + obj.activitykind + '</div></div>'
               + '      <div class="activebox">'
               + '              <div class="activebox-left">'

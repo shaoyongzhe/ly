@@ -1,7 +1,12 @@
 ﻿@charset "utf-8";
+.ms-controller {
+    visibility: hidden;
+}
+
 /* CSS Document */
 body{
-    list-style:none;
+    list-style:none !important;
+    line-height:inherit;
     margin:0; 
     padding:0;  
     max-width:800px;
@@ -44,7 +49,8 @@ a img{
 }
 
 
-
+.clear { clear:both
+}
 
 /*附近门店样式*/
 .store1-w{
@@ -305,7 +311,7 @@ a img{
 
 .logo{
     float:left;
-    width:24%;
+    width:19%;
     height:100%;
     text-align:center;
     background:#fff; 
@@ -317,14 +323,15 @@ a img{
 }
 .nav{
     float:left;
-    width:38%;
+    width:27%;
     height:100%;
     overflow:hidden;
     text-align:center;
     font-size:0.8em;
     color:#fff;
-    background:#d6d6d6;
+    background:#d6d6d6; border-right:solid 1px #ccc; box-sizing:border-box
 }
+ 
 .nav img{
     width:20px;
     margin-top:8px;

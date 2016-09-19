@@ -76,7 +76,7 @@
                 else if (t == 5)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中修改。</p></p></div><div class="win-close"></div>';
                 else if (t == 6)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动已在审核中<br/>将很快与惠粉见面，确认要修改？</p></p></div><div class="win-close"></div>';
+                    cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>该活动已在审核中<br/>将很快与惠粉见面，确认要修改？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 7)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">保存成功</p><p style="color:#999">请到未发布活动列表查看</p></p></div><div class="win-close"></div>';
                 else if (t == 8)
@@ -108,29 +108,31 @@
             }
         };
         function initDate() {
-            $("#create input[name=originalcost]").blur(function () {
-                var originalcost = $(this).val();
-                if (!$.isNumeric(originalcost)) {
+            $("#create input[name=originalprice]").blur(function () {
+                var originalprice = $(this).val();
+                if (!$.isNumeric(originalprice)) {
                     $(this).val("");
                     return;
                 }
-                originalcost = new Number(originalcost).toFixed(2);
-                $(this).val(originalcost);
-                var specialprice = new Number($(this).parent().find("input[name=specialprice]").val());
-                $(this).parent().find(".d-cont").text(getDiscount(specialprice, originalcost));
+                originalprice = new Number(originalprice).toFixed(2);
+                $(this).val(originalprice);
+                var discountprice = new Number($(this).parent().find("input[name=discountprice]").val());
+                $(this).parent().find(".d-cont").text(getDiscount(discountprice, originalprice));
             })
-            $("#create input[name=specialprice]").blur(function () {
-                var specialprice = $(this).val();
-                var specialprice = $(this).val();
-                if (!$.isNumeric(specialprice)) {
+            $("#create input[name=discountprice]").blur(function () {
+                var discountprice = $(this).val();
+                var discountprice = $(this).val();
+                if (!$.isNumeric(discountprice)) {
                     $(this).val("");
                     return;
                 }
-                specialprice = new Number(specialprice).toFixed(2);
-                $(this).val(specialprice);
-                var originalcost = new Number($(this).parent().find("input[name=originalcost]").val());
-                $(this).parent().find(".d-cont").text(getDiscount(specialprice, originalcost));
+                discountprice = new Number(discountprice).toFixed(2);
+                $(this).val(discountprice);
+                var originalprice = new Number($(this).parent().find("input[name=originalprice]").val());
+
+                $(this).parent().find(".d-cont").text(getDiscount(discountprice, originalprice));
             })
+
             function getDiscount(specialprice, originalcost) {
                 if (specialprice > 0 && originalcost > 0 && originalcost > specialprice) {
                     var discount = specialprice / originalcost * 10+'';
@@ -138,6 +140,7 @@
                 }
                 return "";
             }
+
             $('.date').pickadate({ min: Date.now });
             $('.date-hour').click(function () {
                 var parent = this;
@@ -158,24 +161,73 @@
                 })
             });
             $(".create textarea").keyup(function () {
-                $(this).next().text($(this).val().length + "/" + $(this).attr("maxlength"));
-            });
+            $(this).next().text($(this).val().length + "/" + $(this).attr("maxlength"));
+        });
         }
+
+
+
+         function convertformtoedit(obj, json)
+            {
+                $(obj.parentNode.parentNode).hide();
+                $(obj).closest(".relitem").after(createHtml);
+                initDate();
+                var fm = $(obj).closest(".relitem").next();
+                fm.find(".a-title").text("编辑活动");
+                var relType = (json.type == "markdown" ? 0 : 1);
+                fm.find("input[name=activityid]").val(json.activityid);
+                fm.find("input[name=reltype]").val(relType);
+                
+                fm.find("textarea[name=goodsname]").val(json.goodsname);
+                fm.find("input[name=begintime]").val(json.begintime);
+                var endTime = new Date(json.endtime + ":00:00");
+                fm.find("input[name=endtime]").val(endTime.getFullYear() + "-" + (endTime.getMonth() + 1) + "-" + endTime.getDate());
+                fm.find("textarea[name=remark]").val(json.remark);
+                fm.find("input[name=datehour]").val(endTime.getHours());
+                if (relType == 0) {
+                    fm.find("input[name=originalprice]").val(json.originalprice);
+                    fm.find("input[name=discountprice]").val(json.discountprice);
+                    fm.find(".dis-box .d-cont").text(json.discount + "折");
+                    fm.find("tr[data-type=1]").hide();
+                    fm.find("tr[data-type=0]").show();
+                } else {
+                    fm.find("input[name=unitprice]").val(json.unitprice);
+                    fm.find("input[name=buycount]").val(json.buycount);
+                    fm.find("input[name=giftcount]").val(json.giftcount);
+                    fm.find("tr[data-type=0]").hide();
+                    fm.find("tr[data-type=1]").show();
+                }
+                fm.find(".a-type .curr").removeClass("curr");
+                fm.find(".a-type a:eq(" + relType + ")").addClass("curr");
+            }
         var activity = {
             //查询数据
             list: function () {
-                _ajax("GET", "http://membership-waibao.ipaloma.com/webapi/retailer/activities/", null, function (json) {
+                _ajax("GET", "/webapi/retailer/owner/activities/",null, function (json) {
                     if (json.activities.length == 0)
                         return;
                     var releaseHtml = "";
                     var noReleaseHtml = "";
+                    var noReleaseCount = 0;
+                    var releaseCount = 0;
                     $.each(json.activities, function (i, item) {
                         if ($.trim(item.state) == "未发布" || $.trim(item.state) == "审核失败")
+                        {
                             noReleaseHtml += activity.getRelHtml(item);
+                            noReleaseCount += 1;
+                        }
                         else
+                        {
                             releaseHtml += activity.getRelHtml(item);
+                            releaseCount += 1;
+                        }
                     });
-                    $("#list").html('<div class="container no-release"> <div class="a-title">未发布的活动</div>' + noReleaseHtml + '</div> <div class="container release"><div class="a-title">已发布进行中的活动</div>' + releaseHtml + '</div>');
+                    var htmlContent = noReleaseCount > 0 ? '<div class="container no-release"> <div class="a-title">未发布的活动</div>' + noReleaseHtml + '</div>' : '';
+                    htmlContent = releaseCount > 0 ? htmlContent + '<div class="container release"><div class="a-title">已发布进行中的活动</div>' + releaseHtml + '</div>' : htmlContent;
+                    
+                    $("#list").html(htmlContent);
+                    
+                    //$("#list").html('<div class="container no-release"> <div class="a-title">未发布的活动</div>' + noReleaseHtml + '</div> <div class="container release"><div class="a-title">已发布进行中的活动</div>' + releaseHtml + '</div>');
                 });
             },
             getRelHtml: function (item) {
@@ -185,13 +237,13 @@
                 if ($.trim(item.type) == "markdown")
                     isMarkDown = true;
 
-                content += '<div class="relitem" ' + (state == "已发布" ? 'style="padding-bottom:0"' : '') + '>'
+                content += '<div class="relitem" ' + (state == "上架" ? 'style="padding-bottom:0"' : '') + '>'
                         + '<table cellpadding="0" cellspacing="0">'
                         + '<tr><td colspan="2" class="ft17"><label class="cut">' + (isMarkDown ? "降价" : "买赠") + '</label>' + item.goodsname;
 
                 if (state == "审核中")
                     content += '<label class="auit">审核中</label>';
-                else if (state == "已发布")
+                else if (state == "上架")
                     content += '<label class="released">已发布</label>';
 
                 if (item.reason != null && $.trim(item.reason).length > 0) {
@@ -201,8 +253,8 @@
                 content += "</td></tr>";
 
                 if (isMarkDown)
-                    content += '<tr><th>原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥' + item.originalcost + '</td></tr>'
-                             + '<tr><th>优&nbsp;&nbsp;惠&nbsp;&nbsp;价：</th><td>￥' + item.specialprice + '</td></tr>'
+                    content += '<tr><th>原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥' + item.originalprice + '</td></tr>'
+                             + '<tr><th>优&nbsp;&nbsp;惠&nbsp;&nbsp;价：</th><td>￥' + item.discountprice + '</td></tr>'
                              + '<tr><th>折&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扣：</th><td>' + item.discount + '折</td></tr>';
                 else
                     content += '<tr><th>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥' + item.unitprice + '</td></tr>'
@@ -219,16 +271,17 @@
                     content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
                 }
                 else if ($.trim(item.state) == "审核中")
-                    content += '</table><ul class="op-pnl"><li style="width:50%;"  data-code=' + item.activityid + ' onclick="activity.del(this)""><label class="op-del">删除</label></li><li style="width:50%;" onclick=""><label class="op-update"  onclick="activity.edit(this)">修改</label></li><div class="clear"></div>';
-                else if ($.trim(item.state) == "已发布")
-                    content += '<tr><td colspan="2" align="center" style="height:45px;"  date=code="' + item.activityid + '"><input  type="button" onclick="activity.stateDown(this)" value="下架" class="ots-btn" /></td></tr> </table>';
+                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' ><li style="width:50%;"  onclick="activity.del(this)""><label class="op-del">删除</label></li><li style="width:50%;" onclick="activity.edit(this)"><label class="op-update">修改</label></li><div class="clear"></div>';
+                else if ($.trim(item.state) == "上架")
+                    content += '<tr><td colspan="2" align="center" style="height:45px;"  data-code="' + item.activityid + '"><input  type="button" onclick="activity.stateDown(this)" value="下架" class="ots-btn" /></td></tr> </table>';
                 content += "</div>";
                 return content;
             },
             //删除
             del: function (obj) {
+                var activityid = $(obj.parentNode).attr("data-code");
                 popup.show(1, function () {
-                    _ajax("DELETE", 'http://membership-waibao.ipaloma.com/webapi/retailer/activities/' + $(obj).attr("data-code"), null, function () {
+                    _ajax("DELETE", '/webapi/retailer/activities/' + activityid, null, function (json) {
                         if (json.activityid == activityid)
                             activity.delRelItem($(obj).parent().parent());
                     })
@@ -262,26 +315,26 @@
                     return;
                 }
                 if (relType == 0) {
-                    dataForm["originalcost"] = parseFloat(this.getParam(createObj, "originalcost"));
-                    dataForm["specialprice"] = parseFloat(this.getParam(createObj, "specialprice"));
-                    if ($.trim(dataForm.originalcost).length == 0) {
+                    dataForm["originalprice"] = parseFloat(this.getParam(createObj, "originalprice"));
+                    dataForm["discountprice"] = parseFloat(this.getParam(createObj, "discountprice"));
+                    if ($.trim(dataForm.originalprice).length == 0) {
                         toasterextend.showtips("请输入原价", "error");
                         return;
                     }
-                    if (dataForm.originalcost == 0 || parseInt(dataForm.originalcost).length > 7) {
+                    if (dataForm.originalprice == 0 || parseInt(dataForm.originalprice).length > 7) {
                         toasterextend.showtips("原价格式不正确", "error");
                         return;
                     }
-                    if ($.trim(dataForm.specialprice).length == 0) {
+                    if ($.trim(dataForm.discountprice).length == 0) {
                         toasterextend.showtips("请输入优惠价", "error");
                         return;
                     }
-                    if (dataForm.specialprice == 0 || parseInt(dataForm.specialprice).length > 7) {
+                    if (dataForm.discountprice == 0 || parseInt(dataForm.discountprice).length > 7) {
                         toasterextend.showtips("超惠价格式不正确", "error");
                         return;
                     }
-                    if (dataForm.specialprice <= dataForm.originalcost)
-                        dataForm["discount"] = (dataForm.specialprice / dataForm.originalcost * 10).toFixed(1);
+                    if (dataForm.discountprice <= dataForm.originalprice)
+                        dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10).toFixed(1);
                     else {
                         toasterextend.showtips("超惠价不能大于原价", "error");
                         return;
@@ -327,7 +380,7 @@
                     toasterextend.showtips("请输入时", "error");
                     return;
                 }
-                dataForm.endtime += " " + hour;
+                dataForm.endtime += " " + hour + ":00:00";
                 dataForm["activityid"] = this.getParam(createObj, "activityid");
                 this.saveData(createObj, t, dataForm);
 
@@ -338,39 +391,21 @@
                     $(obj).closest(".relitem").next().remove();
                     return;
                 }
-                _ajax("GET", 'http://membership-waibao.ipaloma.com/webapi/retailer/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
-                    if (json.state == "已发布") {
+                _ajax("GET", '/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
+                    if (json.state == "上架") {
                         popup.show(4, null);
                         return;
                     } else if (json.state == "未发布" && $.trim(json.reason).length > 0) {
                         popup.show(5, null);
                         return;
-                    } else if (json.state == "审核中") {
-                        popup.show(6, function () {
-                            $(obj).closest(".relitem").after(createHtml);
-                            initDate();
-                            var fm = $(obj).closest(".relitem").next();
-                            fm.find(".a-title").text("编辑活动");
-                            var relType = (json.type == "markdown" ? 0 : 1);
-                            fm.find("input[name=activityid]").val(json.activityid);
-                            fm.find("input[name=reltype]").val(relType);
-                            fm.find(".a-type .curr").removeClass("curr");
-                            fm.find(".a-type a:eq(" + relType + ")").addClass("curr");
-                            fm.find("textarea[name=goodsname]").val(json.goodsname);
-                            fm.find("input[name=begintime]").val(json.begintime);
-                            var endTime = new Date(json.endtime);
-                            fm.find("input[name=endtime]").val(endTime.getFullYear() + "-" + (endTime.getMonth() + 1) + "-" + endTime.getDate());
-                            fm.find("textarea[name=remark]").val(json.remark);
-                            fm.find("input[name=datehour]").val(endTime.getHours());
-                            if (relType == 0) {
-                                fm.find("input[name=originalcost]").val(json.originalcost);
-                                fm.find("input[name=specialprice]").val(json.specialprice);
-                                fm.find(".dis-box .d-cont").text(json.discount + "折");
-                            } else {
-                                fm.find("input[name=unitprice]").val(json.unitprice);
-                                fm.find("input[name=buycount]").val(json.buycount);
-                                fm.find("input[name=giftcount]").val(json.giftcount);
-                            }
+                    } else if (json.state == "未发布" && $.trim(json.reason).length == 0)
+                    {
+                        convertformtoedit(obj, json);
+                    } 
+                    else if (json.state == "审核中") {
+                        popup.show(6, function()
+                        {
+                            convertformtoedit(obj, json);
                         });
                         return;
                     }
@@ -378,12 +413,12 @@
             },
             saveData: function (createObj, t, dataForm) {
                 var isUpdate = false;
-                var url = "http://membership-waibao.ipaloma.com/webapi/retailer/activities";
+                var url = "/webapi/retailer/activities";
                 var method = "POST";
-                if ($.trim(dataForm.activityid).length > 0) {
+                if ($.trim(dataForm.activityid).length > 0 &&  $.trim(dataForm.activityid) != "0") {
                     isUpdate = true;
                     method = "PUT"
-                    url = "http://membership-waibao.ipaloma.com/webapi/retailer/activities/" + dataForm.activityid;
+                    url = "/webapi/retailer/activities/" + dataForm.activityid;
                 }
                 _ajax(method, url, dataForm, function (json) {
 
@@ -421,14 +456,16 @@
                 return $(obj).find("input[name=" + name + "]").val();
             },
             updateState: function (state, obj) {
-                _ajax("PUT", 'http://membership-waibao.ipaloma.com/webapi/retailer/activities/' + $(obj).parent().attr("data-code") + "/" + state, null, function (json) {
+                var activityid = $(obj.parentNode).attr("data-code");
+                _ajax("PUT", '/webapi/retailer/activities/' + activityid + "/" + state, null, function (json) {
+                    
                     if (state == "up") {
                         var relObj = $(obj).parent().parent();
                         if (json.state == "审核中") {
                             relObj.find("table tr:eq(0) td").remove(".no-audit").append('<label class="auit">审核中</label>');
                             relObj.append('<ul class="op-pnl" data-code="' + activityid + '"><li style="width:50%;" onclick="activity.del(this)"><label class="op-del">删除</label></li><li style="width:50%;"  onclick="activity.edit(this)"><label class="op-update" >修改</label></li><div class="clear"></div></ul>');
                         }
-                        else if (json.state == "已发布") {
+                        else if (json.state == "上架") {
                             relObj.find("table tr:eq(0) td").remove(".no-audit").append('<label class="released">已发布</label>');
                             relObj.find("table").append('<tr><td colspan="2" align="center" style="height:45px;"  data-code="' + activityid + '"><input type="button"   onclick="activity.stateDown(this)" value="下架" class="ots-btn"></td></tr>');
                             relObj.css("padding-bottom", "0");
@@ -504,7 +541,7 @@
                    + '           <td class="a-type">'
                    + '               <a href="javascript:;" class="curr" onclick="cssObj.tabChange(0,this)">降价</a>'
                    + '               <a href="javascript:;" onclick="cssObj.tabChange(1, this)">买赠</a>'
-                   + '                <input type="hidden" name="reltype" value="0" /><input type="hidden" name="activityid" value="0" />'
+                   + '                <input type="hidden" name="reltype" value="0" /><input type="hidden" name="activityid" value="" />'
                    + '           </td>'
                    + '        </tr>'
                    + '     </thead>'
@@ -521,9 +558,9 @@
                    + '            <th style="line-height:40px;">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价<br />超&nbsp;&nbsp;惠&nbsp;&nbsp;价</th>'
                    + '            <td class="price-box">'
                    + '                <label class="money-ico">￥</label>'
-                   + '               <input type="number" name="originalcost" style="padding-left:20px;" /><br />'
+                   + '               <input type="number" name="originalprice" style="padding-left:20px;" /><br />'
                    + '               <label class="money-ico" style="top:62px;">￥</label>'
-                   + '               <input type="number" name="specialprice" style="margin-top:10px;padding-left:20px;" />'
+                   + '               <input type="number" name="discountprice" style="margin-top:10px;padding-left:20px;" />'
                    + '               <div class="dis-box">'
                    + '                   <div class="d-title">折扣</div>'
                    + '                    <div class="d-cont"></div>'
@@ -563,6 +600,7 @@
                    + '        </tbody>'
                    + '    </table>'
                    + ' </div>';
+           
     </script>
 </body>
 </html>

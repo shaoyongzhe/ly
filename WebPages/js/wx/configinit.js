@@ -28,7 +28,8 @@
     "undefined" == typeof (wxjsconfig.noncestr) ||
     "undefined" == typeof (wxjsconfig.signature)) {
         return;
-    }  	
+	}
+	
 	wx.config({
             //debug: true, 
             appId: wxjsconfig.appid, // 必填，公众号的唯一标识
@@ -40,7 +41,7 @@
                         'getLocation',
                         'hideOptionMenu',
                         'showOptionMenu',
-                        'showMenuItems', 'hideMenuItems']
+                        'showMenuItems', 'hideMenuItems','scanQRCode']
         });
        
 		//wx.error(function(res) {			

@@ -59,6 +59,7 @@ ul, li, ol {
     border-right: 1px solid #ebebeb;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
+    width: calc((100% - 60px) / 3);
 }
 
 .logoimg {
@@ -81,7 +82,7 @@ ul, li, ol {
     bottom: 60px;
     z-index: 10;
     width: 100%;
-    padding: 0px 10px;
+    /*padding: 0px 10px;*/
     background: #fff;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;

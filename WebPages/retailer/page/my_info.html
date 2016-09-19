@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="/retailer/css/weui.min.css" />
     <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
     <link href="/retailer/css/weixintips.css" rel="stylesheet" />
-
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script> 
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
-
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script src="/retailer/js/lib/jquery-common.js"></script>
     <script src="/retailer/js/lib/common.js"></script>
@@ -63,7 +60,7 @@
         var y = 0;
         var W = '';
         $(function () {
-
+           
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -94,13 +91,13 @@
                     if (typeof (employee.nickname) !== 'undefined') {
                         $("#personname").html('<style=class:Name16>' + employee.nickname);
                         $("#retailname").html('<style=class:Store14>' + retailer.retailername);
-                        //employeesvalue.headimageurl != "" ? employeesvalue.headimageurl:"/retailer/image/photo4.png"
-                        //$("#personpic").attr("src",)
+						//employeesvalue.headimageurl != "" ? employeesvalue.headimageurl:"/retailer/image/photo4.png"
+						//$("#personpic").attr("src",)
                     }
-                    if (typeof (employee.headimageurl) !== 'undefined') {
+                    if (typeof (employee.headimageurl) !== 'undefined') {                        
                         $("#personpic").attr("src", employee.headimageurl)
                     }
-                    //if(retailer)
+					//if(retailer)
                     if (coworkers.length <= 1)
                         html = handelsinglecowork(coworkers);
                     else
@@ -247,7 +244,7 @@
 
                         if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                             errormsg = "Http error: " + XMLHttpRequest.statusText;
-                        }
+                    }
 
                         toasterextend.showtips(errormsg, "error");
                     }
