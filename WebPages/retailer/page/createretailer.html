@@ -22,7 +22,7 @@
 	
 	<link   rel="stylesheet" href="../css/showLoading.css" media="screen" /> 
   
-    <script type="text/javascript" src="../js/jquery.showLoading.js"></script>
+    <script type="text/javascript" src="../js/jquery.showLoading.min.js"></script>
     <style>
 	.curr-addr {
 		background: #f1efef;
@@ -345,9 +345,12 @@
 				    $("#adress1").hide();
 					$("#adress2").hide();
 					$("#adress3").hide();
-					$('#curr-addr label').showLoading();
+					common.loading.show();					
 					$("#curr-addr label").text("");
-					getLoaction(wxlocation.latitude, wxlocation.longitude);
+					waitloadaddress(function () {
+					    common.loading.hide();
+					    getLoaction(wxlocation.latitude, wxlocation.longitude);	 //加载位置
+					});
 					getAddr();
 				}
 				function closeDown() {
