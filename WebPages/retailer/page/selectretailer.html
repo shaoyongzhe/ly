@@ -334,7 +334,7 @@
 				if (iscomplete == "true")
 				    setTimeout(function () { window.location.href = "/retailer/page/index.html"; }, 1000);
 				else
-				    setTimeout(function () { window.location.href = "/retailer/page/my_retailer_edit.html"; }, 1000);
+				    setTimeout(function () { window.location.href = "/retailer/page/my_retailer_edit.html?retailerid=" + id; }, 1000);
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown) {
 
