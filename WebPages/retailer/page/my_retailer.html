@@ -78,7 +78,7 @@
                     //头部
                     html += '<div class="bd"><div class="weui_cells weui_height6em" ><div class="weui_cell weui_bg_img" onclick="javascript:location.href=&apos;my_retailer_edit.html?retailer_id=' + data.retailer.guid + '&apos;">'
                             + ' <div class="weui_photo150x150">'
-                            + '<img src="http://dl.oss.ipaloma.com/common/membership/default/membership510796a0ffe1490da9eed4d61a92e925.png" alt="" /></div>'
+                            + '<img src="' + data.retailer.picture_url + '" alt="" /></div>'
                             + ' <div class="weui_cell_bd weui_cell_primary">'
                             + '     <p class="Name16">' + getParamValue(data.retailer.retailername) + '&nbsp;<img src="/retailer/image/edit.png" width="20" style="vertical-align:middle;" /></p>'
                             + '    <p class="Store14">' + getParamValue(data.retailer.address) + '</p>'
