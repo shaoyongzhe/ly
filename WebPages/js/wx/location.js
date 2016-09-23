@@ -22,6 +22,13 @@ function getCookie(name) {
         return null;
 }
 
+
+function resetaddress(event) {
+    setCookie("wx-lat", "");
+    setCookie("wx-lng", "");
+    waitloadaddress(event);
+}
+
 function waitloadaddress(event) {
 	wxlocation.latitude = getCookie("wx-lat");
 	wxlocation.longitude = getCookie("wx-lng");

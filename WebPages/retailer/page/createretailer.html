@@ -346,11 +346,14 @@
 					$("#adress2").hide();
 					$("#adress3").hide();
 					common.loading.show();					
-					$("#curr-addr label").text("");
-					waitloadaddress(function () {
+					$("#curr-addr label").text("");				
+					resetaddress(function () {
+					    //加载位置
 					    common.loading.hide();
 					    getLoaction(wxlocation.latitude, wxlocation.longitude);	 //加载位置
+
 					});
+
 					getAddr();
 				}
 				function closeDown() {
