@@ -47,23 +47,31 @@ if (typeof (wxjsconfig.apimode) != 'undefined'
          event();
 }
 else
+{
+    var ua = navigator.userAgent.toLowerCase();
+    var isWeixin = ua.indexOf('micromessenger') != -1;
+    if (!isWeixin)
+    {
+        if ($.isFunction(event))
+            event();
+    }
     wx.ready(function () {
         toasterextend.showtips("正在获取位置", "info");
         wx.getLocation({
             type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-            success: function (res) {				
+            success: function (res) {
                 toasterextend.hidetips();
                 saveLocation(res.latitude, res.longitude);
                 if ($.isFunction(event))
-					event();
+                    event();
             },
             fail: function () {
-				
                 toasterextend.hidetips();
                 if ($.isFunction(event))
-					event();
+                    event();
             }
         });
     });
+}
 }
 

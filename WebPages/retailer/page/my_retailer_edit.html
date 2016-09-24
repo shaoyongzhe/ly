@@ -19,10 +19,6 @@
 
     <script src="/retailer/js/lib/common.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
-
-    <link rel="stylesheet" href="../css/showLoading.css" media="screen" />
-
-    <script type="text/javascript" src="../js/jquery.showLoading.min.js"></script>
     <style>
         .curr-addr {
             background: #f1efef;
@@ -134,8 +130,9 @@
             width: 100%;
             height: 140px;
             border-radius: 3px;
-            position: absolute;
-            margin: -158px -48% 0;
+            position:absolute;
+            left:0px;
+            top:140px;
             background: #fcc39c;
             color: #ffffff;
             -webkit-transition: margin .5s ease-in-out;
@@ -329,63 +326,37 @@
                             <label class="weui_label">地址：</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input id="updatedadress" name="address" class="weui_input" style="width:98%;" type="text" placeholder="请输入详细地址" />
+                            <input id="address" name="address" class="weui_input" style="width:98%;" type="text" placeholder="请输入详细地址" />
                         </div>
                     </div>
                     <div class="curr-addr" id="curr-addr">
-                        <div class="adress1" id="adress1">
-                            <img src="/retailer/image/tan2.png" style="vertical-align:middle; margin-right:2px;" />定位失败！请确保您的手机已开启定位服务并授权微信使
-                            用位置服务！
+                        <div class="adress1" id="addressmsgdiv">
+                            <img src="../image/tan2.png" style="vertical-align:middle; margin-right:2px;" />
+                            <label id="information"></label><label id="addressinformation"></label>
                         </div>
                         <span id="spansId"></span>
                         <label id="addre"></label>
                         <div style="margin-top:20px;">
-                            <table width="80%" border="0" style=" float:right;">
+                            <table width="80%" border="0" style="float:right;">
                                 <tr>
-                                    <td><input type="button" class="btn" id="useCurrentAddr" value="重新定位" onclick="getAddrAgain()" /> <input type="button" class="btn" id="useCurrentAddr1" value="重 试" onclick="getAddrAgain()" /></td>
+                                    <td>
+                                        <input type="button" class="btn" id="useCurrentAddr" value="重新定位" onclick="getAddrAgain()" />                                        
+                                    </td>
                                     <td>
                                         <div id="container">
                                             <div class="item">
                                                 <h1>
-                                                    <input type="button" class="btn-d2" id="addr2" value="使用当前位置" onclick="getAddr()" />
-                                                </h1>
-                                                <div class="tooltip" id="tooltipId">
-                                                    <div class="tan-header">还没有您店铺的位置，无法为您服务！</div>
-                                                    <p>请到店后，点击使用当前位置确定您的店铺位置，以便附近消费者可以看到您的活动。</p>
-                                                    <input type="button" class="btn-know" id="closeId" value="我知道了" onclick="closeDown()" />
-                                                    <div class="arrow"></div>
-                                                </div>
+                                                    <input type="button" class="btn-d2" id="setaddress" value="使用当前位置" />
+                                                </h1>                                               
                                             </div>
                                         </div>
                                     </td>
-                                    <td><img id="imgId" src="/retailer/image/i.png" style="vertical-align:middle; margin-left:3px;" /></td>
+                                    <td><img id="imgId" src="../image/i.png" style="vertical-align:middle; margin-left:3px;" /></td>
                                 </tr>
-                            </table>
-                            <script>
-				function getAddr() {
-					$("#updatedadress").val($("#curr-addr label").text());
-					  useflag = true;
-				}
-				function getAddrAgain() {
-				    $("#adress1").hide();
-					$("#adress2").hide();
-				    $("#adress3").hide();
-				    $('#curr-addr label').showLoading();
-				    $("#curr-addr label").text("");
-				    resetaddress(function () {
-				        //加载位置
-				        getLoaction(wxlocation.latitude, wxlocation.longitude);
-
-				    });					
-					getAddr();
-				}
-				function closeDown() {
-				    $("#tooltipId").hide();
-				}
-                            </script>
+                            </table>  
                         </div>
                     </div>
-                    <div class="weui_cell" style=" border-bottom:solid #d9d9d9 1px;">
+                    <div class="weui_cell" style="border-bottom:solid #d9d9d9 1px;">
                         <div class="weui_cell_hd">
                             <label class="weui_label">电话：</label>
                         </div>
@@ -402,37 +373,34 @@
             </form>
         </div>
         <div class="weui_Kong"></div>
+        <div class="tooltip" id="tooltipId">
+            <div class="tan-header">还没有您店铺的位置，无法为您服务！</div>
+            <p>请到店后，点击使用当前位置确定您的店铺位置，以便附近消费者可以看到您的活动。</p>
+            <input type="button" class="btn-know" id="closeId" value="我知道了" onclick="closeDown()" />
+            <div class="arrow"></div>
+        </div>
+        <div class="weui_Kong"></div>
     </div>
     <footer>
         <div id="bottom-nav"></div>
     </footer>
 
     <script type="text/javascript">
-	    var flag="x"; //  android ， iphone
-		var successFlag =false;
-        var antiaddress, districthash, province, city, district, xlatitude, xlongitude, picture_url,useflag = false;
-        var retailerid = "";
-        var urlinfo = window.location.href; //获取当前页面的url
-        var len = urlinfo.length;//获取url的长度
-        var offset = urlinfo.indexOf("?");//设置参数字符串开始的位置
-        if (offset != -1) {
-            var newsidinfo = urlinfo.substr(offset, len)//取出参数字符串 这里会获得类似“id=1”这样的字符串
-            var newsids = newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割
-            retailerid = newsids[1];//得到参数值
-        }
+        var flag = ""; //  android ， iphone
+        var successFlag = false;
+        var antiaddress, districthash, province, city, district, xlatitude, xlongitude, picture_url, useflag = false;
+        var retailerid = common.getUrlParam('retailerid');
+
         $(function () {
-              //隐藏
-            $("#tooltipId").hide();
-			$("#adress1").hide();
-			$("#useCurrentAddr1").hide();
-			loaddata();
+            //隐藏
+            $("#tooltipId").hide();            
+            $("#addressmsgdiv").hide();
+            loaddata();
             //加载位置
-			waitloadaddress(function () {
-			    //加载位置
-			    getLoaction(wxlocation.latitude, wxlocation.longitude);			    
-			    
-			});
-            
+            waitloadaddress(function () {
+                loactionshowmessage("start");
+                getLoaction(wxlocation.latitude, wxlocation.longitude);
+            });
             //上传图片
             $("#picture_url_file").change(function () {
                 if (this.files && this.files[0]) {
@@ -440,14 +408,22 @@
                     $("#upload_img").show();
                 }
             });
-
-            //保存内容
-            //$("#btnUploadFile").on("click", function () {
-            //     saveData();
-            //});
         });
-
-		function loaddata() {
+        function setaddress() {
+            
+            $("#address").val($("#addressinformation").text());
+            useflag = true;
+        }
+        function getAddrAgain() {           
+            resetaddress(function () {
+                loactionshowmessage("start");
+                getLoaction(wxlocation.latitude, wxlocation.longitude);                
+            });            
+        }
+        function closeDown() {
+            $("#tooltipId").hide();
+        }
+        function loaddata() {
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
@@ -469,8 +445,8 @@
 
                     if (retailer.picture_url != null) {
                         $("#retailerimg").attr("src", retailer.picture_url);
-						$("#picture_url").val(retailer.picture_url);
-						$("#upload_img").attr("src",retailer.picture_url).show();
+                        $("#picture_url").val(retailer.picture_url);
+                        $("#upload_img").attr("src", retailer.picture_url).show();
                     }
 
                     if (typeof (retailer.retailername) !== 'undefined') {
@@ -480,7 +456,7 @@
 
                     if (typeof (retailer.address) !== 'undefined') {
                         $("#retaileradres").html(retailer.address);
-                        $("#updatedadress").val(retailer.address);
+                        $("#address").val(retailer.address);
                     }
 
                     if (typeof (retailer.mobilephone) !== 'undefined') {
@@ -505,33 +481,35 @@
 
         }
         function getLoaction(latitude, longitude) {
-
-		   if (latitude == null || latitude == undefined || latitude.length == 0 || longitude.length == 0){
-				 if($.trim(flag) == 'android'){
-					$("#adress1").show();
-					return;
-				 }
-				 if($.trim(flag) == 'ios'){
-					$("#adress1").hide();
-					return;
-				}
-			}
+            dealphonetype();
+            if (latitude == null || latitude == undefined || latitude.length == 0) {
+                if ($.trim(flag) == 'android') {
+                    loactionshowmessage("android");
+                    return;
+                }
+                if ($.trim(flag) == 'ios') {
+                    loactionshowmessage("ios");
+                    return;
+                }
+            }
+            loactionshowmessage("succeed");
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
                 url: "/webapi/retailer/weixin/antiaddress?longitude=" + longitude + "&latitude=" + latitude,
-                beforeSend: function () { $('#curr-addr label').showLoading(); },
-                complete: function () { $('#curr-addr label').hideLoading();  },
+                beforeSend: function () { common.loading.show(); },
+                complete: function () { common.loading.hide(); },
                 success: function (json) {
                     common.loading.hide();//隐藏转圈动画
                     json = json || {};   /* 统一加这句话 */
                     if (json.error) {
                         toasterextend.showtips(json.error, "error");
-
+                        loactionshowmessage("failure");
                         return;
                     }
                     if (json.user_notification != undefined) {
                         toasterextend.showtips(json.user_notification, "info");
+                        loactionshowmessage("failure");
                         return;
                     }
                     antiaddress = json.antiaddress;
@@ -539,102 +517,95 @@
                     province = json.province;
                     city = json.city;
                     district = json.district;
-					if (antiaddress == null || $.trim(antiaddress) == '') {
-						 $("#tooltipId").show();
-						 return;
-					 }
-					$('#curr-addr label').hideLoading();
-                    $("#curr-addr span").text("当前位置：");
-                    $("#curr-addr label").text(antiaddress);
-					$("#addr2").css("background","#2bc9be");
-                    $("#srcId").css("background","#2bc9be");
-					$("#imgId").attr('src',"/retailer/image/i2.png");
-					$("#imgId").attr("onclick","getWin('this,0');");
+                    if (antiaddress == null || $.trim(antiaddress) == '') {
+                        loactionshowmessage("failure");
+                        return;
+                    }
+                    $("#setaddress").css("background", "#2bc9be").bind("click", function () { setaddress() });
+                    $("#information").html("当前位置：");
+                    $("#addressinformation").html(antiaddress);
+                    $("#addressmsgdiv img").hide();
+                    $("#addressmsgdiv").show();
+                    $("#imgId").attr('src', "/retailer/image/i2.png");
+                    $("#imgId").attr("onclick", "getWin('this,0');");
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     common.loading.hide();//隐藏转圈动画
-
+                    loactionshowmessage("failure");
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                         var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
-                        if (errormsg == undefined || errormsg == '')
-						     $("#useCurrentAddr1").show();
-							 $("#useCurrentAddr").hide();
-							 $("#adress3").show();
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        errormsg = JSON.parse(json.Message).error;                     
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
                     toasterextend.showtips(errormsg, "error");
-					$("#adress1").show();
+                    if ($.trim(flag) == 'android') {
+                        $("#androiderrormsg").show();
+                    }
+                    if ($.trim(flag) == 'ios') {
+                        $("#ioserrormsg").show();
+                    }
                 }
             });
         }
         // 提交保存数据
-        function saveData(object,t) {
+        function saveData(object, t) {
 
-				var formData = new FormData($("#fm")[0]);
-                var updatename = $("#updatename").val();
-                var updatedadress = $("#updatedadress").val();
-                var updatetel = $("#updatetel").val();
-				var updaimgFile = $("#upload_img")[0].src;
+            var formData = new FormData($("#fm")[0]);
+            var updatename = $("#updatename").val();
+            var updatedadress = $("#address").val();
+            var updatetel = $("#updatetel").val();
+            var updaimgFile = $("#upload_img")[0].src;
 
-                if (updatename.trim() == '') {
-                    //toasterextend.showtips('店铺名称不能为空', "info");
-					save(object,t);
-                    return ;
-                }
-                if (updatedadress.trim() == '') {
-                    //toasterextend.showtips('店铺地址不能为空', "info");
-                    save(object,t);
-					return ;
-                }
-				if (updatetel.trim() == '') {
-                    //toasterextend.showtips('电话不能为空', "info");
-                    save(object,t);
-					return ;
-                }
-				if (updatetel.trim() == '') {
-                    //toasterextend.showtips('电话不能为空', "info");
-                    save(object,t);
-					return ;
-                }
-				if (!common.verifyMobile(updatetel)) {
-                    toasterextend.showtips('电话格式不正确', "info");
-                    save(object,t);
-					return ;
-                }
-				formData.append("retailername", updatename);
-				formData.append("address", updatedadress);
-				formData.append("mobilephone", updatetel);
-				formData.append("guid", retailerid);
-				formData.append("picture_url", updaimgFile);
+            if (updatename.trim() == '') {
+                save(object, t);
+                return;
+            }
+            if (updatedadress.trim() == '') {
+                save(object, t);
+                return;
+            }
+            if (updatetel.trim() == '') {
+                save(object, t);
+                return;
+            }
+            if (!common.verifyMobile(updatetel)) {
+                toasterextend.showtips('电话格式不正确', "info");
+                save(object, t);
+                return;
+            }
+            formData.append("retailername", updatename);
+            formData.append("address", updatedadress);
+            formData.append("mobilephone", updatetel);
+            formData.append("guid", retailerid);
+            formData.append("picture_url", updaimgFile);
 
-                if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {
-					formData.append("antiaddress", antiaddress);
-					formData.append("districthash", districthash);
-					formData.append("province", province);
-					formData.append("city", city);
-					formData.append("district", district);
-					formData.append("longitude", xlongitude);
-					formData.append("latitude", xlatitude);
-                    useflag = false;
-                }
+            if (xlatitude != undefined && xlatitude != null && xlongitude != undefined && xlongitude != null && useflag) {
+                formData.append("antiaddress", antiaddress);
+                formData.append("districthash", districthash);
+                formData.append("province", province);
+                formData.append("city", city);
+                formData.append("district", district);
+                formData.append("longitude", xlongitude);
+                formData.append("latitude", xlatitude);
+                useflag = false;
+            }
             $.ajax({
-                type: 'post',
-				url: "/webapi/retailer/weixin/updateretailer",
-				dataType: 'json',
-				data: formData,
-				async: false,
-				cache: false,
-				contentType: false,
-				processData: false,
+                type: 'put',
+                url: "/webapi/retailer/weixin/updateretailer",
+                dataType: 'json',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
                 beforeSend: function () { common.loading.show(); },
                 complete: function () { useflag = false; common.loading.hide(); },
                 success: function (json) {
                     json = json || {};    /* 统一加这句话 */
-					if (json.error) {
+                    if (json.error) {
                         toasterextend.showtips(json.error, "error");
                         return;
                     }
@@ -642,12 +613,12 @@
                         toasterextend.showtips(json.user_notification, "info");
                         return;
                     }
-					var pictureimgfile =  document.getElementById("picture_url_file").files[0];
-					var msg_notification = "修改成功！";
-					if(pictureimgfile != undefined)
-						msg_notification += "图片正在更新中...";
-					    toasterextend.showtips(msg_notification, "info");
-                        setTimeout(function () { window.location.reload(); }, 2000);
+                    var pictureimgfile = document.getElementById("picture_url_file").files[0];
+                    var msg_notification = "修改成功！";
+                    if (pictureimgfile != undefined)
+                        msg_notification += "图片正在更新中...";
+                    toasterextend.showtips(msg_notification, "info");
+                    setTimeout(function () { window.location.reload(); }, 2000);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var errormsg = "访问异常";
@@ -655,23 +626,61 @@
                         var json = JSON.parse(XMLHttpRequest.responseText);
                         errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-						    $("#again2").show();
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                            $("#again2").show();
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
                     toasterextend.showtips(errormsg, "error");
                 }
             });
 
         }
-		// 验证手机型号
-		function yanzheng(){
-		  var ua = navigator.userAgent.toLowerCase();
-			 if (/iphone|ipad|ipod/.test(ua)) {
-					flag='ios';
-			 }else if (/android/.test(ua)) {
-					flag='android';
-			 }
-		}
+        // 验证手机类型
+        function dealphonetype() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (/iphone|ipad|ipod/.test(ua)) {
+                flag = 'ios';
+            } else if (/android/.test(ua)) {
+                flag = 'android';
+            }
+        }
+        function loactionshowmessage(type) {
+            $("#addressinformation").html("");
+            switch (type) {
+                case "ios":
+                    if ($("#tooltipId").css("display") == "none")
+                        $("#tooltipId").show();
+                    $("#addressmsgdiv img").attr("src", "/retailer/image/tan2.png").show();
+                    $("#setaddress").css("background", "#d2d2d2").unbind();
+                    $("#information").html("定位失败！请确保您的手机已开启定位服务并授权微信使用位置服务!");
+                    break;
+                case "android":
+                    if ($("#tooltipId").css("display") == "none")
+                        $("#tooltipId").show();
+                    $("#addressmsgdiv img").attr("src", "/retailer/image/tan2.png").show();
+                    $("#setaddress").css("background", "#d2d2d2").unbind();
+                    $("#information").html("定位失败！请确保您的手机已开启定位服务！");
+                    break;
+                case "start":
+                    $("#addressmsgdiv img").attr("src", "/retailer/image/loading.gif")
+                    $("#information").html("定位中，请稍后...");
+                    break;
+                case "succeed":
+                    $("#addressmsgdiv img").hide();
+                    $("#information").html("定位成功，正在获取详细信息...");
+                    break;
+                case "failure":
+                    if ($("#tooltipId").css("display") == "none")
+                        $("#tooltipId").show();
+                    $("#addressmsgdiv img").attr("src", "/retailer/image/tan2.png").show();
+                    $("#setaddress").css("background", "#d2d2d2").unbind();
+                    $("#information").html("未获取到详细地址，请检查网络。");
+                    break;
+                default:
+                    break;
+            }
+            $("#addressmsgdiv img").show();
+            $("#addressmsgdiv").show();
+        }
         //弹出垂直菜单
         $(".menu").click(function () {
             if ($(this).hasClass("cura")) {
@@ -709,11 +718,11 @@
             var h = $(window).height() > $(document.body).height() ? $(window).height() : $(document.body).height();
             $(".lazyout").height(h);
         }
-		 function getWin(obj, t) {
+        function getWin(obj, t) {
             var html = '<div id="win">'
               + '<div class="lazyout"></div>'
               + '<div class="weui_cells s-box" >'
-              +'<div style=" font-size:15px; line-height: 25px; padding:10px; text-align: left;">无店铺位置信息或店铺搬迁时，请到店，成功定位后，点击使用当前位置，系统将更新您的店铺位置，以便店铺附近惠粉看到您的店铺信息和活动。</div>'
+              + '<div style=" font-size:15px; line-height: 25px; padding:10px; text-align: left;">无店铺位置信息或店铺搬迁时，请到店，成功定位后，点击使用当前位置，系统将更新您的店铺位置，以便店铺附近惠粉看到您的店铺信息和活动。</div>'
 
               + '    <input type="button" class="btn-know2" sid="useCurrentAddr" value="我知道了" onclick="closeWin()" />'
               + '     </div></div></div>';
