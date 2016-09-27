@@ -281,9 +281,9 @@
                 <div class="weui_cell weui_bg_img">
                     <div class="weui_photo150x150"><img id="retailerimg" src="" alt="" /></div>
                     <div class="weui_cell_bd weui_cell_primary">
-                        <p id="retailername" class="Name16">美食永旺昌平店</p>
-                        <p id="retaileradres" class="Store14">北京朝阳区</p>
-                        <p id="retailertel" class="Store14">4005558886</p>
+                        <p id="retailername" class="Name16"></p>
+                        <p id="retaileradres" class="Store14"></p>
+                        <p id="retailertel" class="Store14"></p>
                         <p id="picture_url" class="Store14"></p>
                     </div>
                     <div class="weui_cell_ft"><a id="idInviteRetailerEmployee" href="invite_staff.html" class="Derwei"><img src="/retailer/image/ewm_new.png" style="width:70px;height:auto;" alt="" /></a></div>
@@ -523,6 +523,7 @@
                     }
                     $("#setaddress").css("background", "#2bc9be").bind("click", function () { setaddress() });
                     $("#information").html("当前位置：");
+                    $("#useCurrentAddr").val("不准，重新定位");
                     $("#addressinformation").html(antiaddress);
                     $("#addressmsgdiv img").hide();
                     $("#addressmsgdiv").show();

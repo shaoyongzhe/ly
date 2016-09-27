@@ -157,8 +157,10 @@
             margin-top: 20%;
         }
 
-        .demo_con {
-            width: 960px;
+        .demo_con {            
+            position:fixed;
+            right:20px;          
+            width: 100%;
             display:none;
         }
 
@@ -168,17 +170,14 @@
                 text-align: center;                
                 color: #2F938B;
                 text-shadow: 1px 1px 1px #333;
-                border-radius: 5px;
-                margin: 0 20px 20px 0;
+                border-radius: 5px;                
                 position: relative;
                 overflow: hidden;
                 font-size: 0.9rem;
-                outline: none;
-                position: absolute;
-                right: 0;
-                top: 20;
+                outline: none;                
                 font-family: "Microsoft YaHei" ! important;
                 margin-top: 0.625em;
+                float:right;
             }
 
         .button.red {
@@ -195,7 +194,7 @@
     <script type="text/javascript" src="/js/wx/share.js"></script>
     <script type="text/javascript" src="/retailer/js/lib/common.js"></script>
     <script>
-        $(function () {
+        $(function () {         
             if ($.isFunction(wxjsshare)) {
                 wxjsshare({});
             }
@@ -263,10 +262,11 @@
 </head>
 
 <body style="background:#e8f6f6;">
+    <div class="demo_con">
+        <button type="button" class="button red" onclick="wx.closeWindow();">跳过</button>
+    </div>
     <div class="container bg">
-        <div class="demo_con">
-            <button type="button" class="button red" onclick="wx.closeWindow();">跳过</button>
-        </div>
+        
         <p style="margin-top:12.9%"><img src="/retailer/image/1.png" style="width:39.8%;"></p>
         <p style="margin-top:13.5%"><img id="retailer_qrcode" style="width:50%; "></p>
 
