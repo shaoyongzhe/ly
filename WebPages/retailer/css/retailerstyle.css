@@ -226,6 +226,11 @@ ul, li, ol {
 .Store14 {
     font-size: 14px;
     color: #676767;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .cura {
