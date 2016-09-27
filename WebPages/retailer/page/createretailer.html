@@ -611,7 +611,6 @@
                     setCookie('username', "1", 1);                    
                     setTimeout(function () { window.location.href = "/retailer/page/index.html"; }, 2000);
 
-
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var errormsg = "访问异常";
@@ -623,7 +622,7 @@
                             errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
                     toasterextend.showtips(errormsg, "error");
-                    $("#sumbtVal").attr("disabled", "");
+                    $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
 
                 }
             });
