@@ -552,28 +552,22 @@
         }
         // 提交保存数据
         function saveData(object, t) {
-
+            $("#sumbtVal").css("background", "#d2d2d2").attr("disabled", true);
             var formData = new FormData($("#fm")[0]);
             var updatename = $("#updatename").val();
             var updatedadress = $("#address").val();
             var updatetel = $("#updatetel").val();
             var updaimgFile = $("#upload_img")[0].src;
-
-            if (updatename.trim() == '') {
+           
+            if (updatename.trim() == '' || updatedadress.trim() == '' || updatetel.trim() == '') {
                 save(object, t);
+                $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return;
-            }
-            if (updatedadress.trim() == '') {
-                save(object, t);
-                return;
-            }
-            if (updatetel.trim() == '') {
-                save(object, t);
-                return;
-            }
+            }         
             if (!common.verifyMobile(updatetel)) {
                 toasterextend.showtips('电话格式不正确', "info");
                 save(object, t);
+                $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return;
             }
             formData.append("retailername", updatename);
@@ -607,10 +601,12 @@
                     json = json || {};    /* 统一加这句话 */
                     if (json.error) {
                         toasterextend.showtips(json.error, "error");
+                        $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                         return;
                     }
                     if (json.user_notification != undefined) {
                         toasterextend.showtips(json.user_notification, "info");
+                        $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                         return;
                     }
                     var pictureimgfile = document.getElementById("picture_url_file").files[0];
@@ -630,6 +626,7 @@
                         errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
                     toasterextend.showtips(errormsg, "error");
+                    $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 }
             });
 

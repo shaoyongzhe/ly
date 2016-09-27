@@ -548,48 +548,20 @@
             if (afterimagefrom != undefined) {
                 formData = afterimagefrom;
             }
-            var pictureimgfile = document.getElementById("picture_url_file").files[0];            
-            if (pictureimgfile == undefined) {
-                $("#sumbtVal").attr("disabled", false);
-                $("#sumbtVal").css("background", "#2bc9be");
-                save(object, t);
-                return false;
-            }
-
+            var pictureimgfile = document.getElementById("picture_url_file").files[0];               
             var updatename = $("#updatename").val();
             var updatedadress = $("#address").val();
             var updatetel = $("#updatetel").val();
             var updaimgFile = $("#upload_img")[0].src;
-
-            if (updatename.trim() == '') {                
-                $("#sumbtVal").attr("disabled", false);
-                $("#sumbtVal").css("background", "#2bc9be");
+            
+            if (pictureimgfile == undefined || updatename.trim() == '' || updatedadress.trim() == '' || updatetel.trim() == '') {
                 save(object, t);
-
-                return false;
-            }
-            if (updatedadress.trim() == '') {                
-                save(object, t);
-                $("#sumbtVal").attr("disabled", false);
-                $("#sumbtVal").css("background", "#2bc9be");
-                return false;
-            }
-            if (updatetel.trim() == '') {                
-                save(object, t);
-                $("#sumbtVal").attr("disabled", false);
-                $("#sumbtVal").css("background", "#2bc9be");
-                return false;
-            }
-            if (updatetel.trim() == '') {                
-                save(object, t);
-                $("#sumbtVal").attr("disabled", false);
-                $("#sumbtVal").css("background", "#2bc9be");
-                return false;
+                $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
+                return;
             }
             if (!common.verifyMobile(updatetel)) {                
                 save(object, t);
-                $("#sumbtVal").attr("disabled", false);
-                $("#sumbtVal").css("background", "#2bc9be");
+                $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return false;
             }
             formData.append("retailername", updatename);
@@ -623,10 +595,12 @@
                     json = json || {};    /* 统一加这句话 */
                     if (json.error) {
                         toasterextend.showtips(json.error, "error");
+                        $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                         return;
                     }
                     if (json.user_notification != undefined) {
                         toasterextend.showtips(json.user_notification, "info");
+                        $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                         return;
                     }
                     var pictureimgfile = document.getElementById("picture_url_file").files[0];
@@ -634,8 +608,7 @@
                     if (pictureimgfile != undefined)
                         msg_notification += "图片正在更新中...";
                     toasterextend.showtips(msg_notification, "info");
-                    setCookie('username', "1", 1);
-                    $("#sumbtVal").attr("disabled", "");
+                    setCookie('username', "1", 1);                    
                     setTimeout(function () { window.location.href = "/retailer/page/index.html"; }, 2000);
 
 
