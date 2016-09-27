@@ -89,7 +89,7 @@
                             + '<img src="/retailer/image/ewm_new.png" style="width:70px;height:auto;" alt="" /></a> </div></div></div></div>';
                     if (data.distributor != undefined && data.distributor.length > 0) {
                         $("#page").html(html + getDistributorList(data.contribute, data.distributor));
-                        getPre(data.contribute.percentageretained_deciaml)
+                        getPre(data.contribute.activefanscount / data.contribute.fansinhistorycount * 100);
                     }
                     else {
                         $("#page").html(html + getList(data.retailer.membershipqualification, data.contribute.retailer));
@@ -209,13 +209,14 @@
         }
         //签约分销商
         function getDistributorList(contribute, distributors) {
+            var lostfanscount = getNumeric(contribute.fansinhistorycount - contribute.activefanscount);
             var html = ' <div class="retailer-box">'
             + '<p class="tab-font">我的惠粉</p>'
             + ' <div class="rmy-box">'
             + '    <ul>'
             + '        <li style="width:36%;"><div class="circle"><div class="pie_left"></div><div class="pie_right"></div></div></li>'
             + '        <li><div class="b-green"><div class="b-title"><span></span>惠粉</div><div class="b-cont">' + getNumeric(contribute.activefanscount) + '</div></div></li>'
-            + '        <li><div class="b-gray"><div class="b-title"><span></span>流失</div><div class="b-cont">' + getNumeric(contribute.lostfanscount) + '</div></div></li>'
+            + '        <li><div class="b-gray"><div class="b-title"><span></span>流失</div><div class="b-cont">' + lostfanscount + '</div></div></li>'
             + '    </ul>'
             + '    <div class="g-item"><div class="g-title">累计拉粉</div><div id="fanscount"><b>' + getNumeric(contribute.fansinhistorycount) + '</b></div></div>'
             + '    <div class="g-item" style="margin-left:2%"><div class="g-title">留存率</div><div id="fansremaincount"><b>' + contribute.percentageretained + '</b></div></div>'
