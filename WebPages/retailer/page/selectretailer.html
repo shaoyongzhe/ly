@@ -325,7 +325,8 @@
 			
 				toasterextend.showtips('加入成功', "success"); 
 				if (iscomplete == "true")
-				    wx.closeWindow();
+				    setTimeout(function () { wx.closeWindow(); }, 2000);
+				    
 				else
 				    setTimeout(function () { window.location.href = "/retailer/page/my_retailer_edit.html?retailer_id=" + id; }, 1000);
 			},
