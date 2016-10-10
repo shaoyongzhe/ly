@@ -15,8 +15,7 @@
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
-    <script type="text/javascript" src="/js/wx/location.js"></script>
-    <script src="/retailer/js/lrz.bundle.js"></script>
+    <script type="text/javascript" src="/js/wx/location.js"></script>    
     <script src="/retailer/js/lib/common.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <style>
@@ -377,8 +376,7 @@
     <script type="text/javascript">
         var flag = "android"; //  android ， iphone
         var successFlag = false;
-        var antiaddress, districthash, province, city, district, xlatitude, xlongitude, picture_url, useflag = false;       
-        var afterimagefrom;
+        var antiaddress, districthash, province, city, district, xlatitude, xlongitude, picture_url, useflag = false;               
        
         $(function () {
             $("#tooltipId").hide();            
@@ -390,21 +388,10 @@
             });
 
             document.querySelector('#picture_url_file').addEventListener('change', function () {
-                lrz(this.files[0], { width: 640, height: 340 })
-						.then(function (rst) {
-						    // 处理成功会执行
-						    $("#upload_img").attr("src", rst.base64);   //上传图片
-						    $("#upload_img").show();
-						    afterimagefrom = rst.formData;
-						    return rst;
-
-						})
-						.catch(function (err) {
-						    // 处理失败会执行
-						})
-						.always(function () {
-						    // 不管是成功失败，都会执行
-						});
+                if (this.files && this.files[0]) {
+                    $("#upload_img").attr("src", window.URL.createObjectURL(this.files[0]));
+                    $("#upload_img").show();
+                }
 
             });
 
@@ -543,9 +530,7 @@
             common.loading.show();
             $("#sumbtVal").css("background", "#d2d2d2").attr("disabled", true);
             var formData = new FormData($("#fm")[0]);
-            if (afterimagefrom != undefined) {
-                formData = afterimagefrom;
-            }
+          
             var pictureimgfile = document.getElementById("picture_url_file").files[0];               
             var updatename = $("#updatename").val();
             var updatedadress = $("#address").val();
