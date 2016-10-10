@@ -496,9 +496,7 @@
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: "/webapi/retailer/weixin/antiaddress?longitude=" + longitude + "&latitude=" + latitude,
-                beforeSend: function () { common.loading.show(); },
-                complete: function () { common.loading.hide(); },
+                url: "/webapi/retailer/weixin/antiaddress?longitude=" + longitude + "&latitude=" + latitude,              
                 success: function (json) {
                     common.loading.hide();//隐藏转圈动画
                     json = json || {};   /* 统一加这句话 */
