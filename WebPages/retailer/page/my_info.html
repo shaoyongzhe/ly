@@ -197,6 +197,7 @@
                             var count = parseInt(kuohaohou[0]) - 1;
                             count = count > 0 ? count : 0;
                             $("#emploeecount" + canshu[1]).text(kuohaoqian[0] + "（" + count + "）");
+                            setTimeout(function () { wx.closeWindow(); }, 2000);
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
