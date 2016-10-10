@@ -84,7 +84,7 @@
                             + '    <p class="Store14">' + getParamValue(data.retailer.mobilephone) + '</p>'
                             + ' </div>'
                             + '  <div class="weui_cell_ft">'
-                            + '      <a href="invite_staff.html?retailer_id=' + getParamValue(data.retailer.guid) + 'retailer_guid" class="Derwei">'
+                            + '      <a href="invite_staff.html?retailer_id=' + getParamValue(data.retailer.guid) + '" class="Derwei">'
                             + '<img src="/retailer/image/ewm_new.png" style="width:70px;height:auto;" alt="" /></a> </div></div></div></div>';
                     if (data.distributor != undefined && data.distributor.length > 0) {
                         $("#page").html(html + getDistributorList(data.contribute, data.distributor));
