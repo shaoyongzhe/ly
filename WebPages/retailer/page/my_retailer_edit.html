@@ -536,8 +536,9 @@
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                         var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;                     
-                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        errormsg = JSON.parse(json.Message).error;
+                        if(errormsg == "")
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
                     toasterextend.showtips(errormsg, "error");
                     if ($.trim(flag) == 'android') {
@@ -621,8 +622,10 @@
                         var json = JSON.parse(XMLHttpRequest.responseText);
                         errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
+                        {
                             $("#again2").show();
-                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        }                            
                     }
                     toasterextend.showtips(errormsg, "error");
                     $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
