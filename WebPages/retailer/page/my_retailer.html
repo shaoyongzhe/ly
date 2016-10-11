@@ -280,6 +280,7 @@
                         }
                         else {
                             toasterextend.showtips("解除成功", "info");
+                            setTimeout(function () { window.location.reload(); }, 2000);
                             $("#" + canshu[0] + canshu[2]).remove();
                             var emcount = $("#" + canshu[2] + "cnt").text();
                             var kuohaoqian = emcount.split("（");
