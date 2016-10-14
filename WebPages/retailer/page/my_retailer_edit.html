@@ -361,7 +361,7 @@
                             <label class="weui_label">电话：</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input id="updatetel" name="mobilephone" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话号码" />
+                            <input id="mobilephone" name="mobilephone" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话号码"   onKeyUp="dealmoblephone()"/>
                             <input type="hidden" id="retailerid" name="retailerid" type="text" />
                         </div>
                     </div>
@@ -409,6 +409,17 @@
                 }
             });
         });
+
+        function dealmoblephone() {
+            var value = $("#moblephone").val().trim();
+            var reg = /^[0-9]\d*$/;
+            if (!reg.test(value)) {
+                $("#moblephone").val("");
+                toasterextend.showtips("只能填写数字", "error");
+                return false;
+            }
+            return true;
+        }
         function setaddress() {
             
             $("#address").val($("#addressinformation").text());
@@ -461,7 +472,7 @@
 
                     if (typeof (retailer.mobilephone) !== 'undefined') {
                         $("#retailertel").html(retailer.mobilephone);
-                        $("#updatetel").val(retailer.mobilephone);
+                        $("#mobilephone").val(retailer.mobilephone);
                     }
 
                 },
@@ -562,15 +573,15 @@
             var formData = new FormData($("#fm")[0]);
             var updatename = $("#updatename").val();
             var updatedadress = $("#address").val();
-            var updatetel = $("#updatetel").val();
+            var mobilephone = $("#mobilephone").val();
             var updaimgFile = $("#upload_img")[0].src;
            
-            if (updatename.trim() == '' || updatedadress.trim() == '' || updatetel.trim() == '') {
+            if (updatename.trim() == '' || updatedadress.trim() == '' || mobilephone.trim() == '') {
                 save(object, t);
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return;
             }         
-            if (!common.verifyMobile(updatetel)) {
+            if (!common.verifyMobile(mobilephone)) {
                 toasterextend.showtips('电话格式不正确', "info");
                 save(object, t);
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
@@ -578,7 +589,7 @@
             }
             formData.append("retailername", updatename);
             formData.append("address", updatedadress);
-            formData.append("mobilephone", updatetel);
+            formData.append("mobilephone", mobilephone);
             formData.append("guid", retailerid);
             formData.append("picture_url", updaimgFile);
 
