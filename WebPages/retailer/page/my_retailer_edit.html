@@ -361,7 +361,7 @@
                             <label class="weui_label">电话：</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input id="mobilephone" name="mobilephone" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话号码"   onKeyUp="dealmoblephone()"/>
+                            <input id="mobilephone" name="mobilephone" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话号码"   onKeyUp="dealmobilephone()"/>
                             <input type="hidden" id="retailerid" name="retailerid" type="text" />
                         </div>
                     </div>
@@ -410,11 +410,12 @@
             });
         });
 
-        function dealmoblephone() {
-            var value = $("#moblephone").val().trim();
+        function dealmobilephone() {
+            var value = $.trim($("#mobilephone").val());
+            console.log(value);
             var reg = /^[0-9]\d*$/;
             if (!reg.test(value)) {
-                $("#moblephone").val("");
+                $("#mobilephone").val("");
                 toasterextend.showtips("只能填写数字", "error");
                 return false;
             }

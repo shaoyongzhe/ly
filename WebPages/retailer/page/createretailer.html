@@ -353,7 +353,7 @@
                             <label class="weui_label">电话：</label>
                         </div>
                         <div class="weui_cell_bd weui_cell_primary">
-                            <input id="updatetel" name="mobilephone" class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入电话号码" />
+                            <input id="mobilephone" name="mobilephone" class="weui_input" type="number" onKeyUp="dealmobilephone()" pattern="[0-9]*" placeholder="请输入电话号码" />
                             <input type="hidden" id="retailerid" name="retailerid" type="text" />
                         </div>
                     </div>
@@ -396,6 +396,17 @@
             });
 
         });
+        function dealmobilephone() {
+            var value = $.trim($("#mobilephone").val());
+            console.log(value);
+            var reg = /^[0-9]\d*$/;
+            if (!reg.test(value)) {
+                $("#mobilephone").val("");
+                toasterextend.showtips("只能填写数字", "error");
+                return false;
+            }
+            return true;
+        }
         function setaddress() {
             $("#address").val($("#addressinformation").text());
             useflag = true;
@@ -534,7 +545,7 @@
             var pictureimgfile = document.getElementById("picture_url_file").files[0];               
             var updatename = $("#updatename").val();
             var updatedadress = $("#address").val();
-            var updatetel = $("#updatetel").val();
+            var mobilephone = $("#mobilephone").val();
             var updaimgFile = $("#upload_img")[0].src;
             
             if (pictureimgfile == undefined || updatename.trim() == '' || updatedadress.trim() == '' || updatetel.trim() == '') {
@@ -542,14 +553,14 @@
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return;
             }
-            if (!common.verifyMobile(updatetel)) {                
+            if (!common.verifyMobile(mobilephone)) {                
                 save(object, t);
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return false;
             }
             formData.append("retailername", updatename);
             formData.append("address", updatedadress);
-            formData.append("mobilephone", updatetel);
+            formData.append("mobilephone", mobilephone);
             formData.append("guid", retailerid);
             formData.append("picture_url", updaimgFile);
 
