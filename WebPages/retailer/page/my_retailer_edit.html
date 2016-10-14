@@ -524,6 +524,7 @@
                         loactionshowmessage("failure");
                         return;
                     }
+                    useflag = true;
                     $("#setaddress").css("background", "#2bc9be").bind("click", function () { setaddress() });
                     $("#information").html("当前位置：");
                     $("#useCurrentAddr").val("不准，重新定位");
