@@ -492,6 +492,8 @@
                     return;
                 }
             }
+            //xlatitude, xlongitude
+
             loactionshowmessage("succeed");
             $.ajax({
                 type: 'GET',
@@ -515,6 +517,9 @@
                     province = json.province;
                     city = json.city;
                     district = json.district;
+                    xlongitude = json.longitude;
+                    xlatitude = json.latitude;
+
                     if (antiaddress == null || $.trim(antiaddress) == '') {
                         loactionshowmessage("failure");
                         return;
