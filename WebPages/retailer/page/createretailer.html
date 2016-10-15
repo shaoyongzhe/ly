@@ -359,7 +359,7 @@
                     </div>
                 </div>
                 <div class="weui_btn_area" id="button1">
-                    <input type="button" value="确 定" id="sumbtVal" onclick="javascript: saveData(this, 0);" class="weui_btn weui_btn_exit" style="height:36px;line-height:25px; padding-top:4px;font-size:16px;margin-bottom: 30px;" />
+                    <input type="button" value="确 定" id="sumbtVal" onclick="javascript: saveData();" class="weui_btn weui_btn_exit" style="height:36px;line-height:25px; padding-top:4px;font-size:16px;margin-bottom: 30px;" />
                     </br>
                 </div>
             </form>
@@ -508,6 +508,8 @@
                     province = json.province;
                     city = json.city;
                     district = json.district;
+                    xlongitude = longitude;
+                    xlatitude = latitude;
                     if (antiaddress == null || $.trim(antiaddress) == '') {
                         loactionshowmessage("failure");
                         return;
@@ -537,7 +539,7 @@
                 }
             });
         }
-        function saveData(object, t) {
+        function saveData() {
             common.loading.show();
             $("#sumbtVal").css("background", "#d2d2d2").attr("disabled", true);
             var formData = new FormData($("#fm")[0]);
@@ -548,13 +550,13 @@
             var mobilephone = $("#mobilephone").val();
             var updaimgFile = $("#upload_img")[0].src;
             
-            if (pictureimgfile == undefined || updatename.trim() == '' || updatedadress.trim() == '' || updatetel.trim() == '') {
-                save(object, t);
+            if (pictureimgfile == undefined || updatename.trim() == '' || updatedadress.trim() == '' || mobilephone.trim() == '') {
+                saveshowerrmsg();
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return;
             }
             if (!common.verifyMobile(mobilephone)) {                
-                save(object, t);
+                saveshowerrmsg();
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return false;
             }
@@ -579,8 +581,7 @@
                 type: 'post',
                 url: "/webapi/retailer/weixin/updateretailer",
                 dataType: 'json',
-                data: formData,
-                async: false,
+                data: formData,                
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -646,7 +647,7 @@
 
     </script>
     <script type="text/javascript">
-        function save(obj, t) {
+        function saveshowerrmsg() {
             var html = '<div id="win">'
               + '<div class="lazyout"></div>'
               + '<div class="weui_cells s-box" >'
