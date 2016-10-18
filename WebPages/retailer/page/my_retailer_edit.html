@@ -582,12 +582,14 @@
             if (updatename.trim() == '' || updatedadress.trim() == '' || mobilephone.trim() == '') {
                 saveshowerrmsg();
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
+                common.loading.hide();
                 return;
             }         
             if (!common.verifyMobile(mobilephone)) {
                 toasterextend.showtips('电话格式不正确', "info");
                 saveshowerrmsg();
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
+                common.loading.hide();
                 return;
             }
             formData.append("retailername", updatename);

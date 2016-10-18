@@ -552,11 +552,13 @@
             
             if (pictureimgfile == undefined || updatename.trim() == '' || updatedadress.trim() == '' || mobilephone.trim() == '') {
                 saveshowerrmsg();
+                common.loading.hide();
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return;
             }
             if (!common.verifyMobile(mobilephone)) {                
                 saveshowerrmsg();
+                common.loading.hide();
                 $("#sumbtVal").removeAttr("disabled").css("background", "#2bc9be");
                 return false;
             }
