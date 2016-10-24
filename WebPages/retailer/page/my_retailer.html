@@ -295,10 +295,12 @@
         }
         function getPre(pre) {
             if (pre <= 50) {
-                $(".pie_right").css("background", "#e8e7e6");
-                $(".pie_right").css("left", "-1px");
-            }
-            $(".pie_right").css("transform", "rotate(" + ((100 - pre) * 1.8) + "deg)");
+                $('.pie_right').css('transform', 'rotate(' + (pre * 3.6) + 'deg)');
+            } else {
+                $('.pie_right').css('transform', 'rotate(180deg)');
+                $('.pie_left').css('transform', 'rotate(' + ((pre - 50) * 3.6) + 'deg)');
+            }           
+          
         }
         //弹出垂直菜单
         $(".menu").click(function () {
