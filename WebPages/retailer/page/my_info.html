@@ -78,13 +78,18 @@
                      + '<li><div class="b-gray"><div class="b-title"><span></span>流失</div><div class="b-cont">' + lostactcount + '</div></div></li></ul>'
                      + '<div class="g-item"><div class="g-title">累计拉粉</div><div>' + fansinhistorycount + '</div></div>'
                      + '<div class="g-item" style="margin-left:2%"><div class="g-title">留存率</div><div>' + json.contribute.percentageretained + '</div></div>';
-                    if (json.contribute.distributorsharecount > 0) {
+                    if (json.contribute.distributorcount > 0) {
                         conHtml += '<div class="o-item"><b>' + getNumeric(json.contribute.distributorsharecount) + '</b><br />商家超惠分享</div>'
                                 + '<div class="o-item" style="margin-left:2%"><b>' + getNumeric(json.contribute.retailersharecount) + '</b><br />本店超惠分享</div>';
                     } else
                         conHtml += '<div class="o-item" style="width:100%;"><b>' + getNumeric(json.contribute.retailersharecount) + '</b><br />本店超惠分享</div>';
                     $("#contribute").html(conHtml);
-                    getPre((actfcount / fansinhistorycount * 100));
+                    if(fansinhistorycount){
+                         getPre((actfcount / fansinhistorycount * 100));
+                    }else{
+                         getPre(0);
+                    }
+                    // getPre((actfcount / fansinhistorycount * 100));
                     //店员
                     if (json.coworkers.length <= 1)
                         html = handelsinglecowork(json.coworkers);
@@ -217,11 +222,24 @@
         }
         function getPre(pre) {
             if (pre <= 50) {
-                $('.pie_right').css('transform', 'rotate(' + (pre * 3.6) + 'deg)');
-            } else {
-                $('.pie_right').css('transform', 'rotate(180deg)');
-                $('.pie_left').css('transform', 'rotate(' + ((pre - 50) * 3.6) + 'deg)');
-            }
+                $('.pie_left').css({
+                    transform:'rotate(' + 180 + 'deg)',
+                    background:'#4bcb81',  
+                });
+                $('.pie_right').css({
+                    transform:'rotate(' + (pre * 3.6) + 'deg)',
+                    background:'#e8e7e6',
+                });
+            }else{
+                 $('.pie_left').css({
+                    transform:'rotate(' + 180 + 'deg)',
+                    background:'#4bcb81',  
+                });
+                $('.pie_right').css({
+                    transform:'rotate(' + ((pre-50) * 3.6) + 'deg)',
+                    background:'#4bcb81',
+                });
+            }  
         }
         //弹出垂直菜单
         $(".menu").click(function () {
