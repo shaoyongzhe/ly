@@ -136,8 +136,16 @@
                 + ' <div class="tab-num-orange">'
                 + '      <div class="cir cir-left1"><label></label></div>';
                 if (myfan == membership.limitfanscount) {
+                    var pdMyfan=0;
+                    if(myfan>=0&&myfan<10){
+                        pdMyfan=9;
+                    }else if(myfan>=10&&myfan<100){
+                        pdMyfan=4.5;
+                    }else if(myfan>=100&&myfan<100){
+                        pdMyfan=0;
+                    }
                     html += '   <div class="cir cir-left2"><label></label></div>'
-                         + '    <div class="curr" style="left:' + pre + '%;margin-bottom: 2.5px;"><label>' + myfan + '</label><span class="fw13">我的惠粉</span></div>'
+                         + '    <div class="curr" style="left:' + pre + '%;margin-bottom: 2.5px;"><label  style="padding:0px '+pdMyfan+'px">' + myfan + '</label><span class="fw13">我的惠粉</span></div>'
                          + '    <div class="o-line" ></div></div>'
                          + '<div class="tab-num-blue">'
                          + '    <div class="cir cir-left2">' + membership.limitfanscount;
