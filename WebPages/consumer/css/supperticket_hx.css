@@ -47,7 +47,7 @@
         width: -moz-calc(100% - 95px);
         width: -webkit-calc(100% - 95px);
         height: auto;
-        float: right;
+        float: right;margin-bottom:10px;
     }
 
         .div-list .div-top .div-text span {

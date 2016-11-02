@@ -1,8 +1,6 @@
-﻿//$(document).ready(function () {
-//    $('body').on('click', '.rulecss', function () {
-
-//    });
-//})
+﻿$(document).ready(function () {
+    $("#activityrule").load("activityrule.html")
+})
 
 function actionsheetclick() {
     var mask = $('#mask');

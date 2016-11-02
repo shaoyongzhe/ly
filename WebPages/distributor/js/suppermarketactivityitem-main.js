@@ -14,7 +14,7 @@ function suppermarketactivityitem(container) {
                         '{@/if}',
     '</div>',
     '<div class="dpdetail-info">',
-        '<div class="hdname">${activitytitle}</div>',
+        '<div class="hdname" style="max-height: 100%;">${activitytitle}</div>',
         '<div class="hdtime1"><img src="../image/icon02.png" />${begintime}至${endtime}</div>',
     '</div>',
     '{@if changes.length >0}',

@@ -124,11 +124,24 @@ a {
 
 .hdname {
     max-height: 40px;
-    overflow: hidden;
-    line-height: 20px;
     font-size: 1.1em;
     margin: 5px 0;
 }
+
+    .hdname h3 {
+        width: 100%;
+         max-height: 40px; line-height:20px;
+        overflow: hidden;
+       text-overflow:ellipsis;
+        -o-text-overflow:ellipsis;
+       -ms-text-overflow:ellipsis; /* IE 9 */
+-moz-text-overflow:ellipsis; /* Firefox */
+-webkit-text-overflow:ellipsis; /* Safari and Chrome */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-size: 16px;
+    }
 
 .hdname-ch {
     max-height: 40px;
@@ -726,7 +739,7 @@ a {
             color: #fff;
         }
 
-/*ul.m-self-listbox {
+ul.m-self-listbox {
     width: 100%;
     overflow: hidden;
     background: #39616b;
@@ -750,7 +763,7 @@ a {
 
         ul.m-self-listbox li:last-child {
             border-right: 0;
-        }*/
+        }
 
 .title {
     width: 100%;

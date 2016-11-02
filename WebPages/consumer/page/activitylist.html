@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,7 +11,7 @@
     <link type="text/css" href="/consumer/css/style1.css" rel="stylesheet" />
     <link href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
-    
+    <link href="/consumer/css/menustyle.css" rel="stylesheet" />
     <style>
         .storeintro-left {
             padding-right: 46px;
@@ -34,22 +34,28 @@
     <div class="active-w ajaxdata" id="list">
 
     </div>
-<footer>
+    <!--<footer>
         <div class="space2"></div>
         <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
         <div class="bottomnav">
             <div class="logo"><a data-original="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
-            <a data-original="/consumer/page/retailerlist.html" >
+            <a data-original="/consumer/page/retailerlist.html">
                 <div class="nav"><img src="/consumer/image/icon02.png" /><br />附近门店</div>
             </a>
-            <a data-original="/consumer/page/activitylist.html" >
+            <a data-original="/consumer/page/activitylist.html">
                 <div class="nav" style="background:#ff6600;"><img src="/consumer/image/icon03.png" /><br />附近超惠</div>
             </a>
             <a data-original="/consumer/page/supercouponslist.html">
-                <div class="nav" style="border-right:none"><img src="/consumer/image/icon11.png"  style="margin:10px 0px 4px 0; " /><br />超惠券</div>
+                <div class="nav" style="border-right:none"><img src="/consumer/image/icon11.png" style="margin:10px 0px 4px 0; " /><br />超惠券</div>
             </a>
         </div>
+    </footer>-->
+    <footer>
+        <div class="space2"></div>
+        <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
+        <div id="bottom-nav"></div>
     </footer>
+
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
 	<script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
@@ -62,12 +68,12 @@
     <script type="text/javascript" src="/js/wx/location.js"></script>
 
 
-    
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode.js"></script>
+    <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script>
         var consumer_id = getUrlParam("consumer_id");
 
@@ -172,7 +178,7 @@
 
                         content += '<div class="storeintro"><div class="storeintro-left">' + obj.retailername + '(' + obj.address + ')<span>' + obj.distance_text + '</span></div>'
                            + '<div class="storeintro-right"><div class="morestore">'
-                           + '<div class="img"><img class="lazy" data-original="/consumer/image/icon07.png" /></div><div class="storenum">' + obj.retailer_count + '</div></div></div></div></div></a>';
+                           + '<div class="img"><img class="lazy" data-original="/consumer/image/icon07.png" /></div><div class="storenum">' + (obj.retailer_count > 99 ? '99+' : obj.retailer_count) + '</div></div></div></div></div></a>';
                     }
                     $("#list").html(content);
 					$("img.lazy").lazyload();

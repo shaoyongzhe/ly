@@ -499,7 +499,7 @@
     background-image: url(/consumer/image/shakegame/rule_title.png),url(/consumer/image/shakegame/arrows.png);
     background-repeat: no-repeat, no-repeat;
     background-position: 10px center,calc(100% - 10px) center;
-    background-size: 50% auto,auto 20px;
+    background-size: 58% auto,auto 20px;
     position: relative;
     padding-right: 30px;
     box-sizing: border-box;

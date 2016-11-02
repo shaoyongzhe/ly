@@ -13,7 +13,7 @@ var vm = avalon.define({
             //data: { activitykind: "distributor_to_consumer", activitytype: "ticket" },
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
-            url: '/webapi/distributor/getverifydetail/',
+            url: '/webapi/distributor/weixin/verify/history/',
             success: function (json) {
                 common.loading.hide();//隐藏转圈动画
 

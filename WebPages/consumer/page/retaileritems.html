@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -12,6 +12,7 @@
     <link type="text/css" href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
     <link href="/consumer/css/suppercouponitems.css" rel="stylesheet" />
+    <link href="/consumer/css/menustyle.css" rel="stylesheet" />
     <script type="text/javascript">
         document.writeln("<script type=\"text\/javascript\"");
         document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">");
@@ -166,7 +167,7 @@
                             </div>
                             <div class="zproname">{{el.giftname}}</div>
                         </div>
-                        <div class="giftinfo" ms-if="el.activitykind=='降价'">
+                        <div class="giftinfo" ms-if="el.activitykind=='降价'||el.activitykind=='临期特卖'||el.activitykind=='临期'">
                             <div class="nowprice">
                                 ￥
                                 <span>{{el.discountprice}}</span>
@@ -322,7 +323,7 @@
             </p>
         </div>
     </div>
-    <footer>
+    <!--<footer>
         <div class="space2"></div>
         <div class="share">
             推荐给朋友
@@ -353,47 +354,15 @@
                 </div>
             </a>
         </div>
+    </footer>-->
+
+    <footer>
+        <div class="space2"></div>
+        <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
+        <div id="bottom-nav"></div>
     </footer>
-
-
-    <div id="actionSheet_wrap" hidden style="position: fixed; width: 100%; height: 100%; z-index: 9000; top:0; left:0; bottom:0; right:0">
-        <div style="display: none;z-index:9100;" class="weui_mask_transition" id="mask"></div>
-
-        <div class="weui_actionsheet" id="weui_actionsheet" style="z-index:9999;">
-            <div id="actionsheet_cancel"><img src="/consumer/image/shakegame/close.png" /></div>
-            <div class="article" style="background:#fff;overflow:auto">
-                <div class="bd">
-                    <article class="weui_article">
-                        <h1><b>手气红包 + 分享抽大奖 双重优惠 活动规则</b></h1>
-                        <section>
-                            <section>
-                                <h3><b style="color:red">优惠1：</b></h3>
-                                <p>
-                                    1、使用本券后，您将立即获得1个手气红包，领取后，手气红包将会进入您微信“我-钱包-零钱”里。<br />
-                                    2、红包数量有限，先到先得。<br />
-                                    3、微信红包的有限期为24小时，  请在24小时之内领取，否则红包将自动退回。<br />
-                                </p>
-                            </section>
-                            <section>
-                                <h3><b style="color:red">优惠2：</b></h3>
-                                <p>
-                                    1、使用本券后，按照界面“分享抽大奖”的指示操作，完成分享给好友或至朋友圈，  可立即获得3次<font style="font-size:15px;color:red">“抽大奖”</font>的机会，退出页面视为放弃，无法保留抽奖机会。<br />
-                                    2、奖品形式包括但不限于红包，优惠券等，以实际为准。
-                                </p>
-                            </section>
-                            <section>
-                                <h3><b style="color:red">注意事项：</b></h3>
-                                <p>
-                                    1、每天每个用户可以参与的活动次数由本次活动的超惠券决定，以超惠券每日可用数量为准。
-                                </p>
-                            </section>
-                        </section>
-                        <h1 style="text-align:center;color:#999"><b>本次活动最终解释权归超惠买所有</b></h1>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="activityrule"></div>
+    <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script src="/consumer/js/ticket_common.js"></script>
     <script src="/consumer/js/retaileritems.js"></script>
 </body>

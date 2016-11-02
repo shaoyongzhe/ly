@@ -1,5 +1,6 @@
 ﻿
 avalon.ready(function () {
+    qrcode.href();
     $('.tip-w').click(function () {
         $(".share_hb").show()
         $('.tip-w').fadeOut(200);
@@ -249,21 +250,19 @@ var vm = avalon.define({
                             vm.distributor_id = result.distributor_id
                             vm.retailer_id = result.retailer_id
 
-                            if (result.total_amount != undefined && result.total_amount != null && result.total_amount != "") {
-                                if (parseInt(result.total_amount) > 0) {
-                                    vm.sendRedPack(result.total_amount)
-                                }
-                            }
+                           
                             if (result.share != undefined && result.share != null && result.share != "") {
                                 if ($.isFunction(wxjsshare)) {
                                     $(".share_hb").show()
                                     wxjsshare(vm.jsondata.share);
                                 }
 
-                                if (result.redpackinfo != undefined && result.redpackinfo != null && result.redpackinfo != "") {
-                                    $("#sharetitle").show()
-                                    $("#sharetitle").html(result.redpackinfo)
-                                }
+                                //if (result.redpackinfo != undefined && result.redpackinfo != null && result.redpackinfo != "") {
+                                //    $("#sharetitle").show()
+                                //    $("#sharetitle").html(result.redpackinfo)
+                                //}
+
+                                location.href = "/consumer/page/shakegame.html?distributor_id=" + vm.distributor_id + "&retailer_id=" + vm.retailer_id + "&activity_item_guid=" + vm.activity_item_guid + "&activity_id=" + vm.jsondata.activity_id + "&shakekey=" + result.shakekey
                             }
 
                         }
@@ -375,27 +374,25 @@ var vm = avalon.define({
         //    vm.zengpin = parseInt(nums) * el.giftcount
         //}
 
-    },
-    sendRedPack: function (total_amount) {
-        $.ajax({
-            type: 'post',
-            dataType: 'json',
-            data: {
-                distributor_id: vm.distributor_id,
-                retailer_id: vm.retailer_id,
-                activity_item_guid: vm.activity_item_guid,
-                activity_id: vm.jsondata.activity_id,
-                total_amount: total_amount
-            },
-            url: '/webapi/consumer/weixin/sendredpack',
-            success: function (result) {
-
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-            }
-        });
     }
+    //sendRedPack: function (total_amount) {
+    //    $.ajax({WW
+    //        type: 'post',
+    //        dataType: 'json',
+    //        data: {
+    //            distributor_id: vm.distributor_id,
+    //            retailer_id: vm.retailer_id,
+    //            activity_item_guid: vm.activity_item_guid,
+    //            activity_id: vm.jsondata.activity_id,
+    //            total_amount: total_amount
+    //        },
+    //        url: '/webapi/consumer/weixin/sendredpack',
+    //        success: function (result) {
+    //        },
+    //        error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //        }
+    //    });
+    //}
 })
 
 var page2 = avalon.define({
@@ -503,6 +500,6 @@ var Msg = avalon.define({
 
 
 ///分享成功跳转到摇一摇
-function sharesuccess() {
-    location.href = "/consumer/page/shakegame.html?distributor_id=" + vm.distributor_id + "&retailer_id=" + vm.retailer_id + "&activity_item_guid=" + vm.activity_item_guid + "&activity_id=" + vm.jsondata.activity_id
-}
+//function sharesuccess() {
+//    location.href = "/consumer/page/shakegame.html?distributor_id=" + vm.distributor_id + "&retailer_id=" + vm.retailer_id + "&activity_item_guid=" + vm.activity_item_guid + "&activity_id=" + vm.jsondata.activity_id
+//}

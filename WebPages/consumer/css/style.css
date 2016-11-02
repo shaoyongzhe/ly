@@ -488,19 +488,19 @@ a img{
     height:100%;
 }
 .morestore .storenum{
-    position:absolute;
-    top:-2px;
-    right:-5px; 
-    z-index:99;
-    width:16px;
-    height:16px;
-    overflow:hidden;
-    line-height:16px;
-    color:#fff;
-    font-size:0.7em; 
-    text-align:center;
-    background:#ff6600;
-    border-radius:50%; 
+    position: absolute;
+top: -5px;
+right: -5px;
+z-index: 99;
+width: 20px;
+height: 20px;
+overflow: hidden;
+line-height: 20px;
+color: #fff;
+font-size: 0.6em;
+text-align: center;
+background: #ff6600;
+border-radius: 50%;
 }
 .prolist{
     width:100%;

@@ -1,4 +1,8 @@
-﻿.pic-list li {
+﻿.ms-controller {
+    visibility: hidden;
+}
+
+.pic-list li {
     background: #fff;
     margin-bottom: 10px;
 }

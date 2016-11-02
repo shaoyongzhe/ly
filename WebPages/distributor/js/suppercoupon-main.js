@@ -26,7 +26,7 @@ function suppermarketactivitylist(container) {
                         '{@/if}',
                     '</div>',
                     '<div class="text">',
-                        '<div class="hdname" style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;width: 98%;" >${item.activitytitle}</div>',
+                        '<div class="hdname" style="width: 98%;" ><h3>${item.activitytitle}</h3></div>',
                         '<div class="hdnum">${item.serialnumber}<span><img style="display: inline;" class="lazy" src="/distributor/image/icon03.png" />${item.fanscount}</span></div>',
                         '<div class="hdtime2">${item.activitycode}</div>',
                         '<div class="hdtime2">${item.begintime}&nbsp;至&nbsp;${item.endtime}</div>',

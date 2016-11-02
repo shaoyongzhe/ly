@@ -28,8 +28,8 @@
             <!-- 已中奖 -->
             <div class="red-yzj" ms-if="vm.shakeStatus==1">
                 <div class="red-tc-k">
-                    <p>恭喜你获得现金红包大奖</p>
-                    请返回到微信公众号查看
+                    <p>￥<span>{{winMoney}}</span>元</p>
+                    恭喜你获得<br>现金红包大奖
                 </div>
                 <div class="red-tc-btn" ms-click="againClick">
                     <button>我知道了</button>
@@ -69,6 +69,7 @@
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
+    <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script src="/consumer/js/shakegame.js"></script>
 </body>
 </html>

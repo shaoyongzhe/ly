@@ -498,6 +498,7 @@ li {
 
 
 .pin-spinner {
+    display: none;
     width: 34px;
     height: 34px;
     position: fixed;

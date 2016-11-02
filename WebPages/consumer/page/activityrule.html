@@ -1,40 +1,32 @@
-﻿<!DOCTYPE html>
+﻿<div id="actionSheet_wrap" hidden style="position: fixed; width: 100%; height: 100%; z-index: 9000; top:0; left:0; bottom:0; right:0">
+    <div style="display: none;z-index:9100;" class="weui_mask_transition" id="mask"></div>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>活动规则</title>
-    <link href="https://res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="container" id="container">
-        <div class="article">
-            <div class="hd">
-                <h1 class="page_title">Article</h1>
-            </div>
+    <div class="weui_actionsheet" id="weui_actionsheet" style="z-index:9999;">
+        <div id="actionsheet_cancel"><img src="/consumer/image/shakegame/close.png" /></div>
+        <div class="article" style="background:#fff;overflow:auto">
             <div class="bd">
                 <article class="weui_article">
-                    <!--<h1></h1>-->
+                    <h1><b>活动规则有惊喜！速速来看！</b></h1>
                     <section>
-                        <h2 class="title">返现金券+分享得红包 双重优惠 活动规则</h2>
                         <section>
-                            <h3>优惠1：</h3>
+                            <h3><b style="color:red">惊喜：</b></h3>
                             <p>
-                                1、使用本券后，您将立即获得1张X元现金券，现金券将自动放入您的券包。
-                                2、现金券兑现方法：在现金券有效期内再次使用XX超惠劵，即可兑现，详见现金券说明。
+                                1.关注超惠买，到指定会员门店购买任意指定系列内商品足额，且使用超惠买中“您消费我买单”相应超惠券，即可获得摇奖机会哦！<br />
+                                2.惠粉消费后使用超惠券可摇红包，红包金额0.3-10元不等！<br />
+                                3.各地活动有所不同，其它参加活动条件或辅助线下活动以各地活动海报为准。<br />
+
                             </p>
                         </section>
                         <section>
-                            <h3>优惠2：</h3>
+                            <h3><b style="color:red">注意事项：</b></h3>
                             <p>
-                                1、使用本券后，按照界面“分享得红包”的指示操作，完成分享给好友或至朋友圈，可立即获得1个X元的红包。
-                                2、红包数量有限，先到先得
+                                1、摇奖后所得红包将会进入超惠买公众号“我的-钱包“您可以查看或提现。
                             </p>
                         </section>
                     </section>
+                    <h1 style="text-align:center;color:#999"><b>本次活动最终解释权归超惠买所有</b></h1>
                 </article>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
