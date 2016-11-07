@@ -1,6 +1,6 @@
 ﻿
 avalon.ready(function () {
-    qrcode.href();
+
     $('.tip-w').click(function () {
         $(".share_hb").show()
         $('.tip-w').fadeOut(200);
@@ -16,6 +16,10 @@ avalon.ready(function () {
         });
         // vm.getInfo();
     }
+
+    setTimeout(function () {
+        qrcode.href();
+    }, 1000)
 })
 var Interval = null;
 var times = 0;
@@ -28,7 +32,7 @@ var vm = avalon.define({
     pageStep: 0,//控制页面展示
     activity_item_guid: common.getUrlParam("activity_item_guid"),
     // verifylimit: 10,//最大可核销数量
-    verifylimit: common.getUrlParam("verifylimit"),
+    verifylimit: 0,
     yhxNum: 0,//成功核销数量
     whxNum: 0,//失败核销数量
     hxstate: "",
@@ -53,7 +57,7 @@ var vm = avalon.define({
         }
     },
     getInfo: function (latitude, longitude) {
-        var ajaxdata = { verifylimit: vm.verifylimit, activity_item_guid: vm.activity_item_guid, consumer_id: "" };
+        var ajaxdata = { activity_item_guid: vm.activity_item_guid, consumer_id: "" };
         if (wxjsconfig.sharekey != null)
             ajaxdata[wxjsconfig.sharekey] = "_";
 
@@ -86,14 +90,19 @@ var vm = avalon.define({
                 }
                 vm.isShow = true
                 vm.jsondata = jsondata
-                // vm.verifylimit = vm.jsondata.verifylimit
+
+                vm.verifylimit = vm.jsondata.verifylimit
                 vm.pageStep = 1;
-                if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
+                if (vm.verifylimit <= 0) {
+                    vm.hxNum = 0;
+                    vm.pageStep = 0;
+                    var msg = vm.jsondata.state == 1 ? '太火爆了，该券已被抢光，下次要趁早！' : vm.jsondata.state == 2 ? "您今天已使用该券，明天再来吧！" : "该券您已用尽，看看其它券吧！";
+                    toasterextend.showtips(msg, "error");
+                    return;
+                } else if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
                     vm.span_tishi = "该券仅剩一张可供您使用,已为您生成二维码"
                     vm.btnClick();
                 }
-
-                qrcode.href();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 common.loading.hide();//隐藏转圈动画
@@ -250,7 +259,7 @@ var vm = avalon.define({
                             vm.distributor_id = result.distributor_id
                             vm.retailer_id = result.retailer_id
 
-                           
+
                             if (result.share != undefined && result.share != null && result.share != "") {
                                 if ($.isFunction(wxjsshare)) {
                                     $(".share_hb").show()
@@ -286,15 +295,18 @@ var vm = avalon.define({
                         vm.whxNum = vm.hxNum - vm.yhxNum//失败核销数量
 
                         // vm.favorable(vm.jsondata, vm.yhxNum)
-                        var errmsg = result.message
-                        if (errmsg.indexOf("门店") >= 0) {
-                            Msg.show(2, "很抱歉，没有成功使用的超惠券")
-                            //  page2.showUsage(3)
-                            vm.tagType = 1;
-                        } else {
-                            Msg.show(2, result.message)
-                            vm.tagType = 0;
-                        }
+                        // var errmsg = result.message
+                        //if (errmsg.indexOf("门店") >= 0) {
+                        //    Msg.show(2, "很抱歉，没有成功使用的超惠券")
+                        //    //  page2.showUsage(3)
+                        //    vm.tagType = 1;
+                        //} else {
+                        //    Msg.show(2, result.message)
+                        //    vm.tagType = 0;
+                        //}
+                        var msg = result.message.split('|');
+                        Msg.show(2, msg[0], msg.length == 1 ? '' : msg[1])
+                        vm.tagType = result.tagtype;
 
                         page2.showUsage(2)
                     } else {
@@ -333,7 +345,7 @@ var vm = avalon.define({
     },
     txtChange: function () {
         var value = $("#txt_hx").val().trim();
-        var reg = /^[1-9]\d*$/;
+        var reg = /^[0-9]\d*$/;
         if (value == "") {
             //$("#txt_hx").val("1")
             //vm.hxNum = 1

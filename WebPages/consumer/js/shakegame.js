@@ -8,58 +8,9 @@ avalon.ready(function () {
         return
     }
     init()
-    //if (window.DeviceMotionEvent) {
-    //    var speed = 15;
-    //    //var audio = document.getElementById("shakemusic");
-    //    //var openAudio = document.getElementById("openmusic");
-    //    var x = t = z = lastX = lastY = lastZ = 0;
-    //    window.addEventListener('devicemotion',
-    //		function () {
-
-    //		    // if (!vm.IsShake) {
-    //		    var acceleration = event.accelerationIncludingGravity;
-    //		    x = acceleration.x;
-    //		    y = acceleration.y;
-    //		    if (Math.abs(x - lastX) > speed || Math.abs(y - lastY) > speed) {
-    //		        alert(flag)
-    //		        if (flag == 0) {
-    //		            return
-    //		        } else {
-    //		            flag = 0
-    //		            //vm.IsPause = true;
-    //		            //vm.IsShake = true
-    //		            audio.play();
-    //		            $('.red-ss').addClass('wobble')
-    //		            var tt = document.querySelector('.red-ss');
-    //		            var i = 0;
-    //		            tt.addEventListener("webkitAnimationEnd", function () { //动画结束时事件 
-    //		                alert(i + "动画结束" + flag)
-    //		                if (i == 0) {
-    //		                    $('.red-ss').removeClass('wobble')
-    //		                    if (vm.shakeNum > 0) {
-    //		                        vm.startShake()
-    //		                    } else {//没有抽奖次数
-    //		                        vm.shakeStatus = 3;
-    //		                        audio.pause();
-    //		                        $('.red-tc').css('display', 'block');
-    //		                    }
-    //		                }
-    //		                i++;
-
-    //		            }, false);
-    //		            //Pause(this, 1500);// 调用暂停函数 
-    //		            //this.NextStep = function () {
-
-    //		            //}
-    //		        }
-    //		    };
-    //		    lastX = x;
-    //		    lastY = y;
-    //		    // }
-    //		}, false);
-
-    //};
-    // vm.startShake();
+    $(".red-ss-bg").click(function () {
+        shakeAfter()
+    });
 })
 var vm = avalon.define({
     $id: "shakegame",
@@ -75,21 +26,6 @@ var vm = avalon.define({
     activity_id: common.getUrlParam("activity_id"),
     shakekey: common.getUrlParam("shakekey"),
     startShake: function () {//开始摇一摇
-
-        //var num = getRandom(3)
-        //if (num == 1 && !vm.IsWin) {//中奖
-        //    vm.IsWin = true;
-        //    vm.sendRedPack()
-        //} else {
-        //    openAudio.play();//播放音乐
-        //    vm.shakeStatus = 2;
-        //    vm.shakeNum--;
-        //    $('.red-ss').removeClass('wobble')
-        //    $('.red-tc').css('display', 'block');
-        //}
-        //vm.shakeStatus = 2;
-        //vm.shakeNum--;
-        //$('.red-tc').css('display', 'block');
         vm.shakeNum--;
         $.ajax({
             type: 'post',
@@ -126,38 +62,6 @@ var vm = avalon.define({
         vm.IsShake = false
         flag = 1;
         $('.red-tc').css('display', 'none');
-    },
-    sendRedPack: function () {
-        //vm.winMoney = getRandom(2)
-        //if (vm.winMoney <= 0) {//不中奖
-        //    vm.shakeStatus = 2;
-        //    vm.shakeNum--;
-        //    $('.red-tc').css('display', 'block');
-        //    return
-        //}
-        //$.ajax({
-        //    type: 'GET',
-        //    dataType: 'json',
-        //    data: {
-        //        distributor_id: vm.distributor_id,
-        //        retailer_id: vm.retailer_id,
-        //        activity_item_guid: vm.activity_item_guid,
-        //        activity_id: vm.activity_id,
-        //        total_amount: vm.winMoney * 100
-        //    },
-        //    url: '/webapi/consumer/weixin/sendredpack',
-        //    success: function (result) {
-        //        openAudio.play();//播放音乐
-        //        vm.shakeStatus = 1;
-        //        vm.shakeNum--;
-        //        $('.red-tc').css('display', 'block');
-        //    },
-        //    error: function (XMLHttpRequest, textStatus, errorThrown) {
-        //        vm.shakeStatus = 2;
-        //        vm.shakeNum--;
-        //        $('.red-tc').css('display', 'block');
-        //    }
-        //});
     }
 })
 
@@ -222,37 +126,35 @@ function deviceMotionHandler(eventData) {
         var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
 
         if (speed > SHAKE_THRESHOLD) {
-            //alert(!vm.IsShake)
-            if (!vm.IsShake) {
-                vm.IsShake = true
-                audio.play();
-                $('.red-ss').addClass('wobble')
-
-                //var tt = document.querySelector('.red-ss');
-                //tt.addEventListener("webkitAnimationEnd", function () { //动画结束时事件 
-                //}, false);
-                $('.red-ss').removeClass('wobble')
-                if (vm.shakeNum > 0) {
-                    //  vm.shakeNum++
-                    if (!vm.IsWin) {
-                        vm.startShake()
-                    } else {
-                        vm.shakeNum--
-                        vm.shakeStatus = 2;
-                        audio.pause();
-                        $('.red-tc').css('display', 'block');
-                    }
-                } else {//没有抽奖次数
-                    vm.shakeStatus = 3;
-                    audio.pause();
-                    $('.red-tc').css('display', 'block');
-                }
-            } else {
-                //alert("已摇动")
-            }
+            shakeAfter()
         }
         last_x = x;
         last_y = y;
         last_z = z;
+    }
+}
+
+
+function shakeAfter() {
+    if (!vm.IsShake) {
+        vm.IsShake = true
+        audio.play();
+        $('.red-ss').addClass('wobble')
+
+       // $('.red-ss').removeClass('wobble')
+        if (vm.shakeNum > 0) {
+            if (!vm.IsWin) {
+                vm.startShake()
+            } else {
+                vm.shakeNum--
+                vm.shakeStatus = 2;
+                audio.pause();
+                $('.red-tc').css('display', 'block');
+            }
+        } else {//没有抽奖次数
+            vm.shakeStatus = 3;
+            audio.pause();
+            $('.red-tc').css('display', 'block');
+        }
     }
 }

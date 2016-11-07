@@ -379,7 +379,7 @@
                                 <small>今日可用{{vm.verifylimit}}张</small>
                                 <ul class="jiajian">
                                     <li style="width:40px;border-right:solid 1px #ff6600;">
-                                        <input type="button" class="btn_jia" ms-attr-id="{{vm.hxNum==1?'subtractions_gray':'subtractions'}}" ms-click="vm.subtractions" />
+                                        <input type="button" class="btn_jia" ms-attr-id="{{vm.hxNum<=1?'subtractions_gray':'subtractions'}}" ms-click="vm.subtractions" />
                                     </li>
                                     <li class="shuzi">
                                         <input value="1" type="text" id="txt_hx" ms-keyup="txtChange" />

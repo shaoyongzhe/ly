@@ -88,19 +88,8 @@ var vm = avalon.define({
     },
     useticket: function (el) {// 码上用
         if (vm.jsondata.verifylimit > 0) {//可用状态，跳转到码上用核销界面
-            // location.href = "/consumer/page/superticket_hx.html?activity_item_guid=" + vm.jsondata.guid + "&verifylimit=" + vm.jsondata.verifylimit;
-            //var search = window.location.search;
-            //var isshare = common.getUrlParam(wxjsconfig.sharekey);
-            //var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + vm.jsondata.guid + "&verifylimit=" + vm.jsondata.verifylimit;
-            //if (isshare != null && isshare != '' && search.length > 0) {
-            //    var qrcode_url = "http://open.weixin.qq.com/qr/code/?username=" + common.getUrlParam("originalid");
-            //    var shareRegisterPage = "/consumer/page/shareqrcode.html?" + encodeURIComponent(qrcode_url);
-            //    var url = wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))
-            //    location.href = url;
-            //} else {
-            //    location.href = originalurl;
-            //}
-            var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + vm.jsondata.guid + "&verifylimit=" + vm.jsondata.verifylimit;
+            
+            var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + vm.jsondata.guid;
 
             var search = window.location.search;
             var isshare = common.getUrlParam(wxjsconfig.sharekey);
