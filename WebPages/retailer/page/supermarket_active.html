@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/retailer/css/style.css" />
     <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
     <link rel="stylesheet" href="/retailer/css/weixintips.css" />
-
+    <link href="../css/dropload.css" rel="stylesheet" />
     <style>
         .txtNew {
             overflow: hidden;
@@ -75,7 +75,7 @@
         }
     </style>
     <div id="bd" style="margin-bottom: 82px !important;">
-        <div class="pic-list">
+        <div class="pic-list" id="dropload">
             <ul id="list"></ul>
         </div>
         <div class="sharestyle " style="font-size:16px;">
@@ -103,6 +103,7 @@
     <script type="text/javascript">var share_category = "retailer";</script>
     <script src="/retailer/js/lib/common.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
+    <script src="/js/jquery/dropload.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.sharestyle').click(function (event) {
@@ -112,32 +113,35 @@
                 /* Act on the event */
                 $(this).fadeOut(200);
             });
+            initData(null);
+        });
 
+        var pageIndex = 1;
+        var isInit = true;
+        function initData(dropme) {
             var tem =
-                "<a href='supermaket_detail.html?activityid=activity_id'>	" +
-                "  <li style='margin-bottom:5px !important'>	" +
-                "    <div class='con'>	" +
-                "      <div class='pic'>	" +
-                "        <img style='height:80%' class='lazy' data-original='posterpic' alt='' />	" +
-                "        <span style='spanbackground'>time_to_end_text</span></div>	" +
-                "      <div class='txtNew' style='text-align:left;vertical-align:bottom;'>	" +
-                "       <div style='overflow:hidden;max-height: 45px;width: 100%;'>   " +
-                "         <h3 class='h3Style'>activitytitle</h3>	" +
-                "       </div>  " +
-                "       <div style='line-height: 2em;position: relative;bottom: -6px;'>  " +
-                "           <div class='userNew'>fansinhistorycount</div>	" +
-                "           <div class='timeNew'>begintimeandendtime</div></div>	" +
-                "       </div>  " +
-                "    </div>	" +
-                "    <div class='li-down'>	" +
-                "      <span>商</span>	" +
-                "      <p style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;'>distributorname</p></div>	" +
-                "  </li>	" +
-                "</a>	";
-
-            //var tem = ("<a href=\"supermaket_detail.html?activityid=activity_id\"><li><div class=\"con\"><div class=\"pic\"><img style='height:80%' src=\"posterpic\" alt=\"\" \/><span>time_to_end_text<\/span><\/div><div class=\"txt\"><h3 style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;\">activitytitle<\/h3><div class=\"user\">fansinhistorycount<\/div><div class=\"time\">begintimeandendtime<\/div><\/div><\/div> <div class=\"li-down\"> <span>商<\/span> <p style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;\"> distributorname<\/p><\/div> <\/li><\/a>");
+               "<a href='supermaket_detail.html?activityid=activity_id'>	" +
+               "  <li style='margin-bottom:5px !important'>	" +
+               "    <div class='con'>	" +
+               "      <div class='pic'>	" +
+               "        <img style='height:80%' class='lazy' data-original='posterpic' alt='' />	" +
+               "        <span style='spanbackground'>time_to_end_text</span></div>	" +
+               "      <div class='txtNew' style='text-align:left;vertical-align:bottom;'>	" +
+               "       <div style='overflow:hidden;max-height: 45px;width: 100%;'>   " +
+               "         <h3 class='h3Style'>activitytitle</h3>	" +
+               "       </div>  " +
+               "       <div style='line-height: 2em;position: relative;bottom: -6px;'>  " +
+               "           <div class='userNew'>fansinhistorycount</div>	" +
+               "           <div class='timeNew'>begintimeandendtime</div></div>	" +
+               "       </div>  " +
+               "    </div>	" +
+               "    <div class='li-down'>	" +
+               "      <span>商</span>	" +
+               "      <p style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;'>distributorname</p></div>	" +
+               "  </li>	" +
+               "</a>	";
             var listitem = ""
-            var ajaxdata = { "activitykind": "distributor_to_consumer", "activitytype": "activity" };
+            var ajaxdata = { "activitykind": "distributor_to_consumer", "activitytype": "activity", pageindex: pageIndex };
             // alert(wxjsconfig.sharekey)
             if (wxjsconfig.sharekey != null)
                 ajaxdata[wxjsconfig.sharekey] = "_";
@@ -146,20 +150,26 @@
                 dataType: 'json',
                 data: ajaxdata,
                 url: '/webapi/retailer/weixin/activities',
-                beforeSend: function () { common.loading.show(); },
-                complete: function () { common.loading.hide(); },
-                success: function (json) {
+                beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
+                complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
+                success: function (json) {                    
+                    //分页加锁
+                    if (pageIndex == json.totalpage && pageIndex != 1) {
+                        dropme.lock();// 锁定
+                        dropme.noData(); // 无数据
+                    }
                     common.loading.hide();
                     json = json || {};   /* 统一加这句话 */
                     if (json.error) {
-
                         toasterextend.showtips(json.error, "error");
-
+                        dealdropme(dropme);
                         return;
                     }
                     if (json.user_notification != undefined) {
-                        $('#list').html("<div class=\"nohd\" style='margin-top:35%;'><img style='height:80%' src=\"/retailer/image/超惠活动.png\" /><br/></div>");
+                        if(pageIndex ==1)
+                            $('#list').html("<div class=\"nohd\" style='margin-top:35%;'><img style='height:80%' src=\"/retailer/image/超惠活动.png\" /><br/></div>");
                         toasterextend.showtips(json.user_notification, "info");
+                        dealdropme(dropme);
                         return;
                     }
                     $.each(json.data, function (i, value) {
@@ -194,14 +204,37 @@
                             listitem = listitem.replace("spanbackground", "");
                         }
                     });
-                    $('#list').html(listitem);
+                    if (pageIndex == 1)
+                        $('#list').html(listitem);
+                    else
+                        $('#list').append(listitem);
                     $("img.lazy").lazyload();
                     if ($.isFunction(wxjsshare)) {
                         wxjsshare(json.share || {});
                     }
+                    common.loading.hide();
+                    //绑定分页
+                    if (pageIndex == 1 && json.totalpage > 1 && isInit) {
+                        isInit = false;
+                        $('#dropload').dropload({
+                            scrollArea: window, 
+                            domDown: {
+                                domClass: 'dropload-down',
+                                domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+                                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                                domNoData: '<div class="dropload-noData">暂无数据</div>'
+                            },                           
+                            loadDownFn: function (me) {
+                                pageIndex++;
+                                initData(me);
+                            }
+                        });
+                    }
+                    if (dropme != null)
+                        dropme.resetload();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-
+                    common.loading.hide();
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
@@ -210,11 +243,11 @@
                         if (errormsg == undefined || errormsg == '')
                             errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
-
                     toasterextend.showtips(errormsg, "error");
+                    dealdropme(dropme);
                 }
             });
-        });
+        }
     </script>
 
 </body>

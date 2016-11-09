@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" />
     <title>商家超惠券</title>
-
     <link rel="stylesheet" href="/retailer/css/cui.css" />
     <link rel="stylesheet" href="/retailer/css/lib.css" />
     <link rel="stylesheet" href="/retailer/css/slick.css" />
     <link rel="stylesheet" href="/retailer/css/style.css" />
     <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
     <link rel="stylesheet" href="/retailer/css/weixintips.css" />
+    <link href="../css/dropload.css" rel="stylesheet" />
 
     <style>
         .txtNew {
@@ -64,7 +64,6 @@
         }
     </style>
 </head>
-
 <body class="bgf6">
     <style>
         .sharestyle {
@@ -81,7 +80,7 @@
         }
     </style>
     <div id="bd" style="margin-bottom: 82px !important;">
-        <div class="pic-list">
+        <div class="pic-list" id="dropload">
             <ul id="list"></ul>
         </div>
         <div class="sharestyle " style="font-size:16px;">
@@ -91,36 +90,26 @@
             </a>
         </div>
     </div>
-
     <footer>
         <div id="bottom-nav"></div>
     </footer>
     <div class="overlay"></div>
-
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
     <script type="text/javascript">var share_category = "retailer";</script>
     <script src="/retailer/js/lib/common.js"></script>
+    <script src="/js/jquery/dropload.min.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script type="text/javascript">
-
-        $(function () {
-            $('.sharestyle').click(function (event) {
-                $('.overlay').fadeIn(200);
-            });
-            $('.overlay').click(function (event) {
-                /* Act on the event */
-                $(this).fadeOut(200);
-            });
-
-            var tem =
+        var pageIndex = 1;
+        var isInit = true;
+        var tem =
                 "<a href='suppercouponitems.html?activity_id=activityid'>	" +
                 "  <li style='margin-bottom:5px !important'>	" +
                 "    <div class='con'>	" +
@@ -142,9 +131,10 @@
                 "  </li>	" +
                 "</a>	";
 
-            //var tem = ("<a href=\"supermaket_detail.html?activityid=activity_id\"><li><div class=\"con\"><div class=\"pic\"><img style='height:80%' src=\"posterpic\" alt=\"\" \/><span>time_to_end_text<\/span><\/div><div class=\"txt\"><h3 style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;\">activitytitle<\/h3><div class=\"user\">fansinhistorycount<\/div><div class=\"time\">begintimeandendtime<\/div><\/div><\/div> <div class=\"li-down\"> <span>商<\/span> <p style=\"overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;\"> distributorname<\/p><\/div> <\/li><\/a>");
+    
+        function loaddata(dropme) {
             var listitem = ""
-            var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "ticket" };
+            var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "ticket", pageindex: pageIndex };
             // alert(wxjsconfig.sharekey)
             if (wxjsconfig.sharekey != null)
                 ajaxdata[wxjsconfig.sharekey] = "_";
@@ -153,22 +143,27 @@
                 dataType: 'json',
                 data: ajaxdata,
                 url: '/webapi/retailer/weixin/activities',
-                beforeSend: function () { common.loading.show(); },
-                complete: function () { common.loading.hide(); },
+                beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
+                complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                 success: function (json) {
                     common.loading.hide();
-                    json = json || {};   /* 统一加这句话 */
-                    if (json.error) {
-
+                    json = json || {};   /* 统一加这句话 */                    
+                    if (json.error) {                        
                         toasterextend.showtips(json.error, "error");
-
+                        dealdropme(dropme);
+                        return;
+                    }
+                    if (json.user_notification != undefined) {
+                        if (pageIndex == 1) {
+                            $('#list').html("<div class=\"nohd\" style='margin-top:35%;'><img style='height:80%' src=\"/retailer/image/超惠券.png\" /><br/></div>");                            
+                        }
+                        toasterextend.showtips(json.user_notification, "info");
+                        dealdropme(dropme);
                         return;
                     }
 
-                    if (json.user_notification != undefined) {
-                        $('#list').html("<div class=\"nohd\" style='margin-top:35%;'><img style='height:80%' src=\"/retailer/image/超惠券.png\" /><br/></div>");
-                        toasterextend.showtips(json.user_notification, "info");
-                        return;
+                    if (pageIndex == json.totalpage) {
+                        dealdropme(dropme);
                     }
                     $.each(json.data, function (i, value) {
 
@@ -202,7 +197,32 @@
                             listitem = listitem.replace("spanbackground", "");
                         }
                     });
-                    $('#list').html(listitem);
+
+                    if (pageIndex == 1)
+                        $('#list').html(listitem);
+                    else
+                        $('#list').append(listitem);
+
+                    if (pageIndex == 1 && json.totalpage > 1 && isInit) {
+                        isInit = false;
+
+                        $('#dropload').dropload({
+                            scrollArea: window,
+                            domDown: {
+                                domClass: 'dropload-down',
+                                domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+                                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                                domNoData: '<div class="dropload-noData">暂无数据</div>'
+                            },
+                            loadDownFn: function (me) {
+                                pageIndex++;
+                                loaddata(me);
+                            }
+                        });
+                    }
+                    if (dropme != null)
+                        dropme.resetload();
+
                     $("img.lazy").lazyload();
                     if ($.isFunction(wxjsshare)) {
                         wxjsshare(json.share || {});
@@ -220,10 +240,20 @@
                     }
 
                     toasterextend.showtips(errormsg, "error");
+                    dealdropme(dropme);
                 }
             });
+        }
+        $(function () {
+            $('.sharestyle').click(function (event) {
+                $('.overlay').fadeIn(200);
+            });
+            $('.overlay').click(function (event) {
+                /* Act on the event */
+                $(this).fadeOut(200);
+            });
+            loaddata(null);
         });
     </script>
-
 </body>
 </html>

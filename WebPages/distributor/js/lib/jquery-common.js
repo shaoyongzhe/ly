@@ -53,8 +53,9 @@
                 };
                 var beforeSend = options.beforeSend;
 
-                options.beforeSend = function (XMLHttpRequest) {
-                   common.loading.show();
+                options.beforeSend = function (XMLHttpRequest) {					
+                    if ("undefined" == typeof (pageIndex) || ("undefined" != typeof (pageIndex)  && pageIndex == 1))
+                        common.loading.show();
                     if (beforeSend) {
                         beforeSend(httpRequest, status);
                     }

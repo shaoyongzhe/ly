@@ -1,4 +1,4 @@
-﻿wx.ready(function () {
+wx.ready(function () {
     //  alert("开始扫一扫")
     vm.scanwx()
 });
@@ -50,6 +50,7 @@ var vm = avalon.define({
     youhui: 0,//优惠金额
     zengpin: 0,//赠品份数
     seconds: 8,//描述
+    IsVerifycard: false,
     GetTicketInfo: function (cardkey) {//加载优惠卷
         $.ajax({
             type: 'GET',
@@ -104,6 +105,9 @@ var vm = avalon.define({
     verifycard: function () {//确认核销
         clearInterval(Interval);
         //  alert(vm.cardkey)
+        if (vm.IsVerifycard == false) {
+            vm.IsVerifycard = true;
+
         $.ajax({
             type: 'put',
             dataType: 'json',
@@ -111,15 +115,19 @@ var vm = avalon.define({
             url: '/webapi/retailer/weixin/verifycard?cardkey=' + vm.cardkey,
             beforeSend: function () { Msg.show(1, "正在核销中...") },
             success: function (result) {
+
+                    var jsondata = isJson(result) ? result : JSON.parse(result)
+
                 Msg.hide()
                 vm.pageStep = 3
-                if (result.verifynum > 0) {//核销成功
-                    vm.yhxNum = result.verifynum
-                    vm.whxNum = vm.jsondata.totalnum - result.verifynum
+                    if (jsondata.verifynum > 0) {//核销成功
+                        vm.yhxNum = jsondata.verifynum
+                        vm.whxNum = vm.jsondata.totalnum - jsondata.verifynum
                     var whxMsg = vm.whxNum > 0 ? (vm.whxNum + "张超惠券未核销") : ""
-                    vm.MsgShow(1, "您已经成功核销了" + result.verifynum + "张超惠券", whxMsg)
+                        vm.MsgShow(1, "您已经成功核销了" + jsondata.verifynum + "张超惠券", whxMsg)
 
                     $(".btn").hide()
+
                     $("#hx_3").show();//继续核销
                     vm.showUsage(1)
 
@@ -127,12 +135,15 @@ var vm = avalon.define({
                     vm.yhxNum = 0
                     vm.whxNum = vm.hxNum - vm.yhxNum//失败核销数量
 
-                    vm.MsgShow(2, "很抱歉！没有核销成功,已超出数量限制！")
+                        var msg = jsondata.user_notification.split('|');
+                        vm.MsgShow(2, msg[0], msg.length == 1 ? '' : msg[1])
 
                     $(".btn").hide()
+
                     $("#hx_3").show();//继续核销
                     vm.showUsage(2)
                 }
+                    vm.IsVerifycard = false
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 var errormsg = "网络不给力";
@@ -156,8 +167,11 @@ var vm = avalon.define({
                 $(".btn").hide()
                 $("#btn_2").show()//返回
                 $("#btn_4").show()//重试
+                    vm.IsVerifycard = false
             }
         });
+        }
+
     },
     MsgShow: function (type, title, subtitle) {
         if (type == 1) {//成功
@@ -251,7 +265,7 @@ var vm = avalon.define({
         vm.zengpin = 0
         if (el.itemkind == "降价" || el.itemkind == "套餐") {//计算优惠价
             var _price = (el.originalprice - el.discountprice) * num
-            vm.youhui = _price.toFixed(2).replace(".00","")
+            vm.youhui = _price.toFixed(2).replace(".00", "")
         } else if (el.itemkind == "有礼" || el.itemkind == "买赠") {
             vm.zengpin = num
         }

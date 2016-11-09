@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,6 +12,8 @@
     <link href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
     <link href="/consumer/css/menustyle.css" rel="stylesheet" />
+    <link href="../css/dropload.css" rel="stylesheet" />
+    
     <style>
         .storeintro-left {
             padding-right: 46px;
@@ -31,6 +33,7 @@
     <div class="tip-w">
         <div class="tip"><img src="/consumer/image/icon09.png" /></div>
     </div>
+    <div id="dropload">
     <div class="active-w ajaxdata" id="list">
 
     </div>
@@ -67,16 +70,18 @@
     <script type="text/javascript" src="/js/wx/share.js"></script>
     <script type="text/javascript" src="/js/wx/location.js"></script>
 
-
+    
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode.js"></script>
     <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
+    <script src="/js/jquery/dropload.min.js"></script>
     <script>
         var consumer_id = getUrlParam("consumer_id");
-
+        var pageIndex = 1;        
+        var isInit = true;
         $(function () {
 
             $('.tip-w').click(function () {
@@ -88,15 +93,15 @@
             })
 
             waitloadaddress(function () {
-                loaddata(wxlocation.longitude, wxlocation.latitude);
+                loaddata(wxlocation.longitude, wxlocation.latitude, null);
             });
             
                     });
-        function loaddata(longitude, latitude) {
+        function loaddata(longitude, latitude, dropme) {
 
-            var ajaxdata = { consumer_id: consumer_id, "activitykind": "distributor_to_consumer", "activitytype": "activity" };
+            var ajaxdata = { consumer_id: consumer_id, "activitykind": "distributor_to_consumer", "activitytype": "activity", pageindex: pageIndex };
             if (wxjsconfig.sharekey != null)
-                ajaxdata[wxjsconfig.sharekey] = "_";            
+                ajaxdata[wxjsconfig.sharekey] = "_";
 
             var search = window.location.search;
             if (search.length > 0) {
@@ -114,34 +119,43 @@
                 ajaxdata["longitude"] = longitude;
                 ajaxdata["latitude"] = latitude
             }
-           
+
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
                 url: '/webapi/consumer/weixin/nearby/activities',
                 data: ajaxdata,
-                beforeSend: function () { common.loading.show(); },
-                complete: function () { common.loading.hide(); },
+                beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
+                complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                 success: function (jsondata) {
-
+                    if (pageIndex == jsondata.totalpage && pageIndex != 1) {
+                        // 锁定
+                        dropme.lock();
+                        // 无数据
+                        dropme.noData();
+                    }
                     common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     jsondata = jsondata || {};
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);
-						qrcode.href();
+                        qrcode.href();
+                        dealdropme(dropme);
                         return;
                     }
 
                     if (jsondata.user_notification != undefined) {
                         toasterextend.showtips(jsondata.user_notification, "info");
-						qrcode.href();
+                        qrcode.href();
+                        dealdropme(dropme);
                         return;
                     }
 
                     if (jsondata.data == undefined || jsondata.data.length == 0) {
-                        $("#list").html(' <img class="lazy" data-original="/consumer/image/acnull.png"  style="width:100%;margin-top:120px;" />');
-						qrcode.href();
+                        if (pageIndex == 1)
+                            $("#list").html(' <img class="lazy" data-original="/consumer/image/acnull.png"  style="width:100%;margin-top:120px;" />');
+                        qrcode.href();
+                        dealdropme(dropme);
                         return;
                     }
                     if ($.isFunction(wxjsshare)) {
@@ -180,9 +194,31 @@
                            + '<div class="storeintro-right"><div class="morestore">'
                            + '<div class="img"><img class="lazy" data-original="/consumer/image/icon07.png" /></div><div class="storenum">' + (obj.retailer_count > 99 ? '99+' : obj.retailer_count) + '</div></div></div></div></div></a>';
                     }
-                    $("#list").html(content);
-					$("img.lazy").lazyload();
+                    if (pageIndex == 1)
+                        $("#list").html(content);
+                    else
+                        $("#list").append(content);
+                    $("img.lazy").lazyload();
                     qrcode.show();
+
+                    if (pageIndex == 1 && jsondata.totalpage > 1 && isInit) {
+                        isInit = false;
+                        $('#dropload').dropload({
+                            scrollArea: window, 
+                            domDown: {
+                                domClass: 'dropload-down',
+                                domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+                                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                                domNoData: '<div class="dropload-noData">暂无数据</div>'
+                            },                           
+                            loadDownFn: function (me) {
+                                pageIndex++;
+                                loaddata(longitude, latitude, me);
+                            }
+                        });
+                    }
+                    if (dropme != null)
+                        dropme.resetload();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     common.loading.hide();//隐藏转圈动画
@@ -190,16 +226,17 @@
                     var errormsg = "访问异常";
 
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                         var json = JSON.parse(XMLHttpRequest.responseText); 				
-						 errormsg = JSON.parse(json.Message).error;
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = JSON.parse(json.Message).error;
                         if (errormsg == undefined || errormsg == '')
-							errormsg = "Http error: " + XMLHttpRequest.statusText;
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
-					qrcode.href();
+                    qrcode.href();
                     toasterextend.showtips(errormsg, "error");
+                    dealdropme(dropme);
                 }
             });
-        };
+        }
 
     </script>
 </body>

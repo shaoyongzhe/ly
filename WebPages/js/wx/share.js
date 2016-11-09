@@ -157,7 +157,7 @@
                     activate(shareOptions);
                 }
 
-                if (typeof (sharesuccess) != undefined) {
+                if (typeof (sharesuccess) != "undefined") {
                     if ($.isFunction(sharesuccess)) {
                         sharesuccess()
                     }

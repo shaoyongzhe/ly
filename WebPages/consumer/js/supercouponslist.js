@@ -1,5 +1,8 @@
-﻿var consumer_id = getUrlParam("consumer_id");
-
+var consumer_id = getUrlParam("consumer_id");
+var pageIndex = 1;
+var pageCount = 1;
+var tmdropme;
+var isInit = true;
 avalon.ready(function () {
     avalon.scan(document.body)
 
@@ -11,7 +14,7 @@ avalon.ready(function () {
         $('.tip-w').fadeIn(200);
     })
     waitloadaddress(function () {
-        loaddata(wxlocation.longitude, wxlocation.latitude);
+        loaddata(wxlocation.longitude, wxlocation.latitude, null);
     });
 })
 var vm = avalon.define({
@@ -68,12 +71,18 @@ var vm = avalon.define({
         }
 
 
+    },
+    jsondataReadered:function(e)
+    {
+        console.log(tmdropme);
+        if (tmdropme != null)
+            tmdropme.resetload();
     }
 });
 
-function loaddata(longitude, latitude) {
+function loaddata(longitude, latitude, dropme) {
 
-    var ajaxdata = { consumer_id: consumer_id, "activitykind": "distributor_to_consumer", "activitytype": "ticket" };
+    var ajaxdata = { consumer_id: consumer_id, "activitykind": "distributor_to_consumer", "activitytype": "ticket", pageindex: pageIndex };
     if (wxjsconfig.sharekey != null)
         ajaxdata[wxjsconfig.sharekey] = "_";
 
@@ -99,42 +108,76 @@ function loaddata(longitude, latitude) {
         dataType: 'json',
         url: '/webapi/consumer/weixin/nearby/tickets',// webapi/consumer/weixin/nearby/tickets
         data: ajaxdata,
-        beforeSend: function () { common.loading.show(); },
-        complete: function () { common.loading.hide(); },
+        beforeSend: function () { if (pageIndex == 1) { common.loading.show(); }  },
+        complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
         success: function (jsondata) {
-
+            pageCount = jsondata.totalpage;
+            if (pageIndex == pageCount && pageIndex != 1) {
+                // 锁定
+                dropme.lock();
+                // 无数据
+                dropme.noData();
+            }
             common.loading.hide();//数据请求成功即隐藏转圈动画
             vm.isShow = true
             jsondata = jsondata || {};
             if (jsondata.error) {
                 toasterextend.showtips(jsondata.error, "error", false);
                 qrcode.href();
+                dealdropme(dropme);
                 return;
             }
 
             if (jsondata.user_notification != undefined) {
                 toasterextend.showtips(jsondata.user_notification, "info");
+                if (pageIndex == 1)
                 $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
                 qrcode.href();
+                dealdropme(dropme);
                 return;
             }
 
             if (jsondata.data == undefined || jsondata.data.length == 0) {
+                if (pageIndex == 1)
                 $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
                 qrcode.href();
+                dealdropme(dropme);
                 return;
             }
+            if (pageIndex != 1) {
+                $.each(jsondata.data, function (i, v) {
+                    vm.jsondata.push(v);
+                });                
+            } else
+                vm.jsondata = jsondata.data;
             if ($.isFunction(wxjsshare)) {
                 wxjsshare(jsondata.share || {});
             }
-            vm.jsondata = jsondata.data
-
 
             $("img.lazy").lazyload();
             setTimeout(qrcode.show, 200)
             setTimeout(function () {
                 $('#ad_title').fadeOut(200);
             }, 6000)
+            if (pageIndex == 1 && jsondata.totalpage > 1 && isInit) {
+                isInit = false;
+                setTimeout(function () {
+                    $('#list').dropload({
+                        scrollArea: window,                        
+                        domDown: {
+                            domClass: 'dropload-down',
+                            domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+                            domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                            domNoData: '<div class="dropload-noData">暂无数据</div>'
+        },
+                        loadDownFn: function (me) {
+                            pageIndex++;
+                            tmdropme = me;
+                            loaddata(longitude, latitude, me);
+                        }
+                    });
+                }, 500)
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             common.loading.hide();//隐藏转圈动画
@@ -149,6 +192,7 @@ function loaddata(longitude, latitude) {
             }
             qrcode.href();
             toasterextend.showtips(errormsg, "error");
+            dealdropme(dropme);
         }
     });
 };

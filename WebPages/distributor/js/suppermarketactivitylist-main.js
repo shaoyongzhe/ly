@@ -1,5 +1,3 @@
-﻿
-
 function suppermarketactivitylist(container) {
     this.container = $(container);
     this.activitylisttemplate = [
@@ -39,32 +37,63 @@ function suppermarketactivitylist(container) {
             '</a>',
         '</div>',
         '{@/each}',
-        '{@if data.length  > 0 }',
-        '<div class="space1"></div>',
-        '{@/if}',
         '{@/if}'
     ].join('\n');
 }
 
-
-suppermarketactivitylist.prototype.render = function (sharefunction) {
+var pageIndex = 1;
+var isInit = true;
+suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
     var activitylisttemplate = this.activitylisttemplate;
     var container = this.container;
-    var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "activity" };
+    var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "activity", pageindex: pageIndex };
     if (wxjsconfig.sharekey != null)
         ajaxdata[wxjsconfig.sharekey] = "_";
     $.getJSON2('/webapi/distributor/weixin/activities', ajaxdata, function (data) {
+        if (data.error && pageIndex != 1)
+        {
+            dealdropme(dropme);
+            return;
+        }
+        if (pageIndex == data.totalpage && pageIndex != 1) {
+            // 锁定
+            dropme.lock();
+            // 无数据
+            dropme.noData();
+        }
         var html = juicer(activitylisttemplate, data);
-        container.html(html);
-		$("img.lazy").lazyload();
+        if (pageIndex == 1)
+            container.html(html);
+        else
+            container.append(html);
+        $("img.lazy").lazyload();
         if ($.isFunction(sharefunction)) {
             sharefunction(data.share || {});
         }
+        if (pageIndex == 1 && data.totalpage > 1 && isInit) {
+            isInit = false;
+
+            $('#dropload').dropload({
+                scrollArea: window,
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                },
+                loadDownFn: function (me) {
+                    pageIndex++;
+                    new suppermarketactivitylist(".container-w").render(wxjsshare, me);
+                }
+            });
+        }
+        if (dropme != null)
+            dropme.resetload();
     });
 }
 $(function () {
     var fans = new invitationfans("container");
     fans.render();
     var s = new suppermarketactivitylist(".container-w");
-    s.render(wxjsshare);
+    s.render(wxjsshare, null);
 });
