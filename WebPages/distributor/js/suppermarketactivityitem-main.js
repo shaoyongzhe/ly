@@ -185,7 +185,7 @@ suppermarketactivityitem.prototype.render = function (sharefunction) {
     var activityitemtemplate = this.activityitemtemplate;
     var container = this.container;
     var activity_id = common.getUrlParam('activity_id');
-    var ajaxdata = { activitykind: "distributor_to_consumer" };
+    var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "activity" };
     if (wxjsconfig.sharekey != null)
         ajaxdata[wxjsconfig.sharekey] = "_";
     $.getJSON2("/webapi/distributor/weixin/activities/" + activity_id, ajaxdata, function (data) {
