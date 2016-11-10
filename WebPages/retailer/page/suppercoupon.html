@@ -147,7 +147,12 @@
                 complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                 success: function (json) {
                     common.loading.hide();
-                    json = json || {};   /* 统一加这句话 */                    
+                    json = json || {};   /* 统一加这句话 */
+                    if (jQuery.isEmptyObject(json)) {
+                        dropme.lock();
+                        // 无数据
+                        dropme.noData();
+                    }
                     if (json.error) {                        
                         toasterextend.showtips(json.error, "error");
                         dealdropme(dropme);
@@ -160,10 +165,6 @@
                         toasterextend.showtips(json.user_notification, "info");
                         dealdropme(dropme);
                         return;
-                    }
-
-                    if (pageIndex == json.totalpage) {
-                        dealdropme(dropme);
                     }
                     $.each(json.data, function (i, value) {
 
@@ -203,7 +204,7 @@
                     else
                         $('#list').append(listitem);
 
-                    if (pageIndex == 1 && json.totalpage > 1 && isInit) {
+                    if (pageIndex == 1 && isInit) {
                         isInit = false;
 
                         $('#dropload').dropload({

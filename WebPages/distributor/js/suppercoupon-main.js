@@ -3,7 +3,7 @@
 function suppermarketactivitylist(container) {
     this.container = $(container);
     this.activitylisttemplate = [
-        '{@if error  !=""}',
+        '{@if error  != "" && error != null}',
         '<div class="nohd">',
             '<img src="../image/超惠活动.png" /><br />',
         '</div>',
@@ -58,7 +58,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
             dealdropme(dropme);
             return;
         }
-        if (data.length == 0) {
+        if (jQuery.isEmptyObject(data)) {
             dropme.lock();
             // 无数据
             dropme.noData();

@@ -115,7 +115,7 @@ function loaddata(longitude, latitude, dropme) {
             vm.isShow = true
             jsondata = jsondata || {};
 
-            if (jsondata.length == 0) {
+            if (jQuery.isEmptyObject(jsondata)) {
                 dropme.lock();
                 // 无数据
                 dropme.noData();

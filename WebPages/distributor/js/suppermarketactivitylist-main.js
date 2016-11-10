@@ -1,7 +1,7 @@
 function suppermarketactivitylist(container) {
     this.container = $(container);
     this.activitylisttemplate = [
-        '{@if error  !=""}',
+        '{@if error != null && error  !="" }',
         '<div class="nohd">',
             '<img src="../image/超惠活动.png" /><br />',
         '</div>',
@@ -50,16 +50,18 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
     if (wxjsconfig.sharekey != null)
         ajaxdata[wxjsconfig.sharekey] = "_";
     $.getJSON2('/webapi/distributor/weixin/activities', ajaxdata, function (data) {
+        data = data || {};
+        if (jQuery.isEmptyObject(data)) {
+            dropme.lock();
+            // 无数据
+            dropme.noData();
+        }
         if (data.error && pageIndex != 1)
         {
             dealdropme(dropme);
             return;
         }
-        if (jsondata.length == 0) {
-            dropme.lock();
-            // 无数据
-            dropme.noData();
-        }
+       
         var html = juicer(activitylisttemplate, data);
         if (pageIndex == 1)
             container.html(html);

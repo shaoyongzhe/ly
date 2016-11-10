@@ -132,7 +132,7 @@
                     common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     jsondata = jsondata || {};
-                    if (jsondata.length == 0) {
+                    if (jQuery.isEmptyObject(jsondata)) {
                         dropme.lock();
                         // 无数据
                         dropme.noData();
