@@ -58,15 +58,14 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
             dealdropme(dropme);
             return;
         }
-        if (pageIndex == data.totalpage && pageIndex != 1) {
-            // 锁定
+        if (data.length == 0) {
             dropme.lock();
             // 无数据
             dropme.noData();
         }
         var html = juicer(activitylisttemplate, data);
         if (pageIndex == 1)
-        container.html(html);
+            container.html(html);
         else
             container.append(html);        
         common.loading.hide();
@@ -74,7 +73,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
         if ($.isFunction(sharefunction)) {
             sharefunction(data.share || {});
         }
-        if (pageIndex == 1 && data.totalpage > 1 && isInit) {
+        if (pageIndex == 1 &&  isInit) {
             isInit = false;
             $('#dropload').dropload({
                 scrollArea: window, 

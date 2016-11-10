@@ -55,8 +55,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
             dealdropme(dropme);
             return;
         }
-        if (pageIndex == data.totalpage && pageIndex != 1) {
-            // 锁定
+        if (jsondata.length == 0) {
             dropme.lock();
             // 无数据
             dropme.noData();
@@ -70,7 +69,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
         if ($.isFunction(sharefunction)) {
             sharefunction(data.share || {});
         }
-        if (pageIndex == 1 && data.totalpage > 1 && isInit) {
+        if (pageIndex == 1 &&  isInit) {
             isInit = false;
 
             $('#dropload').dropload({
