@@ -79,7 +79,7 @@
             });
 
             function loaddata(longitude, latitude, dropme) {
-                var ajaxdata = { activitykind: "distributor_to_consumer", pageindex: pageIndex,pagesize:5 };//, activitytype: "activity"
+                var ajaxdata = { activitykind: "distributor_to_consumer", pageindex: pageIndex };//, activitytype: "activity"
 
                 var search = window.location.search;
                 if (search.length > 0) {
@@ -107,12 +107,7 @@
                     beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
                     complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                     success: function (jsondata) {
-                        if (jsondata.length == 0)
-                        {
-                            dropme.lock();
-                            // 无数据
-                            dropme.noData();
-                        }
+                        
                         //if (pageIndex == jsondata.totalpage && pageIndex != 1) {
                         //    // 锁定
                         //    dropme.lock();
@@ -122,6 +117,11 @@
                         common.loading.hide();//数据请求成功即隐藏转圈动画
 
                         jsondata = jsondata || {};
+                        if (jsondata.length == 0) {
+                            dropme.lock();
+                            // 无数据
+                            dropme.noData();
+                        }
                         if (jsondata.error) {
                             showtips(jsondata.error, "error", false);
                             qrcode.href();
