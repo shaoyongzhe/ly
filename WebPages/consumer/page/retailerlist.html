@@ -40,23 +40,7 @@
     </div>
     <div id="dropload">
         <div class="active-w ajaxdata" id="list">
-        </div>
-        <!--<footer>
-            <div class="space"></div>
-            <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
-            <div class="bottomnav">
-                <div class="logo"><a data-original="/consumer/page/index.html"><img src="/consumer/image/logo.png" /></a></div>
-                <a data-original="/consumer/page/retailerlist.html">
-                    <div class="nav" style="background:#ff6600;"><img src="/consumer/image/icon02.png" /><br />附近门店</div>
-                </a>
-                <a data-original="/consumer/page/activitylist.html">
-                    <div class="nav"><img src="/consumer/image/icon03.png" /><br />附近超惠</div>
-                </a>
-                <a data-original="/consumer/page/supercouponslist.html">
-                    <div class="nav" style="border-right:none"><img src="/consumer/image/icon11.png" style="margin:10px 0px 4px 0;" /><br />超惠券</div>
-                </a>
-            </div>
-        </footer>-->
+        </div>   
         <footer>
             <div class="space2"></div>
             <div class="share">推荐给朋友 <img src="/consumer/image/icon04.png" /></div>
@@ -95,7 +79,7 @@
             });
 
             function loaddata(longitude, latitude, dropme) {
-                var ajaxdata = { activitykind: "distributor_to_consumer", pageindex: pageIndex };//, activitytype: "activity"
+                var ajaxdata = { activitykind: "distributor_to_consumer", pageindex: pageIndex,pagesize:5 };//, activitytype: "activity"
 
                 var search = window.location.search;
                 if (search.length > 0) {
@@ -123,12 +107,18 @@
                     beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
                     complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                     success: function (jsondata) {
-                        if (pageIndex == jsondata.totalpage && pageIndex != 1) {
-                            // 锁定
+                        if (jsondata.length == 0)
+                        {
                             dropme.lock();
                             // 无数据
                             dropme.noData();
                         }
+                        //if (pageIndex == jsondata.totalpage && pageIndex != 1) {
+                        //    // 锁定
+                        //    dropme.lock();
+                        //    // 无数据
+                        //    dropme.noData();
+                        //}
                         common.loading.hide();//数据请求成功即隐藏转圈动画
 
                         jsondata = jsondata || {};
@@ -195,7 +185,7 @@
                             wxjsshare(jsondata.share || {});
                         }
                         qrcode.show();
-                        if (pageIndex == 1 && jsondata.totalpage > 1 && isInit) {
+                        if (pageIndex == 1 && isInit) {
                             isInit = false;
                             $('#dropload').dropload({
                                 scrollArea: window,
