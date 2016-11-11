@@ -116,9 +116,8 @@ function loaddata(longitude, latitude, dropme) {
             jsondata = jsondata || {};
 
             if (jQuery.isEmptyObject(jsondata)) {
-                dropme.lock();
-                // 无数据
-                dropme.noData();
+                dealdropme(dropme);
+                return;
             }
 
             if (jsondata.error) {

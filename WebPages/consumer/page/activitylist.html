@@ -133,9 +133,8 @@
 
                     jsondata = jsondata || {};
                     if (jQuery.isEmptyObject(jsondata)) {
-                        dropme.lock();
-                        // 无数据
-                        dropme.noData();
+                        dealdropme(dropme);
+                        return;
                     }
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);

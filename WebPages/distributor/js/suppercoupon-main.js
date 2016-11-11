@@ -59,9 +59,8 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
             return;
         }
         if (jQuery.isEmptyObject(data)) {
-            dropme.lock();
-            // 无数据
-            dropme.noData();
+            dealdropme(dropme);
+            return;
         }
         var html = juicer(activitylisttemplate, data);
         if (pageIndex == 1)

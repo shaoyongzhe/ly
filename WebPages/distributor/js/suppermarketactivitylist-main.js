@@ -52,9 +52,8 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
     $.getJSON2('/webapi/distributor/weixin/activities', ajaxdata, function (data) {
         data = data || {};
         if (jQuery.isEmptyObject(data)) {
-            dropme.lock();
-            // 无数据
-            dropme.noData();
+            dealdropme(dropme);
+            return;
         }
         if (data.error && pageIndex != 1)
         {

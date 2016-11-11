@@ -149,9 +149,8 @@
                     common.loading.hide();
                     json = json || {};   /* 统一加这句话 */
                     if (jQuery.isEmptyObject(json)) {
-                        dropme.lock();
-                        // 无数据
-                        dropme.noData();
+                        dealdropme(dropme);
+                        return;
                     }
                     if (json.error) {                        
                         toasterextend.showtips(json.error, "error");
