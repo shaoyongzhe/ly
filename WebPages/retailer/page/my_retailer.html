@@ -43,6 +43,15 @@
             $("#win").remove();
         }
     </script>
+    <style>
+                .limit-l {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    </style>
 </head>
 <body style="padding-bottom: 60px;">
     <div class="page" id="page">
@@ -79,8 +88,8 @@
                             + ' <div class="weui_photo150x150">'
                             + '<img src="' + data.retailer.picture_url + '" alt="" /></div>'
                             + ' <div class="weui_cell_bd weui_cell_primary">'
-                            + '     <p class="Name16">' + getParamValue(data.retailer.retailername) + '&nbsp;<img src="/retailer/image/edit.png" width="20" style="vertical-align:middle;" /></p>'
-                            + '    <p class="Store14">' + getParamValue(data.retailer.address) + '</p>'
+                            + '     <p class="Name16 limit-l">' + getParamValue(data.retailer.retailername) + '&nbsp;<img src="/retailer/image/edit.png" width="20" style="vertical-align:middle;" /></p>'
+                            + '    <p class="Store14 limit-l">' + getParamValue(data.retailer.address) + '</p>'
                             + '    <p class="Store14">' + getParamValue(data.retailer.mobilephone) + '</p>'
                             + ' </div>'
                             + '  <div class="weui_cell_ft">'

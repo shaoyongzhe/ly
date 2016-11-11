@@ -154,12 +154,13 @@
                 complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                 success: function (json) {                    
                     //分页加锁
-                    if (pageIndex == json.totalpage && pageIndex != 1) {
-                        dropme.lock();// 锁定
-                        dropme.noData(); // 无数据
-                    }
+                    
                     common.loading.hide();
                     json = json || {};   /* 统一加这句话 */
+                    if (jQuery.isEmptyObject(json)) {
+                        dealdropme(dropme);
+                        return;
+                    }
                     if (json.error) {
                         toasterextend.showtips(json.error, "error");
                         dealdropme(dropme);
@@ -214,7 +215,7 @@
                     }
                     common.loading.hide();
                     //绑定分页
-                    if (pageIndex == 1 && json.totalpage > 1 && isInit) {
+                    if (pageIndex == 1 && isInit) {
                         isInit = false;
                         $('#dropload').dropload({
                             scrollArea: window, 

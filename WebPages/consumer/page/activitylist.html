@@ -128,15 +128,14 @@
                 beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
                 complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                 success: function (jsondata) {
-                    if (pageIndex == jsondata.totalpage && pageIndex != 1) {
-                        // 锁定
-                        dropme.lock();
-                        // 无数据
-                        dropme.noData();
-                    }
+                    
                     common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     jsondata = jsondata || {};
+                    if (jQuery.isEmptyObject(jsondata)) {
+                        dealdropme(dropme);
+                        return;
+                    }
                     if (jsondata.error) {
                         toasterextend.showtips(jsondata.error, "error", false);
                         qrcode.href();
@@ -201,7 +200,7 @@
                     $("img.lazy").lazyload();
                     qrcode.show();
 
-                    if (pageIndex == 1 && jsondata.totalpage > 1 && isInit) {
+                    if (pageIndex == 1 &&  isInit) {
                         isInit = false;
                         $('#dropload').dropload({
                             scrollArea: window, 

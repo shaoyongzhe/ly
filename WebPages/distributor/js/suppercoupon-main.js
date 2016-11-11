@@ -3,7 +3,7 @@
 function suppermarketactivitylist(container) {
     this.container = $(container);
     this.activitylisttemplate = [
-        '{@if error  !=""}',
+        '{@if error  != "" && error != null}',
         '<div class="nohd">',
             '<img src="../image/超惠活动.png" /><br />',
         '</div>',
@@ -58,15 +58,13 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
             dealdropme(dropme);
             return;
         }
-        if (pageIndex == data.totalpage && pageIndex != 1) {
-            // 锁定
-            dropme.lock();
-            // 无数据
-            dropme.noData();
+        if (jQuery.isEmptyObject(data)) {
+            dealdropme(dropme);
+            return;
         }
         var html = juicer(activitylisttemplate, data);
         if (pageIndex == 1)
-        container.html(html);
+            container.html(html);
         else
             container.append(html);        
         common.loading.hide();
@@ -74,7 +72,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
         if ($.isFunction(sharefunction)) {
             sharefunction(data.share || {});
         }
-        if (pageIndex == 1 && data.totalpage > 1 && isInit) {
+        if (pageIndex == 1 &&  isInit) {
             isInit = false;
             $('#dropload').dropload({
                 scrollArea: window, 

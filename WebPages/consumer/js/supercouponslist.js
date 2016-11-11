@@ -110,17 +110,16 @@ function loaddata(longitude, latitude, dropme) {
         data: ajaxdata,
         beforeSend: function () { if (pageIndex == 1) { common.loading.show(); }  },
         complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
-        success: function (jsondata) {
-            pageCount = jsondata.totalpage;
-            if (pageIndex == pageCount && pageIndex != 1) {
-                // 锁定
-                dropme.lock();
-                // 无数据
-                dropme.noData();
-            }
+        success: function (jsondata) {         
             common.loading.hide();//数据请求成功即隐藏转圈动画
             vm.isShow = true
             jsondata = jsondata || {};
+
+            if (jQuery.isEmptyObject(jsondata)) {
+                dealdropme(dropme);
+                return;
+            }
+
             if (jsondata.error) {
                 toasterextend.showtips(jsondata.error, "error", false);
                 qrcode.href();
@@ -159,7 +158,7 @@ function loaddata(longitude, latitude, dropme) {
             setTimeout(function () {
                 $('#ad_title').fadeOut(200);
             }, 6000)
-            if (pageIndex == 1 && jsondata.totalpage > 1 && isInit) {
+            if (pageIndex == 1 && isInit) {
                 isInit = false;
                 setTimeout(function () {
                     $('#list').dropload({
