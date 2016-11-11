@@ -203,7 +203,7 @@
                     else
                         $('#list').append(listitem);
 
-                    if (pageIndex == 1 && isInit && data.data.length == 15) {
+                    if (pageIndex == 1 && isInit && json.data.length == 15) {
                         isInit = false;
 
                         $('#dropload').dropload({
@@ -220,13 +220,14 @@
                             }
                         });
                     }
-                    if (dropme != null)
-                        dropme.resetload();
-
                     $("img.lazy").lazyload();
                     if ($.isFunction(wxjsshare)) {
                         wxjsshare(json.share || {});
                     }
+                    if (dropme != null)
+                        dropme.resetload();
+
+                    
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
 
