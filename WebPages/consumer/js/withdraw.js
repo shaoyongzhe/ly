@@ -19,13 +19,16 @@ var vm = avalon.define({
         subtitle: "",
         Show: function () {
             $("#dialog").show();
-
             setTimeout(function () {
-                $("#dialog").hide();
-            }, 2500)
+                vm.dialog.Hide();
+            },3000)
+         
         },
         Hide: function () {
             $("#dialog").hide();
+            if (vm.state == 0) {
+                window.location.reload();
+            }
         }
     },
     GetMoney: function () {//获取提现金额
