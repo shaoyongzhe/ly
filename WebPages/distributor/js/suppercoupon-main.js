@@ -54,6 +54,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
         ajaxdata[wxjsconfig.sharekey] = "_";
 
     $.getJSON2('/webapi/distributor/weixin/activities', ajaxdata, function (data) {
+        common.loading.hide();
         if (data.error && pageIndex != 1) {
             dealdropme(dropme);
             return;
@@ -67,7 +68,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
             container.html(html);
         else
             container.append(html);        
-        common.loading.hide();
+    
         $("img.lazy").lazyload();
         if ($.isFunction(sharefunction)) {
             sharefunction(data.share || {});
