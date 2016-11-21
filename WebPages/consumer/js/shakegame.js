@@ -1,4 +1,4 @@
-﻿var audio = document.getElementById("shakemusic");
+var audio = document.getElementById("shakemusic");
 var openAudio = document.getElementById("openmusic");
 var flag = 1;
 avalon.ready(function () {
@@ -8,7 +8,7 @@ avalon.ready(function () {
         return
     }
     init()
-    $(".red-ss-bg").click(function () {
+    $(".red_bg").click(function () {
         shakeAfter()
     });
 })
@@ -136,25 +136,25 @@ function deviceMotionHandler(eventData) {
 
 
 function shakeAfter() {
-    if (!vm.IsShake) {
-        vm.IsShake = true
-        audio.play();
-        $('.red-ss').addClass('wobble')
+            if (!vm.IsShake) {
+                vm.IsShake = true
+                audio.play();
+                $('.red-ss').addClass('wobble')
 
        // $('.red-ss').removeClass('wobble')
-        if (vm.shakeNum > 0) {
-            if (!vm.IsWin) {
-                vm.startShake()
-            } else {
-                vm.shakeNum--
-                vm.shakeStatus = 2;
-                audio.pause();
-                $('.red-tc').css('display', 'block');
+                if (vm.shakeNum > 0) {
+                    if (!vm.IsWin) {
+                        vm.startShake()
+                    } else {
+                        vm.shakeNum--
+                        vm.shakeStatus = 2;
+                        audio.pause();
+                        $('.red-tc').css('display', 'block');
+                    }
+                } else {//没有抽奖次数
+                    vm.shakeStatus = 3;
+                    audio.pause();
+                    $('.red-tc').css('display', 'block');
+                }
             }
-        } else {//没有抽奖次数
-            vm.shakeStatus = 3;
-            audio.pause();
-            $('.red-tc').css('display', 'block');
         }
-    }
-}
