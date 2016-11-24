@@ -200,7 +200,7 @@
                     $("img.lazy").lazyload();
                     qrcode.show();
 
-                    if (pageIndex == 1 && isInit) {
+                    if (pageIndex == 1 && isInit && !jsondata.error && !jsondata.user_notification) {
                         isInit = false;
                         $('#dropload').dropload({
                             scrollArea: window, 

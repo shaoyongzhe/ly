@@ -158,7 +158,7 @@ function loaddata(longitude, latitude, dropme) {
             setTimeout(function () {
                 $('#ad_title').fadeOut(200);
             }, 6000)
-            if (pageIndex == 1 && isInit) {
+            if (pageIndex == 1 && isInit && !jsondata.error && !jsondata.user_notification) {
                 isInit = false;
                 setTimeout(function () {
                     $('#list').dropload({

@@ -73,7 +73,7 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
         if ($.isFunction(sharefunction)) {
             sharefunction(data.share || {});
         }
-        if (pageIndex == 1 && isInit) {
+        if (pageIndex == 1 && isInit && !data.error && !data.user_notification) {
             isInit = false;
             $('#dropload').dropload({
                 scrollArea: window, 
