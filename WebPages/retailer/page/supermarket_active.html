@@ -215,7 +215,7 @@
                     }
                     common.loading.hide();
                     //绑定分页
-                    if (pageIndex == 1 && isInit && json.data.length ==15) {
+                    if (pageIndex == 1 && isInit && !json.error && !json.user_notification) {
                         isInit = false;
                         $('#dropload').dropload({
                             scrollArea: window, 
