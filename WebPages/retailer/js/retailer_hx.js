@@ -1,18 +1,20 @@
-﻿var pageIndex = 1;
-avalon.ready(function () {
+﻿avalon.ready(function () {
     avalon.scan(document.body)
     vm.GetInfo()
 })
+var isInit = true;
 var vm = avalon.define({
     $id: 'retailer_hx',
     isShow: false,
     jsondata: [],
+    pageIndex: 1,
+
     //activity_id: common.getUrlParam("activityid"),
-    GetInfo: function () {
+    GetInfo: function (dropme) {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { pageindex: pageIndex },
+            data: { pageindex: vm.pageIndex, pagesize: 5 },
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             url: '/webapi/retailer/weixin/verify/history/',
@@ -20,6 +22,12 @@ var vm = avalon.define({
                 common.loading.hide();//隐藏转圈动画
 
                 json = json || {};   /* 统一加这句话 */
+
+                if (jQuery.isEmptyObject(json)) {
+                    dealdropme(dropme);
+                    return;
+                }
+
                 if (json.error) {
                     toasterextend.showtips(json.error, "error");
                     return;
@@ -32,8 +40,37 @@ var vm = avalon.define({
                 if ($.isFunction(wxjsshare)) {
                     wxjsshare(json.share || {});
                 }
-                vm.jsondata = json
+                if (vm.pageIndex != 1) {
+                    $.each(json, function (i, v) {
+                        vm.jsondata.push(v);
+                    });
+                } else
+                    vm.jsondata = json;
+
                 vm.isShow = true
+
+                if (vm.pageIndex == 1 && isInit && !json.error && !json.user_notification) {
+                    isInit = false;
+                    setTimeout(function () {
+                        $('#list').dropload({
+                            scrollArea: window,
+                            domDown: {
+                                domClass: 'dropload-down',
+                                domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+                                domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
+                                domNoData: '<div class="dropload-noData">暂无数据</div>'
+                            },
+                            loadDownFn: function (me) {
+                                vm.pageIndex++;
+                                vm.GetInfo(me);
+                            }
+                        });
+                    }, 500)
+                }
+                if (dropme != null) {
+                    dropme.resetload();
+                }
+
                 $("#div_qrcode").css("display", "block")
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
