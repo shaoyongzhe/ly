@@ -1,4 +1,5 @@
-﻿avalon.ready(function () {
+﻿var pageIndex = 1;
+avalon.ready(function () {
     avalon.scan(document.body)
     vm.GetInfo()
 })
@@ -11,7 +12,7 @@ var vm = avalon.define({
         $.ajax({
             type: 'GET',
             dataType: 'json',
-           // data: { activitykind: "distributor_to_consumer", activitytype: "ticket" },
+            data: { pageindex: pageIndex },
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             url: '/webapi/retailer/weixin/verify/history/',
