@@ -13,8 +13,8 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             data: { pageindex: pageIndex },
-            beforeSend: function () { common.loading.show(); },
-            complete: function () { common.loading.hide(); },
+            beforeSend: function () { pageIndex == 1 ? common.loading.show() : "" },
+            complete: function () { pageIndex == 1 ? common.loading.hide() : "" },
             url: '/webapi/distributor/weixin/verify/history/',
             success: function (json) {
                 common.loading.hide();//隐藏转圈动画
@@ -35,7 +35,7 @@ var vm = avalon.define({
 
                 if ($.isFunction(wxjsshare)) {
                     wxjsshare(json.share || {});
-                }                
+                }
 
                 if (pageIndex != 1) {
                     $.each(json, function (i, v) {

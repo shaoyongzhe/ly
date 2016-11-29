@@ -15,8 +15,8 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             data: { pageindex: vm.pageIndex },
-            beforeSend: function () { common.loading.show(); },
-            complete: function () { common.loading.hide(); },
+            beforeSend: function () { vm.pageIndex == 1 ? common.loading.show() : "" },
+            complete: function () { vm.pageIndex == 1 ? common.loading.hide() : "" },
             url: '/webapi/retailer/weixin/verify/history/',
             success: function (json) {
                 common.loading.hide();//隐藏转圈动画
