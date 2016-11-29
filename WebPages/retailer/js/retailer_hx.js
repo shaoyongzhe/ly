@@ -14,7 +14,7 @@ var vm = avalon.define({
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { pageindex: vm.pageIndex, pagesize: 5 },
+            data: { pageindex: vm.pageIndex },
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             url: '/webapi/retailer/weixin/verify/history/',
