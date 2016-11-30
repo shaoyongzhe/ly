@@ -127,19 +127,19 @@
                 sharetitle = document.title;
             }
         }
-        
-        var share2Opention = shareOptions;
+
+        var share2Opention = $.extend({}, {}, shareOptions);
         delete share2Opention["share_desc"];
         delete share2Opention["share_imgurl"];
         delete share2Opention["share"];
         delete share2Opention["share_title"];
         delete share2Opention["activity"];
         $.each(share2Opention,
-            function(name, json) {
+            function (name, json) {
                 if (jQuery.type(json) == "object")
                     delete share2Opention[name];
             });
-        
+
         var sharelink = wxjssharelink($.extend({}, share2Opention, options), false);
 
         var menushare = {
