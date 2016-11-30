@@ -73,7 +73,7 @@ var vm = avalon.define({
 
     },
     jsondataReadered: function (e) {
-        qrcode.show()
+        qrcode.href()
         console.log(tmdropme);
         if (tmdropme != null)
             tmdropme.resetload();
@@ -163,7 +163,7 @@ function loaddata(longitude, latitude, dropme) {
                     wxjsshare(jsondata.share || {});
                 }
                 setTimeout(function () {
-                  
+                    qrcode.show()
                     $('#list').dropload({
                         scrollArea: window,
                         domDown: {
