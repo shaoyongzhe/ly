@@ -143,14 +143,13 @@ function loaddata(longitude, latitude, dropme) {
                 return;
             }
             if (pageIndex != 1) {
+
                 $.each(jsondata.data, function (i, v) {
                     vm.jsondata.push(v);
                 });
             } else
                 vm.jsondata = jsondata.data;
-            if ($.isFunction(wxjsshare)) {
-                wxjsshare(jsondata.share || {});
-            }
+          
 
             $("img.lazy").lazyload();
 
@@ -159,6 +158,9 @@ function loaddata(longitude, latitude, dropme) {
             }, 6000)
             if (pageIndex == 1 && isInit && !jsondata.error && !jsondata.user_notification) {
                 isInit = false;
+                if ($.isFunction(wxjsshare)) {
+                    wxjsshare(jsondata.share || {});
+                }
                 setTimeout(function () {
                     qrcode.show()
                     $('#list').dropload({

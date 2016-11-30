@@ -180,12 +180,13 @@
                         else
                             $("#list").append(html);
                         $("img.lazy").lazyload();
-                        if ($.isFunction(wxjsshare)) {
-                            wxjsshare(jsondata.share || {});
-                        }
-                       
+                      
                         if (pageIndex == 1 && isInit && !jsondata.error && !jsondata.user_notification) {
                             qrcode.show();
+                            if ($.isFunction(wxjsshare)) {
+                                wxjsshare(jsondata.share || {});
+                            }
+
                             isInit = false;
                             $('#dropload').dropload({
                                 scrollArea: window,
