@@ -24,7 +24,7 @@ var vm = avalon.define({
     useticket: function (el) {// 码上用
 
         if (el.verifylimit > 0) {//可用状态，跳转到码上用核销界面
-            var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + el.guid ;
+            var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + el.guid;
 
             var search = window.location.search;
             var isshare = common.getUrlParam(wxjsconfig.sharekey);
@@ -72,8 +72,8 @@ var vm = avalon.define({
 
 
     },
-    jsondataReadered:function(e)
-    {
+    jsondataReadered: function (e) {
+        qrcode.href()
         console.log(tmdropme);
         if (tmdropme != null)
             tmdropme.resetload();
@@ -108,9 +108,9 @@ function loaddata(longitude, latitude, dropme) {
         dataType: 'json',
         url: '/webapi/consumer/weixin/nearby/tickets',// webapi/consumer/weixin/nearby/tickets
         data: ajaxdata,
-        beforeSend: function () { if (pageIndex == 1) { common.loading.show(); }  },
+        beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
         complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
-        success: function (jsondata) {         
+        success: function (jsondata) {
             common.loading.hide();//数据请求成功即隐藏转圈动画
             vm.isShow = true
             jsondata = jsondata || {};
@@ -130,7 +130,7 @@ function loaddata(longitude, latitude, dropme) {
             if (jsondata.user_notification != undefined) {
                 toasterextend.showtips(jsondata.user_notification, "info");
                 if (pageIndex == 1)
-                $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
+                    $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
                 qrcode.href();
                 dealdropme(dropme);
                 return;
@@ -138,37 +138,40 @@ function loaddata(longitude, latitude, dropme) {
 
             if (jsondata.data == undefined || jsondata.data.length == 0) {
                 if (pageIndex == 1)
-                $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
+                    $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
                 qrcode.href();
                 dealdropme(dropme);
                 return;
             }
             if (pageIndex != 1) {
+
                 $.each(jsondata.data, function (i, v) {
                     vm.jsondata.push(v);
-                });                
+                });
             } else
                 vm.jsondata = jsondata.data;
-            if ($.isFunction(wxjsshare)) {
-                wxjsshare(jsondata.share || {});
-            }
+          
 
             $("img.lazy").lazyload();
-            setTimeout(qrcode.show, 200)
+
             setTimeout(function () {
                 $('#ad_title').fadeOut(200);
             }, 6000)
             if (pageIndex == 1 && isInit && !jsondata.error && !jsondata.user_notification) {
                 isInit = false;
+                if ($.isFunction(wxjsshare)) {
+                    wxjsshare(jsondata.share || {});
+                }
                 setTimeout(function () {
+                    qrcode.show()
                     $('#list').dropload({
-                        scrollArea: window,                        
+                        scrollArea: window,
                         domDown: {
                             domClass: 'dropload-down',
                             domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
                             domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
                             domNoData: '<div class="dropload-noData">暂无数据</div>'
-        },
+                        },
                         loadDownFn: function (me) {
                             pageIndex++;
                             tmdropme = me;
