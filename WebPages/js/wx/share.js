@@ -127,16 +127,20 @@
                 sharetitle = document.title;
             }
         }
-        delete shareOptions["share_desc"];
-        delete shareOptions["share_imgurl"];
-        delete shareOptions["share"];
-        delete shareOptions["share_title"];
-        $.each(shareOptions, function (name, json) {
-            if (jQuery.type(json) == "object")
-                delete shareOptions[name];
-        })
-        delete shareOptions["activity"];
-        var sharelink = wxjssharelink($.extend({}, shareOptions, options), false);
+
+        var share2Opention = $.extend({}, {}, shareOptions);
+        delete share2Opention["share_desc"];
+        delete share2Opention["share_imgurl"];
+        delete share2Opention["share"];
+        delete share2Opention["share_title"];
+        delete share2Opention["activity"];
+        $.each(share2Opention,
+            function (name, json) {
+                if (jQuery.type(json) == "object")
+                    delete share2Opention[name];
+            });
+
+        var sharelink = wxjssharelink($.extend({}, share2Opention, options), false);
 
         var menushare = {
             title: sharetitle,
@@ -147,9 +151,9 @@
                 // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
             },
             success: function (res) {
-                if (!$.isEmptyObject(shareOptions)) {
+                if (!$.isEmptyObject(share2Opention)) {
                     var shareSetting = { shareurl: encodeURIComponent(sharelink), sharetype: "share" };
-                    var settings = $.extend({}, shareOptions, shareSetting, options);
+                    var settings = $.extend({}, share2Opention, shareSetting, options);
                     var category = "consumer";
                     if (typeof (share_category) != 'undefined')
                         category = share_category;
