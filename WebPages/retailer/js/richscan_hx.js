@@ -73,9 +73,9 @@ var vm = avalon.define({
                 } else {
                     Msg.hide()
                     vm.pageStep = 2;
-                    vm.jsondata = jsondata
-                    vm.MsgShow(1, "消费者已选择" + vm.jsondata.totalnum + "张超惠券", "请确认")
-                    vm.hxNum = vm.jsondata.totalnum
+                    vm.jsondata = jsondata.activityitemjson
+                    vm.MsgShow(1, "消费者已选择" + result.verifynum + "张超惠券", "请确认")
+                    vm.hxNum = result.verifynum
 
                     $(".btn").hide()
                     $("#hx_1").show();//数量不符
@@ -108,68 +108,68 @@ var vm = avalon.define({
         if (vm.IsVerifycard == false) {
             vm.IsVerifycard = true;
 
-        $.ajax({
-            type: 'put',
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            url: '/webapi/retailer/weixin/verifycard?cardkey=' + vm.cardkey,
-            beforeSend: function () { Msg.show(1, "正在核销中...") },
-            success: function (result) {
-
+            $.ajax({
+                type: 'put',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                url: '/webapi/retailer/weixin/verifycard?cardkey=' + vm.cardkey,
+                beforeSend: function () { Msg.show(1, "正在核销中...") },
+                success: function (result) {
+                    alert(result)
                     var jsondata = isJson(result) ? result : JSON.parse(result)
 
-                Msg.hide()
-                vm.pageStep = 3
+                    Msg.hide()
+                    vm.pageStep = 3
                     if (jsondata.verifynum > 0) {//核销成功
                         vm.yhxNum = jsondata.verifynum
                         vm.whxNum = vm.jsondata.totalnum - jsondata.verifynum
-                    var whxMsg = vm.whxNum > 0 ? (vm.whxNum + "张超惠券未核销") : ""
+                        var whxMsg = vm.whxNum > 0 ? (vm.whxNum + "张超惠券未核销") : ""
                         vm.MsgShow(1, "您已经成功核销了" + jsondata.verifynum + "张超惠券", whxMsg)
 
-                    $(".btn").hide()
+                        $(".btn").hide()
 
-                    $("#hx_3").show();//继续核销
-                    vm.showUsage(1)
+                        $("#hx_3").show();//继续核销
+                        vm.showUsage(1)
 
-                } else {//未核销成功
-                    vm.yhxNum = 0
-                    vm.whxNum = vm.hxNum - vm.yhxNum//失败核销数量
+                    } else {//未核销成功
+                        vm.yhxNum = 0
+                        vm.whxNum = vm.hxNum - vm.yhxNum//失败核销数量
 
                         var msg = jsondata.user_notification.split('|');
                         vm.MsgShow(2, msg[0], msg.length == 1 ? '' : msg[1])
 
-                    $(".btn").hide()
+                        $(".btn").hide()
 
-                    $("#hx_3").show();//继续核销
-                    vm.showUsage(2)
-                }
-                    vm.IsVerifycard = false
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                var errormsg = "网络不给力";
-                try {
-                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                        var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
-                        if (errormsg == undefined || errormsg == '')
-                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        $("#hx_3").show();//继续核销
+                        vm.showUsage(2)
                     }
-                } catch (e) {
-
-                }
-                if (errormsg.indexOf('网络') >= 0) {
-                    Msg.show(4, errormsg, "核销失败，请重试")
-                } else {
-                    Msg.show(2, errormsg, "核销失败，请重试")
-                }
-
-
-                $(".btn").hide()
-                $("#btn_2").show()//返回
-                $("#btn_4").show()//重试
                     vm.IsVerifycard = false
-            }
-        });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    var errormsg = "网络不给力";
+                    try {
+                        if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                            var json = JSON.parse(XMLHttpRequest.responseText);
+                            errormsg = JSON.parse(json.Message).error;
+                            if (errormsg == undefined || errormsg == '')
+                                errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        }
+                    } catch (e) {
+
+                    }
+                    if (errormsg.indexOf('网络') >= 0) {
+                        Msg.show(4, errormsg, "核销失败，请重试")
+                    } else {
+                        Msg.show(2, errormsg, "核销失败，请重试")
+                    }
+
+
+                    $(".btn").hide()
+                    $("#btn_2").show()//返回
+                    $("#btn_4").show()//重试
+                    vm.IsVerifycard = false
+                }
+            });
         }
 
     },
