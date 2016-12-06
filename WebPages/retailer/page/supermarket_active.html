@@ -210,13 +210,14 @@
                     else
                         $('#list').append(listitem);
                     $("img.lazy").lazyload();
-                    if ($.isFunction(wxjsshare)) {
-                        wxjsshare(json.share || {});
-                    }
+                  
                     common.loading.hide();
                     //绑定分页
-                    if (pageIndex == 1 && isInit && json.data.length ==15) {
+                    if (pageIndex == 1 && isInit && !json.error && !json.user_notification) {
                         isInit = false;
+                        if ($.isFunction(wxjsshare)) {
+                            wxjsshare(json.share || {});
+                        }
                         $('#dropload').dropload({
                             scrollArea: window, 
                             domDown: {

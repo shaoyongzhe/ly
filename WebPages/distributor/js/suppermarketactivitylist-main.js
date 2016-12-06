@@ -55,22 +55,24 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
             dealdropme(dropme);
             return;
         }
-        if (data.error && pageIndex != 1)
-        {
+        if (data.error && pageIndex != 1) {
             dealdropme(dropme);
             return;
         }
-       
+
         var html = juicer(activitylisttemplate, data);
         if (pageIndex == 1)
             container.html(html);
         else
             container.append(html);
+        
         $("img.lazy").lazyload();
-        if ($.isFunction(sharefunction)) {
-            sharefunction(data.share || {});
-        }
-        if (pageIndex == 1 &&  isInit && data.data.length == 15) {
+    
+        if (pageIndex == 1 && isInit && !data.error && !data.user_notification) {
+
+            if ($.isFunction(sharefunction)) {
+                sharefunction(data.share || {});
+            }
             isInit = false;
 
             $('#dropload').dropload({

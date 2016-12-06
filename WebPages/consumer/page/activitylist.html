@@ -13,12 +13,12 @@
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
     <link href="/consumer/css/menustyle.css" rel="stylesheet" />
     <link href="../css/dropload.css" rel="stylesheet" />
-    
+
     <style>
         .storeintro-left {
             padding-right: 46px;
             position: relative;
-            box-sizing: border-box; 
+            box-sizing: border-box;
         }
 
             .storeintro-left span {
@@ -34,8 +34,9 @@
         <div class="tip"><img src="/consumer/image/icon09.png" /></div>
     </div>
     <div id="dropload">
-    <div class="active-w ajaxdata" id="list">
+        <div class="active-w ajaxdata" id="list">
 
+        </div>
     </div>
     <!--<footer>
         <div class="space2"></div>
@@ -60,17 +61,16 @@
     </footer>
 
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-	<script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-    
+
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
     <script type="text/javascript" src="/js/wx/location.js"></script>
 
-    
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
@@ -80,7 +80,7 @@
     <script src="/js/jquery/dropload.min.js"></script>
     <script>
         var consumer_id = getUrlParam("consumer_id");
-        var pageIndex = 1;        
+        var pageIndex = 1;
         var isInit = true;
         $(function () {
 
@@ -95,8 +95,8 @@
             waitloadaddress(function () {
                 loaddata(wxlocation.longitude, wxlocation.latitude, null);
             });
-            
-                    });
+
+        });
         function loaddata(longitude, latitude, dropme) {
 
             var ajaxdata = { consumer_id: consumer_id, "activitykind": "distributor_to_consumer", "activitytype": "activity", pageindex: pageIndex };
@@ -128,7 +128,7 @@
                 beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
                 complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                 success: function (jsondata) {
-                    
+
                     common.loading.hide();//数据请求成功即隐藏转圈动画
 
                     jsondata = jsondata || {};
@@ -157,9 +157,7 @@
                         dealdropme(dropme);
                         return;
                     }
-                    if ($.isFunction(wxjsshare)) {
-                        wxjsshare(jsondata.share || {});
-                    }
+                  
 
                     var content = "";
                     for (var i = 0; i < jsondata.data.length; i++) {
@@ -198,18 +196,22 @@
                     else
                         $("#list").append(content);
                     $("img.lazy").lazyload();
-                    qrcode.show();
 
-                    if (pageIndex == 1 && isInit && jsondata.data.length == 15) {
+
+                    if (pageIndex == 1 && isInit && !jsondata.error && !jsondata.user_notification) {
+                        qrcode.show();
+                        if ($.isFunction(wxjsshare)) {
+                            wxjsshare(jsondata.share || {});
+                        }
                         isInit = false;
                         $('#dropload').dropload({
-                            scrollArea: window, 
+                            scrollArea: window,
                             domDown: {
                                 domClass: 'dropload-down',
                                 domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
                                 domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
                                 domNoData: '<div class="dropload-noData">暂无数据</div>'
-                            },                           
+                            },
                             loadDownFn: function (me) {
                                 pageIndex++;
                                 loaddata(longitude, latitude, me);
