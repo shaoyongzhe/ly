@@ -115,7 +115,7 @@ var vm = avalon.define({
                 url: '/webapi/retailer/weixin/verifycard?cardkey=' + vm.cardkey,
                 beforeSend: function () { Msg.show(1, "正在核销中...") },
                 success: function (result) {
-                    alert(result)
+                   // alert(result)
                     var jsondata = isJson(result) ? result : JSON.parse(result)
 
                     Msg.hide()
