@@ -159,7 +159,7 @@ var vm = avalon.define({
         vm.IsScan = false;
         $(".msg").hide()
         Msg.show(1, "核销二维码加载中...")
-        $("#QRCode_img").attr("src", '/webapi/consumer/weixin/card_generate_code?activity_item_guid=' + vm.activity_item_guid + "&totalnum=" + vm.hxNum + "&random=" + Math.random())
+        $("#QRCode_img").attr("src", '/webapi/consumer/weixin/card_generate_code?activity_item_guid=' + vm.activity_item_guid + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&random=" + Math.random())
         $("#QRCode_img").load(function () {//二维码加载成功后，每秒请求服务器，判断门店有没有开始扫码
             //  console.log("二维码加载成功")
             $(".stamp").hide()
