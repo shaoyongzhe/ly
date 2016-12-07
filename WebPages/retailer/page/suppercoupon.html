@@ -205,7 +205,9 @@
 
                     if (pageIndex == 1 && isInit && !json.error && !json.user_notification) {
                         isInit = false;
-
+                        if ($.isFunction(wxjsshare)) {
+                            wxjsshare(json.share || {});
+                        }
                         $('#dropload').dropload({
                             scrollArea: window,
                             domDown: {
@@ -221,9 +223,7 @@
                         });
                     }
                     $("img.lazy").lazyload();
-                    if ($.isFunction(wxjsshare)) {
-                        wxjsshare(json.share || {});
-                    }
+                
                     if (dropme != null)
                         dropme.resetload();
 
