@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录页</title>
+	<link rel="stylesheet" type="text/css" href="css/sigin.css">
+</head>
+<body>
+<div class="wrap">
+	<div class="header">
+		<div class="header_wrap">
+			<img src="images/login1.png" height="62" width="112" alt="">
+			<p class="login_text">会员运营平台</p>
+		</div>
+	</div>
+	<div class="main-cont">
+		<div class="main_wrap">
+			<div class="user_box">
+				<div class="user_center">
+					<p class="uesr_login">用户登录</p>
+					<div>
+						<input class="user_name" type="text">
+						<img class="user_name_pic" src="images/userpic1.png" height="22" width="21" alt="">
+					</div>
+					<div>
+						<input class="password" type="text">
+						<img class="password_pic" src="images/password1.png" height="23" width="19" alt="">
+					</div>
+					<div>
+						<div class="Remember_username">
+							<i></i>
+							<a href="javascript:;">记住用户名</a>
+						</div>
+						<a class="Forget_password" href="javascript:;">忘记密码?</a>
+					</div>
+					<input type="submit" value="立即登录" class="submit" onclick="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<a href="javascript:;">凌云科技版权所有&nbsp;&nbsp;京ICP备14000258号-1</a>
+	</div>
+</div>
+	<script src="http://js.peixun.vko.cn/common/js/jquery/jquery/1.7.2/jquery.js"></script>
+	<script type="text/javascript">
+			$('.Remember_username').click(function() {
+				$(this).toggleClass('checked');
+			});
+	</script>
+</body>
+</html>
