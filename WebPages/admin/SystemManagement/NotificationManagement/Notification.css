@@ -1,48 +1,70 @@
 
-/*.search-area{
-	width: 80%;
-	position: relative;
-}*/
-
-.bread-crumb{
-	margin-bottom: 10px;
+.search-area
+{
+    width: 80%;
+    position: relative;
 }
 
-.bread-crumb span{
-	font-family: simsun;
+.on
+{
+    background-color: burlywood;
 }
 
-.search-wrap{
-	position: relative;
+.bread-crumb
+{
+    margin-bottom: 10px;
 }
 
-.input-contorl{
-	display: inline-block;
+    .bread-crumb span
+    {
+        font-family: simsun;
+    }
+
+.search-wrap
+{
+    position: relative;
+}
+
+.float_right
+{
+    float: right;
+}
+
+.input-contorl
+{
+    display: inline-block;
     margin-right: 20px;
     margin-bottom: 20px;
 }
 
+    .input-contorl input,
+    .input-contorl select,
+    .bk-gray select
+    {
+        width: 200px;
+        height: 30px;
+    }
 
-.input-contorl input,
-.input-contorl select {
-    width: 200px;
-    height: 30px;
-}
+    .input-contorl label
+    {
+        width: 90px;
+        display: inline-block;
+    }
 
-.input-contorl label{
-	width: 90px;
-    display: inline-block;
-}
+    .input-contorl .date
+    {
+        width: 90px;
+        margin-right: 0;
+    }
 
-.input-contorl .date {
-    width: 90px;
-    margin-right: 0;
-}
+
 
 .add-btn,
 .submit-btn,
-.search-btn{
-	background-color: rgba(0, 157, 217, 1);
+.reset-btn,
+.search-btn
+{
+    background-color: rgba(0, 157, 217, 1);
     color: #fff;
     padding: 10px 30px;
     border-radius: 10px;
@@ -53,29 +75,40 @@
     cursor: pointer;
 }
 
-.add-btn{
+.reset-btn
+{
+    right: 100px;
+}
+
+
+.add-btn
+{
     margin-right: 52px;
     bottom: 10px;
 }
 
 
 
-.handle {
+.handle
+{
     position: relative;
 }
 
-.handle-icon {
+.handle-icon
+{
     display: inline-block;
     width: 20px;
     height: 20px;
     background-color: #bbb;
 }
 
-.handle-icon.on + .handle-btns-wrap {
-    display: block;
-}
+    .handle-icon.on + .handle-btns-wrap
+    {
+        display: block;
+    }
 
-.handle-btns-wrap {
+.handle-btns-wrap
+{
     display: none;
     width: 277px;
     height: 43px;
@@ -90,79 +123,88 @@
 }
 
 
-.handle-btns{
+.handle-btns
+{
     text-align: left;
 }
 
-.handle-btns a {
-    display: inline-block;
-    vertical-align: -5px;
-/*    background: red;
+    .handle-btns a
+    {
+        display: inline-block;
+        vertical-align: -5px; /*    background: red;
     width: 20px;
     height: 20px;*/
-}
+    }
 
-.handle-btns .arrow-right {
-    display: inline-block;
-    position: absolute;
-    border: 6px solid transparent;
-    border-left-color: #bbb;
-    right: -12px;
-    top: 14px;
-}
+    .handle-btns .arrow-right
+    {
+        display: inline-block;
+        position: absolute;
+        border: 6px solid transparent;
+        border-left-color: #bbb;
+        right: -12px;
+        top: 14px;
+    }
 
 
-.w72{
+.w72
+{
     width: 72px;
 }
 
 
-.sec{
+.sec
+{
     display: none;
 }
 
-nav{
+nav
+{
     height: 40px;
     background: antiquewhite;
     margin-bottom: 20px;
 }
 
-nav span{
-    border: 1px solid #eee;
-    background: #ccc;
-    padding: 10px 20px;
-    line-height: 40px;
-    cursor: pointer;
-}
+    nav span
+    {
+        border: 1px solid #eee;
+        background: #ccc;
+        padding: 10px 20px;
+        line-height: 40px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
 
-.addForm{
-    width: 500px;
-    /*height: 300px;*/
-    /*background-color: #eee;*/
+.addForm
+{
+    width: 500px; /*height: 300px;*/ /*background-color: #eee;*/
     display: none;
     padding: 20px 0 50px 50px;
     box-sizing: border-box;
 }
 
-.submit-btn{
+.submit-btn
+{
     position: static;
     display: block;
     margin-left: 210px;
 }
 
-.input-contorl textarea{
+.input-contorl textarea
+{
     height: 100px;
     width: 300px;
-    vertical-align: top;
-    /*transition: .6s;*/
+    vertical-align: top; /*transition: .6s;*/
 }
 
-.json-wrap{
+.json-wrap
+{
     display: none;
     height: 100%;
 }
 
-.saveBtn{
+.saveBtn
+{
     float: right;
     margin-right: 40px;
     background-color: rgba(0, 157, 217, 1);
@@ -173,11 +215,13 @@ nav span{
 }
 
 
-body > i{
+body > i
+{
     display: none;
 }
 
-td .content{
+td .content
+{
     width: 300px;
     font-size: 12px;
     display: block;
@@ -187,21 +231,24 @@ td .content{
     text-overflow: ellipsis;
 }
 
-textarea.content{
+textarea.content
+{
     font-size: 14px;
 }
 
-.border-warn{
+.border-warn
+{
     border: 1px solid #dd514c;
 }
 
-table.notify tbody tr{
-    /*display: none;*/
+table.notify tbody tr
+{ /*display: none;*/
 }
 
 textarea.content,
 td span.content,
-.jsoneditor {
+.jsoneditor
+{
     font-family: Monaco, 'Lucida Console', monospace, Consolas, Courier, 'Microsoft YaHei' !important;
 }
 
@@ -209,12 +256,14 @@ td span.content,
     display: none;
 } */
 
-pre{
+pre
+{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.addForm .input-contorl{
-    margin-bottom: 10px
+.addForm .input-contorl
+{
+    margin-bottom: 10px;
 }

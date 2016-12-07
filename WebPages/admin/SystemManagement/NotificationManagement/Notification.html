@@ -1,241 +1,232 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
-
-	<meta charset="utf-8">
-	<meta name="renderer" content="webkit|ie-comp|ie-stand">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-	<meta http-equiv="Cache-Control" content="no-siteapp" />
-	<title>通知管理</title>
-
-	<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
-	<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
-	<link rel="stylesheet" type="text/css" href="Notification.css" />
-	<!-- <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" /> -->
-
-	<script src="laydate/laydate.js"></script>
-
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>通知管理</title>
+    <link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="Notification.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" /> -->
+    <script src="laydate/laydate.js"></script>
 </head>
-
 <body>
+    <!-- <input type="text" id="example1"> -->
+    <!-- <input onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"> -->
+    <!-- <input id="hello" class="laydate-icon" style="display:none"> -->
+    <!-- <input id="hello" class="laydate-icon">
+    <script>
+    laydate.skin('yalan');
+    laydate({
+        elem: '#hello',
+        event: 'focus',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        istime: true,
+        choose: function(dates){
+            alert(dates)
+        },
+    });
+    </script> -->
+    <div class="page-container">
+        <div class="bread-crumb">系统管理<span> > </span>通知管理</div>
+        <nav>
+            <span class="">通知管理</span>
+            <span class="">负责人管理</span>
+        </nav>
+        <div class="sec">
+            <div class="search-wrap">
+                <div class="search-area">
+                    <div class="input-contorl">
+                        <label>使用场景</label>
+                        <select name="" id="" class="first-type">
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>事件</label>
+                        <select name="" id="" class="second-type">
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>发送途径</label>
+                        <select name="" id="" class="third-type">
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>组名</label>
+                        <select name="" id="" class="fourth-type">
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>外部模板编号</label>
+                        <input type="text" value="" class="input-text gateway_templateid">
+                    </div>
+                </div>
+                <input type="button" value="重置" class="reset-btn" />
+                <input type="button" value="查询" class="search-btn" />
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray mt-20">
+                <!-- <span class="btn btn-primary radius batchDel">
+                    批量删除
+                </span> -->
+                <span class="btn btn-danger radius ml-20 mr-20 add">
+                    <i class="Hui-iconfont">&#xe6e1;</i>新增
+                </span>
+                <span class="btn btn-danger radius ml-20 mr-20 float_right setDefaultGroup">
+                    设置默认分组
+                </span>
+                <select name="" id="" class="float_right group_type">
+                    <option value="">-- 请选择 --</option>
+                </select>
+            </div>
 
-	<!-- <input type="text" id="example1"> -->
-	<!-- <input onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"> -->
-	<!-- <input id="hello" class="laydate-icon" style="display:none"> -->
-	<!-- <input id="hello" class="laydate-icon">
-	<script>
-	laydate.skin('yalan');
-	laydate({
-		elem: '#hello',
-		event: 'focus',
-		format: 'YYYY-MM-DD hh:mm:ss',
-		istime: true,
-		choose: function(dates){
-			alert(dates)
-		},
-	});
-	</script> -->
+            <table class="notify table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
+                <thead>
+                    <tr class="text-c">
+                        <!-- <th><input type="checkbox" name="" value=""></th> -->
+                        <th>使用场景</th>
+                        <th>事件</th>
+                        <th>发送途径</th>
+                        <th>组名</th>
+                        <th>区域</th>
+                        <th>外部模板编号</th>
+                        <th>内容</th>
+                        <th>状态</th>
+                        <th>是否默认</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <!-- 分页 -->
+            <div class="text-c pager-wrap">
+                <div class="text-l">
+                    共有数据：
+                    <strong class='totalcount'></strong> 条
+                </div>
+                <div id="pager"></div>
+                <ul id="datalist"></ul>
+            </div>
+        </div>
+        <div class="sec">
+            负责人管理
+            <table class="modulePeople table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
+                <thead>
+                    <tr class="text-c">
+                        <th>负责模块</th>
+                        <th>联系人信息</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 
-	<div class="page-container">
+    <div class="addForm">
+        <div class="input-contorl">
+            <label>外部模板编号</label>
+            <input type="text" value="" class="input-text gateway_templateid" placeholder="&nbsp;必要时可为空直接发送内容!">
+        </div>
 
-		<div class="bread-crumb">系统管理<span> > </span>通知管理</div>
+        <div class="input-contorl">
+            <label>使用场景</label>
+            <select name="" id="" class="firsttype">
+                <option value="">-- 请选择 --</option>
+            </select>
+        </div>
 
-		<nav>
-			<span class="">通知管理</span>
-			<span class="">消息查询</span>
-		</nav>
+        <!--<div class="input-contorl">
+            <label>新增场景</label>
+            <input type="text" value="使用场景" class="input-text firsttypeInput" placeholder="&nbsp;可为空，为空使用选择的场景">
+        </div>-->
 
-		<div class="sec">
+        <div class="input-contorl">
+            <label>事件</label>
+            <select name="" id="" class="secondtype">
+                <option value="">-- 请选择 --</option>
+            </select>
+        </div>
 
-			<div class="search-wrap">
+        <!--<div class="input-contorl">
+            <label>新增事件</label>
+            <input type="text" value="新增事件" class="input-text secondtypeInput" placeholder="&nbsp;可为空，为空使用选择的事件">
+        </div>-->
 
-				<div class="search-area">
-					
-					<div class="input-contorl">
-						<label>模板名称</label>
-						<input type="text" value="" class="input-text title">
-					</div>
+        <div class="input-contorl">
+            <label>发送途径</label>
+            <select name="" id="" class="thirdAllType">
+                <option value="">-- 请选择 --</option>
+            </select>
+        </div>
 
-					<div class="input-contorl">
-						<label>模板编号</label>
-						<input type="text" value="" class="input-text templateid">
-					</div>
+        <div class="input-contorl">
+            <label>组名</label>
+            <select name="" id="" class="fourthtype">
+                <option value="">-- 请选择 --</option>
+            </select>
+        </div>
 
-					<div class="input-contorl">
-						<label>模板一级类型</label>
-						<select name="" id="" class="first-type">
-							<option value="">-- 请选择 --</option>
-						</select>
-					</div>
+        <div class="input-contorl">
+            <label>新增组名</label>
+            <input type="text" value="" class="input-text fourthtypeInput" placeholder="&nbsp;可为空，为空使用选择的组名">
+        </div>
 
-					<div class="input-contorl">
-						<label>模板二级类型</label>
-						<select name="" id="" class="second-type">
-							<option value="">-- 请选择 --</option>
-						</select>
-					</div>
+        <div class="input-contorl">
+            <label>影响省份</label>
+            <select class="form-control" id="loc_province" name="loc_province"></select>
+        </div>
+        <div class="input-contorl">
+            <label>影响地级市</label>
+            <select class="form-control" id="loc_city" name="loc_city"></select>
+        </div>
+        <div class="input-contorl">
+            <label>影响市、县、区</label>
+            <select class="form-control" id="loc_county" name="loc_county"></select>
+        </div>
 
-				</div>
+        <div class="input-contorl">
+            <label>内容</label>
+            <textarea name="" id="" class="content"></textarea>
+        </div>
 
-				<input type="button" value="查询" class="search-btn"/>
-
-			</div>
-
-			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<!-- <span class="btn btn-primary radius batchDel">
-					批量删除
-				</span> -->
-				<span class="btn btn-danger radius add">
-					新增
-				</span>
-			</div>
-			
-			<table class="notify table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
-				<thead>
-
-					<tr class="text-c">
-						<!-- <th><input type="checkbox" name="" value=""></th> -->
-						<th>模板名称</th>
-						<th>模板编号</th>
-						<th>模板一级类型</th>
-						<th>模板二级类型</th>
-						<th>内容</th>
-						<th>描述</th>
-						<th>状态</th>
-						<th>版本</th>
-						<th>操作</th>
-					</tr>
-
-				</thead>
-				<tbody>
-
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>7</td>
-						<td>8</td>
-						<td class='f-14 td-manage'>
-							<div class='handle'>
-								<div class='handle-icon'></div>
-									<div class='handle-btns-wrap' style='width:"+ autoW +"px'>
-										<div class='handle-btns'>
-										<span class='btn'>dsa</span>
-										<span class='btn'>详细</span>
-										<span class='btn modify'>修改</span>
-										<span class='btn del'>删除</span>
-										<span class='arrow-right'></span>
-									</div>
-								</div>
-							</div>
-						</td>
-					</tr>
-
-				</tbody>
-
-			</table>
-
-			<!-- 分页 -->			
-			<div class="text-c pager-wrap">
-				<div class="text-l">
-					共有数据：
-					<strong class='totalcount'></strong> 条
-				</div>
-				<div id="pager"></div>
-				<ul id="datalist"></ul>
-			</div>
-
-		</div>
-
-		<div class="sec">
-			消息查询消息查询
-			<table class="table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
-				<thead>
-
-					<tr class="text-c">
-						<!-- <th><input type="checkbox" name="" value=""></th> -->
-						<th>模板名称</th>
-						<th>模板编号</th>
-						<th>模板一级类型</th>
-						<th>模板二级类型</th>
-						<th>内容</th>
-						<th>描述</th>
-						<th>状态</th>
-						<th>操作</th>
-					</tr>
-
-				</thead>
-				<tbody>
-					
-				</tbody>
-			</table>
-		</div>
-
-	</div>
-
-	<div class="addForm">
-
-		<div class="input-contorl">
-			<label>模板名称</label>
-			<input type="text" value="" class="input-text title">
-		</div>
-
-		<div class="input-contorl">
-			<label>模板编号</label>
-			<input type="text" value="" class="input-text templateid">
-		</div>
-
-		<div class="input-contorl">
-			<label>数据示例</label>
-			<input type="text" value="" class="input-text dataexample">
-		</div>
-
-		<div class="input-contorl">
-			<label>模板一级类型</label>
-			<select name="" id="" class="firsttype">
-				<option value="">-- 请选择 --</option>
-			</select>
-		</div>
-
-		<div class="input-contorl">
-			<label>模板二级类型</label>
-			<select name="" id="" class="secondtype">
-				<option value="">-- 请选择 --</option>
-			</select>
-		</div>
-
-		<div class="input-contorl">
-			<label>内容</label>
-			<textarea name="" id="" class="content">{"a":"a"}</textarea>
-		</div>
-
-		<div class="input-contorl">
-			<label>描述</label>
-			<textarea name="" id="" class="description" ></textarea>
-		</div>
-
-		<!-- <input type="submit" value="确定" class="submit-btn add-btn"> -->
-		<span class="add-btn">确定</span>
-
-	</div>
-
-	<input type="hidden" name="" id="trIndex">
-	<input type="hidden" name="" id="add">
-	<input type="hidden" name="" id="refresh">
-
+        <div class="input-contorl">
+            <label>描述</label>
+            <textarea name="" id="" class="description" placeholder="&nbsp;可为空">描述</textarea>
+        </div>
+        <!-- 区域 -->
+        <div class="input-contorl">
+            <label>是否默认</label>
+            <select name="" id="" class="isDefault">
+                <option value="0">false</option>
+                <option value="1">true</option>
+            </select>
+        </div>
+        <span class="add-btn">确定</span>
+    </div>
+    <input type="hidden" name="" id="trIndex">
+    <input type="hidden" name="" id="add">
+    <input type="hidden" name="" id="opType">
+    <input type="hidden" name="" id="refresh">
 </body>
 </html>
-
-<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="../../lib/laypage-v1.3/laypage/laypage.js"></script>
 <script type="text/javascript" src="Notification.js"></script>
-
+<script src="../../lib/district/ipaloma_location.js"></script>
+<script>
+    showLocation();
+    $(function () { $(window).on("scroll", $backToTopFun); $backToTopFun(); });
+</script>
 <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> -->
 <!-- <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
