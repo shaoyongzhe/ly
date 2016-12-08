@@ -1,0 +1,30 @@
+﻿
+#mask {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+#shelterContent {
+    position: fixed;
+    z-index: 5000;
+    width: 80%;
+    max-width: 300px;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    overflow: hidden;padding:20px
+}
+    #shelterContent #btnGroup {margin-top:10px;padding: 10px
+    }
+    #shelterContent p { height:20px; line-height:20px;
+    }
+         #shelterContent p img {width:20px;vertical-align:top;margin-right:5px
+            }
