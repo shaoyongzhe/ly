@@ -12,6 +12,7 @@
 
     <link href="/retailer/css/weixintips.css" rel="stylesheet" />
     <link type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" rel="stylesheet" />
+    <link href="/js/shelter/shelter.css" rel="stylesheet" />
     <link href="/retailer/css/verify.css" rel="stylesheet" />
 </head>
 <body ms-controller="verify" class="ms-controller">
@@ -24,7 +25,7 @@
                 <h4 class="weui-media-box__title" style="font-size:13px">您有<font class="titlecolor" style="font-size:20px">{{authrecordcount}}</font> 次核销待确认</h4>
                 <p class="weui-media-box__desc">
                     <div ms-attr-class="btnVerify {{authrecordcount==0?'disable1':''}}" ms-click="verifyRecord">查看记录</div>
-                    <div ms-attr-class="btnVerify active {{authrecordcount==0?'disable2':''}}" style="float:right">全部确认</div>
+                    <div ms-attr-class="btnVerify active {{authrecordcount==0?'disable2':''}}" ms-click="allVerify" style="float:right">全部确认</div>
                 </p>
             </div>
         </div>
