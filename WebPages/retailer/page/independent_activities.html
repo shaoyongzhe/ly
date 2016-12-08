@@ -15,20 +15,22 @@
 </head>
 
 <body>
+
     <div class="container add">
         <div class="a-title" onclick="activity.create()">创新新活动</div>
         <div class="clear"></div>
         <i>消费者一般在平台审核通过后的第二天看到您的活动</i>
     </div>
+
     <!--创建-->
     <div id="create">
-
 
     </div>
 
     <div id="list">
 
     </div>
+
     <div id="bottom-nav"></div>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/retailer/js/lib/common.js"></script>
@@ -37,9 +39,11 @@
     <script src="../js/lib/picker.date.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script>
+
         $(function () {
             activity.list();
         })
+
         var cssObj = {
             tabChange: function (t, obj) {
                 if ($(obj).is(".curr"))
@@ -84,8 +88,12 @@
                 else if (t == 9)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
-                    cont = '<div class="win-box date-box"><ul><li class="curr">00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li></ul><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
-                $("body").css("padding-bottom", "0")
+                    cont = '<div class="win-box date-box"><ul><li class="curr">00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li></ul><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
+
+                // else if (t == 11)
+                //     cont = '<div class="win-box date-box"><p>请录入整数或小数</p><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
+
+                $("body").css("padding-bottom", "0");
                 $("body").append('<div class="lazyout" id="lazyout"></div><div id="win_box">' + cont + '</div>');
                 var h = $(window).height() > $(document.body).height() ? $(window).height() : $(document.body).height();
                 $("#lazyout ").height(h);
@@ -101,54 +109,245 @@
                         callback();
                 })
             },
+
             close: function () {
                 $("body").css("padding-bottom", "60px")
                 $("#lazyout,#win_box").remove();
                 $(window).unbind("touchmove");
             }
-        };
-        function initDate() {
-            $("#create input[name=originalprice]").blur(function () {
-                var originalprice = $(this).val();
-                if (!$.isNumeric(originalprice)) {
-                    $(this).val("");
-                    return;
-                }
-                originalprice = new Number(originalprice).toFixed(2);
-                $(this).val(originalprice);
-                var discountprice = new Number($(this).parent().find("input[name=discountprice]").val());
-                $(this).parent().find(".d-cont").text(getDiscount(discountprice, originalprice));
-            })
-            $("#create input[name=discountprice]").blur(function () {
-                var discountprice = $(this).val();
-                var discountprice = $(this).val();
-                if (!$.isNumeric(discountprice)) {
-                    $(this).val("");
-                    return;
-                }
-                discountprice = new Number(discountprice).toFixed(2);
-                $(this).val(discountprice);
-                var originalprice = new Number($(this).parent().find("input[name=originalprice]").val());
 
-                $(this).parent().find(".d-cont").text(getDiscount(discountprice, originalprice));
-            })
+        };
+
+
+        function initDate() {
+
+            // $("input[name=originalprice]").on('keydown',function () {
+            // 	// alert(1);
+            //     var originalprice = $(this).val();
+            //     if (!$.isNumeric(originalprice) || originalprice <= 0) {
+            //         $(this).val("");
+            //         return;
+            //     }
+
+            //     originalprice = new Number(originalprice).toFixed(2);
+            //     if(originalprice.length<=7){
+            //     	$(this).val(originalprice);
+            //     }
+            //     var discountprice = new Number($(this).parent().find("input[name=discountprice]").val());
+            //     $(this).parent().find(".d-cont").text(getDiscount(discountprice, originalprice));
+            // });
+
+
+            // // $("input[name=discountprice]").blur(function () {
+            // $("input[name=discountprice]").on('keydown',function () {
+            //     var discountprice = $(this).val();
+            //     // var discountprice = $(this).val();
+            //     if (!$.isNumeric(discountprice) || discountprice <= 0) {
+            //         $(this).val("");
+            //         return;
+            //     }
+            //     discountprice = new Number(discountprice).toFixed(2);
+            //     $(this).val(discountprice);
+            //     var originalprice = new Number($(this).parent().find("input[name=originalprice]").val());
+
+            //     $(this).parent().find(".d-cont").text(getDiscount(discountprice, originalprice));
+            // });
+
+            $("input[name=originalprice]").on('input',function (){
+
+                if(!isNaN(this.value)){
+
+                    if(this.value.indexOf(".")!=-1){
+
+                        $(this).attr('maxlength',"7");
+
+                        if(this.value.substring(this.value.indexOf(".")).length > 3){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        }
+
+                        if(this.value.indexOf(".")==5){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        } else if(this.value.indexOf(".")==6){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        }
+
+                    } else if(this.value.indexOf(".")==-1){
+                        $(this).attr('maxlength',"7");
+                    }
+
+                } else {
+                    alert("请录入整数或小数");
+                    // popup.show(11);
+                    $(this).val("");
+                }
+
+                // console.log(this.value);
+
+                if (this.value < 0) {
+                    this.value = "";
+                    // $(this).val("");
+                    // return;
+                } else if(this.value.indexOf("-")!=-1){
+                    this.value = "";
+                    // $(this).val('');
+                }
+
+                var discountprice = new Number($(this).parent().find("input[name=discountprice]").val());
+                $(this).parent().find(".d-cont span").text(getDiscount(discountprice, this.value));
+
+            });
+
+
+            // $("input[name=discountprice]").blur(function () {
+            $("input[name=discountprice]").on('input',function () {
+                if(!isNaN(this.value)){
+
+                    if(this.value.indexOf(".")!=-1){
+
+                        $(this).attr('maxlength',"7")
+                        // this.value=this.value.slice(0,10)
+
+                        if(this.value.substring(this.value.indexOf(".")).length > 3){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        }
+
+                        if(this.value.indexOf(".")==5){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        } else if(this.value.indexOf(".")==6){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        }
+
+                    } else if(this.value.indexOf(".")==-1){
+                        $(this).attr('maxlength',"7");
+                    }
+
+                } else {
+                    alert("请录入整数或小数");
+                    // popup.show(11);
+                    // popup.show(10);
+                    $(this).val("");
+                }
+
+                // console.log(this.value);
+
+                if (this.value < 0) {
+                    // $(this).val("");
+                    this.value = "";
+                    // return;
+                } else if(this.value.indexOf("-")!=-1){
+                    // $(this).val('');
+                    this.value = "";
+                }
+
+                var originalprice = new Number($(this).parent().find("input[name=originalprice]").val());
+                $(this).parent().find(".d-cont span").text(getDiscount(this.value, originalprice));
+
+            });
+
+
+            // $("input[name=unitprice]").blur(function () {
+            $("input[name=unitprice],input[name=buycount],input[name=giftcount]").on('input',function () {
+                // alert('dsdsds')
+                if(!isNaN(this.value)){
+
+                    if(this.value.indexOf(".")!=-1){
+
+                        $(this).attr('maxlength',"7")
+                        // this.value=this.value.slice(0,10)
+
+                        if(this.value.substring(this.value.indexOf(".")).length > 3){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        }
+
+                        if(this.value.indexOf(".")==5){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        } else if(this.value.indexOf(".")==6){
+                            this.value = this.value.substring(0,this.value.indexOf('.')+3)
+                        }
+
+                    } else if(this.value.indexOf(".")==-1){
+                        $(this).attr('maxlength',"7");
+                    }
+
+                } else {
+                    alert("请录入整数或小数");
+                    // popup.show(11);
+                    // popup.show(10);
+                    $(this).val("");
+                }
+
+                // console.log(this.value);
+
+                if (this.value < 0) {
+                    // $(this).val("");
+                    this.value = "";
+                    // return;
+                } else if(this.value.indexOf("-")!=-1){
+                    // $(this).val('');
+                    this.value = "";
+                }
+
+            });
+
 
             function getDiscount(specialprice, originalcost) {
-                if (specialprice > 0 && originalcost > 0 && originalcost > specialprice) {
-                    var discount = specialprice / originalcost * 10+'';
-                    return discount.substring(0, discount.lastIndexOf('.') + 2) + "折";
+                if (specialprice > 0 && originalcost > 0) {
+                    if(originalcost > specialprice)
+                    {
+                        var discount = specialprice / originalcost * 10+'';
+                        var disc = discount.substring(0, discount.lastIndexOf('.') + 2);
+                        if (disc == null) {
+                            disc = "";
+                        }
+                    }else
+                    {
+                        alert("原价必须大于优惠价!!!");
+                        $("input[name=discountprice]").val("");
+                    }
+                    // alert(disc);
+                    return disc;
                 }
                 return "";
             }
 
-            $('.date').pickadate({ min: Date.now });
+            // $('.date').pickadate({ min: Date.now });
+            $('input[name=begintime]').pickadate({ min: Date.now });
+            $("input[name=endtime]").pickadate({
+                min: Date.now,
+                onSet: function(thingSet) {
+                    // picker.set('highlight', '2016-10-28', { format: 'yyyy-mm-dd' });
+                    // console.log(Date.now);
+                    var et = new Date(parseInt(thingSet.select) * 1).toLocaleDateString().replace(/\//g,'-');
+                    if(et < $("input[name=begintime]").val()){
+                        toasterextend.showtips("结束时间建议大于今天", "error");
+                    }
+                }
+            });
+
+            //if($("input[name=begintime]").val()==""){
+                var myDate = new Date();
+                var today = myDate.toLocaleDateString();
+                $("input[name=begintime]").val(today.replace(/\//g, '-'));
+            //}
+
+            //if($("input[name=endtime]").val()==""){
+                $("input[name=endtime]").val(new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-'));
+            //}
+
+            /*else {
+            }*/
+
+            if($(".date-hour").val()==""){
+                $(".date-hour").val("00");
+            }
+
             $('.date-hour').click(function () {
                 var parent = this;
                 popup.show(10);
                 $("#win_box li").click(function () {
                     $("#win_box .curr").removeClass("curr");
                     $(this).addClass("curr");
-                })
+                });
                 $("#win_box ul").scroll(function (stop) {
                     var top = $(this).scrollTop();
                     var h = Math.ceil(top / 50);
@@ -160,46 +359,129 @@
                     popup.close();
                 })
             });
+
             $(".create textarea").keyup(function () {
-            $(this).next().text($(this).val().length + "/" + $(this).attr("maxlength"));
-        });
+                $(this).next().text($(this).val().length + "/" + $(this).attr("maxlength"));
+            });
+
         }
 
-
-
-         function convertformtoedit(obj, json)
+        function intToZH(num)
+        {
+            var zh = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+            var  unit = ["", "十", "百", "千", "万", "十", "百", "千", "亿", "十"];
+            var str = "";
+            var sb = num;
+            sb = sb.split("").reverse().join("");
+            var r = 0;
+            var l = 0;
+            for (var j = 0; j < sb.length; j++)
             {
-                $(obj.parentNode.parentNode).hide();
-                $(obj).closest(".relitem").after(createHtml);
-                initDate();
-                var fm = $(obj).closest(".relitem").next();
-                fm.find(".a-title").text("编辑活动");
-                var relType = (json.type == "markdown" ? 0 : 1);
-                fm.find("input[name=activityid]").val(json.activityid);
-                fm.find("input[name=reltype]").val(relType);
-                
-                fm.find("textarea[name=goodsname]").val(json.goodsname);
-                fm.find("input[name=begintime]").val(json.begintime);
-                var endTime = new Date(json.endtime + ":00:00");
-                fm.find("input[name=endtime]").val(endTime.getFullYear() + "-" + (endTime.getMonth() + 1) + "-" + endTime.getDate());
-                fm.find("textarea[name=remark]").val(json.remark);
-                fm.find("input[name=datehour]").val(endTime.getHours());
-                if (relType == 0) {
-                    fm.find("input[name=originalprice]").val(json.originalprice);
-                    fm.find("input[name=discountprice]").val(json.discountprice);
-                    fm.find(".dis-box .d-cont").text(json.discount + "折");
-                    fm.find("tr[data-type=1]").hide();
-                    fm.find("tr[data-type=0]").show();
-                } else {
-                    fm.find("input[name=unitprice]").val(json.unitprice);
-                    fm.find("input[name=buycount]").val(json.buycount);
-                    fm.find("input[name=giftcount]").val(json.giftcount);
-                    fm.find("tr[data-type=0]").hide();
-                    fm.find("tr[data-type=1]").show();
+               r = parseInt(sb.substring(j, j+1));
+
+               if (j != 0)
+                   l = parseInt(sb.substring(j-1, j));
+
+               if (j == 0)
+               {
+                  if (r != 0 || sb.length == 1)
+                      str = zh[r];
+                  continue;
+               }
+
+               if (j == 1 || j == 2 || j == 3 || j == 5 || j == 6 || j == 7 || j == 9)
+               {
+                   if (r != 0)
+                       str = zh[r] + unit[j] + str;
+                   else if (l != 0)
+                       str = zh[r] + str;
+                   continue;
                 }
-                fm.find(".a-type .curr").removeClass("curr");
-                fm.find(".a-type a:eq(" + relType + ")").addClass("curr");
+
+               if (j == 4 || j == 8)
+               {
+                   str =  unit[j] + str;
+                   if ((l != 0 && r == 0) || r != 0)
+                       str = zh[r] + str;
+                   continue;
+               }
             }
+            if (str.indexOf("百") >= 0) {
+                return str;
+            } else {
+                return str.replace("一十", "十");
+            }
+
+        }
+
+        function convertformtoedit(obj, json){
+
+            $(obj.parentNode.parentNode).hide();
+            $(obj).closest(".relitem").after(createHtml);
+
+            initDate();
+
+            var fm = $(obj).closest(".relitem").next();
+            fm.find(".a-title").text("编辑活动");
+            var relType = (json.type == "markdown" ? 0 : 1);
+            fm.find("input[name=activityid]").val(json.activityid);
+            fm.find("input[name=reltype]").val(relType);
+
+            fm.find("textarea[name=goodsname]").val(json.goodsname);
+            var storedDate = new Date(json.begintime);
+            var todaysDate = new Date();
+            if (storedDate >= todaysDate)
+                fm.find("input[name=begintime]").val(json.begintime);
+            else
+                fm.find("input[name=begintime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + todaysDate.getDate());
+
+            var endTime = new Date(json.endtime + ":00:00");
+            /*if (endTime >= todaysDate)
+                fm.find("input[name=endtime]").val(endTime.getFullYear() + "-" + (endTime.getMonth() + 1) + "-" + endTime.getDate());
+            else
+                fm.find("input[name=endtime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + todaysDate.getDate());*/
+
+            var a = json.endtime.substring(0,10);
+            var etimestamp = new Date(a).getTime();
+            // console.log(etimestamp);
+
+            var today = new Date() * 1;
+            if(today > etimestamp){
+                var tomorrow = new Date(today + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-')
+                json.endtime = tomorrow;
+            }
+
+            fm.find("input[name=endtime]").val(json.endtime.substring(0,10));
+            fm.find("input[name=datehour]").val(endTime.getHours());
+            fm.find("textarea[name=remark]").val(json.remark);
+
+            if (relType == 0) {
+                if(json.discount == null){
+                    json.discount = "";
+                }
+
+                fm.find("input[name=originalprice]").val(json.originalprice);
+                fm.find("input[name=discountprice]").val(json.discountprice);
+                // alert(json.discount);
+                fm.find(".dis-box .d-cont span").text(json.discount);
+                fm.find("tr[data-type=1]").hide();
+                fm.find("tr[data-type=0]").show();
+
+            } else {
+                fm.find("input[name=unitprice]").val(json.unitprice);
+                fm.find("input[name=buycount]").val(json.buycount);
+                fm.find("input[name=giftcount]").val(json.giftcount);
+                fm.find("tr[data-type=0]").hide();
+                fm.find("tr[data-type=1]").show();
+            }
+
+            fm.find(".a-type .curr").removeClass("curr");
+            fm.find(".a-type a:eq(" + relType + ")").addClass("curr");
+            fm.find("textarea[name=goodsname]").next().text(fm.find("textarea[name=goodsname]").val().length + "/" + fm.find("textarea[name=goodsname]").attr("maxlength"))
+            fm.find("textarea[name=remark]").next().text(fm.find("textarea[name=remark]").val().length + "/" + fm.find("textarea[name=remark]").attr("maxlength"));
+
+        }
+
         var activity = {
             //查询数据
             list: function () {
@@ -224,12 +506,14 @@
                     });
                     var htmlContent = noReleaseCount > 0 ? '<div class="container no-release"> <div class="a-title">未发布的活动</div>' + noReleaseHtml + '</div>' : '';
                     htmlContent = releaseCount > 0 ? htmlContent + '<div class="container release"><div class="a-title">已发布进行中的活动</div>' + releaseHtml + '</div>' : htmlContent;
-                    
+
                     $("#list").html(htmlContent);
-                    
+
                     //$("#list").html('<div class="container no-release"> <div class="a-title">未发布的活动</div>' + noReleaseHtml + '</div> <div class="container release"><div class="a-title">已发布进行中的活动</div>' + releaseHtml + '</div>');
                 });
+
             },
+
             getRelHtml: function (item) {
                 var content = "";
                 var state = $.trim(item.state);
@@ -239,7 +523,7 @@
 
                 content += '<div class="relitem" ' + (state == "上架" ? 'style="padding-bottom:0"' : '') + '>'
                         + '<table cellpadding="0" cellspacing="0">'
-                        + '<tr><td colspan="2" class="ft17"><label class="cut">' + (isMarkDown ? "降价" : "买赠") + '</label>' + item.goodsname;
+                        + '<tr><td colspan="2" class="ft17"><label class="cut">' + (isMarkDown ? "降价" : "买赠") + '</label><span class="goodsname" style="width: 69%;display: inline-block;">' + item.goodsname+'</span>';
 
                 if (state == "审核中")
                     content += '<label class="auit">审核中</label>';
@@ -252,31 +536,94 @@
                 }
                 content += "</td></tr>";
 
-                if (isMarkDown)
-                    content += '<tr><th>原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥' + item.originalprice + '</td></tr>'
-                             + '<tr><th>优&nbsp;&nbsp;惠&nbsp;&nbsp;价：</th><td>￥' + item.discountprice + '</td></tr>'
-                             + '<tr><th>折&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扣：</th><td>' + item.discount + '折</td></tr>';
-                else
-                    content += '<tr><th>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥' + item.unitprice + '</td></tr>'
-                             + '<tr><th>优&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>' + item.buycount + '赠' + item.giftcount + '</td></tr>';
+                if (isMarkDown){
 
-                content += '<tr><th>活动时间：</th><td>' + item.begintime + '至 ' + item.endtime + '</td></tr>'
-                         + '<tr><th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</th><td valign="top">' + item.remark + '</td></tr>';
+                    if(item.originalprice == undefined || item.originalprice == null || item.originalprice == "NaN" )
+                        item.originalprice = "";
+                    if(item.discountprice == undefined || item.discountprice == null || item.discountprice == "NaN")
+                        item.discountprice = "";
+                    if(item.discount == undefined || item.discount == null || item.discount == "NaN")
+                        item.discount = "";
+                    if (item.discount == "NaN"|| item.discount=="") {
+                        content += '<tr><th>原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥<span class="originalPrice">' + parseFloat(item.originalprice) + '</span></td></tr>'
+                            + '<tr><th>优&nbsp;&nbsp;惠&nbsp;&nbsp;价：</th><td>￥<span class="discountPrice">' + parseFloat(item.discountprice) + '</span></td></tr>'
+                            + '<tr><th>折&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扣：</th><td><span class="disCount">' + 0 + '</span>折</td></tr>';
+                    } else {
+                        content += '<tr><th>原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥<span class="originalPrice">' + parseFloat(item.originalprice) + '</span></td></tr>'
+                             + '<tr><th>优&nbsp;&nbsp;惠&nbsp;&nbsp;价：</th><td>￥<span class="discountPrice">' + parseFloat(item.discountprice) + '</span></td></tr>'
+                             + '<tr><th>折&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扣：</th><td><span class="disCount">' + parseFloat(item.discount) + '</span>折</td></tr>';
+                    }
+
+
+                } else {
+
+                    if(item.unitprice == undefined || item.unitprice == null || item.unitprice == "NaN")
+                        item.unitprice = "";
+                        // alert(item.unitprice);
+                    if(item.buycount == undefined || item.buycount == null || item.buycount == "NaN")
+                        item.buycount = "";
+
+                    if(item.giftcount == undefined || item.giftcount == null || item.giftcount == "NaN")
+                        item.giftcount = "";
+
+                    content += '<tr><th>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥<span class="unitPrice">' + parseFloat(item.unitprice) + '</span></td></tr>'
+                             + '<tr><th>买&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠：</th><td><span class="buyCount">' + '</span>买<span class="giftCount">' + intToZH(item.buycount) + '</span>赠<span class="giftCount">' + intToZH(item.giftcount) + '</span></td></tr>';
+                }
+
+
+                //if(state == "未发布"){
+
+                //    var bdate = item.begintime.replace(/-/g,'/');
+                //    var btimestamp = new Date(bdate).getTime();
+
+                //    var today = new Date() * 1;
+
+                //    if(today > btimestamp){
+                //        var d = new Date(today);
+                //        var date = (d.getFullYear()) + "-" +
+                //                   (d.getMonth() + 1) + "-" +
+                //                   (d.getDate()) + " "
+                //        item.begintime = date;
+                //    }
+
+                //    var a = item.endtime.substring(0,10);
+                //    var etimestamp = new Date(a).getTime();
+                //    // console.log(etimestamp);
+
+                //    if(today > etimestamp){
+                //        var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-')
+                //        item.endtime = tomorrow;
+                //    }
+
+                //}
+
+
+
+                content += '<tr><th>活动时间：</th><td><span class="beginTime">' + item.begintime + '</span> 至 <span class="endTime">' + item.endtime + '</span></td></tr>'
+                         + '<tr><th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</th><td valign="top"><span class="bz">' + item.remark + '</span></td></tr>';
+
                 if ($.trim(item.state) == "未发布" || $.trim(item.state) == "审核失败") {
                     content += '</table><ul class="op-pnl" data-code=' + item.activityid + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
-                    if (item.reason != null && $.trim(item.reason).length > 0)
-                        content += '<li onclick="popup.show(5,null)">';
-                    else
+                    if (item.reason != null && $.trim(item.reason).length > 0) {
                         content += '<li onclick="activity.updateState(\'up\',this)">';
-                    content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
+                        content += '<label class="op-release">上架</label></li></ul><div class="clear"></div>';
+                    }
+                    else {
+                        content += '<li onclick="activity.updateState(\'up\',this)">';
+                        content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
+                    }
+
                 }
                 else if ($.trim(item.state) == "审核中")
                     content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' ><li style="width:50%;"  onclick="activity.del(this)""><label class="op-del">删除</label></li><li style="width:50%;" onclick="activity.edit(this)"><label class="op-update">修改</label></li><div class="clear"></div>';
                 else if ($.trim(item.state) == "上架")
                     content += '<tr><td colspan="2" align="center" style="height:45px;"  data-code="' + item.activityid + '"><input  type="button" onclick="activity.stateDown(this)" value="下架" class="ots-btn" /></td></tr> </table>';
-                content += "</div>";
+                    content += "</div>";
+
                 return content;
+
             },
+
             //删除
             del: function (obj) {
                 var activityid = $(obj.parentNode).attr("data-code");
@@ -294,76 +641,84 @@
                     $(obj).remove();
             },
             create: function () {
-                $("#create").append(createHtml);
+                $("#create").prepend(createHtml);
                 initDate();
             },
+
             //新增
             add: function (obj, t) {
+
                 var createObj = $(obj).closest(".create");
                 var relType = parseInt(this.getParam(createObj, "reltype"));
                 var hour = this.getParam(createObj, "datehour");
+                // console.log(hour)
+
                 var dataForm = {
                     goodsname: $(createObj).find("textarea[name=goodsname]").val(),
-                    type: (relType == 0 ? "markdown" : "promotional"),
+                         type: (relType == 0 ? "markdown" : "promotional"),
                     begintime: this.getParam(createObj, "begintime"),
                     endtime: this.getParam(createObj, "endtime"),
                     remark: $(createObj).find("textarea[name=remark]").val(),
                     optype: t == 0 ? "store" : "release"
                 };
-                if ($.trim(dataForm.goodsname).length == 0) {
-                    toasterextend.showtips("请输入商品名称", "error");
-                    return;
-                }
-                if (relType == 0) {
-                    dataForm["originalprice"] = parseFloat(this.getParam(createObj, "originalprice"));
-                    dataForm["discountprice"] = parseFloat(this.getParam(createObj, "discountprice"));
-                    if ($.trim(dataForm.originalprice).length == 0) {
-                        toasterextend.showtips("请输入原价", "error");
-                        return;
-                    }
-                    if (dataForm.originalprice == 0 || parseInt(dataForm.originalprice).length > 7) {
-                        toasterextend.showtips("原价格式不正确", "error");
-                        return;
-                    }
-                    if ($.trim(dataForm.discountprice).length == 0) {
-                        toasterextend.showtips("请输入优惠价", "error");
-                        return;
-                    }
-                    if (dataForm.discountprice == 0 || parseInt(dataForm.discountprice).length > 7) {
-                        toasterextend.showtips("超惠价格式不正确", "error");
-                        return;
-                    }
-                    if (dataForm.discountprice <= dataForm.originalprice)
-                        dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10).toFixed(1);
-                    else {
-                        toasterextend.showtips("超惠价不能大于原价", "error");
-                        return;
-                    }
+
+                // dataForm["originalprice"] = parseFloat(this.getParam(createObj, "originalprice"));
+                // dataForm["discountprice"] = parseFloat(this.getParam(createObj, "discountprice"));
+
+                // console.log(dataForm["originalprice"]);
+                // console.log(typeof dataForm["originalprice"]);
+
+                if($("input[name=originalprice]").val() == ""){
+                    dataForm["originalprice"] = 0;
+                    // console.log("originalprice: " + dataForm["originalprice"])
                 } else {
-                    dataForm["unitprice"] = parseFloat(this.getParam(createObj, "unitprice"));
-                    dataForm["buycount"] = parseInt(this.getParam(createObj, "buycount"));
-                    dataForm["giftcount"] = parseInt(this.getParam(createObj, "giftcount"));
-                    if ($.trim(dataForm.unitprice).length == 0) {
-                        toasterextend.showtips("请输入单价", "error");
-                        return;
-                    }
-                    if (dataForm.unitprice == 0 || parseInt(dataForm.unitprice).length > 7) {
-                        toasterextend.showtips("单价格式不正确", "error");
-                        return;
-                    }
-                    if ($.trim(dataForm.buycount).length == 0 || $.trim(dataForm.giftcount).length == 0) {
-                        toasterextend.showtips("请输入买赠数量", "error");
-                        return;
-                    }
-                    if (dataForm.buycount.length == 0 || dataForm.buycount.length > 7) {
-                        toasterextend.showtips("买赠格式不正确", "error");
-                        return;
-                    }
-                    if (dataForm.giftcount.length == 0 || dataForm.giftcount.length > 7) {
-                        toasterextend.showtips("买赠格式不正确", "error");
-                        return;
-                    }
+                    dataForm["originalprice"] = this.getParam(createObj, "originalprice");
+                    // console.log("originalprice: " + dataForm["originalprice"]);
                 }
+
+                if($("input[name=discountprice]").val() == ""){
+                    dataForm["discountprice"] = 0;
+                    // console.log("discountprice: " + dataForm["discountprice"])
+                } else {
+                    dataForm["discountprice"] = this.getParam(createObj, "discountprice");
+                    // console.log("discountprice: " + dataForm["discountprice"]);
+                }
+
+                if($(".d-cont span").text() == ""){
+                    dataForm["discount"] = 0;
+                    // console.log("discount: " + dataForm["discount"])
+                }
+                else {
+                    // dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10)//.toFixed(1);
+                    // console.log(typeof zhekou);
+                    var zhekou = dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10);
+                    dataForm["discount"] = zhekou.toString().substring(0, 3);
+                }
+
+                /*if($("input[name=unitprice]").val() == ""){
+                    dataForm["unitprice"] = 0;
+                    console.log("unitprice: " + dataForm["unitprice"])
+                }
+
+                if($("input[name=buycount]").val() == ""){
+                    dataForm["buycount"] = 0;
+                    console.log("buycount: " + dataForm["buycount"])
+                }
+
+                if($("input[name=giftcount]").val() == ""){
+                    dataForm["giftcount"] = 0;
+                    console.log("giftcount: " + dataForm["giftcount"])
+                }*/
+
+
+                // console.log(dataForm);
+                // return;
+
+                /*if (dataForm.discountprice <= dataForm.originalprice){
+                    var zhekou = dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10);
+                    dataForm["discount"] = zhekou.toString().substring(0, 3);
+                }*/
+
                 if ($.trim(dataForm.begintime).length == 0) {
                     toasterextend.showtips("请输入起始时间", "error");
                     return;
@@ -380,38 +735,196 @@
                     toasterextend.showtips("请输入时", "error");
                     return;
                 }
-                dataForm.endtime += " " + hour + ":00:00";
+
+                // 发布
+                if(t==1){
+
+                    if ($.trim(dataForm.goodsname).length == 0) {
+                        toasterextend.showtips("请输入商品名称", "error");
+                        return;
+                    }
+
+                    /*if (dataForm.remark == "") {
+                        toasterextend.showtips("请输入备注", "error");
+                        return;
+                    }*/
+
+                    // 降价
+                    if (relType == 0) {
+
+                        // -------------------------------
+                        // dataForm["originalprice"] = parseFloat(this.getParam(createObj, "originalprice"));
+                        // dataForm["discountprice"] = parseFloat(this.getParam(createObj, "discountprice"));
+                        dataForm["originalprice"] = this.getParam(createObj, "originalprice");
+                        dataForm["discountprice"] = this.getParam(createObj, "discountprice");
+                        // -------------------------------
+
+
+                        if ($.trim(dataForm.originalprice).length == 0 || $.trim($("input[name=originalprice]").val()) == "") {
+                            toasterextend.showtips("请输入原价", "error");
+                            return;
+                        }
+
+                        /*if (dataForm.discountprice <= dataForm.originalprice) {
+                            var zhekou = dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10);//.toFixed(1);
+                            dataForm["discount"] = zhekou.toString().substring(0, 3);
+                        } */
+
+                        if (dataForm.originalprice < 0 || parseInt(dataForm.originalprice).length > 7) {
+                            toasterextend.showtips("原价格式不正确", "error");
+                            return;
+                        }
+
+                        if ($.trim(dataForm.discountprice).length == 0 || $.trim($("input[name=discountprice]").val()) == "") {
+                            toasterextend.showtips("请输入优惠价", "error");
+                            return;
+                        }
+
+                        if (dataForm.discountprice <= 0 || parseInt(dataForm.discountprice).length > 7) {
+                            toasterextend.showtips("超惠价格式不正确", "error");
+                            return;
+                        }
+
+                            // console.log($("input[name=discountprice]").val())
+                            // console.log($("input[name=originalprice]").val())
+                            // console.log(typeof dataForm.discountprice)
+                            // console.log(dataForm.originalprice);
+                            // return;
+                        // if(parseInt($("input[name=discountprice]").val()) > parseInt($("input[name=originalprice]").val())) {
+                        if (parseFloat(dataForm.discountprice) > parseFloat(dataForm.originalprice)) {
+                            toasterextend.showtips("超惠价不能大于原价", "error");
+                            return;
+                        }
+                        dataForm.endtime += " " + hour + ":00:00";
+
+                    // 买赠
+                    } else {
+
+                        dataForm["unitprice"] = parseFloat(this.getParam(createObj, "unitprice"));
+                        dataForm["buycount"] = parseInt(this.getParam(createObj, "buycount"));
+                        dataForm["giftcount"] = parseInt(this.getParam(createObj, "giftcount"));
+
+                        if ($.trim(dataForm.unitprice).length == 0 || $.trim($("input[name=unitprice]").val()) == "") {
+                            toasterextend.showtips("请输入单价", "error");
+                            return;
+                        }
+                        if (dataForm.unitprice <= 0 || parseInt(dataForm.unitprice).length > 7) {
+                            toasterextend.showtips("单价格式不正确", "error");
+                            return;
+                        }
+                        if ($.trim(dataForm.buycount).length == 0 || $.trim(dataForm.giftcount).length == 0 || $.trim($("input[name=buycount]").val()) == "" || $.trim($("input[name=giftcount]").val()) == "") {
+                            toasterextend.showtips("请输入买赠数量", "error");
+                            return;
+                        }
+                        if (dataForm.buycount.length == 0 || dataForm.buycount.length > 7) {
+                            toasterextend.showtips("买赠格式不正确", "error");
+                            return;
+                        }
+                        if (dataForm.giftcount.length == 0 || dataForm.giftcount.length > 7) {
+                            toasterextend.showtips("买赠格式不正确", "error");
+                            return;
+                        }
+                        dataForm.endtime += " " + hour + ":00:00";
+                    }
+
+                }
+
+                // 保存
+                else{
+
+                    // dataForm.endtime += " " + hour + ":00:00";
+
+                    // alert(dataForm.originalprice);
+                    // dataForm["unitprice"] = parseFloat(this.getParam(createObj, "unitprice"));
+                    // dataForm["buycount"] = parseInt(this.getParam(createObj, "buycount"));
+                    // dataForm["giftcount"] = parseInt(this.getParam(createObj, "giftcount"));
+
+                    // dataForm["unitprice"] = this.getParam(createObj, "unitprice");
+                    // dataForm["buycount"] = this.getParam(createObj, "buycount");
+                    // dataForm["giftcount"] = this.getParam(createObj, "giftcount");
+
+                    // console.log(this.getParam(createObj, "unitprice"))
+
+
+                    if($("input[name=unitprice]").val() == ""){
+                        dataForm["unitprice"] = 0;
+                    } else {
+                        dataForm["unitprice"] = this.getParam(createObj, "unitprice");
+                    }
+                    if($("input[name=buycount]").val() == ""){
+                        dataForm["buycount"] = 0;
+                    } else {
+                        dataForm["buycount"] = this.getParam(createObj, "buycount");
+                    }
+                    if($("input[name=giftcount]").val() == ""){
+                        dataForm["giftcount"] = 0;
+                    } else {
+                        dataForm["giftcount"] = this.getParam(createObj, "giftcount");
+                    }
+
+                    // dataForm.endtime = hour;
+                    dataForm.endtime += " " + hour + ":00:00";
+                }
+
                 dataForm["activityid"] = this.getParam(createObj, "activityid");
+                console.log(dataForm);
+                // return;
                 this.saveData(createObj, t, dataForm);
 
             },
-            //编辑
+
+            // 编辑
             edit: function (obj) {
                 if ($(obj).closest(".relitem").next().is(".create")) {
                     $(obj).closest(".relitem").next().remove();
                     return;
                 }
+
                 _ajax("GET", '/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
+                    // console.log(json);
+                    // return;
                     if (json.state == "上架") {
                         popup.show(4, null);
                         return;
                     } else if (json.state == "未发布" && $.trim(json.reason).length > 0) {
-                        popup.show(5, null);
-                        return;
-                    } else if (json.state == "未发布" && $.trim(json.reason).length == 0)
-                    {
                         convertformtoedit(obj, json);
-                    } 
-                    else if (json.state == "审核中") {
-                        popup.show(6, function()
-                        {
+                    }
+                    else if (json.state == "未发布" && $.trim(json.reason).length == 0) {
+                        convertformtoedit(obj, json);
+                    } else if (json.state == "审核中") {
+                        popup.show(6, function () {
                             convertformtoedit(obj, json);
                         });
                         return;
                     }
+
+                    // if(json.originalprice == "NaN"){
+                    //     $("input[name=originalprice]").val("");//originalprice == "";
+                    // }
+                    // if(json.discountprice == "NaN"){
+                    //     $("input[name=discountprice]").val("");//json.discountprice == "";
+                    // }
+
+                    // if(json.unitprice == "NaN"){
+                    //     $("input[name=unitprice]").val("");
+                    // }
+
+                    // if(json.buycount == "NaN"){
+                    //     $("input[name=buycount]").val("");
+                    // }
+
+                    // console.log("json.discount: " + json.discount);
+                    if(json.discount == "NaN"){
+                        $(".d-cont span").text("");
+                    }
+
                 });
             },
+
             saveData: function (createObj, t, dataForm) {
+                // console.log($('.d-cont').text());
+                // dataForm["discount"] = $('.d-cont span').text()
+
                 var isUpdate = false;
                 var url = "/webapi/retailer/activities";
                 var method = "POST";
@@ -420,11 +933,21 @@
                     method = "PUT"
                     url = "/webapi/retailer/activities/" + dataForm.activityid;
                 }
+
                 _ajax(method, url, dataForm, function (json) {
+
 
                     var rt = 8;
                     if (t == 0)
                         rt = 7
+                    // else
+
+                    // console.log(dataForm);
+
+                    if(dataForm.buycount){
+                        window.location.reload()
+                    }
+
                     popup.show(rt, function () {
                         if (isUpdate)
                             createObj.prev().remove();
@@ -449,21 +972,126 @@
                             }
                         }
                         createObj.remove();
+                        // alert('shua')
+                        window.location.reload();
                     });
                 });
             },
+
             getParam: function (obj, name) {
+                /*var price = $(obj).find("input[name=" + name + "]").val();
+                if(price == ""){
+                    return 0;
+                }
+                return price;*/
                 return $(obj).find("input[name=" + name + "]").val();
             },
+
             updateState: function (state, obj) {
+                // console.log(state);
+                // console.log(obj);
                 var activityid = $(obj.parentNode).attr("data-code");
-                _ajax("PUT", '/webapi/retailer/activities/' + activityid + "/" + state, null, function (json) {
-                    
+                // console.log(activityid);
+                // return;
+
+
+                var df = {};
+                if(state == "up"){
+
+                    var tr = $(obj).parent().prev().find('tr');
+                    var relTypeText = tr.find('label.cut').text();
+
+                    // return;
+                    var beginTime = tr.find('.beginTime').text();
+                    var etStr = tr.find('.endTime').text();
+                    if(etStr.length < 10){
+                        etStr = etStr + "00:00"
+                    }
+
+                    // console.log(etStr);//return
+
+                    var type = "";
+                    if(relTypeText == "买赠"){
+                        type = "promotional";
+                    } else {
+                        type = "markdown";
+                    }
+
+                    var remark = tr.find('.bz').text();
+                    var dataForm = {
+                        begintime: $.trim(beginTime),
+                        endtime: etStr,
+                        remark: remark,
+                        optype: "release",
+                        type: type,
+                    };
+
+                    df = dataForm;
+
+                    if(relTypeText == "买赠"){
+                        df['type'] = "promotional";
+                        df['unitprice'] = tr.find('.unitPrice').text();
+                        df['buycount'] = tr.find('.buyCount').text();
+                        df['giftcount'] = tr.find('.giftCount').text();
+                        // console.log(df);
+                        // return;
+
+                    } else {
+                        df['type'] = "markdown";
+                        df['originalprice'] = tr.find('.originalPrice').text();
+                        df['discountprice'] = tr.find('.discountPrice').text();
+                        df['discount'] = tr.find('.disCount').text();
+                        df['remark'] = tr.find('.bz').text();//return;
+
+                        if(df.originalprice == ""){
+                            toasterextend.showtips("原价不能为空，请先修改", "error");
+                            return;
+                        }
+
+                        if(df.discountprice == ""){
+                            toasterextend.showtips("优惠价不能为空，请先修改", "error");
+                            return;
+                        }
+
+                        if(df.discount == ""){
+                            toasterextend.showtips("折扣不能为空，请先修改", "error");
+                            return;
+                        }
+
+                        // console.log(df);
+                        // return;
+
+                    }
+
+                    if(df.begintime == ""){
+                        toasterextend.showtips("活动起始时间不能为空，请先修改", "error");
+                        return;
+                    }
+
+                    if(df.endtime == ""){
+                        toasterextend.showtips("活动结束时间不能为空，请先修改", "error");
+                        return;
+                    }
+
+                    /*if(df.remark == ""){
+                        toasterextend.showtips("备注不能为空，请先修改", "error");
+                        return;
+                    }*/
+
+                } else {
+                    df = null;
+                }
+
+
+                // _ajax("PUT", '/webapi/retailer/activities/' + activityid + "/" + state, null, function (json) {
+                _ajax("PUT", '/webapi/retailer/activities/' + activityid + "/" + state, df, function (json) {
+
+                    // 发布
                     if (state == "up") {
                         var relObj = $(obj).parent().parent();
                         if (json.state == "审核中") {
                             relObj.find("table tr:eq(0) td").remove(".no-audit").append('<label class="auit">审核中</label>');
-                            relObj.append('<ul class="op-pnl" data-code="' + activityid + '"><li style="width:50%;" onclick="activity.del(this)"><label class="op-del">删除</label></li><li style="width:50%;"  onclick="activity.edit(this)"><label class="op-update" >修改</label></li><div class="clear"></div></ul>');
+                            relObj.append('<ul class="op-pnl" data-code="' + activityid + '"><li style="width:50%;" onclick="activity.del(this)"><label class="op-del">删除</label></li><li style="width:50%;" onclick="activity.edit(this)"><label class="op-update" >修改</label></li><div class="clear"></div></ul>');
                         }
                         else if (json.state == "上架") {
                             relObj.find("table tr:eq(0) td").remove(".no-audit").append('<label class="released">已发布</label>');
@@ -474,26 +1102,39 @@
                         $("#list .release").append(relObj[0].outerHTML);
                         activity.delRelItem(relObj);
                         popup.show(8, null);
+                        window.location.reload();
+
+                    // 下架
                     } else {
                         var relObj = $(obj).closest(".relitem");
+                        console.log(relObj);
                         $(obj).parent().parent().remove();
                         relObj.find(".released").remove();
                         relObj.append('<ul class="op-pnl" data-code="' + activityid + '"><li  onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li><li onclick="activity.updateState(\'up\',this)"><label class="op-release">发布</label></li></ul>');
-                        relObj.css("padding-bottom", "50px")
+                        relObj.css("padding-bottom", "50px");
                         $("#list .no-release").append(relObj[0].outerHTML);
                         activity.delRelItem(relObj);
                         popup.show(7, null);
+
+                        // debugger;
+                        // var wait = setTimeout(function(){
+                            window.location.reload();
+                        // },300)
                     }
 
                 });
             },
+
             stateDown: function (obj) {
                 popup.show(9, function () {
                     activity.updateState('down', obj);
                 });
             }
+
         }
+
         var _ajax = function (type, url, data, success) {
+            // console.log(data);//return;
             $.ajax({
                 type: type,
                 dataType: "json",
@@ -514,6 +1155,7 @@
                         toasterextend.showtips(json.user_notification, "info");
                         return;
                     }
+
                     success(json);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -532,75 +1174,77 @@
                 }
             });
         }
+
         var createHtml = '<div class="container create">'
-                   + '<div class="a-title">新创建活动</div>'
-                   + '<table cellpadding="0" cellspacing="0">'
-                   + '   <thead>'
-                   + '       <tr>'
-                   + '           <th width="75" height="40">活动类型</th>'
-                   + '           <td class="a-type">'
-                   + '               <a href="javascript:;" class="curr" onclick="cssObj.tabChange(0,this)">降价</a>'
-                   + '               <a href="javascript:;" onclick="cssObj.tabChange(1, this)">买赠</a>'
-                   + '                <input type="hidden" name="reltype" value="0" /><input type="hidden" name="activityid" value="" />'
-                   + '           </td>'
-                   + '        </tr>'
-                   + '     </thead>'
-                   + '    <tbody>'
-                   + '         <tr>'
-                   + '            <th valign="top">商品名称</th>'
-                   + '            <td>'
-                   + '                 <input type="hidden" name="retailerid" value="" />'
-                   + '                 <textarea class="g-name" name="goodsname" maxlength="30" rows="3" placeholder="请输入商品名称"></textarea>'
-                   + '                 <label class="g-name-limit">0/30</label>'
-                   + '            </td>'
-                   + '        </tr>'
-                   + '        <tr data-type="0">'
-                   + '            <th style="line-height:40px;">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价<br />超&nbsp;&nbsp;惠&nbsp;&nbsp;价</th>'
-                   + '            <td class="price-box">'
-                   + '                <label class="money-ico">￥</label>'
-                   + '               <input type="number" name="originalprice" style="padding-left:20px;" /><br />'
-                   + '               <label class="money-ico" style="top:62px;">￥</label>'
-                   + '               <input type="number" name="discountprice" style="margin-top:10px;padding-left:20px;" />'
-                   + '               <div class="dis-box">'
-                   + '                   <div class="d-title">折扣</div>'
-                   + '                    <div class="d-cont"></div>'
-                   + '                </div>'
-                   + '           </td>'
-                   + '        </tr>'
-                   + '        <tr data-type="1" style="display:none">'
-                   + '            <th>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</th>'
-                   + '            <td><label class="money-ico">￥</label><input name="unitprice" type="number" style="padding-left:20px;" /></td>'
-                   + '        </tr>'
-                   + '        <tr data-type="1" style="display:none">'
-                   + '            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;买</th>'
-                   + '            <td><input type="number" name="buycount" style="width:44%;" /><label style="padding:0 5px;">赠</label><input name="giftcount" type="number" style="width: 44%;" /></td>'
-                   + '        </tr>'
-                   + '        <tr>'
-                   + '             <th valign="top" style="line-height:40px;">活动时间</th>'
-                   + '             <td style="line-height:45px;">'
-                   + '                  <input type="text" name="begintime" class="date" />'
-                   + '                  <label style="padding:0 3px">至</label>'
-                   + '                  <input type="text" name="endtime" class="date" />'
-                   + '                  <input type="text" name="datehour" readonly="readonly" class="date-hour" />'
-                   + '              </td>'
-                   + '          </tr>'
-                   + '          <tr>'
-                   + '             <th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</th>'
-                   + '              <td>'
-                   + '                  <textarea placeholder="可输入活动特别要求，如限量限购等" class="g-name" name="remark" rows="5" maxlength="60"></textarea>'
-                   + '                  <label class="g-name-limit" style="top:100px;">0/60</label>'
-                   + '               </td>'
-                   + '           </tr>'
-                   + '           <tr>'
-                   + '               <td colspan="2" style="text-align:center;height:50px;">'
-                   + '                   <input type="button" class="save-btn" value="保存" onclick="activity.add(this,0)" />'
-                   + '                   <input type="button" class="rel-btn" value="发布" onclick="activity.add(this,1)" />'
-                   + '               </td>'
-                   + '            </tr>'
-                   + '        </tbody>'
-                   + '    </table>'
-                   + ' </div>';
-           
+            + '<div class="a-title">新创建活动</div>'
+            + '<table cellpadding="0" cellspacing="0">'
+            + '   <thead>'
+            + '       <tr>'
+            + '           <th width="75" height="40">活动类型</th>'
+            + '           <td class="a-type">'
+            + '               <a href="javascript:;" class="curr" onclick="cssObj.tabChange(0,this)">降价</a>'
+            + '               <a href="javascript:;" onclick="cssObj.tabChange(1, this)">买赠</a>'
+            + '               <input type="hidden" name="reltype" value="0" /><input type="hidden" name="activityid" value="" />'
+            + '           </td>'
+            + '        </tr>'
+            + '     </thead>'
+            + '    <tbody>'
+            + '         <tr>'
+            + '            <th valign="top">商品名称</th>'
+            + '            <td>'
+            + '                 <input type="hidden" name="retailerid" value="" />'
+            + '                 <textarea class="g-name" name="goodsname" maxlength="30" rows="3" placeholder="请输入商品名称"></textarea>'
+            + '                 <label class="g-name-limit">0/30</label>'
+            + '            </td>'
+            + '        </tr>'
+            + '        <tr data-type="0">'
+            + '            <th style="line-height:40px;">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价<br />优&nbsp;&nbsp;惠&nbsp;&nbsp;价</th>'
+            + '            <td class="price-box">'
+            + '                <label class="money-ico">￥</label>'
+            + '               <input type="text" min="0" maxlength="7" name="originalprice" style="padding-left:20px;" /><br />'
+            + '               <label class="money-ico" style="top:62px;">￥</label>'
+            + '               <input type="text" min="0" maxlength="7" name="discountprice" style="margin-top:10px;padding-left:20px;" />'
+            + '               <div class="dis-box">'
+            + '                   <div class="d-title">折扣</div>'
+            + '                    <div class="d-cont"><span></span>折</div>'
+            + '                </div>'
+            + '           </td>'
+            + '        </tr>'
+            + '        <tr data-type="1" style="display:none">'
+            + '            <th>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</th>'
+            + '            <td><label class="money-ico">￥</label><input name="unitprice" type="text" style="padding-left:20px;" /></td>'
+            + '        </tr>'
+            + '        <tr data-type="1" style="display:none">'
+            + '            <th></th>'
+            + '            <td><div style="display:inline-block;width:50%;position: relative;left: -22px;"><label style="margin: 0 2px 0 4px;">买</label><input type="text" name="buycount" style="width:80%" maxlength="7" /></div><div style="display:inline-block;width:50%;"><label style="margin: 0 2px 0 6%">赠</label><input name="giftcount" type="text" style="width:80%" maxlength="7"/></div></td>'
+            + '        </tr>'
+            + '        <tr>'
+            + '             <th valign="top" style="line-height:40px;">活动时间</th>'
+            + '             <td style="line-height:45px;">'
+            + '                  <input type="text" name="begintime" class="date" />'
+            + '                  <label style="padding:0 3px">至</label>'
+            + '                  <input type="text" name="endtime" class="date" />'
+            + '                  <input type="text" name="datehour" readonly="readonly" class="date-hour" />'
+            + '              </td>'
+            + '          </tr>'
+            + '          <tr>'
+            + '             <th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</th>'
+            + '              <td>'
+            + '                  <textarea placeholder="可输入活动特别要求，如限量限购等" class="g-name" name="remark" rows="5" maxlength="60"></textarea>'
+            + '                  <label class="g-name-limit" style="top:100px;">0/60</label>'
+            + '               </td>'
+            + '           </tr>'
+            + '           <tr>'
+            + '               <td colspan="2" style="text-align:center;height:50px;">'
+            + '                   <input type="button" class="save-btn" value="保存" onclick="activity.add(this,0)" />'
+            + '                   <input type="button" class="rel-btn" value="发布" onclick="activity.add(this,1)" />'
+            + '               </td>'
+            + '            </tr>'
+            + '        </tbody>'
+            + '    </table>'
+            + ' </div>';
+
+
     </script>
 </body>
 </html>
