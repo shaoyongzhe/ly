@@ -3,50 +3,68 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>核销记录</title>
+    <title>下载核销码</title>
 
     <link type="text/css" href="/consumer/css/style.css" rel="stylesheet" />
     <link type="text/css" href="/consumer/css/style1.css" rel="stylesheet" />
     <link href="/consumer/css/weixintips.css" rel="stylesheet" />
     <link href="/consumer/css/menustyle.css" rel="stylesheet" />
-    <link href="../css/dropload.css" rel="stylesheet" />
+
     <link href="/retailer/css/weixintips.css" rel="stylesheet" />
-    <link type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" rel="stylesheet" />
     <link href="/js/shelter/shelter.css" rel="stylesheet" />
     <link href="/retailer/css/verify.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        p {
+            text-align: center;
+            font-size: 20px;
+            line-height: 30px;
+            color: #333;
+        }
+
+        #verifycode {
+            width: 80%;
+            height: 400px;
+            margin: 10% auto;
+            border: solid 1px #0d988f;
+        }
+
+            #verifycode p {
+                height: 20px;
+                line-height: 20px;
+                margin-top: 50%;
+            }
+
+                #verifycode p img {
+                    width: 20px;
+                    vertical-align: top;
+                    margin-right: 5px;
+                }
+
+        .btnLoad {
+            height: 40px;
+            line-height: 40px;
+            margin: 20px auto;
+            float: none;
+        }
+    </style>
 </head>
-<body  ms-controller="verifyconfirm" class="ms-controller">
-    <div id="pageheader">
-        <div class="headercontent">
-            <p>待确认核销({{authrecordcount}})</p>
-        </div>
-        <div class="headercontent">
-            <div class="btnVerify active" style="float:right;width:60%" ms-click="allVerify()">全部确认</div>
-        </div>
-        <img src="/retailer/image/verify/xhsx.png" />
-    </div>
-    <div class="verifyTicket" >
-        <div class="leftImg">
-            <img src="/consumer/image/cs03.jpg" />
-            <p class="verifyNum">X 16&nbsp;</p>
-            <p class="verifyTimeTitle">核销时间</p>
-            <p class="verifyTime">08/11 13:50:59</p>
-        </div>
-        <div class="rightCount">
-            <div class="ticket_title" style="padding-right:20px">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵xixix</div>
-            <div class="ticket"><span class="price1">￥20</span><span class="price2">￥20</span></div>
-            <div class="ticket">
-                <span class="ticket_zk">7.6折</span>
-            </div>
-            <div class="verifyBtnGroup">
-                <div class="btnVerify" ms-click="singleFailure(el)">拒绝确认</div>
-                <div class="btnVerify active" style="float:right" ms-click="singleVerify(el)">确认</div>
-            </div>
-        </div>
-        <div class="ticket_type">
-            <img src="../image/verify/jb_dp.png" />
+<body>
+    <div id="verifycode" ms-controller="verifycodedown" class="ms-controller">
+        <div ms-if="loadState!=2">
+            <p>
+                <img ms-attr-src="/js/shelter/image/{{loadState==0?'loading.gif':'ico_error.png'}}" />
+                {{loadState==0?'图片加载中...':'图片加载失败'}}
+            </p>
+            <div class="btnVerify active btnLoad" ms-if="loadState==1" ms-click="getQRcode">重新加载</div>
         </div>
     </div>
+    <p>长按图片下载，制作扫码牌</p>
+    <p>让消费者扫码核销，节省您的时间</p>
+    <img id="QRCode_img" hidden />
     <div class="placeholder"></div>
     <footer>
         <div id="bottom-nav"></div>
@@ -67,9 +85,9 @@
     <script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
-    <script src="/js/jquery/dropload.min.js"></script>
     <script src="/js/shelter/shelter.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
-    <script src="/retailer/js/verify/verifyconfirm.js"></script>
+    <script src="/retailer/js/verify/drawImg.js"></script>
+    <script src="/retailer/js/verify/verifycodedown.js"></script>
 </body>
 </html>

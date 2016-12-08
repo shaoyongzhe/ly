@@ -1,5 +1,7 @@
 ﻿body {background-color:#ebebeb;
 }
+.placeholder {height:50px;width:100%
+}
 .ms-controller {
     visibility: hidden;
 }
