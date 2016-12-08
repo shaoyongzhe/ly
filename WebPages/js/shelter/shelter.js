@@ -17,14 +17,14 @@
         autoClear: 0,//（秒数）自动关闭。默认0，不关闭
         shadeClose: false,//是否可以点击任意处关闭
         close: function () {//关闭事件
-            $("#mask").remove()
+            $("#mask,#shelterContent").remove()
         }
     }
 
     options = $.extend({}, defaults, options || {});
 
     ///拼html
-    var strHtml = "<div id=\"mask\">";
+    var strHtml = "<div id=\"mask\"></div>";
     strHtml += "  <div id=\"shelterContent\">"
     if (options.title != "") {//提示
         strHtml += "<p>"
@@ -40,7 +40,7 @@
         strHtml += " <div id=\"confirmBtn\" class=\"btnVerify active\" style=\"" + (options.isShowClearBtn ? "float:right" : "margin:0 auto") + "\">全部确认</div>"
         strHtml += "</div>"
     }
-    strHtml += "</div></div>";
+    strHtml += "</div>";
 
     $('body').append(strHtml);
 
