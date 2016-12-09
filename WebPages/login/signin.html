@@ -31,7 +31,7 @@
 							<i></i>
 							<a href="javascript:;">记住用户名</a>
 						</div>
-						<a class="Forget_password" href="javascript:;">忘记密码?</a>
+						
 					</div>
 					<input id="enter" type="submit" value="立即登录" class="submit">
 				</div>
@@ -73,10 +73,10 @@
 				},
 				success:function(data){
 
-						/*if( localStorage.key("account") ) {   // 页面在加载时需要判断本地是否有用户登录信息
+						if( localStorage.key("account") ) {   // 页面在加载时需要判断本地是否有用户登录信息
 			                $('#account').val( localStorage["account"] );
 			                $('#password').val( localStorage["password"] );
-			            }*/
+			            }
 						//$('#enter').on('click',function () { //  点击登录按钮调用defaultaccount且传账户密码值过去
 			                defaultaccount( $('#account').val(),$('#password').val() );
 						//})
