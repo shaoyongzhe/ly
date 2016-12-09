@@ -75,6 +75,7 @@ var vm = avalon.define({
     getQRcode: function () {
         $("#QRCode_img").attr("src", '/webapi/retailer/weixin/limit_verify_code?qrtype=1013' + "&random=" + Math.random())
         $("#QRCode_img").load(function () {//二维码加载成功
+            shelter.close()
             draw()
         });
         $('#QRCode_img').error(function () {
