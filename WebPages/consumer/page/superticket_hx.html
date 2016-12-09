@@ -344,7 +344,6 @@
             <img src="/consumer/image/supercoupons/exclamation.png" />  门店确认您输入的数量与实际不符,请重新输入
         </div>
         <div ms-if="vm.pageStep==1" id="page1" style="height:auto">
-
             <div class="div-list">
                 <div class="div-top">
                     <div class="div-img">
@@ -398,6 +397,8 @@
                 </div>
             </div>
             <div class="btn_css1" style="margin:50px auto auto auto " ms-click="btnClick">确定</div>
+
+            <div class="btn_css1" style="margin:50px auto auto auto " ms-click="btnClick">自主扫码核销</div>
         </div>
         <div id="page2" ms-if="vm.pageStep>=2" ms-controller="superticket_page2">
             <img src="/consumer/image/shakegame/share_hb.png" class="share_hb animated tada infinite" hidden id="dowebok" />
@@ -495,34 +496,6 @@
             </div>
         </div>
     </div>
-    <!--<footer>
-        <div class="space"></div>
-        <div class="bottomnav">
-            <div class="logo">
-                <a data-original="/consumer/page/index.html">
-                    <img src="/consumer/image/logo.png">
-                </a>
-            </div>
-            <a data-original="/consumer/page/retailerlist.html">
-                <div class="nav">
-                    <img src="/consumer/image/icon02.png">
-                    <br>附近门店
-                </div>
-            </a>
-            <a data-original="/consumer/page/activitylist.html">
-                <div class="nav">
-                    <img src="/consumer/image/icon03.png">
-                    <br>附近超惠
-                </div>
-            </a>
-            <a data-original="/consumer/page/supercouponslist.html">
-                <div class="nav" style="background:#ff6600;border-right:none">
-                    <img src="/consumer/image/icon11.png" style="margin:10px 0px 4px 0;">
-                    <br>超惠券
-                </div>
-            </a>
-        </div>
-    </footer>-->
     <footer>
         <div class="space"></div>
         <div id="bottom-nav"></div>
