@@ -510,7 +510,61 @@ var Msg = avalon.define({
     }
 })
 
+var selfVerify = avalon.define({//自助核销
+    $id: 'selfVerify',
+    VerifyScan: function () {//自助核销，调用微信扫一扫
+        //wx.scanQRCode({
+        //    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        //    scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+        //    success: function (res) {
+        //         var token = res.split('token=')
+        //        selfVerify.scanSuccess(token[1])
+        //    }
+        //});
+        selfVerify.scanSuccess("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiYTJmOTFhN2UxNTYzNDIwMWJmMmE1YmQ1ZTk1MzcwNDQifQ.ZMSU22dZOT5usWyqa2eUy9gv8DziN_mjt__aGFIRESg")
+    },
+    scanSuccess: function (qrlimitken) {//开始自助核销
+        vm.pageStep = 2;
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: {
+                activityitem_id: vm.activity_item_guid,
+                qrlimitken: qrlimitken,
+                totalnum: parseInt($("#txt_hx").val())
+            },
+            beforeSend: function () { Msg.show(1, "自助核销中...") },
+            url: '/webapi/consumer/weixin/qrlimitverify/scan',
+            success: function (result) {
+                alert(12)
 
+                //vm.yhxNum = result.verifynum//成功核销数量
+                //vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
+                //var whxMsg = "";
+                //if (vm.whxNum > 0) {
+                //    whxMsg = "其中" + vm.whxNum + "张超惠券未使用";
+                //}
+                vm.pageStep = 3
+                page2.showUsage(1)
+                Msg.show(3, "hha", whxMsg)
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var errormsg = "";
+                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                    var json = JSON.parse(XMLHttpRequest.responseText);
+                    errormsg = JSON.parse(json.Message);
+                    if (errormsg == undefined || errormsg == '')
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                }
+                var msg = errormsg.split('|')
+                Msg.show(2, msg[0], msg.length > 1 ? msg[1] : "")
+                $("#btnlist").show();
+                $(".btn").hide()
+                $("#btn_5").show()//返回
+            }
+        });
+    }
+})
 ///分享成功跳转到摇一摇
 //function sharesuccess() {
 //    location.href = "/consumer/page/shakegame.html?distributor_id=" + vm.distributor_id + "&retailer_id=" + vm.retailer_id + "&activity_item_guid=" + vm.activity_item_guid + "&activity_id=" + vm.jsondata.activity_id

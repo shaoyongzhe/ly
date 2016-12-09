@@ -326,6 +326,21 @@
             -ms-animation-delay: 0s;
             -ms-animation-iteration-count: 5;
         }
+
+        .btn_css4 {
+            width: 90%;
+            height: 40px;
+            border: solid 1px #ff6600;
+            line-height: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ff6600;
+            background-color: #ffefe5;
+            margin: 0px 0px 20px 5%;
+            font-size: 20px;border-radius:3px
+        }
+        .tuijianimg {position:absolute;margin:-14px 0 0 5%; width:30px
+        }
     </style>
     <script>
         $(function () {
@@ -396,9 +411,13 @@
                     {{vm.jsondata.ruledesc}}
                 </div>
             </div>
-            <div class="btn_css1" style="margin:50px auto auto auto " ms-click="btnClick">确定</div>
-
-            <div class="btn_css1" style="margin:50px auto auto auto " ms-click="btnClick">自主扫码核销</div>
+            <div>
+                <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png" />
+                <div class="btn_css4" style="margin-top:50px" ms-click="selfVerify.VerifyScan">
+                    自助扫码核销
+                </div>
+            </div>
+            <div class="btn_css4" ms-click="btnClick">门店扫码核销</div>
         </div>
         <div id="page2" ms-if="vm.pageStep>=2" ms-controller="superticket_page2">
             <img src="/consumer/image/shakegame/share_hb.png" class="share_hb animated tada infinite" hidden id="dowebok" />
@@ -408,11 +427,14 @@
                     <p style="margin-bottom:10px;">{{Msg.title}}<br />{{Msg.subtitle}}</p>
                     <p id="sharetitle" hidden></p>
                     <!--<div id="qt_msg" class="msg" hidden>去看看当前门店其他可用超惠券(3)</div>-->
-                    <div id="btnlist" class="msg" hidden style="margin-top:20px">
+                    <div id="btnlist" class="msg" hidden style="margin:20px 0;">
                         <div id="btn_1" class="btn btn_css3" style="float:left;margin:0 calc((100% - 236px) / 3);margin:0 -moz-calc((100% - 236px) / 3);margin:0 -webkit-calc((100% - 236px) / 3);" ms-click="page2.goBack">返回</div>
                         <div id="btn_2" class="btn btn_css2" style="float:left;" ms-click="page2.againLoadQRCode">重试</div>
                         <div id="btn_3" class="btn btn_css3" style="float:left;margin:0 calc((100% - 236px) / 3);margin:0 -moz-calc((100% - 236px) / 3);margin:0 -webkit-calc((100% - 236px) / 3);" ms-click="page2.quit">退出</div>
                         <div id="btn_4" class="btn btn_css2" style="float:left;" ms-click="page2.againRequest">继续等待</div>
+                        <div id="btn_5" class="btn btn_css4" style="margin-top:20px" ms-click="btnClick">
+                            门店扫码核销
+                        </div>
                     </div>
                 </div>
                 <div id="QRCode" hidden>
