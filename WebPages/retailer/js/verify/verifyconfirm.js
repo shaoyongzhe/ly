@@ -28,7 +28,9 @@ var vm = avalon.define({
                 if (me != undefined)
                     me.resetload();
                 json = json || {};   /* 统一加这句话 */
-
+                shelter.close()
+                vm.authrecordcount = json.authrecordcount
+                vm.array = json.data
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 if (me != undefined)
@@ -111,7 +113,7 @@ var vm = avalon.define({
             confirmBtn: {
                 name: "确认",//确定按钮名称
                 click: function () {
-                    affirm("complete", el.verify_id)
+                    vm.affirm("complete", el.verify_id)
                 } //确定按钮事件
             },
         })
@@ -130,7 +132,7 @@ var vm = avalon.define({
             confirmBtn: {
                 name: "残忍拒绝",//确定按钮名称
                 click: function () {
-                    affirm("failure", el.verify_id)
+                    vm.affirm("failure", el.verify_id)
                 } //确定按钮事件
             },
         })
@@ -169,6 +171,24 @@ var vm = avalon.define({
 
             }
         });
+    },
+    getTicketCssType: function (el) {//根据券的类型，返回券使用什么css样式
+        var activitykind = el.activitykind
+        if (activitykind == "单品")
+            return 1
+        else if (activitykind == "满返")
+            return 2
+        else if (activitykind == "套餐")
+            return 3
+        else if (activitykind == "有礼")
+            return 4
+        else
+            return 5
+    },
+    showTitle: function () {//展示/隐藏全部提示
+        var prevjd = $(this).prev(".ztitle")//查找点击所在的同级节点
+        $(prevjd).css("height", "auto")
     }
+
 })
 

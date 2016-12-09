@@ -1,12 +1,12 @@
 ﻿
 avalon.ready(function () {
-    //vm.verifycode()
+    vm.verifycode()
 })
 
 
 var vm = avalon.define({
     $id: 'verifycodebind',
-    state:0,//1.二维码校验成功，2.二维码校验失败
+    state: 0,//1.二维码校验成功，2.二维码校验失败
     errorMsg: "这不是核销码，请核实后再试！",
     qrlimitken: common.getUrlParam("qrlimitken"),
     retailername: common.getUrlParam("retailername"),
@@ -21,19 +21,27 @@ var vm = avalon.define({
             url: '/webapi/retailer/weixin/qrlimitverify/binding',
             success: function (json) {
                 shelter.close();
-                json = json || {};   /* 统一加这句话 */
-                if (json.error != undefined && json.error != null) {
+                if (typeof (obj) != "object")
+                    json = JSON.parse(json)
+                if (json.error != undefined || json.error != null) {
                     shelter.init({
                         name: json.error,
                         icos: "/js/shelter/image/ico_error.png",
-                        autoClear: 5
+                        autoClear: 5,
+                        shadeClose: true
                     })
                     return
                 }
+
+                var msg = "";
+                if (json.user_notification != undefined || json.user_notification != null) {
+                    msg = json.user_notification
+                }
                 shelter.init({
-                    name: "已绑定",
+                    title: msg == "" ? "已绑定" : msg,
                     icos: "/js/shelter/image/ico_success.png",
-                    autoClear: 5
+                    autoClear: 5,
+                    shadeClose: true
                 })
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

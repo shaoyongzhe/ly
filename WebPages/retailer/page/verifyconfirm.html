@@ -15,7 +15,7 @@
     <link href="/js/shelter/shelter.css" rel="stylesheet" />
     <link href="/retailer/css/verify.css" rel="stylesheet" />
 </head>
-<body   ms-controller="verifyconfirm" class="ms-controller">
+<body ms-controller="verifyconfirm" class="ms-controller">
     <div id="pageheader">
         <div class="headercontent">
             <p>待确认核销({{authrecordcount}})</p>
@@ -25,7 +25,7 @@
         </div>
         <img src="/retailer/image/verify/xhsx.png" />
     </div>
-    <div class="verifyTicket" >
+    <!--<div class="verifyTicket">
         <div class="leftImg">
             <img src="/consumer/image/cs03.jpg" />
             <p class="verifyNum">X 16&nbsp;</p>
@@ -46,6 +46,88 @@
         <div class="ticket_type">
             <img src="../image/verify/jb_dp.png" />
         </div>
+        <div class="clear"></div>
+    </div>
+    <div class="verifyTicket">
+        <div class="leftImg">
+            <img src="/consumer/image/cs03.jpg" />
+            <p class="verifyNum">X 16&nbsp;</p>
+            <p class="verifyTimeTitle">核销时间</p>
+            <p class="verifyTime">08/11 13:50:59</p>
+        </div>
+        <div class="rightCount">
+            <div class="ticket_title" style="padding-right:20px">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵xixix</div>
+            <div class="ticket"><span class="price1">￥20</span></div>
+            <div class="ticket">
+                <div>
+                    <span class="ticket_zk">买三赠一</span>
+                </div>
+            </div>
+            <div class="verifyBtnGroup">
+                <div class="btnVerify" ms-click="singleFailure(el)">拒绝确认</div>
+                <div class="btnVerify active" style="float:right" ms-click="singleVerify(el)">确认</div>
+            </div>
+        </div>
+        <div class="ticket_type">
+            <img src="../image/verify/jb_dp.png" />
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="verifyTicket">
+        <div class="leftImg">
+            <img src="/consumer/image/cs03.jpg" />
+            <p class="verifyNum">X 16&nbsp;</p>
+            <p class="verifyTimeTitle">核销时间</p>
+            <p class="verifyTime">08/11 13:50:59</p>
+        </div>
+        <div class="rightCount">
+            <div class="ticket_title" style="padding-right:20px">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵xixix</div>
+            <div class="ticket"><span class="price1">￥20</span></div>
+            <div class="ticket">
+                <ul>
+                    <li style="width:25px"><font>赠</font></li>
+                    <li class="ztitle">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</li>
+                    <li style="width:25px" ms-click="showTitle">∧</li>
+                </ul>
+            </div>
+            <div class="verifyBtnGroup">
+                <div class="btnVerify" ms-click="singleFailure(el)">拒绝确认</div>
+                <div class="btnVerify active" style="float:right" ms-click="singleVerify(el)">确认</div>
+            </div>
+        </div>
+        <div class="ticket_type">
+            <img src="../image/verify/jb_dp.png" />
+        </div>
+        <div class="clear"></div>
+    </div>-->
+
+    <div class="verifyTicket" ms-repeat="array">
+        <div class="leftImg">
+            <img ms-attr-src="el.itempic" />
+            <p class="verifyNum">X {{el.verifydaylimit}}&nbsp;</p>
+            <p class="verifyTimeTitle">核销时间</p>
+            <p class="verifyTime">08/11 13:50:59</p>
+        </div>
+        <div class="rightCount">
+            <div class="ticket_title" style="padding-right:20px">{{el.activitytitle}}</div>
+            <div class="ticket">
+                <span class="price1">￥{{el.discountprice}}</span><span class="price2" ms-if="getTicketCssType(el)==1">￥{{el.originalprice}}</span>
+            </div>
+            <div class="ticket">
+                <span class="ticket_zk" ms-if="getTicketCssType(el)==2||getTicketCssType(el)==3">{{getTicketCssType(el)==2?el.discount+'折':'买'+el.buycount+'赠'+el.giftcount}}</span>
+                <div ms-if="getTicketCssType(el)==4">
+                    <font>赠</font>{{el.giftname}}
+                </div>
+            </div>
+            <div class="verifyBtnGroup">
+                <div class="btnVerify" ms-click="singleFailure(el)">拒绝确认</div>
+                <div class="btnVerify active" style="float:right" ms-click="singleVerify(el)">确认</div>
+            </div>
+        </div>
+        <div class="ticket_type">
+            <img ms-attr-src="/retailer/image/verify/{{getTicketCssType(el)==1?'jb_dp.png':getTicketCssType(el)==2?'jb_mf.png':'jb_tc.png'}}" />
+        </div>
+        <div class="clear"></div>
     </div>
     <div class="placeholder"></div>
     <footer>
