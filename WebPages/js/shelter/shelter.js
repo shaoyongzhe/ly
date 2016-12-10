@@ -44,10 +44,10 @@ var shelter = {
     close: function () {//关闭事件
         $("#mask,#shelterContent").remove()
     },
-    init: function (options) {
+    init: function (option) {
         shelter.close()
-        options = $.extend({}, shelter.defaults, options || {});
-
+        var options = $.extend({}, shelter.defaults, option || {});
+     
         ///拼html
         var strHtml = "<div id=\"mask\"></div>";
         strHtml += "  <div id=\"shelterContent\">"
@@ -62,7 +62,7 @@ var shelter = {
             strHtml += "  <div id=\"btnGroup\">"
             if (options.isShowClearBtn)//显示取消按钮
                 strHtml += "<div id=\"clearBtn\" class=\"btnVerify\">" + options.clearBtn.name + "</div>"
-            strHtml += " <div id=\"confirmBtn\" class=\"btnVerify active\" style=\"" + (options.isShowClearBtn ? "float:right" : "margin:0 auto") + "\">全部确认</div>"
+            strHtml += " <div id=\"confirmBtn\" class=\"btnVerify active\" style=\"" + (options.isShowClearBtn ? "float:right" : "margin:0 auto") + "\">" + options.confirmBtn.name + "</div>"
             strHtml += "</div>"
         }
         strHtml += "</div>";
