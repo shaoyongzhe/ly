@@ -89,7 +89,10 @@
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
                     cont = '<div class="win-box date-box"><ul><li class="curr">00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li></ul><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
-
+                else if (t == 11)
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
+                else if (t == 12)
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close" "></div>';
                 // else if (t == 11)
                 //     cont = '<div class="win-box date-box"><p>请录入整数或小数</p><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
 
@@ -372,6 +375,10 @@
             var  unit = ["", "十", "百", "千", "万", "十", "百", "千", "亿", "十"];
             var str = "";
             var sb = num;
+            if (parseInt(num) > 10000)
+            {
+                return num;
+            }
             sb = sb.split("").reverse().join("");
             var r = 0;
             var l = 0;
@@ -530,9 +537,15 @@
                 else if (state == "上架")
                     content += '<label class="released">已发布</label>';
 
-                if (item.reason != null && $.trim(item.reason).length > 0) {
-                    content += '<div class="no-audit"><b></b><div class="n-title">该活动审核未通过<a href="javascript:;" onclick="cssObj.noAuditShow(0,this)">查看原因</a></div>'
-                    + '<div class="n-cont">' + item.reason + '<div class="n-close" onclick="cssObj.noAuditShow(1,this)"></div></div></div>';
+                if (state=="审核失败"){
+                    if(item.reason != null && $.trim(item.reason).length > 0) {
+                        content += '<div class="no-audit"><b></b><div class="n-title">该活动审核未通过<a href="javascript:;" onclick="cssObj.noAuditShow(0,this)">查看原因</a></div>'
+                        + '<div class="n-cont">' + item.reason + '<div class="n-close" onclick="cssObj.noAuditShow(1,this)"></div></div></div>';
+                    }else
+                    {
+                        content += '<div class="no-audit"><b></b><div class="n-title">该活动审核未通过<a href="javascript:;" onclick="cssObj.noAuditShow(0,this)">查看原因</a></div>'
+                      + '<div class="n-cont">' + "" + '<div class="n-close" onclick="cssObj.noAuditShow(1,this)"></div></div></div>';
+                    }
                 }
                 content += "</td></tr>";
 
@@ -606,7 +619,7 @@
                     content += '</table><ul class="op-pnl" data-code=' + item.activityid + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
                     if (item.reason != null && $.trim(item.reason).length > 0) {
                         content += '<li onclick="activity.updateState(\'up\',this)">';
-                        content += '<label class="op-release">上架</label></li></ul><div class="clear"></div>';
+                        content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
                     }
                     else {
                         content += '<li onclick="activity.updateState(\'up\',this)">';
@@ -627,12 +640,20 @@
             //删除
             del: function (obj) {
                 var activityid = $(obj.parentNode).attr("data-code");
-                popup.show(1, function () {
                     _ajax("DELETE", '/webapi/retailer/activities/' + activityid, null, function (json) {
-                        if (json.activityid == activityid)
-                            activity.delRelItem($(obj).parent().parent());
+                        if (json.state == "上架")
+                        {
+                            popup.show(4, null);
+                            return;
+                        }
+                        else
+                        {    popup.show(1, function () {
+                                if (json.activityid == activityid)
+                                activity.delRelItem($(obj).parent().parent());
+                             });
+                        }
                     })
-                });
+                
             },
             delRelItem: function (obj) {
                 if ($(obj).parent().find(".relitem").length == 1)
@@ -647,7 +668,6 @@
 
             //新增
             add: function (obj, t) {
-
                 var createObj = $(obj).closest(".create");
                 var relType = parseInt(this.getParam(createObj, "reltype"));
                 var hour = this.getParam(createObj, "datehour");
@@ -1114,7 +1134,7 @@
                         relObj.css("padding-bottom", "50px");
                         $("#list .no-release").append(relObj[0].outerHTML);
                         activity.delRelItem(relObj);
-                        popup.show(7, null);
+                        popup.show(12, null);
 
                         // debugger;
                         // var wait = setTimeout(function(){
@@ -1236,8 +1256,8 @@
             + '           </tr>'
             + '           <tr>'
             + '               <td colspan="2" style="text-align:center;height:50px;">'
-            + '                   <input type="button" class="save-btn" value="保存" onclick="activity.add(this,0)" />'
-            + '                   <input type="button" class="rel-btn" value="发布" onclick="activity.add(this,1)" />'
+            + '                   <input type="button" class="save-btn" value="保存" onclick="activity.add(this,0);this.disabled = true;" />'
+            + '                   <input type="button" class="rel-btn" value="发布" onclick="activity.add(this,1);this.disabled = true;" />'
             + '               </td>'
             + '            </tr>'
             + '        </tbody>'
