@@ -12,12 +12,20 @@
     <link href="../css/independent_activities.css" rel="stylesheet" />
     <link href="../css/default.css" rel="stylesheet" />
     <link href="../css/default.date.css" rel="stylesheet" />
+    <style>
+        .xiugai {
+            height: 160px;
+            width: 100%;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container add">
-        <div class="a-title" onclick="activity.create()">创新新活动</div>
+        <div class="a-title" onclick="activity.create()">创建新活动</div>
         <div class="clear"></div>
         <i>消费者一般在平台审核通过后的第二天看到您的活动</i>
     </div>
@@ -88,7 +96,7 @@
                 else if (t == 9)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
-                    cont = '<div class="win-box date-box"><ul><li class="curr">00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li></ul><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
+                    cont = '<div class="win-box date-box"><div class="xiugai"><ul><li class="curr">00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
                 else if (t == 11)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
                 else if (t == 12)
@@ -312,9 +320,12 @@
                 }
                 return "";
             }
-
+            var todaysDate = new Date();
+            $("input[name=begintime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + todaysDate.getDate());
             // $('.date').pickadate({ min: Date.now });
             $('input[name=begintime]').pickadate({ min: Date.now });
+            var todaysDate = new Date();
+            $("input[name=endtime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + todaysDate.getDate());
             $("input[name=endtime]").pickadate({
                 min: Date.now,
                 onSet: function(thingSet) {
@@ -350,6 +361,7 @@
                 $("#win_box li").click(function () {
                     $("#win_box .curr").removeClass("curr");
                     $(this).addClass("curr");
+                    //$("#win_box .xiugai").scroll();
                 });
                 $("#win_box ul").scroll(function (stop) {
                     var top = $(this).scrollTop();
@@ -615,7 +627,7 @@
                 content += '<tr><th>活动时间：</th><td><span class="beginTime">' + item.begintime + '</span> 至 <span class="endTime">' + item.endtime + '</span></td></tr>'
                          + '<tr><th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</th><td valign="top"><span class="bz">' + item.remark + '</span></td></tr>';
 
-                if ($.trim(item.state) == "未发布" || $.trim(item.state) == "审核失败") {
+                if ($.trim(item.state) == "未发布") {
                     content += '</table><ul class="op-pnl" data-code=' + item.activityid + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
                     if (item.reason != null && $.trim(item.reason).length > 0) {
                         content += '<li onclick="activity.updateState(\'up\',this)">';
@@ -626,6 +638,17 @@
                         content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
                     }
 
+                 }else if($.trim(item.state) == "审核失败")
+                 {
+                   content += '</table><ul class="op-pnl" data-code=' + item.activityid + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
+                   if (item.reason != null && $.trim(item.reason).length > 0) {
+                       content += '<li onclick="activity.updateState(\'up\',this)">';
+                       content += '<label class="op-release">上架</label></li></ul><div class="clear"></div>';
+                   }
+                   else {
+                       content += '<li onclick="activity.updateState(\'up\',this)">';
+                       content += '<label class="op-release">上架</label></li></ul><div class="clear"></div>';
+                   }
                 }
                 else if ($.trim(item.state) == "审核中")
                     content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' ><li style="width:50%;"  onclick="activity.del(this)""><label class="op-del">删除</label></li><li style="width:50%;" onclick="activity.edit(this)"><label class="op-update">修改</label></li><div class="clear"></div>';
@@ -911,7 +934,11 @@
                     }
                     else if (json.state == "未发布" && $.trim(json.reason).length == 0) {
                         convertformtoedit(obj, json);
-                    } else if (json.state == "审核中") {
+                    } else if (json.state == "审核失败")
+                    {
+                        convertformtoedit(obj, json);
+                    }
+                    else if (json.state == "审核中") {
                         popup.show(6, function () {
                             convertformtoedit(obj, json);
                         });
@@ -1242,7 +1269,7 @@
             + '             <th valign="top" style="line-height:40px;">活动时间</th>'
             + '             <td style="line-height:45px;">'
             + '                  <input type="text" name="begintime" class="date" />'
-            + '                  <label style="padding:0 3px">至</label>'
+            + '                  <label style="padding:0 3px">至</label>'   
             + '                  <input type="text" name="endtime" class="date" />'
             + '                  <input type="text" name="datehour" readonly="readonly" class="date-hour" />'
             + '              </td>'
@@ -1256,8 +1283,8 @@
             + '           </tr>'
             + '           <tr>'
             + '               <td colspan="2" style="text-align:center;height:50px;">'
-            + '                   <input type="button" class="save-btn" value="保存" onclick="activity.add(this,0);this.disabled = true;" />'
-            + '                   <input type="button" class="rel-btn" value="发布" onclick="activity.add(this,1);this.disabled = true;" />'
+            + '                   <input type="button" class="save-btn" value="保存" onclick="activity.add(this,0);" />'
+            + '                   <input type="button" class="rel-btn" value="发布" onclick="activity.add(this,1);" />'
             + '               </td>'
             + '            </tr>'
             + '        </tbody>'
