@@ -522,7 +522,7 @@ var selfVerify = avalon.define({//自助核销
         //        selfVerify.scanSuccess(token[1])
         //    }
         //});
-        selfVerify.scanSuccess("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiYTJmOTFhN2UxNTYzNDIwMWJmMmE1YmQ1ZTk1MzcwNDQifQ.ZMSU22dZOT5usWyqa2eUy9gv8DziN_mjt__aGFIRESg")
+        selfVerify.scanSuccess("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiODgzYzBkNTE4MDhjNGJiZjhhZjE4YTMyZTE5NWMwZjEifQ.3_IPUE26EI49wv8VLL4GmD7sSsWe_3d5We0ri7qlXEQ")
     },
     scanSuccess: function (qrlimitken) {//开始自助核销
         vm.pageStep = 2;
@@ -550,10 +550,11 @@ var selfVerify = avalon.define({//自助核销
                 Msg.show(3, "hha", whxMsg)
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(12)
                 var errormsg = "";
                 if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                     var json = JSON.parse(XMLHttpRequest.responseText);
-                    errormsg = JSON.parse(json.Message);
+                    errormsg = JSON.parse(json.Message).error;
                     if (errormsg == undefined || errormsg == '')
                         errormsg = "Http error: " + XMLHttpRequest.statusText;
                 }

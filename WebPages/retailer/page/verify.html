@@ -37,14 +37,14 @@
                 <p class="verifyTime">{{authrecord.time_order_in_minute}}</p>
             </div>
             <div class="rightCount">
-                <div class="ticket_title" style="padding-right:20px">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呵呵呵呵呵呵呵呵xixix</div>
+                <div class="ticket_title" style="padding-right:20px">{{authrecord.activitytitle}}</div>
                 <div class="ticket"><span class="price1">￥20</span><span class="price2">￥20</span></div>
                 <div class="ticket">
                     <span class="ticket_zk">7.6折</span>
                 </div>
                 <div class="verifyBtnGroup">
-                    <div class="btnVerify">拒绝确认</div>
-                    <div class="btnVerify active" style="float:right">确认</div>
+                    <div class="btnVerify" ms-click="singleVerify('failure')">拒绝确认</div>
+                    <div class="btnVerify active" style="float:right"  ms-click="singleVerify('complete')">确认</div>
                 </div>
             </div>
             <div class="ticket_type">

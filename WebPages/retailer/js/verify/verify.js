@@ -71,28 +71,41 @@ var vm = avalon.define({
                             // complete: function () { shelter.close() },
                             url: '/webapi/retailer/weixin/verify/auth/list/complete',
                             success: function (json) {
+                                alert(888)
                                 shelter.close();//隐藏转圈动画
                                 json = json || {};   /* 统一加这句话 */
 
-
-                                //成功后，重新加载信息
-                                vm.getVerifyInfo()
+                                shelter.init({
+                                    title: "操作成功",
+                                    icos: "/js/shelter/image/ico_success.png",
+                                    autoClear: 3,
+                                    shadeClose: true,
+                                    closeEnd: function () {
+                                        //成功后，重新加载信息
+                                        vm.getVerifyInfo()
+                                    }
+                                })
+                               
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                var errormsg = "访问异常";
+                                var errormsg = "当前网络不给力，请稍候重试";
+                                alert(88)
+                                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                                    var json = JSON.parse(XMLHttpRequest.responseText);
+                                    alert(json)
+                                    if (json.indexOf("Message") >= 0)
+                                        errormsg = JSON.parse(json.Message).error;
+                                    else
+                                        errormsg = JSON.parse(json).error;
+                                    if (errormsg == undefined || errormsg == '')
+                                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                                }
                                 shelter.init({
-                                    title: "当前网络不给力，请稍候重试",
+                                    title: errormsg,
                                     icos: "/js/shelter/image/ico_warn.png",
                                     autoClear: 5,
                                     shadeClose: true
                                 })
-                                //if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                                //    var json = JSON.parse(XMLHttpRequest.responseText);
-                                //    errormsg = JSON.parse(json.Message).error;
-                                //    if (errormsg == undefined || errormsg == '')
-                                //        errormsg = "Http error: " + XMLHttpRequest.statusText;
-                                //}
-
                                 //toasterextend.showtips(errormsg, "error");
                             }
                         });
@@ -101,9 +114,9 @@ var vm = avalon.define({
             })
         }
     },
-    singleVerify: function () {//单个确认
+    singleVerify: function (state) {//单个确认
         shelter.init({
-            title: "您真的要确认么？",
+            title: state == "complete" ? "您真的要确认么？" : "您真的要拒绝确认么？",
             shadeClose: true,
             showBtn: true,
             clearBtn: {
@@ -113,28 +126,9 @@ var vm = avalon.define({
                 } //取消按钮事件
             },
             confirmBtn: {
-                name: "确认",//确定按钮名称
+                name: state == "complete" ? "确认" : "残忍拒绝",//确定按钮名称
                 click: function () {
-                    affirm("complete")
-                } //确定按钮事件
-            },
-        })
-    },
-    singleFailure: function () {//单个拒绝
-        shelter.init({
-            title: "您真的要拒绝确认么？",
-            shadeClose: true,
-            showBtn: true,
-            clearBtn: {
-                name: "回去看看",//取消按钮名称
-                click: function () {
-                    shelter.close()
-                } //取消按钮事件
-            },
-            confirmBtn: {
-                name: "残忍拒绝",//确定按钮名称
-                click: function () {
-                    affirm("failure")
+                    vm.affirm(state)
                 } //确定按钮事件
             },
         })
@@ -159,13 +153,21 @@ var vm = avalon.define({
                 shelter.init({ title: "提交中...", icos: "/js/shelter/image/loading.gif" })
             },
             // complete: function () { shelter.close() },
-            url: '/webapi/retailer/weixin/verify/auth/' + state + '/' + vm.authrecord.verify_id,
+            url: '/webapi/retailer/weixin/verify/auth/single/' + state + '/' + vm.authrecord.verify_id,
             success: function (json) {
                 shelter.close();//隐藏转圈动画
                 json = json || {};   /* 统一加这句话 */
 
                 //成功后，重新加载信息
-                vm.getVerifyInfo()
+                shelter.init({
+                    title: "操作成功",
+                    icos: "/js/shelter/image/ico_success.png",
+                    autoClear: 3,
+                    shadeClose: true,
+                    closeEnd: function () {
+                        vm.getVerifyInfo()
+                    }
+                })
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 shelter.init({
@@ -174,7 +176,6 @@ var vm = avalon.define({
                     autoClear: 5,
                     shadeClose: true
                 })
-
             }
         });
     }

@@ -17,7 +17,9 @@ var vm = avalon.define({
     $id: 'verifyconfirm',
     authrecordcount: 0,
     array: [],
+    pageIndex: 1,
     getVerifyList: function (pageindex, me) {
+        vm.pageIndex = pageindex
         $.ajax({
             type: 'GET',
             dataType: 'json',
@@ -99,9 +101,9 @@ var vm = avalon.define({
             })
         }
     },
-    singleVerify: function (el) {//单个确认
+    singleVerify: function (state, el) {//单个确认
         shelter.init({
-            title: "您真的要确认么？",
+            title: state == "complete" ? "您真的要确认么？" : "您真的要拒绝确认么？",
             shadeClose: true,
             showBtn: true,
             clearBtn: {
@@ -111,32 +113,32 @@ var vm = avalon.define({
                 } //取消按钮事件
             },
             confirmBtn: {
-                name: "确认",//确定按钮名称
+                name: state == "complete" ? "确认" : "残忍拒绝",//确定按钮名称
                 click: function () {
-                    vm.affirm("complete", el.verify_id)
+                    vm.affirm(state, el)
                 } //确定按钮事件
             },
         })
     },
-    singleFailure: function (el) {//单个拒绝
-        shelter.init({
-            title: "您真的要拒绝确认么？",
-            shadeClose: true,
-            showBtn: true,
-            clearBtn: {
-                name: "回去看看",//取消按钮名称
-                click: function () {
-                    shelter.close()
-                } //取消按钮事件
-            },
-            confirmBtn: {
-                name: "残忍拒绝",//确定按钮名称
-                click: function () {
-                    vm.affirm("failure", el.verify_id)
-                } //确定按钮事件
-            },
-        })
-    },
+    //singleFailure: function (el) {//单个拒绝
+    //    shelter.init({
+    //        title: "您真的要拒绝确认么？",
+    //        shadeClose: true,
+    //        showBtn: true,
+    //        clearBtn: {
+    //            name: "回去看看",//取消按钮名称
+    //            click: function () {
+    //                shelter.close()
+    //            } //取消按钮事件
+    //        },
+    //        confirmBtn: {
+    //            name: "残忍拒绝",//确定按钮名称
+    //            click: function () {
+    //                vm.affirm("failure", el.verify_id)
+    //            } //确定按钮事件
+    //        },
+    //    })
+    //},
     affirm: function (state, verify_id) {//单个确认、拒绝
         $.ajax({
             type: 'put',
@@ -145,7 +147,7 @@ var vm = avalon.define({
                 shelter.init({ title: "提交中...", icos: "/js/shelter/image/loading.gif" })
             },
             // complete: function () { shelter.close() },
-            url: '/webapi/retailer/weixin/verify/auth/' + state + '/' + verify_id,
+            url: '/webapi/retailer/weixin/verify/auth/single/' + state + '/' + verify_id,
             success: function (json) {
                 shelter.close();//隐藏转圈动画
                 json = json || {};   /* 统一加这句话 */
@@ -157,7 +159,7 @@ var vm = avalon.define({
                     autoClear: 5,
                     shadeClose: true,
                     closeEnd: function () {
-                        vm.getVerifyInfo()
+                        vm.getVerifyList(vm.pageIndex)
                     }
                 })
             },
