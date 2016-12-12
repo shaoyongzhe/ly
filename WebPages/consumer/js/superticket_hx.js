@@ -44,6 +44,7 @@ var vm = avalon.define({
     retailer_id: "",//门店Id
     span_tishi: "让店家扫一扫下方二维码立享优惠",
     IsVerifySuccess: false,//是否核销成功
+    isselfverify:true,//是否允许消费者自助核销，超惠券24小时内结束，不允许核销
     additions: function () {//加
         if (vm.hxNum < vm.verifylimit) {
             vm.hxNum++
@@ -90,7 +91,7 @@ var vm = avalon.define({
                 }
                 vm.isShow = true
                 vm.jsondata = jsondata
-
+                vm.isselfverify = jsondata.isselfverify
                 vm.verifylimit = vm.jsondata.verifylimit
                 vm.pageStep = 1;
                 if (vm.verifylimit <= 0) {
