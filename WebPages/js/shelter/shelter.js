@@ -47,7 +47,7 @@ var shelter = {
     init: function (option) {
         shelter.close()
         var options = $.extend({}, shelter.defaults, option || {});
-     
+
         ///拼html
         var strHtml = "<div id=\"mask\"></div>";
         strHtml += "  <div id=\"shelterContent\">"
@@ -73,18 +73,23 @@ var shelter = {
         if (options.isShowClearBtn)
             $("#clearBtn").on("click", options.clearBtn.click)
         $("#confirmBtn").on("click", options.confirmBtn.click)
+
+        var timeout = null
+
         if (options.autoClear > 0) { //自动关闭
-            setTimeout(function () {
+            timeout = setTimeout(function () {
                 shelter.close()
-                if (typeof (options.closeEnd) == "funciton")
+                if (typeof (options.closeEnd) == "function")
                     options.closeEnd()
             }, options.autoClear * 1000)
         }
         if (options.shadeClose) {//点击任意处关闭
             $("#mask").on("click", function () {
                 shelter.close()
-                if (typeof (options.closeEnd) == "funciton")
+                if (typeof (options.closeEnd) == "function") {
                     options.closeEnd()
+                    clearTimeout(timeout)
+                }
             })
         }
     }
