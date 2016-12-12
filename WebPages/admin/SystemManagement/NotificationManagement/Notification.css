@@ -1,0 +1,269 @@
+
+.search-area
+{
+    width: 80%;
+    position: relative;
+}
+
+.on
+{
+    background-color: burlywood;
+}
+
+.bread-crumb
+{
+    margin-bottom: 10px;
+}
+
+    .bread-crumb span
+    {
+        font-family: simsun;
+    }
+
+.search-wrap
+{
+    position: relative;
+}
+
+.float_right
+{
+    float: right;
+}
+
+.input-contorl
+{
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+    .input-contorl input,
+    .input-contorl select,
+    .bk-gray select
+    {
+        width: 200px;
+        height: 30px;
+    }
+
+    .input-contorl label
+    {
+        width: 90px;
+        display: inline-block;
+    }
+
+    .input-contorl .date
+    {
+        width: 90px;
+        margin-right: 0;
+    }
+
+
+
+.add-btn,
+.submit-btn,
+.reset-btn,
+.search-btn
+{
+    background-color: rgba(0, 157, 217, 1);
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 10px;
+    position: absolute;
+    border: 0;
+    right: 0;
+    bottom: 17px;
+    cursor: pointer;
+}
+
+.reset-btn
+{
+    right: 100px;
+}
+
+
+.add-btn
+{
+    margin-right: 52px;
+    bottom: 10px;
+}
+
+
+
+.handle
+{
+    position: relative;
+}
+
+.handle-icon
+{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #bbb;
+}
+
+    .handle-icon.on + .handle-btns-wrap
+    {
+        display: block;
+    }
+
+.handle-btns-wrap
+{
+    display: none;
+    width: 277px;
+    height: 43px;
+    line-height: 40px;
+    padding: 0 10px;
+    background-color: #bbb;
+    box-sizing: border-box;
+    position: absolute;
+    right: 105%;
+    top: -9px;
+    transition: .6s;
+}
+
+
+.handle-btns
+{
+    text-align: left;
+}
+
+    .handle-btns a
+    {
+        display: inline-block;
+        vertical-align: -5px; /*    background: red;
+    width: 20px;
+    height: 20px;*/
+    }
+
+    .handle-btns .arrow-right
+    {
+        display: inline-block;
+        position: absolute;
+        border: 6px solid transparent;
+        border-left-color: #bbb;
+        right: -12px;
+        top: 14px;
+    }
+
+
+.w72
+{
+    width: 72px;
+}
+
+
+.sec
+{
+    display: none;
+}
+
+nav
+{
+    height: 40px;
+    background: antiquewhite;
+    margin-bottom: 20px;
+}
+
+    nav span
+    {
+        border: 1px solid #eee;
+        background: #ccc;
+        padding: 10px 20px;
+        line-height: 40px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+.addForm
+{
+    width: 500px; /*height: 300px;*/ /*background-color: #eee;*/
+    display: none;
+    padding: 20px 0 50px 50px;
+    box-sizing: border-box;
+}
+
+.submit-btn
+{
+    position: static;
+    display: block;
+    margin-left: 210px;
+}
+
+.input-contorl textarea
+{
+    height: 100px;
+    width: 300px;
+    vertical-align: top; /*transition: .6s;*/
+}
+
+.json-wrap
+{
+    display: none;
+    height: 100%;
+}
+
+.saveBtn
+{
+    float: right;
+    margin-right: 40px;
+    background-color: rgba(0, 157, 217, 1);
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+body > i
+{
+    display: none;
+}
+
+td .content
+{
+    width: 300px;
+    font-size: 12px;
+    display: block;
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+textarea.content
+{
+    font-size: 14px;
+}
+
+.border-warn
+{
+    border: 1px solid #dd514c;
+}
+
+table.notify tbody tr
+{ /*display: none;*/
+}
+
+textarea.content,
+td span.content,
+.jsoneditor
+{
+    font-family: Monaco, 'Lucida Console', monospace, Consolas, Courier, 'Microsoft YaHei' !important;
+}
+
+/* .pager-wrap .text-l{
+    display: none;
+} */
+
+pre
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.addForm .input-contorl
+{
+    margin-bottom: 10px;
+}
