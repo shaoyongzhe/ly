@@ -99,10 +99,11 @@ var vm = avalon.define({
                     var msg = vm.jsondata.state == 1 ? '太火爆了，该券已被抢光，下次要趁早！' : vm.jsondata.state == 2 ? "您今天已使用该券，明天再来吧！" : "该券您已用尽，看看其它券吧！";
                     toasterextend.showtips(msg, "error");
                     return;
-                } else if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
-                    vm.span_tishi = "该券仅剩一张可供您使用,已为您生成二维码"
-                    vm.btnClick();
                 }
+                //else if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
+                //    vm.span_tishi = "该券仅剩一张可供您使用,已为您生成二维码"
+                //    vm.btnClick();
+                //}
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 common.loading.hide();//隐藏转圈动画

@@ -8,7 +8,7 @@ var vm = avalon.define({
     $id: 'verify',
     authrecordcount: 0,//待审核数量
     isbinding: false,//是否绑定核销永久码
-    retailername: "哈哈",//门店名称
+    retailername: "",//门店名称
     authrecord: {},
     getVerifyInfo: function () {
         $.ajax({
@@ -23,7 +23,9 @@ var vm = avalon.define({
 
                 vm.authrecordcount = json.authrecordcount
                 vm.isbinding = json.isbinding
-                vm.authrecord = json.authrecord[0]
+                vm.retailername = json.retailername
+                if (json.authrecord != undefined && json.authrecord != null)
+                    vm.authrecord = json.authrecord[0]
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 shelter.close();//隐藏转圈动画
@@ -67,7 +69,7 @@ var vm = avalon.define({
                                 shelter.init({ title: "提交中...", icos: "/js/shelter/image/loading.gif" })
                             },
                             // complete: function () { shelter.close() },
-                            url: '/webapi/retailer/weixin/verify/auth/all/list',
+                            url: '/webapi/retailer/weixin/verify/auth/list/complete',
                             success: function (json) {
                                 shelter.close();//隐藏转圈动画
                                 json = json || {};   /* 统一加这句话 */
@@ -147,7 +149,7 @@ var vm = avalon.define({
         //    }
         //});
 
-        location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=1111111";
+        location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiYTJmOTFhN2UxNTYzNDIwMWJmMmE1YmQ1ZTk1MzcwNDQifQ.ZMSU22dZOT5usWyqa2eUy9gv8DziN_mjt__aGFIRESg";
     },
     affirm: function (state) {//单个确认、拒绝
         $.ajax({

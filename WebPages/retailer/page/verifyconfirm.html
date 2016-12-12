@@ -21,7 +21,7 @@
             <p>待确认核销({{authrecordcount}})</p>
         </div>
         <div class="headercontent">
-            <div class="btnVerify active" style="float:right;width:60%" ms-click="allVerify()">全部确认</div>
+            <div ms-attr-class="btnVerify active {{authrecordcount==0?'disable2':''}}" style="float:right;width:60%" ms-click="allVerify()">全部确认</div>
         </div>
         <img src="/retailer/image/verify/xhsx.png" />
     </div>
