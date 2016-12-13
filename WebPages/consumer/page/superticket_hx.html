@@ -337,9 +337,14 @@
             color: #ff6600;
             background-color: #ffefe5;
             margin: 0px 0px 20px 5%;
-            font-size: 20px;border-radius:3px
+            font-size: 20px;
+            border-radius: 3px;
         }
-        .tuijianimg {position:absolute;margin:-14px 0 0 5%; width:30px
+
+        .tuijianimg {
+            position: absolute;
+            margin: -14px 0 0 5%;
+            width: 30px;
         }
     </style>
     <script>
@@ -411,7 +416,7 @@
                     {{vm.jsondata.ruledesc}}
                 </div>
             </div>
-            <div>
+            <div ms-if="isselfverify">
                 <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png" />
                 <div class="btn_css4" style="margin-top:50px" ms-click="selfVerify.VerifyScan">
                     自助扫码核销

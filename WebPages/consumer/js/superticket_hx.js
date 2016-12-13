@@ -1,4 +1,4 @@
-﻿
+
 avalon.ready(function () {
 
     $('.tip-w').click(function () {
@@ -44,6 +44,7 @@ var vm = avalon.define({
     retailer_id: "",//门店Id
     span_tishi: "让店家扫一扫下方二维码立享优惠",
     IsVerifySuccess: false,//是否核销成功
+    isselfverify:true,//是否允许消费者自助核销，超惠券24小时内结束，不允许核销
     additions: function () {//加
         if (vm.hxNum < vm.verifylimit) {
             vm.hxNum++
@@ -90,7 +91,7 @@ var vm = avalon.define({
                 }
                 vm.isShow = true
                 vm.jsondata = jsondata
-
+                vm.isselfverify = jsondata.isselfverify
                 vm.verifylimit = vm.jsondata.verifylimit
                 vm.pageStep = 1;
                 if (vm.verifylimit <= 0) {
@@ -537,20 +538,19 @@ var selfVerify = avalon.define({//自助核销
             beforeSend: function () { Msg.show(1, "自助核销中...") },
             url: '/webapi/consumer/weixin/qrlimitverify/scan',
             success: function (result) {
-                alert(12)
-
                 //vm.yhxNum = result.verifynum//成功核销数量
                 //vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
                 //var whxMsg = "";
                 //if (vm.whxNum > 0) {
                 //    whxMsg = "其中" + vm.whxNum + "张超惠券未使用";
                 //}
+                vm.yhxNum = result.verifynum//成功核销数量
+                vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
                 vm.pageStep = 3
                 page2.showUsage(1)
-                Msg.show(3, "hha", whxMsg)
+                Msg.show(3, "自助核销成功", "")
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(12)
                 var errormsg = "";
                 if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                     var json = JSON.parse(XMLHttpRequest.responseText);
