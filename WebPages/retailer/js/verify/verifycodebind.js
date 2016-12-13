@@ -45,8 +45,22 @@ var vm = avalon.define({
                 })
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //shelter.init({
+                //    title: "当前网络不给力，请稍候重试",
+                //    icos: "/js/shelter/image/ico_warn.png",
+                //    autoClear: 5,
+                //    shadeClose: true
+                //})
+
+                var errormsg = "当前网络不给力，请稍候重试";
+                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                    var json = JSON.parse(XMLHttpRequest.responseText);
+                    errormsg = JSON.parse(json.Message);
+                    if (errormsg == undefined || errormsg == '')
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                }
                 shelter.init({
-                    title: "当前网络不给力，请稍候重试",
+                    title: errormsg,
                     icos: "/js/shelter/image/ico_warn.png",
                     autoClear: 5,
                     shadeClose: true

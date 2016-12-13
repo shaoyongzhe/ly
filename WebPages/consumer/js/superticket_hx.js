@@ -538,20 +538,19 @@ var selfVerify = avalon.define({//自助核销
             beforeSend: function () { Msg.show(1, "自助核销中...") },
             url: '/webapi/consumer/weixin/qrlimitverify/scan',
             success: function (result) {
-                alert(12)
-
                 //vm.yhxNum = result.verifynum//成功核销数量
                 //vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
                 //var whxMsg = "";
                 //if (vm.whxNum > 0) {
                 //    whxMsg = "其中" + vm.whxNum + "张超惠券未使用";
                 //}
+                vm.yhxNum = result.verifynum//成功核销数量
+                vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
                 vm.pageStep = 3
                 page2.showUsage(1)
-                Msg.show(3, "hha", whxMsg)
+                Msg.show(3, "自助核销成功", "")
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(12)
                 var errormsg = "";
                 if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                     var json = JSON.parse(XMLHttpRequest.responseText);
