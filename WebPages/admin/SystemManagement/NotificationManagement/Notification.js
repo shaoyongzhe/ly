@@ -614,8 +614,8 @@ var _ajax = function (type, url, data, tip, success) {
         complete: function () { },
         timeout: function () { },
         success: function (json) {
-            if (json["error"] != undefined && data.error) {
-                layer.msg("【" + tip + '】查询出错，出错原因：' + data.error);
+            if (json["error"] != undefined && json.error) {
+                layer.msg("【" + tip + '】查询出错，出错原因：' + json.error);
                 return;
             }
             success(json);
