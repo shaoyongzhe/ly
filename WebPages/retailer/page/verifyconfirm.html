@@ -100,37 +100,38 @@
         </div>
         <div class="clear"></div>
     </div>-->
-
-    <div class="verifyTicket" ms-repeat="array">
-        <div class="leftImg">
-            <img ms-attr-src="el.itempic" />
-            <p class="verifyNum">X {{el.verifynum}}&nbsp;</p>
-            <p class="verifyTimeTitle">核销时间</p>
-            <p class="verifyTime">08/11 13:50:59</p>
-        </div>
-        <div class="rightCount">
-            <div class="ticket_title" style="padding-right:20px">{{el.activitytitle}}</div>
-            <div class="ticket" ms-if="el.activitykind!='有礼'">
-                <span class="price1">￥{{el.discountprice!=undefined?el.discountprice:el.unitprice}}</span>
-                <span class="price2" ms-if="el.originalprice!=undefined">￥{{el.originalprice}}</span>
+    <div id="list">
+        <div class="verifyTicket" ms-repeat="array" data-repeat-rendered="jsondataReadered">
+            <div class="leftImg">
+                <img ms-attr-src="el.itempic" />
+                <p class="verifyNum">X {{el.verifynum}}&nbsp;</p>
+                <p class="verifyTimeTitle">核销时间</p>
+                <p class="verifyTime">08/11 13:50:59</p>
             </div>
-            <div class="ticket">
-                <span class="ticket_zk" ms-if="el.activitykind!='有礼'">{{getzktitle(el)}}</span>
-                <ul ms-if="el.activitykind=='有礼'">
-                    <li style="width:25px"><font>赠</font></li>
-                    <li class="ztitle">{{el.giftname}}</li>
-                    <li class="arrows_down" style="width:6px" ms-click="showTitle"></li>
-                </ul>
+            <div class="rightCount">
+                <div class="ticket_title" style="padding-right:20px">{{el.activitytitle}}</div>
+                <div class="ticket" ms-if="el.activitykind!='有礼'">
+                    <span class="price1">￥{{el.discountprice!=undefined?el.discountprice:el.unitprice}}</span>
+                    <span class="price2" ms-if="el.originalprice!=undefined">￥{{el.originalprice}}</span>
+                </div>
+                <div class="ticket">
+                    <span class="ticket_zk" ms-if="el.activitykind!='有礼'">{{getzktitle(el)}}</span>
+                    <ul ms-if="el.activitykind=='有礼'">
+                        <li style="width:25px"><font>赠</font></li>
+                        <li class="ztitle">{{el.giftname}}</li>
+                        <li class="arrows_down" style="width:6px" ms-click="showTitle"></li>
+                    </ul>
+                </div>
+                <div class="verifyBtnGroup">
+                    <div class="btnVerify" ms-click="singleVerify('failure',el)">拒绝确认</div>
+                    <div class="btnVerify active" style="float:right" ms-click="singleVerify('complete',el)">确认</div>
+                </div>
             </div>
-            <div class="verifyBtnGroup">
-                <div class="btnVerify" ms-click="singleVerify('failure',el)">拒绝确认</div>
-                <div class="btnVerify active" style="float:right" ms-click="singleVerify('complete',el)">确认</div>
+            <div class="ticket_type">
+                <img ms-attr-src="{{getactivitykindimg(el)}}" />
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="ticket_type">
-            <img ms-attr-src="{{getactivitykindimg(el)}}" />
-        </div>
-        <div class="clear"></div>
     </div>
     <footer>
         <div id="bottom-nav"></div>

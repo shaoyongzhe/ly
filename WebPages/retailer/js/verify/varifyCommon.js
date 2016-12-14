@@ -40,9 +40,13 @@ function getzktitle(el) {
 
 function showTitle() {//展示/隐藏全部提示
     var prevjd = $(this).prev(".ztitle")//查找点击所在的同级节点
-    $(prevjd).css("height", "auto")
+
     if ($(this).attr("class") == "arrows_down") {
+        $(prevjd).css("height", "auto")
         $(this).attr("class", "arrows_up")
-    } else
+    } else {
         $(this).attr("class", "arrows_down")
+        $(prevjd).css("height", "20px")
+    }
+
 }

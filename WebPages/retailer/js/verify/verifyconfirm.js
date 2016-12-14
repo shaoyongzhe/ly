@@ -9,30 +9,61 @@ avalon.ready(function () {
             me.resetload();
         }
     });
-    vm.getVerifyList(1)
+    vm.getVerifyList(1, null)
 })
 
-
+var tmdropme = null;
 var vm = avalon.define({
     $id: 'verifyconfirm',
     authrecordcount: 0,
     array: [],
+    pagedata: { lastindexoid: 0, lastindexcolumn: "oid", movingdir: "-" },
     pageIndex: 1,
     getVerifyList: function (pageindex, me) {
         vm.pageIndex = pageindex
+
+        var parameters = { pageindex: pageindex }
+        if (vm.pageIndex > 1) {
+            parameters = $.extend({}, parameters, vm.pagedata);
+        }
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { pageindex: pageindex },
-            beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif" }) },
+            data: parameters,
+            beforeSend: function () {
+                if (vm.pageIndex == 1)
+                    shelter.init({ icos: "/js/shelter/image/loading.gif" })
+            },
             url: '/webapi/retailer/weixin/verify/auth/list',
             success: function (json) {
-                if (me != undefined)
-                    me.resetload();
+                tmdropme = me
                 json = json || {};   /* 统一加这句话 */
-                shelter.close()
-                vm.authrecordcount = json.authrecordcount
-                vm.array = json.data
+                if (vm.pageIndex == 1)
+                    shelter.close()
+
+                if (json.data.length == 0) {
+                    dealdropme(me);
+                    if (vm.pageIndex == 1) {
+                        vm.array = []
+                        vm.authrecordcount = 0
+                    }
+                    return;
+                }
+
+                if (vm.pageIndex != 1) {
+                    $.each(json.data, function (i, v) {
+                        vm.array.push(v);
+                    });
+                } else {
+                    vm.array = json.data
+
+                    vm.authrecordcount = json.authrecordcount
+                }
+
+                vm.pagedata.lastindexoid = json.lastindexoid
+                vm.pagedata.lastindexcolumn = json.lastindexcolumn
+                vm.pagedata.movingdir = json.movingdir
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 if (me != undefined)
@@ -80,7 +111,7 @@ var vm = avalon.define({
                                     shadeClose: true,
                                     closeEnd: function () {
                                         //成功后，重新加载信息
-                                        vm.getVerifyList(vm.pageIndex)
+                                        vm.getVerifyList(1, null)
                                     }
                                 })
                             },
@@ -125,12 +156,15 @@ var vm = avalon.define({
                     vm.affirm(state, el.verify_id)
                 } //确定按钮事件
             },
+            closeEnd: function () {
+                vm.getVerifyList(1, null)
+            }
         })
     },
     affirm: function (state, verify_id) {//单个确认、拒绝
         $.ajax({
             type: 'put',
-            dataType: 'json',
+            dataType: 'text',
             beforeSend: function () {
                 shelter.init({ title: "提交中...", icos: "/js/shelter/image/loading.gif" })
             },
@@ -147,7 +181,7 @@ var vm = avalon.define({
                     autoClear: 3,
                     shadeClose: true,
                     closeEnd: function () {
-                        vm.getVerifyList(vm.pageIndex)
+                        vm.getVerifyList(1, null)
                     }
                 })
             },
@@ -174,6 +208,27 @@ var vm = avalon.define({
             return 4
         else
             return 5
+    },
+    jsondataReadered: function (e) {
+        if (vm.pageIndex == 1) {
+            $(".dropload-down").remove()
+            $('#list').dropload({
+                scrollArea: window,
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                },
+                loadDownFn: function (me) {
+                    vm.pageIndex++;
+                    tmdropme = me;
+                    vm.getVerifyList(vm.pageIndex, me)
+                }
+            });
+        }
+        if (tmdropme != null)
+            tmdropme.resetload();
     }
 })
 
