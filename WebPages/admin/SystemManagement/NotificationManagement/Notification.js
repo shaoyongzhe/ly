@@ -1,5 +1,5 @@
-// 导航切换
-var domailUrl = "http://127.0.0.1:40008";
+// 导航切换http://127.0.0.1:40008
+var domailUrl = "";
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
