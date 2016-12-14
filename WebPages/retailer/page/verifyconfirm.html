@@ -104,20 +104,23 @@
     <div class="verifyTicket" ms-repeat="array">
         <div class="leftImg">
             <img ms-attr-src="el.itempic" />
-            <p class="verifyNum">X {{el.verifydaylimit}}&nbsp;</p>
+            <p class="verifyNum">X {{el.verifynum}}&nbsp;</p>
             <p class="verifyTimeTitle">核销时间</p>
             <p class="verifyTime">08/11 13:50:59</p>
         </div>
         <div class="rightCount">
             <div class="ticket_title" style="padding-right:20px">{{el.activitytitle}}</div>
-            <div class="ticket">
-                <span class="price1">￥{{el.discountprice}}</span><span class="price2" ms-if="getTicketCssType(el)==1">￥{{el.originalprice}}</span>
+            <div class="ticket" ms-if="el.activitykind!='有礼'">
+                <span class="price1">￥{{el.discountprice!=undefined?el.discountprice:el.unitprice}}</span>
+                <span class="price2" ms-if="el.originalprice!=undefined">￥{{el.originalprice}}</span>
             </div>
             <div class="ticket">
-                <span class="ticket_zk" ms-if="getTicketCssType(el)==2||getTicketCssType(el)==3">{{getTicketCssType(el)==2?el.discount+'折':'买'+el.buycount+'赠'+el.giftcount}}</span>
-                <div ms-if="getTicketCssType(el)==4">
-                    <font>赠</font>{{el.giftname}}
-                </div>
+                <span class="ticket_zk" ms-if="el.activitykind!='有礼'">{{getzktitle(el)}}</span>
+                <ul ms-if="el.activitykind=='有礼'">
+                    <li style="width:25px"><font>赠</font></li>
+                    <li class="ztitle">{{el.giftname}}</li>
+                    <li class="arrows_down" style="width:6px" ms-click="showTitle"></li>
+                </ul>
             </div>
             <div class="verifyBtnGroup">
                 <div class="btnVerify" ms-click="singleVerify('failure',el)">拒绝确认</div>
@@ -125,11 +128,10 @@
             </div>
         </div>
         <div class="ticket_type">
-            <img ms-attr-src="/retailer/image/verify/{{getTicketCssType(el)==1?'jb_dp.png':getTicketCssType(el)==2?'jb_mf.png':'jb_tc.png'}}" />
+            <img ms-attr-src="{{getactivitykindimg(el)}}" />
         </div>
         <div class="clear"></div>
     </div>
-    <div class="placeholder"></div>
     <footer>
         <div id="bottom-nav"></div>
     </footer>
@@ -152,6 +154,7 @@
     <script src="/js/jquery/dropload.min.js"></script>
     <script src="/js/shelter/shelter.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
+    <script src="/retailer/js/verify/varifyCommon.js"></script>
     <script src="/retailer/js/verify/verifyconfirm.js"></script>
 </body>
 </html>

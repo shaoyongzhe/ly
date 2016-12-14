@@ -1,7 +1,6 @@
 ﻿body {background-color:#ebebeb;
 }
-.placeholder {height:50px;width:100%
-}
+
 .ms-controller {
     visibility: hidden;
 }
@@ -28,7 +27,7 @@
 .verifyTicket {width:calc(95% - 20px);  width: -moz-calc(95% - 20px);
     width: -webkit-calc(95% - 20px);height:auto; margin:0 auto;border:solid 1px #ccc;padding:10px;margin-bottom:10px;position:relative;background-color:#fff
 }
-.leftImg { width:90px; float:left;height:100px; text-align:center;position:relative
+.leftImg { width:90px; float:left;height:auto; text-align:center;position:relative
 }
     .leftImg img { width:90px; height:90px;
     }
@@ -61,7 +60,7 @@
     .rightCount .ticket > ul {width:100%; height:20px; line-height:20px; }
         .rightCount .ticket > ul li {float:left
         }
-        .rightCount .ticket > ul .ztitle {width:calc(100% - 50px);display:inline-block;overflow:hidden; text-overflow: ellipsis;word-wrap:break-word ;height:20px
+        .rightCount .ticket > ul .ztitle {width:calc(100% - 31px);display:inline-block;overflow:hidden; text-overflow: ellipsis;word-wrap:break-word ;height:20px
         }
     .rightCount .ticket>ul>li>font {width:20px; height:20px;background-color:#ff8401;border-radius:50%;text-align: center;
 line-height: 20px;font-size: 13px;color: #fff;display: inline-block;margin-right:5px;
@@ -85,3 +84,30 @@ line-height: 20px;font-size: 13px;color: #fff;display: inline-block;margin-right
        
     #pageheader img { position:absolute;z-index:2;left:calc(50% - 33px);width:66px;top:0;
     }
+        /*三角箭头 */
+.arrows_up:after {
+            content: " ";
+            display: inline-block;
+            height: 6px;
+            width: 6px;
+            border-width: 2px 0 0 2px;
+            border-color: #ff8401;
+            border-style: solid;
+            -webkit-transform: matrix(.71,.71,-.71,.71,0,0);
+            transform: matrix(.71,.71,-.71,.71,0,0);
+          margin-top: 4px;
+        }
+  .arrows_down:after {
+            content: " ";
+            display: inline-block;
+            height: 6px;
+            width: 6px;
+            border-width:0 2px 2px 0;
+            border-color: #ff8401;
+            border-style: solid;
+            -webkit-transform: matrix(.71,.71,-.71,.71,0,0);
+            transform: matrix(.71,.71,-.71,.71,0,0);
+          margin-top: 4px;
+            position: absolute;
+          
+        }

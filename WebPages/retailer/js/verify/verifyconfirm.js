@@ -174,10 +174,6 @@ var vm = avalon.define({
             return 4
         else
             return 5
-    },
-    showTitle: function () {//展示/隐藏全部提示
-        var prevjd = $(this).prev(".ztitle")//查找点击所在的同级节点
-        $(prevjd).css("height", "auto")
     }
 })
 

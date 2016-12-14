@@ -3,7 +3,6 @@ avalon.ready(function () {
     vm.getVerifyInfo()
 })
 
-
 var vm = avalon.define({
     $id: 'verify',
     authrecordcount: 0,//待审核数量
@@ -85,7 +84,7 @@ var vm = avalon.define({
                                         vm.getVerifyInfo()
                                     }
                                 })
-                               
+
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 var errormsg = "当前网络不给力，请稍候重试";
