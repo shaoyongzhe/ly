@@ -11,7 +11,7 @@
 }
 
 .input-contorl input{
-    width: 302px;/*300*/
+    width: 306px;/*300*/
     height: 30px;
     border: 1px solid #e4e4e4;
     outline: none;
@@ -95,8 +95,10 @@ textarea.content{
 	text-align: center;
 	font-style: normal;
 	/*background: yellow;*/
-	width: 91%;
-	height: 100%
+	width: 100%;
+	height: 100%;
+    overflow: hidden;
+    /*position:relative;*/
 }
 
 .select-wrap i {
@@ -108,6 +110,8 @@ textarea.content{
 	top: 6px;
 	border-left: 1px solid #ccc;
 	cursor: pointer;
+    z-index: 8;
+    background: white;
 }
 
 .select-wrap i:before {
@@ -136,7 +140,7 @@ textarea.content{
 	position: absolute;
 	top: 15px;
 	line-height: 30px;
-	z-index: 1;
+	z-index: 9;
 	cursor: pointer;
 }
 
@@ -144,6 +148,12 @@ textarea.content{
 	border-top: 1px solid #ddd
 }
 /*模拟下拉框结束*/
+.quSe4{
+    text-align: center;
+}
+
+
+
 	</style>   
 </head>
 
@@ -268,6 +278,9 @@ $(".add-btn").click(function() {
     layer.msg("正在新增...", {
         time: 0
     });
+    // alert(JSON.stringify(addForm))
+    // console.log(JSON.stringify(addForm))
+    // return;
     ajaxAdd(addForm)
 });
 ajaxSele1();
@@ -356,7 +369,7 @@ function ajaxAdd(a) {
         success: function(data) {
             layer.close(indexLayer);
             parent.ajaxSele1();
-            parent.$(".query_btn_div input").click();
+            // parent.$(".query_btn_div input").click();//和测试说明后，经理解可解除注释
             parent.$(".layui-layer-close").click();
             parent.layer.closeAll()
         },
@@ -391,11 +404,11 @@ function moni() {
     });
     $(".select-wrap").on("click", ".select .option",
     function(e) {
-        console.log(8);
+        // console.log(8);
         e.stopPropagation();
         $(this).parent().prev().text($(this).text());
         $(this).parent().hide();
-        console.log($(this).parent());
+        // console.log($(this).parent());
         if ($(this).parent().hasClass("quSe1")) {
             ajaxSele2()
         } else {

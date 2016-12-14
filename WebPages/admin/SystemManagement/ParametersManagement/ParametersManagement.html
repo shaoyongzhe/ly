@@ -70,17 +70,18 @@
 	.query_btn_div{
 		display:inline-block;
 		vertical-align: middle;
-		background: -gray;
+		/*background: red;*/
 		width:19%;
 	}
-	.query_btn_input{
-		background:-red;
+	.query_btn,.reset_btn{
+		background:#0dc6ed;
 		border:0px;
 		font-size:1.2em;
 		width:120px;
 		line-height: 30px;
 		height:30px;
 		display: inline-block;
+		margin-bottom: 5px;
 	}	
 	/*分页器*/
 	.paging_content_div{}
@@ -139,7 +140,15 @@
 	}
 	/*cg编辑按钮结束，cg****/
 	.seleHid{display: none;}
-	
+	input.Wdate{
+		border: #999 1px solid;
+		height: 28px;		
+		background-size: 20px 29px;
+		width: 152px;
+		/*text-indent: 10px;*/
+		/*text-align:center;*/
+
+	}
 /****************************************/
 </style>
 <script type="text/javascript">//loading页面
@@ -252,7 +261,8 @@
 							
 			</div>			
 			<div class="query_btn_div">
-				<input type="button" value="查询" class="query_btn_input"/>				
+				<input type="button" value="查询" class="query_btn"/>					
+				<input type="button" value="重置" class="reset_btn"/>						
 			</div>
 		</form>
 	</div>
@@ -306,8 +316,8 @@
 	<!--分页，ul和div的id名，后期改为所需-->			
 	<div class="paging_content_div c1">
 		<span class="text-l">查询
-			<strong class="s1">''</strong>为
-			<strong class="s2">''</strong>
+			<strong class="s1">''</strong>
+			<!-- 为<strong class="s2">''</strong> -->
 		</span> 
 		<span class="text-l">的数据共有：
 			<strong class="s3">0</strong> 条
@@ -326,10 +336,10 @@
 <script type="text/javascript" src="../../lib/laypage-v1.3/laypage/laypage.js"></script>
 <script src="../../lib/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
 <!--<script type="text/javascript" src="cookie.js"></script>-->
+<script type="text/javascript" src="UseLayerShowJson.js"></script>
 <script type="text/javascript" src="ParametersManagement.js"></script>
 <script type="text/javascript">
 //add.html中一级二级三级联动新修改之后，直接复制到这里，所以，查看对应代码建议去add.html中。 
-
 //用于调试的变量
 var linshi='';
 //查询按钮变量
@@ -339,6 +349,7 @@ var queryPagesNum=1;//存储查询页面,纪录当前是哪页，以便启用后
 var queryPagesCount=100;//存储每页数量，后续添加下拉选项，更改每页显示数量。
 //查询按钮bol值
 var queryBtnBol=false;//用于解决bug7.
+var initialQueryBol=true;//用于初始进入界面查询一次
 //查询到多少条数据
 var totalcountS=0;
 ////存储一级菜单ajax传来的data
@@ -396,7 +407,10 @@ var loadingWidth=$('.pagesTbodyLong').parent().width();
 				// }else{
 				// 	$(".sele4 label").text("二级类型(可为空)")
 				// }
-				 ajaxQueryBtn(queryPagesNum,queryPagesCount);
+				if(initialQueryBol){					
+					ajaxQueryBtn(queryPagesNum,queryPagesCount);
+					initialQueryBol=false;
+				}
 			}
 		});
 	}
@@ -773,9 +787,22 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 			}else{
 				totalcountS=0;
 			}
-//			console.log('访问成功');			
+//			console.log('访问成功');
+			queryConditionS="";
+			if($(".quSe1").val()){
+				queryConditionS+="一级:"+$(".quSe1").val()
+			}
+			if($(".quSe2").val()){
+				queryConditionS+="~二级:"+$(".quSe2").val()
+			}
+			if($(".quSe3").val()){
+				queryConditionS+="~三级:"+$(".quSe3").val()
+			}
+			if($(".iT1").val()){
+				queryConditionS+="~四级:"+$(".iT1").val()
+			}			
 			$(".paging_content_div .s1").text(queryConditionS);
-			$(".paging_content_div .s2").text(queryParameterS);
+			// $(".paging_content_div .s2").text(queryParameterS);
 			$(".paging_content_div .s3").text(totalcountS);
 			if(!data.content){//如果查询为空，直接return。				
 				return;
@@ -805,8 +832,9 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 				+"<td>"+td[i].secondlevel+"</td>"				
 				+"<td>"+td[i].thirdlevel+"</td>"
 				+"<td>"+td[i].fourthlevel+"</td>"
-				+"<td title='"+ccc+"'><span class='text-overflow' style='width:100px;display:inline-block'>"+ccc+"</span></td>"
-				+"<td>"+td[i].description+"</td>"
+				+"<td class='tdContent' title='"+ccc+"'><span class='text-overflow' style='width:100px;display:inline-block'>"+ccc+"</span></td>"
+				+"<td class='tdDescription' title='"+td[i].description+"'><span class='text-overflow' style='width:100px;display:inline-block'>"+td[i].description+"</span></td>"
+				// +"<td>"+td[i].description+"</td>"//1213日修改为上侧
 				+"<td>"+td[i].version+"</td>"
 				// +"<td style='display:none'>"+td[i].state+"</td>"
 				+"<td class='JsonTd'>"+kkk+"</td>"//考虑删除该类目
@@ -814,7 +842,7 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 				if(data.readonly==1){
 					tr+="<td></td>"
 				}else{
-					tr+="<td><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>&#xe67f;</i></div><div class='handle-btns-wrap' style='width:182px'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn modify'>修改</span><span class='btn open'>启用</span><span class='btn del' title='删除'>删除</span><span class='arrow-right'></span></div></div></div></td>"
+					tr+="<td><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>&#xe67f;</i></div><div class='handle-btns-wrap' style='width:186px'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn modify'>修改</span><span class='btn open'>启用</span><span class='btn del' title='删除'>删除</span><span class='arrow-right'></span></div></div></div></td>"
 				}				
 				tr+="</tr>";
 			}
@@ -830,7 +858,7 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 
 //新查询按钮
 function queryBtn(){
-	$(".query_btn_div input").on("click",function(){	
+	$(".query_btn").on("click",function(){	
 		queryBtnBol=true;
 		queryPagesNum=1;//也许需要改进
 		ajaxQueryBtn(queryPagesNum,queryPagesCount,queryPagesNum)	
@@ -987,8 +1015,63 @@ queryBtn()
 //	});		
 //}
 
-
-
+//1213添加,处理内容或者描述过长而无法显示
+$(".pagesTbodyLong").on("click",".tdContent",function(){
+	var bol=true;
+	try {
+		// statements
+		JSON.parse($(this).find("span").text());
+		// console.log('try')
+	} catch(e) {
+		// statements
+		bol=false;
+		// console.log(e);
+	}
+	if($(this).find("span").text().length==0){
+		layer.tips("内容为空",this);
+	}else if($(this).find("span").text().length<500){//如果字数小于500则直接tips
+		layer.tips($(this).find("span").text(),this);
+		// console.log("if")
+	}else if(bol){//否则判断是对象不，是的话，则调用自己写的toshow
+		ToShow($(this).find("span").text())
+		// console.log("else if")
+	}else{//不是的话，也就无所谓格式，那就直接弹出。
+		// console.log("else")
+		layer.open({
+		  type: 1,
+		  title: false,
+		  closeBtn: 0,
+		  shadeClose: true,
+		  // skin: 'yourclass',
+		  content: $(this).find("span").text(),
+		  area:'80%',
+		});	
+	}	
+})
+$(".pagesTbodyLong").on("click",".tdDescription",function(){
+	if($(this).find("span").text().length==0){
+		layer.tips("描述为空",this);
+	}else if($(this).find("span").text().length<500){
+		layer.tips($(this).find("span").text(),this);		
+	}else{
+		layer.open({
+		  type: 1,
+		  title: false,
+		  closeBtn: 0,
+		  shadeClose: true,
+		  // skin: 'yourclass',
+		  content: $(this).find("span").text(),
+		  area: '80%',
+		  title:""
+		});	
+	}	
+})
+//重置按钮
+$(".reset_btn").click(function(){
+	ajaxSele1();
+	$(".input-text").val("");
+	$(".Wdate").val("");
+})
 //返回顶层
 $(function(){$(window).on("scroll",$backToTopFun);$backToTopFun();});
 </script> 
