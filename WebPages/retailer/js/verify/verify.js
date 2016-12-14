@@ -3,7 +3,6 @@ avalon.ready(function () {
     vm.getVerifyInfo()
 })
 
-
 var vm = avalon.define({
     $id: 'verify',
     authrecordcount: 0,//待审核数量
@@ -25,7 +24,7 @@ var vm = avalon.define({
                 vm.isbinding = json.isbinding
                 vm.retailername = json.retailername
                 if (json.authrecord != undefined && json.authrecord != null)
-                    vm.authrecord = json.authrecord[0]
+                    vm.authrecord = json.authrecord
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 shelter.close();//隐藏转圈动画
@@ -71,7 +70,6 @@ var vm = avalon.define({
                             // complete: function () { shelter.close() },
                             url: '/webapi/retailer/weixin/verify/auth/list/complete',
                             success: function (json) {
-                                alert(888)
                                 shelter.close();//隐藏转圈动画
                                 json = json || {};   /* 统一加这句话 */
 
@@ -85,7 +83,7 @@ var vm = avalon.define({
                                         vm.getVerifyInfo()
                                     }
                                 })
-                               
+
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 var errormsg = "当前网络不给力，请稍候重试";
@@ -134,16 +132,34 @@ var vm = avalon.define({
         })
     },
     scanBindVerifycode: function () {//绑定核销码。调用扫一扫
-        //wx.scanQRCode({
-        //    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-        //    scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-        //    success: function (res) {
-        //        var token = res.split('token=')
-        //        location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=" + token[1];
-        //    }
-        //});
+        if (vm.isbinding) {//重新绑定，弹出提示
 
-        location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiYTJmOTFhN2UxNTYzNDIwMWJmMmE1YmQ1ZTk1MzcwNDQifQ.ZMSU22dZOT5usWyqa2eUy9gv8DziN_mjt__aGFIRESg";
+            var headerhtml = "<div id=\"shelterheader\"> <h3>重新绑定将会与原先的核销码<font color=\"#ffb27f\">解除</font></h3>"
+                           + "<p>温馨提示：原码丢失时可与新的核销码重新绑定</p> </div>"
+            shelter.init({
+                header: headerhtml,
+                title: "您确定要重新绑定核销码么？",
+                shadeClose: true,
+                showBtn: true,
+                clearBtn: {
+                    name: "重新绑定",//取消按钮名称
+                    click: function () {//重新绑定，调取扫一扫
+                        shelter.close()
+                        vm.startscan()
+                    }
+                },
+                confirmBtn: {
+                    name: "我在想想",//确定按钮名称
+                    click: function () {
+                        shelter.close()
+                    }
+                },
+            })
+
+        } else {//首次绑定，调用扫一扫
+            vm.startscan()
+        }
+        // location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiYTJmOTFhN2UxNTYzNDIwMWJmMmE1YmQ1ZTk1MzcwNDQifQ.ZMSU22dZOT5usWyqa2eUy9gv8DziN_mjt__aGFIRESg";
     },
     affirm: function (state) {//单个确认、拒绝
         $.ajax({
@@ -176,6 +192,16 @@ var vm = avalon.define({
                     autoClear: 5,
                     shadeClose: true
                 })
+            }
+        });
+    },
+    startscan: function () {
+        wx.scanQRCode({
+            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            success: function (res) {
+                var token = res.split('token=')
+                location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=" + token[1];
             }
         });
     }
