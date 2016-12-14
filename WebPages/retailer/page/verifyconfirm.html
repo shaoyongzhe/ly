@@ -106,7 +106,7 @@
                 <img ms-attr-src="el.itempic" />
                 <p class="verifyNum">X {{el.verifynum}}&nbsp;</p>
                 <p class="verifyTimeTitle">核销时间</p>
-                <p class="verifyTime">08/11 13:50:59</p>
+                <p class="verifyTime">{{el.issuetime|date('MM/dd HH:mm:ss')}}</p>
             </div>
             <div class="rightCount">
                 <div class="ticket_title" style="padding-right:20px">{{el.activitytitle}}</div>

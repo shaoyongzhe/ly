@@ -16,11 +16,19 @@
     <link href="/retailer/css/verify.css" rel="stylesheet" />
 </head>
 <body ms-controller="verify" class="ms-controller">
-    <div id="mask"></div>
-    <div id="shelterContent">
-    <div id="shelterheader"></div>
-    <p>您真的要全部确认么？</p>  <div id="btnGroup"><div id="clearBtn" class="btnVerify">回去看看</div> <div id="confirmBtn" class="btnVerify active" style="float:right">确认</div></div><div></div></div>
-
+    <div id="shelter">
+        <div id="mask"></div>
+        <div id="shelterInfo">
+            <div id="shelterheader">
+                <h3>重新绑定将会与原先的核销码<font color="#ffb27f">解除</font></h3>
+                <p>温馨提示：原码丢失时可与新的核销码重新绑定</p>
+            </div>
+            
+            <div id="shelterContent">
+                <p>您真的要全部确认么？</p>  <div id="btnGroup"><div id="clearBtn" class="btnVerify">回去看看</div> <div id="confirmBtn" class="btnVerify active" style="float:right">确认</div></div><div></div>
+            </div>
+        </div>
+    </div>
     <div class="weui-panel weui-panel_access">
         <div class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
@@ -39,7 +47,7 @@
                 <img ms-attr-src="{{authrecord.itempic}}" />
                 <p class="verifyNum">X {{authrecord.verifynum}}&nbsp;</p>
                 <p class="verifyTimeTitle">核销时间</p>
-                <p class="verifyTime">{{authrecord.time_order_in_minute}}</p>
+                <p class="verifyTime">{{authrecord.issuetime|date('MM/dd HH:mm:ss')}}</p>
             </div>
             <div class="rightCount">
                 <div class="ticket_title" style="padding-right:20px">{{authrecord.activitytitle}}</div>

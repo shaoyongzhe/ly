@@ -23,6 +23,7 @@
 //};
 var shelter = {
     defaults: {
+        header:"",//头部，传html
         title: "加载中...",//提示
         icos: "",//提示文字左侧显示图标
         showBtn: false,//是否显示按钮
@@ -42,15 +43,16 @@ var shelter = {
         closeEnd: null//关闭结束后事件
     },
     close: function () {//关闭事件
-        $("#mask,#shelterContent").remove()
+        $("#shelter").remove()
     },
     init: function (option) {
         shelter.close()
         var options = $.extend({}, shelter.defaults, option || {});
 
         ///拼html
-        var strHtml = "<div id=\"mask\"></div>";
-        strHtml += "  <div id=\"shelterContent\">"
+        var strHtml = "<div id=\"shelter\"><div id=\"mask\"></div>";
+        strHtml += "<div id=\"shelterInfo\">  " + options.header;
+        strHtml += " <div id=\"shelterContent\">";
         if (options.title != "") {//提示
             strHtml += "<p>"
             if (options.icos != "")
@@ -63,9 +65,9 @@ var shelter = {
             if (options.isShowClearBtn)//显示取消按钮
                 strHtml += "<div id=\"clearBtn\" class=\"btnVerify\">" + options.clearBtn.name + "</div>"
             strHtml += " <div id=\"confirmBtn\" class=\"btnVerify active\" style=\"" + (options.isShowClearBtn ? "float:right" : "margin:0 auto") + "\">" + options.confirmBtn.name + "</div>"
-            strHtml += "</div>"
+            strHtml += "</div><div class=\"clear\"></div>"
         }
-        strHtml += "</div>";
+        strHtml += "</div></div></div>";
 
         $('body').append(strHtml);
 
