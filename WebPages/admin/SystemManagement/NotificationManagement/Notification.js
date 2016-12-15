@@ -193,10 +193,6 @@ function getModulePeopleList(curr, handle, searchForm) {
 $(".search-btn").click(function () {
     layer.msg('正在查询...', { time: 20 });
     getList(1, 'search', getSearchForm());
-    $(".search-btn").click(function () {
-        layer.msg('正在查询...', { time: 20 });
-        getList(1, 'search', getSearchForm());
-    });
 });
 //重置
 $(".reset-btn").click(function () {
@@ -341,6 +337,7 @@ $(".add").click(function () {
     $('.addForm').show();
     //获取所有发送途径
     _ajax("get", domailUrl + '/webapi/operation/notification/dict/allchannel', null, "发送途径", function (data) {
+        $('.thirdAllType').children(":not('option:first')").remove();
         for (var key in data) {
             $('.thirdAllType').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
         }
@@ -521,6 +518,8 @@ $('table.notify')
                      var jsonStr = JSON.stringify(data, null, 4);
                      $('#add').val(jsonStr);
                      $('#opType').val("notify");
+                     //防止被修改
+                     $('#isDefault').val(tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0);
                      var index = layer.open({
                          type: 2,
                          title: '修改(以左边为准)',
