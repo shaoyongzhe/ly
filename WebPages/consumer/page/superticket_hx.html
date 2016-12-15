@@ -391,10 +391,10 @@
                                 <span style="white-space:nowrap;overflow:hidden">已节省{{vm.jsondata.sparevalue}}元</span>
                                 <p>￥{{vm.jsondata.discountprice}} <small>￥{{vm.jsondata.originalprice}}</small></p>
                             </li>
-                            <!--<li ms-if="vm.jsondata.itemkind=='有礼'" style="display:block;border:solid 1px red; float:left">
-                                &nbsp;
-                            </li>-->
-                            <li style="float:right; padding-right:2px;">
+                            <li ms-if="selfVerify.token.length>0" style="float:right; padding-right:2px;font-size:18px;color:#000">
+                               1 张
+                            </li>
+                            <li style="float:right; padding-right:2px;"  ms-if="selfVerify.token.length==0">
                                 <small>今日可用{{vm.verifylimit}}张</small>
                                 <ul class="jiajian">
                                     <li style="width:40px;border-right:solid 1px #ff6600;">
@@ -417,12 +417,13 @@
                 </div>
             </div>
             <div ms-if="isselfverify">
-                <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png" />
+                <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png"  ms-if="selfVerify.token.length==0" />
                 <div class="btn_css4" style="margin-top:50px" ms-click="selfVerify.VerifyScan">
-                    自助扫码核销
+                 {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}   
                 </div>
             </div>
-            <div class="btn_css4" ms-click="btnClick">门店扫码核销</div>
+            <div class="btn_css4" ms-click="btnClick"  ms-if="selfVerify.token.length==0" >门店扫码核销</div>
+            <div class="btn_css4" ms-click="selfVerify.closeWin" style="background-color:#fff" ms-if="selfVerify.token.length>0">我在想想</div>
         </div>
         <div id="page2" ms-if="vm.pageStep>=2" ms-controller="superticket_page2">
             <img src="/consumer/image/shakegame/share_hb.png" class="share_hb animated tada infinite" hidden id="dowebok" />
