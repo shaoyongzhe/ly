@@ -45,13 +45,15 @@
 
     <div id="bottom-nav"></div>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="../js/zepto.min.js" type="text/javascript"></script>
+   
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/retailer/js/lib/common.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script src="../js/lib/picker.js"></script>
     <script src="../js/lib/picker.date.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
+    <script src="../js/zepto.min.js" type="text/javascript"></script>
+    <script src="http://code.baidu.com/touch-0.2.14.min.js"></script>
     <script>
         //$('#hours li').swipe(function () {
         //    $('.delete').hide()
@@ -65,8 +67,6 @@
         //$('.delete').swipeUp(function(e){
         //    alert('触发了');//偶尔有效
         //});
-
-
         $(function () {
             activity.list();
         })
@@ -115,7 +115,7 @@
                 else if (t == 9)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
-                    cont = '<div class="win-box date-box"><div class="xiugai"><ul id="hours"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
+                    cont = '<div class="win-box date-box"><div class="xiugai"><ul class="huadonga" id="hours"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
                 else if (t == 11)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
                 else if (t == 12)
@@ -149,6 +149,40 @@
         };
 
 
+       
+
+
+
+
+
+            
+                  // // $('#touchs').find('li').remove();
+                  // $('#hours li').bind("touchstart",function(event){
+                  //   // var touchpros =event.touches[0];
+                  //   // console.log(touchpros);
+                  //   alert('1')
+                  //   $('#hours li').touchstart();
+                  // });
+                  // $('#hours li').bind("touchmove",function(){
+                  //   // $('#touchs').append('<li>touchmove...</li>');
+                  //    $('#hours li').touchmove();
+                  // });
+                  // $('#hours li').bind("touchend",function(){
+                  //   // $('#touchs').append('<li>touchend...</li>');
+                  //   $('#hours li').touchend();
+                  // });
+                  // $('#hours li').bind("touchcancel",function(){
+                  //   // $('#touchs').append('<li>touchcancel...</li>');
+                  //   $('#hours li').touchcancel();
+                  // });
+                  // $('#hours li').bind("click",function(){
+                  //   // $('#touchs').find('li').remove();
+                  //   $('#hours li').click();
+                  // });
+              
+            
+
+            
         function initDate() {
 
             // $("input[name=originalprice]").on('keydown',function () {
@@ -915,7 +949,14 @@
                     // dataForm["giftcount"] = this.getParam(createObj, "giftcount");
 
                     // console.log(this.getParam(createObj, "unitprice"))
-
+                    if ($("input[name=originalprice]").val() == "")
+                    {
+                        toasterextend.showtips("请输入原价", "error");
+                    }
+                    if ($("input[name=discountprice]").val() == "")
+                    {
+                        toasterextend.showtips("请输入优惠价", "error");
+                    }
 
                     if($("input[name=unitprice]").val() == ""){
                         dataForm["unitprice"] = 0;
@@ -925,14 +966,21 @@
                     if($("input[name=buycount]").val() == ""){
                         dataForm["buycount"] = 0;
                     } else {
-                        dataForm["buycount"] = this.getParam(createObj, "buycount");
+                        if ($("input[name=buycount]").val().indexOf(".") != -1) {
+                            toasterextend.showtips("请输入整数", "error");
+                        } else {
+                            dataForm["buycount"] = this.getParam(createObj, "buycount");
+                        }
                     }
                     if($("input[name=giftcount]").val() == ""){
                         dataForm["giftcount"] = 0;
                     } else {
-                        dataForm["giftcount"] = this.getParam(createObj, "giftcount");
+                        if ($("input[name=giftcount]").val().indexOf(",") != -1) {
+                            toasterextend.showtips("请输入整数", "error");
+                        } else {
+                            dataForm["giftcount"] = this.getParam(createObj, "giftcount");
+                        }
                     }
-
                     // dataForm.endtime = hour;
                     dataForm.endtime += " " + hour + ":00:00";
                 }
