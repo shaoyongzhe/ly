@@ -20,11 +20,32 @@ var vm = avalon.define({
         wdch: false,//我的超惠
         dphf: true,//店铺惠粉
         dpch: false,//店铺超惠
-        sjch: false,//店铺超惠
+        sjch: false,//商家超惠
         qyfxs: false//签约分销商
     },
-    distributorshow: {
+    step: function (i) {
+        switch (i) {
+            case 1:
+                vm.showmodule.hyzg = !vm.showmodule.hyzg
+                break
+            case 2:
+                vm.showmodule.wdch = !vm.showmodule.wdch
+                break
+            case 3:
+                vm.showmodule.dphf = !vm.showmodule.dphf
+                break
+            case 4:
+                vm.showmodule.dpch = !vm.showmodule.dpch
+                break
+            case 5:
+                vm.showmodule.sjch = !vm.showmodule.sjch
+                break
+            case 6:
+                vm.showmodule.qyfxs = !vm.showmodule.qyfxs
+                break
+            default:
 
+        }
     },
     IsShow: false,
     Isdistributor: false,
@@ -47,11 +68,11 @@ var vm = avalon.define({
                 }
                 var data = json.data[0];
 
-                vm.retailer = data.retailer
+                vm.retailer = data.retailer 
                 vm.contribute = data.contribute
                 vm.membership = data.retailer.membershipqualification
                 vm.distributor = data.distributor
-
+                alert(data.distributor.length)
                 if (data.distributor != undefined && data.distributor.length > 0) {
                     vm.Isdistributor = true;
 
@@ -78,6 +99,35 @@ var vm = avalon.define({
                 toasterextend.showtips(errormsg, "error");
             }
         });
+    },
+    firm: function (el, index) {
+        //利用对话框返回的值 （true 或者 false）
+        if (confirm("您确定要解除绑定吗？")) {
+           // var canshu = id.split('&');
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () { common.loading.show() },
+                complete: function () { common.loading.hide(); },
+                url: '/webapi/retailer/weixin/cancelsigndistributor?distributor_id=' + el.guid + '&distributor_domain=' + el.domain + '&retailer_id=' + el.retailerguid,
+                success: function (json) {
+                    if (json.error) {
+                        toasterextend.showtips("解除失败", "info");
+                    }
+                    else {
+                        toasterextend.showtips("解除成功", "info");
+                        vm.distributor.splice(index, 1)
+                        //setTimeout(function () { window.location.reload(); }, 2000);
+                        //$("#" + el.guid + el.retailerguid).remove();
+                        //var emcount = $("#" + el.retailerguid + "cnt").text();
+                        //var kuohaoqian = emcount.split("（");
+                        //var kuohaohou = kuohaoqian[1].split("）");
+                        //var count = parseInt(kuohaohou[0]) - 1;
+                        //$("#" + el.retailerguid + "cnt").text(kuohaoqian[0] + "（" + count + "）");
+                    }
+                }
+            });
+        }
     }
 })
 
@@ -128,7 +178,10 @@ function getpdMyfan(myfan) {
     return pdMyfan
 }
 
-function getWin(obj, t) {
+function getWin(obj, t,e) {
+    if (t == 1)
+        e.stopPropagation()
+  
     $(window).bind("touchmove", function (e) {
         e.preventDefault();
     });

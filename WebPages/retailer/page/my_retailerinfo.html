@@ -29,7 +29,7 @@
     -webkit-box-align: center;
     -webkit-align-items: center;
     -ms-flex-align: center;
-    align-items: center;
+    align-items: center;background-color: #fff;
 }
  .weui_cell_primary {
     -webkit-box-flex: 1;
@@ -73,98 +73,9 @@
         </div>
     </div>
     <div class="page__bd" ms-if="IsShow">
-        <div class="weui-panel" ms-if="Isdistributor">
-            <div class="weui-panel__ft" ms-click="step(1)">
-                <div class="weui-cell weui-cell_access">
-                    <div class="weui-cell__bd">
-                        <h4 class="weui-media-box__title navtitle">店铺惠粉</h4>
-                    </div>
-                    <span ms-attr-class="showmodule.dphf? weui-cell__up : weui-cell__down "></span>
-                </div>
-            </div>
-            <div class="weui-panel__bd" ms-if="showmodule.dphf">
-                <div class="rmy-box">
-                    <ul>
-                        <li style="width:36%;">
-                            <div class="circle">
-                                <div class="pie_left"></div><div class="pie_right"></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="b-green">
-                                <div class="b-title">
-                                    <span></span>惠粉
-                                </div>
-                                <div class="b-cont">
-                                    {{ getNumeric(contribute.activefanscount)}}
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="b-gray">
-                                <div class="b-title">
-                                    <span></span>流失
-                                </div>
-                                <div class="b-cont">  {{getNumeric(contribute.fansinhistorycount - contribute.activefanscount)}}  </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="g-item">
-                        <div class="g-title">累计拉粉</div>
-                        <div id="fanscount"><b> {{getNumeric(contribute.fansinhistorycount)}}  </b></div>
-                    </div>
-                    <div class="g-item" style="margin-left:2%">
-                        <div class="g-title">留存率</div>
-                        <div id="fansremaincount"><b> {{ contribute.percentageretained }} </b></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="weui-panel" ms-if="Isdistributor">
-            <div class="weui-panel__ft">
-                <div class="weui-cell weui-cell_access" ms-click="step(2)">
-                    <div class="weui-cell__bd">
-                        <h4 class="weui-media-box__title navtitle">店铺超惠</h4>
-                    </div>
-                    <span ms-attr-class="showmodule.dpch? weui-cell__up : weui-cell__down "></span>
-                </div>
-            </div>
-            <div class="weui-panel__bd" ms-if="showmodule.dpch">
-                <div class="rel-box">
-                    <div class="c1"><b>  {{contribute.retailer.releasingactivitycount}}  </b><br />发布中</div>
-                    <div class="c2"><b>  {{contribute.retailer.releasedcount}}  </b><br />累计发布<label></label></div>
-                    <div class="c3"><b>  {{getNumeric(contribute.retailer.sharecount) }} </b><br />累计分享</div>
-                </div>
-            </div>
-        </div>
-        <div class="weui-panel" ms-if="Isdistributor">
-            <div class="weui-panel__ft">
-                <div class="weui-cell weui-cell_access" ms-click="step(2)">
-                    <div class="weui-cell__bd">
-                        <h4 class="weui-media-box__title navtitle">商家超惠</h4>
-                    </div>
-                    <span ms-attr-class="showmodule.sjch? weui-cell__up : weui-cell__down "></span>
-                </div>
-            </div>
-            <div class="weui-panel__bd" ms-if="showmodule.sjch">
-                <div class="rel-box">
-                    <div class="c4">超惠<br />活动<label></label></div>
-                    <div class="c5"><b>  {{contribute.distributor.activity.releasingactivitycount}}  </b><br />发布中<label></label></div>
-                    <div class="c6"><b>  {{contribute.distributor.activity.distributorcount}}  </b><br />发布商家</div>
-                    <div class="c7"><b>  {{ getNumeric(contribute.distributor.activity.sharecount) }} </b><br />累计分享</div>
-                </div>
-                <div class="rel-box">
-                    <div class="c8" style="line-height:50px;">超惠券<label></label></div>
-                    <div class="c9"><b>  {{contribute.distributor.ticket.releasingactivitycount}}  </b><br />发布中<label></label></div>
-                    <div class="c10"><b> {{contribute.distributor.ticket.distributorcount}}  </b><br />发布商家</div>
-                    <div class="c11"><b>  {{getNumeric(contribute.distributor.ticket.sharecount)}}  </b><br />累计分享</div>
-                </div>
-            </div>
-        </div>
-
         <div class="weui-panel" ms-if="!Isdistributor">
             <div class="weui-panel__ft">
-                <div class="weui-cell weui-cell_access" ms-click="step(2)">
+                <div class="weui-cell weui-cell_access" ms-click="step(1)">
                     <div class="weui-cell__bd">
                         <h4 class="weui-media-box__title navtitle">
                             会员资格
@@ -226,7 +137,6 @@
                 </table>
             </div>
         </div>
-
         <div class="weui-panel" ms-if="!Isdistributor">
             <div class="weui-panel__ft">
                 <div class="weui-cell weui-cell_access" ms-click="step(2)">
@@ -245,25 +155,115 @@
             </div>
         </div>
 
-        <div class="weui-panel">
-            <div class="weui-panel__ft">
-                <div class="weui-cell weui-cell_access" ms-click="step(2)">
+        <div class="weui-panel" ms-if="Isdistributor">
+            <div class="weui-panel__ft" ms-click="step(3)">
+                <div class="weui-cell weui-cell_access">
                     <div class="weui-cell__bd">
-                        <h4 class="weui-media-box__title navtitle">
-                            签约分销商(0)
-                            <img src="/retailer/image/w.png" onclick="getWin(null,1)" width="25" style="vertical-align:middle">
-                        </h4>
-
+                        <h4 class="weui-media-box__title navtitle">店铺惠粉</h4>
                     </div>
-                    <span ms-attr-class="showemployee? weui-cell__up : weui-cell__down "></span>
+                    <span ms-attr-class="showmodule.dphf? 'weui-cell__up' : 'weui-cell__down'"></span>
                 </div>
             </div>
-            <div class="weui-panel__bd">
+            <div class="weui-panel__bd" ms-if="showmodule.dphf">
+                <div class="rmy-box">
+                    <ul>
+                        <li style="width:36%;">
+                            <div class="circle">
+                                <div class="pie_left"></div><div class="pie_right"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="b-green">
+                                <div class="b-title">
+                                    <span></span>惠粉
+                                </div>
+                                <div class="b-cont">
+                                    {{ getNumeric(contribute.activefanscount)}}
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="b-gray">
+                                <div class="b-title">
+                                    <span></span>流失
+                                </div>
+                                <div class="b-cont">  {{getNumeric(contribute.fansinhistorycount - contribute.activefanscount)}}  </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="g-item">
+                        <div class="g-title">累计拉粉</div>
+                        <div id="fanscount"><b> {{getNumeric(contribute.fansinhistorycount)}}  </b></div>
+                    </div>
+                    <div class="g-item" style="margin-left:2%">
+                        <div class="g-title">留存率</div>
+                        <div id="fansremaincount"><b> {{ contribute.percentageretained }} </b></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-panel" ms-if="Isdistributor">
+            <div class="weui-panel__ft">
+                <div class="weui-cell weui-cell_access" ms-click="step(4)">
+                    <div class="weui-cell__bd">
+                        <h4 class="weui-media-box__title navtitle">店铺超惠</h4>
+                    </div>
+                    <span ms-attr-class="showmodule.dpch? 'weui-cell__up' : 'weui-cell__down' "></span>
+                </div>
+            </div>
+            <div class="weui-panel__bd" ms-if="showmodule.dpch">
+                <div class="rel-box">
+                    <div class="c1"><b>  {{contribute.retailer.releasingactivitycount}}  </b><br />发布中</div>
+                    <div class="c2"><b>  {{contribute.retailer.releasedcount}}  </b><br />累计发布<label></label></div>
+                    <div class="c3"><b>  {{getNumeric(contribute.retailer.sharecount) }} </b><br />累计分享</div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-panel" ms-if="Isdistributor">
+            <div class="weui-panel__ft">
+                <div class="weui-cell weui-cell_access" ms-click="step(5)">
+                    <div class="weui-cell__bd">
+                        <h4 class="weui-media-box__title navtitle">商家超惠</h4>
+                    </div>
+                    <span ms-attr-class="showmodule.sjch? 'weui-cell__up' : 'weui-cell__down' "></span>
+                </div>
+            </div>
+            <div class="weui-panel__bd" ms-if="showmodule.sjch">
+                <div class="rel-box">
+                    <div class="c4">超惠<br />活动<label></label></div>
+                    <div class="c5"><b>  {{contribute.distributor.activity.releasingactivitycount}}  </b><br />发布中<label></label></div>
+                    <div class="c6"><b>  {{contribute.distributor.activity.distributorcount}}  </b><br />发布商家</div>
+                    <div class="c7"><b>  {{ getNumeric(contribute.distributor.activity.sharecount) }} </b><br />累计分享</div>
+                </div>
+                <div class="rel-box">
+                    <div class="c8" style="line-height:50px;">超惠券<label></label></div>
+                    <div class="c9"><b>  {{contribute.distributor.ticket.releasingactivitycount}}  </b><br />发布中<label></label></div>
+                    <div class="c10"><b> {{contribute.distributor.ticket.distributorcount}}  </b><br />发布商家</div>
+                    <div class="c11"><b>  {{getNumeric(contribute.distributor.ticket.sharecount)}}  </b><br />累计分享</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-panel">
+            <div class="weui-panel__ft">
+                <div class="weui-cell weui-cell_access" ms-click="step(6)">
+                    <div class="weui-cell__bd">
+                        <h4 class="weui-media-box__title navtitle">
+                            签约分销商({{distributor.length==undefined?0:distributor.length}})
+                            <img ms-if="showmodule.qyfxs" src="/retailer/image/w.png" onclick="getWin(null,1,event)" width="25" style="vertical-align:middle;">
+                        </h4>
+                    </div>
+                    <span ms-attr-class="showmodule.qyfxs? 'weui-cell__up' : 'weui-cell__down' "></span>
+                </div>
+            </div>
+            <div class="weui-panel__bd"  ms-if="showmodule.qyfxs">
                 <div class="cell-box" ms-if="!Isdistributor"><div class="cell-title">暂无签约分销商，<label>如何签约？</label></div>邀请您的分销商使用凌云科技经销宝和“凌云+”会员系统，并使用经销宝POS机邀请您，此后您的会员资格将免审核。</div>
 
-                <div id="5ce1d14e07534139ae7774d8983f04f36ee8780ca8a34ff5b75c4a3bfb91a23d" class="weui_cells">
+                <div ms-reqeat="distributor" id="5ce1d14e07534139ae7774d8983f04f36ee8780ca8a34ff5b75c4a3bfb91a23d" class="weui_cells">
                     <div class="weui_cell">
-                        <div class="weui_cell_bd weui_cell_primary  bd-bg" onclick="getWin(this,0)"><p class="shop">clientone</p><p class="Store14 addr">北京市朝阳区百子湾路7号</p><p class="store">水娃</p></div>
+                        <div class="weui_cell_bd weui_cell_primary  bd-bg" onclick="getWin(this,0,event)"><p class="shop">{{el.name}}1</p>
+                        <p class="Store14 addr">{{el.address}}</p>
+                        <p class="store">{{el.retailername}}</p></div>
                         <span class="weui-cell_btn" ms-click="firm(el,$index)">
                             解除
                         </span>
