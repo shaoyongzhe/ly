@@ -22,6 +22,7 @@
             overflow: scroll;
             overflow-x: hidden;
         }
+        .delete { display: block; }
     </style>
 </head>
 
@@ -44,6 +45,7 @@
 
     <div id="bottom-nav"></div>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/zepto.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/retailer/js/lib/common.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
@@ -51,6 +53,19 @@
     <script src="../js/lib/picker.date.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script>
+        //$('#hours li').swipe(function () {
+        //    $('.delete').hide()
+        //    $('.delete', this).show()
+        //})
+
+        //// delete row on tapping delete button
+        //$('.delete').tap(function () {
+        //    $(this).parent('li').remove()
+        //})
+        //$('.delete').swipeUp(function(e){
+        //    alert('触发了');//偶尔有效
+        //});
+
 
         $(function () {
             activity.list();
@@ -82,7 +97,7 @@
             show: function (t, callback) {
                 var cont = "";
                 if (t == 1)
-                    cont = '<div class="win-box"><p><img src="../image/activities/tl-4.png"  style="width:37px" /></p><p>您是否确定删除此活动？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
+                    cont = '<div class="win-box"><p><img src="../image/activities/tl-4.png"  style="width:37px" /></p><p>您是否确定删除此活动？</p><p style="margin-top:20px;"><input type="button" class="w-save" id="del-btn" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 2)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-5.png"  style="width:40px"  /></p><p>网络异常，请重试！</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 3)
@@ -100,7 +115,7 @@
                 else if (t == 9)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
-                    cont = '<div class="win-box date-box"><div class="xiugai"><ul><li class="curr">00</li><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li><li>06</li><li>07</li><li>08</li><li>09</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
+                    cont = '<div class="win-box date-box"><div class="xiugai"><ul id="hours"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
                 else if (t == 11)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
                 else if (t == 12)
@@ -673,20 +688,22 @@
             //删除
             del: function (obj) {
                 var activityid = $(obj.parentNode).attr("data-code");
-                    _ajax("DELETE", '/webapi/retailer/activities/' + activityid, null, function (json) {
-                        if (json.state == "上架")
-                        {
+                _ajax("GET", '/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
+                        if (json.state == "上架") {
                             popup.show(4, null);
                             return;
                         }
-                        else
-                        {    popup.show(1, function () {
+                        else {
+                            popup.show(1, function () {});
+                            $('#del-btn').click(function () {
                                 if (json.activityid == activityid)
-                                activity.delRelItem($(obj).parent().parent());
-                             });
+                                    _ajax("DELETE", '/webapi/retailer/activities/' + activityid, null, function (json) {
+                                        activity.delRelItem($(obj).parent().parent());
+                                        window.location.reload();
+                                    });
+                            })
                         }
-                    })
-                
+                    }) 
             },
             delRelItem: function (obj) {
                 if ($(obj).parent().find(".relitem").length == 1)
@@ -720,33 +737,33 @@
 
                 // console.log(dataForm["originalprice"]);
                 // console.log(typeof dataForm["originalprice"]);
-
-                if($("input[name=originalprice]").val() == ""){
-                    dataForm["originalprice"] = 0;
-                    // console.log("originalprice: " + dataForm["originalprice"])
-                } else {
-                    dataForm["originalprice"] = this.getParam(createObj, "originalprice");
-                    // console.log("originalprice: " + dataForm["originalprice"]);
-                }
-
-                if($("input[name=discountprice]").val() == ""){
-                    dataForm["discountprice"] = 0;
-                    // console.log("discountprice: " + dataForm["discountprice"])
-                } else {
-                    dataForm["discountprice"] = this.getParam(createObj, "discountprice");
-                    // console.log("discountprice: " + dataForm["discountprice"]);
-                }
-
-                if($(".d-cont span").text() == ""){
-                    dataForm["discount"] = 0;
-                    // console.log("discount: " + dataForm["discount"])
-                }
-                else {
-                    // dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10)//.toFixed(1);
-                    // console.log(typeof zhekou);
-                    var zhekou = dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10);
-                    dataForm["discount"] = zhekou.toString().substring(0, 3);
-                }
+                dataForm["originalprice"] = this.getParam(createObj, "originalprice");
+                //if($("input[name=originalprice]").val() == ""){
+                //    dataForm["originalprice"] = 0;
+                //    // console.log("originalprice: " + dataForm["originalprice"])
+                //} else {
+                   
+                //    // console.log("originalprice: " + dataForm["originalprice"]);
+                //}
+                dataForm["discountprice"] = this.getParam(createObj, "discountprice");
+                //if($("input[name=discountprice]").val() == ""){
+                //    dataForm["discountprice"] = 0;
+                //    // console.log("discountprice: " + dataForm["discountprice"])
+                //} else {
+                   
+                //    // console.log("discountprice: " + dataForm["discountprice"]);
+                //}
+                var zhekou = dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10);
+                dataForm["discount"] = zhekou.toString().substring(0, 3);
+                //if($(".d-cont span").text() == ""){
+                //    dataForm["discount"] = 0;
+                //    // console.log("discount: " + dataForm["discount"])
+                //}
+                //else {
+                //    // dataForm["discount"] = (dataForm.discountprice / dataForm.originalprice * 10)//.toFixed(1);
+                //    // console.log(typeof zhekou);
+                  
+                //}
 
                 /*if($("input[name=unitprice]").val() == ""){
                     dataForm["unitprice"] = 0;
@@ -812,8 +829,8 @@
                         dataForm["discountprice"] = this.getParam(createObj, "discountprice");
                         // -------------------------------
 
-
-                        if ($.trim(dataForm.originalprice).length == 0 || $.trim($("input[name=originalprice]").val()) == "") {
+                        //|| $.trim($("input[name=originalprice]").val()) == ""
+                        if ($.trim(dataForm.originalprice).length == 0) {
                             toasterextend.showtips("请输入原价", "error");
                             return;
                         }
@@ -827,8 +844,8 @@
                             toasterextend.showtips("原价格式不正确", "error");
                             return;
                         }
-
-                        if ($.trim(dataForm.discountprice).length == 0 || $.trim($("input[name=discountprice]").val()) == "") {
+                        //|| $.trim($("input[name=discountprice]").val()) == ""
+                        if ($.trim(dataForm.discountprice).length == 0) {
                             toasterextend.showtips("请输入优惠价", "error");
                             return;
                         }
@@ -856,8 +873,8 @@
                         dataForm["unitprice"] = parseFloat(this.getParam(createObj, "unitprice"));
                         dataForm["buycount"] = parseInt(this.getParam(createObj, "buycount"));
                         dataForm["giftcount"] = parseInt(this.getParam(createObj, "giftcount"));
-
-                        if ($.trim(dataForm.unitprice).length == 0 || $.trim($("input[name=unitprice]").val()) == "") {
+                        //|| $.trim($("input[name=unitprice]").val()) == ""
+                        if ($.trim(dataForm.unitprice).length == 0) {
                             toasterextend.showtips("请输入单价", "error");
                             return;
                         }
@@ -865,7 +882,8 @@
                             toasterextend.showtips("单价格式不正确", "error");
                             return;
                         }
-                        if ($.trim(dataForm.buycount).length == 0 || $.trim(dataForm.giftcount).length == 0 || $.trim($("input[name=buycount]").val()) == "" || $.trim($("input[name=giftcount]").val()) == "") {
+                        //|| $.trim($("input[name=buycount]").val()) == "" || $.trim($("input[name=giftcount]").val()) == ""
+                        if ($.trim(dataForm.buycount).length == 0 || $.trim(dataForm.giftcount).length == 0) {
                             toasterextend.showtips("请输入买赠数量", "error");
                             return;
                         }
