@@ -113,7 +113,7 @@
 	.handle-btns-wrap {
 	    display: none;
 	    padding: 0 10px;
-	    width: 277px;
+	    /*width: 277px;*/
 	    height: 43px;
 	    line-height: 40px;
 	    background-color: #bbb;
@@ -149,35 +149,11 @@
 		/*text-align:center;*/
 
 	}
+	.btn{/*1214添加，用于隐藏启用按钮的时候宽度可以自适应。配合注释掉.handle-btns-wrap的277px以及js生成的handle-btns-wrap的186px*/
+		display: inline;
+	}
 /****************************************/
 </style>
-<script type="text/javascript">//loading页面
-	//获取浏览器页面可见高度和宽度
-        var _PageHeight = document.documentElement.clientHeight,
-            _PageWidth = document.documentElement.clientWidth;
-        //计算loading框距离顶部和左部的距离（loading框的宽度为215px，高度为61px）
-        var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
-            _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
-        //在页面未加载完毕之前显示的loading Html自定义内容
-        var _LoadingHtml = '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:#f3f8ff;opacity:0.8;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' + _LoadingLeft + 'px; top:' + _LoadingTop + 'px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 5px; background: #fff url(loading.gif) no-repeat scroll 5px 10px; border: 2px solid #95B8E7; color: #696969; font-family:\'Microsoft YaHei\';">页面加载中，请等待...</div></div>';
-        //呈现loading效果
-        document.write(_LoadingHtml);
- 
-        //window.onload = function () {
-        //    var loadingMask = document.getElementById('loadingDiv');
-        //    loadingMask.parentNode.removeChild(loadingMask);
-        //};
- 
-        //监听加载状态改变
-        document.onreadystatechange = completeLoading; 
-        //加载状态为complete时移除loading效果
-        function completeLoading() {
-            if (document.readyState == "complete") {
-                var loadingMask = document.getElementById('loadingDiv');
-                loadingMask.parentNode.removeChild(loadingMask);
-            }
-        }
-</script>
 </head>
 <body>
 	
@@ -368,6 +344,7 @@ var JsonData={};
 //设定默认查询状态//暂时搬家到一级类型查询内
 // ajaxQueryBtn(queryPagesNum,queryPagesCount);
 //loding图的宽
+var jsonControlDom="";//用于存储json控件的dom
 var loadingWidth=$('.pagesTbodyLong').parent().width();
 	ajaxSele1();
 		//封装获取1级下拉
@@ -646,9 +623,13 @@ function ajaxEffectconfig(guidEffect){
 		// /webapi/configservice/config/3ae1755ba9b14919b4787e167861fcda/currentflag	
 		success:function(data){
 			layer.close(indexLayer);;
-//			console.log('访问成功');	
-//			$('.imgcontent').empty();
-			ajaxQueryBtn(queryPagesNum,queryPagesCount,queryPagesNum);
+			console.log(data);	
+			if(data.error=="数据库中已经有备份的配置了"){			
+				layer.alert(data.error, {icon: 2});
+			}else{
+				ajaxQueryBtn(queryPagesNum,queryPagesCount,queryPagesNum);
+			}
+//			$('.imgcontent').empty();			
 		},
 		error:function(){
 //			console.log('访问失败')
@@ -842,8 +823,12 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 				if(data.readonly==1){
 					tr+="<td></td>"
 				}else{
-					tr+="<td><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>&#xe67f;</i></div><div class='handle-btns-wrap' style='width:186px'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn modify'>修改</span><span class='btn open'>启用</span><span class='btn del' title='删除'>删除</span><span class='arrow-right'></span></div></div></div></td>"
-				}				
+					tr+="<td><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>&#xe67f;</i></div><div class='handle-btns-wrap' style='width:-186px'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn modify'>修改</span>"
+					if(kkk=="未启用"){
+						tr+="<span class='btn open'>启用</span>"
+					}					
+					tr+="<span class='btn del' title='删除'>删除</span><span class='arrow-right'></span></div></div></div></td>"
+				}			
 				tr+="</tr>";
 			}
 			$('.pagesTbodyLong').html(tr);
@@ -1033,18 +1018,38 @@ $(".pagesTbodyLong").on("click",".tdContent",function(){
 		layer.tips($(this).find("span").text(),this);
 		// console.log("if")
 	}else if(bol){//否则判断是对象不，是的话，则调用自己写的toshow
-		ToShow($(this).find("span").text())
-		// console.log("else if")
+		// ToShow($(this).find("span").text());
+		// console.log($(this).find("span").text())
+		localStorage.dataLong=$(this).find("span").text();
+		layer.open({
+			title: '  ',
+			area: ['90%',"80%"],
+			maxmin: true,
+	   		content: 'json/index.html',     			
+		  	type: 2,
+		 	closeBtn: 1,
+			shadeClose: true,
+			success:function(){
+				layer.getChildFrame('body').find("#treeEditor").css("display","none");
+				layer.getChildFrame('body').find("#codeEditor").css("width","99%");	
+				layer.getChildFrame('body').find("#toSaveLong").css("display","none");
+				layer.getChildFrame('body').find("#header").css("display","none");
+				layer.getChildFrame('body').find("#splitter").css("display","none");
+			}
+		});	
+		// jsonControlDom=$(".layui-layer-content").find("iframe").context;
+		// layer.getChildFrame('body').find("#treeEditor").css("display","none")
 	}else{//不是的话，也就无所谓格式，那就直接弹出。
 		// console.log("else")
 		layer.open({
-		  type: 1,
-		  title: false,
-		  closeBtn: 0,
-		  shadeClose: true,
-		  // skin: 'yourclass',
-		  content: $(this).find("span").text(),
-		  area:'80%',
+			title: '查看',
+			type: 1,
+			title: false,
+			closeBtn: 1,
+			shadeClose: true,
+			// skin: 'yourclass',
+		 	content: $(this).find("span").text(),
+		 	area:'80%',
 		});	
 	}	
 })
@@ -1071,6 +1076,7 @@ $(".reset_btn").click(function(){
 	ajaxSele1();
 	$(".input-text").val("");
 	$(".Wdate").val("");
+	queryBtnBol=false;
 })
 //返回顶层
 $(function(){$(window).on("scroll",$backToTopFun);$backToTopFun();});

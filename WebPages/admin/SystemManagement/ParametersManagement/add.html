@@ -375,21 +375,24 @@ function ajaxAdd(a) {
         },
         error: function(data) {
             layer.close(indexLayer);
-            if (JSON.parse(data.responseText).Message == "empty content") {
-                layer.alert("content不能为空", {
-                    icon: 2
-                })
-            } else {
-                if (JSON.parse(data.responseText).Message == "exist config in database ") {
-                    layer.alert("新建失败，fourthlevel为空或者已经存在,如果想更新fourthlevel内容，请尝试修改按钮", {
-                        icon: 2
-                    })
-                } else {
-                    layer.alert("新建失败", {
-                        icon: 2
-                    })
-                }
-            }
+            // if (JSON.parse(data.responseText).Message == "empty content") {
+            //     layer.alert("content不能为空", {
+            //         icon: 2
+            //     })
+            // } else {
+            //     if (JSON.parse(data.responseText).Message == "exist config in database ") {
+            //         layer.alert("新建失败，fourthlevel为空或者已经存在,如果想更新fourthlevel内容，请尝试修改按钮", {
+            //             icon: 2
+            //         })
+            //     } else {
+            //         layer.alert("新建失败", {
+            //             icon: 2
+            //         })
+            //     }
+            // }
+            layer.alert(JSON.parse(data.responseText).Message, {
+                icon: 2
+            })
         }
     })
 }
