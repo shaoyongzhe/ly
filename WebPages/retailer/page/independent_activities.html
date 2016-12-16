@@ -69,7 +69,7 @@
         //});
         $(function () {
             activity.list();
-        })
+        });
 
         var cssObj = {
             tabChange: function (t, obj) {
@@ -554,6 +554,8 @@
 
         }
 
+        var isValid = false;
+        var length = 0;
         var activity = {
             //查询数据
             list: function () {
@@ -938,7 +940,52 @@
                 else{
 
                     // dataForm.endtime += " " + hour + ":00:00";
-
+                    if (relType == 0) {
+                        if ($("input[name=originalprice]").val() == "") {
+                            isValid = false;
+                            toasterextend.showtips("请输入原价", "error");
+                            return;
+                        }
+                        if ($("input[name=discountprice]").val() == "") {
+                            isValid = false;
+                            toasterextend.showtips("请输入优惠价", "error");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if ($("input[name=unitprice]").val() == "") {
+                            dataForm["unitprice"] = 0;
+                        }
+                        else {
+                            dataForm["unitprice"] = this.getParam(createObj, "unitprice");
+                        }
+                        if ($("input[name=buycount]").val() == "") {
+                            dataForm["buycount"] = 0;
+                        }
+                        else {
+                            if ($("input[name=buycount]").val().indexOf(".") != -1) {
+                                isValid = false;
+                                toasterextend.showtips("请输入整数", "error");
+                                return;
+                            } else {
+                                dataForm["buycount"] = this.getParam(createObj, "buycount");
+                            }
+                        }
+                        if ($("input[name=giftcount]").val() == "") {
+                            dataForm["giftcount"] = 0;
+                        }
+                        else {
+                            if ($("input[name=giftcount]").val().indexOf(",") != -1) {
+                                isValid = false;
+                                toasterextend.showtips("请输入整数", "error");
+                                return;
+                            } else {
+                                isValid = true;
+                                dataForm["giftcount"] = this.getParam(createObj, "giftcount");
+                            }
+                        }
+                    }
                     // alert(dataForm.originalprice);
                     // dataForm["unitprice"] = parseFloat(this.getParam(createObj, "unitprice"));
                     // dataForm["buycount"] = parseInt(this.getParam(createObj, "buycount"));
@@ -949,38 +996,6 @@
                     // dataForm["giftcount"] = this.getParam(createObj, "giftcount");
 
                     // console.log(this.getParam(createObj, "unitprice"))
-                    if ($("input[name=originalprice]").val() == "")
-                    {
-                        toasterextend.showtips("请输入原价", "error");
-                    }
-                    if ($("input[name=discountprice]").val() == "")
-                    {
-                        toasterextend.showtips("请输入优惠价", "error");
-                    }
-
-                    if($("input[name=unitprice]").val() == ""){
-                        dataForm["unitprice"] = 0;
-                    } else {
-                        dataForm["unitprice"] = this.getParam(createObj, "unitprice");
-                    }
-                    if($("input[name=buycount]").val() == ""){
-                        dataForm["buycount"] = 0;
-                    } else {
-                        if ($("input[name=buycount]").val().indexOf(".") != -1) {
-                            toasterextend.showtips("请输入整数", "error");
-                        } else {
-                            dataForm["buycount"] = this.getParam(createObj, "buycount");
-                        }
-                    }
-                    if($("input[name=giftcount]").val() == ""){
-                        dataForm["giftcount"] = 0;
-                    } else {
-                        if ($("input[name=giftcount]").val().indexOf(",") != -1) {
-                            toasterextend.showtips("请输入整数", "error");
-                        } else {
-                            dataForm["giftcount"] = this.getParam(createObj, "giftcount");
-                        }
-                    }
                     // dataForm.endtime = hour;
                     dataForm.endtime += " " + hour + ":00:00";
                 }
@@ -1012,7 +1027,8 @@
                         convertformtoedit(obj, json);
                     } else if (json.state == "审核失败" || json.state == "下架")
                     {
-                        convertformtoedit(obj, json);
+                        popup.show(5, null);
+                        window.location.reload();
                     }
                     else if (json.state == "审核中") {
                         popup.show(6, function () {
@@ -1043,7 +1059,7 @@
 
                 });
             },
-
+           
             saveData: function (createObj, t, dataForm) {
                 // console.log($('.d-cont').text());
                 // dataForm["discount"] = $('.d-cont span').text()
@@ -1056,49 +1072,49 @@
                     method = "PUT"
                     url = "/webapi/retailer/activities/" + dataForm.activityid;
                 }
-
-                _ajax(method, url, dataForm, function (json) {
-
-
                     var rt = 8;
                     if (t == 0)
                         rt = 7
                     // else
-
-                    // console.log(dataForm);
-
-                    if(dataForm.buycount){
+                    if (dataForm.buycount) {
                         window.location.reload()
                     }
+                // console.log(dataForm);
+                    if (dataForm.length != length) {
+                        length = dataForm.length;
+                        _ajax(method, url, dataForm, function (json) {
+                            popup.show(rt, function () {
 
-                    popup.show(rt, function () {
-                        if (isUpdate)
-                            createObj.prev().remove();
-                        if (json.state == "未发布") {
-                            if ($("#list .no-release").length == 0)
-                                $("#list").append('<div class="container no-release"> <div class="a-title">未发布的活动</div>' + activity.getRelHtml(json) + '</div>');
-                            else {
-                                if (isUpdate && createObj.parent().is(".no-release"))
-                                    createObj.before(activity.getRelHtml(json));
-                                else
-                                    $("#list .no-release").append(activity.getRelHtml(json));
-                            }
-                        }
-                        else {
-                            if ($("#list .release").length == 0)
-                                $("#list").append('<div class="container release" style="padding-bottom:0"> <div class="a-title">已发布进行中的活动</div>' + activity.getRelHtml(json) + '</div>');
-                            else {
-                                if (isUpdate && createObj.parent().is(".release"))
-                                    createObj.before(activity.getRelHtml(json));
-                                else
-                                    $("#list .release").append(activity.getRelHtml(json));
-                            }
-                        }
-                        createObj.remove();
-                        // alert('shua')
+                                if (isUpdate)
+                                    createObj.prev().remove();
+                                if (json.state == "未发布") {
+                                    if ($("#list .no-release").length == 0)
+                                        $("#list").append('<div class="container no-release"> <div class="a-title">未发布的活动</div>' + activity.getRelHtml(json) + '</div>');
+                                    else {
+                                        if (isUpdate && createObj.parent().is(".no-release"))
+                                            createObj.before(activity.getRelHtml(json));
+                                        else
+                                            $("#list .no-release").append(activity.getRelHtml(json));
+                                    }
+                                }
+                                else {
+                                    if ($("#list .release").length == 0)
+                                        $("#list").append('<div class="container release" style="padding-bottom:0"> <div class="a-title">已发布进行中的活动</div>' + activity.getRelHtml(json) + '</div>');
+                                    else {
+                                        if (isUpdate && createObj.parent().is(".release"))
+                                            createObj.before(activity.getRelHtml(json));
+                                        else
+                                            $("#list .release").append(activity.getRelHtml(json));
+                                    }
+                                }
+                                createObj.remove();
+                                // alert('shua')
+                                window.location.reload();
+                            });
+                        });
+                    } else {
                         window.location.reload();
-                    });
-                });
+                    }
             },
 
             getParam: function (obj, name) {
