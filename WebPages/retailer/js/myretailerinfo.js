@@ -72,7 +72,6 @@ var vm = avalon.define({
                 vm.contribute = data.contribute
                 vm.membership = data.retailer.membershipqualification
                 vm.distributor = data.distributor
-                alert(data.distributor.length)
                 if (data.distributor != undefined && data.distributor.length > 0) {
                     vm.Isdistributor = true;
 
@@ -205,4 +204,8 @@ function getWin(obj, t,e) {
 function closeWin() {
     $(window).unbind("touchmove");
     $("#win").remove();
+}
+
+var isArray = function (obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
 }

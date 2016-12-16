@@ -259,7 +259,7 @@
             <div class="weui-panel__bd"  ms-if="showmodule.qyfxs">
                 <div class="cell-box" ms-if="!Isdistributor"><div class="cell-title">暂无签约分销商，<label>如何签约？</label></div>邀请您的分销商使用凌云科技经销宝和“凌云+”会员系统，并使用经销宝POS机邀请您，此后您的会员资格将免审核。</div>
 
-                <div ms-reqeat="distributor" id="5ce1d14e07534139ae7774d8983f04f36ee8780ca8a34ff5b75c4a3bfb91a23d" class="weui_cells">
+                <div ms-repeat="distributor" class="weui_cells">
                     <div class="weui_cell">
                         <div class="weui_cell_bd weui_cell_primary  bd-bg" onclick="getWin(this,0,event)"><p class="shop">{{el.name}}1</p>
                         <p class="Store14 addr">{{el.address}}</p>
