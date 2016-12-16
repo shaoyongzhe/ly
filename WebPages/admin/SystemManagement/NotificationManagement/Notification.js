@@ -57,16 +57,14 @@ function getList(curr, handle, searchForm) {
                 contentFormat = JSON.stringify(obj, null, 4);
             } catch (e) {
                 contentFormat = td[i].content;
-                // $('.cont').addClass('on')
             }
-            //<td><input type='checkbox' name='' value=''></td> <span class='arrow-right'></span>
             tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
 			+ "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
             + "</td><td>" + td[i].groupname
             + "</td><td>" + td[i].area
             + "</td><td class='templateid'>" + td[i].gateway_templateid
-			+ "</td><td title='" + td[i].content + "'><span class='content'>" + td[i].content
+			+ "</td><td title='" + contentFormat + "'><span class='content'>" + contentFormat
 			+ "</span></td><td>" + td[i].state
 			+ "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
 			+ " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
