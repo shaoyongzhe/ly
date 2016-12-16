@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/H-ui.admin.css" />
     <link rel="stylesheet" type="text/css" href="Notification.css" />
+    <link rel="stylesheet" type="text/css" href="buttons.css" />
     <link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
     <!-- <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" /> -->
     <script src="laydate/laydate.js"></script>
@@ -49,8 +50,28 @@
                         </select>
                     </div>
                     <div class="input-contorl">
+                        <label>状态查询</label>
+                        <select name="" id="" class="fifth-type">
+                            <option value="">--  全部  --</option>
+                            <option value="Normal">正常状态</option>
+                            <option value="Draft">新增待编辑</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>推送区域</label>
+                        <input type="text" value="" class="input-text area">
+                    </div>
+                    <div class="input-contorl">
                         <label>外部模板编号</label>
                         <input type="text" value="" class="input-text gateway_templateid">
+                    </div>
+                    <div class="input-contorl">
+                        <label>缺省查询</label>
+                        <label class="switch-btn">
+                            <input class="checked-switch inra" type="checkbox" />
+                            <span class="text-switch" data-yes="显示缺省" data-no="显示全部" style="width:110px;"></span>
+                            <span class="toggle-btn"></span>
+                        </label>
                     </div>
                 </div>
                 <input type="button" value="重置" class="reset-btn" />

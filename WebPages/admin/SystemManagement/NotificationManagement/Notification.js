@@ -65,7 +65,7 @@ function getList(curr, handle, searchForm) {
             + "</td><td>" + td[i].area
             + "</td><td class='templateid'>" + td[i].gateway_templateid
 			+ "</td><td title='" + contentFormat + "'><span class='content'>" + contentFormat
-			+ "</span></td><td>" + td[i].state
+			+ "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
 			+ "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
 			+ " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
         }
@@ -199,6 +199,9 @@ $(".reset-btn").click(function () {
     $('.search-area .second-type option:first').prop("selected", 'selected');
     $('.search-area .third-type option:first').prop("selected", 'selected');
     $('.search-area .fourth-type option:first').prop("selected", 'selected');
+    $('.search-area .fifth-type option:first').prop("selected", 'selected');
+    $('.search-area .area').val("");
+    $(".inra").attr("checked", false)
     getList();
     layer.msg('重置完成...');
 });
@@ -209,19 +212,10 @@ function getSearchForm() {
         category: $('.search-area .first-type :selected').val(),
         subcategory: $('.search-area .second-type :selected').val(),
         channel: $('.search-area .third-type :selected').val(),
-        groupname: $('.search-area .fourth-type :selected').val()
-    }
-    if (searchForm.category == "-- 请选择 --") {
-        searchForm.category == "";
-    }
-    if (searchForm.subcategory == "-- 请选择 --") {
-        searchForm.subcategory == "";
-    }
-    if (searchForm.channel == "-- 请选择 --") {
-        searchForm.channel == "";
-    }
-    if (searchForm.groupname == "-- 请选择 --") {
-        searchForm.groupname == "";
+        groupname: $('.search-area .fourth-type :selected').val(),
+        state: $('.search-area .fifth-type :selected').val(),
+        isdefault: $(".inra").is(":checked") == true ? 1 : 0,
+        area: $('.search-area .area').val()
     }
     return searchForm;
 }
@@ -238,7 +232,7 @@ function getOptionsValue() {
         $('.secondtype').children(":not('option:first')").remove();
         $('.third-type').children(":not('option:first')").remove();
         $('.fourth-type').children(":not('option:first')").remove();
-        if (firstType != "-- 请选择 --") {
+        if (firstType != "") {
             $('.addForm .firsttype').find("option[data-key='" + firstType + "']").attr("selected", true);
             var jsonData = {
                 "category": firstType
@@ -260,7 +254,7 @@ function getOptionsValue() {
         var secondType = $(this).find('option:selected').attr('data-key');
         $('.third-type').children(":not('option:first')").remove();
         $('.fourth-type').children(":not('option:first')").remove();
-        if (secondType != "-- 请选择 --") {
+        if (secondType != "") {
             $('.addForm .secondtype').find("option[data-key='" + secondType + "']").attr("selected", true);
             $('.secondtype').change();
             var jsonData = {
@@ -279,7 +273,7 @@ function getOptionsValue() {
         var firstType = $('.addForm .firsttype').find("option:selected").text();
         var secondType = $(this).find('option:selected').attr('data-key');
         $('.fourthtype').children(":not('option:first')").remove();
-        if (secondType != "-- 请选择 --") {
+        if (secondType != "") {
             var jsonData = {
                 "category": firstType,
                 "subcategory": secondType
@@ -297,7 +291,7 @@ function getOptionsValue() {
         var secondType = $('.search-area .second-type').find("option:selected").text();
         var thirdType = $(this).find('option:selected').attr('data-key');
         $('.fourth-type').children(":not('option:first')").remove();
-        if (thirdType != "-- 请选择 --") {
+        if (thirdType != "") {
             var jsonData = {
                 "category": firstType,
                 "subcategory": secondType,
@@ -612,7 +606,7 @@ var _ajax = function (type, url, data, tip, success) {
         timeout: function () { },
         success: function (json) {
             if (json["error"] != undefined && json.error) {
-                layer.msg("【" + tip + '】查询出错，出错原因：' + json.error);
+                layer.msg("【" + tip + '】出错，出错原因：' + json.error);
                 return;
             }
             success(json);
