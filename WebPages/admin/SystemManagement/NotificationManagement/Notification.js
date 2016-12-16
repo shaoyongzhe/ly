@@ -1,5 +1,5 @@
-// 导航切换http://127.0.0.1:40008
-var domailUrl = "";
+// 导航切换
+var domailUrl = "http://127.0.0.1:40008";
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
@@ -11,14 +11,14 @@ $('body').on('click', '.layui-layer-shade', function () {
     $('.layui-layer-close').click();
 });
 // 点击按钮组图标
-$('table.notify,table.modulePeople').on('click', '.handle-icon', function (e) {
+$('table.notify,table.modulePeople').on('click', '.Hui-iconfont', function (e) {
     e.stopPropagation();
-    // $(this).toggleClass('on').parents('tr').siblings().find('.handle-icon').removeClass('on');
+    // $(this).toggleClass('on').parents('tr').siblings().find('.Hui-iconfont').removeClass('on');
     $(this).toggleClass('on');
-    $(".handle-icon").not(this).removeClass('on');
+    $(".Hui-iconfont").not(this).removeClass('on');
 });
 $(document).click(function () {
-    $('.handle-icon').removeClass('on');
+    $('.Hui-iconfont').removeClass('on');
 });
 $(function () {
     $("nav span").first().click();
@@ -60,8 +60,8 @@ function getList(curr, handle, searchForm) {
                 // $('.cont').addClass('on')
             }
             //<td><input type='checkbox' name='' value=''></td> <span class='arrow-right'></span>
-            tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + ">" + td[i].category
-			+ "</td><td>" + td[i].subcategory
+            tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
+			+ "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
             + "</td><td>" + td[i].groupname
             + "</td><td>" + td[i].area
@@ -69,7 +69,7 @@ function getList(curr, handle, searchForm) {
 			+ "</td><td title='" + td[i].content + "'><span class='content'>" + td[i].content
 			+ "</span></td><td>" + td[i].state
 			+ "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
-			+ " </td><td><div class='handle'><div class='handle-icon'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+			+ " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
         }
 
         $("table.notify tbody").append(tr);
@@ -173,7 +173,7 @@ function getModulePeopleList(curr, handle, searchForm) {
         var contentFormat = JSON.stringify(data, null, 4);
         var tr = "<tr class='text-c'><td><input type='hidden' class='guid' value'notification'>" + "通知"
              + "</td><td>" + contentFormat
-             + " </td><td><div class='handle'><div class='handle-icon'></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+             + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
 
         $("table.modulePeople tbody").append(tr);
         //$('td span.content').each(function () {
@@ -433,9 +433,9 @@ $('.add-btn').click(function () {
 
 function getDistrict(province, city, county) {
     if (province == "省份") return ",,";
-    if (city == "地级市") return province + ",,";
-    if (county == "市、县、区") return province + "," + city + ",";
-    return province + "," + city + "," + county;
+    if (city == "地级市") return ",," + province;
+    if (county == "市、县、区") return "," + city + "," + province;
+    return county + "," + city + "," + province;
 }
 //设置默认分组
 $(".setDefaultGroup").click(function () {
