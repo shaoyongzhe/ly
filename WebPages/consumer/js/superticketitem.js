@@ -89,7 +89,7 @@ var vm = avalon.define({
     useticket: function (el) {// 码上用
         if (vm.jsondata.verifylimit > 0) {//可用状态，跳转到码上用核销界面
             
-            var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + vm.jsondata.guid;
+            var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + vm.jsondata.guid;
 
             var search = window.location.search;
             var isshare = common.getUrlParam(wxjsconfig.sharekey);
