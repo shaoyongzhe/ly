@@ -107,7 +107,7 @@ var vm = avalon.define({
                                 shelter.init({
                                     title: "操作成功",
                                     icos: "/js/shelter/image/ico_success.png",
-                                    autoClear: 3,
+                                    autoClear: 2,
                                     shadeClose: true,
                                     closeEnd: function () {
                                         //成功后，重新加载信息
@@ -178,7 +178,7 @@ var vm = avalon.define({
                 shelter.init({
                     title: state == "failure" ? "已拒绝确认" : "已确认",
                     icos: "/js/shelter/image/ico_success.png",
-                    autoClear: 3,
+                    autoClear: 2,
                     shadeClose: true,
                     closeEnd: function () {
                         vm.getVerifyList(1, null)

@@ -45,7 +45,7 @@
             }
         }
         drawing(0);
-    }, 100)
+    }, 500)
 }
 
 function convertCanvasToImage(canvas) {
