@@ -92,17 +92,42 @@ var vm = avalon.define({
         });
     },
     getQRcode: function () {
-        $("#QRCode_img").attr("src", '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&combinetext=false')
-        $("#QRCode_img").load(function () {//二维码加载成功
-            shelter.close()
-            draw()
+
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            beforeSend: function () {
+                shelter.init({ icos: "/js/shelter/image/loading.gif" })
+            },
+            url: '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&buildtype=web',
+            success: function (json) {
+                if (json.user_notification != undefined && json.user_notification != null) {
+                    vm.errorMsg = json.user_notification
+                    vm.state = 2
+                } else {
+                    shelter.close()
+                    draw(json.content)
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                shelter.init({
+                    title: "专属核销码加载失败", icos: "/js/shelter/image/ico_error.png",
+                    autoClear: 5,
+                    shadeClose: true
+                })
+            }
         });
-        $('#QRCode_img').error(function () {
-            shelter.init({
-                title: "专属核销码加载失败", icos: "/js/shelter/image/ico_error.png",
-                autoClear: 5,
-                shadeClose: true
-            })
-        });
+        //$("#QRCode_img").attr("src", '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&combinetext=false')
+        //$("#QRCode_img").load(function () {//二维码加载成功
+        //    shelter.close()
+        //    draw()
+        //});
+        //$('#QRCode_img').error(function () {
+        //    shelter.init({
+        //        title: "专属核销码加载失败", icos: "/js/shelter/image/ico_error.png",
+        //        autoClear: 5,
+        //        shadeClose: true
+        //    })
+        //});
     }
 })
