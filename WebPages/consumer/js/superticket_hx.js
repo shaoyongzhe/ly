@@ -1,4 +1,4 @@
-﻿
+
 avalon.ready(function () {
 
     $('.tip-w').click(function () {
@@ -10,6 +10,7 @@ avalon.ready(function () {
         $('.tip-w').fadeIn(200);
         $(".share_hb").hide()
     })
+
     if (vm.pageStep == 0) {
         waitloadaddress(function () {
             vm.getInfo(wxlocation.latitude, wxlocation.longitude);
@@ -30,7 +31,7 @@ var vm = avalon.define({
     hxNum: 1,
     jsondata: {},
     pageStep: 0,//控制页面展示
-    activity_item_guid: common.getUrlParam("activity_item_guid"),
+    activityitem_id: common.getUrlParam("activityitem_id"),
     // verifylimit: 10,//最大可核销数量
     verifylimit: 0,
     yhxNum: 0,//成功核销数量
@@ -44,6 +45,7 @@ var vm = avalon.define({
     retailer_id: "",//门店Id
     span_tishi: "让店家扫一扫下方二维码立享优惠",
     IsVerifySuccess: false,//是否核销成功
+    isselfverify: true,//是否允许消费者自助核销，超惠券24小时内结束，不允许核销
     additions: function () {//加
         if (vm.hxNum < vm.verifylimit) {
             vm.hxNum++
@@ -57,7 +59,7 @@ var vm = avalon.define({
         }
     },
     getInfo: function (latitude, longitude) {
-        var ajaxdata = { activity_item_guid: vm.activity_item_guid, consumer_id: "" };
+        var ajaxdata = { activityitem_id: vm.activityitem_id, consumer_id: "" };
         if (wxjsconfig.sharekey != null)
             ajaxdata[wxjsconfig.sharekey] = "_";
 
@@ -90,7 +92,7 @@ var vm = avalon.define({
                 }
                 vm.isShow = true
                 vm.jsondata = jsondata
-
+                vm.isselfverify = jsondata.isselfverify
                 vm.verifylimit = vm.jsondata.verifylimit
                 vm.pageStep = 1;
                 if (vm.verifylimit <= 0) {
@@ -99,10 +101,11 @@ var vm = avalon.define({
                     var msg = vm.jsondata.state == 1 ? '太火爆了，该券已被抢光，下次要趁早！' : vm.jsondata.state == 2 ? "您今天已使用该券，明天再来吧！" : "该券您已用尽，看看其它券吧！";
                     toasterextend.showtips(msg, "error");
                     return;
-                } else if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
-                    vm.span_tishi = "该券仅剩一张可供您使用,已为您生成二维码"
-                    vm.btnClick();
                 }
+                //else if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
+                //    vm.span_tishi = "该券仅剩一张可供您使用,已为您生成二维码"
+                //    vm.btnClick();
+                //}
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 common.loading.hide();//隐藏转圈动画
@@ -159,7 +162,7 @@ var vm = avalon.define({
         vm.IsScan = false;
         $(".msg").hide()
         Msg.show(1, "核销二维码加载中...")
-        $("#QRCode_img").attr("src", '/webapi/consumer/weixin/card_generate_code?activity_item_guid=' + vm.activity_item_guid + "&totalnum=" + vm.hxNum + "&random=" + Math.random())
+        $("#QRCode_img").attr("src", '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&random=" + Math.random())
         $("#QRCode_img").load(function () {//二维码加载成功后，每秒请求服务器，判断门店有没有开始扫码
             //  console.log("二维码加载成功")
             $(".stamp").hide()
@@ -195,7 +198,7 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             //timeout: 5000, //超时时间设置，单位毫秒
-            data: { activity_item_guid: vm.activity_item_guid, totalnum: vm.hxNum },
+            data: { activityitem_id: vm.activityitem_id, totalnum: vm.hxNum },
             url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
                 /* state
@@ -271,7 +274,7 @@ var vm = avalon.define({
                                 //    $("#sharetitle").html(result.redpackinfo)
                                 //}
 
-                                location.href = "/consumer/page/shakegame.html?distributor_id=" + vm.distributor_id + "&retailer_id=" + vm.retailer_id + "&activity_item_guid=" + vm.activity_item_guid + "&activity_id=" + vm.jsondata.activity_id + "&shakekey=" + result.shakekey
+                                location.href = "/consumer/page/shakegame.html?distributor_id=" + vm.distributor_id + "&retailer_id=" + vm.retailer_id + "&activityitem_id=" + vm.activityitem_id + "&activity_id=" + vm.jsondata.activity_id + "&shakekey=" + result.shakekey
                             }
 
                         }
@@ -492,6 +495,7 @@ var Msg = avalon.define({
     show: function (type, msg, subtitle) {
         $("#_loading").removeClass("fa fa-spin")
         if (type == 1) {//加载中
+            $(".btn").hide()
             Msg.imgurl = "/consumer/image/supercoupons/loading.png";
             $("#_loading").addClass("fa fa-spin")
         } else if (type == 2) {//错误
@@ -510,7 +514,76 @@ var Msg = avalon.define({
     }
 })
 
+var selfVerify = avalon.define({//自助核销
+    $id: 'selfVerify',
+    token: common.getUrlParam("token"),
+    VerifyScan: function () {
+        if (selfVerify.token.length == 0) { //自助核销，调用微信扫一扫
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                     var token = res.split('token=')
+                    selfVerify.scanSuccess(token[1])
+                }
+            });
+        }
+        else
+            selfVerify.scanSuccess(selfVerify.token)
 
+        // selfVerify.scanSuccess("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiODgzYzBkNTE4MDhjNGJiZjhhZjE4YTMyZTE5NWMwZjEifQ.3_IPUE26EI49wv8VLL4GmD7sSsWe_3d5We0ri7qlXEQ")
+    },
+    scanSuccess: function (qrlimitken) {//开始自助核销
+        vm.pageStep = 2;
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: {
+                activityitem_id: vm.activityitem_id,
+                token: qrlimitken,
+                totalnum: parseInt($("#txt_hx").val())
+            },
+            beforeSend: function () { Msg.show(1, "自助核销中...") },
+            url: '/webapi/consumer/weixin/qrlimitverify/scan',
+            success: function (result) {
+                if (result.user_notification != undefined) {
+                    Msg.show(2, result.user_notification, "")
+                    $("#btnlist").show();
+                    $(".btn").hide()
+                    $("#btn_5").show()//返回
+                    return;
+                }
+
+                vm.yhxNum = result.verifynum//成功核销数量
+                vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
+                vm.pageStep = 3
+                page2.showUsage(1)
+                Msg.show(3, "自助核销成功", "")
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var errormsg = "网络不给力";
+                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                    var json = JSON.parse(XMLHttpRequest.responseText);
+                    if (json.Message != undefined &&json.Message != null) {
+                        errormsg = JSON.parse(json.Message).error;
+                    }
+                    else
+                        errormsg = json.error;
+                    if (errormsg == undefined || errormsg == '')
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                }
+                var msg = errormsg.split('|')
+                Msg.show(2, msg[0], msg.length > 1 ? msg[1] : "")
+                $("#btnlist").show();
+                $(".btn").hide()
+                $("#btn_5").show()//返回
+            }
+        });
+    },
+    closeWin: function () {
+        wx.closeWindow();
+    }
+})
 ///分享成功跳转到摇一摇
 //function sharesuccess() {
 //    location.href = "/consumer/page/shakegame.html?distributor_id=" + vm.distributor_id + "&retailer_id=" + vm.retailer_id + "&activity_item_guid=" + vm.activity_item_guid + "&activity_id=" + vm.jsondata.activity_id

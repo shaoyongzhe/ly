@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+    <title>我的-个人</title>
+    <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
+    <link href="/retailer/css/weixintips.css" rel="stylesheet" />
+    <link href="/retailer/css/my_info.css" rel="stylesheet" />
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <link type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
+    <script type="text/javascript" src="/js/wx/configinit.js"></script>
+    <script src="/retailer/js/common-buttom-nav.js"></script>
+    <script src="/retailer/js/lib/jquery-common.js"></script>
+    <script src="/retailer/js/lib/common.js"></script>
+</head>
+<body ms-controller="myInfo" class="ms-controller">
+    <div class="page__bd" ms-if="IsShow">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__bd weui_bg_img">
+                <div class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" ms-attr-src="employee.headimageurl" alt="">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">{{employee.nickname}}</h4>
+                        <p class="weui-media-box__desc">{{retailername}}</p>
+                    </div>
+                    <div class="weui_cell_ft">
+                        <a href="invite_staff.html?retailer_id=d31712e157cd48c5aa9516ac11f38c38" class="Derwei">
+                            <img src="/retailer/image/ewm_new.png" style="width:60px;height:auto;" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="weui-panel__bd wallet_money">
+                <div class="weui-media-box__bd">
+                    <p style="font-size:22px">￥ 22.00</p>
+                    <p style="font-size:13px">我的钱包</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page__bd" ms-if="IsShow">
+        <div class="weui-panel">
+            <div class="weui-panel__ft" ms-click="step(1)">
+                <div class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <h4 class="weui-media-box__title navtitle">我的贡献</h4>
+                    </div>
+                    <span ms-attr-class="showcontribute?'weui-cell__up':'weui-cell__down'"></span>
+                </div>
+            </div>
+            <div class="weui-panel__bd" ms-if="showcontribute">
+                <div class="rmy-box" id="contribute">
+                    <ul>
+                        <li style="width:36%;">
+                            <div class="circle">
+                                <div class="pie_left" style="transform: rotate(180deg); background: rgb(75, 203, 129) none repeat scroll 0% 0%;">
+                                </div>
+                                <div class="pie_right" style="transform: rotate(114.545deg); background: rgb(75, 203, 129) none repeat scroll 0% 0%;">
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="b-green">
+                                <div class="b-title">
+                                    <span></span>惠粉
+                                </div>
+                                <div class="b-cont">{{ getNumeric(contribute.activefanscount)}}</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="b-gray">
+                                <div class="b-title">
+                                    <span></span>流失
+                                </div>
+                                <div class="b-cont">{{getNumeric(contribute.lostactivitycount)}}</div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="g-item">
+                        <div class="g-title">累计拉粉</div>
+                        <div>{{getNumeric(contribute.fansinhistorycount)}}</div>
+                    </div>
+                    <div class="g-item" style="margin-left:2%">
+                        <div class="g-title">留存率</div>
+                        <div>{{contribute.percentageretained}}</div>
+                    </div>
+                    <div class="o-item" >
+                        <b>{{getNumeric(contribute.distributorsharecount) }}</b><br />商家超惠分享
+                    </div>
+                    <div class="o-item" style="margin-left:2%">
+                        <b>{{getNumeric(contribute.distributorsharecount)}}</b><br>本店超惠分享
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="weui-panel">
+            <div class="weui-panel__ft">
+                <a href="/retailer/page/my_retailerinfo.html" class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <h4 class="weui-media-box__title navtitle">我的店铺</h4>
+                    </div>
+                    <span class="weui-cell__ft"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="weui-panel">
+            <div class="weui-panel__ft">
+                <div class="weui-cell weui-cell_access" ms-click="step(2)">
+                    <div class="weui-cell__bd">
+                        <h4 class="weui-media-box__title navtitle">我的同事</h4>
+                    </div>
+                    <span ms-attr-class="showemployee?'weui-cell__up':'weui-cell__down'"></span>
+                </div>
+            </div>
+            <div class="weui-panel__bd" ms-if="showemployee">
+                <div class="weui-media-box weui-media-box_small-appmsg">
+                    <div class="weui-cells">
+                        <div class="weui-cell weui-cell_access" href="javascript:;" ms-repeat="coworkers">
+                            <div class="weui-cell__hd">
+                                <img ms-attr-src="el.headimageurl==''?'/retailer/image/photo4.png':el.headimageurl" style="width:40px;display:block;border-radius:50%">
+                            </div>
+                            <div class="weui-cell__bd weui-cell_primary" style="line-height:40px;text-indent:10px">
+                                <p>{{el.nickname}}</p>
+                            </div>
+                            <span class="weui-cell_btn" ms-click="firm(el,$index)">
+                                退出本店
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bottom-nav"></div>
+    <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
+    <script src="/retailer/js/myinfo.js"></script>
+</body>
+</html>
