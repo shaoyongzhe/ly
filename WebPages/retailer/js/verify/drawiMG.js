@@ -1,13 +1,17 @@
-﻿function draw(fn) {
-    var data1 = ["/retailer/image/verify/verifycode.png", $("#QRCode_img").attr("src")]
+﻿function draw(fn,text) {
+ 
     var c = document.createElement('canvas'),
-        ctx = c.getContext('2d'),
-        len = data1.length;
+        ctx = c.getContext('2d');
+    
     c.width = 420;
     c.height = 595;
     ctx.rect(0, 0, c.width, c.height);
     ctx.fillStyle = 'transparent';//画布填充颜色
     ctx.fill();
+    var qcwidth = c.width * 0.44
+
+    var data1 = ["/retailer/image/verify/verifycode.png", qrCode(text, qcwidth, 185)]
+    var len = data1.length;
     function drawing(n) {
         if (n < len) {
             var img = new Image;
@@ -15,7 +19,7 @@
             img.src = data1[n];
             img.onload = function () {
                 if (n == 1) {//计算二维码大小
-                    var qcwidth = c.width * 0.44
+                   
                     ctx.drawImage(img, (c.width / 2) - (qcwidth / 2), 126, qcwidth, 185);
                 }
                 else
@@ -36,4 +40,16 @@ function convertCanvasToImage(canvas) {
     hc_image.src = canvas.toDataURL("image/png");
     hc_image.style = "width:100%;height:100%"
     $('#verifycode').html(hc_image);
+}
+
+function qrCode(text, width,height) {
+    $('#divQrcode').qrcode({
+        text: text,
+        render: 'canvas',
+        height: width,
+        width: height,
+        typeNumber: -1,      //计算模式
+        correctLevel: QRErrorCorrectLevel.H,//纠错等级
+        src: '/retailer/image/2.jpg'//这里配置Logo的地址即可。
+    });
 }

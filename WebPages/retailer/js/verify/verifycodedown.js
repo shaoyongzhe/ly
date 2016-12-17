@@ -9,7 +9,7 @@ var vm = avalon.define({
     loadState: 0,//0:加载中，1.加载失败 2.加载成功
     getQRcode: function () {
         vm.loadState = 0;
-        $("#QRCode_img").attr("src", '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&combinetext=false')
+        $("#QRCode_img").attr("src", '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false')
         $("#QRCode_img").load(function () {//二维码加载成功
             draw()
         });
