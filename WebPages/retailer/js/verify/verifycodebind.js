@@ -101,13 +101,11 @@ var vm = avalon.define({
             },
             url: '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&buildtype=web',
             success: function (json) {
-                alert(json)
                 if (json.user_notification != undefined && json.user_notification != null) {
                     vm.errorMsg = json.user_notification
                     vm.state = 2
                 } else {
                     shelter.close()
-                    alert(json.content)
                     draw(json.content)
                 }
             },

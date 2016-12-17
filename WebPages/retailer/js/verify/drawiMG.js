@@ -8,13 +8,13 @@
     ctx.rect(0, 0, c.width, c.height);
     ctx.fillStyle = 'transparent';//画布填充颜色
     ctx.fill();
-    var qcwidth = c.width * 0.44
+    var qcwidth = (c.width * 0.44)-10
 
     $('#divQrcode').qrcode({
         text: text,
         render: 'canvas',
-        height: qcwidth-6,
-        width: 179,
+        height: qcwidth,
+        width: 175,
         typeNumber: -1,      //计算模式
         correctLevel: QRErrorCorrectLevel.H,//纠错等级
         src: '/retailer/image/2.jpg'//这里配置Logo的地址即可。
@@ -32,7 +32,7 @@
                 img.onload = function () {
                     if (n == 1) {//计算二维码大小
 
-                        ctx.drawImage(img, (c.width / 2) - (qcwidth / 2) + 3, 123, qcwidth-6, 179);
+                        ctx.drawImage(img, (c.width / 2) - (qcwidth / 2) , 130, qcwidth, 175);
                     }
                     else
                         ctx.drawImage(img, 0, 0, c.width, c.height);
@@ -55,10 +55,3 @@ function convertCanvasToImage(canvas) {
     $('#verifycode').html(hc_image);
 }
 
-function qrCode(text, width,height) {
-   
-
-    var canvas = document.getElementById('canvasqrcode');
-
-    return canvas.toDataURL("image/png")
-}
