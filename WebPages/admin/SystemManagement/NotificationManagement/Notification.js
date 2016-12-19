@@ -1,5 +1,5 @@
 // 导航切换
-var domailUrl = "http://127.0.0.1:40008";
+var domailUrl = "";
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
@@ -191,7 +191,7 @@ function getModulePeopleList(curr, handle, searchForm) {
 $(".search-btn").click(function () {
     layer.msg('正在查询...', { time: 20 });
     getList(1, 'search', getSearchForm());
-});
+    });
 //重置
 $(".reset-btn").click(function () {
     $('.search-area .gateway_templateid').val("");
