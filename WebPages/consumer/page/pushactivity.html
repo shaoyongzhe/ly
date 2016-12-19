@@ -607,7 +607,7 @@
             },
             useticket: function (el) {// 码上用
                 if (el.verifylimit > 0) {//可用状态，跳转到码上用核销界面
-                    var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + el.guid ;
+                    var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + el.guid;
                     var qrcode_url = "http://open.weixin.qq.com/qr/code/?username=" + common.getUrlParam("originalid");
                     var shareRegisterPage = "/consumer/page/shareqrcode.html?" + encodeURIComponent(qrcode_url);
                     var url = wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))
