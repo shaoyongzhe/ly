@@ -45,15 +45,12 @@
 
     <div id="bottom-nav"></div>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-   
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/retailer/js/lib/common.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script src="../js/lib/picker.js"></script>
     <script src="../js/lib/picker.date.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
-    <script src="../js/zepto.min.js" type="text/javascript"></script>
-    <script src="http://code.baidu.com/touch-0.2.14.min.js"></script>
     <script>
         //$('#hours li').swipe(function () {
         //    $('.delete').hide()
@@ -120,9 +117,10 @@
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
                 else if (t == 12)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close" "></div>';
-                // else if (t == 11)
-                //     cont = '<div class="win-box date-box"><p>请录入整数或小数</p><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
-
+                else if (t == 13)
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中删除。</p></p></div><div class="win-close"></div>';
+                else if (t == 14)
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核！<br/>请到未发布活动列表中删除。</p></p></div><div class="win-close"></div>';
                 $("body").css("padding-bottom", "0");
                 $("body").append('<div class="lazyout" id="lazyout"></div><div id="win_box">' + cont + '</div>');
                 var h = $(window).height() > $(document.body).height() ? $(window).height() : $(document.body).height();
@@ -146,43 +144,7 @@
                 $(window).unbind("touchmove");
             }
 
-        };
-
-
-       
-
-
-
-
-
-            
-                  // // $('#touchs').find('li').remove();
-                  // $('#hours li').bind("touchstart",function(event){
-                  //   // var touchpros =event.touches[0];
-                  //   // console.log(touchpros);
-                  //   alert('1')
-                  //   $('#hours li').touchstart();
-                  // });
-                  // $('#hours li').bind("touchmove",function(){
-                  //   // $('#touchs').append('<li>touchmove...</li>');
-                  //    $('#hours li').touchmove();
-                  // });
-                  // $('#hours li').bind("touchend",function(){
-                  //   // $('#touchs').append('<li>touchend...</li>');
-                  //   $('#hours li').touchend();
-                  // });
-                  // $('#hours li').bind("touchcancel",function(){
-                  //   // $('#touchs').append('<li>touchcancel...</li>');
-                  //   $('#hours li').touchcancel();
-                  // });
-                  // $('#hours li').bind("click",function(){
-                  //   // $('#touchs').find('li').remove();
-                  //   $('#hours li').click();
-                  // });
-              
-            
-
-            
+        };     
         function initDate() {
 
             // $("input[name=originalprice]").on('keydown',function () {
@@ -683,7 +645,7 @@
                          + '<tr><th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</th><td valign="top"><span class="bz">' + item.remark + '</span></td></tr>';
 
                 if ($.trim(item.state) == "未发布") {
-                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
+                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' data-state='+item.state+'><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
                     if (item.reason != null && $.trim(item.reason).length > 0) {
                         content += '<li onclick="activity.updateState(\'up\',this)">';
                         content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
@@ -696,7 +658,7 @@
                 }
                 else if ($.trim(item.state) == "审核失败")
                  {
-                   content += '</table><ul class="op-pnl" data-code=' + item.activityid + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
+                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' data-state=' + item.state + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
                    if (item.reason != null && $.trim(item.reason).length > 0) {
                        content += '<li onclick="activity.updateState(\'up\',this)">';
                        content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
@@ -707,14 +669,14 @@
                    }
                 } else if ($.trim(item.state) == "下架")
                 {
-                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
+                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' data-state=' + item.state + '><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
                     content += '<li onclick="activity.updateState(\'up\',this)">';
                     content += '<label class="op-release">上架</label></li></ul><div class="clear"></div>';
                 }
                 else if ($.trim(item.state) == "审核中")
                     content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' ><li style="width:50%;"  onclick="activity.del(this)""><label class="op-del">删除</label></li><li style="width:50%;" onclick="activity.edit(this)"><label class="op-update">修改</label></li><div class="clear"></div>';
                 else if ($.trim(item.state) == "上架")
-                    content += '<tr><td colspan="2" align="center" style="height:45px;"  data-code="' + item.activityid + '"><input  type="button" onclick="activity.stateDown(this)" value="下架" class="ots-btn" /></td></tr> </table>';
+                    content += '<tr><td colspan="2" align="center" style="height:45px;"  data-code="' + item.activityid + '" data-state=' + item.state + '><input  type="button" onclick="activity.stateDown(this)" value="下架" class="ots-btn" /></td></tr> </table>';
                     content += "</div>";
 
                 return content;
@@ -724,20 +686,29 @@
             //删除
             del: function (obj) {
                 var activityid = $(obj.parentNode).attr("data-code");
+                var state = $(obj.parentNode).attr("data-state");
                 _ajax("GET", '/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
                         if (json.state == "上架") {
-                            popup.show(4, null);
+                            popup.show(14, null);
                             return;
                         }
                         else {
-                            popup.show(1, function () {});
-                            $('#del-btn').click(function () {
-                                if (json.activityid == activityid)
-                                    _ajax("DELETE", '/webapi/retailer/activities/' + activityid, null, function (json) {
-                                        activity.delRelItem($(obj).parent().parent());
-                                        window.location.reload();
-                                    });
-                            })
+                            if (json.state == state) {
+                                popup.show(1, function () { });
+                                $('#del-btn').click(function () {
+                                    if (json.activityid == activityid)
+                                        _ajax("DELETE", '/webapi/retailer/activities/' + activityid, null, function (json) {
+                                            activity.delRelItem($(obj).parent().parent());
+                                            window.location.reload();
+                                        });
+                                })
+                            }
+                            else
+                            {
+                                popup.show(13, null);
+                                return;
+                            }
+                           
                         }
                     }) 
             },
@@ -941,6 +912,11 @@
 
                     // dataForm.endtime += " " + hour + ":00:00";
                     if (relType == 0) {
+                        if ($.trim(dataForm.goodsname).length == 0) {
+                            toasterextend.showtips("请输入商品名称", "error");
+                            return;
+                        }
+
                         if ($("input[name=originalprice]").val() == "") {
                             isValid = false;
                             toasterextend.showtips("请输入原价", "error");
@@ -954,6 +930,10 @@
                     }
                     else
                     {
+                        if ($.trim(dataForm.goodsname).length == 0) {
+                            toasterextend.showtips("请输入商品名称", "error");
+                            return;
+                        }
                         if ($("input[name=unitprice]").val() == "") {
                             dataForm["unitprice"] = 0;
                         }
@@ -1017,6 +997,7 @@
                 _ajax("GET", '/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
                     // console.log(json);
                     // return;
+                    var state = $(obj).parent().attr("data-state");
                     if (json.state == "上架") {
                         popup.show(4, null);
                         window.location.reload();
@@ -1025,10 +1006,17 @@
                     }
                     else if (json.state == "未发布" && $.trim(json.reason).length == 0) {
                         convertformtoedit(obj, json);
-                    } else if (json.state == "审核失败" || json.state == "下架")
+                    }
+                    else if (json.state == "审核失败" || json.state == "下架")
                     {
-                        popup.show(5, null);
-                        window.location.reload();
+                        //if (json.state == state) {
+                            convertformtoedit(obj, json);
+                        //}
+                        //else
+                        //{
+                        //    popup.show(5, null);
+                        //    window.location.reload();
+                        //}
                     }
                     else if (json.state == "审核中") {
                         popup.show(6, function () {
