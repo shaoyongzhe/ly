@@ -910,19 +910,20 @@
                 // 保存
                 else{
 
-                    // dataForm.endtime += " " + hour + ":00:00";
+                    dataForm["originalprice"] = this.getParam(createObj, "originalprice");
+                    dataForm["discountprice"] = this.getParam(createObj, "discountprice");
                     if (relType == 0) {
                         if ($.trim(dataForm.goodsname).length == 0) {
                             toasterextend.showtips("请输入商品名称", "error");
                             return;
                         }
 
-                        if ($("input[name=originalprice]").val() == "") {
+                        if (dataForm["originalprice"] == "") {
                             isValid = false;
                             toasterextend.showtips("请输入原价", "error");
                             return;
                         }
-                        if ($("input[name=discountprice]").val() == "") {
+                        if (dataForm["discountprice"] == "") {
                             isValid = false;
                             toasterextend.showtips("请输入优惠价", "error");
                             return;
@@ -930,21 +931,24 @@
                     }
                     else
                     {
+                        dataForm["unitprice"] = parseFloat(this.getParam(createObj, "unitprice"));
+                        dataForm["buycount"] = parseInt(this.getParam(createObj, "buycount"));
+                        dataForm["giftcount"] = parseInt(this.getParam(createObj, "giftcount"));
                         if ($.trim(dataForm.goodsname).length == 0) {
                             toasterextend.showtips("请输入商品名称", "error");
                             return;
                         }
-                        if ($("input[name=unitprice]").val() == "") {
+                        if (this.getParam(createObj, "unitprice") == "") {
                             dataForm["unitprice"] = 0;
                         }
                         else {
                             dataForm["unitprice"] = this.getParam(createObj, "unitprice");
                         }
-                        if ($("input[name=buycount]").val() == "") {
+                        if (this.getParam(createObj, "buycount") == "") {
                             dataForm["buycount"] = 0;
                         }
                         else {
-                            if ($("input[name=buycount]").val().indexOf(".") != -1) {
+                            if (this.getParam(createObj, "buycount").indexOf(".") != -1) {
                                 isValid = false;
                                 toasterextend.showtips("请输入整数", "error");
                                 return;
@@ -952,11 +956,11 @@
                                 dataForm["buycount"] = this.getParam(createObj, "buycount");
                             }
                         }
-                        if ($("input[name=giftcount]").val() == "") {
+                        if (this.getParam(createObj, "giftcount") == "") {
                             dataForm["giftcount"] = 0;
                         }
                         else {
-                            if ($("input[name=giftcount]").val().indexOf(",") != -1) {
+                            if (this.getParam(createObj, "giftcount").indexOf(",") != -1) {
                                 isValid = false;
                                 toasterextend.showtips("请输入整数", "error");
                                 return;
