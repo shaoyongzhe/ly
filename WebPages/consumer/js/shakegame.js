@@ -22,7 +22,7 @@ var vm = avalon.define({
     IsPause: false,
     distributor_id: common.getUrlParam("distributor_id"),
     retailer_id: common.getUrlParam("retailer_id"),
-    activity_item_guid: common.getUrlParam("activity_item_guid"),
+    activityitem_id: common.getUrlParam("activityitem_id"),
     activity_id: common.getUrlParam("activity_id"),
     shakekey: common.getUrlParam("shakekey"),
     startShake: function () {//开始摇一摇
@@ -34,7 +34,7 @@ var vm = avalon.define({
             data: {
                 distributor_id: vm.distributor_id,
                 retailer_id: vm.retailer_id,
-                activity_item_guid: vm.activity_item_guid,
+                activityitem_id: vm.activityitem_id,
                 activity_id: vm.activity_id,
                 shakekey: vm.shakekey
             },

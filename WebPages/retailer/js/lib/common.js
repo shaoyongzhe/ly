@@ -20,7 +20,7 @@
     }
 }
 (function () {
-
+   
     var common = {};
     common.getUrlParam = function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -90,5 +90,6 @@
     }
     common.common = common;
     return common;
-
 });
+
+
