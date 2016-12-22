@@ -54,7 +54,7 @@
     float: left;
     -webkit-box-flex: 1;
     height: 50px;
-    line-height: 50px;
+    line-height: 50px !important;
     background: #fff;
     border-right: 1px solid #ebebeb;
     box-sizing: border-box;
@@ -139,7 +139,7 @@
     .bt-name a {
         display: block;
         font-size: 16px;
-        color: #000;
+        color: #000; line-height:50px;
     }
 
 .new-sub .tiggle {
