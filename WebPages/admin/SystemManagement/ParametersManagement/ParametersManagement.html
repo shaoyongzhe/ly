@@ -623,9 +623,12 @@ function ajaxEffectconfig(guidEffect){
 		// /webapi/configservice/config/3ae1755ba9b14919b4787e167861fcda/currentflag	
 		success:function(data){
 			layer.close(indexLayer);;
-			console.log(data);	
+			// console.log(data);	
 			if(data.error=="数据库中已经有备份的配置了"){			
-				layer.alert(data.error, {icon: 2});
+				layer.alert(data.error, {icon: 2},function(){
+					ajaxQueryBtn(queryPagesNum,queryPagesCount,queryPagesNum);
+				});
+				
 			}else{
 				ajaxQueryBtn(queryPagesNum,queryPagesCount,queryPagesNum);
 			}
@@ -802,8 +805,10 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 				var td=data.content;
 				if(typeof(td[i].content)=="object"){
 					ccc=JSON.stringify(td[i].content, null, 4);
+					// console.log(1)
 				}else{
-					ccc=td[i].content;//注意存入localstorage的时候，也要处理。
+					ccc=JSON.parse('"'+td[i].content+'"');//注意存入localstorage的时候，也要处理。
+					// console.log(2)
 				}
 				tr+="<tr class='text-c findTrLong'>"
 				+"<td style='display:none'><input type='checkbox' value='' name=''></td>"
