@@ -2,6 +2,10 @@
     vm.getConsumer()
 
     vm.getMoney()
+
+    setTimeout(function () {
+        qrcode.href();
+    }, 1000)
 })
 
 var vm = avalon.define({

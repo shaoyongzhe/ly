@@ -7,6 +7,10 @@
     vm.getMoney()
 
     vm.getAssetFlow(1, null)
+
+    setTimeout(function () {
+        qrcode.href();
+    }, 1000)
 })
 
 var tmdropme = null;
