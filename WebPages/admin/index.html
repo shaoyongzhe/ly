@@ -208,7 +208,7 @@ function displaynavbar(obj){
 			$(this).data('htmlSide',$(this).html());	
 			titleSide2=$(this).find("span").text();	
 			$(this).data('titleSide2',titleSide2);	
-			hrefSide2=$(this).find($("a:nth-of-type(1)")).attr("a");
+			hrefSide2=$(this).find($("a:nth-of-type(1)")).attr("_href");
 			$(this).data('hrefSide2',hrefSide2);	
 			$(this).empty();
 //			$(this).html('<i class="Hui-iconfont" style="padding-left:165px" title='+titleSide2+'>'+icoSide+'</i>');	//pl-150不行	
