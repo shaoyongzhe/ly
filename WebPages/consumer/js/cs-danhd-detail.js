@@ -234,7 +234,7 @@ function useticket(guid, verifylimit) {
         }
 
         var shareRegisterPage = "/" + category + "/page/shareqrcode.html?" + encodeURIComponent(qrcode_url);
-        var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + guid ;
+        var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + guid;
         var url = wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))//wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))
         location.href = url;
 
