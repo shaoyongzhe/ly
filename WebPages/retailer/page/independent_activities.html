@@ -22,8 +22,11 @@
             overflow: hidden;
             overflow-x: hidden;
         }
-        .delete {
-            display: block;
+        input[type='date'],input[type='text'],input[type='submit'],input[type='button'],input[type='number'],select,select option,textarea,button{
+            background:-webkit-gradient(linear, 0 0, 0 bottom, from(#fff), to(rgba(255,255, 255, 0.5)));
+            -webkit-appearance:none;
+            line-height:20px;
+            border-radius:0px;
         }
     </style>
 </head>
@@ -54,24 +57,9 @@
     <script src="../js/lib/picker.date.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script>
-        //$('#hours li').swipe(function () {
-        //    $('.delete').hide()
-        //    $('.delete', this).show()
-        //})
-
-        //// delete row on tapping delete button
-        //$('.delete').tap(function () {
-        //    $(this).parent('li').remove()
-        //})
-        //$('.delete').swipeUp(function(e){
-        //    alert('触发了');//偶尔有效
-        //});
         $(function () {
             activity.list();
         });
-
-
-
         var cssObj = {
             tabChange: function (t, obj) {
                 if ($(obj).is(".curr"))
@@ -110,43 +98,46 @@
                 else if (t == 6)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>该活动已在审核中<br/>将很快与惠粉见面，确认要修改？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 7)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">保存成功</p><p style="color:#999">请到未发布活动列表查看</p></p></div><div class="win-close"></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">保存成功</p><p style="color:#999">请到未发布活动列表查看</p></p><div class="win-close"></div></div>';
                 else if (t == 8)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">发布成功</p><p  style="color:#999">请到已发布活动列表查看</p></div><div class="win-close" "></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">发布成功</p><p  style="color:#999">请到已发布活动列表查看</p><div class="win-close" "></div></div>';
                 else if (t == 9)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
-                    cont = '<div class="win-box date-box"><div  id="wrapper" class="xiugai" ><ul class="huadonga" id="hours"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
-
+                    cont = '<div class="win-box date-box"><div  id="wrapper" class="xiugai" ><ul class="huadonga" id="scroller"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
                 else if (t == 11)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
                 else if (t == 12)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close" "></div>';
+                    cont = '<div class="win-box win-6" style="position: fixed;"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close" "></div>';
                 else if (t == 13)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中删除。</p></p></div><div class="win-close"></div>';
                 else if (t == 14)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核！<br/>请到未发布活动列表中删除。</p></p></div><div class="win-close"></div>';
                 $("body").css("padding-bottom", "0");
                 $("body").append('<div class="lazyout" id="lazyout"></div><div id="win_box">' + cont + '</div>');
-                myScroll = new IScroll('#wrapper', { mouseWheel: true ,click:true});
+                
                 var h = $(window).height() > $(document.body).height() ? $(window).height() : $(document.body).height();
                 $("#lazyout ").height(h);
                 var winH = ($(window).height() - $("#win_box .win-box").outerHeight()) / 2 + $(document).scrollTop() - 25;
-                // $(window).bind("touchmove", function (e) {
-                //     e.preventDefault();
-                // })
-                /* var myScroll;
-                 function loaded() {
-
-                 }
-                document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);*/
+                $(window).bind("touchmove", function (e) {
+                     e.preventDefault();
+                })
+                $('.xiugai').bind("touchmove", function (e) {
+                    e.stopPropagation();
+                })
                 $("#win_box .win-box").css("top", winH);
-                $("#win_box .win-close").css("top", winH + $("#win_box .win-box").outerHeight() + 50);
+                //$("#win_box .win-close").css("top", winH + $("#win_box .win-box").outerHeight() + 50);
                 $("#win_box .w-save,#win_box .win-close").click(function () {
                     popup.close();
                     if (callback != null)
                         callback();
                 })
+               // myScroll = new IScroll('#wrapper', { mouseWheel: true, click: true });
+                //$(".win-close").click(function () {
+                //    popup.close();
+                //    if (callback != null)
+                //        callback();
+                //})
             },
 
             close: function () {
