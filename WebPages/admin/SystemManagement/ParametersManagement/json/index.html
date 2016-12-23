@@ -161,6 +161,7 @@
 //  var guidBefore=json.guid;//后续删除
 //  linshi=guidBefore
     $("#toSaveLong").click(function(){
+    	console.log(888)
 //  document.getElementById("toSaveLong").addEventListener1('click',function(){
     	var aa=document.querySelector("textarea").value;	    	
     	aa=JSON.parse(aa);  
@@ -222,7 +223,7 @@
 //					alert("content不能为空")
 //				}else{
 					if(parent.queryBtnBol){
-						parent.$(".query_btn_div input").click();
+						parent.$(".query_btn").click();
 					}else{
 						parent.history.go(0);
 					}
@@ -245,7 +246,7 @@
 				}else if(JSON.parse(data.responseText).Message.length>2000){//针对guid被修改了，修改之后值为3090
 					layer.alert('保存失败，请不要修改guid或删除guid', {icon: 2});//					
 				}
-				console.log('插入失败')					
+				layer.alert('保存失败')					
 			}
 		})
 	}
