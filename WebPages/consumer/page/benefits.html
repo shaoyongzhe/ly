@@ -48,10 +48,11 @@
             background-size: 100% 60px;
             line-height: 35px;
             padding: 20px 20px 0 80px;
-            color: #fff;margin-top:-20px
+            color: #fff;
+            margin-top: -20px;
         }
 
-          .assetinfobj .asset_left {
+            .assetinfobj .asset_left {
                 width: calc(100% - 90px);
                 float: left;
                 height: 40px;
@@ -61,6 +62,7 @@
                 text-wrap: none;
                 text-overflow: ellipsis;
             }
+
             .assetinfobj .asset_right {
                 width: 90px;
                 float: left;
@@ -72,12 +74,22 @@
                 .assetinfobj .asset_right small {
                     font-size: 11px;
                 }
-            .assetinfobj .asset_money {position:absolute;margin:0;left:15px;color:#fff;width:60px;height:20px;line-height:20px;text-indent:4px;font-weight:bold;
-transform:rotate(-50deg);
--ms-transform:rotate(-50deg); /* Internet Explorer */
--moz-transform:rotate(-50deg); /* Firefox */
--webkit-transform:rotate(-50deg); /* Safari 和 Chrome */
--o-transform:rotate(-50deg); /* Opera */
+
+            .assetinfobj .asset_money {
+                position: absolute;
+                margin: 0;
+                left: 15px;
+                color: #fff;
+                width: 60px;
+                height: 20px;
+                line-height: 20px;
+                text-indent: 4px;
+                font-weight: bold;
+                transform: rotate(-50deg);
+                -ms-transform: rotate(-50deg); /* Internet Explorer */
+                -moz-transform: rotate(-50deg); /* Firefox */
+                -webkit-transform: rotate(-50deg); /* Safari 和 Chrome */
+                -o-transform: rotate(-50deg); /* Opera */
             }
     </style>
 </head>
@@ -95,7 +107,7 @@ transform:rotate(-50deg);
         <div class="clear"></div>
     </div>
 
- 
+
     <div class="assetinfobj">
         <a href="javascript:;" class="assetcontent">
             <p class="asset_money">20万</p>
@@ -118,5 +130,18 @@ transform:rotate(-50deg);
             </div>
         </a>
     </div>
+
+
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media">
+            <a href="MyCard.html" target="_blank" class="mui-navigate-right" style="height: 80px;padding-right: 13px;">
+                <img class="mui-pull-left" src="../../img/zhanweifu.png" style="height: 60px;max-width: 60px;margin-top: -1px;">
+                <div class="mui-media-body" style="padding-top: 7px;padding-left: 18px;">
+                    姓名
+                    <p class="mui-ellipsis" style="padding-top: 10px;">职位</p>
+                </div>
+            </a>
+        </li>
+    </ul>
 </body>
 </html>

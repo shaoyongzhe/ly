@@ -66,6 +66,16 @@
             left: 0 !important;
             margin-left: 0;
         }
+
+        .assetinfo {
+            width: 100%;
+            height: 40px;
+            background: url(/consumer/image/asset_consumer.png) no-repeat;
+            background-size: 100% 40px;
+            line-height: 40px;
+            padding: 0 15px 0 20px;
+            color: #fff;
+        }
     </style>
 </head>
 <body style="background:#fff;">
@@ -226,9 +236,15 @@
                                 + ' <li style="width:40%;border-right:none"><div style="margin-top:9px" class="btn_css ' + (item.verifylimit > 0 ? 'btn_css1' : ' btn_css2') + '" onclick="useticket(\'' + item.guid + '\',' + item.verifylimit + ')">'
                                 + (item.verifylimit > 0 ? '码上用' : item.state == 0 ? '还未生效' : item.state == 1 ? '来晚了,已抢光' : item.state == 2 ? '明日再来' : item.state == 3 ? '您已用完' : '码上用') + '</div> </li><div class="clear"></div>'
                                 + '</ul>'
-                                if (item.returnticket_id != null && item.returnticket_id != '') {
-                                    content += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
+                                //if (item.returnticket_id != null && item.returnticket_id != '') {
+                                //    content += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
+                                //}
+
+                                if (item.topiclist != undefined && item.topiclist.length > 0) {
+                                    content += " <div class=\"assetinfo\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
+                                    content += " <nobr>" + item.topiclist[0].topictitle + (item.topiclist.length > 1 ? '等活动' : '') + "</nobr> </div> <div class=\"asset_right\"><small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
                                 }
+
                                 content += '  <hr />  </div>'
                             }
                             content += '<div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; "><div class="more-md" style="border:none">'

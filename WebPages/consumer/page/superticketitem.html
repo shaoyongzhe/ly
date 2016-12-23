@@ -194,13 +194,13 @@
                 </li>
                 <div class="clear"></div>
             </ul>
-            <div class="assetinfo">
+            <div class="assetinfo" ms-if="vm.jsondata.topiclist.length>0">
                 <a href="javascript:;" class="assetcontent">
                     <div class="asset_left">
-                        <nobr>活动主题活动主题活动主题活动主题活动主题活动主题</nobr>
+                        <nobr>{{vm.jsondata.topiclist[0].topictitle}}{{vm.jsondata.topiclist.length>1?'等活动':''}}</nobr>
                     </div>
                     <div class="asset_right">
-                        <small>已参加</small>9999<small>人</small>
+                        <small>已参加</small>{{vm.jsondata.topiclist[0].headcount}}<small>人</small>
                     </div>
                 </a>
             </div>
