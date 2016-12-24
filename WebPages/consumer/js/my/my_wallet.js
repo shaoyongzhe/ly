@@ -67,7 +67,7 @@ var vm = avalon.define({
     categorychange: function (type) {
         vm.category = type
 
-        if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.alllist.array.length == 0) || (type == "expend" && vm.alllist.array.length == 0)) {
+        if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
             vm.getAssetFlow(1, null)
         }
     },

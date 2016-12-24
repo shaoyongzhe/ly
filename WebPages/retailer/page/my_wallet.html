@@ -29,22 +29,20 @@
         <section>
             <div class="WalletBalance">
                 <p>钱包余额</p>
-                <!-- 错误状态下H1标签 加个 on 类名即可出样式 -->
                 <h1>
                     ￥{{toNumner(Moneys.account.count)+toNumner(Moneys.retailer.count)}}
                     <!--<span>不可提现 ￥0</span>-->
                 </h1>
                 <div class="user_info clearfix">
-                    <!-- 错误状态下ul标签 加个 on 类名即可出样式 -->
                     <ul ms-attr-class="toNumner(Moneys.account.count)==0?'on':''">
-                        <li><h2>个人收入余额</h2></li>
+                        <li><h2>我的核销收入</h2></li>
                         <li><h3>￥{{toNumner(Moneys.account.count)}}</h3></li>
                         <!--<li><p>可提现 ￥{{toNumner(Moneys.account.count)}}</p></li>-->
                         <li><a href="javascript:void(0)">提现</a></li>
                     </ul>
                     <span class="info_bg"></span>
                     <ul ms-attr-class="toNumner(Moneys.retailer.count)==0?'on':''">
-                        <li><h2>个人收入余额</h2></li>
+                        <li><h2>自助核销收入</h2></li>
                         <li><h3>￥{{toNumner(Moneys.retailer.count)}}</h3></li>
                         <!--<li><p>可提现 ￥{{toNumner(Moneys.retailer.count)}}</p></li>-->
                         <li><a href="javascript:void(0)">提现</a></li>
