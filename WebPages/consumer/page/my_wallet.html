@@ -34,7 +34,7 @@
             <div class="WalletBalance">
                 <p>钱包余额</p>
                 <h1>￥{{Moneys.count}}</h1>
-                <a href="javascript:void(0)" ms-attr-class="{{Moneys.count==0?'on':''}}">提 现</a>
+                <a href="javascript:void(0)" ms-attr-class="{{Moneys.count==0?'on':''}}" ms-click="userwithdraw">提 现</a>
             </div>
             <div class="Wallet_nav mt46">
                 <p class="border_dashed mb15"></p>
@@ -46,13 +46,13 @@
                             <a href="javascript:void(0)">全部</a>
                             <p class="border_xiexian_r"></p>
                         </li>
-                        <li  ms-attr-class="box-flex {{category=='income'?'on':''}}"  ms-click="categorychange('income')">
+                        <li ms-attr-class="box-flex {{category=='income'?'on':''}}" ms-click="categorychange('income')">
                             <p class="border_tixing"></p>
                             <a href="javascript:void(0)">收入</a>
                             <p class="border_xiexian_l"></p>
                             <p class="border_xiexian_r"></p>
                         </li>
-                        <li ms-attr-class="box-flex {{category=='expend'?'on':''}}"  ms-click="categorychange('expend')">
+                        <li ms-attr-class="box-flex {{category=='expend'?'on':''}}" ms-click="categorychange('expend')">
                             <p class="border_tixing"></p>
                             <a href="javascript:void(0)">支出</a>
                             <p class="border_xiexian_l"></p>
@@ -60,7 +60,7 @@
                     </ul>
 
                     <div id="list_1" class="Wallet_sr " ms-if="category=='all'">
-                        <div ms-repeat="alllist.array"  data-repeat-rendered="jsondataReadered">
+                        <div ms-repeat="alllist.array" data-repeat-rendered="jsondataReadered">
                             <h1 ms-if="el.summaryperiod!=undefined"><span>本月</span> <b>收入￥{{el.recv}}</b><b>支出￥{{el.expend}}</b></h1>
                             <dl ms-if="el.summaryperiod==undefined" class="clearfix">
                                 <dt>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div id="list_2" class="Wallet_sr " ms-if="category=='income'">
-                        <div ms-repeat="incomelist.array"  data-repeat-rendered="jsondataReadered2">
+                        <div ms-repeat="incomelist.array" data-repeat-rendered="jsondataReadered2">
                             <h1 ms-if="el.summaryperiod!=undefined"><span>本月</span> <b>收入￥{{el.recv}}</b><b>支出￥{{el.expend}}</b></h1>
                             <dl ms-if="el.summaryperiod==undefined" class="clearfix">
                                 <dt>
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div id="list_3" class="Wallet_sr " ms-if="category=='expend'">
-                        <div ms-repeat="expendlist.array"  data-repeat-rendered="jsondataReadered3">
+                        <div ms-repeat="expendlist.array" data-repeat-rendered="jsondataReadered3">
                             <h1 ms-if="el.summaryperiod!=undefined"><span>本月</span> <b>收入￥{{el.recv}}</b><b>支出￥{{el.expend}}</b></h1>
                             <dl ms-if="el.summaryperiod==undefined" class="clearfix">
                                 <dt>
