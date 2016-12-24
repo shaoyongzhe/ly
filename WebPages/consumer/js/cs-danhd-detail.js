@@ -12,7 +12,7 @@ function shareactivities() {
             keyvalue = paraString[i].split("=");
             key = keyvalue[0];
             value = keyvalue[1];
-            ajaxdata[key] = value;
+            ajaxdata[key] = value; 
         }
     }
     $.ajax({
