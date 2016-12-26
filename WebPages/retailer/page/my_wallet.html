@@ -38,14 +38,14 @@
                         <li><h2>我的核销收入</h2></li>
                         <li><h3>￥{{toNumner(Moneys.account.count)}}</h3></li>
                         <!--<li><p>可提现 ￥{{toNumner(Moneys.account.count)}}</p></li>-->
-                        <li><a href="javascript:void(0)">提现</a></li>
+                        <li><a href="javascript:void(0)" ms-click="userwithdraw('retailer')">提现</a></li>
                     </ul>
                     <span class="info_bg"></span>
                     <ul ms-attr-class="toNumner(Moneys.retailer.count)==0?'on':''">
                         <li><h2>自助核销收入</h2></li>
                         <li><h3>￥{{toNumner(Moneys.retailer.count)}}</h3></li>
                         <!--<li><p>可提现 ￥{{toNumner(Moneys.retailer.count)}}</p></li>-->
-                        <li><a href="javascript:void(0)">提现</a></li>
+                        <li><a href="javascript:void(0)" ms-click="userwithdraw('account')">提现</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,12 +58,12 @@
                     <ul class="box ">
                         <li ms-attr-class="box-flex {{showType==0?'on':''}}" ms-click="budgetswitch(0)">
                             <p class="border_tixing"></p>
-                            <a class="" href="javascript:void(0)">个人收入明细</a>
+                            <a class="" href="javascript:void(0)">我的核销收入明细</a>
                             <p class="border_xiexian_r"></p>
                         </li>
                         <li ms-attr-class="box-flex {{showType==1?'on':''}}" ms-click="budgetswitch(1)">
                             <p class="border_tixing"></p>
-                            <a href="javascript:void(0)">公共收入明细 </a>
+                            <a href="javascript:void(0)">自助核销收入明细 </a>
                             <p class="border_xiexian_l"></p>
                         </li>
                     </ul>
@@ -74,7 +74,7 @@
                             <a ms-attr-class="{{individual.category=='expend'?'on':''}}" href="javascript:void(0)" ms-click="categoryChange('expend')">支出</a>
                         </p>
                         <div class="Wallet_sr ">
-                            <div ms-repeat="individual.array"  data-repeat-rendered="jsondataReadered">
+                            <div ms-repeat="individual.array" data-repeat-rendered="jsondataReadered">
                                 <h1 ms-if="el.summaryperiod!=undefined"><span>本月</span> <b>收入￥{{el.recv}}</b><b>支出￥{{el.expend}}</b></h1>
                                 <dl ms-if="el.summaryperiod==undefined" class="clearfix">
                                     <dt>
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="Wallet_fail" ms-if="individual.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无个人收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无我的核销收入流水记录哦！</span></p>
                         </div>
                     </div>
                     <div id="list_2" ms-if="showType==1">
@@ -101,7 +101,7 @@
                         </p>
                         <div>
                             <div class="Wallet_sr ">
-                                <div ms-repeat="retail.array"  data-repeat-rendered="jsondataReadered2">
+                                <div ms-repeat="retail.array" data-repeat-rendered="jsondataReadered2">
                                     <h1 ms-if="el.summaryperiod!=undefined"><span>本月</span> <b>收入￥{{el.recv}}</b><b>支出￥{{el.expend}}</b></h1>
                                     <dl ms-if="el.summaryperiod==undefined" class="clearfix">
                                         <dt>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <div class="Wallet_fail" ms-if="retail.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无公共收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无自助核销收入流水记录哦！</span></p>
                         </div>
                     </div>
                 </div>

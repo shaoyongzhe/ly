@@ -200,6 +200,41 @@ var vm = avalon.define({
         }
         if (tmdropme2 != null)
             tmdropme2.resetload();
+    },
+    userwithdraw: function (type) {//用户提现
+        // if (vm.Moneys.count > 0)
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            data: { type: type },
+            url: '/webapi/retailer/mine/retailer/withdraw',
+            success: function (json) {
+                common.loading.hide();
+                json = json || {};   /* 统一加这句话 */
+                if (json.error) {
+                    toasterextend.showtips(json.error, "error");
+                    return;
+                }
+                if (json.user_notification != undefined) {
+                    toasterextend.showtips(json.user_notification, "info");
+                    return;
+                }
+
+                ///提现成功，重新加载余额记录
+                vm.getMoney()
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                common.loading.hide();//隐藏转圈动画
+                var errormsg = "访问异常";
+                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                    var json = JSON.parse(XMLHttpRequest.responseText);
+                    errormsg = JSON.parse(json.Message).error;
+                    if (errormsg == undefined || errormsg == '')
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                }
+                toasterextend.showtips(errormsg, "error");
+            }
+        });
     }
 })
 
