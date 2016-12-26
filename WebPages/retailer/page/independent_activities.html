@@ -21,7 +21,7 @@
             width: 100%;
             overflow: hidden;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+			-webkit-overflow-scrolling: touch;
         }
 
         input[type='date'], input[type='text'], input[type='submit'], input[type='button'], input[type='number'], select, select option, textarea, button {
@@ -103,7 +103,7 @@
                 else if (t == 9)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
-                    cont = '<div class="win-box date-box"><div class="xiugai" ><ul class="huadonga" id="scroller"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
+                    cont = '<div class="win-box date-box" style="position:fixed;"><div class="xiugai" ><ul class="huadonga"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
                 else if (t == 11)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
                 else if (t == 12)
@@ -115,18 +115,19 @@
                 $("body").css("padding-bottom", "0");
                 $('#lazyout').remove();
                 $('#win_box').remove();
-                $("body").append('<div class="lazyout" id="lazyout"></div><div id="win_box">' + cont + '</div>');
+                $("body").append('<div class="lazyout" id="lazyout" style="position:fixed;"></div><div id="win_box">' + cont + '</div>');
 
                 var h = $(window).height() > $(document.body).height() ? $(window).height() : $(document.body).height();
-                $("#lazyout ").height(h);
-                var winH = ($(window).height() - $("#win_box .win-box").outerHeight()) / 2 + $(document).scrollTop() - 25;
+                //$("#lazyout ").height(h);
+               // var winH = ($(window).height() - $("#win_box .win-box").outerHeight()) / 2 + $(document).scrollTop() - 25;
                 $(window).bind("touchmove", function (e) {
                      e.preventDefault();
                 })
                 $('.xiugai').bind("touchmove", function (e) {
                     e.stopPropagation();
                 })
-                $("#win_box .win-box").css("top", winH);
+                $("body").css("overflow", "hidden");
+                //$("#win_box .win-box").css("top", winH);
                 //$("#win_box .win-close").css("top", winH + $("#win_box .win-box").outerHeight() + 50);
                 $("#win_box .w-save,#win_box .win-close").click(function () {
                     popup.close();
@@ -143,6 +144,7 @@
 
             close: function () {
                 $("body").css("padding-bottom", "60px")
+                $("body").css("overflow", "visible")
                 $("#lazyout,#win_box").remove();
                 $(window).unbind("touchmove");
             }
@@ -339,12 +341,13 @@
                 return "";
             }
             var todaysDate = new Date();
-            $("input[name=begintime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + todaysDate.getDate());
+             $("input[name=begintime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + todaysDate.getDate());
             // $('.date').pickadate({ min: Date.now });
             $('input[name=begintime]').pickadate({ min: Date.now });
             var todaysDate = new Date();
-            $("input[name=endtime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + todaysDate.getDate());
-            $("input[name=endtime]").pickadate({
+            $("input[name=endtime]").val(todaysDate.getFullYear() + "-" + (todaysDate.getMonth() + 1) + "-" + (todaysDate.getDate() + 1));
+
+           $("input[name=endtime]").pickadate({
                 min: Date.now,
                 onSet: function(thingSet) {
                     // picker.set('highlight', '2016-10-28', { format: 'yyyy-mm-dd' });
@@ -356,16 +359,18 @@
                 }
             });
 
+           /*
             //if($("input[name=begintime]").val()==""){
                 var myDate = new Date();
                 var today = myDate.toLocaleDateString();
                 $("input[name=begintime]").val(today.replace(/\//g, '-'));
             //}
 
+
             //if($("input[name=endtime]").val()==""){
                 $("input[name=endtime]").val(new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-'));
             //}
-
+            */
             /*else {
             }*/
 
@@ -645,7 +650,7 @@
 
 
                 content += '<tr><th>活动时间：</th><td><span class="beginTime">' + item.begintime + '</span> 至 <span class="endTime">' + item.endtime + '</span></td></tr>'
-                         + '<tr><th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</th><td valign="top"><span class="bz">' + item.remark + '</span></td></tr>';
+                         + '<tr><th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</th><td valign="top"><span class="bz" style="    display: block;   word-wrap: break-word;    word-break: break-all;">' + item.remark + '</span></td></tr>';
 
                 if ($.trim(item.state) == "未发布") {
                     content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' data-state='+item.state+'><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)" id="zt_xiugai"><label class="op-update" >修改</label></li>';
