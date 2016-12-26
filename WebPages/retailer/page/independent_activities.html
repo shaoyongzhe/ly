@@ -23,8 +23,9 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
-        input[type='date'],input[type='text'],input[type='submit'],input[type='button'],input[type='number'],select,select option,textarea,button{
-            -webkit-appearance:none;
+
+        input[type='date'], input[type='text'], input[type='submit'], input[type='button'], input[type='number'], select, select option, textarea, button {
+            -webkit-appearance: none;
         }
     </style>
 </head>
@@ -112,8 +113,10 @@
                 else if (t == 14)
                     cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核！<br/>请到未发布活动列表中删除。</p></p></div><div class="win-close"></div>';
                 $("body").css("padding-bottom", "0");
+                $('#lazyout').remove();
+                $('#win_box').remove();
                 $("body").append('<div class="lazyout" id="lazyout"></div><div id="win_box">' + cont + '</div>');
-                
+
                 var h = $(window).height() > $(document.body).height() ? $(window).height() : $(document.body).height();
                 $("#lazyout ").height(h);
                 var winH = ($(window).height() - $("#win_box .win-box").outerHeight()) / 2 + $(document).scrollTop() - 25;
@@ -645,7 +648,7 @@
                          + '<tr><th valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：</th><td valign="top"><span class="bz">' + item.remark + '</span></td></tr>';
 
                 if ($.trim(item.state) == "未发布") {
-                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' data-state='+item.state+'><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)"><label class="op-update" >修改</label></li>';
+                    content += '</table><ul class="op-pnl" data-code=' + item.activityid + ' data-state='+item.state+'><li onclick="activity.del(this)"><label class="op-del">删除</label></li><li onclick="activity.edit(this)" id="zt_xiugai"><label class="op-update" >修改</label></li>';
                     if (item.reason != null && $.trim(item.reason).length > 0) {
                         content += '<li onclick="activity.updateState(\'up\',this)">';
                         content += '<label class="op-release">发布</label></li></ul><div class="clear"></div>';
@@ -1002,6 +1005,8 @@
 
             // 编辑
             edit: function (obj) {
+                $('#zt_xiugai').removeAttr("onclick");
+                console.log(1);
                 if ($(obj).closest(".relitem").next().is(".create")) {
                     $(obj).closest(".relitem").next().remove();
                     return;
