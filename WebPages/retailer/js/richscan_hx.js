@@ -1,10 +1,36 @@
 wx.ready(function () {
     //  alert("开始扫一扫")
-    vm.scanwx()
+    //vm.scanwx()
 });
 
 avalon.ready(function () {
+    /*var count=10;
+    if(count>2){
+        alert("您存在刷单嫌疑")
+        var _dv = document.getElementById("list-hd");
+        _dv.style.display = "block";
+        var _dd = document.getElementById("list-ft");
+        _dd.style.display = "block";
+        var flag = 1;
+        _dv.onclick = function () {
+            if (flag == 1) {
+                _dd.style.display = "none";
+                flag = 0;
+            }else{
+                _dd.style.display = "block";
+                flag=1;
+            }
+            
+        }
+    }else{
+        alert("vmm")
+    }*/
+    $(".upp img").click(function () {
+        $("#list").hide();
+        $(".f-list").show()
+    })
     avalon.scan(document.body, vm)
+   
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
     // vm.cardkey = "H4sIAAAAAAAEAEWLQQrDIBBF7zLrLtTJaOxlZKKTItQEmjEQQu_ekE3_6j14_wTOWveqR6oqLb16LfAE5pEizxMHssMsmX1xlgI78QZLnOABuiq_l96uGi_N67L1Jp90_63DgXwYo_mTkXsYDRJ8f-EbdWN5AAAA"
     //vm.GetTicketInfo(vm.cardkey)

@@ -325,9 +325,67 @@
             -ms-transform: rotate(270deg);
             transform: rotate(270deg);
         }
+        #list{
+            position:absolute;height:50%;width:100%;
+        }
+        .punish{
+            position:absolute;width:20%;left:8%;top:7%
+        }
+        .upp{
+            width:8%;height:8%;position:absolute;right:6%;top:5%
+        }
+        .days-img{
+            width:100%;height:40%;
+        }
+        .days-img img{
+            width:20%;margin-left:40%;margin-top:5%
+        }
+        .stop{
+            width:100%;height:12%;font-size:18px;line-height:40px
+        }
+        .stop-inn{
+            width:40%;height:100%;margin-left:34%
+        }
+        .stop-inn span{
+            margin-left:9%;font-size:18px;line-height:40px
+        }
+        .time-down{
+            width:100%;height:20%;margin-top:3%
+        }
+        .time-down{
+            text-align:center;line-height:26px
+        }
+        .how{
+            width:100%;height:10%;margin-top:3%;text-align:center;font-family:blue;line-height:26px;font-size:18px;
+        }
+        .how a{
+            text-decoration:underline
+        }
+        .question{
+            width:100%;height:10%;text-align:center;line-height:26px
+        }
+        .f-list{
+            width:100%;height:5%;background:#ff9800;position:absolute;display:none
+        }
+        .f-list img{
+            width:8%;height:100%;margin-left:2%
+        }
     </style>
 </head>
 <body style="background:#fff" ms-controller="richscan_hx" class="ms-controller">
+    <div class="f-list"><img src="../image/trumper.jpg" /><p>您的店铺正在违规处罚中，暂停校核......</p></div>
+    <div id="list">
+        <div class="punish">处罚中</div>
+        <div class="upp"><img src="../image/upp.jpg" /></div>
+        <div class="days-img"><img src="../image/punish2.png" /></div>
+        <div class="stop"><div class="stop-inn">暂停核销<span>1天</span></div></div>
+        <div class="time-down">
+            <p>处罚结束倒计时</p>
+            <p>00:00:00</p>
+        </div>
+        <div class="how"><a>如何做到不违规？</a></div>
+        <div class="question">如有疑问请联系客服 400 800 900</div>
+    </div>
     <div id="page" style="height:100%;" ms-if="vm.pageStep!=1">
         <div id="page_top">
             <img ms-attr-src="vm.imgurl" style="width:60px; " />
