@@ -369,7 +369,7 @@ table {
 
 /**弹出层样式**/
 .lazyout {
-    position:absolute;
+    position:fixed;
     left:0;
     top:0;
     z-index:99998;
@@ -379,17 +379,18 @@ table {
     height:100%;
 }
 .win-box {
-    position:absolute;
-    left:5%;
-    top:200px;
-    width:90%;
-    box-sizing:border-box;
-    z-index:99999;
-    padding-top:25px;
-    text-align:center;
-    background:#fff;
-    border-radius:6px;
-    font-size:17px;
+    position: fixed;
+    left: 5%;
+    top: 50%;
+    width: 90%;
+    box-sizing: border-box;
+    z-index: 99999;
+    padding-top: 25px;
+    text-align: center;
+    background: #fff;
+    border-radius: 6px;
+    font-size: 17px;
+    margin-top: -86px;
 }
 .win-box input[type=button]{
     width:50%;

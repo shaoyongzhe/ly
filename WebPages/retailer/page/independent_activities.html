@@ -21,7 +21,6 @@
             width: 100%;
             overflow: hidden;
             overflow-y: auto;
-			-webkit-overflow-scrolling: touch;
         }
 
         input[type='date'], input[type='text'], input[type='submit'], input[type='button'], input[type='number'], select, select option, textarea, button {
@@ -58,6 +57,10 @@
     <script>
         $(function () {
             activity.list();
+            $(document).on('input','#zt_text',function(){
+              var b = $(this).val().replace(/[ ]/g,"");
+              $(this).val(b);
+            })
         });
         var cssObj = {
             tabChange: function (t, obj) {
@@ -134,6 +137,8 @@
                     if (callback != null)
                         callback();
                 })
+
+
                // myScroll = new IScroll('#wrapper', { mouseWheel: true, click: true });
                 //$(".win-close").click(function () {
                 //    popup.close();
@@ -374,7 +379,7 @@
             /*else {
             }*/
 
-            if($(".date-hour").val()==""){
+            if($(".date-hour").val()=="" || $(".date-hour").val()=="NaN"){
                 $(".date-hour").val("00");
             }
 
@@ -733,6 +738,7 @@
 
             //新增
             add: function (obj, t) {
+                console.log(obj+t)
                 var createObj = $(obj).closest(".create");
                 var relType = parseInt(this.getParam(createObj, "reltype"));
                 var hour = this.getParam(createObj, "datehour");
@@ -1343,7 +1349,7 @@
             + '            <th valign="top">商品名称</th>'
             + '            <td>'
             + '                 <input type="hidden" name="retailerid" value="" />'
-            + '                 <textarea class="g-name" name="goodsname" maxlength="30" rows="3" placeholder="请输入商品名称"></textarea>'
+            + '                 <textarea class="g-name" id="zt_text" name="goodsname" maxlength="30" rows="3" placeholder="请输入商品名称"></textarea>'
             + '                 <label class="g-name-limit">0/30</label>'
             + '            </td>'
             + '        </tr>'
