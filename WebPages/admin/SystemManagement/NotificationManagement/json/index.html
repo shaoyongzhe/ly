@@ -134,8 +134,11 @@
             var opType = parent.$('#opType').val();
             //alert(opType);
             if (opType == "notify") {
+                //是否是默认模板
+                prepareData["isdefault"] = parent.$('#isDefault').val();
+                //console.log(parent.$('#isDefault').val());
                 prepareData['content'] = JSON.stringify(prepareData.content);
-                console.log(prepareData);
+                //console.log(prepareData);
                 parent.layer.msg('保存中', { shade: 0.3 })
                 $.ajax({
                     type: 'put',
