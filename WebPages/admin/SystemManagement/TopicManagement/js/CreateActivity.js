@@ -1594,7 +1594,7 @@ $('.saveToDb, .shenhe').click(function(){
 		});
 
 
-		return
+		// return
 
 	}
 	
@@ -1961,25 +1961,35 @@ $('.saveToDb, .shenhe').click(function(){
     if($(this).text() == "提交审核"){
 
 		var saveurl = '/webapi/ipaloma/topic';
-		_ajax("post", saveurl, JSON.stringify(data), '保存', function (returnedData){
-
-			if(!returnedData.error){
-				layer.msg('创建成功');
-				console.log(returnedData);
-			} else {
-			 	layer.msg(returnedData.error);
-			}
-
-		});
+		$.ajax({
+	        type: "post",
+	        url: saveurl,
+	        dataType: "json",
+	        data: JSON.stringify(data),
+	        contentType: "application/json; charset=utf-8",
+			/*beforeSend: function (x) {
+	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
+	        },*/
+	        complete: function () {},
+	        timeout: function () {},
+	        success: function (json) {
+	            if(!returnedData.error){
+					layer.msg('创建成功');
+					console.log(returnedData);
+				} else {
+				 	layer.msg(returnedData.error);
+				}
+	        },
+	        error: function () {
+	            console.warn($(this).text() + " error");
+	        }
+    });
+		
 
     } else {
     	layer.msg('数据已保存')
     }
-
-	// return;
-
 });
-
 
 function _ajax(type, url, data, tip, success) {
     $.ajax({
@@ -1987,7 +1997,6 @@ function _ajax(type, url, data, tip, success) {
         url: url,
         dataType: "json",
         data: data,
-        beforeSend: function () {},
         complete: function () {},
         timeout: function () {},
         success: function (json) {
