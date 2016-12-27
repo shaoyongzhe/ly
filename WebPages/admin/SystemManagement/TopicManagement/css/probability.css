@@ -7,7 +7,7 @@
 
 .setProbability.content{
 	/*margin : auto;*/
-	width: 960px;
+	/*width: 960px;*/
 	/*height: 930px;
 	position: absolute;  
     top: 0; left: 0; bottom: 0; right: 0; 
@@ -29,7 +29,7 @@
 }
 
 .setProbability .select-wrap{
-	width: 150px;
+	/*width: 150px;*/
     /*line-height: 30px;*/
 	border-radius: 2px;
     border: 1px solid #e4e4e4;
@@ -113,23 +113,32 @@
 }
 .setProbability .coordinate .coordinate_images{
 	margin-left: 120px;
+    /*width: 800px;*/
+    /* background: antiquewhite; */
+    overflow-x: auto;
+    padding-bottom: 100px;
 }
 
 .setProbability .coordinate .coordinate_images img{
 	width: 94%;
 }
 
-.setProbability .number_doller{
+.layer.setProbability{
+	width: 1270px;
+}
+
+/* .setProbability .number_doller{
 	width: 1000px;
 	height:16px;
-	/* background-color: red; */
-}
+	background-color: red;
+} */
 .setProbability .number_doller1{
 	width: 1000px;
 	height:16px;
 	/* background-color: red; */
 }
-.setProbability .number_doller span{
+
+/* .setProbability .number_doller span{
 	margin-left:40px;
 	position: relative;
 	left:-59px;
@@ -137,8 +146,7 @@
 	color: #ff6032;
 	font-weight: bold;
 	font-family:'微软雅黑';
-
-}
+} */
 
 .setProbability .number_doller1 span{
     margin-left: 18px;
@@ -148,24 +156,119 @@
     color: #ff6032;
 }
 
-.setProbability .Probability_value{
-	width: 870px;
-	height:46px;
-	/* background-color: red; */
+
+
+
+
+
+
+
+
+
+
+ul.number_doller:before {
+    content: '';
+    width: 2px;
+    height: 10px;
+    background: #ccc;
+    position: absolute;
+    bottom: -6px;
 }
+
+ul.number_doller:after {
+    content: '';
+    width: 2px;
+    height: 10px;
+    background: #ccc;
+    position: absolute;
+    bottom: -6px;
+    right: 0;
+}
+
+.setProbability ul.number_doller{
+    display: inline-block;
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 15px;
+	position: relative;
+	/*width: 1150px;*/
+}
+
+.setProbability ul.number_doller li{
+    display: inline-block;
+    /*background: antiquewhite;*/
+    width: 100px;
+    text-align: center;
+	position: relative;
+}
+
+.setProbability ul.number_doller li.last{
+	margin-right: 0;
+}
+
+/*.setProbability ul.number_doller li ~ li{
+}*/
+
+.setProbability ul.number_doller li i{
+    width: 1px;
+    height: 10px;
+    background: #ccc;
+    position: absolute;
+    left: 50px;
+    bottom: -15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.setProbability .Probability_value{
+	/*width: 870px;*/
+	/*height:46px;*/
+	/* background-color: red; */
+	margin-left: 80px;
+}
+
+.setProbability .Probability_value input{
+	width: 38px;
+	height: 17px;
+	margin-top: 50px;
+	/*margin-left:37px;
+	right:8px;
+	position: relative;*/
+}
+
+
+
+
+.setProbability .Probability_value .input_a{
+	float: left;
+    width: 42px;
+    /* margin-left: 86px; */
+    /* height: 17px; */
+    height: 88px;
+    background: antiquewhite;
+    background: url(../img/glBottom.png) no-repeat 15px 15px;
+    margin-right: 26.5px;
+}
+
+.setProbability .Probability_value .input_a + .input_a{
+	margin-left: 36px;
+}
+
 
 .setProbability .Probability_value_two{
 	width: 870px;
 	height:46px;
 	margin-top:-15px;
 	/* background-color: red; */
-}
-.setProbability .Probability_value input{
-	width: 38px;
-	height: 17px;
-	/*margin-left:37px;
-	right:8px;
-	position: relative;*/
 }
 .setProbability .Probability_value_two input{
 	width: 38px;
@@ -174,21 +277,6 @@
 	right:8px;
 	position: relative;*/
 }
-
-.setProbability .Probability_value .input_a{
-	float:left;
-	width: 42px;
-	margin-left: 26px;
-    /*height: 17px;*/
-    /*margin-left: 36px;
-    right: 34px;
-    position: relative;*/
-}
-
-.setProbability .Probability_value .input_a + .input_a{
-	margin-left: 36px;
-}
-
 .setProbability .Probability_value_two .input_a{
 	float: left;
     width: 42px;
@@ -198,12 +286,14 @@
     /* position: relative; */
     /* background: red; */
 }
+
 .setProbability .input_a span{
 	/*position: relative;
 	right: -28px;
 	top:8px;*/
 	color:#979494;
 	font-size: 14px;
+	margin-top: 6px;
 }
 
 .setProbability .Notes{

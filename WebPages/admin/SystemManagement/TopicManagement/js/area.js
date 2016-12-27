@@ -92,7 +92,7 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 	
 	    $('.Select_province li select').empty();
 		// $('.Select_province').parent().append("<div class='layer-wait'>");
-		var url = '/webapi/ipaloma/district/charge?district_type=province';
+		var url = '/webapi/ipaloma/topic/district/charge?district_type=province';
 		_ajax("get", url, {}, '省负责人信息', function (dataprov){
 			// $('.layer-wait').remove();
 			// c(dataprov);
@@ -259,7 +259,7 @@ function dataLoad() {
 			// debugger
 			// if($('.Select_province1 select').first().val() == null){
 
-			var url = '/webapi/ipaloma/district/charge?district_type=city&province=' + shengText;
+			var url = '/webapi/ipaloma/topic/district/charge?district_type=city&province=' + shengText;
 			_ajax("get", url, {}, '市负责人信息', function (datacity){
 				// $('.layer-wait').remove();
 				// debugger

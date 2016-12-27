@@ -388,13 +388,13 @@ $('.section3').on('click','.setgailv.on',function(){
 	}
 
 	var btfz = $(this).closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
-	$('.value_curve .number_doller i').text(btfz);
+	$('.value_curve .number_doller em').text(btfz);
 
 	layer.open({
 
 		type: 1,
 		title: '设置概率',
-		area: ['80%',"55%"],
+		area: ['1320px',"55%"],
 		maxmin: true,
 		content: $('.layer.setProbability'),
 
@@ -403,7 +403,7 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	var each = (fwmax - fwmin)/count;
 	for (var i=0; i<count+1; i++) {
-	    $('.layer.setProbability .number_doller span b').eq(i).text((fwmin + each * i).toFixed(1));
+	    $('.layer.setProbability .number_doller li b').eq(i).text((fwmin + each * i).toFixed(1));
 	};
 
 });
@@ -1369,7 +1369,6 @@ $('.saveToDb, .shenhe').click(function(){
 							// _ths.find('.selected').focus();
 							finished = false;
 							return false;
-
 						}
 
 						if(_ths.find('.select-wrap.acSe8 .selected').text() == "介于"){
