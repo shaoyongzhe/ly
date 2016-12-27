@@ -547,8 +547,11 @@
                             noReleaseHtml += activity.getRelHtml(item);
                             noReleaseCount += 1;
                         }
-                        else
-                        {
+                    });
+                    $.each(json.activities, function (i, item) {
+                        if ($.trim(item.state) == "未发布" || $.trim(item.state) == "审核失败" || $.trim(item.state) == "下架") {
+                        }
+                        else {
                             releaseHtml += activity.getRelHtml(item);
                             releaseCount += 1;
                         }
@@ -934,6 +937,7 @@
                                 dataForm["giftcount"] = this.getParam(createObj, "giftcount");
                             }
                         }
+                        dataForm.endtime += " " + hour + ":00:00";
                     }
 
                 }
@@ -959,6 +963,7 @@
                             toasterextend.showtips("请输入优惠价", "error");
                             return;
                         }
+                        dataForm.endtime += " " + hour + ":00:00";
                     }
                     else
                     {
