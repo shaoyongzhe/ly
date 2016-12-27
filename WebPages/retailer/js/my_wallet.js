@@ -3,7 +3,7 @@
     //    $('.Wallet_list ul li').removeClass('on');
     //    $(this).addClass('on');
     //})
-
+    writeOff()
     vm.getMoney()
 
     vm.getAssetFlow(1, null)

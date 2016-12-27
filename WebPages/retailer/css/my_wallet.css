@@ -1,6 +1,7 @@
 .wrap{
   width:6.4rem;
   margin: 0 auto;
+  z-index:0
 }
 .mt46{
   margin-top: .46rem;
@@ -287,4 +288,52 @@
   color: #999999;
   margin-top: .32rem;
   padding-bottom: .3rem;
+}
+#list{
+    position:absolute;height:50%;width:100%;display:none;background:#fff;z-index:1000
+}
+.punish{
+    position:absolute;width:20%;left:8%;top:7%
+}
+.upp{
+    width:8%;height:8%;position:absolute;right:6%;top:5%
+}
+.days-img{
+    width:100%;height:40%;
+}
+.days-img img{
+    width:20%;margin-left:40%;margin-top:5%
+}
+.stop{
+    width:100%;height:12%;font-size:18px;line-height:40px;text-align:center
+}
+.stop span{
+    color:#ff7e00;
+}
+.time-down{
+    width:100%;height:15%;margin-top:3%
+}
+.time-down{
+    text-align:center;line-height:26px
+}
+.how{
+    width:100%;height:10%;margin-top:3%;text-align:center;font-family:blue;line-height:26px;font-size:18px;
+}
+.how a{
+    text-decoration:underline
+}
+.question{
+    width:100%;height:10%;text-align:center;line-height:26px
+}
+.f-list{
+    width:100%;height:5%;background:#ff9800;position:absolute;display:none
+}
+.f-list-img1{
+    width:8%;height:100%;margin-left:2%;float:left
+}
+.f-list p{
+    float:left;height:100%;line-height:30px;margin-left:2%
+}
+.f-list-img2{
+    width:8%;height:82%;float:right;margin-right:1%;margin-top:0.5%
 }
