@@ -1,4 +1,4 @@
-﻿
+
 avalon.ready(function () {
     vm.getMyInfo()
 
@@ -119,7 +119,7 @@ var vm = avalon.define({
                 if (json.error) {
                     toasterextend.showtips(json.error, "error");
                     return;
-                }
+    }
                 if (json.user_notification != undefined) {
                     toasterextend.showtips(json.user_notification, "info");
                     return;
