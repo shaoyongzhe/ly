@@ -120,7 +120,6 @@ function acAdA() {
 
 
 acAdB();
-
 function acAdB() {
 	$("body").on("click", ".addSub2 .acAd1", function(e) {
 		if ($(".addSub2").length <= 1) {
@@ -128,36 +127,33 @@ function acAdB() {
 		} else {
 			$(this).closest(".addSub2").remove();
 			if ($(".addSub2").length <= 1) {
-				$(".addSub2 .acAd1").css({
-					"visibility": "hidden",
-					"cursor": "auto"
-				});
+				$(".addSub2 .acAd1").css({"visibility": "hidden"});
 			}
 		}
 		$(".addSub2").last().find(".acAd2").removeClass("hi"); //让最后一个控件显示加号			
 	})
 
 	$("body").on("click", ".addSub2 .acAd2", function(e) {
-		$(".addSub2 .acAd1").css({
-			"visibility": "visible",
-			"cursor": "pointer"
-		});
+		// debugger
+
+		$(".addSub2 .acAd1").css({"visibility": "visible"});
 		$(".chenlong02").append(addsub2HTML);
+
 		$(this).addClass("hi");
 		if ($(".addSub2:last").find(".addSub3").length > 1) {
 			$(".addSub2:last").find(".addSub3").not(":first").remove();
 			$('.acAd4:last').removeClass('hi');
 		}
-		$('.red').last().css({
-			"visibility": "hidden"
-		});
+
+		$('.red').last().css({"visibility": "hidden"});
 		$(".addSub2").last().find(".acAd2").removeClass("hi");
+
 	});
-	$(".addSub3:last .acAd3").css({
-		"visibility": "hidden",
-		"cursor": "auto"
-	});
+
+	$(".addSub3:last .acAd3").css({"visibility": "hidden"});
 }
+
+
 
 
 acAdC();
@@ -614,6 +610,6 @@ $.ajax({
 		addsub5HTML = $(".addSub5").get(0).outerHTML;
 	},
 	error: function() {
-		console.log("控件 error");
+		console.warn("控件 error");
 	}
 });

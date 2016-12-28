@@ -157,16 +157,6 @@ function previewImage(file) {
 }*/
 
 
-var fzrurl = '/webapi/ipaloma/topic/charge';
-_ajax("get", fzrurl, {}, '活动负责人', function (fzr){
-
-	// $('.fuzeren .select').empty();
-	$(fzr.content).each(function(i,item){
-		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.name +'</li>');
-	});
-
-});
-
 $('body').on("click",".select-wrap",function(e){
 	// $('.select-wrap').click(function(e){
 	// debugger;
@@ -372,7 +362,8 @@ $('.yaook').click(function(){
 var fwmin;
 var fwmax;
 var count = 10;
-$('body').on('click','.setgailv.on',function(){
+// $('.section3').off('click');
+$('.section3').on('click','.setgailv.on',function(){
 	
 	$('.setProbability .yaoyiyaogailv').remove();
 
@@ -396,12 +387,14 @@ $('body').on('click','.setgailv.on',function(){
 		$('.setProbability').append('<i class="yaoyiyaogailv"></i>');
 	}
 
+	var btfz = $(this).closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
+	$('.value_curve .number_doller em').text(btfz);
 
 	layer.open({
 
 		type: 1,
 		title: '设置概率',
-		area: ['80%',"55%"],
+		area: ['1320px',"55%"],
 		maxmin: true,
 		content: $('.layer.setProbability'),
 
@@ -410,7 +403,7 @@ $('body').on('click','.setgailv.on',function(){
 
 	var each = (fwmax - fwmin)/count;
 	for (var i=0; i<count+1; i++) {
-	    $('.layer.setProbability .number_doller span b').eq(i).text((fwmin + each * i).toFixed(1));
+	    $('.layer.setProbability .number_doller li b').eq(i).text((fwmin + each * i).toFixed(1));
 	};
 
 });
@@ -494,9 +487,9 @@ $('.time').click(function(e){
 		format: 'YYYY-MM-DD hh:mm:ss',
 		// format: 'YYYY-MM-DD',
 		istime: true,
-		choose: function(dates){
+		/*choose: function(dates){
 			layer.msg(dates);
-		},
+		},*/
 	});
 
 });
@@ -765,7 +758,6 @@ $("body").on("click",".option",function(e){
 			$(ul).find('li:contains(粉丝留存率)').show();
 		}
 
-
 		if(text == _this.parent().prev().text()){
 			_this.parent().hide().prev().text(text);
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
@@ -791,14 +783,23 @@ $("body").on("click",".option",function(e){
 			$(this).parents(".addSub2").find(".selectWrap1").eq(index+1).removeClass("hi");
 			$(this).parents(".addSub2").find(".selectWrap1").eq(index+1).addClass("-hi");
 			//结束*********************************************************************************************
-		
+			
+
+			if(text != "分销商"){
+				_this.closest('.addSub2').find('.selectWrap1.-hi input').attr('disabled',true);
+			} else {
+				_this.closest('.addSub2').find('.selectWrap1.-hi input').attr('disabled',false);
+			}
+
 		}
+
 		return;
+
 	}
 
 	// 条件类型
 	if($(this).closest('.condition-type').length==1){
-		// alert('条件类型')
+		// alert('条件类型');
 		// debugger;
 		if(text == _this.parent().prev().text()){
 			_this.parent().hide().prev().text(text);
@@ -1205,16 +1206,397 @@ function yfz(){
 	}
 }
 
-
-
-
 $('.areaSave').click(function(){
 	$('.area-list .save').click();
+});
+
+
+
+var fzrurl = '/webapi/ipaloma/topic/charge';
+_ajax("get", fzrurl, {}, '活动负责人', function (fzr){
+
+	// $('.fuzeren .select').empty();
+	$(fzr.content).each(function(i,item){
+		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.name +'</li>');
+	});
+
+	$('.fuzeren .selected').first().text($('.fuzeren .select').first().find('li').first().text())
+	$('.fuzeren .selected').last().text($('.fuzeren .select').last().find('li').last().text())
+
 });
 
 // 拼数据
 var data = {};
 $('.saveToDb, .shenhe').click(function(){
+// activitytitle
+// quhao
+// tel
+// begintime
+// endtime
+// earliestjointime
+// lastestjointime
+// description
+// fuzeren
+	// debugger
+	if($(this).text() ==  "提交审核"){
+		if($('.section1 .activitytitle').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先填写活动主题', $('.activitytitle'));
+			$('.activitytitle').focus();
+			return;
+		}
+		if($('.section1 .quhao').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先填写区号', $('.quhao'));
+			$('.quhao').focus();
+			return;
+		}
+		if($('.section1 .tel').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先填写电话', $('.tel'));
+			$('.tel').focus();
+			return;
+		}
+		if($('.section1 .begintime').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先完善活动开始时间', $('.begintime'));
+			$('.begintime').focus();
+			return;
+		}
+		if($('.section1 .endtime').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先完善活动结束时间', $('.endtime'));
+			$('.endtime').focus();
+			return;
+		}
+		if($('.section1 .earliestjointime').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先完善会员参与开始时间', $('.earliestjointime'));
+			$('.earliestjointime').focus();
+			return;
+		}
+		if($('.section1 .lastestjointime').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先完善会员参与结束时间', $('.lastestjointime'));
+			$('.lastestjointime').focus();
+			return;
+		}
+		if($('.section1 #shenbao').val() == ""){
+			$("nav span").eq(0).click();
+			layer.tips('请先填写申报说明', $('#shenbao'));
+			$('#shenbao').focus();
+			return;
+		}
+
+		// debugger
+		// 会员活动条件
+		var finished = true;
+		$('.section2 .addSub1').each(function(){
+			// debugger
+			var _this = $(this);
+			if(_this.find('.activity .selected').text() == ""){
+				// debugger
+				$("nav span").eq(1).click();
+				layer.tips('请先完善活动类型', _this.find('.activity .selected'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			} 
+			if(_this.find('.acSe3 .selected').text() == ""){
+				// debugger
+				$("nav span").eq(1).click();
+				layer.tips('请先完善', _this.find('.acSe3 .selected'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+			if(_this.find('.selectWrap2.-hi input').val() == ""){
+				// debugger
+				$("nav span").eq(1).click();
+				layer.tips('请先完善', _this.find('.selectWrap2.-hi input'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+		});
+
+		// 参与会员
+		if(finished == true)
+		$('.section2 .addSub2').each(function(){
+			// debugger
+			var _this = $(this);
+
+			if(_this.find('.acZige').css('display') == "block"){
+				
+				// if(finished == true)
+				$('.section2 .addSub3').each(function(){
+					var _ths = $(this);
+
+					if(_ths.closest('.acZige').hasClass('hi') == false){
+
+						if(_ths.find('.condition-type .selected').text() == ""){
+							$("nav span").eq(1).click();
+							layer.tips('请先完善条件类型', _ths.find('.condition-type .selected'));
+							// _ths.find('.selected').focus();
+							finished = false;
+							return false;
+						}
+
+						if(_ths.find('.acSe6 .selected').text() == ""){
+							// debugger
+							$("nav span").eq(1).click();
+							layer.tips('请先完善统计范围', _ths.find('.acSe6 .selected'));
+							// _ths.find('.selected').focus();
+							finished = false;
+							return false;
+						}
+						// debugger
+						if(_ths.find('.acZige3 input:not(.dib)').val() == ""){
+							// debugger
+							$("nav span").eq(1).click();
+							layer.tips('请先完善', _ths.find('.acZige3 input:not(.dib)'));
+							// _ths.find('.selected').focus();
+							finished = false;
+							return false;
+						}
+
+						// debugger
+					
+						if(_ths.find('.select-wrap.acSe8 .selected').text() == ""){
+							// debugger
+							$("nav span").eq(1).click();
+							layer.tips('请先完善条件', _ths.find('.select-wrap.acSe8 .selected'));
+							// _ths.find('.selected').focus();
+							finished = false;
+							return false;
+						}
+
+						if(_ths.find('.select-wrap.acSe8 .selected').text() == "介于"){
+
+							if(_ths.find('input.jieyu1').val() == ""){
+								// debugger
+								$("nav span").eq(1).click();
+								layer.tips('请先完善最小值', _ths.find('input.jieyu1'));
+								// _ths.find('.selected').focus();
+								finished = false;
+								return false;
+							}
+
+							if(_ths.find('input.jieyu2').val() == ""){
+								// debugger
+								$("nav span").eq(1).click();
+								layer.tips('请先完善最大值', _ths.find('input.jieyu2'));
+								// _ths.find('.selected').focus();
+								finished = false;
+								return false;
+							}
+
+						}  else if(_ths.find('.select-wrap.acSe8 .selected').text() == ">="){
+							if(_ths.find('.acZige5a input:eq(0)').val() == ""){
+								// debugger
+								$("nav span").eq(1).click();
+								layer.tips('请先完善', _ths.find('.acZige5a input.dayudengyu'));
+								// _ths.find('.selected').focus();
+								finished = false;
+								return false;
+							}
+						}
+					}
+				})
+			}
+
+			if(_this.find('.member-type .selected').text() == ""){
+				// debugger
+				$("nav span").eq(1).click();
+				layer.tips('请先完善会员类型', _this.find('.member-type .selected'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+
+			// debugger
+			// if(_this.find('.selectWrap1.-hi input').attr('disabled') == 'disabled'){
+			// 	// alert(21)
+			// 	finished = false;
+			// 	// return false;
+			// }
+
+			if(_this.find('.selectWrap1.-hi input.acMeI1').not(':disabled').val() == ""){
+				// debugger
+				$("nav span").eq(1).click();
+				layer.tips('请先完善', _this.find('.selectWrap1.-hi input.acMeI1'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+
+			if(_this.find('.selectWrap1.-hi input.acMeI2').not(':disabled').val() == ""){
+				// debugger
+				$("nav span").eq(1).click();
+				layer.tips('请先完善', _this.find('.selectWrap1.-hi input.acMeI2'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+
+		});
+
+
+		
+
+		
+		// 活动补贴规则
+		if(finished == true)
+		$('.section3 .addSub4').each(function(){
+			// debugger
+			var _this = $(this);
+			if(_this.find('.butie-select-wrap .selected').text() == ""){
+				// debugger
+				$("nav span").eq(2).click();
+				layer.tips('请先完善补贴对象', _this.find('.butie-select-wrap .selected'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+			if(_this.find('.select-wrap.acSe10 .selected').text() == ""){
+				// debugger
+				$("nav span").eq(2).click();
+				layer.tips('请先完善补贴条件', _this.find('.select-wrap.acSe10'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+			if(_this.find('.select-wrap.acSe11 .selected').text() == ""){
+				// debugger
+				$("nav span").eq(2).click();
+				layer.tips('请先完善补贴条件', _this.find('.select-wrap.acSe11'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+
+			if(_this.find('.hdc3 .selected').text().indexOf('随机') != -1){
+
+				if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
+					// debugger
+					$("nav span").eq(2).click();
+					layer.tips('请先填写最小范围', _this.find('.hdc4d1.-hi input.hdc4In1'));
+					// _this.find('.selected').focus();
+					finished = false;
+					return false;
+				}
+				if(_this.find('.hdc4d1.-hi input.hdc4In2').val() == ""){
+					// debugger
+					$("nav span").eq(2).click();
+					layer.tips('请先填写最大范围', _this.find('.hdc4d1.-hi input.hdc4In2'));
+					// _this.find('.selected').focus();
+					finished = false;
+					return false;
+				}
+
+			} else {
+				if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
+					// debugger
+					$("nav span").eq(2).click();
+					layer.tips('请先填写值', _this.find('.hdc4d1.-hi input.hdc4In1'));
+					// _this.find('.selected').focus();
+					finished = false;
+					return false;
+				}
+			}
+
+
+			if(_this.find('.hdc5 input').val() == ""){
+				// debugger
+				$("nav span").eq(2).click();
+				layer.tips('请先填写发放上限次数', _this.find('.hdc5 input'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+			if(_this.find('.sbys').val() == ""){
+				// debugger
+				$("nav span").eq(2).click();
+				layer.tips('请先填写申报预算', _this.find('.sbys'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+
+			if(_this.find('.setgailv.on input').val() == "" ||
+			 _this.find('.setgailv.on input').val() == undefined ||
+			 _this.find('.setgailv.on input').length == 0){
+				// debugger
+				$("nav span").eq(2).click();
+				layer.tips('请先完善概率', _this.find('.setgailv.on'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+
+			// 	// debugger
+			// if(_this.find('.acZige').attr('class').indexOf('hi') != -1){
+			// 	// alert(1)
+			// 	finished = false;
+			// 	return false;
+			// }
+
+			// if(_this.find('.addSub3 .condition-type .selected').text() == ""){
+			// 	$("nav span").eq(2).click();
+			// 	layer.tips('请先完善条件类型', _this.find('.addSub3 .condition-type .selected'));
+			// 	// _this.find('.selected').focus();
+			// 	finished = false;
+			// 	return false;
+			// }
+
+			// if(_this.find('.acSe6 .selected').text() == ""){
+			// 	// debugger
+			// 	$("nav span").eq(2).click();
+			// 	layer.tips('请先完善统计范围', _this.find('.acSe6 .selected'));
+			// 	// _this.find('.selected').focus();
+			// 	finished = false;
+			// 	return false;
+			// }
+
+		})
+
+		
+		// 宣传图文资料
+		if(finished == true)
+		$('.section4 .area').each(function(){
+			// debugger
+			var _this = $(this);
+			if(_this.find('.activitytitle').text() == ""){
+				// debugger
+				// $("nav span").eq(2).click();
+				layer.tips('请先完善活动标语', _this.find('.activitytitle'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+			if(_this.find('.wechattitle').text() == ""){
+				// debugger
+				// $("nav span").eq(2).click();
+				layer.tips('微信图文消息标题', _this.find('.wechattitle'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+			if(_this.find('.wenan-text').text() == ""){
+				// debugger
+				// $("nav span").eq(2).click();
+				layer.tips('请先完善宣传文案', _this.find('.wenan-text'));
+				// _this.find('.selected').focus();
+				finished = false;
+				return false;
+			}
+
+		});
+
+
+		// return
+
+	}
 	
 
 	// delete data;
@@ -1305,7 +1687,7 @@ $('.saveToDb, .shenhe').click(function(){
 		// console.log(data[MemberType]['number_range'])
 		_this.parents('.addSub2').find('.addSub3 .selected.condition').each(function(){
 			var _self = $(this),
-				thisText = _self.text();
+				thisText = _self.text(),
 				name = _self.attr('name');
 
 			// console.log(thisText)
@@ -1576,23 +1958,38 @@ $('.saveToDb, .shenhe').click(function(){
         "propagation": "// 宣传文案"
     ]*/
 
-    
-	var saveurl = '/webapi/ipaloma/topic';
-	_ajax("post", saveurl, JSON.stringify(data), '保存', function (returnedData){
+    if($(this).text() == "提交审核"){
 
-		if(!returnedData.error){
-			layer.msg('创建成功');
-			console.log(returnedData);
-		} else {
-		 	layer.msg(returnedData.error);
-		}
+		var saveurl = '/webapi/ipaloma/topic';
+		$.ajax({
+	        type: "post",
+	        url: saveurl,
+	        dataType: "json",
+	        data: JSON.stringify(data),
+	        contentType: "application/json; charset=utf-8",
+			/*beforeSend: function (x) {
+	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
+	        },*/
+	        complete: function () {},
+	        timeout: function () {},
+	        success: function (json) {
+	            if(!returnedData.error){
+					layer.msg('创建成功');
+					console.log(returnedData);
+				} else {
+				 	layer.msg(returnedData.error);
+				}
+	        },
+	        error: function () {
+	            console.warn($(this).text() + " error");
+	        }
+    });
+		
 
-	});
-
-	// return;
-
+    } else {
+    	layer.msg('数据已保存')
+    }
 });
-
 
 function _ajax(type, url, data, tip, success) {
     $.ajax({
@@ -1600,7 +1997,6 @@ function _ajax(type, url, data, tip, success) {
         url: url,
         dataType: "json",
         data: data,
-        beforeSend: function () {},
         complete: function () {},
         timeout: function () {},
         success: function (json) {
