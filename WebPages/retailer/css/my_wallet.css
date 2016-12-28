@@ -290,7 +290,7 @@
   padding-bottom: .3rem;
 }
 #list{
-    position:absolute;height:50%;width:100%;display:none;background:#fff;z-index:1000
+    position:absolute;height:55%;width:100%;display:none;background:#fff;z-index:1;border-bottom:2px solid #aaa
 }
 .punish{
     position:absolute;width:20%;left:8%;top:7%
@@ -311,9 +311,9 @@
     color:#ff7e00;
 }
 .time-down{
-    width:100%;height:15%;margin-top:3%
+    width:100%;height:18%;margin-top:3%
 }
-.time-down{
+.time-down p{
     text-align:center;line-height:26px
 }
 .how{
