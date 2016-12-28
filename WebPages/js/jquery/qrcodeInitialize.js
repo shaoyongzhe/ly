@@ -114,7 +114,7 @@ function QrcodeDraw(canvas, imagename, config, logo) {
             ImageGetJSON = true;
             $.getJSON(config.url, function (data) {
                 $('#qrcodediv').qrcode({
-                    text: data.qrstring,
+                    text: data.qrcachekey,
                     render: 'canvas',
                     height: config.height,
                     width: config.width,
