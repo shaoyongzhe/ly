@@ -62,7 +62,7 @@
               var this_val=$(this).val();
               var regEx = new RegExp(/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\\/`\|])*)$/);
               var result = this_val.match(regEx);
-              alert(result);
+              //alert(result);
               if(result==null){
                   var b = $(this).val().replace(/[ ]/g,"");
                   $(this).val(b);
@@ -338,12 +338,8 @@
                 if (specialprice > 0 && originalcost > 0) {
                     if(originalcost > specialprice)
                     {
-                        var discount = originalcost/specialprice;
-                        //优惠价除以原价 保留一位小数点
-                        var disc = parseFloat(discount).toFixed(1);
-                        //console.log(disc);
-                        //var disc = discount.substring(0, discount.lastIndexOf('.') + 2);
-
+                        var discount = specialprice / originalcost * 10+'';
+                        var disc = discount.substring(0, discount.lastIndexOf('.') + 2);
                         if (disc == null) {
                             disc = "";
                         }
@@ -946,7 +942,6 @@
                                 dataForm["giftcount"] = this.getParam(createObj, "giftcount");
                             }
                         }
-                        dataForm.endtime += " " + hour + ":00:00";
                     }
 
                 }
@@ -972,7 +967,6 @@
                             toasterextend.showtips("请输入优惠价", "error");
                             return;
                         }
-                        dataForm.endtime += " " + hour + ":00:00";
                     }
                     else
                     {
