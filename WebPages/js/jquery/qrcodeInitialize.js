@@ -119,7 +119,7 @@ function QrcodeDraw(canvas, imagename, config, logo) {
                     height: config.height,
                     width: config.width,
                     typeNumber: -1,      //计算模式
-                    correctLevel: QRErrorCorrectLevel.H,//纠错等级
+                    correctLevel: QRErrorCorrectLevel.L,//纠错等级
                     src: logo//这里配置Logo的地址即可。
                 });
 
