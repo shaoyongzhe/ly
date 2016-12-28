@@ -56,6 +56,7 @@
 };
 var ImageDrawEnd = false;
 var ImageQrEnd = false;
+var ImageGetJSON = false;
 $(function () {
     if ($("#divQrcode").length == 0) {
         var boarddiv = "<div id='divQrcode'></div>";
@@ -109,7 +110,8 @@ function QrcodeDraw(canvas, imagename, config, logo) {
         return;
 
     var qrinterval = setInterval(function () {
-        if (ImageDrawEnd) {
+        if (ImageDrawEnd && !ImageGetJSON) {
+            ImageGetJSON = true;
             $.getJSON(config.url, function (data) {
                 $('#qrcodediv').qrcode({
                     text: data.qrstring,
@@ -135,6 +137,7 @@ function QrcodeDraw(canvas, imagename, config, logo) {
 
 
                         ImageQrEnd = true;
+
                         console.log("QrcodeDraw onload")
                     }
                     clearInterval(qrinterval);
