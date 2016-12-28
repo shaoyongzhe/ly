@@ -8,14 +8,14 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="aplus-terminal" content="1">
-    <link rel="stylesheet" href="css/shopcart.css"/>
-    <link href="css/common.css" rel="stylesheet" type="text/css">
-    <link href="css/master.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../css/shopcart.css"/>
+    <link href="../../css/common.css" rel="stylesheet" type="text/css">
+    <link href="../../css/master.css" rel="stylesheet" type="text/css">
     
-    <link href="css/scroll/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="js/scroll/jquery.min.js"></script>
-    <script type="text/javascript" src="js/retailerid.js"></script>
-    <script type="text/javascript" src="js/scroll/mobiscroll.custom-2.6.2.min.js"></script>
+    <link href="../../css/scroll/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../../js/scroll/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/retailerid.js"></script>
+    <script type="text/javascript" src="../../js/scroll/mobiscroll.custom-2.6.2.min.js"></script>
 <script>
     
      //接受从购物车页面传递过来的商品json对象
@@ -69,7 +69,7 @@
               	var a_json=getParam();   //得到从购物车传递过来的json数组
                 var item_json=JSON.parse(a_json);  //把string转成json对象  获取从购物车页面传递的选中的商品对象集合
               	itemdata=data;
-              	
+              	alert(1)
               	for (var j=0;j<item_json.length;j++)  //遍历从购物车选中的商品传递过来的json数组
               	{
               		//alert(item_json.length)
@@ -457,8 +457,8 @@
 
 <div style="display: none">
    
-    <script src="js/shopcart/confirm.js"></script>
-    <script src="js/shopcart/shop_cart.js"></script>
+    <script src="../../js/shopcart/confirm.js"></script>
+    <script src="../../js/shopcart/shop_cart.js"></script>
 </div>
  <script>  
 $(function () {  

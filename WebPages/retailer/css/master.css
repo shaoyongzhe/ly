@@ -91,7 +91,7 @@ a,input{
 
 .container{ width:100%; max-width:640px; margin:0 auto; position:relative;}
 .top-header{ width:100%; margin:0 auto; padding:10px 0 0 0; overflow:hidden;}
-.nav-header{width:100%; margin:0 auto; padding:25px 0 ; background:#282828; color:#fff;font-size:2.0rem; overflow:hidden; text-align:left;  }
+.nav-header{width:100%; margin:0 auto; padding:15px 0 ; background:#282828; color:#fff;font-size:2.0rem; overflow:hidden; text-align:left;  }
 .nav-header i{font-family:"iconfont" !important;float:left; padding:0px 10px;font-size:2.2rem;}
 .nav-header em{font-family:"iconfont" !important; float:right; padding-right:10px; color:#069611; font-size:2.2rem}
 .nav-header em a{ color:#069611}

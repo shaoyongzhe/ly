@@ -47,7 +47,7 @@ body{background:#eee}
     font-weight: 600;
     -webkit-box-pack: end;
 	padding-right:20px;
-   background:url(../images/arrow_right2.png) no-repeat right center;
+   background:url(../image/shop/arrow_right2.png) no-repeat right center;
    background-size: 15px 18px;
 }
 .grid-shop-hd .shoptotal .totalright .numstyle{
