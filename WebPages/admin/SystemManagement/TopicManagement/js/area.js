@@ -130,7 +130,8 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 
 });
 
-var _ajax = function (type, url, data, tip, success) {
+function _ajax(type, url, data, tip, success) {
+
     $.ajax({
         type: type,
         url: url,

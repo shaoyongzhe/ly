@@ -388,13 +388,13 @@ $('.section3').on('click','.setgailv.on',function(){
 	}
 
 	var btfz = $(this).closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
-	$('.value_curve .number_doller i').text(btfz);
+	$('.value_curve .number_doller em').text(btfz);
 
 	layer.open({
 
 		type: 1,
 		title: '设置概率',
-		area: ['80%',"55%"],
+		area: ['1320px',"55%"],
 		maxmin: true,
 		content: $('.layer.setProbability'),
 
@@ -403,7 +403,7 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	var each = (fwmax - fwmin)/count;
 	for (var i=0; i<count+1; i++) {
-	    $('.layer.setProbability .number_doller span b').eq(i).text((fwmin + each * i).toFixed(1));
+	    $('.layer.setProbability .number_doller li b').eq(i).text((fwmin + each * i).toFixed(1));
 	};
 
 });
@@ -1369,7 +1369,6 @@ $('.saveToDb, .shenhe').click(function(){
 							// _ths.find('.selected').focus();
 							finished = false;
 							return false;
-
 						}
 
 						if(_ths.find('.select-wrap.acSe8 .selected').text() == "介于"){
@@ -1595,7 +1594,7 @@ $('.saveToDb, .shenhe').click(function(){
 		});
 
 
-		return
+		// return
 
 	}
 	
@@ -1962,25 +1961,35 @@ $('.saveToDb, .shenhe').click(function(){
     if($(this).text() == "提交审核"){
 
 		var saveurl = '/webapi/ipaloma/topic';
-		_ajax("post", saveurl, JSON.stringify(data), '保存', function (returnedData){
-
-			if(!returnedData.error){
-				layer.msg('创建成功');
-				console.log(returnedData);
-			} else {
-			 	layer.msg(returnedData.error);
-			}
-
-		});
+		$.ajax({
+	        type: "post",
+	        url: saveurl,
+	        dataType: "json",
+	        data: JSON.stringify(data),
+	        contentType: "application/json; charset=utf-8",
+			/*beforeSend: function (x) {
+	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
+	        },*/
+	        complete: function () {},
+	        timeout: function () {},
+	        success: function (json) {
+	            if(!returnedData.error){
+					layer.msg('创建成功');
+					console.log(returnedData);
+				} else {
+				 	layer.msg(returnedData.error);
+				}
+	        },
+	        error: function () {
+	            console.warn($(this).text() + " error");
+	        }
+    });
+		
 
     } else {
     	layer.msg('数据已保存')
     }
-
-	// return;
-
 });
-
 
 function _ajax(type, url, data, tip, success) {
     $.ajax({
@@ -1988,7 +1997,6 @@ function _ajax(type, url, data, tip, success) {
         url: url,
         dataType: "json",
         data: data,
-        beforeSend: function () {},
         complete: function () {},
         timeout: function () {},
         success: function (json) {
