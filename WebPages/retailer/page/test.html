@@ -9,7 +9,9 @@
     <script src="../../js/jquery/qrcodeInitialize.js"></script>
      <script>
          $(function () {
-             draw(qrcodeconfig["consumer"]["consumercard"], qrcodeconfig["consumer"]["logo"]);
+             var qrcode = qrcodeconfig["consumer"]["consumercard"];
+             qrcode["qrcode"].url = "http://127.0.0.1/webapi/consumer/weixin/card_generate_code?activityitem_id=e37df8f14711429d9de22bf4b6c48cb2&totalnum=1&activity_id=621cb41656294ceea5d2fe53bd0a5ca9&distributor_id=5ce1d14e07534139ae7774d8983f04f3&sendimage=false"
+             draw(qrcode, qrcodeconfig["consumer"]["logo"]);
          });
 
      </script>

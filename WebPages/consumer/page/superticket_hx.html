@@ -354,6 +354,7 @@
     </script>
 </head>
 <body style="background:#fff; " ms-controller="allMsg" class="ms-controller">
+  
     <div class="tip-w">
         <div class="tip">
             <img src="/consumer/image/shakegame/shareimg.png" style="width:80%;margin:20px 10% 0 10%" />
@@ -479,8 +480,9 @@
             <hr style="height:1px;border:none;border-top:1px solid #ccc;" ms-if="vm.pageStep!=3" />
             <div class="div-list" style="position:relative">
                 <div class="div-top">
-                    <div class="div-img">
+                    <div class="div-img" id="divQrcode">
                         <img ms-attr-src="vm.jsondata.itempic" alt="">
+                    
                     </div>
                     <div class="div-text">
                         <p style="margin-bottom:10px">
@@ -529,7 +531,11 @@
         <div class="space"></div>
         <div id="bottom-nav"></div>
     </footer>
+
+   
+    <div id="qrcodediv" hidden></div>
     <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
+    <script src="../../js/jquery/jquery.qrcode.min.js"></script>
     <script src="../../js/jquery/qrcodeInitialize.js"></script>
     <script src="/consumer/js/superticket_hx.js"></script>
 </body>

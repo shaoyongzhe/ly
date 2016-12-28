@@ -23,7 +23,7 @@
     "consumer": {
         "logo": "/consumer/image/consumer_logo.png",
         "consumercard": {
-            "nav": {                
+            "nav": {
                 "type": "image",
                 "url": "/consumer/image/consumercard_verfiy.png",
                 "width": 384,
@@ -43,13 +43,13 @@
                 "y": 0
             },
             "qrcode": {
-                "type": "qrcode",                
+                "type": "qrcode",
                 "bordercolor": "#d9d9d9",
                 "url": "/consumer/image/qrcodetest.gif",
-                "width": 384,
-                "height": 384,
-                "x": 10,
-                "y": 81
+                "width": 348,
+                "height": 348,
+                "x": 18,
+                "y": 75
             }
         }
     }
@@ -60,7 +60,7 @@ $(function () {
     if ($("#divQrcode").length == 0) {
         var boarddiv = "<div id='divQrcode'></div>";
         $(document.body).append(boarddiv);
-    }    
+    }
 });
 
 function convertCanvasToImage(canvas) {
@@ -71,7 +71,7 @@ function convertCanvasToImage(canvas) {
 
 function TextDraw(canvas, newcanvasname, config) {
 
-    var textinterval =  setInterval(function () {
+    var textinterval = setInterval(function () {
         if (ImageDrawEnd) {
             console.log("TextDraw onload");
             canvas.font = config.fontsize + "px " + config.font;
@@ -89,7 +89,7 @@ function TextDraw(canvas, newcanvasname, config) {
 
 function ImageDraw(canvas, imagename, config) {
 
-    var img = new Image(config.width,config.height);    
+    var img = new Image(config.width, config.height);
     img.src = config.url;
     //setTimeout(function () {
     //    canvas.drawImage(img, config.x, config.y, config.width, config.height);
@@ -97,43 +97,50 @@ function ImageDraw(canvas, imagename, config) {
     //if (img.complete) { //加载完成后直接缓存读取                             
     //    canvas.drawImage(img, config.x, config.y, config.width, config.height);       
     //}; 
-    img.onload = function () {        
+    img.onload = function () {
         canvas.drawImage(img, config.x, config.y, config.width, config.height);
         ImageDrawEnd = true;
         console.log("ImageDraw onload")
     }
 }
 
-function QrcodeDraw(canvas, imagename, config, logo)
-{
+function QrcodeDraw(canvas, imagename, config, logo) {
     if (config.url == "")
         return;
 
-    var qrinterval =  setInterval(function () {
-        if(ImageDrawEnd)
-        {            
-            $('#qrcodediv').qrcode({
-                text: "364565463132",
-                render: 'canvas',
-                height: config.height,
-                width: config.width,
-                typeNumber: -1,      //计算模式
-                correctLevel: QRErrorCorrectLevel.H,//纠错等级
-                src: logo//这里配置Logo的地址即可。
-            });
+    var qrinterval = setInterval(function () {
+        if (ImageDrawEnd) {
+            $.getJSON(config.url, function (data) {
+                $('#qrcodediv').qrcode({
+                    text: data.qrstring,
+                    render: 'canvas',
+                    height: config.height,
+                    width: config.width,
+                    typeNumber: -1,      //计算模式
+                    correctLevel: QRErrorCorrectLevel.H,//纠错等级
+                    src: logo//这里配置Logo的地址即可。
+                });
 
-            setTimeout(function () {
-                var qrcanvas = document.getElementById('canvasqrcode');
-                var qrcodeimage = new Image();
-                qrcodeimage.src = qrcanvas.toDataURL("image/png");
-                qrcodeimage.onload = function () {
-                    canvas.drawImage(qrcodeimage, config.x, config.y, config.width, config.height);
-                    ImageQrEnd = true;
-                    console.log("QrcodeDraw onload")
-                }
-                clearInterval(qrinterval);
-            },500)
-        }        
+                setTimeout(function () {
+                    var qrcanvas = document.getElementById('canvasqrcode');
+                    var qrcodeimage = new Image();
+                    qrcodeimage.src = qrcanvas.toDataURL("image/png");
+                    qrcodeimage.onload = function () {
+
+                        canvas.strokeStyle = "#ccc";
+                        canvas.lineWidth = 1;
+                        canvas.strokeRect(config.x, config.y, config.width, config.height);
+                        canvas.drawImage(qrcodeimage, config.x + 10, config.y + 10, config.width - 20, config.height - 20);
+
+
+
+                        ImageQrEnd = true;
+                        console.log("QrcodeDraw onload")
+                    }
+                    clearInterval(qrinterval);
+                }, 500)
+            });
+        }
     }, 500);
 
     //var qrcodeimage = new Image();
@@ -145,8 +152,8 @@ function QrcodeDraw(canvas, imagename, config, logo)
     //    if ($("#qrcodediv").length == 0) {
     //        var boarddiv = "<div id='qrcodediv'></div>";
     //        $(document.body).append(boarddiv);
-    //    }       
-        
+    //    }
+
     //    $('#qrcodediv').qrcode({
     //        text: qrstring,
     //        render: 'canvas',
@@ -154,20 +161,20 @@ function QrcodeDraw(canvas, imagename, config, logo)
     //        width: config.width,
     //        typeNumber: -1,      //计算模式
     //        correctLevel: QRErrorCorrectLevel.H,//纠错等级
-    //        src:logo//这里配置Logo的地址即可。
+    //        src: logo//这里配置Logo的地址即可。
     //    });
-       
-    //setTimeout(function () {
-    //    var qrcanvas = document.getElementById('canvasqrcode');
-    //    var qrcodeimage = new Image();
-    //    qrcodeimage.src = qrcanvas.toDataURL("image/png");
-    //    canvas.drawImage(qrcodeimage, config.x, config.y, config.width, config.height);
-    //}, 500);
+
+    //    setTimeout(function () {
+    //        var qrcanvas = document.getElementById('canvasqrcode');
+    //        var qrcodeimage = new Image();
+    //        qrcodeimage.src = qrcanvas.toDataURL("image/png");
+    //        canvas.drawImage(qrcodeimage, config.x, config.y, config.width, config.height);
+    //    }, 500);
     //});
 
 }
 
-function draw(config,logo) {
+function draw(config, logo) {
     var c = document.createElement('canvas'),
     ctx = c.getContext('2d');
 
@@ -177,16 +184,16 @@ function draw(config,logo) {
     $.each(config, function (name, jsondata) {
 
         var type = jsondata["type"];
-        console.log("type="+type)
+        console.log("type=" + type)
         switch (type) {
             case "text":
                 TextDraw(ctx, name, jsondata);
-                
+
 
                 break;
             case "image":
                 ImageDraw(ctx, name, jsondata);
-               
+
                 setTimeout(function () { console.log("setTimeout") }, 1000)
                 break;
             case "qrcode":
@@ -196,9 +203,8 @@ function draw(config,logo) {
 
         }
     });
-    var drawinterval =  setInterval(function () {
-        if(ImageQrEnd)
-        {
+    var drawinterval = setInterval(function () {
+        if (ImageQrEnd) {
             var hc_image = new Image();
             hc_image.src = c.toDataURL("image/png");
             hc_image.style = "width:384px;height:100%"
@@ -206,5 +212,5 @@ function draw(config,logo) {
             clearInterval(drawinterval);
         }
     }, 500);
-   
+
 }
