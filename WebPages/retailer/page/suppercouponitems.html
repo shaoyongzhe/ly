@@ -141,68 +141,67 @@
                                         <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥${item.originalprice}</td>
                                     </tr>
                                 </table>
-                                </di
-                                v>
-                                {@/if}
-                                <div class="img_tag"></div>
-                                {@if item.stop === 1}
-                                <div class="stamp stamp2">已停用</div>
-                                {@/if}
-                                <div class="clear"></div>
-                            </div>
-
-                            <div class="remarks">
-                                <span></span>
-                                ${item.ruledesc}
-                            </div>
-                            {@if item.topicdata == undefined || item.topicdata.length == 0 }
-                            <div class="whiteblock"></div>
-                            {@else}
-                            <div class="assetinfo">
-                                <a href="javascript:;" class="assetcontent">
-                                    <div class="asset_left">
-                                        <nobr>${item.topicdata[0].topictitle + (item.topicdata.length>1?'等活动':'')}</nobr>
-                                    </div>
-                                    <div class="asset_right">
-                                        <small>已参加</small>${item.topiclist[0].headcount}<small>人</small>
-                                    </div>
-                                </a>
                             </div>
                             {@/if}
-                            <ul class="div-down">
-                                <li>
-                                    ${item.itemtotalnum==null?'0':item.itemtotalnum}
-                                    <p>投放</p>
-                                </li>
-                                <li style="border:none">
-                                    ${item.totalverifynum==null?'0':item.totalverifynum}
-                                    <p>总核销</p>
-                                </li>
-                                <li style="border:none">&nbsp;</li>
-                                <li class="${data[0].activitystate=='已生效'?'bdhx':'bdhx1'}" style="border:none">
-                                    ${item.homeverify==null?'0':item.homeverify}
-                                    <p>本店核销</p>
-                                </li>
-                                <div class="clear"></div>
-                            </ul>
-
+                            <div class="img_tag"></div>
+                            {@if item.stop === 1}
+                            <div class="stamp stamp2">已停用</div>
+                            {@/if}
+                            <div class="clear"></div>
                         </div>
 
-                        {@/each}
-                        {@if data[0].description.length >0}
-                        <div class="chdetail-textbox" style="border-top:1px solid #ccc;">
-                            <div class="chtext-tit">
-                                <div class="bgline1"></div>
-                                <div class="bgcolor1"></div>
-                                <div class="tit">补充信息</div>
-                            </div>
-                            <div class="chdetail-cont1">
-                                ${data[0].description}
-                            </div>
+                        <div class="remarks">
+                            <span></span>
+                            ${item.ruledesc}
+                        </div>
+                        {@if item.topicdata == undefined || item.topicdata.length == 0 }
+                        <div class="whiteblock"></div>
+                        {@else}
+                        <div class="assetinfo">
+                            <a href="javascript:;" class="assetcontent">
+                                <div class="asset_left">
+                                    <nobr>${item.topicdata[0].topictitle + (item.topicdata.length>1?'等活动':'')}</nobr>
+                                </div>
+                                <div class="asset_right">
+                                    <small>已参加</small>${item.topiclist[0].headcount}<small>人</small>
+                                </div>
+                            </a>
                         </div>
                         {@/if}
-                        <p style="width:100%; height:50px;"></p>
+                        <ul class="div-down">
+                            <li>
+                                ${item.itemtotalnum==null?'0':item.itemtotalnum}
+                                <p>投放</p>
+                            </li>
+                            <li style="border:none">
+                                ${item.totalverifynum==null?'0':item.totalverifynum}
+                                <p>总核销</p>
+                            </li>
+                            <li style="border:none">&nbsp;</li>
+                            <li class="${data[0].activitystate=='已生效'?'bdhx':'bdhx1'}" style="border:none">
+                                ${item.homeverify==null?'0':item.homeverify}
+                                <p>本店核销</p>
+                            </li>
+                            <div class="clear"></div>
+                        </ul>
+
                     </div>
+
+                    {@/each}
+                    {@if data[0].description.length >0}
+                    <div class="chdetail-textbox" style="border-top:1px solid #ccc;">
+                        <div class="chtext-tit">
+                            <div class="bgline1"></div>
+                            <div class="bgcolor1"></div>
+                            <div class="tit">补充信息</div>
+                        </div>
+                        <div class="chdetail-cont1">
+                            ${data[0].description}
+                        </div>
+                    </div>
+                    {@/if}
+                    <p style="width:100%; height:50px;"></p>
+                </div>
 
     </script>
 
