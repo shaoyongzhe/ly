@@ -4,16 +4,18 @@ $('.region-wrap').on('click', '.x', function() {
 	
 
 	if ($(this).closest('.city').length == 1) {
+		// debugger
 		$(this).closest('.row').remove();
 		return;
 	}
 
 	if ($(this).closest('.provice').length == 1) {
+		// debugger
 		$(this).closest('.region-item').remove();
-		if($('.region-wrap i').length == 0){
-			$('.region-wrap').hide();
-			$('.setAreaBtn').show();
-		}
+		// if($('.region-wrap i').length == 0){
+		// 	$('.region-wrap').hide();
+		// 	$('.setAreaBtn').show();
+		// }
 		return;
 	}
 
@@ -147,6 +149,7 @@ function _ajax(type, url, data, tip, success) {
             console.warn(tip + " error");
         }
     });
+    
 }
 
 
@@ -274,7 +277,7 @@ function dataLoad() {
 					var city = content.city;
 
 					// console.log('_thiscity: ' + _thiscity.substring(0, 3) + '  city: ' + city.substring(0, 3));
-					console.log('_thiscity: ' + _thiscity + '  city: ' + city);
+					// console.log('_thiscity: ' + _thiscity + '  city: ' + city);
 
 					if(_thiscity == city){
 						$(this).find('select').append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
@@ -493,7 +496,7 @@ function dataLoad() {
 		if($('.Select_province li.on input').is(":checked") == false){
 			// alert(11111);
 
-		/*
+			/*
 			$('.Select_province li.on input').click();
 			// $('.Select_province li.on input').prop('checked',true);
 			$('.quanbusheng').prop('checked',false);
