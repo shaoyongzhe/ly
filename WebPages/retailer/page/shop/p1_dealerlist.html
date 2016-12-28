@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>进货商城-分销商列表</title>
+<link href="css/master.css" rel="stylesheet" type="text/css">
+<link href="css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/retailerid.js"></script>
+<script type="text/javascript">
+	
+	$(document).ready(function()
+	{
+		//绑定单击事件
+	          $("ul:eq(0)>li").live("click",function()
+	                         {                    
+	                         	var $_this=$(this);
+	                         	var distributor_id=$_this.attr("distributor_id");
+	                            window.location.href="p2_salespromotionlist.html?distributor_id="+distributor_id;
+	                         });
+							 
+			 $(".shoppingcart").live("click",function()
+	                         {                    
+	                         	var $_this=$(this).parent().parent();
+	                         	var distributor_id=$_this.attr("distributor_id");
+	                            window.location.href="p7_shopcart.html?distributor_id="+distributor_id;
+								return false;
+								
+	                         });
+	                         
+		//$.get("/webapi/account/login/test-2-135-1",{},function(){},false);
+	    $.ajax({ 
+	          url:"http://127.0.0.1:40011/webapi/distributor/"+getRetailerid()+"/distributors",
+			      async:true,
+			      cache:false,
+			      dataType:"json",
+			      error:function(){
+                    //alert("网络出错")
+	              },
+			      success:function(data) {
+                     for(var i=0;i<data.length;i++)
+                       {
+                         var distributor=data[i];
+                           var $_ul=$("ul:eq(0)");
+                           var str='<li distributor_id="'+distributor.distributor_id+'">';
+                                   str+='<div class="pic"><img src="'+distributor.distributorimg+'" alt=""></div>';
+                                   str+='<div class="txt">';
+                                   str+='<div  class="fl">';
+                                   str+='<h3>'+distributor.distributorname+'</h3>';
+                                   str+='<p><span>起送价：￥'+distributor.cutgift+'元</span></p>';
+                                   str+='</div>';
+                                   str+='<div class="shoppingcart"><img src="images/buycar.png" alt="" >';
+                                   if(distributor.itemcount!=0)
+                                   str+='<div class="pnum">'+distributor.itemcount+'</di>';
+                                   str+='</div>';
+                                   str+='</div>';
+                                   str+='<div class="proinfo"><span><img src="images/icon_zhuan.png" alt="" > 微信下单立减5元</span>';
+                                   str+='<span><img src="images/icon_jian.png" alt="" > 满200元减20元；满400减4元；满2000减40元</span>';
+                                   str+='</div>';
+                                   str+='</li>';
+
+                           $_ul.append(str);
+                       }
+                  }
+					 
+	          });
+
+	});
+</script>
+</head>
+
+<body>
+<div class="container">
+
+<!-- dealer-list 分销商列表 start-->
+<div class="dealer-list">
+<ul>
+</ul>
+</div>
+<!-- dealer-list 分销商列表 end-->
+</div>
+
+<!-- bottom nav-->
+<div data-role="widget" data-widget="nav4" class="nav4">
+  <nav>
+    <div id="nav4_ul" class="nav_4">
+      <ul class="box">
+        <li> <a href="javascript:;" class=""><span style="vertical-align:middle;padding-right:0px; "><img src="images/logo.png"  style="vertical-align:middle;"></span></a>       
+        </li>
+        <li> <a href="javascript:;" class=""><span>邀请恵粉</span></a>
+          
+        </li>
+        <li> <a href="javascript:;" class=""><span>活动专区</span></a>
+          <dl>
+            <dd> <a href="p2_salespromotionlist.html"><span>活动专区1</span></a> </dd>
+            <dd> <a href="p2_salespromotionlist.html"><span>活动专区2</span></a> </dd>
+            <dd> <a href="p2_salespromotionlist.html"><span>活动专区3</span></a> </dd>
+          </dl>
+        </li>
+        <li> <a href="javascript:;"><span>我的</span></a>
+          <dl>
+            <dd> <a href="#"><span>我的1</span></a> </dd>
+            <dd> <a href="#"><span>我的2</span></a> </dd>
+            <dd> <a href="#"><span>我的3</span></a> </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="nav4_masklayer" class="masklayer_div on"> </div>
+  <script src="js/menu.js"></script> 
+  <script type="text/javascript">
+      nav4.bindClick(document.getElementById("nav4_ul").querySelectorAll("li>a"), document.getElementById("nav4_masklayer"));
+  </script>
+</div>
+</body>
+</html>

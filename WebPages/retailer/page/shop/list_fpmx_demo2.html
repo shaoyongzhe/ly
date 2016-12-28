@@ -1,0 +1,553 @@
+<!DOCTYPE html> 
+<html>
+<head> 
+	<title>load</title> 
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0"/>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="css/scroll/jquery.mobile.min.css" />
+	<link rel="stylesheet" href="css/scroll/theme/theme.min.css" />
+	<link rel="stylesheet" href="css/scroll/styles.css" />
+    <link href="css/listview.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+    	.hiddenall{display: none;}
+    	
+    </style>
+	<!-- <link rel="stylesheet" href="css/styles-custom.css" /> -->
+	<script src="js/scroll/jquery.min.js"></script>
+	<script src="js/scroll/mobileinit.js"></script>
+	<script src="js/scroll/jquery.mobile.min.js"></script>
+	<script src="js/scroll/fastclick.js"></script> 
+	
+	 
+	<script type="text/javascript">
+		var href_=window.location.href;
+	    var suppliername=href_.substring(href_.indexOf('suppliername=')+'suppliername='.length,href_.indexOf('snend'));
+	    var distributor_id=window.parent.distributor_id;
+		
+	</script>
+</head> 
+<body>
+	<!-- page -->
+	<div data-role="page" id="fpmxListPage" data-iscroll="enable">
+		<link rel="stylesheet" href="css/scroll/pull.css" />
+		<script type="text/javascript" charset="utf-8" src="js/scroll/iscroll.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/scroll/initScroll.js"></script>
+		<script type="text/javascript">
+		$(document).bind("pageinit", function() {
+			
+				isInit=0;
+				serverURL = "11"; //服务器地址
+				startNum = 1;//当前页
+				count = 5; //总页数
+			
+				//显示商品
+				$.ajax({ 
+			              url:"http://membership-waibao.ipaloma.com/webapi/distributor/"+distributor_id+"/customer/c45e3940739345cab03730d445ec7e74/items?lastcount=0&pagecount=10",
+					      async:true,
+					      cache:false,
+					      dataType:"json",
+					      type:"get",
+					      error:function(){alert("网络出错")},
+					      success:function(data)
+					       {
+					       	   itemdata=data;
+					       	   for(var i=0;i<data.length;i++)
+							   {
+								   var distributor=data[i];
+								   if(distributor.itemkind=='买赠')
+								   {
+									   var $_ul=$("#mygoodslist");
+									   var str='<li id="'+distributor.itemid+'">';
+									   str+='<div class="mainInfo">';
+									   str+='<div class="mainInfol"><img src="'+distributor.itemimage+'" width="100" height="100"></div>';
+									   str+='<div class="mainInfor">';
+									   if(distributor.itemquality==0){
+										   str+='<div class="title"> '+distributor.itemname+'</div>';
+									   }else{
+										   str+='<div class="title2"> '+distributor.itemname+'</div>';
+									   }
+									   str+='<div class="amount">'+distributor.specification+'</div>';
+									   str+='<div class="price">￥'+distributor.unitprice+'</div>';
+									   str+='<div class="tongji"><span><img src="images/sub.png" class="jianhao"></span><span>'+distributor.salecount+'</span><span style="fr"><img src="images/add.png" class="jiahao"></span></div>';
+									   str+='</div>'
+									   str+='</div>'
+									   str+='<div class="zhekou">买赠 买'+distributor.salecount+'件赠'+distributor.giftcount+'箱</div>';
+									   str+='<div class="remark">备注：'+distributor.ruledesc+'</div>';
+									   str+='</li>';
+									   $_ul.append(str);
+								   }
+								    if(distributor.itemkind=='有礼')
+								   {
+									   var $_ul=$("#mygoodslist");
+									   var str='<li id="'+distributor.itemid+'">';
+									   str+='<div class="mainInfo">';
+									   str+='<div class="mainInfol"><img src="'+distributor.itemimage+'" width="100" height="100"></div>';
+									   str+='<div class="mainInfor">';
+									   if(distributor.itemquality==0){
+										   str+='<div class="title"> '+distributor.itemname+'</div>';
+									   }else{
+										   str+='<div class="title2"> '+distributor.itemname+'</div>';
+									   }
+									   str+='<div class="amount">'+distributor.specification+'</div>';
+									   str+='<div class="price">￥'+distributor.saleprice+'</div>';
+									   str+='<div class="tongji"><span><img src="images/sub.png" class="jianhao"></span><span>'+distributor.salecount+'</span><span style="fr"><img src="images/add.png" class="jiahao"></span></div>';
+									   str+='</div>'
+									   str+='</div>'
+									   str+='<div class="zhekou">有礼 买'+distributor.salecount+'件赠'+distributor.giftcount+'箱</div>';
+									   str+='<div class="remark">备注：'+distributor.ruledesc+'</div>';
+									   str+='</li>';
+									   $_ul.append(str);
+								   }
+								    if(distributor.itemkind=='降价')
+								   {
+									   var $_ul=$("#mygoodslist");
+									   var str='<li id="'+distributor.itemid+'">';
+									   str+='<div class="mainInfo">';
+									   str+='<div class="mainInfol"><img src="'+distributor.itemimage+'" width="100" height="100"></div>';
+									   str+='<div class="mainInfor">';
+									   if(distributor.itemquality==0){
+										   str+='<div class="title"> '+distributor.itemname+'</div>';
+									   }else{
+										   str+='<div class="title2"> '+distributor.itemname+'</div>';
+									   }
+									   str+='<div class="amount">'+distributor.specification+'</div>';
+									   str+='<div class="price">￥'+distributor.discountprice+' <p>￥'+distributor.originalprice+'</p></div>';
+									   str+='<div class="tongji"><span><img src="images/sub.png" class="jianhao"></span><span>'+distributor.salecount+'</span><span style="fr"><img src="images/add.png" class="jiahao"></span></div>';
+									   str+='</div>'
+									   str+='</div>'
+									   str+='<div class="zhekou">降价 '+distributor.discount+'折</div>';
+									   str+='<div class="remark">备注：'+distributor.ruledesc+'</div>';
+									   str+='</li>';
+									   $_ul.append(str);
+								   }
+								    if(distributor.itemkind=='折扣')
+								   {
+									   var $_ul=$("#mygoodslist");
+									   var str='<li id="'+distributor.itemid+'">';
+									   str+='<div class="mainInfo">';
+									   str+='<div class="mainInfol"><img src="'+distributor.itemimage+'" width="100" height="100"></div>';
+									   str+='<div class="mainInfor">';
+									   if(distributor.itemquality==0){
+										   str+='<div class="title"> '+distributor.itemname+'</div>';
+									   }else{
+										   str+='<div class="title2"> '+distributor.itemname+'</div>';
+									   }
+									   str+='<div class="amount">'+distributor.specification+'</div>';
+									   str+='<div class="price">￥'+distributor.price+'</div>';
+									   str+='<div class="tongji"><span><img src="images/sub.png" class="jianhao"></span><span class="count">'+distributor.salecount+'</span><span style="fr"><img src="images/add.png" class="jiahao"></span></div>';
+									   str+='</div>'
+									   str+='</div>'
+									   str+='<div class="zhekou">折扣 '+distributor.discount+'折</div>';
+									   str+='<div class="remark">备注：'+distributor.ruledesc+'</div>';
+									   str+='</li>';
+									   $_ul.append(str);
+								   }
+								   
+								   //无活动
+								   if(distributor.hasOwnProperty("itemslist")==true )
+								   {
+								   		//索引  selectedindex
+								   		var index=distributor.selectedindex;
+								   		for(var j=0;j<distributor.itemslist.length;j++)
+								   		{
+								   			
+								   			if (j==index)
+								   			{
+								   				var itemslist_=distributor.itemslist[j];
+									   		   var $_ul=$("#mygoodslist");
+											   var str='<li id="'+itemslist_.guid+'">';
+											   str+='<div class="mainInfo">';
+											   str+='<div class="mainInfol"><img src="'+itemslist_.itemimage+'" width="100" height="100"></div>';
+											   str+='<div class="mainInfor">';
+											   str+='<div class="title2"> '+itemslist_.itemname+'</div>';
+											   str+='<div class="amount">'+itemslist_.specification+'</div>';
+											   str+='<div class="price">￥'+itemslist_.price+'</div>';
+											   str+='<div class="tongji"><span><img src="images/sub.png" class="jianhao"></span><span class="count">'+distributor.itemcount+'</span><span style="fr"><img src="images/add.png" class="jiahao"></span></div>';
+											   str+='</div>'
+											   str+='</div>'
+											   //str+='<div class="zhekou">折扣 '+itemslist_.discount+'折</div>';
+											   str+='<div class="remark">备注：'+itemslist_.ruledesc+'</div>';
+											   str+='</li>';
+											   $_ul.append(str);
+								   			}
+								   			
+								   		}
+								   }//无活动结束
+	
+							    }  //for循环显示数据结束
+	
+	
+								//点击 加号 购物车里面自增
+			                    $(".jiahao").click(function()
+			                    {
+			                    	 s= $(this).parent().prev().text();		
+			                    	 alert(s)
+			              		     n=Number(s)+1;
+			              		     var flag;  //定义标志是否添加成功
+			
+			                        var $_li=$(this).parent().parent().parent().parent().parent();
+			                        var $_price=$(this).parent().parent().prev().text();  //获取当前的商品的价格
+			                        var $_price1=$_price.substr(1,100);
+			                        
+			                        var itemid=$_li.attr("id");
+			                        for(var i=0;i<itemdata.length;i++)
+			                        {
+			                            if(itemid==itemdata[i].itemid  ||  itemid==itemdata[i].itemguid)
+			                            {
+			                                var date_=new Date();
+			                                var year=date_.getFullYear();
+			                                var month=date_.getMonth()+1;
+			                                var day=date_.getDate();
+			                                var hour=date_.getHours();
+			                                var minute=date_.getMinutes();
+			                                var second=date_.getSeconds();
+			                                var mill=date_.getMilliseconds();
+											//当数量为0的时候表示，没有选中到购物车里面去
+											if (itemdata[i].hasOwnProperty("salecount")==false) {
+												itemdata[i].salecount=1;
+											}
+											if(itemdata[i].hasOwnProperty("itemslist")==true ){
+												itemdata[i].salecount=n;
+											}
+			                                itemdata[i].salecount=Number(itemdata[i].salecount)+1;
+			                                //alert("商品的数量"+itemdata[i].salecount)
+			                                //alert("添加的商品价格"+$_price1)
+			                                //alert("添加的商品id"+itemid)
+			                                
+			                                if(itemdata[i].itemkind=='降价')
+			                                {
+			                                	$_price1=itemdata[i].discountprice;
+			                                }
+			                                
+			                                //商品临 或 正
+			                                 var itemquality=itemdata[i].itemquality
+			                                 
+			                                 //商品的活动id
+			                                 var activityitem_id=itemdata[i].activityitem_id
+			
+			                                var date_str=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second+"."+mill
+											//alert(date_str);
+			
+			                                $.ajax({
+			                                    url:"/webapi/distributor/c45e3940739345cab03730d445ec7e74/shoppingcart",
+			                                    type:"post",
+			                                    async:false,
+			                                    dataType:"json",
+			                                    data:{
+			                                        distributorid:distributor_id,
+			                                        itemid:itemid,
+			                                        itemcount:itemdata[i].salecount,  //购物车数量
+			                                        itemquality:itemquality,
+			                                        itemprice:$_price1,
+			                                        isyucun:0,
+			                                        activityitemid:activityitem_id,
+			                                        remark:"",
+			                                        versiontime:date_str
+			                                    },
+			                                    success:function(data){
+			                                    	alert("添加成功！")
+			                                    	flag=1;
+			                                    },
+			                                    error:function(XMLHttpRequest_, textStatus_, errorThrown_)
+			                                    {
+			                                		alert("添加失败！");
+			                                		flag=0;
+			                                    }
+			                                });
+			                                break;
+			                            }
+			                        }
+			
+			                        //如果添加购物车成功则页面自增  否则不变
+			                        if(flag==1){
+			                        	$(this).parent().prev().html(n);
+			                        }else{}
+			                        
+			
+			                    });// 添加购物车结束  点击事件结束
+			
+			
+								 //当点击  减号时  购物车里面也减1
+			                    $(".jianhao").click(function()
+			                      {
+			                      	  s= $(this).parent().next().text();											
+			                		  n=Number(s)-1;
+			                	      var flag;  //定义标志是否添加成功
+			
+			                          var $_li=$(this).parent().parent().parent().parent().parent();
+			                          var itemid=$_li.attr("id");
+			                          var $_price=$(this).parent().parent().prev().text();  //获取当前的商品的价格
+			                          var $_price1=$_price.substr(1,100);
+			                          for(var i=0;i<itemdata.length;i++)
+			                          {
+			                              if(itemid==itemdata[i].itemid || itemid==itemdata[i].itemguid )
+			                              {
+			                                  var date_=new Date();
+			                                  var year=date_.getFullYear();
+			                                  var month=date_.getMonth()+1;
+			                                  var day=date_.getDate();
+			                                  var hour=date_.getHours();
+			                                  var minute=date_.getMinutes();
+			                                  var second=date_.getSeconds();
+			                                  var mill=date_.getMilliseconds();
+			                                  
+			                                  //当数量为0的时候表示，没有选中到购物车里面去
+												if (itemdata[i].hasOwnProperty("salecount")==false) {
+													itemdata[i].salecount=1;
+												}
+				                                itemdata[i].salecount=Number(itemdata[i].salecount)+1;
+				                                //alert("商品的数量"+itemdata[i].salecount)
+				                                //alert("添加的商品价格"+$_price1)
+				                                //alert("添加的商品id"+itemid)
+				                                
+				                                if(itemdata[i].itemkind=='降价')
+				                                {
+				                                	$_price1=itemdata[i].discountprice;
+				                                }
+				                                
+			                                   var itemquality=itemdata[i].itemquality  //商品临 或 正
+			                                   var activityitem_id=itemdata[i].activityitem_id   //商品的活动id
+			                                   itemdata[i].salecount=Number(itemdata[i].salecount)-1;  //购物车数量
+			                                   var date_str=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second+"."+mill
+			
+			                                   $.ajax({
+			                                      url:"/webapi/distributor/c45e3940739345cab03730d445ec7e74/shoppingcart",
+			                                      type:"post",
+			                                      async:false,
+			                                      dataType:"json",
+			                                      data:{
+				                                          distributorid:distributor_id,
+				                                          itemid:itemid,
+				                                          itemcount:itemdata[i].salecount,  //购物车数量
+				                                          itemquality:itemquality,
+				                                          itemprice:$_price1,
+				                                          isyucun:0,
+				                                          activityitemid:activityitem_id,
+				                                          remark:"",
+				                                          versiontime:date_str
+			                                      },
+			                                      success:function(data){
+				                                      	  alert("减成功！")
+				                                      	  flag=1;
+			                                      },
+			                                      error:function(XMLHttpRequest_, textStatus_, errorThrown_)
+			                                      {
+			                                      		 alert("减失败！");
+			                                      		 flag=0;
+			                                      }
+			                                  });
+			                                  break;
+			                              }
+			                          }
+			
+			                          //如果添加购物车成功则页面自减 否则不变
+			                          if(flag==1){
+			                          	$(this).parent().next().html(n);
+			                          }else{}
+			                          
+			
+			                      });// 减购物车结束  点击事件结束
+			                      
+			
+								//点击count事件
+								$(".count").click(function(){
+								    	var count=$(this).text();
+								    	$(this).html('<input type="text" value="'+count+'">');
+								    });
+			
+							     //离开count事件
+							   /* $(".count").mouseleave(function(){
+							    	//alert("dsa");
+							    	var count=$(this).text();
+							    	$(this).html(count);
+							    });*/
+	
+					       }  //success结束
+				    }); //ajax结束
+			      
+		        //项目子类效果 点击加遮罩
+		        $(".titelsub").click(function()
+		                    {
+		                    	var reg=$(this).attr("reg");
+		                    	if(reg=="show")
+		                    	{
+		                    		$(this).attr("reg","hidden");
+		                    		$(this).find("img").attr("src","images/arrow_down2.png");
+		                    		$(this).next().removeClass();
+		                    		$(this).next().addClass("hiddenall");
+		                    		$(this).next().next().removeClass();
+		                    		$(this).next().next().addClass("hiddenall");
+		                    	}
+		                       if(reg=="hidden")
+		                    	{
+		                    		$(this).attr("reg","show");
+		                    		$(this).find("img").attr("src","images/arrow_up.png");
+		                    		$(this).next().removeClass();
+		                    		$(this).next().addClass("allsubstylelistbox");
+		                    		$(this).next().next().removeClass();
+		                    		$(this).next().next().addClass("masktabcontent");
+		                    	}
+		                    	
+		                    });
+	           
+	            // 当前点击选中
+	           $('.tabgroup>li').each(function()
+	     		{
+	              $(this).click(function()
+	              {
+	                   $(this).addClass('curstyle').siblings().removeClass('curstyle');
+				   });		
+	            });
+ 
+  
+		}); //document 结束
+
+
+
+			
+
+
+		  
+		  //子类
+		   function getParam() {
+        var urlInfo = window.location.href; //获取当前页面的url  
+        var intLen = urlInfo.length; //获取url的长度  
+        var offset = urlInfo.indexOf("?"); //设置参数字符串开始的位置  
+        var strKeyValue = urlInfo.substr(offset, intLen); //取出参数字符串 这里会获得类似“id=1”这样的字符串  
+        var arrParam = strKeyValue.split("="); //对获得的参数字符串按照“=”进行分割  
+        var strParamValue = arrParam[1]; //得到参数值 
+        var dalei_id = arrParam[3]; //得到参数值 
+        var supplierid= arrParam[5]; //得到参数值 
+        var distributor= arrParam[7];
+        // alert("您要传递的参数值是" + strParamValue);  
+        //alert(strParamValue);
+        var str = new Array(4);
+        str[0]=strParamValue;
+        str[1]=dalei_id;
+        str[2]=supplierid;
+        str[3]=distributor;
+        return str;
+    }
+
+    $(document).ready(function()
+    {
+
+        var canshu = new Array(4);
+        canshu=getParam();
+        //alert(canshu[0]);
+        var m=$("#canshu").html(decodeURI(canshu));
+        //$(".titelsub").html(decodeURI(canshu[0]));
+
+		var distributor_id=top.window.parent.distributor_id;
+        $.get("http://membership-waibao.ipaloma.com/webapi/account/login/test-2-135-1",{},function(){},false);
+        $.ajax({
+            url:"http://membership-waibao.ipaloma.com/webapi/distributor/"+distributor_id+"/customer/c45e3940739345cab03730d445ec7e74/itemtypegroups",
+            async:true,
+            cache:false,
+            dataType:"json",
+            error:function(){alert("网络出错")},
+            success:function(data)
+            {
+                var $_ul=$("ul:eq(0)");
+                //alert(data.length); // 4个object
+                for(var i=0;i<data.length;i++)   //总共商品数据长度
+                {
+                    //alert(canshu[2]);
+                    //alert(data[i].supplierid);  测试遍历了几遍
+                    if( (data[i].supplierid)==decodeURI(canshu[2]) )  //选择用户传递的品牌进行遍历
+                    {
+                        for(j=0;j<data[i].itemcategory.length;j++)
+                        {
+                            if( (data[i].itemcategory[j].itemcategory)==decodeURI(canshu[1]) && (data[i].supplierid)==decodeURI(canshu[2]) )
+                            {
+                                for(z=0;z<data[i].itemcategory[j].itemsubcategory.length;z++)
+                                {
+                                    //alert(data[i].itemcategory[j].itemsubcategory);
+                                    var str='<li class="headstyle"><a href="#"  class="headstylelink">'+data[i].itemcategory[j].itemsubcategory[z].itemsubcategoryname+'</a></li>';
+                                    $_ul.append(str);
+                                }
+                            }
+                        };
+                        break;
+                    }
+                    $_ul.append(str);
+                } // <!-- 遍历数据结束 -->
+            }  //<!-- success结束 -->
+        });  //<!-- ajax结束 -->
+
+    });
+		
+		
+</script>
+<!--
+	
+
+<div data-role="header" data-id="myHeader" data-position="fixed"  data-tap-toggle="false">
+	<h2>下拉刷新demo</h2>
+	<a data-icon="back" data-rel="back" data-iconpos="notext" data-direction="reverse"></a>
+	<a href="index.html" data-icon="home" data-iconpos="notext" class="ui-btn-right">
+	</a>
+</div>
+-->
+<!-- content-->
+
+<div data-role="content" >
+	<div id="wrapperIndex" class="wrapper" >
+		<div id="scrollerIndex" class="scroller">
+			<div id="pullDown" >
+				<span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+			</div>
+			<div style="margin: 10px 0px; padding:5px;">
+				<b>2013/5/17<span style="margin:0 10px;">~</span>2013/5/17</b>
+				<div class="navbar" style="height: 1px; margin-top: 5px"></div>
+			</div>
+        
+   
+           <!-- dealer-list 分销商列表 start-->
+<div class="tabmain">
+  <div id="outerWrap">
+    <div id="container">
+    <div class="titelsub" reg="hidden">某一子类型 <img src="images/arrow_down2.png" width="25" height="22"></div>
+    <!-- sub style-list 全部子类列表 start-->
+<div class="hiddenall">
+<ul class="tabgroup">
+
+</ul>
+</div>
+
+<div class="hiddenall"></div>
+<!-- sub style-list 全部子类列表end-->
+
+
+      <div id="content">
+      
+        <div class="tabContent ">
+        
+        <ul id="mygoodslist">
+
+         
+         </ul>
+        </div>
+        
+        
+        
+      </div>
+       <div class="messagebox">正在为您加载更多商品... </div>
+    </div>
+  </div>
+</div>
+<!-- dealer-list 分销商列表 end-->
+
+
+			<div id="pullUp">
+				<span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+</div>
+<!-- /page -->
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的订单</title>
+<link href="css/master.css" rel="stylesheet" type="text/css">
+<link href="css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/retailerid.js"></script>
+<script type="text/javascript">
+  var distributor_id=top.window.parent.distributor_id;
+  $(document).ready(function()
+  {
+
+   //$.get("http://membership-waibao.ipaloma.com/webapi/account/login/test-2-135-1",{},function(){},false);
+   $.ajax({
+	  url:"/webapi/distributor/"+getRetailerid()+"/orderforms",
+	  async:true,
+	  cache:false,
+	  dataType:"json",
+	  type:"get",
+	  error:function(){alert("网络出错")},
+	  success:function(data)
+		 {
+			   
+		   for (var j = 0; j < data.length; j++) 
+		   {
+		   	   billlist=data[j].billlist;
+		   	   distributor_id=data[j].distributor_id;
+			   for(var i=0;i<billlist.length;i++)  //遍历订单列表  目前总共有三个订单列表
+			    {
+					if(billlist[i].details.length>1) {
+
+						var $_dd=$("#dl1:eq(0)");
+						var str='<dd style="padding-top:10px;" class="ddclick">';
+						str+='<div class="image2box"><a href="#"><img src="images/p7.png" ></a><a href="#"><img src="images/p6.png" ></a><a href="#"><img src="images/p7.png" ></a></div>';
+						str+='<i  class="ammount">共'+billlist[i].details.length+'件</i>';
+						str+='<div class="descbox">';
+						str+='<p>订单号：'+billlist[i].serialnumber+'</p>';
+						str+='<i class="il">送货时间：'+billlist[i].billexpecteddelivertime+'</i>';
+						//统计商品列表中总共的价格
+						menoy=parseInt(0);
+						for(j=0;j<billlist[i].details.length;j++)   //遍历每个订单列表中的商品
+						{
+							menoy1=parseInt(billlist[i].details[j].itemunitcost);
+							menoy=menoy+menoy1;
+						}
+						str+='<i class="ir">合计：<span class="pricstyle">￥'+menoy+'</span></i>';
+						str+='</div>';
+						str+='</dd>';
+						$_dd.append(str);
+
+
+
+					}else {
+
+						var $_dd=$("#dl1:eq(0)");
+						var str='<dd class="ddclick">';
+						str+='<div class="imagebox"><a href="#"><img src="images/p7.png" ></a></div>';
+						str+='<div class="iconbox"><img src="images/icon_lin.png" width="30" height="30"> </div>';
+						str+='<div class="dectitlebox">';
+						str+='<a style="float:left;" href="#" >'+billlist[i].details[0].itemobj.itemname+'</a>';
+						str+='<i>共'+billlist[i].details.length+'件</i>';
+						str+='</div>';
+						str+='<div class="descbox">';
+						str+='<p id="serialnumber">订单号：'+billlist[i].serialnumber+'</p>';
+						str+='<i class="il">送货时间：'+billlist[i].billexpecteddelivertime+'</i>';
+						str+='<i class="ir">合计：<span class="pricstyle">￥'+billlist[i].details[0].itemunitcost+'</span></i>';
+						str+='</div>';
+						str+='</dd>';
+						$_dd.append(str);
+
+					}
+
+					//点击进入订单详情页面
+					$(".ddclick").click(function () {
+						var serialnumber=$(this).find("p").text().substring('订单号：'.length);
+					window.parent.location.href="p13_orderdetail.html?serialnumber="+serialnumber+"=distributor_id="+distributor_id;
+				 });
+
+			    }  //for循环遍历订单
+
+			  };//for循环遍历分销商
+			 
+
+		 }//ajax的success方法结束
+   });  //ajax结束
+
+  }); //document结束
+
+</script>
+
+
+
+</head>
+
+<body oncontextmenu="return false">
+<div class="container">
+<!-- order-list 订单列表 start-->
+<div class="orderlistbox">
+<dl id="dl1">
+<dt>进行中的</dt>
+
+<!--<dd>
+<div class="imagebox"><a href="#"><img src="images/p7.png" ></a></div>
+<div class="iconbox"><img src="images/icon_lin.png" width="30" height="30"> </div>
+<div class="dectitlebox">
+<a style="float:left;" href="#" >三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a>
+<i>共1件</i>
+</div>
+&lt;!&ndash; desc&ndash;&gt;
+<div class="descbox">
+<p>订单号：201601101309123</p>
+<i class="il">送货时间：2016/07/01</i>
+<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>
+</div>
+</dd>
+
+
+<dd style="padding-top:10px;">
+<div class="image2box"><a href="#"><img src="images/p7.png" ></a><a href="#"><img src="images/p6.png" ></a><a href="#"><img src="images/p7.png" ></a></div>
+<i  class="ammount">共1件</i>
+&lt;!&ndash; desc&ndash;&gt;
+<div class="descbox">
+<p>订单号：201601101309123</p>
+<i class="il">送货时间：2016/07/01</i>
+<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>
+</div>
+</dd>-->
+
+</dl>
+
+
+
+<!--<dl>-->
+<!--<dt>历史订单</dt>-->
+<!--<dd>-->
+<!--<div class="imagebox"><a href="#"><img src="images/p7.png" ></a></div>-->
+<!--<div class="iconbox"><img src="images/icon_lin.png" width="30" height="30"> </div>-->
+<!--<div class="dectitlebox">-->
+<!--<a style="float:left;" href="#" >三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a>-->
+<!--<i>共1件</i>-->
+<!--</div>-->
+<!--&lt;!&ndash; desc&ndash;&gt;-->
+<!--<div class="descbox">-->
+<!--<p>订单号：201601101309123</p>-->
+<!--<i class="il">送货时间：2016/07/01</i>-->
+<!--<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>-->
+<!--</div>-->
+<!--</dd>-->
+
+
+<!--<dd style="padding-top:10px;">-->
+<!--<div class="image2box"><a href="#"><img src="images/p7.png" ></a><a href="#"><img src="images/p6.png" ></a><a href="#"><img src="images/p7.png" ></a></div>-->
+<!--<i  class="ammount">共1件</i>-->
+<!--&lt;!&ndash; desc&ndash;&gt;-->
+<!--<div class="descbox">-->
+<!--<p>订单号：201601101309123</p>-->
+<!--<i class="il">送货时间：2016/07/01</i>-->
+<!--<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>-->
+<!--</div>-->
+<!--</dd>-->
+<!--</dl>-->
+</div>
+
+
+
+<!-- order-list 订单列表 end-->
+</div>
+
+
+</body>
+</html>
