@@ -21,6 +21,7 @@
             width: 100%;
             overflow: hidden;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         input[type='date'], input[type='text'], input[type='submit'], input[type='button'], input[type='number'], select, select option, textarea, button {
@@ -58,8 +59,14 @@
         $(function () {
             activity.list();
             $(document).on('input','#zt_text',function(){
-              var b = $(this).val().replace(/[ ]/g,"");
-              $(this).val(b);
+              var this_val=$(this).val();
+              var regEx = new RegExp(/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\\/`\|])*)$/);
+              var result = this_val.match(regEx);
+              alert(result);
+              if(result==null){
+                  var b = $(this).val().replace(/[ ]/g,"");
+                  $(this).val(b);
+              }
             })
         });
         var cssObj = {
@@ -94,9 +101,9 @@
                 else if (t == 3)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>您还有内容未保存！<br/>退出后将清空，确定要退出？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 4)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要修改，请先下架！</p></p></div><div class="win-close" ></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要修改，请先下架！</p></p><div class="win-close" ></div></div>';
                 else if (t == 5)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中修改。</p></p></div><div class="win-close"></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中修改。</p></p><div class="win-close"></div></div>';
                 else if (t == 6)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>该活动已在审核中<br/>将很快与惠粉见面，确认要修改？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 7)
@@ -112,9 +119,9 @@
                 else if (t == 12)
                     cont = '<div class="win-box win-6" style="position: fixed;"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close" "></div>';
                 else if (t == 13)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中删除。</p></p></div><div class="win-close"></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中删除。</p></p><div class="win-close"></div></div>';
                 else if (t == 14)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核！<br/>请到未发布活动列表中删除。</p></p></div><div class="win-close"></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核！<br/>请到未发布活动列表中删除。</p></p><div class="win-close"></div></div>';
                 $("body").css("padding-bottom", "0");
                 $('#lazyout').remove();
                 $('#win_box').remove();
@@ -192,7 +199,7 @@
             $("input[name=originalprice]").on('input',function (){
 
                 if(!isNaN(this.value)){
-
+                    // console.log(this.value.indexOf("."));
                     if(this.value.indexOf(".")!=-1){
 
                         $(this).attr('maxlength',"7");
@@ -327,11 +334,16 @@
 
 
             function getDiscount(specialprice, originalcost) {
+                console.log(originalcost/specialprice);
                 if (specialprice > 0 && originalcost > 0) {
                     if(originalcost > specialprice)
                     {
-                        var discount = specialprice / originalcost * 10+'';
-                        var disc = discount.substring(0, discount.lastIndexOf('.') + 2);
+                        var discount = originalcost/specialprice;
+                        //优惠价除以原价 保留一位小数点
+                        var disc = parseFloat(discount).toFixed(1);
+                        //console.log(disc);
+                        //var disc = discount.substring(0, discount.lastIndexOf('.') + 2);
+
                         if (disc == null) {
                             disc = "";
                         }
@@ -547,11 +559,8 @@
                             noReleaseHtml += activity.getRelHtml(item);
                             noReleaseCount += 1;
                         }
-                    });
-                    $.each(json.activities, function (i, item) {
-                        if ($.trim(item.state) == "未发布" || $.trim(item.state) == "审核失败" || $.trim(item.state) == "下架") {
-                        }
-                        else {
+                        else
+                        {
                             releaseHtml += activity.getRelHtml(item);
                             releaseCount += 1;
                         }
@@ -1128,7 +1137,7 @@
                                         else
                                             $("#list .release").append(activity.getRelHtml(json));
                                     }
-                                }
+                l                }
                                 createObj.remove();
                                 // alert('shua')
                                 window.location.reload();

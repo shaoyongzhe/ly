@@ -358,6 +358,8 @@ table {
     width:100%;
     display:none;
     border-top:1px solid #fdc995;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 .no-audit .n-close {
     background:url(/retailer/image/activities/tl-3.png) no-repeat center center;
