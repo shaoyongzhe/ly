@@ -8,6 +8,7 @@
             toggle(data);
         }
     });
+    
 }
 function toggle(data) {//判断用户是否违规
     var _endTm = (new Date(data.endtime)).getTime();
@@ -31,11 +32,14 @@ function toggle(data) {//判断用户是否违规
             $(".sp2").text("00");
             $(".sp3").text("00");
             var _keep = setTimeout(function () {
-                
                 $("#list").hide();
             },5000)
     } else {
-
+        alert("开始扫一扫")
+        wx.ready(function () {
+            
+            vm.scanwx()
+        });
     }
     $(".upp img").click(function () {
         $("#list").hide();

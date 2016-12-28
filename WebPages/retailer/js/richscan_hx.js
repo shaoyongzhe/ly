@@ -1,7 +1,4 @@
-wx.ready(function () {
-    //  alert("开始扫一扫")
-    //vm.scanwx()
-});
+
 
 avalon.ready(function () {
     writeOff();
