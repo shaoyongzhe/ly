@@ -942,7 +942,9 @@
                                 dataForm["giftcount"] = this.getParam(createObj, "giftcount");
                             }
                         }
+                        dataForm.endtime += " " + hour + ":00:00";
                     }
+
 
                 }
 
@@ -1131,7 +1133,7 @@
                                         else
                                             $("#list .release").append(activity.getRelHtml(json));
                                     }
-                l                }
+                                }
                                 createObj.remove();
                                 // alert('shua')
                                 window.location.reload();
