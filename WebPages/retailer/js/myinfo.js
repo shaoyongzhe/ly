@@ -16,7 +16,7 @@ var vm = avalon.define({
     IsShow: false,
     showcontribute: true,//默认展示我的贡献
     showemployee: false,
-    getMyInfo: function () {
+    getMyInfo: function () { 
         $.ajax({
             type: 'GET',
             dataType: 'json',
