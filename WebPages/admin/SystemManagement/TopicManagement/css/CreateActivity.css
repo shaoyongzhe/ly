@@ -97,8 +97,9 @@ section::-webkit-scrollbar-thumb{
 	text-align: center;
 	color: #999;
 	font-size: 12px;
-    position: fixed;
-    bottom: 30px;
+    /*position: fixed;
+    bottom: 30px;*/
+    padding: 30px 0;
 }
 
 nav{
@@ -1293,7 +1294,7 @@ textarea{
 }
 
 
-/*11111111111111111111111111111*/
+
 .file {
     position: relative;
     /* display: inline-block; */
@@ -1312,9 +1313,10 @@ textarea{
     width: 100%;
     height: 100%;
     opacity: 0;
-	position: absolute;
+		position: absolute;
     right: 0;
     top: 0;
+    /*cursor: pointer;*/
 }
 
 /*.file:hover {
@@ -1331,4 +1333,5 @@ textarea{
 .shenhe{
 	/*margin-left: 2px!important;*/
 	display: none;
+	/*display: block!important;*/
 }
