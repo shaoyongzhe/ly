@@ -154,13 +154,13 @@
                             <span></span>
                             ${item.ruledesc}
                         </div>
-                        {@if item.topicdata == undefined || item.topicdata.length == 0 }
+                        {@if item.topiclist == undefined || item.topiclist == null}
                         <div class="whiteblock"></div>
                         {@else}
                         <div class="assetinfo">
                             <a href="javascript:;" class="assetcontent">
                                 <div class="asset_left">
-                                    <nobr>${item.topicdata[0].topictitle + (item.topicdata.length>1?'等活动':'')}</nobr>
+                                    <nobr>${item.topiclist[0].topictitle + (item.topiclist.length>1?'等活动':'')}</nobr>
                                 </div>
                                 <div class="asset_right">
                                     <small>已参加</small>${item.topiclist[0].headcount}<small>人</small>
@@ -365,13 +365,13 @@
             height: 40px;
             background: url(/consumer/image/asset_consumer.png) no-repeat;
             background-size: 100% 40px;
-            line-height: 35px;
-            padding: 0 15px 0 20px;
+            line-height: 40px;
+            padding: 0 15px 0 25px;
             color: #fff;
         }
 
             .assetinfo .asset_left {
-                width: calc(100% - 90px);
+                width: calc(100% - 95px);
                 float: left;
                 height: 40px;
                 color: #fff;
