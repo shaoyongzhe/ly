@@ -1,5 +1,5 @@
 // 导航切换
-var domailUrl = "";
+var domailUrl = "http://127.0.0.1:40008";
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
@@ -51,13 +51,13 @@ function getList(curr, handle, searchForm) {
 		td = data.content;
         for (var i = 0; i < td.length; i++) {
             var isHtml;
-            var contentFormat = "";
-            try {
-                var obj = JSON.parse(td[i].content);
-                contentFormat = JSON.stringify(obj, null, 4);
-            } catch (e) {
-                contentFormat = td[i].content;
-            }
+            var contentFormat = td[i].content;
+            //try {
+            //    var obj = JSON.parse(td[i].content);
+            //    contentFormat = JSON.stringify(obj, null, 4);
+            //} catch (e) {
+            //    contentFormat = td[i].content;
+            //}
             tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
 			+ "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
@@ -191,7 +191,7 @@ function getModulePeopleList(curr, handle, searchForm) {
 $(".search-btn").click(function () {
     layer.msg('正在查询...', { time: 20 });
     getList(1, 'search', getSearchForm());
-    });
+});
 //重置
 $(".reset-btn").click(function () {
     $('.search-area .gateway_templateid').val("");
@@ -500,13 +500,13 @@ $('table.notify')
                          state: tr.find('td:eq(7)').text(),
                          isdefault: tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0
                      };
-                     try {
-                         var contentObj = JSON.parse(data.content);
-                         data.content = contentObj;
-                     } catch (e) {
-                         console.log(e);
-                         //alert("测试使用" + data.content);
-                     }
+                     //try {
+                     //    var contentObj = JSON.parse(data.content);
+                     //    data.content = contentObj;
+                     //} catch (e) {
+                     //    console.log(e);
+                     //    //alert("测试使用" + data.content);
+                     //}
                      var jsonStr = JSON.stringify(data, null, 4);
                      $('#add').val(jsonStr);
                      $('#opType').val("notify");
