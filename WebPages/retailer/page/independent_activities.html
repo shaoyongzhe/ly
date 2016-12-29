@@ -12,7 +12,7 @@
     <link href="../css/independent_activities.css" rel="stylesheet" />
     <link href="../css/default.css" rel="stylesheet" />
     <link href="../css/default.date.css" rel="stylesheet" />
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");    </script>
     <script src="../../js/jquery/iscroll.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <style>
@@ -21,7 +21,6 @@
             width: 100%;
             overflow: hidden;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         input[type='date'], input[type='text'], input[type='submit'], input[type='button'], input[type='number'], select, select option, textarea, button {
@@ -59,14 +58,8 @@
         $(function () {
             activity.list();
             $(document).on('input','#zt_text',function(){
-              var this_val=$(this).val();
-              var regEx = new RegExp(/^(([^\^\.<>%&',;=?$"':#@!~\]\[{}\\/`\|])*)$/);
-              var result = this_val.match(regEx);
-              //alert(result);
-              if(result==null){
-                  var b = $(this).val().replace(/[ ]/g,"");
-                  $(this).val(b);
-              }
+              var b = $(this).val().replace(/[ ]/g,"");
+              $(this).val(b);
             })
         });
         var cssObj = {
@@ -101,9 +94,9 @@
                 else if (t == 3)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>您还有内容未保存！<br/>退出后将清空，确定要退出？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 4)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要修改，请先下架！</p></p><div class="win-close" ></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要修改，请先下架！</p></p></div><div class="win-close" ></div>';
                 else if (t == 5)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中修改。</p></p><div class="win-close"></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中修改。</p></p></div><div class="win-close"></div>';
                 else if (t == 6)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>该活动已在审核中<br/>将很快与惠粉见面，确认要修改？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 7)
@@ -119,9 +112,9 @@
                 else if (t == 12)
                     cont = '<div class="win-box win-6" style="position: fixed;"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close" "></div>';
                 else if (t == 13)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中删除。</p></p><div class="win-close"></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p >该活动刚刚完成审核，且未通过！</p><p  >请到未发布活动列表中删除。</p><div class="win-close" "></div></div>';
                 else if (t == 14)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核！<br/>请到未发布活动列表中删除。</p></p><div class="win-close"></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p >该活动刚刚完成审核！</p><p  >请到未发布活动列表中删除。</p><div class="win-close" "></div></div>';
                 $("body").css("padding-bottom", "0");
                 $('#lazyout').remove();
                 $('#win_box').remove();
@@ -140,6 +133,7 @@
                 //$("#win_box .win-box").css("top", winH);
                 //$("#win_box .win-close").css("top", winH + $("#win_box .win-box").outerHeight() + 50);
                 $("#win_box .w-save,#win_box .win-close").click(function () {
+                    //console.log(callback);
                     popup.close();
                     if (callback != null)
                         callback();
@@ -165,7 +159,7 @@
         function initDate() {
 
             // $("input[name=originalprice]").on('keydown',function () {
-            // 	// alert(1);
+            //  // alert(1);
             //     var originalprice = $(this).val();
             //     if (!$.isNumeric(originalprice) || originalprice <= 0) {
             //         $(this).val("");
@@ -174,7 +168,7 @@
 
             //     originalprice = new Number(originalprice).toFixed(2);
             //     if(originalprice.length<=7){
-            //     	$(this).val(originalprice);
+            //      $(this).val(originalprice);
             //     }
             //     var discountprice = new Number($(this).parent().find("input[name=discountprice]").val());
             //     $(this).parent().find(".d-cont").text(getDiscount(discountprice, originalprice));
@@ -197,11 +191,8 @@
             // });
 
             $("input[name=originalprice]").on('input',function (){
-
-                if(!isNaN(this.value)){
-                    // console.log(this.value.indexOf("."));
-                    if(this.value.indexOf(".")!=-1){
-
+                if(!isNaN(this.value) ){
+                    if(this.value.indexOf(".")!=-1 ){
                         $(this).attr('maxlength',"7");
 
                         if(this.value.substring(this.value.indexOf(".")).length > 3){
@@ -239,7 +230,18 @@
                 $(this).parent().find(".d-cont span").text(getDiscount(discountprice, this.value));
 
             });
-
+           $("input[name=originalprice]").blur(function(){
+                if (this.value == 0) {
+                   alert('原价不可以为0');
+                    this.value = "";
+                }
+            });
+           $("input[name=unitprice]").blur(function(){
+                if (this.value == 0) {
+                   alert('单价不可以为0');
+                    this.value = "";
+                }
+            });
 
             // $("input[name=discountprice]").blur(function () {
             $("input[name=discountprice]").on('input',function () {
@@ -289,11 +291,10 @@
 
 
             // $("input[name=unitprice]").blur(function () {
+                console.log(11112222);
             $("input[name=unitprice],input[name=buycount],input[name=giftcount]").on('input',function () {
-                // alert('dsdsds')
                 if(!isNaN(this.value)){
-
-                    if(this.value.indexOf(".")!=-1){
+                    if(this.value.indexOf(".") >0){
 
                         $(this).attr('maxlength',"7")
                         // this.value=this.value.slice(0,10)
@@ -334,7 +335,6 @@
 
 
             function getDiscount(specialprice, originalcost) {
-                console.log(originalcost/specialprice);
                 if (specialprice > 0 && originalcost > 0) {
                     if(originalcost > specialprice)
                     {
@@ -367,7 +367,8 @@
                     // console.log(Date.now);
                     var et = new Date(parseInt(thingSet.select) * 1).toLocaleDateString().replace(/\//g,'-');
                     if(et < $("input[name=begintime]").val()){
-                        toasterextend.showtips("结束时间建议大于今天", "error");
+                        toasterextend.showtips("结束时间建议大于开始时间", "error");
+                        //toasterextend.showtips("结束时间建议大于今天", "error");
                     }
                 }
             });
@@ -507,7 +508,15 @@
             }
 
             fm.find("input[name=endtime]").val(json.endtime.substring(0,10));
-            fm.find("input[name=datehour]").val(endTime.getHours());
+            console.log(endTime.getHours());
+            if(endTime.getHours()==0 || endTime.getHours()=='NAN'){
+                console.log(11122);
+                fm.find("input[name=datehour]").val('00');
+            }else{
+                 console.log(22222);
+                fm.find("input[name=datehour]").val(endTime.getHours());
+
+            }
             fm.find("textarea[name=remark]").val(json.remark);
 
             if (relType == 0) {
@@ -630,7 +639,7 @@
                         item.giftcount = "";
 
                     content += '<tr><th>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</th><td>￥<span class="unitPrice">' + parseFloat(item.unitprice) + '</span></td></tr>'
-                             + '<tr><th>买&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠：</th><td><span class="buyCount">' + '</span>买<span class="giftCount">' + intToZH(item.buycount) + '</span>赠<span class="giftCount">' + intToZH(item.giftcount) + '</span></td></tr>';
+                             + '<tr><th>买&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;赠：</th><td><span class="buyCount">' + '</span>买<span class="giftCount">' +item.buycount + '</span>赠<span class="giftCount">' + item.giftcount + '</span></td></tr>';
                 }
 
 
@@ -727,6 +736,7 @@
                             else
                             {
                                 popup.show(13, null);
+                                window.location.reload();
                                 return;
                             }
 
@@ -859,7 +869,7 @@
                         // -------------------------------
 
                         //|| $.trim($("input[name=originalprice]").val()) == ""
-                        if ($.trim(dataForm.originalprice).length == 0) {
+                        if ($.trim(dataForm.originalprice).length == 0 ) {
                             toasterextend.showtips("请输入原价", "error");
                             return;
                         }
@@ -920,7 +930,7 @@
                         else {
                             if (this.getParam(createObj, "buycount").indexOf(".") != -1 || this.getParam(createObj, "buycount").indexOf("-") != -1) {
                                 isValid = false;
-                                toasterextend.showtips("购买数量必须为整数", "error");
+                                toasterextend.showtips("买赠数量必须为整数", "error");
                                 return;
                             } else {
                                 dataForm["buycount"] = this.getParam(createObj, "buycount");
@@ -945,7 +955,6 @@
                         dataForm.endtime += " " + hour + ":00:00";
                     }
 
-
                 }
 
                 // 保存
@@ -969,6 +978,7 @@
                             toasterextend.showtips("请输入优惠价", "error");
                             return;
                         }
+
                     }
                     else
                     {
@@ -1027,14 +1037,14 @@
             // 编辑
             edit: function (obj) {
                 $('#zt_xiugai').removeAttr("onclick");
-                console.log(1);
+                console.log(obj);
                 if ($(obj).closest(".relitem").next().is(".create")) {
                     $(obj).closest(".relitem").next().remove();
                     return;
                 }
 
                 _ajax("GET", '/webapi/retailer/owner/activities/' + $(obj).parent().attr("data-code"), null, function (json) {
-                    // console.log(json);
+                    console.log(json);
                     // return;
                     var state = $(obj).parent().attr("data-state");
                     if (json.state == "上架") {
@@ -1104,13 +1114,13 @@
                         rt = 7
                     // else
                     if (dataForm.buycount) {
-                        window.location.reload()
+                        popup.show(rt);
+                        //window.location.reload()
                     }
-                // console.log(dataForm);
                     if (dataForm.length != length) {
                         length = dataForm.length;
                         _ajax(method, url, dataForm, function (json) {
-                            popup.show(rt, function () {
+                           popup.show(rt, function () {
 
                                 if (isUpdate)
                                     createObj.prev().remove();
@@ -1136,7 +1146,7 @@
                                 }
                                 createObj.remove();
                                 // alert('shua')
-                                window.location.reload();
+                              window.location.reload();
                             });
                         });
                     } else {

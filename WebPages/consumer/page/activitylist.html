@@ -99,7 +99,7 @@
         });
         function loaddata(longitude, latitude, dropme) {
 
-            var ajaxdata = { consumer_id: consumer_id, "activitykind": "distributor_to_consumer", "activitytype": "activity", pageindex: pageIndex };
+            var ajaxdata = { consumer_id: consumer_id, "activitykind": "distributor_to_consumer,retailer_to_consumer", "activitytype": "activity", pageindex: pageIndex };
             if (wxjsconfig.sharekey != null)
                 ajaxdata[wxjsconfig.sharekey] = "_";
 
