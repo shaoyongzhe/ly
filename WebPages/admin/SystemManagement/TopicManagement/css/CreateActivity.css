@@ -1,4 +1,4 @@
-body.create{
+body{
 	margin: 0;
 	font-size: 14px;
 	font-family: microsoft yahei;
@@ -6,7 +6,7 @@ body.create{
 	color: #333;
 }
 
-.create i,em,span,label,dfn{
+i,em,span,label,dfn{
 	display: inline-block;
 	font-style: normal;
 }

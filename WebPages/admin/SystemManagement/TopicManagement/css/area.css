@@ -596,9 +596,12 @@ a:hover {
     border-radius: 3px;
     margin-top: -16px;
     width: 978px;
-    display: none;
-
     position: relative;
+    display: none;
+}
+
+body.modify .region-wrap{
+    display: block;
 }
 
 .Select_the_province1{
