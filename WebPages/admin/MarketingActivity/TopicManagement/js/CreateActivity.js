@@ -180,18 +180,12 @@ $(document).click(function(){
 $('body').on("click",".setRules",function(e){
 // $('.setRules').click(function(){
 
-	index = $(this).closest('.addSub4').index();
+	// debugger;
 	// alert(index);
 	//return
 
 
-	$(this).find('.gz').remove();
-	$(this).append('<input type="hidden" class="gz gzHidden'+ index +'">');
-	// return;
-
-	// $('.set-rules .on').removeClass('on');
-	// return
-
+	// $(this).find('.gz').remove();
 	layer.open({
 
 		type: 1,
@@ -202,7 +196,41 @@ $('body').on("click",".setRules",function(e){
 
 	});
 
+	// debugger
+
+	index = $(this).closest('.addSub4').index();
+	$('.set-rules .check.on').removeClass('on');
+	$('.set-rules input').val('');
+
+	if($(this).find('.gz').length == 0){
+		$(this).append('<input type="hidden" class="gz gzHidden'+ index +'">');
+
+	} else {
+		var gz = $('.gzHidden'+ index).val();
+		if(gz != ""){
+			var gzVal = JSON.parse(gz);
+			if(gzVal.perday.sum != "" && gzVal.perday.sum != undefined){
+				$('.layer.set-rules .check.perdaySum').click();
+				$('input.perdaySum').val(gzVal.perday.sum);
+			}
+			if(gzVal.perday.time != "" && gzVal.perday.time != undefined){
+				$('.layer.set-rules .check.perdayTime').click();
+				$('input.perdayTime').val(gzVal.perday.time);
+			}
+
+			if(gzVal.totalbudget.sum != "" && gzVal.totalbudget.sum != undefined){
+				$('.layer.set-rules .check.budgetSum').click();
+				$('input.budgetSum').val(gzVal.totalbudget.sum);
+			}
+			if(gzVal.totalbudget.time != "" && gzVal.totalbudget.time != undefined){
+				$('.layer.set-rules .check.budgetTime').click();
+				$('input.budgetTime').val(gzVal.totalbudget.time);
+			}
+		}		
+	}
+
 });
+
 
 // 设置规则 确定按钮
 // var gzObj = {};
@@ -225,6 +253,17 @@ $('.rulesok').click(function(){
 		var budgetTime = guize.find('input.budgetTime').val();
 	}
 
+	var a = true;
+	$('.butie-inner-item .check.on').next().find('input').each(function(){
+		if($(this).val() == ""){
+			layer.tips('请先输入',$(this));
+			a = false;
+			return false;
+		}
+	});
+
+	if(!a){return}
+
 	limit = {
 		"count_on": guize.find('.selected').attr("name"),
         "perday": {
@@ -242,6 +281,20 @@ $('.rulesok').click(function(){
 	// console.log($(".y1yHidden" + index).val());
 	$(this).closest('.layui-layer').find('.layui-layer-close').click();
 
+});
+
+
+$('.butie-inner-item input').keyup(function(){
+	// debugger
+	if($(this).val().length != 0){
+		$(this).closest('.butie-inner-item').find('span.check').addClass('on');
+		$(this).closest('.butie-item').find('.butie_type span.buTie').addClass('on');
+	} else {
+		$(this).closest('.butie-inner-item').find('span.check').removeClass('on');
+		if($(this).closest('.butie-item').find('.butie-inner-item .check.on').length == 0){
+			$(this).closest('.butie-item').find('.butie_type span.buTie').removeClass('on');
+		}
+	}
 });
 
 
@@ -324,7 +377,7 @@ $('.yaook').click(function(){
 			try {
 				var a = JSON.parse(_this.find('.Yyy6 input').val())
 			} catch(e) {
-				console.log(e);
+				// console.log(e);
 			}
 			y1yObj = {
 				"refund_content": _this.find('.Yyy1 .selected').text(),
@@ -337,7 +390,7 @@ $('.yaook').click(function(){
 			y1yArr.push(y1yObj);
 		});
 
-		// if(y1yObj['max'] == undefined){
+		// if(y1yObj['max'] == undefined){ 
 		// 	delete y1yObj['max'];
 		// }
 
