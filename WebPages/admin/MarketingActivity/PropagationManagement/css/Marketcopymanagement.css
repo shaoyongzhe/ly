@@ -1,0 +1,497 @@
+/*
+* @Author: Administrator
+* @Date:   2016-11-18 15:37:05
+* @Last Modified by:   Administrator
+* @Last Modified time: 2016-12-28 18:38:39
+*/
+@charset "utf-8";
+/* 你自己的样式 */
+
+.welcome{
+	width: 500px;
+	height: 300px;
+	background: #eee;
+	margin: 10px 0 0 20px;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.fou{
+    background-color:#C0BCBC ;
+}
+
+
+.line {
+    /*width: 680px;*/
+    height: 360px;
+    overflow: hidden;
+    position: relative;
+    /*left: -50px;*/
+    /*top: -40px;*/
+    margin-top:10px;
+    height:70px;
+    /* background-color: #F69642; */
+
+}
+
+.Newly_added{
+	width: 131px;
+	height: 33px;
+	background-color: #FF6032;
+	margin-left:20px;
+	margin-top:19px;
+	font-size: 14px;
+    color:#FFFFFF;
+    border:none;
+    cursor: pointer;
+}
+
+
+.handle{
+	position: relat`ive;
+}
+.bread-crumb{
+    font-size: 14px;
+    height: 24px;
+}
+
+.handle-btns-wrap{
+     display:none; 
+    /*opacity: 1;*/
+    width: 350px;
+    height: 30px;
+    line-height: 32px;
+    background: #C4E4EF;
+    transition: .6s;
+    position: absolute;
+    border-radius: 3px;
+    top: 33px;
+    right: 42%;
+	
+}
+
+
+
+.handle-icon.on + .handle-btns-wrap{
+    opacity: 1;
+    z-index: 1;
+    display: block;
+}
+
+.arrow-right{
+	    display: inline-block;
+    position: absolute;
+    /* width: 10px; */
+    /* height: 10px; */
+    /* background: antiquewhite; */
+    border: 6px solid transparent;
+    border-left-color: #c4e4ef;
+    right: 9px;
+    top: -11px;
+    transform: rotate(-90deg);
+}
+
+
+.handle-icon{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+    background: url(../Images/iconss1.png) no-repeat center center;
+	/* background-color: #B12FE2; */
+    cursor: pointer;
+}
+
+.handle-btns{
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+    top:0px;
+    background-color: none;
+    transition: .6s;
+    position: relative;
+}
+
+.handle-btns a {
+    /* display: inline-block; */
+    /* width: 100px; */
+    /* text-align: center; */
+    /* background: red; */
+    /* margin-bottom: 5px; */
+    /* float: left; */
+    /* height: 20px; */
+    margin-right: 10px;
+    text-decoration: none;
+    /* vertical-align: -7px; */
+}
+
+.handle-icon:hover + .handle-btns,
+.handle-icon.on + .handle-btns{
+	/* opacity: 1; */
+	top: 30px;
+	z-index: 1;
+}
+
+.search-pos-item{
+	width: 100%;
+    float: left;
+}
+
+body{
+		background-color: #eee;
+	}
+
+.page-container{
+	background-color: #fff;
+    padding:20px;
+}
+
+/*查询div*/
+.search-area{
+	display: inline-block;
+	width:100%;
+	padding-bottom: 20px;
+	/* background: red; */
+	vertical-align: middle;
+	/* background-color: yellow; */
+	position: relative;
+	margin-left:20px;
+}
+
+.search-area .search-btn{
+    background-color: rgba(0, 157, 217, 1);
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 3px;
+    position: absolute;
+    border: 0;
+    line-height: 32px;
+    right: 6%;
+    bottom: 70px;
+    width: 130px;
+    height: 36px;
+    cursor: pointer;
+}
+
+.search-wrap{
+	background-color: #fff;
+}
+
+.search-area .input-contorl{
+	display: inline-block;
+	width: 30%;
+    position: relative;
+}
+.calendar1{
+    position: absolute;
+    left: 143px;
+    top: 25px;
+}
+.calendar2{
+    position: absolute;
+    left: 251px;
+    top: 25px;
+}
+.input-contorl label{
+	display: inline-block;
+	width: 70px;
+	margin-top: 20px;
+}
+
+.layer{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.layer img{
+    margin: auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    height: 0;
+    transform-origin: 20% 40%;
+    transition: .6s;
+}
+
+
+.input-contorl input{
+	width: 202px;
+	margin-right:50px;
+}
+
+
+
+.input-contorl .date{
+	width: 27%;
+    cursor: pointer;
+    margin-right: 0;
+     /* background: #fff url(datePicker.gif) no-repeat right; */
+}
+.input-text{
+	width: 30%;
+}
+/* .input-contorl input, .input-contorl select{
+	display: block;
+	width: 200px;
+	height: 30px;
+}
+ */
+.input-text .disable{
+  background-color: #D5C7C7;
+}
+
+.layer.on img{
+    height: 90%;
+    opacity: 1;
+}
+
+
+/* 弹框层 */
+
+.Text_Title{
+    width: 777px;
+    /* height: 73px; */
+    margin: 0 10%;
+    /* background-color: red; */
+    font-size: 14px;
+}
+
+/* guoguanrong */ 
+.layui-layer-content:nth-child(2)>.Float_Title {
+    float: left;
+}
+/* guoguanrong */
+.Float_Title{
+    width: 63px;
+
+    line-height: 71px;
+    /* float: left; */
+    clear: both;
+    display: inline-block;
+}
+.Float_text{
+    width: 655px;
+    /* height: 73px; */
+    line-height: 20px;
+    margin-top:30px;
+    margin-left: 55px;
+    display: inline-block;
+
+}
+
+.province{
+    display: inline-block;
+}
+.Person{
+    display: inline-block;
+    margin-left: 37px;
+}
+.city{
+    display: inline-block;
+}
+
+.county{
+    display: inline-block;
+    margin-left: 37px;
+}
+
+.btn{
+    margin: 0 0;
+    width: 130px;
+    height: 31px;
+    display:inline-block;
+}
+.btn_modify{
+    background-color: #1BCC49;
+}
+.btn_adopt{
+    background-color: #FF5F31;
+}
+.btn_send{
+    background-color: #FF5F31;
+}
+.button_two{
+    margin: 0px 55%;
+    padding-bottom: 30px;
+    width: 435px;
+}
+.btn_Reject{
+    background-color: #1BCC49;
+}
+
+.content{
+    font-size: 12px;
+}
+
+
+.D_send{
+     background-color: #FF5F31;
+}
+/*分页器*/
+.paging_content_div{}
+.paging_data_ul{}
+.paging_paging_div{}
+
+/* 郭冠荣 s */
+
+.search-area .search-btn2{
+    background-color:rgba(0, 157, 217, 1) ;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 3px;
+    position: absolute;
+    border: 0;
+    line-height: 32px;
+    right: 6%;
+    bottom: 30px;
+    width: 130px;
+    height: 36px;
+    cursor: pointer;
+}
+.text1{
+    width: 196px;
+    height: 32px;
+    border:1px solid #cccccc !important;
+    margin:21px 0 0 3px;
+    position: relative;
+    cursor: pointer;
+}
+/* .ipts1{
+    width: 200px !important;
+    height: 22px !important;
+    border:1px solid #cccccc !important;
+    float: left !important;
+    position: absolute !important;
+    left: -1px;
+    top:-1px;
+    cursor: pointer !important;
+} */
+.text1_sonbox{
+    width: 198px;
+    height: 120px;
+    border:1px solid #ccc;
+    display: none;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    z-index: 10000;
+    position: absolute;
+    left:-1px;
+    top: 20px;
+}
+.text1_sonbox div:hover a{
+    background: rgba(0, 157, 217, 1);
+    color: #fff;
+    display: block;
+    text-decoration: none;
+}
+.right_text1pic{
+    position: absolute;
+    right: 4px;
+    top: 2.5px;
+}
+.Binx_font{
+    position: absolute;
+    left: 14px;
+    top: 0;
+ 
+}
+/* 郭冠荣 e */ 
+.content_drop{
+    background-color: #fff;
+}
+
+
+.table1 tbody {
+
+    display:block;
+
+    height:550px;
+
+    overflow-y:scroll;
+
+}
+
+table thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+table thead {
+
+    width: calc( 99.9% - 1em )
+
+}
+.text-c td {
+    width: 20px;
+    text-align: center;
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.text-c td:last-child{
+    overflow: visible !important;
+}
+.input-text{
+    font-size: 12px;
+}
+
+.Float_text1{
+    margin-left: 60px;
+    display: inline-block;
+}
+.Float_Title1{
+    line-height: 20px;
+    display: inline-block;
+}
+/* .btn:first-child{
+    margin: 0 30%;
+}
+ */
+/* 
+tbody td {
+
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+} */
+    span.name { display: block; width: 75px; text-align: left; line-height: 30px;}
+    .gf-select { 
+                float: left;
+    width: 16%;
+    top: -30px;
+    margin-left: 6px;
+    left: 67px;
+    position: relative;
+    }
+    .gf-select span {width: 95%; padding: 4px 0px 4px 10px;display: block; border: 1px solid #ddd; cursor: pointer;}
+    .gf-select span em {font-style: normal;}
+    .gf-select .icon-jt { background: url(../Images/21.png) center right no-repeat; width: 18px; height: 15px;position: absolute;right: -4px;top: 32%; margin-top: -3px;}
+    .gf-select ul {border: 1px solid #ddd; position: absolute; width: 100%; top: 31px; overflow-y :auto; display: none; background: #fff;}
+    .gf-select ul li { border-bottom: 1px solid #ddd; line-height: 30px; padding-left: 10px;}
+    .gf-select ul li:last-child{ border-bottom: none; }
+
+/* tips  显示 */
+.tooltip {position: absolute;z-index: 1070;display: block;font-size: 12px;line-height: 1.4;visibility: visible;filter: alpha(opacity=0);opacity: 0}
+.tooltip.in {filter: alpha(opacity=90);opacity: .9}
+.tooltip.top {padding: 5px 0;margin-top: -3px}
+.tooltip.right {padding: 0 5px;margin-left: 3px}
+.tooltip.bottom {padding: 5px 0;margin-top: 3px}
+.tooltip.left {padding: 0 5px;margin-left: -3px}
+.tooltip-inner {max-width: 200px;padding: 3px 8px;color: #fff;text-align: center;text-decoration: none;background-color: #000;border-radius: 4px}
+.tooltip-arrow {position: absolute;width: 0;height: 0;border-color: transparent;border-style: solid}
+.tooltip.top .tooltip-arrow {bottom: 0;left: 50%;margin-left: -5px;border-width: 5px 5px 0;border-top-color: #000}
+.tooltip.top-left .tooltip-arrow {bottom: 0;left: 5px;border-width: 5px 5px 0;border-top-color: #000}
+.tooltip.top-right .tooltip-arrow {right: 5px;bottom: 0;border-width: 5px 5px 0;border-top-color: #000}
+.tooltip.right .tooltip-arrow {top: 50%;left: 0;margin-top: -5px;border-width: 5px 5px 5px 0;border-right-color: #000}
+.tooltip.left .tooltip-arrow {top: 50%;right: 0;margin-top: -5px;border-width: 5px 0 5px 5px;border-left-color: #000}
+.tooltip.bottom .tooltip-arrow {top: 0;left: 50%;margin-left: -5px;border-width: 0 5px 5px;border-bottom-color: #000}
+.tooltip.bottom-left .tooltip-arrow {top: 0;left: 5px;border-width: 0 5px 5px;border-bottom-color: #000}
+.tooltip.bottom-right .tooltip-arrow {top: 0;right: 5px;border-width: 0 5px 5px;border-bottom-color: #000}
