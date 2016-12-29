@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>   
 	<meta charset="UTF-8"/>
@@ -356,7 +356,7 @@ function ajaxAdd(a) {
         success: function(data) {
             layer.close(indexLayer);
             parent.ajaxSele1();
-            parent.$(".query_btn_div input").click();
+            parent.$(".query_btn_div input").click();//和测试说明后，经理解可解除注释
             parent.$(".layui-layer-close").click();
             parent.layer.closeAll()
         },
@@ -364,8 +364,8 @@ function ajaxAdd(a) {
             layer.close(indexLayer);
             if (JSON.parse(data.responseText).Message == "empty content") {
                 layer.alert("content不能为空", {
-                    icon: 2
-                })
+                icon: 2
+            })
             } else {
                 if (JSON.parse(data.responseText).Message == "exist config in database ") {
                     layer.alert("新建失败，fourthlevel为空或者已经存在,如果想更新fourthlevel内容，请尝试修改按钮", {
@@ -375,7 +375,7 @@ function ajaxAdd(a) {
                     layer.alert("新建失败", {
                         icon: 2
                     })
-                }
+        }
             }
         }
     })
