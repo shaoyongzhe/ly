@@ -162,36 +162,36 @@ var vm = avalon.define({
         vm.IsScan = false;
         $(".msg").hide()
         Msg.show(1, "核销二维码加载中...")
-
+        vm.loadqrcode()
         //var qrcode = qrcodeconfig["consumer"]["consumercard"];
         //qrcode["qrcode"].url = '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&sendimage=false";
         //draw(qrcode, qrcodeconfig["consumer"]["logo"]);
-        $("#QRCode_img").attr("src", '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&random=" + Math.random())
-        $("#QRCode_img").load(function () {//二维码加载成功后，每秒请求服务器，判断门店有没有开始扫码
-            //  console.log("二维码加载成功")
-            $(".stamp").hide()
-            Msg.hide();
-            $("#QRCode").show()
-            $("#p_yxchj font").html(vm.hxNum)
-            vm.hxstate = ""
-            vm.favorable(vm.jsondata, vm.hxNum)
-            vm.getVerifyState()
+        //$("#QRCode_img").attr("src", '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&random=" + Math.random())
+        //$("#QRCode_img").load(function () {//二维码加载成功后，每秒请求服务器，判断门店有没有开始扫码
+        //    //  console.log("二维码加载成功")
+        //    $(".stamp").hide()
+        //    Msg.hide();
+        //    $("#QRCode").show()
+        //    $("#p_yxchj font").html(vm.hxNum)
+        //    vm.hxstate = ""
+        //    vm.favorable(vm.jsondata, vm.hxNum)
+        //    vm.getVerifyState()
 
-            //if ($.isFunction(wxjsshare)) {
-            //    wxjsshare({});
-            //}
-        });
-        $('#QRCode_img').error(function () {
-            Msg.show(2, "核销二维码加载失败");
-            //$("#btn_left").html("返回")
-            //$("#btn_left").one("click", page2.goBack)
-            //$("#btn_right").html("重试")
-            //$("#btn_right").one("click", page2.againLoadQRCode)
-            $("#btnlist").show();
-            $(".btn").hide()
-            $("#btn_1").show()//返回
-            $("#btn_2").show()//重试
-        });
+        //    //if ($.isFunction(wxjsshare)) {
+        //    //    wxjsshare({});
+        //    //}
+        //});
+        //$('#QRCode_img').error(function () {
+        //    Msg.show(2, "核销二维码加载失败");
+        //    //$("#btn_left").html("返回")
+        //    //$("#btn_left").one("click", page2.goBack)
+        //    //$("#btn_right").html("重试")
+        //    //$("#btn_right").one("click", page2.againLoadQRCode)
+        //    $("#btnlist").show();
+        //    $(".btn").hide()
+        //    $("#btn_1").show()//返回
+        //    $("#btn_2").show()//重试
+        //});
 
     },
     getVerifyState: function () {//获取门店扫描状态
@@ -393,25 +393,34 @@ var vm = avalon.define({
         //    vm.zengpin = parseInt(nums) * el.giftcount
         //}
 
+    },
+    loadqrcode: function () {
+        var qrcode = qrcodeconfig["consumer"];
+        qrcode["consumercard"]["qrcode"].url = '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&sendimage=false&random=" + Math.random();
+        qrcode.loadsuccess = function () {
+            $(".stamp").hide()
+            Msg.hide();
+            $("#QRCode").show()
+            $("#p_yxchj font").html(vm.hxNum)
+            vm.hxstate = ""
+            vm.favorable(vm.jsondata, vm.hxNum)
+            vm.getVerifyState()
+        }
+        qrcode.loaderror = function () {
+            Msg.show(2, "核销二维码加载失败");
+            $("#btnlist").show();
+            $(".btn").hide()
+            $("#btn_1").show()//返回
+            $("#btn_2").show()//重试
+        }
+        draw(qrcode, "consumercard", qrcodeconfig["consumer"]["logo"]);
+
+        setTimeout(function () {
+            console.log("30秒执行")
+            vm.loadqrcode()
+        }, 5000)
+
     }
-    //sendRedPack: function (total_amount) {
-    //    $.ajax({WW
-    //        type: 'post',
-    //        dataType: 'json',
-    //        data: {
-    //            distributor_id: vm.distributor_id,
-    //            retailer_id: vm.retailer_id,
-    //            activity_item_guid: vm.activity_item_guid,
-    //            activity_id: vm.jsondata.activity_id,
-    //            total_amount: total_amount
-    //        },
-    //        url: '/webapi/consumer/weixin/sendredpack',
-    //        success: function (result) {
-    //        },
-    //        error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //        }
-    //    });
-    //}
 })
 
 var page2 = avalon.define({
@@ -527,7 +536,7 @@ var selfVerify = avalon.define({//自助核销
                 needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
                 scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
                 success: function (res) {
-                     var token = res.split('token=')
+                    var token = res.split('token=')
                     selfVerify.scanSuccess(token[1])
                 }
             });
@@ -568,7 +577,7 @@ var selfVerify = avalon.define({//自助核销
                 var errormsg = "网络不给力";
                 if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                     var json = JSON.parse(XMLHttpRequest.responseText);
-                    if (json.Message != undefined &&json.Message != null) {
+                    if (json.Message != undefined && json.Message != null) {
                         errormsg = JSON.parse(json.Message).error;
                     }
                     else

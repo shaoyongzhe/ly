@@ -9,9 +9,15 @@
     <script src="../../js/jquery/qrcodeInitialize.js"></script>
      <script>
          $(function () {
-             var qrcode = qrcodeconfig["consumer"]["consumercard"];
-             qrcode["qrcode"].url = "http://127.0.0.1/webapi/consumer/weixin/card_generate_code?activityitem_id=e37df8f14711429d9de22bf4b6c48cb2&totalnum=1&activity_id=621cb41656294ceea5d2fe53bd0a5ca9&distributor_id=5ce1d14e07534139ae7774d8983f04f3&sendimage=false"
-             draw(qrcode, qrcodeconfig["consumer"]["logo"]);
+             var qrcode = qrcodeconfig["consumer"];
+             qrcode["consumercard"]["qrcode"].url = "http://127.0.0.1/webapi/consumer/weixin/card_generate_code?activityitem_id=45b41e94f0864fe6a62f5c7802d90780&totalnum=1&activity_id=bc72e1a8f2324c1ba950e2e237eace72&distributor_id=5ce1d14e07534139ae7774d8983f04f3&sendimage=false"
+             qrcode.loadsuccess = function () {
+                 alert("success");
+             }
+             qrcode.loaderror = function () {
+                 alert("error");
+             }
+             draw(qrcode,"consumercard", qrcodeconfig["consumer"]["logo"]);
          });
 
      </script>
