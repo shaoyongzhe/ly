@@ -141,6 +141,8 @@ ul, li, ol {
         font-size: 16px;
         color: #000;
     }
+.bt-name {line-height:50px
+}
 
 .new-sub .tiggle {
     width: 0px;
