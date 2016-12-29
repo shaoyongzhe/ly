@@ -416,9 +416,8 @@ var vm = avalon.define({
         draw(qrcode, "consumercard", qrcodeconfig["consumer"]["logo"]);
 
         setTimeout(function () {
-            console.log("30秒执行")
             vm.loadqrcode()
-        }, 5000)
+        }, 60000)
 
     }
 })

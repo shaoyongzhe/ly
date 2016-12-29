@@ -59,12 +59,7 @@
 var ImageDrawEnd = false;
 var ImageQrEnd = false;
 var ImageGetJSON = false;
-$(function () {
-    if ($("#divQrcode").length == 0) {
-        var boarddiv = "<div id='divQrcode'></div>";
-        $(document.body).append(boarddiv);
-    }
-});
+
 
 function convertCanvasToImage(canvas) {
     var image = new Image();
@@ -226,10 +221,11 @@ function draw(config, configname, logo) {
             if (iserror)
                 return;
             var hc_image = new Image();
-            hc_image.src = c.toDataURL("image/png");
-            console.log(hc_image.src)
-            // hc_image.style = "width:384px;height:100%"
-            $('#divQrcode').html(hc_image);
+            $('#QRCode_img').attr("src", c.toDataURL("image/png"))
+            //hc_image.src = c.toDataURL("image/png");
+            //console.log(hc_image.src)
+            //// hc_image.style = "width:384px;height:100%"
+            //$('#divQrcode').html(hc_image);
             config.loadsuccess();
 
             ImageDrawEnd = false;

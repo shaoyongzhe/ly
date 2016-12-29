@@ -119,7 +119,7 @@
 
         #QRCode {
             width: 100%;
-            height: auto;
+            min-height: 260px;
             text-align: center;
         }
 
@@ -346,7 +346,9 @@
             margin: -14px 0 0 5%;
             width: 30px;
         }
-        #divQrcode img { width:80%; margin:0 auto
+        #divQrcode {min-height:280px
+        }
+        #divQrcode img { width:60%; margin:0 auto
         }
     </style>
     <script>
@@ -450,8 +452,10 @@
                     <p>
                         <img src="/consumer/image/supercoupons/richScanico.png" /><span id="span_tishi">{{vm.span_tishi}}</span>
                     </p>
-                    <img id="QRCode_img" />
-                    <div id="divQrcode"></div>
+                    <!--<img id="QRCode_img" />-->
+                    <div id="divQrcode">
+                        <img id="QRCode_img" />
+                    </div>
                 </div>
 
             </div>
