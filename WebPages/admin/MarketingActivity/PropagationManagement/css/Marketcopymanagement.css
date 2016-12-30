@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2016-12-28 18:38:39
+* @Last Modified time: 2016-12-29 18:42:17
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -101,6 +101,7 @@
 }
 
 .handle-btns{
+	background:none;
     position: absolute;
     z-index: 1;
     opacity: 1;
@@ -177,7 +178,7 @@ body{
 
 .search-area .input-contorl{
 	display: inline-block;
-	width: 30%;
+	width: 33%;
     position: relative;
 }
 .calendar1{
@@ -219,16 +220,15 @@ body{
     transition: .6s;
 }
 
-
 .input-contorl input{
-	width: 202px;
+	width: 30%;
 	margin-right:50px;
 }
 
 
 
 .input-contorl .date{
-	width: 27%;
+	width:140px;
     cursor: pointer;
     margin-right: 0;
      /* background: #fff url(datePicker.gif) no-repeat right; */
