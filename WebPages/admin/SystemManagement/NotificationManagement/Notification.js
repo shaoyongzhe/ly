@@ -1,5 +1,5 @@
 // 导航切换
-var domailUrl = "";
+var domailUrl = "http://127.0.0.1:40008";
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
@@ -11,14 +11,14 @@ $('body').on('click', '.layui-layer-shade', function () {
     $('.layui-layer-close').click();
 });
 // 点击按钮组图标
-$('table.notify,table.modulePeople').on('click', '.handle-icon', function (e) {
+$('table.notify,table.modulePeople').on('click', '.Hui-iconfont', function (e) {
     e.stopPropagation();
-    // $(this).toggleClass('on').parents('tr').siblings().find('.handle-icon').removeClass('on');
+    // $(this).toggleClass('on').parents('tr').siblings().find('.Hui-iconfont').removeClass('on');
     $(this).toggleClass('on');
-    $(".handle-icon").not(this).removeClass('on');
+    $(".Hui-iconfont").not(this).removeClass('on');
 });
 $(document).click(function () {
-    $('.handle-icon').removeClass('on');
+    $('.Hui-iconfont').removeClass('on');
 });
 $(function () {
     $("nav span").first().click();
@@ -51,25 +51,23 @@ function getList(curr, handle, searchForm) {
 		td = data.content;
         for (var i = 0; i < td.length; i++) {
             var isHtml;
-            var contentFormat = "";
-            try {
-                var obj = JSON.parse(td[i].content);
-                contentFormat = JSON.stringify(obj, null, 4);
-            } catch (e) {
-                contentFormat = td[i].content;
-                // $('.cont').addClass('on')
-            }
-            //<td><input type='checkbox' name='' value=''></td> <span class='arrow-right'></span>
-            tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + ">" + td[i].category
-			+ "</td><td>" + td[i].subcategory
+            var contentFormat = td[i].content;
+            //try {
+            //    var obj = JSON.parse(td[i].content);
+            //    contentFormat = JSON.stringify(obj, null, 4);
+            //} catch (e) {
+            //    contentFormat = td[i].content;
+            //}
+            tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
+			+ "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
             + "</td><td>" + td[i].groupname
             + "</td><td>" + td[i].area
             + "</td><td class='templateid'>" + td[i].gateway_templateid
-			+ "</td><td title='" + td[i].content + "'><span class='content'>" + td[i].content
-			+ "</span></td><td>" + td[i].state
+			+ "</td><td title='" + contentFormat + "'><span class='content'>" + contentFormat
+			+ "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
 			+ "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
-			+ " </td><td><div class='handle'><div class='handle-icon'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+			+ " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
         }
 
         $("table.notify tbody").append(tr);
@@ -173,7 +171,7 @@ function getModulePeopleList(curr, handle, searchForm) {
         var contentFormat = JSON.stringify(data, null, 4);
         var tr = "<tr class='text-c'><td><input type='hidden' class='guid' value'notification'>" + "通知"
              + "</td><td>" + contentFormat
-             + " </td><td><div class='handle'><div class='handle-icon'></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+             + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
 
         $("table.modulePeople tbody").append(tr);
         //$('td span.content').each(function () {
@@ -193,10 +191,6 @@ function getModulePeopleList(curr, handle, searchForm) {
 $(".search-btn").click(function () {
     layer.msg('正在查询...', { time: 20 });
     getList(1, 'search', getSearchForm());
-    $(".search-btn").click(function () {
-        layer.msg('正在查询...', { time: 20 });
-        getList(1, 'search', getSearchForm());
-    });
 });
 //重置
 $(".reset-btn").click(function () {
@@ -205,6 +199,9 @@ $(".reset-btn").click(function () {
     $('.search-area .second-type option:first').prop("selected", 'selected');
     $('.search-area .third-type option:first').prop("selected", 'selected');
     $('.search-area .fourth-type option:first').prop("selected", 'selected');
+    $('.search-area .fifth-type option:first').prop("selected", 'selected');
+    $('.search-area .area').val("");
+    $(".inra").attr("checked", false)
     getList();
     layer.msg('重置完成...');
 });
@@ -215,19 +212,10 @@ function getSearchForm() {
         category: $('.search-area .first-type :selected').val(),
         subcategory: $('.search-area .second-type :selected').val(),
         channel: $('.search-area .third-type :selected').val(),
-        groupname: $('.search-area .fourth-type :selected').val()
-    }
-    if (searchForm.category == "-- 请选择 --") {
-        searchForm.category == "";
-    }
-    if (searchForm.subcategory == "-- 请选择 --") {
-        searchForm.subcategory == "";
-    }
-    if (searchForm.channel == "-- 请选择 --") {
-        searchForm.channel == "";
-    }
-    if (searchForm.groupname == "-- 请选择 --") {
-        searchForm.groupname == "";
+        groupname: $('.search-area .fourth-type :selected').val(),
+        state: $('.search-area .fifth-type :selected').val(),
+        isdefault: $(".inra").is(":checked") == true ? 1 : 0,
+        area: $('.search-area .area').val()
     }
     return searchForm;
 }
@@ -244,7 +232,7 @@ function getOptionsValue() {
         $('.secondtype').children(":not('option:first')").remove();
         $('.third-type').children(":not('option:first')").remove();
         $('.fourth-type').children(":not('option:first')").remove();
-        if (firstType != "-- 请选择 --") {
+        if (firstType != "") {
             $('.addForm .firsttype').find("option[data-key='" + firstType + "']").attr("selected", true);
             var jsonData = {
                 "category": firstType
@@ -266,7 +254,7 @@ function getOptionsValue() {
         var secondType = $(this).find('option:selected').attr('data-key');
         $('.third-type').children(":not('option:first')").remove();
         $('.fourth-type').children(":not('option:first')").remove();
-        if (secondType != "-- 请选择 --") {
+        if (secondType != "") {
             $('.addForm .secondtype').find("option[data-key='" + secondType + "']").attr("selected", true);
             $('.secondtype').change();
             var jsonData = {
@@ -285,7 +273,7 @@ function getOptionsValue() {
         var firstType = $('.addForm .firsttype').find("option:selected").text();
         var secondType = $(this).find('option:selected').attr('data-key');
         $('.fourthtype').children(":not('option:first')").remove();
-        if (secondType != "-- 请选择 --") {
+        if (secondType != "") {
             var jsonData = {
                 "category": firstType,
                 "subcategory": secondType
@@ -303,7 +291,7 @@ function getOptionsValue() {
         var secondType = $('.search-area .second-type').find("option:selected").text();
         var thirdType = $(this).find('option:selected').attr('data-key');
         $('.fourth-type').children(":not('option:first')").remove();
-        if (thirdType != "-- 请选择 --") {
+        if (thirdType != "") {
             var jsonData = {
                 "category": firstType,
                 "subcategory": secondType,
@@ -341,6 +329,7 @@ $(".add").click(function () {
     $('.addForm').show();
     //获取所有发送途径
     _ajax("get", domailUrl + '/webapi/operation/notification/dict/allchannel', null, "发送途径", function (data) {
+        $('.thirdAllType').children(":not('option:first')").remove();
         for (var key in data) {
             $('.thirdAllType').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
         }
@@ -436,9 +425,9 @@ $('.add-btn').click(function () {
 
 function getDistrict(province, city, county) {
     if (province == "省份") return ",,";
-    if (city == "地级市") return province + ",,";
-    if (county == "市、县、区") return province + "," + city + ",";
-    return province + "," + city + "," + county;
+    if (city == "地级市") return ",," + province;
+    if (county == "市、县、区") return "," + city + "," + province;
+    return county + "," + city + "," + province;
 }
 //设置默认分组
 $(".setDefaultGroup").click(function () {
@@ -511,16 +500,18 @@ $('table.notify')
                          state: tr.find('td:eq(7)').text(),
                          isdefault: tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0
                      };
-                     try {
-                         var contentObj = JSON.parse(data.content);
-                         data.content = contentObj;
-                     } catch (e) {
-                         console.log(e);
-                         //alert("测试使用" + data.content);
-                     }
+                     //try {
+                     //    var contentObj = JSON.parse(data.content);
+                     //    data.content = contentObj;
+                     //} catch (e) {
+                     //    console.log(e);
+                     //    //alert("测试使用" + data.content);
+                     //}
                      var jsonStr = JSON.stringify(data, null, 4);
                      $('#add').val(jsonStr);
                      $('#opType').val("notify");
+                     //防止被修改
+                     $('#isDefault').val(tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0);
                      var index = layer.open({
                          type: 2,
                          title: '修改(以左边为准)',
@@ -615,7 +606,7 @@ var _ajax = function (type, url, data, tip, success) {
         timeout: function () { },
         success: function (json) {
             if (json["error"] != undefined && json.error) {
-                layer.msg("【" + tip + '】查询出错，出错原因：' + json.error);
+                layer.msg("【" + tip + '】出错，出错原因：' + json.error);
                 return;
             }
             success(json);
