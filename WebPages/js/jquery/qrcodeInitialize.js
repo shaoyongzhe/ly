@@ -1,23 +1,69 @@
 ﻿var qrcodeconfig = {
     "distributor": {
-        "logo": "",
-        "width": 480,
-        "bordercolor": "#d9d9d9",
-        "data": {
-            "backgroudcolor": "#e7e7e7",
-            "fontcolor": "#666666",
-            "fontsize": 24
-        },
-        "navigation": {
-            "backgroundcolor": "",
-            "text": "邀请惠粉码",
-            "fontsize": 30,
-            "fontcolor": "#ffffff"
-        },
-        "bottom": {
-            "text": "扫一扫上面的二维码，成为超惠买惠粉!",
-            "fontcolor": "#457181",
-            "fontsize": 24
+        "logo": "/consumer/image/consumer_logo.png",
+        "loadsuccess": function () { },
+        "loaderror": function () { },
+        "consumercard": {
+            "title": {
+                "type": "text",
+                "text": "",
+                "fontsize": 30,
+                "font": "Courier New",
+                "fontcolor": "#000000",
+                "width": 384,
+                "height": 60,
+                "single":true,
+                "x": 0,
+                "y": 0
+            },
+            "nav": {
+                "type": "image",
+                "url": "/distributor/image/invitecardnav.png",
+                "width": 384,
+                "height": 81,
+                "single": true,
+                "depend": "title",
+                "x": 0,
+                "y": 60
+            },
+            "navtext": {
+                "type": "text",
+                "text": "邀请惠粉码",
+                "fontsize": 30,
+                "font": "Courier New",
+                "fontcolor": "#ffffff",
+                "depend": "title",
+                "width": 384,
+                "height": 81,
+                "single": false,
+                "x": 0,
+                "y": 95
+            },
+            "qrcode": {
+                "type": "qrcode",
+                "depend": "nav",
+                "bordercolor": "#d9d9d9",
+                "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0&sendimage=false&resetcache=true",
+                "width": 348,
+                "height": 348,
+                "single": true,
+                "x": 18,
+                "y": 145
+            },            
+            "bottom": {
+                "type": "text",
+                "depend": "qrcode",
+                "text": "扫一扫上面的二维码，成为超惠买惠粉！",
+                "fontsize": 20,
+                "font": "Courier New",
+                "fontcolor": "#457181",
+                "width": 384,
+                "height": 81,
+                "single": true,
+                "x": 0,
+                "y": 520
+            },
+
         }
     },
     "consumer": {
@@ -30,6 +76,7 @@
                 "url": "/consumer/image/consumercard_verfiy.png",
                 "width": 384,
                 "height": 81,
+                "single": true,
                 "x": 0,
                 "y": 0
             },
@@ -41,6 +88,7 @@
                 "fontcolor": "#ffffff",
                 "width": 384,
                 "height": 81,
+                "single": false,
                 "x": 0,
                 "y": 0
             },
@@ -50,6 +98,7 @@
                 "url": "/consumer/image/qrcodetest.gif",
                 "width": 348,
                 "height": 348,
+                "single": true,
                 "x": 18,
                 "y": 75
             }
@@ -67,7 +116,39 @@ function convertCanvasToImage(canvas) {
     return image;
 }
 
-function TextDraw(canvas, newcanvasname, config) {
+function SingleTextDraw(canvas, config,dependconfig )
+{
+    console.log("dependconfig");
+    console.log(dependconfig);
+    if (dependconfig == undefined)
+    {
+        canvas.font = config.fontsize + "px " + config.font;
+        canvas.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
+        canvas.textAlign = 'left';
+        canvas.fillStyle = config.fontcolor;
+        var textlength = config.text.length * config.fontsize;
+        canvas.fillText(config.text, config.width / 2 - textlength / 2, config.y);
+    } else
+    {
+        console.log("success:" + dependconfig.success);
+        var textinterval = setInterval(function () {
+            if (dependconfig.success) {
+                canvas.font = config.fontsize + "px " + config.font;
+                canvas.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
+                canvas.textAlign = 'left';
+                canvas.fillStyle = config.fontcolor;
+                var textlength = config.text.length * config.fontsize;
+
+                canvas.fillText(config.text, config.width / 2 - textlength / 2, config.y);
+                clearInterval(textinterval);
+            }
+        }, 500);
+    }
+   
+
+}
+
+function TextDraw(canvas, config) {
 
     var textinterval = setInterval(function () {
         if (ImageDrawEnd) {
@@ -75,12 +156,12 @@ function TextDraw(canvas, newcanvasname, config) {
             canvas.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
             canvas.textAlign = 'left';
             canvas.fillStyle = config.fontcolor;
-
-            canvas.fillText(config.text, config.width / 4, config.fontsize + 10);
+            var textlength = config.text.length * config.fontsize;
+            
+            canvas.fillText(config.text, config.width/2 - textlength / 2, config.y);
             clearInterval(textinterval);
         }
     }, 500);
-
 }
 
 function ImageDraw(canvas, imagename, config) {
@@ -89,10 +170,10 @@ function ImageDraw(canvas, imagename, config) {
     img.src = config.url;
     img.onload = function () {
         canvas.drawImage(img, config.x, config.y, config.width, config.height);
-        ImageDrawEnd = true;
-        console.log("ImageDraw onload")
+        ImageDrawEnd = true;        
     }
 }
+
 
 function QrcodeDraw(canvas, imagename, config, logo) {
     if (config.url == "")
@@ -103,7 +184,7 @@ function QrcodeDraw(canvas, imagename, config, logo) {
             ImageGetJSON = true;
             $.getJSON(config.url, function (data) {
                 data = data || {};
-                if (data.qrcachekey == undefined) {
+                if (data.qrstring == undefined) {
                     ImageQrEnd = true;
                     config["error"] = "出错了";
                     return;
@@ -111,7 +192,7 @@ function QrcodeDraw(canvas, imagename, config, logo) {
                 }
                 $("#canvasqrcode").remove()
                 $('#qrcodediv').qrcode({
-                    text: data.qrcachekey,
+                    text: data.qrstring,
                     render: 'canvas',
                     height: config.height,
                     width: config.width,
@@ -120,7 +201,7 @@ function QrcodeDraw(canvas, imagename, config, logo) {
                     src: logo//这里配置Logo的地址即可。
                 });
 
-                setTimeout(function () {
+                setTimeout(function () {                    
                     var qrcanvas = document.getElementById('canvasqrcode');
                     var qrcodeimage = new Image();
                     qrcodeimage.src = qrcanvas.toDataURL("image/png");
@@ -141,35 +222,6 @@ function QrcodeDraw(canvas, imagename, config, logo) {
         }
     }, 500);
 
-    //var qrcodeimage = new Image();
-    //qrcodeimage.src = config.url;
-    //canvas.drawImage(qrcodeimage, config.x, config.y, config.width, config.height);
-
-    //$.getJSON(config.url, function (data) {
-    //    var qrstring = data.qrstring;
-    //    if ($("#qrcodediv").length == 0) {
-    //        var boarddiv = "<div id='qrcodediv'></div>";
-    //        $(document.body).append(boarddiv);
-    //    }
-
-    //    $('#qrcodediv').qrcode({
-    //        text: qrstring,
-    //        render: 'canvas',
-    //        height: config.height,
-    //        width: config.width,
-    //        typeNumber: -1,      //计算模式
-    //        correctLevel: QRErrorCorrectLevel.H,//纠错等级
-    //        src: logo//这里配置Logo的地址即可。
-    //    });
-
-    //    setTimeout(function () {
-    //        var qrcanvas = document.getElementById('canvasqrcode');
-    //        var qrcodeimage = new Image();
-    //        qrcodeimage.src = qrcanvas.toDataURL("image/png");
-    //        canvas.drawImage(qrcodeimage, config.x, config.y, config.width, config.height);
-    //    }, 500);
-    //});
-
 }
 
 function draw(config, configname, logo) {
@@ -185,20 +237,23 @@ function draw(config, configname, logo) {
 
         var type = jsondata["type"];
         console.log("type=" + type)
+        console.log(jsondata);
         if (width < jsondata.width)
             width = jsondata.width;
+        if (jsondata.single)
+            height += jsondata.height;
         switch (type) {
             case "text":
-                TextDraw(ctx, name, jsondata);
+                if (jsondata.single)
+                    SingleTextDraw(ctx, jsondata, config[configname][jsondata.depend]);
+                else
+                    TextDraw(ctx, jsondata, config[configname][jsondata.depend]);
                 break;
             case "image":
-
-                height += jsondata.height;
-                ImageDraw(ctx, name, jsondata);
+                ImageDraw(ctx, name, jsondata, config[configname][jsondata.depend]);
                 break;
             case "qrcode":
-                height += jsondata.height;
-                QrcodeDraw(ctx, name, jsondata, logo);
+                QrcodeDraw(ctx, name, jsondata, logo, config[configname][jsondata.depend]);
                 break;
             default:
 
