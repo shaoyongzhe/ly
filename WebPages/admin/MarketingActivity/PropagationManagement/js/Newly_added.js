@@ -344,7 +344,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             push_retailer: c,
             category: d,
             poster_url: pic_url,
-            copywriting: $('.mode textarea').val(),
+            copywriting: JSON.stringify($('.mode textarea').val()),
             bindwithperiodpush: e,
             pushtime: time_time
         };

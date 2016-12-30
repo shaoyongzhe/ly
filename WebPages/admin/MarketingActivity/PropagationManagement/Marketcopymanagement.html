@@ -13,7 +13,7 @@
 <script type="text/javascript" src="lib/PIE_IE678.js"></script>
 <![endif]-->
 <script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
-<script src="../lib/laypage-v1.3/laypage/laypage.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../lib/laypage-v1.3/laypage/laypage.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="js/Newly_added.js"></script>
 
@@ -313,13 +313,13 @@
 	</script>
 
 
-<script type="text/javascript" src="../lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
 <!-- <script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>  -->
 <!-- <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>  -->
 
 
-<script type="text/javascript" src="../static/h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="../../static/h-ui.admin/js/H-ui.admin.js"></script>
 
 <!-- <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/> -->
 <!-- <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
@@ -353,7 +353,11 @@ layui.use('laydate', function(){
     ,istoday: true
     ,choose: function(datas){
       start.max = datas; //结束日选好后，重置开始日的最大日期
-    }
+    },
+	elem: this, 
+	istime: true,
+	format: 'YYYY-MM-DD hh:mm:ss'
+			
   };
   document.getElementById('serverBeginTime').onclick = function(){
     start.elem = this;

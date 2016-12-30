@@ -391,8 +391,7 @@ function getList(curr, handle, searchForm) {
     });
 };
 
-
-
+   
 // 查询
 $("body").on("click", ".search-btn", function() {
     getList(1, 'search', getSearch());
@@ -441,18 +440,18 @@ function getSearch() {
 
     // 获取地区的值
     var sheng_val = $('.gf-select span em:eq(0)').text();
-    var shi_val = $('.gf-select span em:eq(1)').text();
-    var qu_val = $('.gf-select span em:eq(2)').text();
+    var shi_val = $('.gf-select span em:eq(1)').text()+',';
+    var qu_val = $('.gf-select span em:eq(2)').text()+',';
 
 
     if (sheng_val == '省份') {
         var sheng_val = "";
     }
 
-    if (shi_val == '城市') {
+    if (shi_val == '城市,') {
         var shi_val = "";
     }
-    if (qu_val == '区县') {
+    if (qu_val == '区县,') {
         var qu_val = "";
     }
 
@@ -467,7 +466,7 @@ function getSearch() {
         // 结束时间
         endtime: $('#serverEndTime').val(),
 
-        area: $.trim(sheng_val + shi_val + qu_val),
+        area: $.trim( qu_val + shi_val + sheng_val ),
         // area:"河北省",
         // 发送状态
         // state:  "draft",
@@ -1011,7 +1010,11 @@ $('.examine1').on('click', function() {
         //     layer.msg('请选择地区');
         //     return;
         // }
-
+        // if(form_value.area=='[]'){
+        //     layer.msg('请选择地区');
+        //     return;
+        // }
+           
         if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
             layer.msg('请选择发送对象');
             return;
@@ -1026,7 +1029,10 @@ $('.examine1').on('click', function() {
         //     layer.msg('请选择封面图片');
         //     return;
         // }
-
+        if($('#imghead').attr('src')==''){
+            layer.msg('请选择封面图片');
+            return;
+        }
         if (form_value.copywriting == "") {
             layer.msg('请填写发送内容');
             return;
