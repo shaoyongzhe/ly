@@ -6,37 +6,24 @@
     <meta charset="utf-8" />
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="../../js/jquery/jquery.qrcode.min.js"></script>
-    <script>
-        $(document).ready(function () {
+    <script src="../../js/jquery/qrcodeInitialize.js"></script>
+     <script>
+         $(function () {
+             var qrcode = qrcodeconfig["consumer"];
+             qrcode["consumercard"]["qrcode"].url = "http://127.0.0.1/webapi/consumer/weixin/card_generate_code?activityitem_id=45b41e94f0864fe6a62f5c7802d90780&totalnum=1&activity_id=bc72e1a8f2324c1ba950e2e237eace72&distributor_id=5ce1d14e07534139ae7774d8983f04f3&sendimage=false"
+             qrcode.loadsuccess = function () {
+                 alert("success");
+             }
+             qrcode.loaderror = function () {
+                 alert("error");
+             }
+             draw(qrcode,"consumercard", qrcodeconfig["consumer"]["logo"]);
+         });
 
-            $('#output').qrcode({
-                text: "这是修改了官文的js文件，此时生成的二维码支持中文和LOGO",
-                render: 'canvas',
-                height: 200,
-                width: 200,
-                typeNumber: -1,      //计算模式
-                correctLevel: QRErrorCorrectLevel.H,//纠错等级
-                src: '/retailer/image/2.jpg'//这里配置Logo的地址即可。
-            });
-         
-            //setTimeout(function () {
-            //    var canvas = document.getElementById('canvasqrcode');
-            //    $('#img_test').html(convertCanvasToImage(canvas))
-
-            //    $("#img").attr("src", canvas.toDataURL("image/png"))
-            //},100)
-        });
-
-        function convertCanvasToImage(canvas) {
-            var image = new Image();
-            image.src = canvas.toDataURL("image/png");
-            return image;
-        }
-    </script>
+     </script>
 </head>
 <body>
-    <div id="output"></div>
-    <div id="img_test"></div>
-    <img id="img" />
+    <div id="divQrcode"></div>
+    <div id="qrcodediv" hidden></div>
 </body>
 </html>

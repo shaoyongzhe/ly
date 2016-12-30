@@ -67,7 +67,7 @@ var vm = avalon.define({
     categorychange: function (type) {
         vm.category = type
 
-        if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.alllist.array.length == 0) || (type == "expend" && vm.alllist.array.length == 0)) {
+        if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
             vm.getAssetFlow(1, null)
         }
     },
@@ -111,7 +111,7 @@ var vm = avalon.define({
                     //toasterextend.showtips(json.user_notification, "info");
                     return;
                 }
-               
+
                 if (index != 1) {
                     if (vm.category == "all") {//全部
                         $.each(json.content, function (i, v) {
@@ -228,4 +228,39 @@ var vm = avalon.define({
         if (tmdropme3 != null)
             tmdropme3.resetload();
     },
+    userwithdraw: function () {//用户提现
+
+        // if (vm.Moneys.count > 0)
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/webapi/consumer/mine/consumer/withdraw',
+            success: function (json) {
+                common.loading.hide();
+                json = json || {};   /* 统一加这句话 */
+                if (json.error) {
+                    toasterextend.showtips(json.error, "error");
+                    return;
+                }
+                if (json.user_notification != undefined) {
+                    toasterextend.showtips(json.user_notification, "info");
+                    return;
+                }
+
+                ///提现成功，重新加载余额记录
+                vm.getMoney()
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                common.loading.hide();//隐藏转圈动画
+                var errormsg = "访问异常";
+                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                    var json = JSON.parse(XMLHttpRequest.responseText);
+                    errormsg = JSON.parse(json.Message).error;
+                    if (errormsg == undefined || errormsg == '')
+                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                }
+                toasterextend.showtips(errormsg, "error");
+            }
+        });
+    }
 })
