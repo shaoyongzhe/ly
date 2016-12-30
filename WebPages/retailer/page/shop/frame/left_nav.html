@@ -3,13 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>框架左部导航</title>
-<script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="../js/frameLayout.js"></script>
-<script type="text/javascript" src="../js/sdmenu.js"></script>
-<link href="../css/naviMenu.css" rel="stylesheet" type="text/css" />
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/retailerid.js"></script>
+<script type="text/javascript" src="../../../js/jquery.js"></script>
+<script type="text/javascript" src="../../../js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="../../../js/frameLayout.js"></script>
+<script type="text/javascript" src="../../../js/sdmenu.js"></script>
+<link href="../../../css/naviMenu.css" rel="stylesheet" type="text/css" />
+<link href="../../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../../js/retailerid.js"></script>
 
 
 <script type="text/javascript">
@@ -28,48 +28,40 @@
 			  cache:false,
 			  dataType:"json",
 			  error:function(){alert("网络出错")},
-			  success:function(data)
-			         {
-					   for(var i=0;i<data.length;i++)
-					   {
-					      var distributor=data[i];	
-								
-							 var $_ul=$("#my_menu:eq(0)");
-							   var str='<div>';	
+			  success:function(data) {
+				   for(var i=0;i<data.length;i++) {
+					  var distributor=data[i];
+					   var $_ul=$("#my_menu:eq(0)");
+					   var str='<div>';
 
-							   var n=distributor.itemcategory;
-							   
-							   for(var j=0;j<n.length;j++)
-								{																 
-									 daleiname=distributor.itemcategory[0].itemcategoryname;								 
-									 dalei0_id=distributor.itemcategory[0].itemcategory;	   //第一个大类ID
-								}	
-								
-							   str+='<span class="i1" id="suppliername'+distributor.suppliername+'supplierid'+distributor.supplierid+'"><i></i>'+distributor.suppliername+'</span>';							   
-							   str+='<p id="'+daleiname+'">';	
-							   var m=distributor.itemcategory;
-							   for(var j=0;j<m.length;j++)
-								{																 
-									 var dalei=distributor.itemcategory[j].itemcategoryname;								 
-									 var dalei_id=distributor.itemcategory[j].itemcategory;	
-									 var supplierid=distributor.supplierid;
-									 urlinfo="../list_fpmx_demo2.html?dalei="+dalei+"=dalei_id="+dalei_id+"=supplierid="+supplierid+"=distributor="+distributor;
-									 //urlinfo="../listsubstyle.html?dalei="+dalei;
-									 //alert(urlinfo);
-									 encodeURI(urlinfo);									
-									 str+='<a href="'+urlinfo+'" target="right"><i></i>'+dalei+'</a>';
-								}							  
-							   str+='</p>';
-							   str+='</div>';							   					   
-							   $_ul.append(str);
-						  }
-						  
-						  
-							
-						  
-					   }	   
-					 	 
-	       });
+					   var n=distributor.itemcategory;
+
+					   for(var j=0;j<n.length;j++) {
+							 daleiname=distributor.itemcategory[0].itemcategoryname;
+							 dalei0_id=distributor.itemcategory[0].itemcategory;	   //第一个大类ID
+					   }
+
+					   str+='<span class="i1" id="suppliername '+distributor.suppliername+'supplierid'+distributor.supplierid+'"><i></i>'+distributor.suppliername+'</span>';
+					   str+='<p id="'+daleiname+'">';
+					   var m=distributor.itemcategory;
+					   for(var j=0;j<m.length;j++)
+						{
+							 var dalei=distributor.itemcategory[j].itemcategoryname;
+							 var dalei_id=distributor.itemcategory[j].itemcategory;
+							 var supplierid=distributor.supplierid;
+							 urlinfo="../list_fpmx_demo2.html?dalei="+dalei+"=dalei_id="+dalei_id+"=supplierid="+supplierid+"=distributor="+distributor;
+							 //urlinfo="../listsubstyle.html?dalei="+dalei;
+							 //alert(urlinfo);
+							 encodeURI(urlinfo);
+							 str+='<a href="'+urlinfo+'" target="right"><i></i>'+dalei+'</a>';
+						}
+					   str+='</p>';
+					   str+='</div>';
+					   $_ul.append(str);
+				   }
+			  }
+
+		 });
 		
 		    var myMenu;
 			myMenu = new SDMenu("my_menu");
@@ -79,7 +71,7 @@
 
 		
 	});
-	 
+
 	
 	
 </script>
