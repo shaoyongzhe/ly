@@ -173,12 +173,12 @@
 
 
 
-footer { width:100%;position: fixed;height:4rem;left: 0;right: 0;bottom: 0; padding:0; margin:0; z-index:100000; }
-footer .footerl{ width:70%;height:4rem; background:#3a3635; float:left;font-size:1.6rem; position:relative; }
+footer { width:100%;position: fixed;height:50px;left: 0;right: 0;bottom: 0; padding:0; margin:0; z-index:100000; }
+footer .footerl{ width:70%;height:100%; background:#3a3635; float:left;font-size:1.6rem; position:relative; }
 footer .footerl i{ height:4rem; line-height:4rem; display:inline-block; text-align:center;}
-footer .footerl .cart{ width:4rem; height:4rem; border-radius:4rem; background:#252525 url(../images/buycar2.png) center center no-repeat; background-size:2rem 2rem; margin-left:1rem; position:absolute; bottom:1rem; left:0; float:left;}
-footer .footerl .ammount{ width:2rem; height:2rem;border-radius:2rem; background:#ff0000;position:absolute; bottom:2rem; left:3rem; border:1px #fff solid; color:#fff;  line-height:2rem; font-size:1rem; text-align:center;}
-footer .footerl .price{  height:4rem; line-height:4rem; margin-left:6rem; font-size:2.2rem;   float:left; color:#fff;}
-footer .footerr{ width:30%;height:4rem; background:#009f96; float:right; line-height:4rem; text-align:center; color:#fff; font-size:1.8rem;}
+footer .footerl .cart{ width:43px; height:43px; border-radius:50%; background:#252525 url(../image/shop/buycar2.png) center center no-repeat; background-size:2rem 2rem; margin-left:1rem; position:absolute; bottom:1rem; left:0; float:left;}
+footer .footerl .ammount{ width:16px; height:16px;border-radius:50%;background:#ff0000;position:absolute;top: -2px;right: -7px; border:1px #fff solid; color:#fff;  line-height:16px; font-size:12px; text-align:center;overflow: hidden;}
+footer .footerl .price{  height:100%; line-height:50px; margin-left:55px; font-size:14px; font-family: inherit;  float:left; color:#fff;}
+footer .footerr{ width:30%;height:100%; background:#009f96; float:right; line-height:50px; text-align:center; color:#fff; font-size:14px;}
 
-footer .footerr .num{ font-size:1.2rem; }
+footer .footerr .num{ font-size:12px; }

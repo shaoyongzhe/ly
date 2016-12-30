@@ -1,197 +1,184 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>我的预存货</title>
-<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="js/retailerid.js"></script>
-<link href="css/master.css" rel="stylesheet" type="text/css">
-<link href="css/menu.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>我的预存货</title>
+  <script src="../../js/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="../../js/retailerid.js"></script>
+  <link href="../../css/master.css" rel="stylesheet" type="text/css">
+  <link href="../../css/menu.css" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript">
+
+    var distributor_id=top.window.parent.distributor_id;
+    /*	var distributor_id=$(window).attr("parent")//.distributor_id*/
+
+    $(document).ready(function()
+    {
+      var itemdata;
+      $.ajax({
+        url:"/webapi/distributor/"+distributor_id+"/customer/"+getRetailerid()+"/prepayinventorys",
+        async:true,
+        cache:false,
+        dataType:"json",
+        error:function(){alert("网络出错")},
+        success:function(data)
+        {
+          itemdata=data;
+          var $_ul=$("ul:eq(0)");
+          for(var i=0;i<data.length;i++)
+          {
+
+            var str='<li id="'+data[i].itemid+'">';
+            str+='<div class="mainInfo">';
+            str+='<div class="mainInfol"><img src="'+data[i].itemimage+'" width="100" height="100"></div>';
+            str+='<div class="mainInfor">';
+            str+='<div class="title2"><span> '+data[i].itemname+'</div>';
+            str+=' <div class="amount">'+data[i].specification+'</div>';
+            str+='<div class="price">';
+            str+='<span>'+data[i].itemunitcost+'</span> <span class="discound">￥18.09 </span><span  class="promotion"> 预</span>';
+            str+='<p>'+data[i].remaincount+'</p>';
+            str+='</div>';
 
 
-<script type="text/javascript">
-     
-	var distributor_id=top.window.parent.distributor_id;
-/*	var distributor_id=$(window).attr("parent")//.distributor_id*/
-	      
-	$(document).ready(function()
-	{
-		var itemdata;
-		  $.ajax({ 
-	              url:"/webapi/distributor/"+distributor_id+"/customer/"+getRetailerid()+"/prepayinventorys",
-			      async:true,
-			      cache:false,
-			      dataType:"json",
-			      error:function(){alert("网络出错")},
-			      success:function(data)
-			       {
-			       	   itemdata=data;
-			       	 var $_ul=$("ul:eq(0)");
-			       	 for(var i=0;i<data.length;i++)
-			       	 {
-			       	
-				       	  var str='<li id="'+data[i].itemid+'">';
-				       	      str+='<div class="mainInfo">';
-				       	      str+='<div class="mainInfol"><img src="'+data[i].itemimage+'" width="100" height="100"></div>';
-				       	      str+='<div class="mainInfor">';
-				       	      str+='<div class="title2"><span> '+data[i].itemname+'</div>';
-				       	      str+=' <div class="amount">'+data[i].specification+'</div>';
-				       	      str+='<div class="price">';
-				       	      str+='<span>'+data[i].itemunitcost+'</span> <span class="discound">￥18.09 </span><span  class="promotion"> 预</span>';
-				       	      str+='<p>'+data[i].remaincount+'</p>';
-				       	      str+='</div>';
-				       	     
-				       	        
-				       	      if(typeof(data[i].itemcount)!='undefined')//购物车数量  待改
-				       	      {
-				       	      	  
-				       	      	if(data[i].itemcount>0)
-				       	      	str+=' <div class="tongji"><span><img src="images/sub.png" name="subImage" ></span><span>'+data[i].itemcount+'</span><span style="fr"><img src="images/add.png" name="addImage" ></span></div>';
-				       	      }
-				       	      else
-				       	       {
-				       	       	str+='<div class="tongji"><span style="fr"><img src="images/add.png" name="addImage" ></span></div>';
-				       	       }
-				       	       
-				       	        // str+=' <div class="tongji"><span><img src="images/sub.png" name="subImage" ></span><span name="itemcount">'+data[i].itemcount+'</span><span style="fr"><img src="images/add.png" name="addImage"  ></span></div>';
-				       	    
-				       	      str+='</div>';
-				       	      str+='</div>';
-				       	      str+=' <div class="blank"></div>';
-				       	      str+='</li>';
-				       	      
-				       	      $_ul.append(str);
-			       	 }
-			       }
-			       });
-			       
-			       //添加购物车
-			       $("[name='addImage'],[name='subImage']").live('click',function()
-			                             {
-			                             	var $_li=$(this).parent().parent().parent().parent().parent();
-			                             	var itemid=$_li.attr("id");
-			                             	 for(var i=0;i<itemdata.length;i++)
-			                             	 {
-			                             	 	if(itemid==itemdata[i].itemid)
-			                             	 	{		
-			                             	 		var date_=new Date();
-			                             	 		var year=date_.getFullYear();
-			                             	 		var month=date_.getMonth()+1;
-			                             	 		var day=date_.getDate();
-			                             	 		var hour=date_.getHours();
-			                             	 		var minute=date_.getMinutes();
-			                             	 		var second=date_.getSeconds();
-			                             	 		var mill=date_.getMilliseconds();
-			                             	 		
-			                             	 		var date_str=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second+"."+mill
-			                             	 		
-			                             	 		var itemcount_=$(this).parent().parent().find("[name='itemcount']").text();
-			                             	 		    alert(itemcount_)
-			                             	 		$.ajax({
-			                             	 			    url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
-				                             	 			type:"post",      	 			
-				                             	 			async:false,
-				                             	 			dataType:"json",
-				                             	 			    data:{
-				                             	 				  distributorid:distributor_id,
-				                             	 				  itemid:itemid,
-				                             	 				  itemcount:1,
-				                             	 				  itemquality:null,
-				                             	 				  itemprice:itemdata[i].itemunitcost,
-				                             	 				  isyucun:1,
-				                             	 				  activityitemid:null,
-				                             	 				  remark:null,
-				                             	 				  versiontime:date_str
-				                             	 			    },
-				                             	 			//contentType:false,
-				                             	 			//processData:false,
-				                             	 			//cache:false,
-				                             	 			success:function(data){},
-				                             	 			error:function(XMLHttpRequest_, textStatus_, errorThrown_)
-				                             	 			             {
-				                             	 			             	
-				                             	 			             }
-			                             	 		       });
-			                             	 		break;
-			                             	 	}
-			                             	 }
-			                             	    
-			                             });
-			                             
-			    //修改数字
-			             
-		        
-	});
-	
-	
-</script>
+            if(typeof(data[i].itemcount)!='undefined')//购物车数量  待改
+            {
+
+              if(data[i].itemcount>0)
+                str+=' <div class="tongji"><span><img src="images/sub.png" name="subImage" ></span><span>'+data[i].itemcount+'</span><span style="fr"><img src="images/add.png" name="addImage" ></span></div>';
+            }
+            else
+            {
+              str+='<div class="tongji"><span style="fr"><img src="images/add.png" name="addImage" ></span></div>';
+            }
+
+            // str+=' <div class="tongji"><span><img src="images/sub.png" name="subImage" ></span><span name="itemcount">'+data[i].itemcount+'</span><span style="fr"><img src="images/add.png" name="addImage"  ></span></div>';
+
+            str+='</div>';
+            str+='</div>';
+            str+=' <div class="blank"></div>';
+            str+='</li>';
+
+            $_ul.append(str);
+          }
+        }
+      });
+
+      //添加购物车
+      $("[name='addImage'],[name='subImage']").live('click',function()
+      {
+        var $_li=$(this).parent().parent().parent().parent().parent();
+        var itemid=$_li.attr("id");
+        for(var i=0;i<itemdata.length;i++)
+        {
+          if(itemid==itemdata[i].itemid)
+          {
+            var date_=new Date();
+            var year=date_.getFullYear();
+            var month=date_.getMonth()+1;
+            var day=date_.getDate();
+            var hour=date_.getHours();
+            var minute=date_.getMinutes();
+            var second=date_.getSeconds();
+            var mill=date_.getMilliseconds();
+
+            var date_str=year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second+"."+mill
+
+            var itemcount_=$(this).parent().parent().find("[name='itemcount']").text();
+            alert(itemcount_)
+            $.ajax({
+              url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
+              type:"post",
+              async:false,
+              dataType:"json",
+              data:{
+                distributorid:distributor_id,
+                itemid:itemid,
+                itemcount:1,
+                itemquality:null,
+                itemprice:itemdata[i].itemunitcost,
+                isyucun:1,
+                activityitemid:null,
+                remark:null,
+                versiontime:date_str
+              },
+              //contentType:false,
+              //processData:false,
+              //cache:false,
+              success:function(data){},
+              error:function(XMLHttpRequest_, textStatus_, errorThrown_)
+              {
+
+              }
+            });
+            break;
+          }
+        }
+
+      });
+
+      //修改数字
+
+
+    });
+
+
+  </script>
 </head>
 
 <body oncontextmenu="return false">
 <div class="container">
 
 
-<!-- dealer-list 分销商列表 start-->
-<div class="tabmain">
-  <div id="outerWrap">
- 
-   
-    
-    <div id="container">
-      <div id="content">
-      
-        <div class="tabContent  selectedContent"><!-- 1 -->
-        
-        <ul>
-      
-        <!--<li>
-         <div class="mainInfo">
-	         <div class="mainInfol"><img src="images/p6.png" width="100" height="100"></div>
-		         <div class="mainInfor">
-			          <div class="title2"><span> 清风手帕纸原木纯品标</div>
-			          <div class="amount">320-420g | 卷</div>
-			          <div class="price">
-				          <span>￥30.90</span> <span class="discound">￥18.09 </span><span  class="promotion"> 预</span>
-				          <p>可提10件</p>
-		              </div>
-		              <div class="tongji"><span><img src="images/sub.png" ></span><span>999</span><span style="fr"><img src="images/add.png" ></span></div>
-		    </div>
-	     </div>
-         
-             <div class="blank"></div>
-         
-         </li>-->
-      
-         
-         
-        
-         
-        
-         
-         
-      
-         
-         
-         
-         
-       
-         
-         
-         </ul>
+  <!-- dealer-list 分销商列表 start-->
+  <div class="tabmain">
+    <div id="outerWrap">
+
+
+
+      <div id="container">
+        <div id="content">
+
+          <div class="tabContent  selectedContent"><!-- 1 -->
+
+            <ul>
+
+              <!--<li>
+               <div class="mainInfo">
+                   <div class="mainInfol"><img src="images/p6.png" width="100" height="100"></div>
+                       <div class="mainInfor">
+                            <div class="title2"><span> 清风手帕纸原木纯品标</div>
+                            <div class="amount">320-420g | 卷</div>
+                            <div class="price">
+                                <span>￥30.90</span> <span class="discound">￥18.09 </span><span  class="promotion"> 预</span>
+                                <p>可提10件</p>
+                            </div>
+                            <div class="tongji"><span><img src="images/sub.png" ></span><span>999</span><span style="fr"><img src="images/add.png" ></span></div>
+                  </div>
+               </div>
+
+                   <div class="blank"></div>
+
+               </li>-->
+
+
+
+
+            </ul>
+          </div>
+
+
+
+
+
+
+
         </div>
-        
-        
-        
-       
-        
-            
-        
       </div>
     </div>
   </div>
-</div>
-<!-- dealer-list 分销商列表 end-->
+  <!-- dealer-list 分销商列表 end-->
 </div>
 
 

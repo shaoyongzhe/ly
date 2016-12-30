@@ -1,0 +1,40 @@
+body,h1,h2,h3,ul,li,p{padding: 0;margin: 0;}
+ul,li{list-style: none;}
+body{font-family: "微软雅黑", Arial;font-size: 0.6rem;}
+html,body{height: 100%;background: #fff;display: -webkit-box;-webkit-box-orient:vertical;}
+img{display: block;}
+em{font-style: normal;}
+.left{float: left;}
+.right{float: right;}
+.hori{display: -webkit-box;-webkit-box-orient:horizontal;}
+.vert{display: -webkit-box;-webkit-box-orient:vertical;}
+a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:transparent;}
+
+#cgl-main{-webkit-box-flex: 1;overflow-y: scroll;}
+#cgl-main li{padding: 0.5rem;border-bottom: 3px solid #e5e5e5;}
+.main-l{width: 3.1rem;}
+.main-l>img{ width: 2.55rem;}
+.main-r{-webkit-box-flex: 1;}
+
+.main-rt{border-bottom: 1px solid #d4d4d4;height: 2.1rem;}
+.namejia{width: 9.6rem;}
+.namejia>h3{font-size: 0.7rem;font-weight: 100;color: #333333;line-height: 1;}
+.namejia>p{color: #999;line-height: 1.45rem;}
+.joincar{width: 1.5rem;height: 1.5rem;background: url("../image/shop/buycar.png") no-repeat center;background-size:1.5rem; }
+.joincar>em{display: block;width: 0.65rem;height: 0.65rem;border: 1px solid #fff;border-radius: 50%;background: red;color: #fff;float: right;margin:-0.2rem -0.2rem 0 0;text-align: center;line-height: 0.65rem;}
+.cgl-manj>p{color: #999;background: url("../image/shop/icon_zhuan.png") no-repeat left center;background-size: 0.75rem;padding-left:1rem;margin-top: 0.35rem;}
+.cgl-manj>p:nth-of-type(2){background-image: url("../image/shop/icon_jian.png");}
+
+
+
+
+footer{height: 45px;border-top: 1px solid #d4d4d4;}
+footer>div{-webkit-box-flex: 1;font-size: 15px;text-align: center;line-height: 45px;border-right: 1px solid #d4d4d4;position: relative;}
+footer>div:nth-of-type(1){width: 52px;-webkit-box-flex: 0;background: url("../image/shop/logo.png") no-repeat center;background-size:30px;}
+footer>div:nth-of-type(3){background: url("../image/shop/buttom_arrow.png") no-repeat right bottom;background-size: 15px;}
+footer>div:nth-of-type(4){background: url("../image/shop/buttom_arrow.png") no-repeat right bottom;background-size: 15px;border: 0;}
+#cgl-huodong>ul,#cgl-my>ul{position: absolute;left:-1px; bottom: 50px;width: 100%;display: none;box-shadow: 0 0 3px #ddd;background: #fff;}
+#cgl-huodong>ul>li,#cgl-my>ul>li{border: 1px solid #d4d4d4;width: 100%;margin-bottom: -1px;}
+#cgl-huodong>ul.on,#cgl-my>ul.on{display: block;}
+#cgl-my>ul>li{border-right: 0;}
+
