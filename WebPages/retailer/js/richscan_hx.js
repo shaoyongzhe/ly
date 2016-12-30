@@ -6,7 +6,7 @@ wx.ready(function () {
 avalon.ready(function () {
     avalon.scan(document.body, vm)
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
-    // vm.cardkey = "H4sIAAAAAAAEAEWLQQrDIBBF7zLrLtTJaOxlZKKTItQEmjEQQu_ekE3_6j14_wTOWveqR6oqLb16LfAE5pEizxMHssMsmX1xlgI78QZLnOABuiq_l96uGi_N67L1Jp90_63DgXwYo_mTkXsYDRJ8f-EbdWN5AAAA"
+    // vm.cardkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpdml0eWl0ZW1faWQiOiJiNGQ2MDEyNmZiYjA0MjVmOWE4MDZkNWViZDJkYTgxYiIsInRvdGFsbnVtIjoiMSIsImFjdGl2aXR5X2lkIjoiMTg2NzZlYzI0YmZhNDY4MTg3M2E1M2VlNmY0MDI1YWEiLCJkaXN0cmlidXRvcl9pZCI6IjVjZTFkMTRlMDc1MzQxMzlhZTc3NzRkODk4M2YwNGYzIiwicmFuZG9tIjoiMC4yNzU5MzQwNzY4NTIzODciLCJjb21iaW5laWNvbiI6IlRydWUiLCJjb21iaW5ldGV4dCI6IlRydWUiLCJwaWN0dXJlZm9ybWF0IjoiZ2lmIiwiY29uc3VtZXJfaWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDBlZWVlZTEwMDAwOCIsImdlb2xvYyI6IlBPSU5UICgxMjEuMDkzIDMzLjIyNikiLCJsYXRpdHVkZSI6IjMzLjIyNjAwMTczOTUwMiIsImxvbmdpdHVkZSI6IjEyMS4wOTMwMDIzMTkzMzYiLCJ2ZXJpZnlpcCI6IjEyNy4wLjAuMSIsImV4cGlyYXRpb250aW1lIjoiMjAxNi0xMi0yNyAxNjowNjo0OCJ9.d_CbMb9NgLbrEcEHta44vD4ThA84DdfrCALQYudxIhE"
     //vm.GetTicketInfo(vm.cardkey)
 })
 
@@ -53,10 +53,10 @@ var vm = avalon.define({
     IsVerifycard: false,
     GetTicketInfo: function (cardkey) {//加载优惠卷
         $.ajax({
-            type: 'GET',
+            type: 'post',
             dataType: 'json',
-            data: {},
-            url: '/webapi/retailer/weixin/verifycardview/' + cardkey,
+            data: { cardkey: cardkey },
+            url: '/webapi/retailer/weixin/verifycardview',
             beforeSend: function () { Msg.show(1, "超惠券信息加载中...") },
             // complete: function () { Msg.hide(); },
             success: function (result) {
@@ -70,7 +70,14 @@ var vm = avalon.define({
                     $(".btn").hide()
                     $("#btn_1").show()//返回
 
-                } else {
+                } else if (jsondata.error != null || jsondata.error != undefined) {
+                    var tishi = jsondata.error.toString().split('~');
+
+                    Msg.show(2, tishi[0], tishi.length > 1 ? ("~" + tishi[1]) : "")
+                    $(".btn").hide()
+                    $("#btn_1").show()//返回
+                }
+                else {
                     Msg.hide()
                     vm.pageStep = 2;
                     vm.jsondata = jsondata.activityitemjson
@@ -115,7 +122,7 @@ var vm = avalon.define({
                 url: '/webapi/retailer/weixin/verifycard?cardkey=' + vm.cardkey,
                 beforeSend: function () { Msg.show(1, "正在核销中...") },
                 success: function (result) {
-                   // alert(result)
+                    // alert(result)
                     var jsondata = isJson(result) ? result : JSON.parse(result)
 
                     Msg.hide()
