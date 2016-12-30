@@ -303,7 +303,7 @@
 
 
         //点击提交购物车
-        $(".bottomsubmit").click(function () {
+        $(".submit").click(function () {
         	  
              var da=$("#txtDate").val();  //获取用户的送货时间
              for(var i=0;i<itemdata.length;i++)
@@ -432,22 +432,26 @@
             
             <!-- footer start -->
                         <div class="bottomlayout">
-                        <div  class="bottompanel">
+                        
+                       
+                          
+                       
                           
                           <!-- orderlayout 3 description -->
-                          <div  class="totalinfo">
+                          
                             <div class="totalsum">
-                                          <i class="sum"> 合计：￥0元</i> 
-                                            <i class="proprice">已优惠金额：￥0.00  </i>                                             
+                                          <p class="amountBig"> 合计：￥50元</p> 
+                                            <p>已优惠金额：￥139.00  </p> 
+                                            <div class="submit">去提交<span>(20)</span></div>
                                       </div>
                             
-                          </div>
-                          </div>
                           
-                          <div class="bottomsubmit">
-                          <input type="button" data-evt="buy-cart-m/biz/go:submit" class="submit_" >去提交(<span class="">0</span>)</input>
                           
-                          </div>
+                          
+                         <!--  <div class="bottomsubmit">
+                          <input type="button" data-evt="buy-cart-m/biz/go:submit" class="" >去提交(<span class="">20</span>)</input>
+                          
+                          </div> -->
                         </div>
                         <!-- footer end -->
             

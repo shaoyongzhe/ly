@@ -230,10 +230,16 @@ section .remarks{
 	border-bottom: 10px solid #f1f2f6;
 }
 #same-ss{
-	padding:10px 0 20px 0;line-height: 20px;
+	line-height: 20px;display: flex;padding:5px;padding:3px 0 17px 0;height:25px;font-size: 1.4rem;
 }
 #same-ss div:nth-child(1){
-	width:60%; height:38px;text-align: center;padding:5px
+	width:2.8rem;padding:0 0 5px 12px;padding-top:0.2rem
+}
+#same-ss div:nth-child(2){
+	width:50%;text-align: left;margin-top:0.2rem
+}
+#same-ss div:nth-child(3){
+	flex:1;text-align: right;padding-right: 8px;line-height: 35px;
 }
 .slider{display:none; width:100%; margin:0 auto}/*用于获取更加体验*/
 .focus{ text-align:center; width:100%; text-align:center}
