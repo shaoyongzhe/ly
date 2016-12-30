@@ -61,6 +61,10 @@
               var b = $(this).val().replace(/[ ]/g,"");
               $(this).val(b);
             })
+            $(document).on('click','.zt_close',function(){
+                popup.close();
+                window.location.reload();
+            })
         });
         var cssObj = {
             tabChange: function (t, obj) {
@@ -94,27 +98,27 @@
                 else if (t == 3)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>您还有内容未保存！<br/>退出后将清空，确定要退出？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 4)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要修改，请先下架！</p></p></div><div class="win-close" ></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要修改，请先下架！</p></p></div><div class="win-close zt_close" ></div>';
                 else if (t == 5)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中修改。</p></p></div><div class="win-close"></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p> 该活动刚刚完成审核，且未通过！<br/>请到未发布活动列表中修改。</p></p><div class="win-close zt_close"></div></div>';
                 else if (t == 6)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>该活动已在审核中<br/>将很快与惠粉见面，确认要修改？</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 7)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">保存成功</p><p style="color:#999">请到未发布活动列表查看</p></p><div class="win-close"></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">保存成功</p><p style="color:#999">请到未发布活动列表查看</p></p><div class="win-close zt_close"></div></div>';
                 else if (t == 8)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">发布成功</p><p  style="color:#999">请到已发布活动列表查看</p><div class="win-close" "></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">发布成功</p><p  style="color:#999">请到已发布活动列表查看</p><div class="win-close zt_close" ></div></div>';
                 else if (t == 9)
                     cont = '<div class="win-box"><p><img src="../image/activities/tl-6.png" style="width:32px"  /></p><p>确定下架？<br/>下架后惠粉将看不到您的活动</p><p style="margin-top:20px;"><input type="button" class="w-save" value="确定" /><input class="w-cancel" onclick="popup.close()" type="button" value="取消" /></p></div>';
                 else if (t == 10)
                     cont = '<div class="win-box date-box" style="position:fixed;"><div class="xiugai" ><ul class="huadonga"><li >00</li><li >01</li><li >02</li><li >03</li><li >04</li><li >05</li><li >06</li><li >07</li><li >08</li><li >09</li><li >10</li><li >11</li><li >12</li><li >13</li><li >14</li><li>15</li><li >16</li><li >17</li><li >18</li><li >19</li><li >20</li><li >21</li><li >22</li><li >23</li></ul></div><p style="margin-top:20px;"><input class="date-btn" onclick="popup.close()" type="button" value="取消" /><input type="button" class="date-btn" value="确定" id="date-save" style="margin-left:10px;" /></p></div>';
                 else if (t == 11)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close" ></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png" /></p><p>该活动刚刚完成审核<br/>如要删除，请先下架！</p></p></div><div class="win-close zt_close" ></div>';
                 else if (t == 12)
-                    cont = '<div class="win-box win-6" style="position: fixed;"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close" "></div>';
+                    cont = '<div class="win-box win-6" style="position: fixed;"><p><img src="../image/activities/tl-8.png"  /></p><p style="color:#000">下架成功</p><p  style="color:#999">请到未发布活动列表查看</p></div><div class="win-close zt_close" ></div>';
                 else if (t == 13)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p >该活动刚刚完成审核，且未通过！</p><p  >请到未发布活动列表中删除。</p><div class="win-close" "></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p >该活动刚刚完成审核，且未通过！</p><p  >请到未发布活动列表中删除。</p><div class="win-close zt_close" ></div></div>';
                 else if (t == 14)
-                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p >该活动刚刚完成审核！</p><p  >请到未发布活动列表中删除。</p><div class="win-close" "></div></div>';
+                    cont = '<div class="win-box win-6"><p><img src="../image/activities/tl-6.png"  /></p><p >该活动刚刚完成审核！</p><p  >如要删除,请先下架!</p><div class="win-close zt_close"></div></div>';
                 $("body").css("padding-bottom", "0");
                 $('#lazyout').remove();
                 $('#win_box').remove();
@@ -135,7 +139,10 @@
                 $("#win_box .w-save,#win_box .win-close").click(function () {
                     //console.log(callback);
                     popup.close();
+                    console.log(callback);
                     if (callback != null)
+                        console.log(t);
+                        console.log(callback);
                         callback();
                 })
 
@@ -231,13 +238,13 @@
 
             });
            $("input[name=originalprice]").blur(function(){
-                if (this.value == 0) {
-                   alert('原价不可以为0');
+                if (this.value == 0 && this.value != '') {
+                    alert('原价不可以为0');
                     this.value = "";
                 }
             });
            $("input[name=unitprice]").blur(function(){
-                if (this.value == 0) {
+                if (this.value == 0 && this.value != '') {
                    alert('单价不可以为0');
                     this.value = "";
                 }
@@ -291,7 +298,6 @@
 
 
             // $("input[name=unitprice]").blur(function () {
-                console.log(11112222);
             $("input[name=unitprice],input[name=buycount],input[name=giftcount]").on('input',function () {
                 if(!isNaN(this.value)){
                     if(this.value.indexOf(".") >0){
@@ -510,10 +516,8 @@
             fm.find("input[name=endtime]").val(json.endtime.substring(0,10));
             console.log(endTime.getHours());
             if(endTime.getHours()==0 || endTime.getHours()=='NAN'){
-                console.log(11122);
                 fm.find("input[name=datehour]").val('00');
             }else{
-                 console.log(22222);
                 fm.find("input[name=datehour]").val(endTime.getHours());
 
             }
@@ -736,7 +740,6 @@
                             else
                             {
                                 popup.show(13, null);
-                                window.location.reload();
                                 return;
                             }
 
@@ -1058,14 +1061,13 @@
                     }
                     else if (json.state == "审核失败" || json.state == "下架")
                     {
-                        //if (json.state == state) {
+                        console.log(json.state);
+                        if (json.state == state) {
                             convertformtoedit(obj, json);
-                        //}
-                        //else
-                        //{
-                        //    popup.show(5, null);
-                        //    window.location.reload();
-                        //}
+                        }else{
+                           popup.show(5, null);
+                           //window.location.reload();
+                       }
                     }
                     else if (json.state == "审核中") {
                         popup.show(6, function () {

@@ -41,7 +41,7 @@ var vm = avalon.define({
         var search = window.location.search;
         if (search.length > 0)
             search = search.substr(1);
-        var ajaxdata = { activitykind: "distributor_to_consumer", consumer_id: vm.consumer_id };//activitytype: "activity",
+        var ajaxdata = { activitykind: "distributor_to_consumer,retailer_to_consumer", consumer_id: vm.consumer_id };//activitytype: "activity",
         if (wxjsconfig.sharekey != null)
             ajaxdata[wxjsconfig.sharekey] = "_";
         var search = window.location.search;
