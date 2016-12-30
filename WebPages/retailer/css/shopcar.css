@@ -1,0 +1,31 @@
+html { font-size:62.5%;height:100%}
+body{color:#666; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin:0; -webkit-text-size-adjust:none; padding:0; line-height:1.6em;height:100%;}  
+div,dl,dd,dt,ul,li,ol,caption,table,tbody,thead,tfoot,th,td,tr,form,button,input,select,textarea,legend,a,p,big,small,span,strong,sub,sup,b,em,i,h1,h2,h3,h4,h5,h6,cite,q,samp,pre,code,tt,br,hr,address,img,area,map,object,del,s,header,footer{ border:none; padding:0; margin:0; list-style:none;font-style:normal;-webkit-text-size-adjust:none; vertical-align: baseline;/* chrome */ }
+img,fieldset,table,input,textarea,button{border:none;}
+.shop-title{
+	width:100%;display: flex;font-size: 1.6rem;border-bottom: 10px solid #f1f2f6;
+}
+.shop-title div:nth-child(1){
+	padding:12px 0 12px 10px;width:50%
+}
+.shop-title div:nth-child(2){
+	flex: 1;text-align:right;padding:10px 10px 10px 0;
+}
+.addr{
+	width:100%;padding:8px 10px;font-size: 1.6rem;background: #f8f8f8;
+}
+.addr div{
+	width:4rem;background:url(../image/shop/arr.jpg) no-repeat right;background-size: 0.8rem 1rem;display: inline-block;
+}
+.addr span{
+	width:1rem ;height:1rem ;display: inline-block;padding-right: 0.8rem;background: url(../image/shop/crect.jpg) no-repeat center bottom;background-size: 1rem 1rem;
+}
+.intr{
+	padding:0.6rem 5px 0 2.6rem;font-size: 1.4rem;display: flex;
+}
+.intr div:nth-child(1){
+	float:left;width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 15%;color:#ff0000
+}
+.intr div:nth-child(2){
+	flex: 1;padding-left: 5px;
+}
