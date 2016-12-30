@@ -375,9 +375,9 @@ var vm = avalon.define({
         vm.IsSearchStatus = true;
         times++;
         if (Interval == null) {
-            Interval = setInterval(vm.getVerifyState, 2000)
+            Interval = setInterval(vm.getVerifyState, 3000)
         }
-        if (times > 10) {//请求10次后，暂停请求，提示网络不给力
+        if (times > 5) {//请求10次后，暂停请求，提示网络不给力
             Msg.show(4, "网络不给力", "查不到超惠券信息，请重试！")
             clearInterval(Interval);//停止请求
             Interval = null
@@ -391,17 +391,50 @@ var vm = avalon.define({
             data: { activityitem_id: vm.activityitem_id, totalnum: vm.hxNum },
             url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
-                /* state
-                   1：进行中
-                   2：已完成
-                   3：失败
+                /* step
+                   1：门店扫码中
+                   2：门店确认核销中
+                   3：核销成功（未匹配到主题活动）
+                   4：核销成功（匹配到主题活动）
+                   5：返回主题活动列表
                 */
-                if (result.state == 1) {//进行中
 
+                if (result.state == 0) {//失败
+                    clearInterval(Interval);//停止请求
+                    Interval = null
+                    vm.IsSearchStatus = false;
+                    Msg.show(1, result.message);
+                }
+                else {
+                    if (result.step == 3 || result.step == 4) {//核销成功
+                        vm.IsSearchStatus = false;
+                        if (result.step == 3) {
+                            clearInterval(Interval);//停止请求
+                            Interval = null
+                        }
+                        vm.yhxNum = result.verifynum//成功核销数量
+                        vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
+                        var whxMsg = "";
+                        if (vm.whxNum > 0) {
+                            whxMsg = "其中" + vm.whxNum + "张超惠券未使用";
+                        }
+                        vm.pageStep = 3
+                        page2.showUsage(1)
+                        Msg.show(3, result.message, whxMsg)
+                        //vm.distributor_id = result.distributor_id
+                        //vm.retailer_id = result.retailer_id
+
+                        ///后续进行分享
+                    } else if (result.step == 5) {//核销成功，并匹配到主题活动
+                        clearInterval(Interval);//停止请求
+                        Interval = null
+
+                        console.log("核销成功，并匹配到主题活动")
+                    }
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                if (!vm.IsScan || vm.IsVerifySuccess) {//未扫描，超时
+                if (Interval != null) {//
                     return
                 } else {
                     $(".msg,#QRCode").hide()
@@ -416,9 +449,6 @@ var vm = avalon.define({
                 }
             }
         });
-
-
-
     }
     //sendRedPack: function (total_amount) {
     //    $.ajax({WW
