@@ -22,16 +22,14 @@
     <script type="text/javascript" src="/distributor/js/common-buttom-nav.js"></script>
     <script src="../../js/jquery/jquery.qrcode.min.js"></script>
     <script src="../../js/jquery/qrcodeInitialize.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript">       
         $(function () {
             $.getJSON2("/webapi/distributor/weixin/distributorinfo", function (data) {
                 var jsondata = data || {};
                 var tpl = document.getElementById('companytemplate').innerHTML;
-                var html = juicer(tpl, jsondata);
-                
+                var html = juicer(tpl, jsondata);                
                 $('body').prepend(html);
-                console.log(qrcodeconfig);
-                //$('#qrcode').attr('src', $('#qrcode').attr('orgsrc'));
+                
                 var qrcode = qrcodeconfig["distributor"];
                 qrcode["consumercard"]["title"].text = jsondata.distributorname;
                 draw(qrcode, "consumercard", qrcodeconfig["distributor"]["logo"]);

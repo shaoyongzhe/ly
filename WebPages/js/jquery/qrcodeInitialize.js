@@ -1,4 +1,5 @@
 ﻿var qrcodeconfig = {
+
     "distributor": {
         "logo": "/consumer/image/consumer_logo.png",
         "loadsuccess": function () { },
@@ -12,9 +13,10 @@
                 "fontcolor": "#000000",
                 "width": 384,
                 "height": 60,
-                "single":true,
+                "single": true,
+                "textalign": "center",
                 "x": 0,
-                "y": 0
+                "y": 30
             },
             "nav": {
                 "type": "image",
@@ -32,10 +34,11 @@
                 "fontsize": 30,
                 "font": "Courier New",
                 "fontcolor": "#ffffff",
-                "depend": "title",
+                "depend": "nav",
                 "width": 384,
                 "height": 81,
                 "single": false,
+                "textalign": "center",
                 "x": 0,
                 "y": 95
             },
@@ -43,13 +46,13 @@
                 "type": "qrcode",
                 "depend": "nav",
                 "bordercolor": "#d9d9d9",
-                "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0&sendimage=false&resetcache=true",
+                "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0",
                 "width": 348,
                 "height": 348,
                 "single": true,
                 "x": 18,
                 "y": 145
-            },            
+            },
             "bottom": {
                 "type": "text",
                 "depend": "qrcode",
@@ -59,7 +62,8 @@
                 "fontcolor": "#457181",
                 "width": 384,
                 "height": 81,
-                "single": true,
+                "single": true,                
+                "textalign": "center",
                 "x": 0,
                 "y": 520
             },
@@ -76,7 +80,7 @@
                 "url": "/consumer/image/consumercard_verfiy.png",
                 "width": 384,
                 "height": 81,
-                "single": true,
+                "single": true,                
                 "x": 0,
                 "y": 0
             },
@@ -89,6 +93,8 @@
                 "width": 384,
                 "height": 81,
                 "single": false,
+                "textalign": "center",
+                "depend": "nav",
                 "x": 0,
                 "y": 0
             },
@@ -99,16 +105,13 @@
                 "width": 348,
                 "height": 348,
                 "single": true,
+                "depend": "navtext",
                 "x": 18,
                 "y": 75
             }
         }
     }
 };
-var ImageDrawEnd = false;
-var ImageQrEnd = false;
-var ImageGetJSON = false;
-
 
 function convertCanvasToImage(canvas) {
     var image = new Image();
@@ -116,79 +119,51 @@ function convertCanvasToImage(canvas) {
     return image;
 }
 
-function SingleTextDraw(canvas, config,dependconfig )
-{
-    console.log("dependconfig");
-    console.log(dependconfig);
-    if (dependconfig == undefined)
-    {
-        canvas.font = config.fontsize + "px " + config.font;
-        canvas.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
-        canvas.textAlign = 'left';
-        canvas.fillStyle = config.fontcolor;
-        var textlength = config.text.length * config.fontsize;
-        canvas.fillText(config.text, config.width / 2 - textlength / 2, config.y);
-    } else
-    {
-        console.log("success:" + dependconfig.success);
-        var textinterval = setInterval(function () {
-            if (dependconfig.success) {
-                canvas.font = config.fontsize + "px " + config.font;
-                canvas.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
-                canvas.textAlign = 'left';
-                canvas.fillStyle = config.fontcolor;
-                var textlength = config.text.length * config.fontsize;
-
-                canvas.fillText(config.text, config.width / 2 - textlength / 2, config.y);
-                clearInterval(textinterval);
-            }
-        }, 500);
-    }
-   
-
-}
-
-function TextDraw(canvas, config) {
-
+function TextDraw(canvas, name, config, dependconfig) {
     var textinterval = setInterval(function () {
-        if (ImageDrawEnd) {
-            canvas.font = config.fontsize + "px " + config.font;
-            canvas.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
-            canvas.textAlign = 'left';
-            canvas.fillStyle = config.fontcolor;
-            var textlength = config.text.length * config.fontsize;
-            
-            canvas.fillText(config.text, config.width/2 - textlength / 2, config.y);
-            clearInterval(textinterval);
+        
+        if (dependconfig == undefined || dependconfig.success) {
+            clearInterval(textinterval);        
+            canvas.font = config.fontsize + "px " + config.font;            
+            canvas.textAlign = config.textalign;
+            canvas.textBaseline = 'middle';
+            canvas.fillStyle = config.fontcolor;                        
+            canvas.fillText(config.text, config.width/2, config.y);
+            config.success = true;        
         }
-    }, 500);
+    }, 200);
 }
 
-function ImageDraw(canvas, imagename, config) {
+function ImageDraw(canvas, imagename, config, dependconfig) {
+    var imageinterval = setInterval(function () {       
 
-    var img = new Image(config.width, config.height);
-    img.src = config.url;
-    img.onload = function () {
-        canvas.drawImage(img, config.x, config.y, config.width, config.height);
-        ImageDrawEnd = true;        
-    }
+        if (dependconfig == undefined || dependconfig.success) {
+            var img = new Image(config.width, config.height);
+            img.src = config.url;
+            img.onload = function () {
+                canvas.drawImage(img, config.x, config.y, config.width, config.height);
+                config.success = true;
+            }
+            clearInterval(imageinterval);
+        }
+    }, 100);
+
 }
 
 
-function QrcodeDraw(canvas, imagename, config, logo) {
+function QrcodeDraw(canvas, imagename, config, logo, dependconfig) {
     if (config.url == "")
         return;
 
-    var qrinterval = setInterval(function () {
-        if (ImageDrawEnd && !ImageGetJSON) {
-            ImageGetJSON = true;
+    var qrinterval = setInterval(function () {        
+        if (dependconfig == undefined || dependconfig.success) {
+            clearInterval(qrinterval);
             $.getJSON(config.url, function (data) {
                 data = data || {};
                 if (data.qrstring == undefined) {
-                    ImageQrEnd = true;
+                    config.success = true;
                     config["error"] = "出错了";
                     return;
-
                 }
                 $("#canvasqrcode").remove()
                 $('#qrcodediv').qrcode({
@@ -201,59 +176,64 @@ function QrcodeDraw(canvas, imagename, config, logo) {
                     src: logo//这里配置Logo的地址即可。
                 });
 
-                setTimeout(function () {                    
-                    var qrcanvas = document.getElementById('canvasqrcode');
-                    var qrcodeimage = new Image();
-                    qrcodeimage.src = qrcanvas.toDataURL("image/png");
-                    qrcodeimage.onload = function () {
+                var canvasqrcode = setInterval(function () {
 
-                        canvas.strokeStyle = "#ccc";
-                        canvas.lineWidth = 1;
-                        canvas.strokeRect(config.x, config.y, config.width, config.height);
-                        canvas.drawImage(qrcodeimage, config.x + 10, config.y + 10, config.width - 20, config.height - 20);
+                    if ($("#canvasqrcode").length > 0) {
+                        clearInterval(canvasqrcode);
+                        var qrcodeimage = new Image();
+                        var qrcanvas = document.getElementById('canvasqrcode');
+                        qrcodeimage.src = qrcanvas.toDataURL("image/png");
+                        qrcodeimage.onload = function () {
+                            canvas.strokeStyle = "#ccc";
+                            canvas.lineWidth = 1;
+                            canvas.strokeRect(config.x, config.y, config.width, config.height);
+                            canvas.drawImage(qrcodeimage, config.x + 10, config.y + 10, config.width - 20, config.height - 20);
+                            config.success = true;                            
+                        }
 
-                        ImageQrEnd = true;
-
-                        console.log("QrcodeDraw onload")
                     }
-                    clearInterval(qrinterval);
-                }, 500)
+                }, 200)
             });
         }
-    }, 500);
+    }, 300);
 
 }
 
 function draw(config, configname, logo) {
-
-
+    
     var c = document.createElement('canvas'),
     ctx = c.getContext('2d');
 
+    if (!c.getContext) {
+        console.log("不支持html5");
+        var qrurl = config[configname]["qrcode"]["url"];
+        $('#QRCode_img').attr("src", qrurl)
+        config.loadsuccess();
+        return;
+    } 
+
 
     var width = 0;
-    var height = 0;
+    var height = 0;    
     $.each(config[configname], function (name, jsondata) {
 
         var type = jsondata["type"];
-        console.log("type=" + type)
-        console.log(jsondata);
+
         if (width < jsondata.width)
             width = jsondata.width;
         if (jsondata.single)
             height += jsondata.height;
+        var dependconfig = config[configname][jsondata.depend];
         switch (type) {
             case "text":
-                if (jsondata.single)
-                    SingleTextDraw(ctx, jsondata, config[configname][jsondata.depend]);
-                else
-                    TextDraw(ctx, jsondata, config[configname][jsondata.depend]);
+                TextDraw(ctx, name, jsondata, dependconfig);
                 break;
             case "image":
-                ImageDraw(ctx, name, jsondata, config[configname][jsondata.depend]);
+                ImageDraw(ctx, name, jsondata, dependconfig);
                 break;
             case "qrcode":
-                QrcodeDraw(ctx, name, jsondata, logo, config[configname][jsondata.depend]);
+                jsondata.url = jsondata.url + "&sendimage=false"
+                QrcodeDraw(ctx, name, jsondata, logo, dependconfig);
                 break;
             default:
 
@@ -261,33 +241,29 @@ function draw(config, configname, logo) {
     });
     c.width = width;
     c.height = height + 20;
-
+    
     var drawinterval = setInterval(function () {
-        if (ImageQrEnd) {
-            var iserror = false;
-            $.each(config[configname], function (name, jsondata) {
-                console.log(jsondata.error);
-                if (jsondata.error != undefined) {
-                    clearInterval(drawinterval);
-                    config.loaderror();
-                    iserror = true;
-                }
-            });
-            if (iserror)
-                return;
-            var hc_image = new Image();
-            $('#QRCode_img').attr("src", c.toDataURL("image/png"))
-            //hc_image.src = c.toDataURL("image/png");
-            //console.log(hc_image.src)
-            //// hc_image.style = "width:384px;height:100%"
-            //$('#divQrcode').html(hc_image);
-            config.loadsuccess();
 
-            ImageDrawEnd = false;
-            ImageQrEnd = false;
-            ImageGetJSON = false;
-            clearInterval(drawinterval);
-        }
+        var iserror = false;
+        var allsuccess = true;
+        $.each(config[configname], function (name, jsondata) {
+            if (jsondata.success != true)
+                allsuccess = false;
+            if (jsondata.error != undefined) {
+                clearInterval(drawinterval);
+                config.loaderror();
+                iserror = true;
+            }
+        });        
+        if (allsuccess == false)
+            return;
+        if (iserror)
+            return;
+        clearInterval(drawinterval);
+        var hc_image = new Image();
+        $('#QRCode_img').attr("src", c.toDataURL("image/png"))                
+        config.loadsuccess();        
+
     }, 500);
 
 }
