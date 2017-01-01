@@ -188,7 +188,7 @@ function getAndSetActivityitem(checkedObj) {
                 window.location.href = "../html/login.html";
                 return;
             }
-            localStorage.setItem("checkedActivityitem", JSON.stringify(msg.data));//提交审核时使用
+            localStorage.setItem("checkedActivityitem", JSON.stringify(msg));//提交审核时使用
             if (msg != "" && msg != null) {
                 var items = msg.data;
                  var youli = "";
