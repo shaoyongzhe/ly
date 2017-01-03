@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html>
+<html style"height:100%">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -8,10 +8,30 @@
 <link href="../../css/menu.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="../../js/retailerid.js"></script>
+<script type="text/javascript" src="../../js/scroll/iscroll.js"></script>
 <script type="text/javascript">
   var distributor_id=top.window.parent.distributor_id;
-  $(document).ready(function()
-  {
+
+  $(document).ready(function(){
+  	onload();
+  function onload(){
+    myScroll1 = new iScroll('conn', 
+    { 
+     mouseWheel: true,//PC端的鼠标事件也监听，方便PC端调试
+     click: true,//允许点击事件
+     eventPassthrough: false,//纵向滚动整个页面，横向滚动iscroll区域
+     scrollX:false,//默认是纵向，横向需要设置scrollX
+     
+     });
+    myScroll2 = new iScroll('select', 
+    { 
+     mouseWheel: true,//PC端的鼠标事件也监听，方便PC端调试
+     click: true,//允许点击事件
+     eventPassthrough: false,//纵向滚动整个页面，横向滚动iscroll区域
+     scrollX:false,//默认是纵向，横向需要设置scrollX
+     vScrollbar:false
+     });
+}
 
    //$.get("http://membership-waibao.ipaloma.com/webapi/account/login/test-2-135-1",{},function(){},false);
    $.ajax({
@@ -89,27 +109,55 @@
 
   }); //document结束
 
+
 </script>
 
 
 
 </head>
 
-<body oncontextmenu="return false">
-<div class="container">
+<body>
+	<div id="conn">
+	<div class="select" id="select">
+	<ul>
+		<li>阿萨德就撒了点击是打算阿萨德撒的撒的撒打算的撒萨克</li>
+		<li>阿斯科利就到了刷</li>
+		<li>asdsad</li>
+		<li>asdsad</li>
+		<li>asdasdsad</li>
+		<li>asdsad</li>
+		<li>asdsadsad</li>
+				<li>阿萨德就撒了点击是打算阿萨德撒的撒的撒打算的撒萨克</li>
+		<li>阿斯科利就到了刷</li>
+		<li>asdsad</li>
+		<li>asdsad</li>
+		<li>asdasdsad</li>
+		<li>asdsad</li>
+		<li>asdsadsad</li>
+				<li>阿萨德就撒了点击是打算阿萨德撒的撒的撒打算的撒萨克</li>
+		<li>阿斯科利就到了刷</li>
+		<li>asdsad</li>
+		<li>asdsad</li>
+		<li>asdasdsad</li>
+		<li>asdsad</li>
+		<li>asdsadsad</li>
+	</ul>
+</div>
+<div class="container" id="container">
 <!-- order-list 订单列表 start-->
+
 <div class="orderlistbox">
 <dl id="dl1">
 <dt>进行中的</dt>
 
-<!--<dd>
-<div class="imagebox"><a href="#"><img src="images/p7.png" ></a></div>
-<div class="iconbox"><img src="images/icon_lin.png" width="30" height="30"> </div>
+<dd>
+<div class="imagebox"><a href="#"><img src="../../image/shop/p7.png" ></a></div>
+<div class="iconbox"><img src="../../image/shop/icon_lin.png" width="30" height="30"> </div>
 <div class="dectitlebox">
 <a style="float:left;" href="#" >三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a>
 <i>共1件</i>
 </div>
-&lt;!&ndash; desc&ndash;&gt;
+
 <div class="descbox">
 <p>订单号：201601101309123</p>
 <i class="il">送货时间：2016/07/01</i>
@@ -119,36 +167,35 @@
 
 
 <dd style="padding-top:10px;">
-<div class="image2box"><a href="#"><img src="images/p7.png" ></a><a href="#"><img src="images/p6.png" ></a><a href="#"><img src="images/p7.png" ></a></div>
+<div class="image2box"><a href="#"><img src="../../image/shop/p7.png" ></a><a href="#"><img src="../../image/shop/p6.png" ></a><a href="#"><img src="../../image/shop/p7.png" ></a></div>
 <i  class="ammount">共1件</i>
-&lt;!&ndash; desc&ndash;&gt;
+
 <div class="descbox">
 <p>订单号：201601101309123</p>
 <i class="il">送货时间：2016/07/01</i>
 <i class="ir">合计：<span class="pricstyle">￥20.90</span></i>
 </div>
-</dd>-->
+</dd>
 
 </dl>
 
 
 
-<!--<dl>-->
-<!--<dt>历史订单</dt>-->
-<!--<dd>-->
-<!--<div class="imagebox"><a href="#"><img src="images/p7.png" ></a></div>-->
-<!--<div class="iconbox"><img src="images/icon_lin.png" width="30" height="30"> </div>-->
-<!--<div class="dectitlebox">-->
-<!--<a style="float:left;" href="#" >三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a>-->
-<!--<i>共1件</i>-->
-<!--</div>-->
-<!--&lt;!&ndash; desc&ndash;&gt;-->
-<!--<div class="descbox">-->
-<!--<p>订单号：201601101309123</p>-->
-<!--<i class="il">送货时间：2016/07/01</i>-->
-<!--<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>-->
-<!--</div>-->
-<!--</dd>-->
+<dl>
+<dt>历史订单</dt>
+<dd>
+<div class="imagebox"><a href="#"><img src="../../image/shop/p7.png" ></a></div>
+<div class="iconbox"><img src="../../image/shop/icon_lin.png" width="30" height="30"> </div>
+<div class="dectitlebox">
+<a style="float:left;" href="#" >三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a>
+<i>共1件</i>
+</div>
+<div class="descbox">
+<p>订单号：201601101309123</p>
+<i class="il">送货时间：2016/07/01</i>
+<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>
+</div>
+</dd>
 
 
 <!--<dd style="padding-top:10px;">-->
@@ -168,7 +215,7 @@
 
 <!-- order-list 订单列表 end-->
 </div>
-
+</div>
 
 </body>
 </html>
