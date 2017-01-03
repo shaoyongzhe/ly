@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2016-12-27 20:31:19
+ * @Last Modified time: 2016-12-29 17:57:24
  */
 
 
@@ -201,14 +201,14 @@ $('.resetting').on('click', function() {
     $('#service_val').val("");
     $('#serverBeginTime').val("");
     $('#serverEndTime').val("");
-    $(".text2").find("option:selected").text('--请选择--');
-    $(".text1").find("option:selected").text('--请选择--');
+    $(".text2").val('--请选择--');
+    $(".text1").val('--请选择--');
     $('.gf-select span em:eq(0)').text('省份');
     $('.gf-select span em:eq(1)').text('城市');
     $('.gf-select span em:eq(2)').text('区县');
+    $('#numbul_val').val("");
 
 });
-
 
 function getList(curr, handle, searchForm) {
 
@@ -381,8 +381,8 @@ function getList(curr, handle, searchForm) {
                     });
                 },
                 error: function(xhr, type) {
-                    console.log('Ajax error!');
-                    layer.msg('加载出错');
+                    console.log('加载出错');
+                    // layer.msg('加载出错');
                     // 即使加载出错，也得重置
                     // me.resetload();
                 }
@@ -391,8 +391,7 @@ function getList(curr, handle, searchForm) {
     });
 };
 
-
-
+   
 // 查询
 $("body").on("click", ".search-btn", function() {
     getList(1, 'search', getSearch());
@@ -402,7 +401,7 @@ $("body").on("click", ".search-btn", function() {
 
 // 查询文案		
 function getSearch() {
-
+    // alert('1');
     var send_object = $(".text2").find("option:selected").text();
     if (send_object == "分销商") {
         var a = 1;
@@ -441,24 +440,24 @@ function getSearch() {
 
     // 获取地区的值
     var sheng_val = $('.gf-select span em:eq(0)').text();
-    var shi_val = $('.gf-select span em:eq(1)').text();
-    var qu_val = $('.gf-select span em:eq(2)').text();
+    var shi_val = $('.gf-select span em:eq(1)').text()+',';
+    var qu_val = $('.gf-select span em:eq(2)').text()+',';
 
 
     if (sheng_val == '省份') {
         var sheng_val = "";
     }
 
-    if (shi_val == '城市') {
+    if (shi_val == '城市,') {
         var shi_val = "";
     }
-    if (qu_val == '区县') {
+    if (qu_val == '区县,') {
         var qu_val = "";
     }
 
     var searchForm = {
         // 编号
-        // propagationsubjectcode:$.trim($('#number_val').val()),
+        // propagationsubjectcode:$.trim($('#numbul_val').val()),
         // 标题
         service: $.trim($('#service_val').val()),
 
@@ -467,7 +466,7 @@ function getSearch() {
         // 结束时间
         endtime: $('#serverEndTime').val(),
 
-        area: $.trim(sheng_val + shi_val + qu_val),
+        area: $.trim( qu_val + shi_val + sheng_val ),
         // area:"河北省",
         // 发送状态
         // state:  "draft",
@@ -511,6 +510,10 @@ function getSearch() {
     };
     if (searchForm.push_retailer == 0) {
         delete searchForm.push_retailer;
+    };
+     if (searchForm.propagationsubjectcode == "") {
+
+        delete searchForm.propagationsubjectcode;
     };
     // layer.msg('正在加载，请稍等');
     return searchForm;
@@ -966,7 +969,7 @@ $('.examine1').on('click', function() {
         if($('.Graphic_message .ck:eq(0)').find('img').hasClass('xiyin_son')==true){
                  var e = 1;
             }else{
-                 var e = 0;
+                 var e =undefined;
             }
 
 
@@ -978,6 +981,7 @@ $('.examine1').on('click', function() {
                         };
             }   
         
+
         var guid = $(this).closest('.layui-layer-content').find('.guid').val();
         var state1 = $(this).closest('.layui-layer-content').find('.state').val();
         var form_value = {
@@ -1006,7 +1010,11 @@ $('.examine1').on('click', function() {
         //     layer.msg('请选择地区');
         //     return;
         // }
-
+        // if(form_value.area=='[]'){
+        //     layer.msg('请选择地区');
+        //     return;
+        // }
+           
         if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
             layer.msg('请选择发送对象');
             return;
@@ -1021,7 +1029,10 @@ $('.examine1').on('click', function() {
         //     layer.msg('请选择封面图片');
         //     return;
         // }
-
+        if($('#imghead').attr('src')==''){
+            layer.msg('请选择封面图片');
+            return;
+        }
         if (form_value.copywriting == "") {
             layer.msg('请填写发送内容');
             return;

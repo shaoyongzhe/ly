@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2016-12-28 18:26:46
+ * @Last Modified time: 2016-12-29 15:29:04
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -323,14 +323,20 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
             }
         }
+        // 判断时间和选项框  有没有选中否则出来的数据就不对，null
         var time_time = $('.date').val();
         if(time_time==undefined){
             time_time=='';
         }
+        var radio_val1 = $('input[name="Fruit"]:checked').val();
+            if(radio_val1=='bindwithperiodpush'){
+                 var e = 1;
+                }
         var pic1_url = $('#preview img').attr('src');
+        var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
             state: $('.content_information .state').val(),  
-            service: $.trim($('#textarea_value').val()),
+            service:srvice_val ,
             belong_group: $('.input-text').find('option:selected').text(),
             area:JSON.stringify(JSON.parse($('.area_val').val()).area),
             push_distributor: a,
@@ -338,7 +344,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             push_retailer: c,
             category: d,
             poster_url: pic_url,
-            copywriting: $('.mode textarea').val(),
+            copywriting: JSON.stringify($('.mode textarea').val()),
             bindwithperiodpush: e,
             pushtime: time_time
         };
@@ -491,12 +497,24 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
             }
         }
+        var time_time = $('.date').val();
+            if(time_time==undefined){
+                time_time=='';
+            }
+        var radio_val1 = $('input[name="Fruit"]:checked').val();
+            if(radio_val1=='pushtime_supplier'){
+                 var e = undefined;
+                }else{
+                    var e =1;
+                }
+
 
         var pic1_url = $('#preview img').attr('src');
+        var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
             state: "draft",
             optype: "draft",
-            service: $('#textarea_value').val(),
+            service: srvice_val,
             belong_group: $('.input-text').find('option:selected').text(),
             area: JSON.stringify(JSON.parse($('.area_val').val()).area),
             // area = JSON.stringify(area); 
@@ -507,7 +525,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             poster_url: pic_url,
             copywriting: $('.mode textarea').val(),
             bindwithperiodpush: e,
-            pushtime: $('.date').val()
+            pushtime: time_time
         }
         // console.log(typeof(form_value.area[0]));
         // form_value.area = JSON.stringify(form_value.area);
