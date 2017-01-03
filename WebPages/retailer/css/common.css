@@ -153,7 +153,7 @@
 .bottomlayout .totalinfo{ float:left;width:70%;color:#fff;  background:#3a3635;}
 
 .bottomlayout .totalsum{-webkit-box-flex:1;-ms-flex:1;-webkit-box-orient:vertical;-ms-flex-orient:vertical;-webkit-box-pack:center;-ms-flex-pack:center;height:5rem;width:100%}
-.totalsum p{width:70%;text-align: left;font-size: 1.5rem;color:#fff;line-height: 2.6rem;height:50%;margin-left: 25%;}
+.totalsum p{width:70%;text-align: left;font-size: 1.4rem;color:#fff;line-height: 2.6rem;height:50%;margin-left: 25%;}
 .totalsum .amountBig{
 	font-size: 2rem;
 }
