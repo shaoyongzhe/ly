@@ -601,6 +601,23 @@ a:hover {
     position: relative;
 }
 
+body.modify .region-wrap{
+    display: block;
+}
+
+.region-wrap .status{
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+    vertical-align: middle;
+    background: url(../img/tingyong.png) no-repeat 0 0;
+    cursor: pointer;
+}
+
+.region-wrap .status.on{
+    background: url(../img/qiyong.png) no-repeat 0 0;
+}
+
 .Select_the_province1{
     display: block!important;
 }
@@ -667,10 +684,6 @@ a:hover {
     margin-right: 10px;
 }
 
-.region-wrap /* .district span.on{
-    transform: scale(0)!important;
-    transition: .3s;
-} */
 
 
 
@@ -692,7 +705,7 @@ a:hover {
 
 
 .region-wrap .charge-name{
-    margin: 0px 0 6px -10px;
+    margin: 0px 0 6px 0;
 }
 
 .region-wrap .district-wrap{

@@ -322,8 +322,8 @@ input.time{
 }
 
 .form.condition{
-	width: auto;
-	margin-left: 20px;
+	width: 1086px;
+	/*margin-left: 20px;*/
 }
 
 .condition .input-contorl label{
@@ -1334,4 +1334,10 @@ textarea{
 	/*margin-left: 2px!important;*/
 	display: none;
 	/*display: block!important;*/
+}
+
+
+.sec.tuWen{
+	width: 1100px;
+	margin: 0 auto;
 }

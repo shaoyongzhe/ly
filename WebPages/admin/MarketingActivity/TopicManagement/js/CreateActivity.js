@@ -176,9 +176,9 @@ $(document).click(function(){
 
 
 
-// 设置规则
+// 设置规则 按钮
 $('body').on("click",".setRules",function(e){
-// $('.setRules').click(function(){
+	// $('.setRules').click(function(){
 
 	// debugger;
 	// alert(index);
@@ -226,9 +226,29 @@ $('body').on("click",".setRules",function(e){
 				$('.layer.set-rules .check.budgetTime').click();
 				$('input.budgetTime').val(gzVal.totalbudget.time);
 			}
-		}		
+		}
 	}
 
+	// debugger
+	// console.log($(this).closest('.butieSec').find('.hdc6-1 .acSe14 .btfz p').text())
+
+	$('.butie-inner-item .sum').text($(this).closest('.butieSec').find('.hdc6-1 p').text());
+
+});
+
+
+// 设置规则 输入框输入
+$('.butie-inner-item input').keyup(function(){
+	// debugger
+	if($(this).val().length != 0){
+		$(this).closest('.butie-inner-item').find('span.check').addClass('on');
+		$(this).closest('.butie-item').find('.butie_type span.buTie').addClass('on');
+	} else {
+		$(this).closest('.butie-inner-item').find('span.check').removeClass('on');
+		if($(this).closest('.butie-item').find('.butie-inner-item .check.on').length == 0){
+			$(this).closest('.butie-item').find('.butie_type span.buTie').removeClass('on');
+		}
+	}
 });
 
 
@@ -284,23 +304,10 @@ $('.rulesok').click(function(){
 });
 
 
-$('.butie-inner-item input').keyup(function(){
-	// debugger
-	if($(this).val().length != 0){
-		$(this).closest('.butie-inner-item').find('span.check').addClass('on');
-		$(this).closest('.butie-item').find('.butie_type span.buTie').addClass('on');
-	} else {
-		$(this).closest('.butie-inner-item').find('span.check').removeClass('on');
-		if($(this).closest('.butie-item').find('.butie-inner-item .check.on').length == 0){
-			$(this).closest('.butie-item').find('.butie_type span.buTie').removeClass('on');
-		}
-	}
-});
-
 
 // 设置摇一摇、设置轮盘抽奖
 $('body').on("click",".set",function(e){
-// $('.set').click(function(){
+	// $('.set').click(function(){
 	// debugger;
 	var addSub4 = $(this).closest('.addSub4');
 	index = addSub4.index();
@@ -362,6 +369,8 @@ $('body').on("click",".set",function(e){
 	}
 
 });
+
+
 
 // 设置摇一摇 确定按钮
 $('.yaook').click(function(){
@@ -636,6 +645,7 @@ $('body.create').on('input','input',function(e){
 
 });
 
+
 // 文本框输入
 $('textarea, input').on('input',function(){
 	$(this).next().find('em').text($(this).val().length);
@@ -679,13 +689,15 @@ $(document).on('click','.check, .radio',function(){
 });
 
 
+
+// 宣传图文资料 编辑按钮
 $('.btn.edit').click(function(){
+	// debugger
+
 	var _this = $(this);
+	var area = _this.closest('.area');
+	var i = _this.closest('.area').index();$('.area.edit .index').val(i);
 	var edit = $('.area.edit');
-	edit.show();
-
-	var i = _this.closest('.area').index();
-
 	layer.open({
 
 		type: 1,
@@ -696,7 +708,11 @@ $('.btn.edit').click(function(){
 
 	});
 
-	$('.area.edit .index').val(i);
+	
+	edit.find('#hdBiaoyu').val(area.find('.activitytitle').text());
+	edit.find('.wxtw').val(area.find('.wechattitle').text());
+	edit.find('.xchb').attr('src', area.find('.posterurl').attr('src'));
+	edit.find('.xcwa').val(area.find('.wenan-text').text());
 
 });
 
@@ -734,6 +750,7 @@ $('.heading-toggle').click(function(){
 	$(this).next().toggle();
 });
 
+
 /*function getSelected(_this, text){
 	if(text == _this.parent().prev().text()){
 		_this.parent().hide().prev().text(text);
@@ -760,9 +777,8 @@ $("body").on("click",".option",function(e){
 	// 活动类型
 	if($(this).closest('.activity').length==1){
 		// alert('活动类型');
-
 		// getSelected(_this, text);
-		// debugger
+		debugger
 		if(text == _this.parent().prev().text()){
 			_this.parent().hide().prev().text(text);
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
@@ -1271,9 +1287,9 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.name +'</li>');
 	});
 
-	$('.fzr .option').each(function(){
+	/*$('.fzr .option').each(function(){
 		$(this).click();
-	});
+	});*/
 
 });
 
@@ -1285,9 +1301,7 @@ $('.saveToDb, .shenhe').click(function(){
 	// debugger
 	if($(this).text() ==  "提交审核"){
 
-
 		var finished = true;
-
 
 		if($('.section1 .activitytitle').val() == ""){
 			$("nav span").eq(0).click();
@@ -1335,6 +1349,16 @@ $('.saveToDb, .shenhe').click(function(){
 			$("nav span").eq(0).click();
 			layer.tips('请先填写申报说明', $('#shenbao'));
 			$('#shenbao').focus();
+			return;
+		}
+		if($('.fzr1 em.selected').text() == '选择第一负责人'){
+			$("nav span").eq(0).click();
+			layer.tips('请先选择第一负责人', $('.fzr1'));
+			return;
+		}
+		if($('.fzr2 em.selected').text() == '选择第二负责人'){
+			$("nav span").eq(0).click();
+			layer.tips('请先选择第二负责人', $('.fzr2'));
 			return;
 		}
 
@@ -1687,7 +1711,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 	// delete data;
 	// alert(1)
-	debugger;
+	// debugger;
 	if(finished == false){
 		return
 	}
