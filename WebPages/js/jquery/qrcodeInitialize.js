@@ -87,6 +87,125 @@
 
         }
     },
+    "retailer": {
+        "logo": "/consumer/image/consumer_logo.png",
+        "loadsuccess": function () { },
+        "loaderror": function () { },
+        "consumercard": {
+            "url": "/webapi/consumer/weixin/register_generate_code?qrtype=2023",
+            "title": {
+                "type": "text",
+                "text": "",
+                "fontsize": 30,
+                "font": "Courier New",
+                "fontcolor": "#000000",
+                "width": 384,
+                "height": 60,
+                "single": true,
+                "textalign": "center",
+                "x": 0,
+                "y": 30
+            },
+            "nav": {
+                "type": "image",
+                "url": "/consumer/image/retailer_consumer_nav.png",
+                "width": 384,
+                "height": 81,
+                "single": true,
+                "depend": "title",
+                "x": 0,
+                "y": 60
+            },
+            "navtext": {
+                "type": "text",
+                "text": "门店专属码",
+                "fontsize": 30,
+                "font": "Courier New",
+                "fontcolor": "#ffffff",
+                "depend": "nav",
+                "width": 384,
+                "height": 81,
+                "single": false,
+                "textalign": "center",
+                "x": 0,
+                "y": 95
+            },
+            "qrcode": {
+                "type": "qrcode",
+                "depend": "nav",
+                "bordercolor": "#d9d9d9",
+                "width": 348,
+                "height": 348,
+                "single": true,
+                "x": 18,
+                "y": 145
+            },
+            "bottomone": {
+                "type": "text",
+                "depend": "qrcode",
+                "text": "扫一扫上面的二维码，成为超惠买惠粉！",
+                "fontsize": 20,                
+                "font": "微软雅黑",
+                "fontcolor": "#0e9393",
+                "width": 384,
+                "height": 30,
+                "single": true,
+                "textalign": "center",
+                "x": 0,
+                "y": 510
+            },
+            "bottomtwo": {
+                "type": "text",
+                "depend": "bottomone",
+                "text": "现在关注送精美礼品一份!",
+                "fontsize": 20,
+                "font": "微软雅黑",
+                "fontcolor": "#0e9393",
+                "width": 384,
+                "height": 30,
+                "single": true,
+                "textalign": "center",
+                "x": 0,
+                "y": 535
+            },
+            "bottomthree": {
+                "type": "text",
+                "depend": "bottomtwo",
+                "text": "持续关注，一大波优惠让你欢喜!",
+                "fontsize": 20,
+                "font": "微软雅黑",
+                "fontcolor": "#0e9393",
+                "width": 384,
+                "height": 30,
+                "single": true,
+                "textalign": "center",
+                "x": 0,
+                "y": 560
+            }
+        },
+        "limitverfiy": {
+            "url": "/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false",
+            "background":{
+                "type": "image",
+                "url": "/retailer/image/verify/verifycode.png",
+                "width": 420,
+                "height": 595,
+                "single": true,
+                "depend": "title",
+                "x": 0,
+                "y": 0
+            },            
+            "qrcode": {
+                "type": "qrcode",
+                "depend": "background",                
+                "width": 175,
+                "height": 175,
+                "single": false,
+                "x": 122.5,
+                "y": 130
+            }
+        }
+    },
     "consumer": {
         "logo": "/consumer/image/consumer_logo.png",
         "loadsuccess": function () { },
@@ -155,7 +274,10 @@ function TextDraw(canvas, name, config, dependconfig) {
                 canvas.fillStyle = config.fillrectcolor;                
                 canvas.fillRect(config.x, config.y - config.fontsize, config.fillrectwidth, config.fillrectheight);
             }
-            canvas.font = config.fontsize + "px " + config.font;
+            var font = config.fontsize + "px " + config.font;
+            if (config.bold)
+                font = "bold " + font;
+            canvas.font = font;
             canvas.textAlign = config.textalign;
             canvas.textBaseline = 'middle';
             canvas.fillStyle = config.fontcolor;
@@ -202,10 +324,15 @@ function QrcodeDraw(canvas, imagename, config, logo, dependconfig) {
                 var qrcodeimage = new Image();
                 qrcodeimage.src = qrcanvas.toDataURL("image/png");
                 qrcodeimage.onload = function () {
-                    canvas.strokeStyle = "#ccc";
-                    canvas.lineWidth = 1;
-                    canvas.strokeRect(config.x, config.y, config.width, config.height);
-                    canvas.drawImage(qrcodeimage, config.x + 10, config.y + 10, config.width - 20, config.height - 20);
+                    var borderwidth = 0;                    
+                    if (config.bordercolor)
+                    {
+                        canvas.strokeStyle = "#ccc";
+                        canvas.lineWidth = 1;
+                        canvas.strokeRect(config.x, config.y, config.width, config.height);
+                        borderwidth = 10;
+                    }               
+                    canvas.drawImage(qrcodeimage, config.x + borderwidth, config.y + borderwidth, config.width - (2 * borderwidth), config.height - (2 * borderwidth));
                     config.success = true;
                 }
             }, 1000)
@@ -244,7 +371,6 @@ function draw(config, configname, logo) {
             height += jsondata.height;
     });
 
-
     $.each(config[configname], function (name, jsondata) {
         if (name == "url")
             return true;
@@ -270,7 +396,7 @@ function draw(config, configname, logo) {
         }
     });
     c.width = width;
-    c.height = height + 20;
+    c.height = height;
     var drawinterval = setInterval(function () {
 
         var iserror = false;
