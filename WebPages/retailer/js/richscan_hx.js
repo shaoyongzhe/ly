@@ -51,9 +51,9 @@ var vm = avalon.define({
     zengpin: 0,//赠品份数
     seconds: 8,//描述
     IsVerifycard: false,
-    GetTicketInfo: function (cardkey) {//加载优惠卷
+    GetTicketInfo: function (cardkey) {//加载优惠卷      
         $.ajax({
-            type: 'post',
+            type: 'get',
             dataType: 'json',
             data: { cardkey: cardkey },
             url: '/webapi/retailer/weixin/verifycardview',

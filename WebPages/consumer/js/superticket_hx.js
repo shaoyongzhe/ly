@@ -29,6 +29,7 @@ var vm = avalon.define({
     $id: 'superticket_hx',
     //maxNum: 10,//最大可核销数量
     hxNum: 1,
+    qrkey:"",
     jsondata: {},
     pageStep: 0,//控制页面展示
     activityitem_id: common.getUrlParam("activityitem_id"),
@@ -206,7 +207,7 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             //timeout: 5000, //超时时间设置，单位毫秒
-            data: { activityitem_id: vm.activityitem_id, totalnum: vm.hxNum },
+            data: { qrkey: vm.qrkey },
             url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
                 /* state
@@ -408,7 +409,8 @@ var vm = avalon.define({
             $("#p_yxchj font").html(vm.hxNum)
             vm.hxstate = ""
             vm.favorable(vm.jsondata, vm.hxNum)
-            vm.getVerifyState()
+            vm.qrkey = qrcode["consumercard"]["qrcode"]["text"]
+            vm.getVerifyState();
         }
         qrcode.loaderror = function () {
             Msg.show(2, "核销二维码加载失败");
@@ -421,7 +423,7 @@ var vm = avalon.define({
 
         setTimeout(function () {
             vm.loadqrcode(latitude, longitude);
-        }, 15000);
+        }, 60000);
 
     }
 })
