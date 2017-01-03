@@ -515,7 +515,7 @@
 
             fm.find("input[name=endtime]").val(json.endtime.substring(0,10));
             console.log(endTime.getHours());
-            if(endTime.getHours()==0 || endTime.getHours()=='NAN'){
+            if(endTime.getHours()==0 || endTime.getHours()=='NaN'){
                 fm.find("input[name=datehour]").val('00');
             }else{
                 fm.find("input[name=datehour]").val(endTime.getHours());
@@ -759,7 +759,7 @@
 
             //新增
             add: function (obj, t) {
-                console.log(obj+t)
+                //console.log(obj+t)
                 var createObj = $(obj).closest(".create");
                 var relType = parseInt(this.getParam(createObj, "reltype"));
                 var hour = this.getParam(createObj, "datehour");
@@ -768,7 +768,9 @@
                 var dataForm = {
                     goodsname: $(createObj).find("textarea[name=goodsname]").val(),
                          type: (relType == 0 ? "markdown" : "promotional"),
+                     //begintime: '2003-02-08',
                     begintime: this.getParam(createObj, "begintime"),
+                    //endtime: '2003-02-09',
                     endtime: this.getParam(createObj, "endtime"),
                     remark: $(createObj).find("textarea[name=remark]").val(),
                     optype: t == 0 ? "store" : "release"
@@ -1333,22 +1335,27 @@
                         toasterextend.showtips(json.user_notification, "info");
                         return;
                     }
-
                     success(json);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    //toasterextend.showtips(11111, "error");
                     common.loading.hide();//隐藏转圈动画
-
+                    //console.log(XMLHttpRequest.status);
                     var errormsg = "访问异常";
-
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                         var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
-                        if (errormsg == undefined || errormsg == '')
+                        console.log(errormsg);
+                        errormsg = json.Message;
+
+                        if (errormsg == 'undefined' || errormsg == ''){
                             errormsg = "Http error: " + XMLHttpRequest.statusText;
+                        }else{
+                             toasterextend.showtips(json.Message, "error");
+                        }
                     }
 
                     toasterextend.showtips(errormsg, "error");
+
                 }
             });
         }
