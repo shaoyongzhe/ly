@@ -162,7 +162,11 @@ var vm = avalon.define({
         vm.IsScan = false;
         $(".msg").hide()
         Msg.show(1, "核销二维码加载中...")
-        vm.loadqrcode()
+        waitloadaddress(function () {
+            vm.loadqrcode(wxlocation.latitude, wxlocation.longitude);
+            
+        });
+        
         //var qrcode = qrcodeconfig["consumer"]["consumercard"];
         //qrcode["qrcode"].url = '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&sendimage=false";
         //draw(qrcode, qrcodeconfig["consumer"]["logo"]);
@@ -394,9 +398,9 @@ var vm = avalon.define({
         //}
 
     },
-    loadqrcode: function () {
+    loadqrcode: function (latitude, longitude) {
         var qrcode = qrcodeconfig["consumer"];
-        qrcode["consumercard"]["qrcode"].url = '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&sendimage=false&random=" + Math.random();
+        qrcode["consumercard"].url = '/webapi/consumer/weixin/card_generate_code?activityitem_id=' + vm.activityitem_id + "&totalnum=" + vm.hxNum + "&activity_id=" + vm.jsondata.activity_id + "&distributor_id=" + vm.jsondata.distributor_id + "&latitude=" + latitude + "&longitude=" + longitude + "&random=" + Math.random();
         qrcode.loadsuccess = function () {
             $(".stamp").hide()
             Msg.hide();
@@ -416,8 +420,8 @@ var vm = avalon.define({
         draw(qrcode, "consumercard", qrcodeconfig["consumer"]["logo"]);
 
         setTimeout(function () {
-            vm.loadqrcode()
-        }, 60000)
+            vm.loadqrcode(latitude, longitude);
+        }, 15000);
 
     }
 })
