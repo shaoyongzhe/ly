@@ -91,6 +91,17 @@
         "logo": "/consumer/image/consumer_logo.png",
         "loadsuccess": function () { },
         "loaderror": function () { },
+        "sharecard": {
+            "qrcode": {
+                "type": "qrcode",
+                "bordercolor": "#d9d9d9",
+                "width": 348,
+                "height": 348,
+                "single": true,                
+                "x": 0,
+                "y": 0
+            }
+        },
         "consumercard": {
             "nav": {
                 "type": "image",
