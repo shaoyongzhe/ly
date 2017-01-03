@@ -29,7 +29,8 @@ var vm = avalon.define({
     $id: 'superticket_hx',
     //maxNum: 10,//最大可核销数量
     hxNum: 1,
-    qrkey:"",
+    qrkey: "",
+   
     jsondata: {},
     pageStep: 0,//控制页面展示
     activityitem_id: common.getUrlParam("activityitem_id"),
@@ -409,7 +410,7 @@ var vm = avalon.define({
             $("#p_yxchj font").html(vm.hxNum)
             vm.hxstate = ""
             vm.favorable(vm.jsondata, vm.hxNum)
-            vm.qrkey = qrcode["consumercard"]["qrcode"]["text"]
+            vm.qrkey = encodeURI(qrcode["consumercard"]["qrcode"]["text"])
             vm.getVerifyState();
         }
         qrcode.loaderror = function () {
