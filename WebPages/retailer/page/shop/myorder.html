@@ -33,6 +33,11 @@
      });
 }
 
+	 $("#select li").click(function(){
+	 	$("#select li").removeClass("selected")
+	 	$(this).attr("class","selected");
+	 	
+	 })
    $.get("/webapi/account/login/test-2-135-1",{},function(){},false);
    $.ajax({
 	  url:"/webapi/distributor/"+getRetailerid()+"/orderforms",
