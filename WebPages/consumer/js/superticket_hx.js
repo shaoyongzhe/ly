@@ -44,6 +44,7 @@ var vm = avalon.define({
     tagType: 0,//标签类型 0：数量不足 1:门店不支持
     distributor_id: "",//分销商Id
     retailer_id: "",//门店Id
+    topicdata: [],
     span_tishi: "让店家扫一扫下方二维码立享优惠",
     IsSearchStatus: false,//是否在查询状态
     IsVerifySuccess: false,//是否核销成功
@@ -406,7 +407,7 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             data: { qrkey: vm.qrkey },
-            url: '/webapi/consumer/weixin/getVerifyState',
+            url: '/webapi/consumer/weixin/getVerifyState/test',
             success: function (result) {
                 vm.IsSearchStatus = false;
                 /* step
@@ -424,7 +425,9 @@ var vm = avalon.define({
                     clearInterval(Interval);//停止请求
                     Interval = null
 
-                    Msg.show(1, result.message);
+                    Msg.show(2, result.message);
+                    $("#btnlist,#btn_1,#btn_2").show();
+                    $(".btn,#QRCode").hide()
                 }
                 else {
                     if (result.step == 3 || result.step == 4) {//核销成功
@@ -444,13 +447,17 @@ var vm = avalon.define({
                         Msg.show(3, result.message, whxMsg)
                         //vm.distributor_id = result.distributor_id
                         //vm.retailer_id = result.retailer_id
-
+                        $("#QRCode").hide()
                         ///后续进行分享
                     } else if (result.step == 5) {//核销成功，并匹配到主题活动
                         clearInterval(Interval);//停止请求
                         Interval = null
 
                         console.log("核销成功，并匹配到主题活动")
+
+                        if (result.data.length > 0) {
+                            vm.topicdata = result.data
+                        }
                     }
                 }
             },
