@@ -36,7 +36,7 @@ var vm = avalon.define({
     verifylimit: 0,
     yhxNum: 0,//成功核销数量
     whxNum: 0,//失败核销数量
-    hxstate: "",
+    hxstate: -1,
     IsScan: false,//门店是否扫码
     youhui: 0,
     zengpin: 0,
@@ -165,7 +165,7 @@ var vm = avalon.define({
             Msg.hide();
             $("#QRCode").show()
             $("#p_yxchj font").html(vm.hxNum)
-            vm.hxstate = ""
+            vm.hxstate = -1
             vm.favorable(vm.jsondata, vm.hxNum)
             vm.getVerifyState()
 
@@ -373,7 +373,11 @@ var vm = avalon.define({
         if (vm.IsSearchStatus)//如果正在查询，就不要再重新请求了
             return
         vm.IsSearchStatus = true;
-        times++;
+
+        console.log("vm.hxstate=" + vm.hxstate)
+
+        if (vm.hxstate != -1)
+            times++;
         if (Interval == null) {
             Interval = setInterval(vm.getVerifyState, 3000)
         }
@@ -382,7 +386,9 @@ var vm = avalon.define({
             clearInterval(Interval);//停止请求
             Interval = null
             $("#btnlist,#btn_3,#btn_4").show();//退出 继续等待
-            $(".btn").hide()
+            $(".btn,#QRCode").hide()
+
+            return
         }
 
         $.ajax({
@@ -391,6 +397,7 @@ var vm = avalon.define({
             data: { activityitem_id: vm.activityitem_id, totalnum: vm.hxNum },
             url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
+                vm.IsSearchStatus = false;
                 /* step
                    1：门店扫码中
                    2：门店确认核销中
@@ -398,11 +405,14 @@ var vm = avalon.define({
                    4：核销成功（匹配到主题活动）
                    5：返回主题活动列表
                 */
-
+                console.log(result.state)
+                if (result.state == undefined)
+                    return
+                vm.hxstate = result.state
                 if (result.state == 0) {//失败
                     clearInterval(Interval);//停止请求
                     Interval = null
-                    vm.IsSearchStatus = false;
+
                     Msg.show(1, result.message);
                 }
                 else {
@@ -412,8 +422,8 @@ var vm = avalon.define({
                             clearInterval(Interval);//停止请求
                             Interval = null
                         }
-                        vm.yhxNum = result.verifynum//成功核销数量
-                        vm.whxNum = vm.hxNum - result.verifynum//失败核销数量
+                        vm.yhxNum = result.data.verifynum//成功核销数量
+                        vm.whxNum = vm.hxNum - result.data.verifynum//失败核销数量
                         var whxMsg = "";
                         if (vm.whxNum > 0) {
                             whxMsg = "其中" + vm.whxNum + "张超惠券未使用";
