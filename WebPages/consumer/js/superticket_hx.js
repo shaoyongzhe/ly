@@ -30,6 +30,7 @@ var vm = avalon.define({
     //maxNum: 10,//最大可核销数量
     hxNum: 1,
     qrkey: "",
+   
     jsondata: {},
     pageStep: 0,//控制页面展示
     activityitem_id: common.getUrlParam("activityitem_id"),
@@ -364,7 +365,7 @@ var vm = avalon.define({
             $("#p_yxchj font").html(vm.hxNum)
             vm.hxstate = -1
             vm.favorable(vm.jsondata, vm.hxNum)
-            vm.qrkey = qrcode["consumercard"]["qrcode"]["text"]
+            vm.qrkey = encodeURI(qrcode["consumercard"]["qrcode"]["text"])
             vm.getVerifyState();
         }
         qrcode.loaderror = function () {
@@ -392,7 +393,7 @@ var vm = avalon.define({
             times++;
         if (Interval == null) {
             Interval = setInterval(vm.getVerifyState, 3000)
-        }
+    }
         if (times > 5) {//请求10次后，暂停请求，提示网络不给力
             Msg.show(4, "网络不给力", "查不到超惠券信息，请重试！")
             clearInterval(Interval);//停止请求

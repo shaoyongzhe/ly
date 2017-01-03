@@ -1,4 +1,4 @@
-﻿
+
 avalon.ready(function () {
     vm.getQRcode()
 })
@@ -16,26 +16,38 @@ var vm = avalon.define({
         //$('#QRCode_img').error(function () {
         //    vm.loadState = 1
         //}); 
+        var qrcode = qrcodeconfig["retailer"];
+        qrcode.loadsuccess = function () {                        
+            console.log("成功")
+            vm.loadState = 2;
+            $("#QRCode_img").show();
 
-        $.ajax({
-            type: 'get',
-            dataType: 'json',
-            beforeSend: function () {
-                shelter.init({ icos: "/js/shelter/image/loading.gif" })
-            },
-            url: '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false',
-            success: function (json) {
-                if (json.user_notification != undefined && json.user_notification != null) {
+        };
+        qrcode.loaderror = function () {            
+            console.log("失败")
                     vm.loadState = 1
-                } else {
-                    shelter.close()
-                    draw(json.qrstring)
+        };
+        draw(qrcode, "limitverfiy", qrcode["logo"]);        
+        //$.ajax({
+        //    type: 'get',
+        //    dataType: 'json',
+        //    beforeSend: function () {
+        //        shelter.init({ icos: "/js/shelter/image/loading.gif" })
+        //    },
+        //    url: '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false',
+        //    success: function (json) {
+        //        if (json.user_notification != undefined && json.user_notification != null) {
+        //            vm.loadState = 1
+        //        } else {
+        //            shelter.close()
+        //            draw(json.qrcode.url);
+                   
+        //        }
+        //    },
+        //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //        vm.loadState = 1
+        //    }
+        //});
                 }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                vm.loadState = 1
-            }
-        });
-    }
 })
 
