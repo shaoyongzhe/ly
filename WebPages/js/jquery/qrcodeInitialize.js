@@ -5,6 +5,7 @@
         "loadsuccess": function () { },
         "loaderror": function () { },
         "consumercard": {
+            "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0",
             "title": {
                 "type": "text",
                 "text": "",
@@ -46,26 +47,42 @@
                 "type": "qrcode",
                 "depend": "nav",
                 "bordercolor": "#d9d9d9",
-                "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0",
                 "width": 348,
                 "height": 348,
                 "single": true,
                 "x": 18,
                 "y": 145
             },
+            "date": {
+                "type": "text",
+                "depend": "qrcode",
+                "text": "",
+                "fontsize": 20,
+                "font": "Courier New",
+                "fontcolor": "#666666",                
+                "fillrectcolor": "#e7e7e7",
+                "fillrectwidth": 348,
+                "fillrectheight": 30,
+                "width": 348,
+                "height": 40,
+                "single": true,
+                "textalign": "center",
+                "x": 18,
+                "y": 514
+            },
             "bottom": {
                 "type": "text",
                 "depend": "qrcode",
                 "text": "扫一扫上面的二维码，成为超惠买惠粉！",
-                "fontsize": 20,
+                "fontsize": 24,
                 "font": "Courier New",
                 "fontcolor": "#457181",
-                "width": 384,
+                "width": 450,
                 "height": 81,
-                "single": true,                
+                "single": true,
                 "textalign": "center",
                 "x": 0,
-                "y": 520
+                "y": 560
             },
 
         }
@@ -80,7 +97,7 @@
                 "url": "/consumer/image/consumercard_verfiy.png",
                 "width": 384,
                 "height": 81,
-                "single": true,                
+                "single": true,
                 "x": 0,
                 "y": 0
             },
@@ -121,30 +138,35 @@ function convertCanvasToImage(canvas) {
 
 function TextDraw(canvas, name, config, dependconfig) {
     var textinterval = setInterval(function () {
-        
+
         if (dependconfig == undefined || dependconfig.success) {
             clearInterval(textinterval);        
-            canvas.font = config.fontsize + "px " + config.font;            
+            if (config.fillrectcolor != undefined) {
+                canvas.fillStyle = config.fillrectcolor;                
+                canvas.fillRect(config.x, config.y - config.fontsize, config.fillrectwidth, config.fillrectheight);
+            }
+            canvas.font = config.fontsize + "px " + config.font;
             canvas.textAlign = config.textalign;
             canvas.textBaseline = 'middle';
-            canvas.fillStyle = config.fontcolor;                        
-            canvas.fillText(config.text, config.width/2, config.y);
-            config.success = true;        
+            canvas.fillStyle = config.fontcolor;
+            canvas.fillText(config.text, config.width / 2, config.y);
+            config.success = true;
         }
     }, 200);
 }
 
 function ImageDraw(canvas, imagename, config, dependconfig) {
-    var imageinterval = setInterval(function () {       
+    var imageinterval = setInterval(function () {
 
         if (dependconfig == undefined || dependconfig.success) {
+            clearInterval(imageinterval);
             var img = new Image(config.width, config.height);
             img.src = config.url;
             img.onload = function () {
                 canvas.drawImage(img, config.x, config.y, config.width, config.height);
                 config.success = true;
             }
-            clearInterval(imageinterval);
+
         }
     }, 100);
 
@@ -152,78 +174,83 @@ function ImageDraw(canvas, imagename, config, dependconfig) {
 
 
 function QrcodeDraw(canvas, imagename, config, logo, dependconfig) {
-    if (config.url == "")
-        return;
-
-    var qrinterval = setInterval(function () {        
+    var qrinterval = setInterval(function () {
         if (dependconfig == undefined || dependconfig.success) {
             clearInterval(qrinterval);
-            $.getJSON(config.url, function (data) {
-                data = data || {};
-                if (data.qrstring == undefined) {
-                    config.success = true;
-                    config["error"] = "出错了";
-                    return;
-                }
-                $("#canvasqrcode").remove()
-                $('#qrcodediv').qrcode({
-                    text: data.qrstring,
-                    render: 'canvas',
-                    height: config.height,
-                    width: config.width,
-                    typeNumber: -1,      //计算模式
-                    correctLevel: QRErrorCorrectLevel.H,//纠错等级
-                    src: logo//这里配置Logo的地址即可。
-                });
-
-                var canvasqrcode = setInterval(function () {
-
-                    if ($("#canvasqrcode").length > 0) {
-                        clearInterval(canvasqrcode);
-                        var qrcodeimage = new Image();
-                        var qrcanvas = document.getElementById('canvasqrcode');
-                        qrcodeimage.src = qrcanvas.toDataURL("image/png");
-                        qrcodeimage.onload = function () {
-                            canvas.strokeStyle = "#ccc";
-                            canvas.lineWidth = 1;
-                            canvas.strokeRect(config.x, config.y, config.width, config.height);
-                            canvas.drawImage(qrcodeimage, config.x + 10, config.y + 10, config.width - 20, config.height - 20);
-                            config.success = true;                            
-                        }
-
-                    }
-                }, 200)
+            $("#canvasqrcode").remove()
+            $('#qrcodediv').qrcode({
+                text: config.text,
+                render: 'canvas',
+                height: config.height,
+                width: config.width,
+                typeNumber: -1,      //计算模式
+                correctLevel: QRErrorCorrectLevel.H,//纠错等级
+                src: logo//这里配置Logo的地址即可。
             });
+
+            var canvasqrcode = setInterval(function () {
+
+                if ($("#canvasqrcode").length > 0) {
+                    clearInterval(canvasqrcode);
+                    var qrcodeimage = new Image();
+                    var qrcanvas = document.getElementById('canvasqrcode');
+                    qrcodeimage.src = qrcanvas.toDataURL("image/png");
+                    qrcodeimage.onload = function () {
+                        canvas.strokeStyle = "#ccc";
+                        canvas.lineWidth = 1;
+                        canvas.strokeRect(config.x, config.y, config.width, config.height);
+                        canvas.drawImage(qrcodeimage, config.x + 10, config.y + 10, config.width - 20, config.height - 20);
+                        config.success = true;
+                    }
+
+                }
+            }, 200)
         }
     }, 300);
 
 }
 
 function draw(config, configname, logo) {
-    
+
     var c = document.createElement('canvas'),
     ctx = c.getContext('2d');
 
     if (!c.getContext) {
-        console.log("不支持html5");
         var qrurl = config[configname]["qrcode"]["url"];
         $('#QRCode_img').attr("src", qrurl)
         config.loadsuccess();
         return;
-    } 
+    }
 
-
+    var qrcodeurl = config[configname]["url"] + "&sendimage=false";
+    $.ajaxSettings.async = false;
+    $.getJSON(qrcodeurl, function (data) {
+        data = data || {};
+        $.extend(true, config[configname], data);
+    });
+    $.ajaxSettings.async = true;
     var width = 0;
-    var height = 0;    
+    var height = 0;
     $.each(config[configname], function (name, jsondata) {
-
-        var type = jsondata["type"];
-
+        if (name == "url")
+            return true;
         if (width < jsondata.width)
             width = jsondata.width;
         if (jsondata.single)
             height += jsondata.height;
+    });
+
+
+    $.each(config[configname], function (name, jsondata) {
+        if (name == "url")
+            return true;
+        var type = jsondata["type"];
+
         var dependconfig = config[configname][jsondata.depend];
+        if (width > jsondata.width)
+            jsondata.x = (width - jsondata.width) / 2;
+        if (width > jsondata.width && type == "text")
+            jsondata.width = width;
         switch (type) {
             case "text":
                 TextDraw(ctx, name, jsondata, dependconfig);
@@ -232,7 +259,6 @@ function draw(config, configname, logo) {
                 ImageDraw(ctx, name, jsondata, dependconfig);
                 break;
             case "qrcode":
-                jsondata.url = jsondata.url + "&sendimage=false"
                 QrcodeDraw(ctx, name, jsondata, logo, dependconfig);
                 break;
             default:
@@ -241,28 +267,31 @@ function draw(config, configname, logo) {
     });
     c.width = width;
     c.height = height + 20;
-    
     var drawinterval = setInterval(function () {
 
         var iserror = false;
         var allsuccess = true;
         $.each(config[configname], function (name, jsondata) {
-            if (jsondata.success != true)
+            if (name == "url")
+                return true;
+            if (jsondata.success != true) {
                 allsuccess = false;
+            }
+
             if (jsondata.error != undefined) {
                 clearInterval(drawinterval);
                 config.loaderror();
                 iserror = true;
             }
-        });        
+        });
         if (allsuccess == false)
             return;
         if (iserror)
             return;
         clearInterval(drawinterval);
         var hc_image = new Image();
-        $('#QRCode_img').attr("src", c.toDataURL("image/png"))                
-        config.loadsuccess();        
+        $('#QRCode_img').attr("src", c.toDataURL("image/png"))
+        config.loadsuccess();
 
     }, 500);
 

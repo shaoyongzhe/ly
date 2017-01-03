@@ -30,11 +30,10 @@
                 var html = juicer(tpl, jsondata);                
                 $('body').prepend(html);
                 
-                var qrcode = qrcodeconfig["distributor"];
-                qrcode["consumercard"]["title"].text = jsondata.distributorname;
-                draw(qrcode, "consumercard", qrcodeconfig["distributor"]["logo"]);
+               
             });
-            
+            var qrcode = qrcodeconfig["distributor"];
+            draw(qrcode, "consumercard", qrcodeconfig["distributor"]["logo"]);
           
 
 
