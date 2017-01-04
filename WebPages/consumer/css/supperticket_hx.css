@@ -83,6 +83,7 @@
         .div-list .div-top .div-text ul li:first-child p {
             color: red;
             font-size: 18px;
+            margin-top: 10px;
         }
 
             .div-list .div-top .div-text ul li:first-child p small {
