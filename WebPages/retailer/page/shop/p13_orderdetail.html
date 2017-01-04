@@ -42,117 +42,23 @@
         canshu=getParam();
         serial_number=canshu[0];
         dis_id=canshu[1];
-
-   $.get("/webapi/account/login/test-2-135-1",{},function(){},false);
+		var _retailerId="";
+   $.get("/webapi/account/login/test-2-135-1",{},function(data){
+   		_retailerId=data.token
+   		console.log(_retailerId)
+   },false);
    $.ajax({
       url:"/webapi/distributor/"+getRetailerid()+"/orderforms",
       async:true,
       cache:false,
       dataType:"json",
       type:"get",
-      error:function(){alert("网络出错")},
+      error:function(){alert("")},
       success:function(data)
        {
-        console.log(data);
-          for (var j = 0; j < data.length; j++) 
-          {
-
-            //过滤分销商
-            if (data[j].distributor_id==dis_id) 
-            {
-
-                billlist=data[j].billlist;
-                for(var i=0;i<billlist.length;i++)  //遍历订单列表  目前总共有三个订单列表
-                {
-                    //过滤订单列表
-                    if(billlist[i].serialnumber==serial_number)
-                    {
-                        //订单信息
-                        $("#serialnumber_").html(billlist[i].serialnumber);
-                        $("#issuetime_").html(billlist[i].issuetime);
-                        $("#billexpecteddelivertime_").html(billlist[i].billexpecteddelivertime);
-                        $("#remark_").html(billlist[i].remark);
-                        $("#distributorname_").html(data[j].distributorname);
-                        $("#mobilephone_").html(data[j].mobilephone);
-                        $("#specialprice_").html("￥"+data[j].specialprice); 
-                            //一个订单中具体有几条商品    
-                            //优惠的金额
-                            yh_menoy=parseInt(0);
-                            sum_menoy=parseInt(0);         
-                        for (var z = 0; z < billlist[i].details.length; z++)
-                        {
-
-                         var parent_div=$(".orderbaseinfo");
-                         var child_div='<div class="confirmorderlayout">';
-                         child_div+='<div  class="thumbimg">';
-                         child_div+='<a  class="" title="" target="_blank"> <img src="../../image/shop/p7.png"></a>';           
-                         child_div+='</div>';
-                         child_div+='<div  class="desc">';
-                         child_div+='<div class="order-des">';
-
-                         //判断临  或 正 
-                         if(billlist[i].details[z].itemtype==0){
-                          child_div+='<i class="title"> '+billlist[i].details[z].itemobj.itemname+'</i>' 
-                         }else{
-                          child_div+='<i class="title2"> '+billlist[i].details[z].itemobj.itemname+'</i>' 
-                         }
-
-                         child_div+='<span class="ui-number">'+billlist[i].details[z].itemobj.specification+'</span>'
-                         child_div+='</div>'                            
-                         child_div+='</div>'
-                         child_div+='<div class="rightside">'
-                         child_div+='<p>￥'+billlist[i].details[z].itemunitcost+'<p>'
-                         child_div+='<p>x '+billlist[i].details[z].qualitycount+' <p>'
-                         child_div+='</div>'
-                         child_div+='<div class="otherinfo">'
-                           //判断分销商有没有活动
-                         if (data[j].itemkind!=undefined) 
-                          {
-                              child_div+='<div class="discound"><span class="pic2">'+data[j].itemkind+'</span> <span>7.5折</span></div>'
-                              child_div+= '<div class="remark"><span>赠品：</span>汤臣倍健蛋白粉 <span>150g</span> <span class="sidenum">x 2</span></div>'
-                          }
-                         
-                        child_div+='<div class="bbs"><span>留言：</span>'+billlist[i].details[z].remark+'</div>';
-                        child_div+='</div>'
-                        child_div+='</div>'
-
-                       parent_div.append(child_div);
-
-
-                          //计算金额
-                          var yuanshijia=billlist[i].details[z].itemoriginalcost;
-                          var xianjia=billlist[i].details[z].itemunitcost;
-                          var count=billlist[i].details[z].qualitycount;
-                          //(商品原价-优惠价）*数量
-                          yh_menoy1=(parseInt(yuanshijia)-parseInt(xianjia))*parseInt(count);
-                          yh_menoy=yh_menoy+yh_menoy1;
-                          //总的商品价格
-                          sum_menoy1=parseInt(xianjia)*parseInt(count);
-                          sum_menoy=sum_menoy+sum_menoy1;
-                          //alert(sum_menoy);
-
-                          //判断是否是赠品
-                          //alert(billlist[i].details[z].billid_class)
-                          if(billlist[i].details[z].billid_class=='tblbillgift')
-                          {
-                             alert(billlist[i].details[z].billid_class)
-                          }
-                          //判断是否是赠品
-
-
-                        }
-
-                        $("#youhui").html("￥"+yh_menoy);
-                        $("#summenoy").html("￥"+sum_menoy);
-                        
-                    }// if  过滤订单列表
-
-                }  //for循环遍历订单
-
-            }//判断分销商
-              
-          } //遍历data数据
-
+       		console.log(data)
+			$("#sp1").text(data[0]["billlist"][0]["billexpecteddelivertime"].split(" ")[0])
+			$("#distributorName").text(data[0]["distributorname"])
        }//ajax的success方法结束
 
    });  //ajax结束
@@ -180,8 +86,8 @@
 			<div class="saleTm-con"><span id="sp2">请在此处填写备注</span><img src="../../image/shop/rigArr.jpg" /></div>
 		</div>
 		<div class="introd">
-			<div class="saleTm-tit">接口</div>
-			<div class="saleTm-con">共<span>12</span>件</div>
+			<div class="saleTm-tit" id="distributorName"><span style="display:inline-block;">接口</span></div>
+			<div class="saleTm-con">共<span id="sp3">12</span>件</div>
 		</div>
 		<ul class="shoplist">
 			<li>

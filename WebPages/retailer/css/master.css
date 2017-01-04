@@ -116,6 +116,9 @@ section .remarks{
 .saleTm-tit{
 	width:30%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
 }
+#distributorName{
+	background:url("../../image/shop/phone.jpg") no-repeat;
+}
 .saleTm-con{
 	flex:1;height:100%;text-align: right;line-height: 45px;
 }
@@ -578,6 +581,9 @@ section .remarks{
 display: -webkit-box;-webkit-box-orient: vertical;
 overflow: hidden;
 color:#666
+}
+.selected{
+	border-left: 4px solid #f7af01;background: #fff;color:#333;
 }
 .orderlistbox{width:100%; height:auto; padding:5px 0px; margin:0; background:#fff;}
 .orderlistbox dl{width:100%; height:auto; padding:5px 0px; margin:0;background:#fff;}

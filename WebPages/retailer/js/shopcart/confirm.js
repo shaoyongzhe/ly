@@ -1,5 +1,5 @@
 (function($) {
-    $.alerts = {
+    $.alerts = {/////
         confirm: function(title, message, callback) {
             if( title == null ) title = 'Confirm';
             $.alerts._show(title, message, null, 'confirm', function(result) {
