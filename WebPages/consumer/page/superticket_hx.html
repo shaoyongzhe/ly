@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -347,10 +347,15 @@
             margin: -14px 0 0 5%;
             width: 30px;
         }
-        #divQrcode {min-height:280px
+
+        #divQrcode {
+            min-height: 280px;
         }
-        #divQrcode img { width:60%; margin:0 auto
-        }
+
+            #divQrcode img {
+                width: 60%;
+                margin: 0 auto;
+            }
     </style>
     <script>
         $(function () {
@@ -359,7 +364,7 @@
     </script>
 </head>
 <body style="background:#fff; " ms-controller="allMsg" class="ms-controller">
-  
+
     <div class="tip-w">
         <div class="tip">
             <img src="/consumer/image/shakegame/shareimg.png" style="width:80%;margin:20px 10% 0 10%" />
@@ -398,9 +403,9 @@
                                 <p>￥{{vm.jsondata.discountprice}} <small>￥{{vm.jsondata.originalprice}}</small></p>
                             </li>
                             <li ms-if="selfVerify.token.length>0" style="float:right; padding-right:2px;font-size:18px;color:#000">
-                               1 张
+                                1 张
                             </li>
-                            <li style="float:right; padding-right:2px;"  ms-if="selfVerify.token.length==0">
+                            <li style="float:right; padding-right:2px;" ms-if="selfVerify.token.length==0">
                                 <small>今日可用{{vm.verifylimit}}张</small>
                                 <ul class="jiajian">
                                     <li style="width:40px;border-right:solid 1px #ff6600;">
@@ -423,12 +428,12 @@
                 </div>
             </div>
             <div ms-if="isselfverify">
-                <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png"  ms-if="selfVerify.token.length==0" />
+                <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png" ms-if="selfVerify.token.length==0" />
                 <div class="btn_css4" style="margin-top:50px" ms-click="selfVerify.VerifyScan">
-                 {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}   
+                    {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}
                 </div>
             </div>
-            <div class="btn_css4" ms-click="btnClick"  ms-if="selfVerify.token.length==0" >门店扫码核销</div>
+            <div class="btn_css4" ms-click="btnClick" ms-if="selfVerify.token.length==0">门店扫码核销</div>
             <div class="btn_css4" ms-click="selfVerify.closeWin" style="background-color:#fff" ms-if="selfVerify.token.length>0">我在想想</div>
         </div>
         <div id="page2" ms-if="vm.pageStep>=2" ms-controller="superticket_page2">
@@ -455,8 +460,8 @@
                     </p>
                     <!--<img id="QRCode_img" />-->
                     <div id="divQrcode">
-                    <img id="QRCode_img" />
-                </div>
+                        <img id="QRCode_img" />
+                    </div>
                 </div>
 
             </div>
@@ -489,7 +494,7 @@
                 <div class="div-top">
                     <div class="div-img" id="divQrcode">
                         <img ms-attr-src="vm.jsondata.itempic" alt="">
-                    
+
                     </div>
                     <div class="div-text">
                         <p style="margin-bottom:10px">
@@ -538,13 +543,13 @@
         <div class="space"></div>
         <div id="bottom-nav"></div>
     </footer>
-        <img class="share_icon" src="../image/share_icon.png">
-        <img class="share_icon1" src="../image/share_icon.png">
-     <div class="share_pop1 share_pop">
+    <img class="share_icon" src="/consumer/image/share_icon.png">
+    <img class="share_icon1" src="../image/share_icon.png">
+    <div class="share_pop1 share_pop">
         <div class="share_bg"></div>
         <div class="main_bg">
-            <p><a href="javascript:vido(0)"><img  class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
-        </div>          
+            <p><a href="javascript:vido(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
+        </div>
         <div class="share_box">
             <div class="share_main">
                 <div class="main_haed">
@@ -557,7 +562,7 @@
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
                         </dl>
-                        <div class="L-alert" >
+                        <div class="L-alert">
                             <span>恭喜您获得5元微信红包！请注意查收！</span>
                             <div class="arrow"></div>
                         </div>
@@ -568,7 +573,7 @@
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
                         </dl>
-                        <div class="L-alert" >
+                        <div class="L-alert">
                             <span>恭喜您获得5元微信红包！请注意查收！</span>
                             <div class="arrow"></div>
                         </div>
@@ -579,7 +584,7 @@
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
                         </dl>
-                        <div class="L-alert" >
+                        <div class="L-alert">
                             <span>恭喜您获得5元微信红包！请注意查收！<a href="javascript:vido(0)"><img src="../image/fhare_icon.png"></a></span>
                             <div class="arrow"></div>
                         </div>
@@ -590,7 +595,7 @@
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
                         </dl>
-                        <div class="L-alert" >
+                        <div class="L-alert">
                             <span>恭喜您获得5元微信红包！请注意查收！</span>
                             <div class="arrow"></div>
                         </div>
@@ -601,7 +606,7 @@
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
                         </dl>
-                        <div class="L-alert" >
+                        <div class="L-alert">
                             <span>恭喜您获得5元微信红包！请注意查收！</span>
                             <div class="arrow"></div>
                         </div>
@@ -612,22 +617,22 @@
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
                         </dl>
-                        <div class="L-alert" >
+                        <div class="L-alert">
                             <span>恭喜您获得5元微信红包！请注意查收！</span>
                             <div class="arrow"></div>
                         </div>
-                    </div>                                                                                                                      
+                    </div>
                 </div>
             </div>
             <a class="share_btn" href="javascript:vido(0)">分享朋友圈</a>
-         </div>
+        </div>
     </div>
 
-     <div class="share_pop2 share_pop">
+    <div class="share_pop2 share_pop">
         <div class="share_bg"></div>
         <div class="main_bg">
             <p><a href="javascript:vido(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
-        </div>          
+        </div>
         <div class="share_box">
             <div class="share_main main2">
                 <div class="main_haed">
@@ -640,12 +645,12 @@
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
                         </dl>
-                    </div>          
+                    </div>
                     <div class="conten_wenan">
                         <p class="p_30">恭喜您在该活动中获得<span>1</span>次抽奖机会,</p>
                         <p class="p_40">快来抽奖吧!</p>
                         <a href="javascript:vido(0)">立即抽奖</a>
-                    </div>                                                                                                          
+                    </div>
                 </div>
             </div>
             <a class="share_btn" href="javascript:vido(0)">分享朋友圈</a>
@@ -656,16 +661,16 @@
     <script src="/js/jquery/jquery.qrcode.min.js"></script>
     <script src="/js/jquery/qrcodeInitialize.js"></script>
     <script src="/consumer/js/superticket_hx.js"></script>
-<script type="text/javascript">
-$('.share_icon').on('click',function(){
-    $('.share_pop1').show();
-})
-$('.share_icon1').on('click',function(){
-    $('.share_pop2').show();
-})
-$('.pop_close').on('click',function(){
-    $('.share_pop').hide();
-})
-</script>    
+    <script type="text/javascript">
+        $('.share_icon').on('click', function () {
+            $('.share_pop1').show();
+        })
+        $('.share_icon1').on('click', function () {
+            $('.share_pop2').show();
+        })
+        $('.pop_close').on('click', function () {
+            $('.share_pop').hide();
+        })
+    </script>
 </body>
 </html>
