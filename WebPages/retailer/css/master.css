@@ -116,6 +116,9 @@ section .remarks{
 .saleTm-tit{
 	width:30%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
 }
+#distributorName{
+	background:url("../../image/shop/phone.jpg") no-repeat;
+}
 .saleTm-con{
 	flex:1;height:100%;text-align: right;line-height: 45px;
 }
