@@ -10,7 +10,10 @@ avalon.ready(function () {
         $('.share_pop').fadeIn(200);
         $(".share_hb").hide()
     })
-
+	$('.pop_close').on('click', function () {
+        $(".share_hb").show()
+        $('.share_pop').fadeOut(200);
+	})
     if (vm.pageStep == 0) {
         waitloadaddress(function () {
             vm.getInfo(wxlocation.latitude, wxlocation.longitude);
@@ -25,7 +28,6 @@ avalon.ready(function () {
 var Interval = null;
 var times = 0;//请求次数
 var hxchjNum = 0;
-var loadqrcode_st = null;
 var vm = avalon.define({
     $id: 'superticket_hx',
     //maxNum: 10,//最大可核销数量
@@ -378,10 +380,9 @@ var vm = avalon.define({
         }
         draw(qrcode, "consumercard", qrcodeconfig["consumer"]["logo"]);
 
-        loadqrcode_st = setTimeout(function () {//60秒重新刷新二维码
-            console.log("60秒重新刷新二维码")
-            //vm.loadqrcode(latitude, longitude);
-        }, 60000);
+        //setTimeout(function () {
+        //    vm.loadqrcode(latitude, longitude);
+        //}, 60000);
 
     },
     getVerifyState: function () {
@@ -424,12 +425,6 @@ var vm = avalon.define({
                 console.log(result.state)
                 if (result.state == undefined)
                     return
-
-                if (loadqrcode_st != null) {//门店扫码后，取消60秒自动刷新二维码
-                    clearTimeout(loadqrcode_st)
-                    loadqrcode_st = null
-                }
-
                 vm.hxstate = result.state
                 if (result.state == 0) {//失败
                     clearInterval(Interval);//停止请求
@@ -462,18 +457,18 @@ var vm = avalon.define({
                     } else if (result.step == 5) {//核销成功，并匹配到主题活动
                         clearInterval(Interval);//停止请求
                         Interval = null
-                        $('#dowebok').show();
+						$('#dowebok').show();
                         console.log("核销成功，并匹配到主题活动")
 
                         if (result.data.length > 0) {
 
                             vm.topicdata = result.data
-                            if (result.data.length > 1) {
-                                $('.share_pop1').remove();
-                            } else {
-                                $('.share_pop2').remove();
-                            }
-
+							if(result.data.length > 1){
+								$('.share_pop1').remove();
+							}else{
+								$('.share_pop2').remove();
+							}
+							
                         }
                     } else {
                         $(".msg,#QRCode").hide()

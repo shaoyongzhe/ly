@@ -584,15 +584,15 @@
                     <img src="../image/share_img.png">
                 </div>
                 <div class="main_content">
-                    <div class="content_box born">
-                        <h1>2016双十一主题活动狂购到天亮！</h1>
+                    <div class="content_box born" ms-repeat="vm.topicdata">
+                         <h1>{{el.activitytitle}}</h1>
                         <dl class="clearfix">
                             <dt><img src="../image/content_img.png"></dt>
-                            <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
+                            <dd>{{el.description}}</dd>
                         </dl>
                     </div>
                     <div class="conten_wenan">
-                        <p class="p_30">恭喜您在该活动中获得<span>1</span>次抽奖机会,</p>
+                        <p class="p_30">恭喜您在该活动中获得<span>{{el.count}}</span>次抽奖机会,</p>
                         <p class="p_40">快来抽奖吧!</p>
                         <a href="javascript:vido(0)">立即抽奖</a>
                     </div>

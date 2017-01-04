@@ -62,7 +62,8 @@
   bottom: 1rem;
 }
 .main_bg p img{
-  width: .6rem;
+    width: .6rem;
+    display: block;
 }
 .main_bg p span{
   display: inline-block;
