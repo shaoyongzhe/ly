@@ -30,7 +30,7 @@ var vm = avalon.define({
     //maxNum: 10,//最大可核销数量
     hxNum: 1,
     qrkey: "",
-   
+
     jsondata: {},
     pageStep: 0,//控制页面展示
     activityitem_id: common.getUrlParam("activityitem_id"),
@@ -389,18 +389,19 @@ var vm = avalon.define({
 
         console.log("vm.hxstate=" + vm.hxstate)
 
-        if (vm.hxstate != -1)
-            times++;
+        //if (vm.hxstate != -1)
+        //    times++;
         if (Interval == null) {
             Interval = setInterval(vm.getVerifyState, 3000)
-    }
+        }
         if (times > 5) {//请求10次后，暂停请求，提示网络不给力
             Msg.show(4, "网络不给力", "查不到超惠券信息，请重试！")
             clearInterval(Interval);//停止请求
             Interval = null
             $("#btnlist,#btn_3,#btn_4").show();//退出 继续等待
             $(".btn,#QRCode").hide()
-
+            $("#btn_3").show()//退出
+            $("#btn_4").show()//继续等待
             return
         }
 
@@ -408,7 +409,7 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             data: { qrkey: vm.qrkey },
-            url: '/webapi/consumer/weixin/getVerifyState/test',
+            url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
                 vm.IsSearchStatus = false;
                 /* step
@@ -459,6 +460,9 @@ var vm = avalon.define({
                         if (result.data.length > 0) {
                             vm.topicdata = result.data
                         }
+                    } else {
+                        $(".msg,#QRCode").hide()
+                        Msg.show(1, result.message)
                     }
                 }
             },
@@ -510,7 +514,7 @@ var page2 = avalon.define({
     againRequest: function () {
         $(".msg,#QRCode").hide()
         Msg.show(1, "正在提交信息...")
-
+        times = 0
         vm.getVerifyState();
     },
     quit: function () {
