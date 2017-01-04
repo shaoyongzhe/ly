@@ -458,6 +458,7 @@ var vm = avalon.define({
                         console.log("核销成功，并匹配到主题活动")
 
                         if (result.data.length > 0) {
+
                             vm.topicdata = result.data
                         }
                     } else {
