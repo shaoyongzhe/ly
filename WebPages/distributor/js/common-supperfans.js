@@ -4,7 +4,7 @@
     '<div class="show-yqhf">',
         '<div class="closebtn"><img src="../image/closebtn.png" /></div>',
         '<div class="yqhf-box">',            
-            '<div class="companyewm"><img style="width:90%;" id="QRCode_img" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20" /></div>',
+            '<div class="companyewm"><img style="width:90%;" id="QRCode_img" /></div>',
             '<div class="text2">',
                 '<span style="color:#c2c2c2;font-size:18px; font-family:微软雅黑;">仅限手机使用</span>',
             '</div><div id="qrcodediv" hidden></div>',
@@ -26,7 +26,7 @@ invitationfans.prototype.render = function () {
             container.fadeIn(1000);
             return;
         }
-
+        container.fadeIn(1000);
         var activity_id = common.getUrlParam("activity_id");
         var qrcode = qrcodeconfig["distributor"];
         var url = "/webapi/consumer/weixin/register_generate_code?qrtype=20";
@@ -36,7 +36,7 @@ invitationfans.prototype.render = function () {
             url = url + "&activity_id=" + activity_id;
         var qrcode = qrcodeconfig["distributor"];
         draw(qrcode, "consumercard", qrcodeconfig["distributor"]["logo"]);
-        container.fadeIn(1000);
+        
         $('.closebtn').click(function () {
             $(window).unbind("touchmove");
             container.fadeOut(1000)
