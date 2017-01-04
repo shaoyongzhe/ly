@@ -10,10 +10,10 @@ avalon.ready(function () {
         $('.share_pop').fadeIn(200);
         $(".share_hb").hide()
     })
-	$('.pop_close').on('click', function () {
+    $('.pop_close').on('click', function () {
         $(".share_hb").show()
         $('.share_pop').fadeOut(200);
-	})
+    })
     if (vm.pageStep == 0) {
         waitloadaddress(function () {
             vm.getInfo(wxlocation.latitude, wxlocation.longitude);
@@ -457,18 +457,18 @@ var vm = avalon.define({
                     } else if (result.step == 5) {//核销成功，并匹配到主题活动
                         clearInterval(Interval);//停止请求
                         Interval = null
-						$('#dowebok').show();
+                        $('#dowebok').show();
                         console.log("核销成功，并匹配到主题活动")
 
                         if (result.data.length > 0) {
 
                             vm.topicdata = result.data
-							if(result.data.length > 1){
-								$('.share_pop1').remove();
-							}else{
-								$('.share_pop2').remove();
-							}
-							
+                            if (result.data.length > 1) {
+                                $('.share_pop1').remove();
+                            } else {
+                                $('.share_pop2').remove();
+                            }
+
                         }
                     } else {
                         $(".msg,#QRCode").hide()

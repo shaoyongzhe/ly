@@ -549,7 +549,7 @@
     <div class="share_pop1 share_pop">
         <div class="share_bg"></div>
         <div class="main_bg">
-            <p><a href="javascript:vido(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
+            <p><a href="javascript:void(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
         </div>
         <div class="share_box">
             <div class="share_main">
@@ -570,13 +570,13 @@
                     </div>
                 </div>
             </div>
-            <a class="share_btn" href="javascript:vido(0)">分享朋友圈</a>
+            <a class="share_btn" href="javascript:void(0)">分享朋友圈</a>
         </div>
     </div>
     <div class="share_pop2 share_pop">
         <div class="share_bg"></div>
         <div class="main_bg">
-            <p><a href="javascript:vido(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
+            <p><a href="javascript:void(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
         </div>
         <div class="share_box">
             <div class="share_main main2">
@@ -585,7 +585,7 @@
                 </div>
                 <div class="main_content">
                     <div class="content_box born" ms-repeat="vm.topicdata">
-                         <h1>{{el.activitytitle}}</h1>
+                        <h1>{{el.activitytitle}}</h1>
                         <dl class="clearfix">
                             <dt><img src="../image/content_img.png"></dt>
                             <dd>{{el.description}}</dd>
@@ -594,11 +594,11 @@
                     <div class="conten_wenan">
                         <p class="p_30">恭喜您在该活动中获得<span>{{el.count}}</span>次抽奖机会,</p>
                         <p class="p_40">快来抽奖吧!</p>
-                        <a href="javascript:vido(0)">立即抽奖</a>
+                        <a href="javascript:void(0)">立即抽奖</a>
                     </div>
                 </div>
             </div>
-            <a class="share_btn" href="javascript:vido(0)">分享朋友圈</a>
+            <a class="share_btn" href="javascript:void(0)">分享朋友圈</a>
         </div>
     </div>
     <div id="qrcodediv" hidden></div>
@@ -606,16 +606,5 @@
     <script src="/js/jquery/jquery.qrcode.min.js"></script>
     <script src="/js/jquery/qrcodeInitialize.js"></script>
     <script src="/consumer/js/superticket_hx.js"></script>
-    <script type="text/javascript">
-        $('.share_icon').on('click', function () {
-            $('.share_pop1').show();
-        })
-        $('.share_icon1').on('click', function () {
-            $('.share_pop2').show();
-        })
-        $('.pop_close').on('click', function () {
-            $('.share_pop').hide();
-        })
-    </script>
 </body>
 </html>
