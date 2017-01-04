@@ -14,6 +14,16 @@ avalon.ready(function () {
         $(".share_hb").show()
         $('.share_pop').fadeOut(200);
     })
+    $('.share_btn').on('click', function () {
+        $(".share_hb").hide();
+        $(".share_pop").hide();
+        $('.tip-w').fadeIn(200);
+    })
+    $('.tip-w').click(function () {
+        $(".share_hb").show();
+        $(".share_pop").hide();
+        $('.tip-w').fadeOut(200);
+    })
     if (vm.pageStep == 0) {
         waitloadaddress(function () {
             vm.getInfo(wxlocation.latitude, wxlocation.longitude);
