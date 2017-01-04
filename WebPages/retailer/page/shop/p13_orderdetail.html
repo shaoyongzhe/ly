@@ -8,7 +8,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="aplus-terminal" content="1">
-    <link rel="stylesheet" href="../../css/shopcart.css"/>
+    <link rel="stylesheet" href="../../css/shopcar.css"/>
     <link href="../../css/common.css" rel="stylesheet" type="text/css">
     <link href="../../css/master.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
@@ -43,9 +43,9 @@
         serial_number=canshu[0];
         dis_id=canshu[1];
 
-   $.get("http://membership-waibao.ipaloma.com/webapi/account/login/test-2-135-1",{},function(){},false);
+   $.get("/webapi/account/login/test-2-135-1",{},function(){},false);
    $.ajax({
-      url:"h/webapi/distributor/"+getRetailerid()+"/orderforms",
+      url:"/webapi/distributor/"+getRetailerid()+"/orderforms",
       async:true,
       cache:false,
       dataType:"json",
@@ -53,7 +53,7 @@
       error:function(){alert("网络出错")},
       success:function(data)
        {
-        //alert(data);
+        console.log(data);
           for (var j = 0; j < data.length; j++) 
           {
 
