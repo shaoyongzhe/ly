@@ -464,9 +464,9 @@ var vm = avalon.define({
 
                             vm.topicdata = result.data
                             if (result.data.length > 1) {
-                                $('.share_pop1').remove();
-                            } else {
                                 $('.share_pop2').remove();
+                            } else {
+                                $('.share_pop1').remove();
                             }
 
                         }
