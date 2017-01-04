@@ -24,6 +24,7 @@
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
     <script type="text/javascript" src="/js/wx/location.js"></script>
+    <script type="text/javascript" src="/js/wx/resetRem.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
@@ -556,69 +557,14 @@
                     <img src="../image/share_img.png">
                 </div>
                 <div class="main_content">
-                    <div class="content_box">
-                        <h1>2016双十一主题活动狂购到天亮！</h1>
+                    <div class="content_box" ms-repeat="vm.topicdata">
+                        <h1>{{el.activitytitle}}</h1>
                         <dl class="clearfix">
                             <dt><img src="../image/content_img.png"></dt>
-                            <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
+                            <dd>{{el.description}}</dd>
                         </dl>
                         <div class="L-alert">
-                            <span>恭喜您获得5元微信红包！请注意查收！</span>
-                            <div class="arrow"></div>
-                        </div>
-                    </div>
-                    <div class="content_box">
-                        <h1>2016双十一主题活动狂购到天亮！</h1>
-                        <dl class="clearfix">
-                            <dt><img src="../image/content_img.png"></dt>
-                            <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
-                        </dl>
-                        <div class="L-alert">
-                            <span>恭喜您获得5元微信红包！请注意查收！</span>
-                            <div class="arrow"></div>
-                        </div>
-                    </div>
-                    <div class="content_box">
-                        <h1>2016双十一主题活动狂购到天亮！</h1>
-                        <dl class="clearfix">
-                            <dt><img src="../image/content_img.png"></dt>
-                            <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
-                        </dl>
-                        <div class="L-alert">
-                            <span>恭喜您获得5元微信红包！请注意查收！<a href="javascript:vido(0)"><img src="../image/fhare_icon.png"></a></span>
-                            <div class="arrow"></div>
-                        </div>
-                    </div>
-                    <div class="content_box">
-                        <h1>2016双十一主题活动狂购到天亮！</h1>
-                        <dl class="clearfix">
-                            <dt><img src="../image/content_img.png"></dt>
-                            <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
-                        </dl>
-                        <div class="L-alert">
-                            <span>恭喜您获得5元微信红包！请注意查收！</span>
-                            <div class="arrow"></div>
-                        </div>
-                    </div>
-                    <div class="content_box">
-                        <h1>2016双十一主题活动狂购到天亮！</h1>
-                        <dl class="clearfix">
-                            <dt><img src="../image/content_img.png"></dt>
-                            <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
-                        </dl>
-                        <div class="L-alert">
-                            <span>恭喜您获得5元微信红包！请注意查收！</span>
-                            <div class="arrow"></div>
-                        </div>
-                    </div>
-                    <div class="content_box">
-                        <h1>2016双十一主题活动狂购到天亮！</h1>
-                        <dl class="clearfix">
-                            <dt><img src="../image/content_img.png"></dt>
-                            <dd>主题营养夏进全脂纯牛主题营养夏进全脂纯牛主题营养夏进全脂纯牛。</dd>
-                        </dl>
-                        <div class="L-alert">
-                            <span>恭喜您获得5元微信红包！请注意查收！</span>
+                            <span>恭喜您获得{{el.count}}{{el.assettype}}微信红包！请注意查收！</span>
                             <div class="arrow"></div>
                         </div>
                     </div>
@@ -627,7 +573,6 @@
             <a class="share_btn" href="javascript:vido(0)">分享朋友圈</a>
         </div>
     </div>
-
     <div class="share_pop2 share_pop">
         <div class="share_bg"></div>
         <div class="main_bg">
