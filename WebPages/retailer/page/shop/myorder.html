@@ -13,8 +13,40 @@
   var distributor_id=top.window.parent.distributor_id;
 
   $(document).ready(function(){
-  	
-  function onload(){
+			 var _nameList="";
+			 var _shopList="";
+			 var _bookTm="";
+			 var _historyList="";
+			 var _d=new Date().getTime();
+			 var _data1="";
+			 $.get("/webapi/account/login/test-2-135-1",{},function(){},false);  
+    	$.ajax({
+    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
+	    	async:true,
+	    	cache:false,
+	        dataType:"json",
+	        type:"get",
+	        error:function(){alert("")},
+	        success:function(data1){
+	        		_data1=data1;
+		  		 	  for(var i=0;i<_data1.length;i++){
+					 	  		_nameList+="<li>"+_data1[i]["distributorname"]+"</li>";
+					 	  		if(_data1[i]["distributorname"].split("").length<24){
+						  				$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
+						 			}
+					 	  }
+		  		 	  console.log(_nameList)
+						  $("#select ul").html(_nameList);
+						  $("#select li:first-child").css({"background":"#fff","color":"#666","borderLeft":"4px solid #f7af01"})
+
+
+					   	if($("#select ul").css("height").replace("px","")>=$("#select").css("height").replace("px","")){
+					   			onload()
+					   	}
+					   	shopList(0)
+	        }
+    	})	
+function onload(){
     myScroll1 = new iScroll('conn', 
     { 
      mouseWheel: true,//PC端的鼠标事件也监听，方便PC端调试
@@ -32,79 +64,63 @@
      vScrollbar:false
      });
 }
-
-
-   $.get("/webapi/account/login/test-2-135-1",{},function(){},false);
-   var _nameList="";
-   var _shopList="";
-   var _bookTm="";
-   var _historyList="";
-   var _d=new Date().getTime();
-   $.ajax({
-	  url:"/webapi/distributor/"+getRetailerid()+"/orderforms",
-	  async:true,
-	  cache:false,
-	  dataType:"json",
-	  type:"get",
-	  error:function(){alert("网络出错")},
-	  success:function(data)
-		 {	
-		 	
-		 	if(data["result"]!=false){
-		 	console.log(data)
-		 	  for(var i=0;i<data.length;i++){
-		 	  		_nameList+="<li>"+data[i]["distributorname"]+"</li>"
-		 	  }
-			  $("#select ul").html(_nameList);
-			  $("#select li:first-child").css({"background":"#fff","color":"#666","borderLeft":"4px solid #f7af01"})
-			  		$("#select li").click(function(){
-					 		$("#select li").removeClass("selected")
-					 		$(this).attr("class","selected");
-					 	
-					 })
-			  if(_nameList.split("").length<24){
-			  	$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
-			  }
-		   	if($("#select ul").css("height").replace("px","")>=$("#select").css("height").replace("px","")){
-		   			onload()
-		   	}else{
-		   		
-		   	}
-		   	for(var j=0;j<data[0]["billlist"].length;j++){
-		   			if(data[0]["billlist"][j]["details"].length>1){
-//		   				for(var z=0;z<data[0]["billlist"][j]["issuetime"].length;z++){
-//		   					if(data[0]["billlist"][j]["issuetime"][z]){
-//		   						
-//		   					}
-//		   				} 
-		   	_bookTm=data[0]["billlist"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
-    		_bookTm = (new Date(_bookTm)).getTime();
-		   	if(_d-_bookTm>=0){
-		   			_historyList+="<dd style="+"\"padding-top:10px;\""+"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
-			 	  			+"></a></div><i class="+"\"ammount\""+">共1件</i><div class="+"\"descbox\""+"><p>订单号：201601101309123</p><i class="+"\"il\""+">送货时间：2016/07/01</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>";	
-		 		}else{
-						_shopList+="<dd style="+"\"padding-top:10px;\""+"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
-			 	  			+"></a></div><i class="+"\"ammount\""+">共1件</i><div class="+"\"descbox\""+"><p>订单号：201601101309123</p><i class="+"\"il\""+">送货时间：2016/07/01</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>";	
-		 		}
-			 			}else{
-			 				if(_d-_bookTm>=0){
-			 						_historyList+="<dd><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
-			 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a><i>共1件</i></div><div class="+"\"descbox\""+"><p>订单号：201601101309123</p><i class="+"\"il\""+">送货时间：2016/07/01</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>"
-			 				}else{
-			 						_shopList+="<dd><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
-			 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a><i>共1件</i></div><div class="+"\"descbox\""+"><p>订单号：201601101309123</p><i class="+"\"il\""+">送货时间：2016/07/01</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>"
-			 				}
-			 				
-			 			}
-						
-		   	}
-				$("#dl2").html($("#dl2").html()+_historyList)
-				$("#dl1").html($("#dl1").html()+_shopList);
-
-				}
-		 }//ajax的success方法结束
-   });  //ajax结束
-
+//
+//
+function shopList(pg){
+		console.log(_data1)
+		 $.ajax({
+			  url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging=",
+			  async:true,
+			  cache:false,
+			  dataType:"json",
+			  type:"get",
+			  error:function(){alert("网络出错")},
+			  success:function(data)
+				 {	
+				 	alert(1)
+				 	if(data["result"]!=false){
+				 	console.log(data)
+				   	for(var j=0;j<data[pg]["billlist"].length;j++){
+				   			if(data[pg]["billlist"][j]["details"].length>1){
+		//		   				for(var z=0;z<data[0]["billlist"][j]["issuetime"].length;z++){
+		//		   					if(data[0]["billlist"][j]["issuetime"][z]){
+		//		   						
+		//		   					}
+		//		   				} 
+				   	_bookTm=data[pg]["billlist"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
+		  		_bookTm = (new Date(_bookTm)).getTime();
+				   	if(data[pg]["billlist"][j]["openflag"]=="0"){
+				   			_historyList+="<dd style="+"\"padding-top:10px;\""+"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data[pg]["billlist"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data[pg]["billlist"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data[pg]["billlist"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>";	
+				 		}else{
+								_shopList+="<dd style="+"\"padding-top:10px;\""+"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data[pg]["billlist"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data[pg]["billlist"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data[pg]["billlist"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>";	
+				 		}
+					 			}else{
+					 				if(data[pg]["billlist"][j]["openflag"]=="0"){
+					 						_historyList+="<dd><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a><i>共"+data[pg]["billlist"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data[pg]["billlist"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data[pg]["billlist"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>"
+					 				}else{
+					 						_shopList+="<dd><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a><i>共"+data[pg]["billlist"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data[pg]["billlist"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data[pg]["billlist"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥20.90</span></i></div></dd>"
+					 				}
+					 				
+					 			}
+								
+				   	}
+						$("#dl2").html($("#dl2").html()+_historyList)
+						$("#dl1").html($("#dl1").html()+_shopList);
+		
+						}
+				 }//ajax的success方法结束
+		 });
+}
+  //ajax结束
+						  		$("#select li").click(function(){
+								 		$("#select li").removeClass("selected")
+								 		$(this).attr("class","selected");
+								 	
+								 })
   }); //document结束
 
 
