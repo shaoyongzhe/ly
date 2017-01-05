@@ -38,6 +38,7 @@ avalon.ready(function () {
 var Interval = null;
 var times = 0;//请求次数
 var hxchjNum = 0;
+var loadqrcodetc = null
 var vm = avalon.define({
     $id: 'superticket_hx',
     //maxNum: 10,//最大可核销数量
@@ -390,9 +391,9 @@ var vm = avalon.define({
         }
         draw(qrcode, "consumercard", qrcodeconfig["consumer"]["logo"]);
 
-        //setTimeout(function () {
-        //    vm.loadqrcode(latitude, longitude);
-        //}, 60000);
+        loadqrcodetc = setTimeout(function () {//60秒重新加载
+            vm.loadqrcode(latitude, longitude);
+        }, 60000);
 
     },
     getVerifyState: function () {
@@ -400,7 +401,7 @@ var vm = avalon.define({
             return
         vm.IsSearchStatus = true;
 
-        console.log("vm.hxstate=" + vm.hxstate)
+        //console.log("vm.hxstate=" + vm.hxstate)
 
         //if (vm.hxstate != -1)
         //    times++;
@@ -432,9 +433,12 @@ var vm = avalon.define({
                    4：核销成功（匹配到主题活动）
                    5：返回主题活动列表
                 */
-                console.log(result.state)
+               // console.log(result.state)
                 if (result.state == undefined)
                     return
+
+                clearTimeout(loadqrcodetc)
+
                 vm.hxstate = result.state
                 if (result.state == 0) {//失败
                     clearInterval(Interval);//停止请求
@@ -467,8 +471,6 @@ var vm = avalon.define({
                     } else if (result.step == 5) {//核销成功，并匹配到主题活动
                         clearInterval(Interval);//停止请求
                         Interval = null
-                      
-                        console.log("核销成功，并匹配到主题活动")
 
                         if (result.data.length > 0) {
                             $('#dowebok').show();
