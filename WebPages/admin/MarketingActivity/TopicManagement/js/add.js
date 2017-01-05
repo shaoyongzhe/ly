@@ -492,6 +492,11 @@ $.ajax({
 		}
 		$(".addSub1 .acCoRa").append(hm);
 
+
+	
+		// $('body').append('<input type="hidden" name="" class="kj1ok">');
+		
+
 		//主办方
 		var dcs_1 = data.conditionsetting.sponsor;
 		$(".section2 .sponsor").empty();
