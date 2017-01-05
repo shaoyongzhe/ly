@@ -113,7 +113,7 @@ $(function () {
         $.each(item.topiclist, function (index, item, array) {
             topicid += "," + item.activityid
         });
-        return "../page/active1.html?topicid=" + topicid.substring(1)
+        return "../page/active.html?topicid=" + topicid.substring(1)
     });
 
     common.loading.show();

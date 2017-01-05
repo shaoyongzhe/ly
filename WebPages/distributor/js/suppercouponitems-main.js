@@ -46,7 +46,7 @@ var vm = avalon.define({
             topicid += "," + item.topicid
         });
 
-        location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+        location.href = "../page/active.html?topicid=" + topicid.substring(1)
     }
 })
 
