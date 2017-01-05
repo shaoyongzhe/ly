@@ -67,13 +67,14 @@
             margin-bottom: 40PX;
         }
 
-            .assetinfobj {
+        .assetinfobj {
             width: 100%;
             height: 60px;
             background: url(/consumer/image/asset_bj.png) no-repeat bottom;
             background-size: 100% 40px;
             line-height: 35px;
-            color: #fff; margin-top:-20px
+            color: #fff;
+            margin-top: -20px;
         }
 
             .assetinfobj .assetimg {
@@ -88,12 +89,16 @@
                 .assetinfobj .assetimg p {
                     width: 45px;
                     height: 20px;
-                    margin: 27px 0 0 14px;line-height:20px; text-align:center;color:#fff; font-size:13px;
+                    margin: 27px 0 0 14px;
+                    line-height: 20px;
+                    text-align: center;
+                    color: #fff;
+                    font-size: 13px;
                     transform: rotate(-42deg);
                     -ms-transform: rotate(-42deg); /* Internet Explorer */
                     -moz-transform: rotate(-42deg); /* Firefox */
                     -webkit-transform: rotate(-42deg); /* Safari 和 Chrome */
-                    -o-transform: rotate(-42deg); /* Opera */ 
+                    -o-transform: rotate(-42deg); /* Opera */
                 }
 
             .assetinfobj .asset_left {
@@ -170,7 +175,7 @@
         var pageIndex = 1;
         var isInit = true;
         var tem =
-               
+
                 "  <li style='margin-bottom:5px !important'>	" +
                 "<a href='suppercouponitems.html?activity_id=activityid'>	" +
                 "    <div class='con'>	" +
@@ -190,13 +195,13 @@
                 "      <span>商</span>	" +
                 "      <p style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;'>distributorname</p></div>	 </a>" +
                 " <div class=\"assetinfobj\" style='display:none'>" +
-                " <a href=\"javascript:;\" class=\"assetcontent\">" +
+                " <a href=\"hrefs\" class=\"assetcontent\">" +
                 " <div class=\"assetimg\">  <p>subsidytotal</p> </div>" +
                 " <div class=\"asset_left\"> <nobr>topictitle</nobr> </div>" +
                 "<div class=\"asset_right\"> <small>已参加</small>headcount<small>人</small> </div></a>" +
                 "  </div>" +
-                "  </li>	" 
-        
+                "  </li>	"
+
 
 
         function loaddata(dropme) {
@@ -258,6 +263,11 @@
                             listitem = listitem.replace("activitystate", value.activitystate);
                         if (typeof (value.topicdata) !== 'undefined' && value.topicdata != null) {
                             var item = value.topicdata;
+                            var topicid=""
+                            $.each(item.topiclist, function (index, items, array) {
+                                topicid += "," + items.activityid
+                            });
+                            listitem = listitem.replace("hrefs", "../page/participate_qualified.html?topicid=" + topicid.substring(1));
                             listitem = listitem.replace("blx", "");
                             listitem = listitem.replace("none", "block");
                             listitem = listitem.replace("topictitle", item.topiclist[0].topic.activitytitle);

@@ -158,7 +158,7 @@
                         <div class="whiteblock"></div>
                         {@else}
                         <div class="assetinfo">
-                            <a href="javascript:;" class="assetcontent">
+                            <a href="${testclick(item.topiclist)}" class="assetcontent">
                                 <div class="asset_left">
                                     <nobr>${item.topiclist[0].topictitle + (item.topiclist.length>1?'等活动':'')}</nobr>
                                 </div>
@@ -169,7 +169,7 @@
                         </div>
                         {@/if}
                         <ul class="div-down">
-                            <li>
+                            <li >
                                 ${item.itemtotalnum==null?'0':item.itemtotalnum}
                                 <p>投放</p>
                             </li>
@@ -208,6 +208,13 @@
     <script type="text/javascript">
 
         $(function () {
+            juicer.register("testclick", function (item) {
+                var topicid=""
+                $.each(item.topiclist, function (index, item, array) {
+                    topicid += "," + item.activityid
+                });
+                return "../page/participate.html?topicid=" + topicid.substring(1)
+            });
             var activity_id = "";
             var urlinfo = window.location.href; //获取当前页面的url
 
@@ -296,6 +303,8 @@
             });
         });
 
+
+       
 
     </script>
     <style>

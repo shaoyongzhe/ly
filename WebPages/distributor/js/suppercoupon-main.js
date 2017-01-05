@@ -43,7 +43,7 @@ function suppermarketactivitylist(container) {
                 '</div>',
             '</a>',
             '{@if item.topicdata!=undefined}',
-                '<div class="assetinfobj">  <a href="javascript:;" class="assetcontent">',
+                '<div class="assetinfobj">  <a href="${testclick(item.topicdata)}" class="assetcontent">',
                 '<div class="assetimg"> <p>${item.topicdata.budget.subsidytotal}</p></div>',
                 ' <div class="asset_left"> <nobr>${item.topicdata.topiclist[0].topic.activitytitle + (item.topicdata.topiclist.length>1?"等活动":"")}</nobr> </div>',
                 ' <div class="asset_right"> <small>已参加</small>${item.topicdata.budget.obtained}<small>人</small></div>',
@@ -107,6 +107,15 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
     });
 }
 $(function () {
+
+    juicer.register("testclick", function (item) {
+        var topicid = ""
+        $.each(item.topiclist, function (index, item, array) {
+            topicid += "," + item.activityid
+        });
+        return "../page/active1.html?topicid=" + topicid.substring(1)
+    });
+
     common.loading.show();
     var fans = new invitationfans("container");
     fans.render();

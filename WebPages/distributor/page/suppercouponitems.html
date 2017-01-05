@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -237,9 +237,9 @@
             </div>
             <div class="whiteblock" ms-if="el.topiclist==undefined||el.topiclist.length==0"></div>
             <div class="assetinfo"  ms-if="el.topiclist!=undefined&&el.topiclist.length>0">
-                <a href="javascript:;" class="assetcontent">
+                <a href="javascript:;" class="assetcontent" ms-click="vm.topicClick(el)">
                     <div class="asset_left">
-                        <nobr>{{el.topiclist[0].topictitle}}{{el.topiclist.length>1?'等活动':''}}</nobr>
+                        <nobr>{{el.topiclist[0].topictitle}}<span ms-if="el.topiclist.length>1">等活动</span></nobr>
                     </div>
                     <div class="asset_right">
                         <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>
