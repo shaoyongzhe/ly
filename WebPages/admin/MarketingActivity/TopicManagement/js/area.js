@@ -1,34 +1,72 @@
 $('.region-wrap').on('click', '.x', function() {
-	// var _this = $(this);
-	// alert(1);
-	
 
 	if ($(this).closest('.city').length == 1) {
-		// debugger
 		$(this).closest('.row').remove();
 		return;
 	}
 
 	if ($(this).closest('.provice').length == 1) {
-		// debugger
 		$(this).closest('.region-item').remove();
-		// if($('.region-wrap i').length == 0){
-		// 	$('.region-wrap').hide();
-		// 	$('.setAreaBtn').show();
-		// }
 		return;
 	}
 
 	$(this).parent().remove();
 
+});
+
+
+$('.region-wrap').on('click', '.status', function(){
+	var _this = $(this);
+	// _this.toggleClass('on');
+
+	// debugger
+	if(_this.hasClass('on')){
+
+		// if(_this.closest('.charge').prev('.provice').length == 1){
+		if(typeof(_this.prev().attr('shengfzr')) != "undefined"){
+			toggleState( _this, 1, 'shengfzr' );
+
+		} else if(typeof(_this.prev().attr('shifzr')) != "undefined"){
+			toggleState( _this, 1, 'shifzr' );
+
+		} else if(typeof(_this.prev().attr('qx')) != "undefined"){
+			toggleState( _this, 1, 'qx' );
+		}
+
+		_this.removeClass('on');
+		// _this.attr('title','已启用');
+
+	} else {
+
+		if(typeof(_this.prev().attr('shengfzr')) != "undefined"){
+			toggleState( _this, 0, 'shengfzr' );
+
+		} else if(typeof(_this.prev().attr('shifzr')) != "undefined"){
+			toggleState( _this, 0, 'shifzr' );
+
+		} else if(typeof(_this.prev().attr('qx')) != "undefined"){
+			toggleState( _this, 0, 'qx' );
+		}
+
+		_this.addClass('on');
+		// _this.attr('title','已停用');
+
+	}
 
 });
+
+
+function toggleState( _this, toggle, data ){
+	var Obj = JSON.parse(_this.prev().attr(data));
+	toggle == 1 ? Obj['state'] = 'unactivated' : Obj['state'] = 'active';
+	_this.prev().attr(data, JSON.stringify(Obj, null, 4));
+}
 
 
 $('.setAreaBtn, .areaPlus').on('click', function() {
 	$('.setAreaBtn').hide();
 	$('.region-wrap').show();
-    // alert(1)
+
 	layer.open({
 		type: 1,
 		// skin: 'layui-layer-lan', //加上边框
@@ -43,7 +81,6 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 		// resize:false,//允许拉伸
 		// btn: ['清楚勾选', '确定'],
 		// btn2: function(index, layero) {
-
 		// },
 		moveOut: true, //允许拖拽到川口外
 		content: $('.area-list')
@@ -98,6 +135,10 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 		_ajax("get", url, {}, '省负责人信息', function (dataprov){
 			// $('.layer-wait').remove();
 			// c(dataprov);
+			if(dataprov.error){
+				console.warn(JSON.stringify(dataprov, null, 4));
+				return;
+			}
 			$('.Select_province li').each(function(i){
 				// debugger;
 				var _this = $(this);
@@ -267,6 +308,10 @@ function dataLoad() {
 			_ajax("get", url, {}, '市负责人信息', function (datacity){
 				// $('.layer-wait').remove();
 				// debugger
+				if(datacity.error){
+					console.warn(JSON.stringify(datacity, null, 4));
+					return;
+				}
 				$('.Select_province1 li select').empty();
 				$('.Select_province1 li').each(function(i,item){
 					// debugger;
@@ -346,6 +391,7 @@ function dataLoad() {
 		var _this = $(this);
 		var shengText = _this.closest('li').find('span').text();
 		var shengfzr = {
+			'state': "active",
 			name: _this.closest('li').find('select').val(),
 			guid: _this.closest('li').find(':selected').attr('guid'),
 			oid: _this.closest('li').find(':selected').attr('oid'),
@@ -384,6 +430,7 @@ function dataLoad() {
 		// alert($(this).val());
 		var _this = $(this);
 		var shengfzr = {
+			"state": 'active',
 			name: _this.val(),
 			guid: _this.find(':selected').attr('guid'),
 			oid: _this.find(':selected').attr('oid'),
@@ -491,7 +538,6 @@ function dataLoad() {
 			return;
 		}
 
-		
 		// 如果父级的省没有被选中
 		if($('.Select_province li.on input').is(":checked") == false){
 			// alert(11111);
@@ -502,10 +548,11 @@ function dataLoad() {
 			$('.quanbusheng').prop('checked',false);
 			// console.log($(this).closest('li').find('span').text());
 
-
 			// var this_city = $(this).closest('li').find('span').text();
 			// $("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
-			_this.click()*/
+			_this.click()
+
+			*/
 
 
 			// debugger
@@ -521,6 +568,7 @@ function dataLoad() {
 			// debugger;
 			var shengText = s_li_on.closest('li').find('span').text();
 			var shengfzr = {
+				'state': "active",
 				name: s_li_on.closest('li').find('select').val(),
 				guid: s_li_on.closest('li').find(':selected').attr('guid'),
 				oid: s_li_on.closest('li').find(':selected').attr('oid'),
@@ -539,12 +587,13 @@ function dataLoad() {
 		var parentProv = $(".Select_the_province li.on span").text();
 		// alert(parentProv);
 		var selectedshi = _this.closest('li').find('span').text();
-		var shifzr = _this.closest('li').find('select').val();
-		/*var shifzr = {
+		// var shifzr = _this.closest('li').find('select').val();
+		var shifzr = {
+			"state": "active",
 			name: _this.closest('li').find('select').val(),
 			guid: _this.closest('li').find(':selected').attr('guid'),
 			oid: _this.closest('li').find(':selected').attr('oid')
-		};*/
+		};
 
 		if (_this.is(':checked') == false) {
 			$('.quanbushi').prop('checked',false);
@@ -576,7 +625,7 @@ function dataLoad() {
 				
 				_this.closest('.region-item').find('.allCity').remove();
 				_this.closest('.region-item').find('em:contains('+ selectedshi +')').closest('.city-wrap').remove();
-				_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em>" + shifzr + "</em><i class='x'>&times;</i></div></div></div>");
+				_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(shifzr, null, 4) +"'>" + shifzr.name + "</em><i class='x'>&times;</i></div></div></div>");
 			}
 
 		});
@@ -778,11 +827,17 @@ function dataLoad() {
 
 	function getDistrictHtml(){
 		var xian = "";
+
+		var qxObj = {};
 		$('.Select_province2 li :checkbox').each(function() {
 			if ($(this).is(":checked") == true) {
 				var selected = $(this).parent().prev().text();
 				// console.log(selected);
-				xian += "<span><em>" + selected + "</em><i class='x'>×</i></span>";
+				qxObj = {
+					"state": "active",
+					name: selected,
+				}
+				xian += "<span><em qx='"+ JSON.stringify(qxObj, null, 4) +"'>" + qxObj.name + "</em><i class='x'>×</i></span>";
 			}
 		});
 		return xian;
@@ -790,8 +845,6 @@ function dataLoad() {
 
 
 	
-
-
 	// 选择市负责人
 	$('.Select_the_province1').on("change", "select",function(event) {
 		// event.stopPropagation();
@@ -821,14 +874,16 @@ function dataLoad() {
 $('.area-list .save').off('click');
 $('.area-list .save').click(function() {
 
-	var areaObj = {};
-		areaObj["area_condition"] = [];
+	var areaObj = {};areaObj["area_condition"] = [];
 	var areaArr = [];
 	var provArr = [];
 	var provObj = {};
+
+
 	$('.region-item').each(function(){
 		var _this = $(this);
 
+		debugger
 		var sheng = _this.find('.provice span em').text();
 		var shengfzr = _this.find('.charge > span em').attr('shengfzr');
 
@@ -848,15 +903,18 @@ $('.area-list .save').click(function() {
 
 				// debugger;
 				var shi = $.trim($(this).find('.cityName').text());
-				var shifzr = $(this).find('.charge-name em').text();
+				// var shifzr = $(this).find('.charge-name em').text();
+				var shifzr = $(this).find('.charge-name em').attr('shifzr');
 
 				var quxianArr = [];
 				$(this).find('.district-wrap span em').each(function(){
-					quxianArr.push($(this).text());
+					// quxianArr.push($(this).text());
+					quxianArr.push(JSON.parse($(this).attr("qx")));
 				});
 
 				cityObj = {
-					"charge": shifzr,
+					// "state": "active",
+					"charge": JSON.parse(shengfzr),
 					"name": shi,
 					"country": quxianArr
 				}
@@ -877,6 +935,7 @@ $('.area-list .save').click(function() {
 
 		areaObj["area_condition"].push(provObj);
 		areaArr.push(provObj);
+
 	});
 
 

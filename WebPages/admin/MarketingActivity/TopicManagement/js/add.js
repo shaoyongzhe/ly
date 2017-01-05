@@ -456,7 +456,7 @@ function acAdF() {
 
 
 
-$.ajax({
+/*$.ajax({
 	type: "get",
 	url: "/webapi/ipaloma/topic/config",
 	async: true,
@@ -491,6 +491,11 @@ $.ajax({
 			}
 		}
 		$(".addSub1 .acCoRa").append(hm);
+
+
+	
+		// $('body').append('<input type="hidden" name="" class="kj1ok">');
+		
 
 		//主办方
 		var dcs_1 = data.conditionsetting.sponsor;
@@ -612,4 +617,4 @@ $.ajax({
 	error: function() {
 		console.warn("控件 error");
 	}
-});
+});*/
