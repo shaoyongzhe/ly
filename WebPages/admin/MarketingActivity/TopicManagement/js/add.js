@@ -456,7 +456,7 @@ function acAdF() {
 
 
 
-/*$.ajax({
+$.ajax({
 	type: "get",
 	url: "/webapi/ipaloma/topic/config",
 	async: true,
@@ -617,4 +617,4 @@ function acAdF() {
 	error: function() {
 		console.warn("控件 error");
 	}
-});*/
+});
