@@ -137,7 +137,7 @@
                     height: 20px;
                     vertical-align: top;
                     float: left;
-                    margin: 0 5px 0 10px;
+                    margin: -3px 5px 0 10px;
                 }
 
             #QRCode > img {
@@ -382,12 +382,12 @@
                         <img ms-attr-src="vm.jsondata.itempic" alt="">
                     </div>
                     <div class="div-text">
-                        <p style="margin-bottom:10px">
+                        <p style="margin-bottom:15px">
                             <span ms-attr-class="{{vm.jsondata.itemkind=='有礼'?'font-youli':vm.jsondata.itemkind=='降价'?'font-jiangjia':vm.jsondata.itemkind=='套餐'?'font-taocan':'font-maizeng'}}">{{vm.jsondata.itemkind}}券</span>
                             {{vm.jsondata.activitytitle}}
                         </p>
                         <p ms-if="vm.jsondata.itemkind=='有礼'" style="font-size:14px;">
-                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;" />
+                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;margin-top: -5px;" />
                             {{vm.jsondata.giftname}}
                         </p>
                         <ul style="width:100%; min-height:70px;">
@@ -498,11 +498,11 @@
 
                     </div>
                     <div class="div-text">
-                        <p style="margin-bottom:10px">
+                        <p style="margin-bottom:15px">
                             <span ms-attr-class="vm.jsondata.itemkind=='有礼'?'font-youli':vm.jsondata.itemkind=='降价'?'font-jiangjia':vm.jsondata.itemkind=='套餐'?'font-taocan':'font-maizeng'">{{vm.jsondata.itemkind}}券</span> {{vm.jsondata.activitytitle}}
                         </p>
                         <p ms-if="vm.jsondata.itemkind=='有礼'">
-                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;" />
+                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;margin-top: -5px;" />
                             {{vm.jsondata.giftname}}
                         </p>
                         <ul style="display:block;min-height:50px">
