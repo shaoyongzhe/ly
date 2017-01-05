@@ -422,7 +422,7 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             data: { qrkey: vm.qrkey },
-            url: '/webapi/consumer/weixin/getVerifyState/test',
+            url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
                 vm.IsSearchStatus = false;
                 /* step
@@ -467,11 +467,11 @@ var vm = avalon.define({
                     } else if (result.step == 5) {//核销成功，并匹配到主题活动
                         clearInterval(Interval);//停止请求
                         Interval = null
-                        $('#dowebok').show();
+                      
                         console.log("核销成功，并匹配到主题活动")
 
                         if (result.data.length > 0) {
-
+                            $('#dowebok').show();
                             vm.topicdata = result.data
                             if (result.data.length > 1) {
                                 $('.share_pop2').remove();

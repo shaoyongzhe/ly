@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -189,7 +189,7 @@
                 <div class="clear"></div>
             </ul>
             <div class="assetinfo" ms-if="vm.jsondata.topiclist.length>0">
-                <a href="javascript:;" class="assetcontent">
+                <a href="javascript:;" class="assetcontent"  ms-click="topicClick(vm.jsondata)">
                     <div class="asset_left">
                         <nobr>{{vm.jsondata.topiclist[0].topictitle}}{{vm.jsondata.topiclist.length>1?'等活动':''}}</nobr>
                     </div>
