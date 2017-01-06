@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-19 19:58:32
 * @Last Modified by:   Administrator
-* @Last Modified time: 2016-12-27 18:17:33
+* @Last Modified time: 2017-01-04 17:32:29
 */
 .page-container1{
 	background-color: #F2F2F2;
@@ -216,9 +216,11 @@
 }
 
 ._button{
-	    margin: 3% 44%;
-	    background-color: #FF6032;
+	    /* margin: 3% 44%; */
+	    /* background-color: #FF6032; */
 	    border:none;
+	    padding-left: 18%;
+	    margin-bottom:15px;
 }
 label, .placeholder{
 	font-size: 12px;
@@ -230,6 +232,8 @@ label, .placeholder{
 	/* margin-left: 15px; */
 	background-color:red;
 	color:#FFFFFF;
+	border: none;
+	cursor: pointer;
 }
 
 ._button .close{
@@ -282,7 +286,10 @@ label, .placeholder{
 
 
 #preview{width:52%;height:290px;border:1px solid #000;overflow:hidden;}
-#imghead {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image)}
+#imghead {
+	margin-top: 0px;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image)
+}
 
 
 

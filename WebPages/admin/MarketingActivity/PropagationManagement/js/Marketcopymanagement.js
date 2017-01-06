@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2016-12-29 14:30:55
+ * @Last Modified time: 2016-12-30 19:09:32
  */
 
 
@@ -273,7 +273,12 @@ function getList(curr, handle, searchForm) {
                 type: "get",
                 url: "http://127.0.0.1:40007/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
                 dataType: "json",
-                beforeSend: function() {},
+                beforeSend: function() {
+                   $('.search-btn').attr('disabled',true); 
+                   $('.search-btn').css('background','#8D8B8E');
+                   $('.search-btn').val('查询中');
+                   // console.log('1')
+                },
                 success: function(data) {
                     // console.log(data);
                     $('.dropload-load').css('display', 'none');
@@ -281,8 +286,12 @@ function getList(curr, handle, searchForm) {
                         layer.msg('暂无数据');
                         return;
                     }
+
                     // $(".totalcount").text(data.content.length);
                     // $("table.notify tbody").empty();
+                    $('.search-btn').attr('disabled',false); 
+                    $('.search-btn').css('background','#009DD9');
+                    $('.search-btn').val('查询');
                     var isSet = "",
                         autoW = "",
                         tr = "",
@@ -364,6 +373,7 @@ function getList(curr, handle, searchForm) {
                             tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td title='" + td[i].copywriting + "'><span class='content'>" + td[i].copywriting + "</span></td><td>" + "<span>" + b + "</span>"  + "<span>" + c + "</span>" +
                                  "<span>" + a + "</span>" + "</td><td>" + td[i].pushtime + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
                         }
+                         
                         // 如果没有数据
                     } else {
                         // 锁定
@@ -385,6 +395,11 @@ function getList(curr, handle, searchForm) {
                     // layer.msg('加载出错');
                     // 即使加载出错，也得重置
                     // me.resetload();
+                    $('.loading').remove();
+                    $('.dropload-load').html('加载出错了');
+                    $('.search-btn').attr('disabled',false); 
+                    $('.search-btn').css('background','#009DD9');
+                    $('.search-btn').val('查询');
                 }
             });
         }
@@ -395,7 +410,6 @@ function getList(curr, handle, searchForm) {
 // 查询
 $("body").on("click", ".search-btn", function() {
     getList(1, 'search', getSearch());
-
 });
 
 
@@ -464,7 +478,7 @@ function getSearch() {
         begintime: $('#serverBeginTime').val(),
         // begintime:"gfdgfdg",
         // 结束时间
-        endtime: $('#serverEndTime').val(),
+        endtime: $('#serverEndTime').val()+' 23:59:59',
 
         area: $.trim( qu_val + shi_val + sheng_val ),
         // area:"河北省",
@@ -488,7 +502,7 @@ function getSearch() {
         delete searchForm.begintime;
     };
 
-    if (searchForm.endtime == "") {
+    if (searchForm.endtime == " 23:59:59") {
 
         delete searchForm.endtime;
     };
@@ -732,7 +746,7 @@ $('table.notify').on('click', '.release', function() {
     })
 })
 
-var pic_url = "";
+ pic_url = "";
 //图片上传预览  
 function previewImage(file) {
     var form = new FormData($('form')[0]);
@@ -980,13 +994,13 @@ $('.examine1').on('click', function() {
                         return;
                         };
             }   
-        
-
+    
         var guid = $(this).closest('.layui-layer-content').find('.guid').val();
         var state1 = $(this).closest('.layui-layer-content').find('.state').val();
+        var textarea_value = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
             guid: guid,
-            service: $.trim($('#textarea_value').val()),
+            service: textarea_value,
             area: JSON.stringify(JSON.parse($('.area_val').val()).area),
             push_distributor: a,
             push_consumer: b,
@@ -1040,7 +1054,7 @@ $('.examine1').on('click', function() {
 
         // form_value.area = JSON.stringify(form_value.area);
         layer.msg('正在提交');
-        _ajax('put', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/', form_value, '修改失败', function(data2) {
+        _ajax('put', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/', form_value, '修改失败', function() {
             getList(1, 'release', getSearch());
         })
     })

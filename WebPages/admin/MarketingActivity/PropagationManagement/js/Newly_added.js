@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2016-12-29 11:35:48
+ * @Last Modified time: 2016-12-30 18:29:59
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -796,6 +796,7 @@ function previewImage(file) {
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("上传失败，请检查网络后重试");
+            layer.msg('上传失败，请检查网络后重试');
         }
     });
 
