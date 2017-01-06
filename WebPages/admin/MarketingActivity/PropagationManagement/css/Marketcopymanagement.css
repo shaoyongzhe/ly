@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-05 19:17:31
+* @Last Modified time: 2017-01-06 12:29:55
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -465,15 +465,26 @@ table thead {
     font-size: 12px;
 }
 
+
+
 .Float_text1{
-      margin-left: 63px;
-    /* margin-top: -115%; */
-    display: inline;
+   margin-left: 123px;
+    margin-top: -32px;
     width: 224px;
 }
 .Float_Title1{
     line-height: 20px;
-    margin-left: -62px;
+    margin-left: -61px;
+    display: inline-block;
+}
+.Float_text2{
+    margin-left: 185%;
+    margin-top: -138%;
+    width: 224px;
+}
+.Float_Title2{
+    line-height: 20px;
+    margin-left: 2px;
     display: inline-block;
 }
 /* .btn:first-child{
