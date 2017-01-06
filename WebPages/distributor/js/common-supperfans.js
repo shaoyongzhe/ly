@@ -4,10 +4,10 @@
     '<div class="show-yqhf">',
         '<div class="closebtn"><img src="../image/closebtn.png" /></div>',
         '<div class="yqhf-box">',            
-            '<div class="companyewm"><img style="width:90%;" id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20" /></div>',
+            '<div class="companyewm"><img style="width:90%;" id="QRCode_img" /></div>',
             '<div class="text2">',
                 '<span style="color:#c2c2c2;font-size:18px; font-family:微软雅黑;">仅限手机使用</span>',
-            '</div>',
+            '</div><div id="qrcodediv" hidden></div>',
         '</div>',
         '</div>'
     ].join('\n');
@@ -26,19 +26,20 @@ invitationfans.prototype.render = function () {
             container.fadeIn(1000);
             return;
         }
-        $.getJSON2("/webapi/distributor/weixin/distributorinfo", function (data) {
-            var html = juicer(fanstemplate, data);
-            container.html(html);
-			var activity_id = common.getUrlParam("activity_id");
-			if(activity_id != "")
-				$("#qrcode").attr("src", $("#qrcode").attr("orgsrc") + "&activity_id=" + activity_id);
-			else
-				$("#qrcode").attr("src", $("#qrcode").attr("orgsrc"));
-            container.fadeIn(1000);
-            $('.closebtn').click(function () {
-                $(window).unbind("touchmove");
-                container.fadeOut(1000)
-            });
+        container.fadeIn(1000);
+        var activity_id = common.getUrlParam("activity_id");
+        var qrcode = qrcodeconfig["distributor"];
+        var url = "/webapi/consumer/weixin/register_generate_code?qrtype=20";
+        var html = juicer(fanstemplate, {});
+        container.html(html);
+        if (activity_id != "")
+            url = url + "&activity_id=" + activity_id;
+        var qrcode = qrcodeconfig["distributor"];
+        draw(qrcode, "consumercard", qrcodeconfig["distributor"]["logo"]);
+        
+        $('.closebtn').click(function () {
+            $(window).unbind("touchmove");
+            container.fadeOut(1000)
         });
     });
 }

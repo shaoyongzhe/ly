@@ -18,35 +18,37 @@
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
-
-    
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script src="/retailer/js/lib/jquery-common.js"></script>
     <script src="/retailer/js/lib/common.js"></script>
     <script type="text/javascript">
-      $(function(){
-		    
-		    var retailer_id = common.getUrlParam("retailer_id");
-		    var ajaxdata = {};
-		    if (wxjsconfig.sharekey != null)
-             	ajaxdata[wxjsconfig.sharekey] = "_";
-		    $.getJSON2('/webapi/retailer/weixin/getpersonalpage', ajaxdata, function (json) {
-		        var employee = json.employee;
-		        var retailer = json.retailer;
+        $(function () {
 
-		        if (typeof (employee.nickname) !== 'undefined')
-		            $("#personname").html('<style=class:Name16>' + employee.nickname);
-		        if (typeof (retailer.retailername) !== 'undefined')
-		            $("#retailname").html('<style=class:Store14>' + retailer.retailername);
-		    });
-		    var src = "";
-		    if (retailer_id == "")
-		        src = "/webapi/retailer/weixin/register_generate_code?qrtype=12";
-		    else
-		        src = "/webapi/retailer/weixin/register_generate_code?qrtype=12&retailer_id=" + retailer_id;
+            var retailer_id = common.getUrlParam("retailer_id");
+            var src = "";
+            if (retailer_id == "")
+                src = "/webapi/retailer/weixin/register_generate_code?qrtype=12";
+            else
+                src = "/webapi/retailer/weixin/register_generate_code?qrtype=12&retailer_id=" + retailer_id;
+            var qrcode = qrcodeconfig["retailer"];
+            qrcode["inviteretailer"]["url"] = src;
+            draw(qrcode, "inviteretailer", qrcodeconfig["retailer"]["logo"]);
+            var ajaxdata = {};
+            if (wxjsconfig.sharekey != null)
+                ajaxdata[wxjsconfig.sharekey] = "_";
+            $.getJSON2('/webapi/retailer/weixin/getpersonalpage', ajaxdata, function (json) {
+                var employee = json.employee;
+                var retailer = json.retailer;
 
-		    $("#retailerqrcode").attr("src", src);
-		});
+                if (typeof (employee.nickname) !== 'undefined')
+                    $("#personname").html('<style=class:Name16>' + employee.nickname);
+                if (typeof (retailer.retailername) !== 'undefined')
+                    $("#retailname").html('<style=class:Store14>' + retailer.retailername);
+            });
+
+        });
     </script>
 </head>
 
@@ -65,12 +67,12 @@
             <div class="clear"></div>
             <!--二维码扫描-->
             <div class="weui_DPcode weui_top4em">
-                <img id="retailerqrcode" style="max-width:80%" src="" alt="店铺二维码" />                
+                <img id="QRCode_img" style="max-width:80%" src="" alt="店铺二维码" />
                 <p>
                     <div class="savepic">
                         <span style="color:#c2c2c2;font-size:18px; font-family:微软雅黑;">仅限手机使用</span>
                     </div>
-                </p>
+                </p><div id="qrcodediv" hidden></div>
             </div>
         </div>
         <div class="weui_Kong"></div>
