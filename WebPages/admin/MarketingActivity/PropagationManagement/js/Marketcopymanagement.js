@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-06 15:02:24
+ * @Last Modified time: 2017-01-06 15:39:11
  */
 
 
@@ -404,6 +404,7 @@ function getList(curr, handle, searchForm) {
                         $("table.notify tbody").prepend(tr);
                         // 每次数据插入，必须重置
                         me.resetload();
+						$('.pagesTbodyLong').scrollTop(100);
                     });
                 },
                 error: function(xhr, type) {
@@ -881,8 +882,11 @@ $('table.notify').on('click', '.modify', function() {
             
             console.log(JSON.stringify(areaobj, null, 4))
             for (var i = 0; i < areaobj.area.length; i++) {
-                debugger
+                // debugger
                 var area = areaobj.area[i];
+                if(area.name=='fullcountry'){
+                    area.name='全国';
+                }
                 $('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title=" + area.name + ">" + area.name + "</em><i class='x'>×</i></span></div</div></div>");
 
                 for (var j = 0; j < area.city.length; j++) {

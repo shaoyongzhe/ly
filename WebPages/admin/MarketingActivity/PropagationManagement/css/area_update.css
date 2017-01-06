@@ -47,6 +47,11 @@ em,
 strong {
     font-style: normal;
     font-weight: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 40px;
 }
 
 li {
@@ -572,12 +577,12 @@ ul li a {
     color: #27B56B;
     font-size: 20px;
     text-align: center;
-    line-height: 22px;
-    vertical-align: -3px;
-    /* margin-left: 4px; */
+    line-height: 21px;
+    vertical-align: 1px;
+    margin-left: 3px;
     cursor: pointer;
     font-style: normal;
-   display: inline-block;
+    display: inline-block;
 }
 
 .charge{
