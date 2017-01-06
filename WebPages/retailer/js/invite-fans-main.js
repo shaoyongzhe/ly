@@ -22,7 +22,7 @@ function invitefans() {
         src += "&retailer_id=" + retailer_id;
     var qrcode = qrcodeconfig["retailer"];
     qrcode["consumercard"]["url"] = src;
-    draw(qrcode, "consumercard", qrcodeconfig["retailer"]["logo"]);
+    draw(qrcode, "consumercard", qrcodeconfig["consumer"]["logo"]);
 
     //$("#retailerqrcode").attr("src", src);
 }
