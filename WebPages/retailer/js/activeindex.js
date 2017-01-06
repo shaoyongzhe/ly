@@ -5,23 +5,27 @@
 //获取地址栏参数
 function fnurl () {
 	var ourl=decodeURI(window.location.search.replace("?",""));
-	console.log(JSON.parse(ourl))
-	var url1=JSON.parse(ourl);
-	return url1;
+	if(ourl!=""){
+		console.log(JSON.parse(ourl))
+		var url1=JSON.parse(ourl);
+		return url1;
+	}
 }
 //通过参数渲染页面
 function fnxrym() {
 	var url1=fnurl();
-	$("#distributornameh3").html(url1.distributorname);
-	$(".dealer-header>i").html(url1.distributorname);
-	$(".proTitleBoxl>img").attr("src",url1.distributorimg);
-	$("#contactperson").html(url1.contactperson);
-	$("#cutgift").html("￥"+url1.cutgift+"元");
-	$(".ammount").html(url1.itemcount);
-	$(".num").html($(".ammount").html());
-	$(".proDetailBox").html(url1.active);
-	$(".proTitleInfor>a").attr("href","tel:"+url1.mobilephone);
-	$(".dealer-header>a").attr("href","tel:"+url1.mobilephone);
+	if(url1!=""){
+		$("#distributornameh3").html(url1.distributorname);
+		$(".dealer-header>i").html(url1.distributorname);
+		$(".proTitleBoxl>img").attr("src",url1.distributorimg);
+		$("#contactperson").html(url1.contactperson);
+		$("#cutgift").html("￥"+url1.cutgift+"元");
+		$(".ammount").html(url1.itemcount);
+		$(".num").html($(".ammount").html());
+		$(".proDetailBox").html(url1.active);
+		$(".proTitleInfor>a").attr("href","tel:"+url1.mobilephone);
+		$(".dealer-header>a").attr("href","tel:"+url1.mobilephone);
+	}
 }
 //打电话滚动隐藏与显示
 function fnscroll() {
@@ -36,10 +40,35 @@ function fnscroll() {
 }
 //菜单点击事件
 function fnclick() {
-    $(".cgl-menu").on("click","li",function () {
+/*    $(".cgl-menu>li").on("click",function () {
         console.log(1)
         $(this).addClass("clion").siblings().removeClass("clion");
     })
+*/    
+    var Accordion = function(el, multiple) {
+		this.el = el || {};
+		this.multiple = multiple || false;
+
+		// Variables privadas
+		var links = this.el.find('.link');
+		// Evento
+		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+	}
+
+	Accordion.prototype.dropdown = function(e) {
+		var $el = e.data.el;
+			$this = $(this),
+			$next = $this.next();
+
+		$next.slideToggle();
+		$this.parent().addClass('clion');
+
+/*		if (!e.data.multiple) {
+			$el.find('.submenu').not($next).slideUp().parent().removeClass('clion');
+		};
+*/	}	
+
+	var accordion = new Accordion($('#cgl-menu'), false);
 }
 //动态设置cgl-cont的高度
 function fnmenuhei(){
@@ -65,17 +94,44 @@ function fncarnum(){
 		$(".num").html($(".ammount").html());
 	});
 }
+//获取菜单列表
+function fnmenu () {
+	$.ajax({
+        type: "get",
+      	//url: "/webapi/distributor/5ce1d14e07534139ae7774d8983f04f3/customer/57839d2ad6424786bd3c319585f2088e/itemtypegroups",
+      	url: "../../data/menu.json",
+        data: "",
+        timeout:"2000",
+        dataType:"json",
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+        	if(textStatus=="timeout"){
+        		console.log("请求超时")
+        		XMLHttpRequest.abort();
+        	}
+        },
+        success: function(data){
+        	//console.log(JSON.stringify(data))
+        	console.log(data)
+        	var oli="";
+        	for(var k1 in data){
+        		
+        	}
+        	//$("#cgl-contlist").find("ul").html(oli);
+        }
+    });
+}
+
 //获取活动列表
 function fnhqactive () {
 	$.ajax({
         type: "get",
-      	url: "/webapi/distributor/5ce1d14e07534139ae7774d8983f04f3/customer/57839d2ad6424786bd3c319585f2088e/activity",
-      	//url: "../../data/activeindex.json",
+      	//url: "/webapi/distributor/5ce1d14e07534139ae7774d8983f04f3/customer/57839d2ad6424786bd3c319585f2088e/activity",
+      	url: "../../data/activeindex.json",
         data: {
         	"lastcount":0,
         	"pagecount":10
         },
-        timeout:"1000",
+        timeout:"5000",
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
         	if(textStatus=="timeout"){
@@ -124,16 +180,16 @@ function fnhqactive () {
         }
     });
 }
+
 $(function () {
 	fnurl();
-	fnxrym();
+	//fnxrym();
     fnscroll();
     fnclick();
     fnmenuhei();
     fncarnum();
+    fnmenu();
     fnhqactive();
     
 });
-
-
 

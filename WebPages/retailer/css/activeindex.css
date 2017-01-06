@@ -39,9 +39,9 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 /**************中间主要内容***************/
 #cgl-cont{border-top: 1px solid #c6c6c6;min-height:18rem;}
 .cgl-menu{width: 3.875rem;min-height: 18rem; background: #f5f5f5;}
-.cgl-menu>li{line-height: 1.95rem; border-bottom: 1px solid #ddd;padding-left: 0.45rem;font-size: 0.6rem;color: #666;position: relative;}
+.cgl-menu>li{line-height: 1.95rem;border-bottom: 1px solid #ddd;padding-left: 0.45rem;font-size: 0.6rem;color: #666;position: relative;}
 .cgl-menu>li.clion{background: #fff;}
-.clion:before{content: "";width: 0.175rem;height: 100%;background: #f7af01;position: absolute;left: 0;top: 0;}
+.clion:before{content: "";width: 0.175rem;height: 1.95rem;background: #f7af01;position: absolute;left: 0;top: 0;}
 .sale:after{content: "";width: 1rem;height: 1rem;position: absolute;top: 0;right: 0;background: url("../image/shop/sale.png") no-repeat;background-size: 1rem;}
 .cgl-contlist{overflow-y:scroll;width: 73.5%;height: 100%;}
 .cgl-contlist>ul{/*position: absolute;top: 0;left: 0;*/width: 100%;}
