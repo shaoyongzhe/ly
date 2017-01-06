@@ -33,7 +33,7 @@ $(function(){
 		// for(var k=0;k<topid.length;k++){
 			//var topidval=topid[i];
 			$.ajax({
-				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=distributor&contributorid=5ce1d14e07534139ae7774d8983f04f3&topicid='+topidcont,
+				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=consumer&contributorid=oCry_w3IhvBINJb-HA8LonuVDe4w&topicid='+topidcont,
 				//url:url,
 				type:'get',
 				dataType:'json',
@@ -47,8 +47,8 @@ $(function(){
 									'<h1 class="head_font">'+'您促销凌云给您补贴盛大开启等您'+'</h1>'+
 									'<input class="oid_ipt" type="hidden" value="">'+
 									'<input class="guid_ipt" type="hidden" value="">'+
-									'<img class="closepage" src="../image/1-1-1.png" alt="">'+
-									'<img class="activesmallpic" src="../image/5-1.png" alt="">'+
+									'<img class="closepage" src="../image/1.png" alt="">'+
+									'<img class="activesmallpic" src="../image/5.png" alt="">'+
 									'<a class="active1font" href="javascript:;">'+'活动'+'</a>'+
 								'</header>'+
 								'<article class="hidden_page_b">'+
@@ -99,19 +99,19 @@ $(function(){
 												'</a>'+
 											'</p>'+
 										'</div>'+
-										// '<section class="qualification">'+
-										// 	'<div class="qualification_top">'+
-										// 		'<h2>'+'参与资格'+'</h2>'+
-										// 	'</div>'+
-										// 	'<div class="xsp_x">'+
-										// 		'<div class="xsp_x_left">'+
-										// 			'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
-										// 		'</div>'+
-										// 		'<div class="xsp_x_right">'+
-										// 			'<a href="javascript:;">'+'活动开始前23天,大于等于100次'+'</a>'+
-										// 		'</div>'+
-										// 	'</div>'+
-										// '</section>'+
+										'<section class="qualification">'+
+											'<div class="qualification_top">'+
+												'<h2>'+'参与资格'+'</h2>'+
+											'</div>'+
+											'<div class="xsp_x">'+
+												'<div class="xsp_x_left">'+
+													'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
+												'</div>'+
+												'<div class="xsp_x_right">'+
+													'<a href="javascript:;">'+'活动开始前23天,大于等于100次'+'</a>'+
+												'</div>'+
+											'</div>'+
+										'</section>'+
 										'<div class="T_time">'+
 											'<p>'+
 												'<img src="../image/4.png" alt="">'+
@@ -122,7 +122,7 @@ $(function(){
 											'</p>'+
 										'</div>'+
 										'<p class="ownership">'+
-											'本次活动最终解释权归凌云科技所有'
+											'本次活动最终解释权归凌云科技所有'+
 										'</p>'+
 									'</footer>'+
 								'<article>'+
@@ -296,7 +296,20 @@ $(function(){
 				//服务电话
 					var servicephone=data.servicephone;
 					$('.T_time p a span').html(servicephone);
-				
+
+				//参与资格（条件）
+					var conditions=data.condition.consumer;
+					if(conditions==undefined){
+						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					}else if(conditions.length==0){
+						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					}else{
+						for(var i=0;i<conditions.length;i++){
+							var description=conditions[i].description;
+						}
+						$('.xsp_x_right a').html(description);
+					}
+					//console.log(conditions.length)
 
 
 				},

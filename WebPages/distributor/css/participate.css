@@ -105,7 +105,7 @@
 	.Bottombanner_cont{
 		width: 100%;
 		
-		
+		/* max-height: 8.875rem; */
 	}
 	.Bottombanner_contfont{
 		color: #666;
@@ -189,7 +189,7 @@
 		color: #fff;
 		font-size: 0.55rem;
 		background: #fd806f;
-	    width: 9.625rem;
+		width: 9.625rem;
 	    height: 1rem;
 	    line-height: 1rem;
 	    text-align: center;
@@ -213,25 +213,23 @@
 	.tablecont_three{
 		margin-top: 0.5rem;
 	}
-	.tablecont_boton{
+	.xps_q{
 		width: 100%;
-		height: 1.2rem;
-		background: url(../image/2.png) no-repeat;
-		background-size: 100%;
-		margin-top: 0.7rem;
+		background: #ffd9d9;
 	}
-	.tablecont_boton p{
-		font-size: 0.65rem;
-	    color: #fff;
-	    font-weight: bold;
-	    margin-left: 2%;
-	    line-height: 1.2rem;
+	.xps_q a{
+		line-height: 0.9rem;
+		font-size: 0.45rem;
+		color: #333;
+		font-weight: bold;
+		margin-left: 0.3rem;
 	}
 	
-	
+
 
 	footer{
 		width: 100%;
+
 	}
 	.T_time{
 		width: 100%;
@@ -313,12 +311,12 @@
 	
 	.qualification{
 		width: 93.75%;
-		margin:0.4rem auto 0.3rem;
+		margin:0.4rem auto 0;
 	}
 	.qualification_top{
 		width: 100%;
 		height: 1.2rem;
-		background: url(../image/2.png) no-repeat;
+		background: url(../image/7.png) no-repeat;
 		background-size: 100%;
 	}
 	.qualification_top h2{
@@ -346,7 +344,7 @@
 		background: #fff2f2;
 	}
 	.xsp_x_left{
-		width: 3.575rem;
+		width: 2.875rem;
 		line-height: 1.1rem;
 		border-right: 1px solid #ffcccc;
 		text-indent: 0.3rem;
@@ -354,7 +352,7 @@
 		float: left;
 	}
 	.xsp_x_right{
-		/* width: 11.1rem; */
+		width: 12rem;
 		line-height: 1.1rem;
 		text-indent: 0.3rem;
 		font-size: 0.4rem;
@@ -384,7 +382,6 @@
 
 
 
-	/* 11.30 s */
 	.Focus_box{
 		width: 100%;
 		height: 6.2rem;
@@ -414,35 +411,18 @@
 		height: 6.2rem;
 		float: left;
 	}
-	.xps_q{
-		width: 100%;
-		background: #ffd9d9;
-	}
-	.xps_q a{
-		line-height: 0.9rem;
-		font-size: 0.45rem;
-		color: #333;
-		font-weight: bold;
-		margin-left: 0.3rem;
-	}
-	
+
 	/* 11.30 e */
-
-
-
-
-
-
-	
-/* 新增 s */
 	.FenX{
 		width: 100%;
 
 	}
-
 	.Unlimited{
 		font-size: 0.4rem;
 		line-height: 1.1rem;
 		text-indent: 0.3rem;
 		display: block;
+	}
+	.lification>div:nth-of-type(even){
+		background: #ffd9d9;
 	}

@@ -47,7 +47,7 @@ $(function(){
 									'<h1 class="head_font">'+'您促销凌云给您补贴盛大开启等您'+'</h1>'+
 									'<input class="oid_ipt" type="hidden" value="">'+
 									'<input class="guid_ipt" type="hidden" value="">'+
-									'<img class="closepage" src="../image/1.png" alt="">'+
+									'<img class="closepage" src="../image/1-1.png" alt="">'+
 									'<img class="activesmallpic" src="../image/5.png" alt="">'+
 									'<a class="active1font" href="javascript:;">'+'活动'+'</a>'+
 								'</header>'+
