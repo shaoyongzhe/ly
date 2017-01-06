@@ -26,7 +26,7 @@ $(function(){
 });
 
 
-document.onkeypress = showKeyPress;
+/*document.onkeypress = showKeyPress;
 function showKeyPress(evt) { 
     evt = (evt) ? evt : window.event 
     // document.title = evt.keyCode;
@@ -54,10 +54,10 @@ function showKeyPress(evt) {
     // }
 
     // return false;
-}
+}*/
 // init();
 
-// 图片上传
+//图片上传
 // var pic_url = "";
 function previewImage(file) {
 	// console.log(file);
