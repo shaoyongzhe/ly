@@ -40,7 +40,7 @@
 		  		 	  for(var i=0;i<_data1.length;i++){
 					 	  		_nameList+="<li id="+i+"><span>"+_data1[i]["distributorname"]+"</span></li>";
 					 	  }
-		  		 	  _nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
+		  		 	  //_nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
 						  $("#select ul").html(_nameList);
 						  		$("#select li:first-child").addClass("selected")
 					 	  		if($("#select li span").css("width").replace("px","")+14<=$("#select li").css("width")){
@@ -52,7 +52,6 @@
 					   			  $(".onload").css({"display":"block"})
 								 		$("#select li").removeClass("selected")
 								 		$(this).attr("class","selected");
-								 		shopList($(this).attr("id"))
 								 		that=$(this).attr("id");
 								 		_timer=setTimeout(function(){
 								 			
@@ -99,19 +98,19 @@ function shopList(pg){
 				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
 		  		_bookTm = (new Date(_bookTm)).getTime();
 				   	if(data["content"][j]["openflag"]=="0"){
-				   			_historyList+="<dd style="+"\"padding-top:20px;\""+"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+				   			_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"hisShop"+j+"\"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
 					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}else{
-								_shopList+="<dd style="+"\"padding-top:20px;\""+"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+								_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
 					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}
-					 			}else{
+					 			}else if(data["content"][j]["details"].length>0 && data["content"][j]["details"].length<=1){
 					 				if(data["content"][j]["openflag"]=="0"){
-					 						_historyList+="<dd style="+"\"padding-top:20px;\""+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
-					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 						_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"hisShop"+j+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 					 				}else{
-					 						_shopList+="<dd style="+"\"padding-top:20px;\""+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
-					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 						_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 					 				}
 					 				
 					 			}
@@ -125,6 +124,8 @@ function shopList(pg){
 						_shopList="";
 						_flag=1;
 						$(".onload").css({"display":"none"})
+						$("#container").scrollTop("0")
+						toShop(pg)
 						}else{
 							alert(data["error"])
 						}
@@ -132,7 +133,12 @@ function shopList(pg){
 		 });
 }
   //ajax结束
-
+	function toShop(pg){
+		$(".orderlistbox dd").click(function(){
+				
+				location.href="commit.html?"+pg+"&"+$(this).attr("id")
+		})
+	}
 						  		
   }); //document结束
 
