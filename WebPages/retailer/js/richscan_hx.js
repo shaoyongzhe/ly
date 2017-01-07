@@ -1,6 +1,6 @@
 wx.ready(function () {
     //  alert("开始扫一扫")
-    //vm.scanwx()
+    vm.scanwx()
 });
 
 avalon.ready(function () {
