@@ -52,7 +52,7 @@ var vm = avalon.define({
     verifylimit: 0,
     yhxNum: 0,//成功核销数量
     whxNum: 0,//失败核销数量
-    hxstate: -1,
+    hxstep: -1,
     IsScan: false,//门店是否扫码
     youhui: 0,
     zengpin: 0,
@@ -377,7 +377,7 @@ var vm = avalon.define({
             Msg.hide();
             $("#QRCode").show()
             $("#p_yxchj font").html(vm.hxNum)
-            vm.hxstate = -1
+            vm.hxstep = -1
             vm.favorable(vm.jsondata, vm.hxNum)
             vm.qrkey = encodeURI(qrcode["consumercard"]["qrcode"]["text"])
             vm.getVerifyState();
@@ -403,7 +403,7 @@ var vm = avalon.define({
 
         //console.log("vm.hxstate=" + vm.hxstate)
 
-        //if (vm.hxstate != -1)
+        //if (vm.hxstep != -1)
         //    times++;
         if (Interval == null) {
             Interval = setInterval(vm.getVerifyState, 3000)
@@ -433,20 +433,27 @@ var vm = avalon.define({
                    4：核销成功（匹配到主题活动）
                    5：返回主题活动列表
                 */
-               // console.log(result.state)
+                // console.log(result.state)
                 if (result.state == undefined)
                     return
 
                 clearTimeout(loadqrcodetc)
 
-                vm.hxstate = result.state
+                vm.hxstep = result.step
                 if (result.state == 0) {//失败
                     clearInterval(Interval);//停止请求
                     Interval = null
-
-                    Msg.show(2, result.message);
-                    $("#btnlist,#btn_1,#btn_2").show();
-                    $(".btn,#QRCode").hide()
+                    if (result.step == 6) {//数量不符，重新核销
+                        times = 0;
+                        $(".msg,#QRCode").hide()
+                        vm.hxNum = 1;
+                        $("#txt_hx").val("1")
+                        vm.pageStep = 1;
+                    } else {
+                        Msg.show(2, result.message);
+                        $("#btnlist,#btn_1,#btn_2").show();
+                        $(".btn,#QRCode").hide()
+                    }
                 }
                 else {
                     if (result.step == 3 || result.step == 4) {//核销成功

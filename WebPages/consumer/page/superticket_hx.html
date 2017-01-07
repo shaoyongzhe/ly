@@ -43,6 +43,7 @@
                 margin-top: calc(40% - 60px);
                 margin-top: -moz-calc(40% - 60px);
                 margin-top: -webkit-calc(40% - 60px);
+                margin-bottom: 10px;
             }
 
             #page_msg p {
@@ -280,14 +281,13 @@
             white-space: nowrap;
             overflow: hidden;
             color: red;
-            background: #fdead6;
-            text-align: center;
+            background: #fdead6; line-height:20px
         }
 
             .div_ad img {
                 height: 20px;
                 float: left;
-                margin-left: 10px;
+                margin:0 5px 0 10px
             }
 
         .btn_jia {
@@ -372,7 +372,7 @@
         </div>
     </div>
     <div ms-controller="superticket_hx" style="margin-bottom:10px">
-        <div class="div_ad" ms-if="vm.hxstate==20">
+        <div class="div_ad" ms-if="vm.hxstep==6">
             <img src="/consumer/image/supercoupons/exclamation.png" />  门店确认您输入的数量与实际不符,请重新输入
         </div>
         <div ms-if="vm.pageStep==1" id="page1" style="height:auto">
@@ -541,11 +541,8 @@
         </div>
     </div>
     <footer>
-        <div class="space"></div>
         <div id="bottom-nav"></div>
     </footer>
-    <!--<img class="share_icon" src="/consumer/image/share_icon.png">
-    <img class="share_icon1" src="../image/share_icon.png">-->
     <div class="share_pop1 share_pop">
         <div class="share_bg"></div>
         <div class="main_bg">
