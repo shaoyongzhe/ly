@@ -12,16 +12,16 @@
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <script type="text/javascript" src="lib/PIE_IE678.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script> 
 <script src="../../lib/laypage-v1.3/laypage/laypage.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="js/Newly_added.js"></script>
 
 <link rel="stylesheet" href="css/Newly_added1.css">
-<link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
-<link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css" />
 
-<link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.7/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
 <!-- <link rel="stylesheet" type="text/css" href="lib/icheck/icheck.css" /> -->
 <!-- <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" /> -->
 <link rel="stylesheet" type="text/css" href="css/Marketcopymanagement.css" />
@@ -169,7 +169,7 @@
 	<div class="c" style="display: none">
 			<div class="content_information">
 			<input type="hidden" class="state" value="draft">
-			<input type="hidden" class="guid">
+			<input type="hidden" class="_guid">
 				<div class="Copy_Title" id="wordCount">
 					<span>文案标题</span>
 					<textarea name="Copy_Title" id="textarea_value" cols="30" width="650px" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" rows="10" maxlength="65" resize: none; class="textarea_size"></textarea>
@@ -186,7 +186,9 @@
 				</div>
 				<!-- 显示选择的地区 -->
 				<input type="hidden" class="area_val clear" value>
-				<div class="region-wrap"></div>
+				<div class="region-wrap">
+					<!-- <div class='region-item'></div> -->
+				</div>
                
 				<div class="send_object">
 					<span style="float: left; margin-top: 16px;">发送对象</span>
@@ -245,11 +247,15 @@
 					<span for='datepicker'>发送时间</span>
 					<div class="ck" style="display: inline-block;cursor: pointer; width: 14px;border-radius: 50%;height: 14px;border:1px solid #999999;margin-left:55px;margin-top: 4px;" name="fen" value="pushtime_supplier"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" height="8" width="11" alt=""></div><a style=" text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;"></a>
 
-					<input type="text" value="" class="input-text date" id="data_time" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss',min: laydate.now()})">
+					<input type="text" value="" class="input-text date" id="data_time" onclick="layui.laydate({elem: this, festival: true,format: 'YYYY-MM-DD'})">
 					<span class="custom">*选择自定义以后，占用本地区会员消息推送一次</span></div>
 				</div>
-				<div class="_button">		
-					<button class="examine1">提交审核<input type="hidden" value="audit"></button>
+				<div class="_button">	
+					<button class="examine1_close">关闭<input type="hidden"></button>	
+					<button class="examine1_preview">预览<input type="hidden"></button>	
+					<button class="examine1">保存并提交审核<input type="hidden" value="audit"></button>
+					<button class="examine1_Newly_added">保存并继续新增<input type="hidden" value="audit"></button>
+					
 					<!-- <button class="examine1">保存<input type="hidden" value="audit"></button> -->
 				</div>
 			</div>
@@ -259,7 +265,7 @@
 		<!-- <div class="wrap"> -->
 			<div class="area-list-item Select_the_province"> 
 				<div class="region-text">省</div> 
-				<div class="b"> 
+				<div class="b">
 					<div class="qt"><input type="checkBox" title="选择全国" class="quanguo" />全国</div>
 					<ul name="check" class="selectable Select_province area_list_js"> 
 					</ul> 
@@ -290,27 +296,7 @@
 			</div>
 	</div>
 	<!-- E -->
-	<script>
-		$(function(){
-			$('.send_object dir div').click(function(){
-				$(this).find('img').toggleClass('xiyin_son')
-			})
-			$('.mode1 div').click(function(){
-				$(this).find('img').toggleClass('xiyin_son')
-			})
 
-			$('.Graphic_message .ck:eq(0)').click(function(){
-				$(this).find('img').addClass('xiyin_son');
-				$('#data_time').val('');
-				$('.Graphic_message .ck:eq(1)').find('img').removeClass('xiyin_son');
-			});
-			$('.Graphic_message .ck:eq(1)').click(function(){
-				$(this).find('img').addClass('xiyin_son');
-				$('.Graphic_message .ck:eq(0)').find('img').removeClass('xiyin_son');
-			});
-		})
-
-	</script>
 
 
 <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
@@ -353,10 +339,11 @@ layui.use('laydate', function(){
     ,istoday: true
     ,choose: function(datas){
       start.max = datas; //结束日选好后，重置开始日的最大日期
-    },
-	elem: this, 
-	istime: true,
-	format: 'YYYY-MM-DD hh:mm:ss'
+    }
+ //    ,
+	// elem: this, 
+	// istime: true,
+	// format: 'YYYY-MM-DD hh:mm:ss'
 			
   };
   document.getElementById('serverBeginTime').onclick = function(){
@@ -377,9 +364,30 @@ $(function(){
 	comSelect();
 	selectCity();
 
-	$('.length_val').on('keydown',function(){
+	$('.length_val').on('keyup',function(){
 		if($(this).val().length==65){layer.msg('文按标题字数已上限')}
+	});
+
+
+// 判断 选择时间的
+	$('.send_object dir div').click(function(){
+		$(this).find('img').toggleClass('xiyin_son')
 	})
+	$('.mode1 div').click(function(){
+		$(this).find('img').toggleClass('xiyin_son')
+	})
+
+	$('.Graphic_message .ck:eq(0)').click(function(){
+		$(this).find('img').addClass('xiyin_son');
+		$('#data_time').val('');
+		$('.Graphic_message .ck:eq(1)').find('img').removeClass('xiyin_son');
+		$('#data_time').attr('disabled',true);
+	});
+	$('.Graphic_message .ck:eq(1)').click(function(){
+		$(this).find('img').addClass('xiyin_son');
+		$('.Graphic_message .ck:eq(0)').find('img').removeClass('xiyin_son');
+		$('#data_time').attr('disabled',false);
+	});
 });
 
 </script> 
