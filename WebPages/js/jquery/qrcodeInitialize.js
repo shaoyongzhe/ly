@@ -4,6 +4,21 @@
         "logo": "/consumer/image/consumer_logo.png",
         "loadsuccess": function () { },
         "loaderror": function () { },
+        "loadbeforesend":function(){
+            common.loading.show();
+        },
+        "minconsumercard":{
+            "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetext=0&combineicon=0",
+            "qrcode": {
+                "type": "qrcode",                
+                "bordercolor": "#d9d9d9",
+                "width": 44,
+                "height": 44,
+                "single": true,
+                "x": 0,
+                "y": 0
+            },
+        },
         "consumercard": {
             "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0",
             "title": {
@@ -408,14 +423,16 @@ function QrcodeDraw(canvas, imagename, config, logo, dependconfig) {
 }
 
 function draw(config, configname, logo) {
-
+    if ($.isFunction(config.loadbeforesend))
+        config.loadbeforesend();
     var c = document.createElement('canvas'),
     ctx = c.getContext('2d');
 
     if (!c.getContext) {
         var qrurl = config[configname]["qrcode"]["url"];
-        $('#QRCode_img').attr("src", qrurl)
-        config.loadsuccess();
+        $('#QRCode_img').attr("src", qrurl);
+        if ($.isFunction(config.loadsuccess))
+                config.loadsuccess();
         return;
     }
 
@@ -477,6 +494,8 @@ function draw(config, configname, logo) {
             if (jsondata.error != undefined) {
                 clearInterval(drawinterval);
                 config.loaderror();
+                if (common.loading)
+                    common.loading.hide();//隐藏转圈动画
                 iserror = true;
             }
         });
@@ -493,7 +512,8 @@ function draw(config, configname, logo) {
             jsondata.success = false;
         });
         config.loadsuccess();
-
+        if (common.loading)
+            common.loading.hide();//隐藏转圈动画
     }, 500);
 
 }
