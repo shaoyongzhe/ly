@@ -219,9 +219,9 @@
                     </li>
                     <div class="clear"></div>
                 </ul>
-                <hr ms-if="el.topiclist==undefined ||el.topiclist.length==0" style="height:1px;border-top:none" ms-if="el.returnticket_id==null||el.returnticket_id==''" />
+                <hr ms-if="el.topiclist==undefined ||el.topiclist.length==0" style="height:1px;border-top:none" />
                 <div class="assetinfo" ms-if="el.topiclist.length>0">
-                    <a href="javascript:;" class="assetcontent">
+                    <a href="javascript:;" class="assetcontent" ms-click="topicClick(el)">
                         <div class="asset_left">
                             <nobr>{{el.topiclist[0].topictitle}}{{el.topiclist.length>1?'等活动':''}}</nobr>
                         </div>

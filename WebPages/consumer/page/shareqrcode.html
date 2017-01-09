@@ -22,13 +22,17 @@
 
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
+    <script src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script src="/js/jquery/qrcodeInitialize.js"></script>
     <script type="text/javascript">
         $(function () {
             var idx = this.URL.toString().indexOf("?", 0);
             if (idx > 0) {
                 var msg = this.URL.toString().substr(idx, this.URL.length - idx);
                 var qrcode = decodeURIComponent(msg.replace("?", ""));
-                document.getElementById("qrcodeimg").src = qrcode;
+                var qrcode = qrcodeconfig["consumer"];
+                qrcodeconfig["consumer"]["sharecard"]["url"] = qrcode_url;
+                draw(qrcode, "sharecard", qrcode["logo"]);
             }
         });
     </script>
@@ -41,10 +45,10 @@
 
     <div style="text-align: center;">
 
-        <img id="qrcodeimg" style="width: 65%;height: 65%;text-align: center;" /><br />
+        <img id="QRCode_img" style="width: 65%;height: 65%;text-align: center;" /><br />
 
     </div>
-
+    <div id="qrcodediv" hidden></div>
     <div style="text-align: center;">
 
         <img style="width: 60%;" src="/consumer/image/shareqrcode3.png" /><br />
