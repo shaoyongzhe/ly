@@ -22,7 +22,8 @@
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
-
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script type="text/javascript">var share_category = "distributor";</script>
 
     <script src="/distributor/js/lib/jquery-common.js"></script>
@@ -42,7 +43,8 @@
             line-height: 30px;
             text-align: center;
             font-size: 18px;
-            box-sizing: content-box;border-radius:5px;
+            box-sizing: content-box;
+            border-radius: 5px;
         }
 
         .stamp1 {
@@ -56,12 +58,46 @@
             color: #ff0000;
             background-color: rgba(255,230,230,0.5);
         }
+
         .color1 {
-             color: #457181;
+            color: #457181;
         }
+
         .color2 {
             color: #999;
         }
+         .assetinfo {
+            width: 100%;
+            height: 40px;
+            background: url(/consumer/image/asset_consumer.png) no-repeat;
+            background-size: 100% 40px;
+            line-height: 35px;
+            padding: 0 15px 0 20px;
+            color: #fff;
+        }
+
+            .assetinfo .asset_left {
+                width: calc(100% - 90px);
+                float: left;
+                height: 40px;
+                color: #fff;
+                font-weight: bold;
+                overflow: hidden;
+                text-wrap: none;
+                text-overflow: ellipsis;
+            }
+
+            .assetinfo .asset_right {
+                width: 90px;
+                float: left;
+                height: 40px;
+                color: #fff;
+                text-align: right;
+            }
+
+                .assetinfo .asset_right small {
+                    font-size: 11px;
+                }
     </style>
 </head>
 <body ms-controller="suppercouponitems" class="ms-controller">
@@ -199,13 +235,23 @@
                 <span></span>
                 {{el.ruledesc}}
             </div>
-            <div class="whiteblock"></div>
+            <div class="whiteblock" ms-if="el.topicdata==undefined||el.topicdata.length==0"></div>
+            <div class="assetinfo"  ms-if="el.topicdata!=undefined&&el.topicdata.length>0">
+                <a href="javascript:;" class="assetcontent">
+                    <div class="asset_left">
+                        <nobr>{{el.topicdata[0].topictitle}}{{el.topicdata.length>1?'等活动':''}}</nobr>
+                    </div>
+                    <div class="asset_right">
+                        <small>已参加</small>{{el.topicdata[0].headcount}}<small>人</small>
+                    </div>
+                </a>
+            </div>
             <ul class="div-down">
                 <li>
                     {{el.itemtotalnum==null?'0':el.itemtotalnum|html}}
                     <p>总投放</p>
                 </li>
-                <li  style="border-right:none; ">
+                <li style="border-right:none; ">
                     {{el.totalverifynum==null?'0':el.totalverifynum}}
                     <p>总核销</p>
                 </li>
@@ -213,7 +259,7 @@
                     &nbsp;
                     <!--<div class="btnxq">详情</div>-->
                 </li>
-                <li ms-class="['percentage',(vm.jsondata.activitystate != '已生效'?'color2':'color1')]"  style="border-right:none; ">{{el.verifyrate==null?'0%':el.verifyrate}}</li>
+                <li ms-class="['percentage',(vm.jsondata.activitystate != '已生效'?'color2':'color1')]" style="border-right:none; ">{{el.verifyrate==null?'0%':el.verifyrate}}</li>
 
                 <div class="clear"></div>
             </ul>

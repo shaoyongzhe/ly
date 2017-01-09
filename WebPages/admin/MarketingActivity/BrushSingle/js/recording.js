@@ -1,0 +1,878 @@
+/**
+ * Created by MrCheng on 2016/12/9.
+ */
+//获取数据写入tbody
+var djcishu=1,allcont=0;
+var state={};
+    if(localStorage.state){
+        state=JSON.parse(localStorage.state);
+    }else {
+        state={
+            state:"未处理",//状态
+            membername:"",//会员名称
+            //membertype:"",//会员类型
+            querydate:"",//查询日期
+            queryarea:"",//发送地区
+            brcount:"",//违规次数
+            compare:"等于",//违规次数比较符号
+            level:"",//违规级别
+            lastindex:"0",//上次返回结果的最后一条数据索引
+            pagecount:"50"//要查询的数据条数
+        };
+    }
+
+
+function fnxuanran(data) {
+    var odata=data.data;
+    var otr="",viplx="";
+    for(var k1 in odata){
+        otr+="<tr gu-id='"+odata[k1]["guid"]+"'>" +
+            "<td class='cgl-td1'><input class='thechec' type='checkbox'></td>" +
+            "<td class='cgl-td2'><span style='display: none'></span><p>"+odata[k1]["memberinfo"]+"</p></td>" ;
+        if(odata[k1]["anticheatingobj_class"]=="tblretailer"){viplx="门店"}
+        otr+="<td class='cgl-td3'>"+viplx+"</td>" +
+            "<td class='cgl-td4'>"+odata[k1]["locale"]+"</td>" +
+            "<td class='cgl-td5'><span>"+odata[k1]["breakrulescount"]+"</span>次</td>" +
+            "<td class='cgl-td6'>"+odata[k1]["breakruleslevel"]+"</td>" +
+            "<td class='cgl-td7'>"+odata[k1]["breakrulescause"]+"</td>" +
+            "<td class='cgl-td8'>"+odata[k1]["measures"]+"</td>" +
+            "<td class='cgl-td9'><span>"+odata[k1]["starttime"]+"<br></span><span>"+odata[k1]["endtime"]+"</span></td>" +
+            "<td class='cgl-td10'>"+odata[k1]["ordermoney"]+"</td>" +
+            "<td class='cgl-td11'>"+odata[k1]["amount"]+"</td>" +
+            "<td class='cgl-td12'>"+odata[k1]["dealtstate"]+"</td>" +
+            "<td class='cgl-td13'></td>" +
+            "</tr>";
+    }
+    $("#cgl-tbody").html(otr);
+    if(data["shuadanjine"]){
+        $("#shua").text(data["shuadanjine"].toFixed(2));
+    }
+    if(data["shuadanjine"]){
+        $("#kou").text(data["koukuanjine"].toFixed(2));
+    }
+}
+function fncreattab(data) {
+    fnxuanran(data);
+    //滚动
+    $("#cgl-tablebox").scroll(function () {
+        if($(this).scrollTop()>($("#cgl-tablebox").find("table").height()-500) && $("#cgl-tablebox").find("table").height()>500){
+            $("#cgl-more").show();
+        }else {
+            $("#cgl-more").hide();
+        }
+    });
+    allcont=data.allcount;
+
+
+}
+//加载更多
+function fnmore() {
+    $("#cgl-more").on("click","span",function () {
+        var cishu=Math.ceil(allcont/50);
+        state.lastindex=50*djcishu;
+        djcishu++;
+        if(djcishu>cishu){
+            $("#cgl-more").find("span").html("没有更多数据")
+        }else{
+            $(".cgl-jzz").show();
+            $.ajax({
+                type: "get",
+                url: "/webapi/earlywarningmanage/anticheating/getlist",
+                data: state,
+                error:function () {
+                    alert("网络出错，请重新加载")
+                },
+                success: function(data){
+                    $(".cgl-jzz").hide();
+                    //console.log(state,cishu,djcishu)
+                    var odata=data.data;
+                    var otr="",viplx="";
+                    for(var k1 in odata){
+                        otr+="<tr gu-id='"+odata[k1]["guid"]+"'>" +
+                            "<td class='cgl-td1'><input class='thechec' type='checkbox'></td>" +
+                            "<td class='cgl-td2'><span style='display: none'></span><p>"+odata[k1]["memberinfo"]+"</p></td>" ;
+                        if(odata[k1]["anticheatingobj_class"]=="tblretailer"){viplx="门店"}
+                        otr+="<td class='cgl-td3'>"+viplx+"</td>" +
+                            "<td class='cgl-td4'>"+odata[k1]["locale"]+"</td>" +
+                            "<td class='cgl-td5'><span>"+odata[k1]["breakrulescount"]+"</span>次</td>" +
+                            "<td class='cgl-td6'>"+odata[k1]["breakruleslevel"]+"</td>" +
+                            "<td class='cgl-td7'>"+odata[k1]["breakrulescause"]+"</td>" +
+                            "<td class='cgl-td8'>"+odata[k1]["measures"]+"</td>" +
+                            "<td class='cgl-td9'><span>"+odata[k1]["starttime"]+"<br></span><span>"+odata[k1]["endtime"]+"</span></td>" +
+                            "<td class='cgl-td10'>"+odata[k1]["ordermoney"]+"</td>" +
+                            "<td class='cgl-td11'>"+odata[k1]["amount"]+"</td>" +
+                            "<td class='cgl-td12'>"+odata[k1]["dealtstate"]+"</td>" +
+                            "<td class='cgl-td13'></td>" +
+                            "</tr>";
+                    }
+                    $("#cgl-tbody").append(otr);
+                    //fncaozuo();//操作按钮
+                    //fnchec();//单选复选
+                    //$("#cgl-tablebox").scrollTop(0);
+                }
+            });
+        }
+    });
+}
+fnmore();
+//违规记录维度
+function fndengji(data) {
+    var odata=data["allcount"][0];
+    $("#cgl-weicl").html("<strong>未处理</strong>（"+odata["weichuli"]+"）条");
+    $("#cgl-shensuz").html("<strong>申诉中</strong>（"+odata["shensuzhong"]+"）条");
+    $("#cgl-qrwg").html("<strong>确认违规</strong>（"+odata["querenweigui"]+"）条");
+    $("#cgl-chufaz").html("<strong>处罚中</strong>（"+odata["chufazhong"]+"）条");
+    $("#cgl-yijies").html("<strong>已结束</strong>（"+odata["yijieshu"]+"）条");
+    $("#cgl-jiechuwg").html("<strong>解除违规</strong>（"+odata["jiechuweigui"]+"）条");
+    $(".cgl-wgui>.cgl-con",".ztai").html("<strong>未处理</strong>（"+odata["weichuli"]+"）条");
+    fnshijian(state);
+}
+//状态改变事件
+function fnshijian(state) {
+    $(".cgl-jzz").show();
+    $.ajax({
+        type: "get",
+        url: "/webapi/earlywarningmanage/anticheating/getlist",
+        data: state,
+        error:function () {
+            alert("网络出错，请重新加载")
+        },
+        success: function(data){
+            $(".cgl-jzz").hide();
+            allcont=data.allcont;
+            djcishu=1;
+            fncreattab(data);//创建tbody
+            $("#cgl-tablebox").animate({
+                scrollTop:0
+            },300);
+            $("#cgl-more").find("span").html("点击加载更多")
+            $("#cgl-more").hide(function () {
+                $("#cgl-more").css({"display":"none"});
+            });
+        }
+    });
+}
+//查询
+function fnfind() {
+    $(".cgl-jzz").show();
+    $.ajax({
+        type: "get",
+        error:function () {
+            alert("网络出错，请重新加载")
+        },
+        url: "/webapi/earlywarningmanage/anticheating/getallcount",
+        data: "",
+        success: function(data){
+            //console.log(data)
+            $(".cgl-jzz").hide();
+            fndengji(data);
+            fnjilu();
+        }
+    });
+}
+//重置按钮
+$("#cgl-reset").on("click",function () {
+    state={
+        state:"未处理",//状态
+        membername:"",//会员名称
+        //membertype:"",//会员类型
+        querydate:"",//查询日期
+        queryarea:"",//发送地区
+        brcount:"",//违规次数
+        compare:"等于",//违规次数比较符号
+        level:"",//违规级别
+        lastindex:"0",//上次返回结果的最后一条数据索引
+        pagecount:"50"//要查询的数据条数
+    };
+    fnjilu();
+    fnshijian(state);
+    localStorage.setItem("state", JSON.stringify(state));
+});
+//记录状态
+function fnjilu() {
+    if(state.state=="确认违规" || state.state=="解除违规" || state.state=="处罚中" || state.state=="已结束"){
+        $("i",".xze1>div:eq(0)").removeClass("cgl-on");
+        $("i",".xze1>div:eq(1)").addClass("cgl-on");
+        $(".ztai>.cgl-wgui:eq(0)").css({"display":"none"});
+        $(".ztai>.cgl-wgui:eq(1)").css({"display":"block"});
+        $(".cgl-con1").each(function () {
+            if($(">strong",this).text()==state.state){
+                $(".cgl-con").html($(this).html())
+            }
+        })
+    }else if(state.state=="未处理" || state.state=="申诉中"){
+        $("i",".xze1>div:eq(1)").removeClass("cgl-on");
+        $("i",".xze1>div:eq(0)").addClass("cgl-on");
+        $(".ztai>.cgl-wgui:eq(1)").css({"display":"none"});
+        $(".ztai>.cgl-wgui:eq(0)").css({"display":"block"});
+        $(".cgl-con1").each(function () {
+            if($(">strong",this).text()==state.state){
+                $(".cgl-con").html($(this).html())
+            }
+        })
+    }
+    $(".time").val(state.querydate);
+    $("#cgl-fsdiqu").val(state.queryarea);
+    if(state.compare=="等于"){
+        $("#cgl-xzf").val("等于");
+    }else {
+        for(var i=0;i<$("#cgl-xzf option").length;i++){
+            if($("#cgl-xzf option").eq(i).html()==state.compare){
+                $("#cgl-xzf option").eq(i).attr("selected",true)
+            }
+        }
+    }
+    $("#cgl-wgcs").val(state.brcount);
+    $("#cgl-vipname").val(state.membername);
+    if(state.level==""){
+        $("#cgl-wgdj").val("lv1");
+    }else {
+        for(var j=0;j<$("#cgl-wgdj option").length;j++){
+            if($("#cgl-wgdj option").eq(j).html()==state.level){
+                $("#cgl-wgdj option").eq(j).attr("selected",true)
+            }
+        }
+    }
+
+}
+
+//处理与待处理
+function fnxze1() {
+    $(".xze1>div").on("click",function () {
+        $(".xze1 i").removeClass("cgl-on");
+        $("i",this).addClass("cgl-on");
+        $(".ztai>div").css({"display":"none"}).eq($(this).index()).css({"display":"block"});
+        $(".cgl-wgui>.cgl-con",".ztai").html($(".ztai>.cgl-wgui:visible .cgl-con1").html());
+        state["state"]=$(".cgl-wgui>.cgl-con>strong",".ztai").html();
+        state["lastindex"]=0;
+        fnshijian(state);
+        localStorage.setItem("state", JSON.stringify(state));
+    });
+}
+
+//模拟下拉菜单
+function fnxiala() {
+    $(".ztai").on("click",".cgl-wgui",function () {
+        $(">ul",this).toggle();
+    }).find("li>.cgl-con1").click(function () {
+        $(".cgl-con").html($(this).html());
+        state["lastindex"]=0;
+        state["state"]=$(".cgl-wgui>.cgl-con>strong",".ztai").html();
+        fnshijian(state);
+        localStorage.setItem("state", JSON.stringify(state));
+    });
+    $(document).click(function (e) {
+        if (!$(e.target).closest(".cgl-wgui").length) {
+            $(".cgl-wgui>ul").hide();
+        }
+    });
+
+}
+//选择日期
+function fndate() {
+    $('.time').click(function(e){
+        e.stopPropagation();
+        // var id = $(this).attr('id');
+        laydate({
+            // elem: id,
+            event: 'focus',
+            format: 'YYYY-MM-DD',
+            // format: 'YYYY-MM-DD',
+            istime: true,
+            choose: function(dates){
+                layer.msg(dates);
+            }
+        });
+    });
+    $("#cgl-cxdata").blur(function(){
+        setTimeout(function () {
+            if($('.chatime').val()!=state["querydate"]){
+                state["querydate"]=$('.chatime').val();
+                state["lastindex"]=0;
+                fnshijian(state);
+                localStorage.setItem("state", JSON.stringify(state));
+            }
+
+        },300);
+    });
+}
+//发生地区
+function fnfsdiqu() {
+    $("#cgl-fsdiqu").on('input',function(e){
+        state["queryarea"]=$(this).val();
+        state["lastindex"]=0;
+        fnshijian(state);
+        localStorage.setItem("state", JSON.stringify(state));
+    });
+}
+//违规次数
+function fnweignum() {
+    $("#cgl-xzf").change(function () {
+        state["compare"]=$(this).find("option:selected").text();
+        localStorage.setItem("state", JSON.stringify(state));
+        if($("#cgl-wgcs").val()!=""){
+            state["brcount"]=Number($("#cgl-wgcs").val());
+            state["lastindex"]=0;
+            fnshijian(state);
+        }
+    });
+    $("#cgl-wgcs").on('input',function(e){
+        if(Number($(this).val())<0 || isNaN(Number($(this).val()))){
+            $(this).val("");
+        }else if($(this).val()==""){
+            state["brcount"]=$(this).val();
+            state["lastindex"]=0;
+            fnshijian(state);
+            localStorage.setItem("state", JSON.stringify(state));
+        }else if(Number($(this).val())!==state["brcount"]){
+            state["brcount"]=Number($(this).val());
+            state["lastindex"]=0;
+            fnshijian(state);
+            localStorage.setItem("state", JSON.stringify(state));
+        }
+
+    });
+}
+//会员名称
+function fnvipname() {
+    $("#cgl-vipname").on('input',function(e){
+        state["membername"]=$(this).val();
+        state["lastindex"]=0;
+        fnshijian(state);
+        localStorage.setItem("state", JSON.stringify(state));
+    });
+}
+//违规级别
+function fnwgjb() {
+    $(".cgl-jzz").show();
+    var opt="";
+    $.ajax({
+        type: "get",
+        url: "/webapi/operation/1/breakruleslevels",
+        data: "",
+        success: function(data){
+            $(".cgl-jzz").hide();
+            opt="<option></option>";
+            for(var k1 in data){
+                opt+="<option>"+data[k1]["level"]+"</option>";
+            }
+            $("#cgl-wgdj").html(opt);
+        }
+    });
+    $("#cgl-wgdj").change(function () {
+        state["level"] = $(this).find("option:selected").text();
+        state["lastindex"]=0;
+        fnshijian(state);
+        localStorage.setItem("state", JSON.stringify(state));
+    });
+}
+
+//操作
+function fncaozuo() {
+    var attr="";
+    $("tbody").on("click",".cgl-td13",function () {
+        var td12=$(this).parents("tr").find(".cgl-td12").html();
+        $(".cgl-td13").html("");
+        attr="";
+        attr+="<div><ul>" +
+            "<li class='xiangxi'>详细</li>" +
+            "<li class='fasong'>发送通知</li>"+
+            "<li class='tiaoz'>调整违规等级</li>";
+                if(td12=="确认违规"){
+                    attr+="<li class='vipshensu'>会员申诉</li>";
+                }
+                if(td12=="解除违规" || td12=="未处理" || td12=="申诉中"){
+                    attr+="<li class='queren'>确认违规</li>";
+                }
+                if(td12=="确认违规" || td12=="申诉中"){
+                    attr+="<li class='jiechuwg'>解除违规</li>";
+                }
+        attr+=
+            "</ul></div>";
+        $(this).html(attr);
+    }).on("click",".cgl-td13 .xiangxi",function () {
+        article_add(this);
+    }).on("click",".fasong",function () {
+        fasong_add($(this).parents("tr"));
+    }).on("click",".vipshensu",function () {
+        vipshensu_add($(this).parents("tr"));
+    }).on("click",".jiechuwg",function () {
+        jiechuwg_add($(this).parents("tr"));
+    }).on("click",".tiaoz",function () {
+        tiaoz_add("当前违规等级"+$(this).parents("tr").find(".cgl-td6").html(),$(this).parents("tr").attr("gu-id"));
+    }).on("click",".queren",function () {
+        var putdata={
+            "description":"该记录改为确认违规",
+            "dealtstate":"确认违规",
+            "anticheatingids":$(this).parents("tr").attr("gu-id")
+        };
+        querenwg_add(putdata);
+    });
+    $(document).click(function (e) {
+        if (!$(e.target).closest(".cgl-td13").length) {
+            $(".cgl-td13").html("");
+        }
+    });
+}
+//详细弹窗
+function article_add(that){
+    var parents=$(that).parents("tr");
+    var cont="<ul>" +
+        "<li class='cgl-li1'>" +
+            "<h4>信誉等级<br/>会员名称</h4>" +
+            "<strong style='display: none'></strong>" +
+            "<p>"+$("td",parents).eq(1).find("p").text()+"</p>" +
+        "</li>" +
+        "<li class='cgl-li2'>" +
+            "<h4>会员类型</h4>" +
+            "<span>"+$("td",parents).eq(2).text()+"</span>" +
+            "<p>"+$("td",parents).eq(11).text()+"</p>" +
+        "</li>" +
+        "<li class='cgl-li3'>" +
+            "<h4>发生地区</h4>" +
+            "<p>"+$("td",parents).eq(3).text()+"</p>" +
+        "</li>" +
+        "<li class='cgl-li4'>" +
+            "<ul id='cgl-li4ul'>" +
+                "<li><h4>近半年</h4><p>"+$("td",parents).eq(4).html()+"</p></li>" +
+                "<li><h4>违规级别</h4><p>"+$("td",parents).eq(5).text()+"</p></li>" +
+                "<li><h4>违规原因</h4><p>"+$("td",parents).eq(6).text()+"</p></li>" +
+                "<li><h4>处罚措施</h4><p>"+$("td",parents).eq(7).text()+"</p></li>" +
+                "<li><h4>处罚周期</h4><p class='cgl-xxcfzq'>"+$("td",parents).eq(8).html()+"</p></li>" +
+                "<li><h4>刷单金额</h4><p>"+$("td",parents).eq(9).text()+"</p></li>" +
+                "<li><h4>扣款金额</h4><p>"+$("td",parents).eq(10).text()+"</p></li>" +
+            "</ul>"+
+        "</li>" +
+        "<li class='cgl-li5'>" +
+            "<h4>操作记录</h4>" +
+            "<ul class='cgl-czjl'>"+
+/*
+                "<li><span>2016-10-20 20:33</span><span>登陆帐号名</span><div>确认违规;</div></li>" +
+                "<li><span>2016-10-20 20:33</span><span>登陆帐号名</span><div>解除违规：<span>发生法减肥辣椒放辣椒放辣椒粉</span></div></li>" +
+*/
+            "</ul>" +
+        "</li>" +
+        "</ul>" +
+        "<div class='cgl-antc'><span class='cgl-close'>关闭</span>";
+            for(var i=0;i<$(that).nextAll().length;i++){
+                cont+="<span class='cgl-import'>"+$(that).nextAll().eq(i).html()+"</span>";
+            }
+        cont+="</div>";
+    var index = layer.open({
+        type: 5,
+        title: "详细",
+		area: ['958px', 'auto'],
+        content: cont
+    });
+    layer.full(index);
+    //操作记录
+    var guid=parents.attr("gu-id");
+    $(".cgl-jzz").show();
+    $.ajax({
+        type: "get",
+        url: "/webapi/earlywarningmanage/anticheating/stateopdetail/"+guid,
+        data: "",
+        error:function () {
+            alert("网络出错，请重新加载")
+        },
+        success: function(data){
+            //console.log(data)
+            $(".cgl-jzz").hide();
+            var oli="";
+            if(data.error){
+                oli+="<li>"+data.error+"</li>";
+            }
+            for(var i=data.length-1;i>=0;i--){
+                oli+="<li><span>"+data[i]["issuetime"]+"</span><span>"+data[i]["issueby_name"]+"</span><div>"+data[i]["dealtstate"]+"：<span>"+data[i]["description"]+"</span></div></li>";
+            }
+            $(".cgl-czjl").html(oli);
+        }
+    });
+    fnclose();//关闭按钮
+    $(".cgl-antc").on("click",".cgl-import",function () {
+        var fstz="";
+        if($(this).text()=="发送通知"){
+            fstz={"anticheatingids":guid};
+            fnfstz(fstz);
+        }
+        if($(this).text()=="调整违规等级"){
+            tiaoz_add("当前违规等级"+parents.find(".cgl-td6").html(),guid)
+        }
+        if($(this).text()=="会员申诉"){
+            vipshensu_add(parents);
+        }
+        if($(this).text()=="确认违规"){
+            var putdata={
+                "description":"",
+                "dealtstate":"确认违规",
+                "anticheatingids":guid
+            };
+            querenwg_add(putdata);
+        }
+        if($(this).text()=="解除违规"){
+            jiechuwg_add(parents);
+        }
+    })
+}
+//发送通知
+function fnfstz(fstz) {
+    $(".cgl-jzz").show();
+    $.ajax({
+        type: "post",
+        error:function () {
+            alert("网络出错，请重新加载")
+        },
+        url: "/webapi/earlywarningmanage/anticheating/sendnotification",
+        data: fstz,
+        success: function(data){
+            $(".cgl-jzz").hide();
+            if(data.succeed=="succeed"){
+                alert("发送成功");
+            }else if(data.error){
+                alert(data.error);
+            }
+        }
+    });
+}
+//关闭按钮
+function fnclose() {
+    $(".cgl-close").click(function () {
+        $(".layui-layer-shade").remove();
+        $(".layui-layer").remove();
+        //$("html").css({"overflow":"scroll"});
+    });
+}
+//操作中的发送通知
+function fasong_add(parents) {
+    //console.log(parents.attr("gu-id"))
+    var fstz={"anticheatingids":parents.attr("gu-id")};
+    fnfstz(fstz);
+/*
+    var cont="<div>" +
+        "<p>1231564646</p>" +
+        "<div class='cgl-anfs'><span>关闭</span><span class='cgl-import'>确定</span></div>"+
+        "</div>";
+
+    var index = layer.open({
+        type: 5,
+        title: "发送通知",
+        area: ['958px', 'auto'],
+        content: cont
+    });
+    layer.full(index);
+*/
+
+}
+//会员申诉
+function vipshensu_add(parents) {
+    var cont="<div>" +
+        "<div id='cgl-miaoshu'>" +
+            "<h4>申诉描述</h4>" +
+            "<textarea></textarea>" +
+        "</div>" +
+        "<div id='cgl-kuaijie'>" +
+            "<h4>快捷申诉</h4>" +
+            "<div>" +
+                "<label><input name='shensu' type='checkbox'>描述1 </label>" +
+                "<label><input name='shensu' type='checkbox'>描述2 </label>" +
+                "<label><input name='shensu' type='checkbox'>描述3 </label>" +
+                "<label><input name='shensu' type='checkbox'>描述4</label>" +
+            "</div>" +
+        "</div>" +
+        "<div class='cgl-anfs'><span class='cgl-close'>关闭</span><span class='cgl-import quedss'>确定</span></div>"+
+        "</div>";
+
+    var index = layer.open({
+        type: 5,
+        title: "会员申诉",
+        area: ['958px', 'auto'],
+        content: cont
+    });
+    layer.full(index);
+    //关闭
+    fnclose();
+    //申述描述
+    $(".quedss").click(function () {
+        var kuis=$("#cgl-kuaijie").find("input:checked").parent().text();
+        var mshu=$("#cgl-miaoshu").find("textarea").val()+"#"+kuis;
+        var putdata={
+            "description":mshu,
+            "dealtstate":"申诉中",
+            "anticheatingids":parents.attr("gu-id")
+        };
+        //console.log(putdata)
+        fnwgjlzt(putdata);
+    });
+}
+//解除违规
+function jiechuwg_add(parents) {
+    var cont="<div>" +
+        "<div id='cgl-miaoshu'>" +
+            "<h4>解除描述</h4>" +
+            "<textarea></textarea>" +
+        "</div>" +
+        "<div id='cgl-kuaijie'>" +
+            "<h4>快捷申诉</h4>" +
+            "<div>" +
+                "<label><input name='shensu' type='checkbox'>描述1 </label>" +
+                "<label><input name='shensu' type='checkbox'>描述2 </label>" +
+                "<label><input name='shensu' type='checkbox'>描述3 </label>" +
+                "<label><input name='shensu' type='checkbox'>描述4</label>" +
+            "</div>" +
+        "</div>" +
+        "<div class='cgl-anfs'><span class='cgl-close'>关闭</span><span id='qrjcweig' class='cgl-import'>确定</span></div>"+
+        "</div>";
+
+    var index = layer.open({
+        type: 5,
+        title: "解除违规",
+        area: ['958px', 'auto'],
+        content: cont
+    });
+    layer.full(index);
+    //关闭
+    fnclose();
+    //确认解除
+    $("#qrjcweig").on("click",function () {
+
+        fnqrjcwg(parents);
+    });
+}
+//确认解除违规
+function fnqrjcwg(parents) {
+    var cont="<div>" +
+        "<div class='cgl-tiaoz jctext'>确认解除违规？" +
+        "</div>" +
+        "<div class='cgl-antz'><span class='layui-layer-close'>取消</span><span class='cgl-import querenjc'>确定</span></div>"+
+        "</div>";
+    var index = layer.open({
+        type: 5,
+        title: "解除违规",
+        area: ['500px', 'auto'],
+        content: cont
+    });
+    layer.full(index);
+    $(".querenjc").click(function () {
+        var kuis=$("#cgl-kuaijie").find("input:checked").parent().text();
+        var mshu=$("#cgl-miaoshu").find("textarea").val()+"#"+kuis;
+        var putdata={
+            "description":mshu,
+            "dealtstate":"解除违规",
+            "anticheatingids":parents.attr("gu-id")
+        };
+        //console.log(putdata)
+        fnwgjlzt(putdata);
+    });
+}
+//调整违规等级
+function tiaoz_add(dangq,guid) {
+    //console.log(dangq,guid);
+    var cont="<div>" +
+        "<p class='cgl-dqdj'>"+ dangq +"</p>" +
+        "<div class='cgl-tiaoz'>调整违规等级" +
+        "<select>"+$("#cgl-wgdj").html()+"</select></div>" +
+        "<div class='cgl-antz'><span class='cgl-close'>关闭</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>"+
+        "</div>";
+
+    var index = layer.open({
+        type: 5,
+        title: "调整违规等级",
+        area: ['500px', 'auto'],
+        content: cont
+    });
+    layer.full(index);
+    fnclose();
+    $(".cgl-tiaoz").find("option:first").remove();
+    //等级调整确认事件
+    $("#cgl-qrtz").click(function () {
+        var djjson={
+            "level":$(".cgl-tiaoz").find("option:selected").html(),
+            "anticheatingids":guid
+        };
+        $(".cgl-jzz").show();
+        $.ajax({
+            type: "put",
+            url: "/webapi/earlywarningmanage/anticheating/levelchanged",
+            data: djjson,
+            error:function () {
+                alert("网络出错，请重新加载")
+            },
+            success: function(data){
+                $(".cgl-jzz").hide();
+                //console.log(data);
+                if(data.error){
+                    $(".layui-layer-shade").remove();
+                    $(".layui-layer").remove();
+                    alert(data.error);
+                }
+                if (data.succeed){
+                    $(".layui-layer-shade").remove();
+                    $(".layui-layer").remove();
+                    var guidarr=guid.split(",");
+                    for(var i=0;i<guidarr.length;i++){
+                        $("tr").each(function (n) {
+                            if($(this).attr("gu-id")==guidarr[i]){
+                                $(this).find(".cgl-td6").html(djjson.level)
+                            }
+                        });
+
+                    }
+                }
+
+            }
+        });
+    });
+}
+//确认违规
+function querenwg_add(putdata) {
+    var cont="<div>" +
+        "<div class='cgl-tiaoz qrentext'>确认违规？" +
+        "</div>" +
+        "<div class='cgl-antz'><span class='cgl-qrwgqx'>取消</span><span class='cgl-import cgl-qrwgqr'>确定</span></div>"+
+        "</div>";
+    var index = layer.open({
+        type: 5,
+        title: "确认违规",
+        area: ['500px', 'auto'],
+        content: cont
+    });
+    layer.full(index);
+    $(".cgl-qrwgqx").on("click",function () {
+        $(".layui-layer-shade").remove();
+        $(".layui-layer").remove();
+    });
+    $(".cgl-qrwgqr").on("click",function () {
+        fnwgjlzt(putdata);
+    });
+
+}
+//全选单选事件
+function fnchec() {
+    $("#checall").on("click",function () {
+        if($(this).prop("checked")==true){
+            $(".thechec").prop("checked",true);
+        }else{
+            $(".thechec").prop("checked",false);
+        }
+    });
+    $(".thechec").on("click",function () {
+        if($(".thechec:checked").length==$(".thechec").length){
+            $("#checall").prop("checked",true);
+        }else{
+            $("#checall").prop("checked",false);
+        }
+    });
+}
+//获取选中的id
+function fnguid() {
+    var guid1="";
+    var checlen=$(".thechec:checked");
+    for(var i=0;i<checlen.length;i++){
+        if(i==checlen.length-1){
+            guid1+=checlen.eq(i).parents("tr").attr("gu-id")
+        }else {
+            guid1+=checlen.eq(i).parents("tr").attr("gu-id")+",";
+        }
+
+    }
+    return guid1;
+}
+//四个按钮事件
+function fnanniu() {
+    $("#cgl-qrwg1").click(function(){
+        var guid=fnguid();
+        var putdata={
+            "description":"",
+            "dealtstate":"确认违规",
+            "anticheatingids":guid
+        };
+        querenwg_add(putdata);
+    });
+    $("#cgl-jcwg1").click(function(){
+        var guid=fnguid();
+        //console.log(guid);
+        var putdata={
+            "description":"",
+            "dealtstate":"解除违规",
+            "anticheatingids":guid
+        };
+        var cont="<div>" +
+            "<div class='cgl-tiaoz jctext'>确认解除违规？" +
+            "</div>" +
+            "<div class='cgl-antz'><span class='layui-layer-close'>取消</span><span class='cgl-import querenjc'>确定</span></div>"+
+            "</div>";
+        var index = layer.open({
+            type: 5,
+            title: "解除违规",
+            area: ['500px', 'auto'],
+            content: cont
+        });
+        layer.full(index);
+        $(".querenjc").click(function () {
+            fnwgjlzt(putdata);
+        });
+
+    });
+    $("#cgl-tzwg1").click(function(){
+        var guid=fnguid();
+        //console.log(guid);
+        tiaoz_add("",guid);
+
+    });
+    $("#cgl-fstz1").click(function(){
+        var guid=fnguid();
+        //console.log(guid);
+        var fstz={"anticheatingids":guid};
+        fnfstz(fstz);
+        //fnwgjlzt(putdata);
+    });
+}
+//改变违规记录状态
+function fnwgjlzt(putdata) {
+    $(".cgl-jzz").show();
+    $.ajax({
+        type: "put",
+        url: "/webapi/earlywarningmanage/anticheating/dealtstatechange",
+        data: putdata,
+        error:function () {
+            alert("网络出错，请重新加载")
+        },
+        success: function(data){
+            $(".cgl-jzz").hide();
+            if(data.error){
+                alert(data.error);
+                $(".layui-layer-shade").remove();
+                $(".layui-layer").remove();
+            }
+            if (data.succeed){
+                $(".layui-layer-shade").remove();
+                $(".layui-layer").remove();
+                var guidarr=putdata.anticheatingids.split(",");
+                for(var i=0;i<guidarr.length;i++){
+                    $("tr").each(function (n) {
+                        if($(this).attr("gu-id")==guidarr[i]){
+                            $(this).find(".cgl-td12").html(putdata.dealtstate)
+                        }
+                    });
+
+                }
+            }
+        }
+    });
+}
+$(function () {
+    fnfind();
+    fnxze1();
+    fnxiala();
+    fndate();
+    fnfsdiqu();
+    fnweignum();
+    fnvipname();
+    fnwgjb();
+    fnanniu();
+    $("#cgl-tbody").on("click","tr",function () {
+        $(this).addClass("ckon").siblings().removeClass("ckon");
+    });
+    fncaozuo();//操作按钮
+    fnchec();//单选复选
+});

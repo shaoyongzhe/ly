@@ -15,12 +15,14 @@
     <script type="text/javascript" src="/js/jquery/juicer-min.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
-
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     
     <script type="text/javascript" src="/retailer/js/lib/jquery-common.js"></script>
     <script type="text/javascript" src="/retailer/js/lib/common.js"></script>
     <script type="text/javascript" src="/retailer/js/invite-fans-main.js"></script>
     <script type="text/javascript" src="/retailer/js/common-buttom-nav.js"></script>
+
 </head>
 
 <body>
@@ -40,11 +42,11 @@
 
             <!--二维码扫描-->
             <div class="weui_DPcode weui_top4em">
-                <img id="retailerqrcode" style="width:80%" alt="店铺二维码" />
+                <img id="QRCode_img" style="width:80%" alt="店铺二维码" />
                 
                 <p><div class="savepic" style="color:#c2c2c2;font-family:微软雅黑;">
 				长按二维码可保存，可用于制作扫码牌
-				</div></p>
+				</div></p><div id="qrcodediv" hidden></div>
             </div>
         </div>
         <div class="weui_Kong"></div>

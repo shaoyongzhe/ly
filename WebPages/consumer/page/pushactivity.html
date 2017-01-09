@@ -91,13 +91,26 @@
         }
 
         .share {
-            left:0 !important;
-            margin-left:0;
+            left: 0 !important;
+            margin-left: 0;
         }
 
-        .css_color1 {background:rgba(220,0,0,.8) none repeat scroll 0% 0%;
+        .css_color1 {
+            background: rgba(220,0,0,.8) none repeat scroll 0% 0%;
         }
-          .css_color2 {background: rgba(51,51,51,.9) none repeat scroll 0% 0%;
+
+        .css_color2 {
+            background: rgba(51,51,51,.9) none repeat scroll 0% 0%;
+        }
+
+        .assetinfo {
+            width: 100%;
+            height: 40px;
+            background: url(/consumer/image/asset_consumer.png) no-repeat;
+            background-size: 100% 40px;
+            line-height: 40px;
+            padding: 0 15px 0 20px;
+            color: #fff;
         }
     </style>
 </head>
@@ -134,7 +147,7 @@
                 </div>
                 <div id="title-css" class="ceng3" style="display: none;">
                     <div id="title-left">超惠券</div>
-                    <div ms-attr-class="el.activity_flag==1?'css_color1':'css_color2'"  id="title-right">{{el.activity_flag==1?'已生效':'未生效'}}</div>
+                    <div ms-attr-class="el.activity_flag==1?'css_color1':'css_color2'" id="title-right">{{el.activity_flag==1?'已生效':'未生效'}}</div>
                     <div id="bianjiao"></div>
                 </div>
             </div>
@@ -168,6 +181,7 @@
                                         <p>￥{{item.originalprice}}</p>
                                     </li>
                                 </ul>-->
+                                <table class="tbl_t
                                 <table class="tbl_tc">
                                     <tr>
                                         <td rowspan="2" class="tbl_td_left">￥{{item.discountprice}}</td>
@@ -203,6 +217,7 @@
                                         <p>￥{{item.originalprice}}</p>
                                     </li>
                                 </ul>-->
+                                <table class="
                                 <table class="tbl_tc">
                                     <tr>
                                         <td rowspan="2" class="tbl_td_left">￥{{item.discountprice}}</td>
@@ -239,8 +254,15 @@
                             </li>
                             <div class="clear"></div>
                         </ul>
-                        <div class="rulecss " onclick="actionsheetclick()" ms-if="item.returnticket_id!=null&&item.returnticket_id!=''">
-                            已参加<font color="red"><b>{{item.participantnum}}</b></font>人
+                        <div class="assetinfo" ms-if="item.topiclist.length>0">
+                            <a href="javascript:;" class="assetcontent">
+                                <div class="asset_left">
+                                    <nobr>{{item.topiclist[0].topictitle}}{{item.topiclist.length>1?'等活动':''}}</nobr>
+                                </div>
+                                <div class="asset_right">
+                                    <small>已参加</small>{{item.topiclist[0].headcount}}<small>人</small>
+                                </div>
+                            </a>
                         </div>
                         <hr />
                     </div>
@@ -296,6 +318,8 @@
     <script src="/consumer/js/ticket_common.js"></script>
     <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script type="text/javascript">
         var qrcode = {};
         qrcode.href = function () {
@@ -464,7 +488,7 @@
         };
 
         function loadCss() {
-           
+
             // $('.duohdbox').css({ 'height': $divWidth * 3 / 4 });
             var $divWidth = $('.duohdbox').width();
             //$('.share').click(function () {
@@ -534,7 +558,7 @@
                 _wxjsshare.share_imgurl = vm.activity[0].posterpic
                 _wxjsshare.share_title = vm.activity.length > 1 ? "怕你还不知道，一大波优惠活动已疯狂来袭！" : "怕你还不知道，这个活动真的超级优惠！"
                 _wxjsshare.share_desc = vm.activity[0].activitytitle
-                _wxjsshare.activitytype=""
+                _wxjsshare.activitytype = ""
             } else if (type == 2 && vm.array.length > 0) {
                 _wxjsshare.share_imgurl = vm.array[0].posterpic
                 _wxjsshare.share_title = vm.array.length > 1 ? "怕你还不知道，一大波超惠券已疯狂来袭！" : "怕你还不知道，这个活动真的超级优惠！"

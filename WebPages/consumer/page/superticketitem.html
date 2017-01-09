@@ -31,6 +31,8 @@
     <script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <style>
         .active-num { height:22px; line-height:19px;
         }
@@ -194,8 +196,15 @@
                 </li>
                 <div class="clear"></div>
             </ul>
-            <div class="rulecss " onclick="actionsheetclick()" ms-if="vm.jsondata.returnticket_id!=null&&vm.jsondata.returnticket_id!=''">
-                已参加<font color="red"><b>{{vm.jsondata.participantnum}}</b></font>人
+            <div class="assetinfo" ms-if="vm.jsondata.topiclist.length>0">
+                <a href="javascript:;" class="assetcontent">
+                    <div class="asset_left">
+                        <nobr>{{vm.jsondata.topiclist[0].topictitle}}{{vm.jsondata.topiclist.length>1?'等活动':''}}</nobr>
+                    </div>
+                    <div class="asset_right">
+                        <small>已参加</small>{{vm.jsondata.topiclist[0].headcount}}<small>人</small>
+                    </div>
+                </a>
             </div>
             <hr />
         </div>

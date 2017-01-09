@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="../../js/jquery/jquery.qrcode.min.js"></script>
+    <script src="../../js/jquery/qrcodeInitialize.js"></script>
+     <script>
+         $(function () {
+             var qrcode = qrcodeconfig["consumer"];
+             qrcode["consumercard"]["qrcode"].url = "http://127.0.0.1/webapi/consumer/weixin/card_generate_code?activityitem_id=45b41e94f0864fe6a62f5c7802d90780&totalnum=1&activity_id=bc72e1a8f2324c1ba950e2e237eace72&distributor_id=5ce1d14e07534139ae7774d8983f04f3&sendimage=false"
+             qrcode.loadsuccess = function () {
+                 alert("success");
+             }
+             qrcode.loaderror = function () {
+                 alert("error");
+             }
+             draw(qrcode,"consumercard", qrcodeconfig["consumer"]["logo"]);
+         });
+
+     </script>
+</head>
+<body>
+    <div id="divQrcode"></div>
+    <div id="qrcodediv" hidden></div>
+</body>
+</html>

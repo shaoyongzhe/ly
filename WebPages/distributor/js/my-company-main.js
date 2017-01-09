@@ -1,5 +1,6 @@
     function suppermarketactivitylist(container) {
         this.container = $(container);
+        ///webapi/consumer/weixin/register_generate_code?qrtype=20&combinetext=0&combineicon=0
         this.companytemplate = [
        '<div class="m-company-top">',
             '<div class="userimg"><img src="{@if distributor_pic ==""}../image/cs04.jpg {@else}${distributor_pic}{@/if}" /></div>',
@@ -10,8 +11,8 @@
                     '${mobilephone}',
                 '</div>',
                 '<div class="ewm">',
-                    '<a href="m-company-ewm.html"><img id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetext=0&combineicon=0"/></a>',
-                '</div>',
+                    '<a href="m-company-ewm.html"><img id="QRCode_img"/></a>',
+                '</div><div id="qrcodediv" hidden></div>',
             '</div>',
         '</div><div class="title" style="border-bottom:0">公司贡献</div>',
         '<table cellspacing="5" cellpadding="0" class="company-tbl">',
@@ -67,10 +68,14 @@ suppermarketactivitylist.prototype.render = function () {
     }
 $(function () {
     common.loading.show();
+   
+
     var s = new invitationfans("container");
     s.render();
     var s = new suppermarketactivitylist("#company");
     s.render();
+    var qrcode = qrcodeconfig["distributor"];
+    draw(qrcode, "minconsumercard", qrcodeconfig["distributor"]["logo"]);
 
 });
 

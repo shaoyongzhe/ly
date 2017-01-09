@@ -30,12 +30,26 @@
     float: right;
 }
 
+table.notify tr td,
+table.notify > tr > td > span,
+table.modulePeople tr td,
+table.modulePeople > tr > td > span
+{
+    max-width: 300px; /*要显示文字的宽度*/
+    overflow: hidden; /*超出的部分隐藏起来。*/
+    white-space: nowrap; /*不显示的地方用省略号...代替*/
+    text-overflow: ellipsis; /* 支持 IE */
+}
+
+
+
 .input-contorl
 {
     display: inline-block;
     margin-right: 20px;
     margin-bottom: 20px;
 }
+
 
     .input-contorl input,
     .input-contorl select,
@@ -106,6 +120,11 @@
     {
         display: block;
     }
+
+.Hui-iconfont.on + .handle-btns-wrap
+{
+    display: block;
+}
 
 .handle-btns-wrap
 {
@@ -222,13 +241,14 @@ body > i
 
 td .content
 {
-    width: 300px;
+    width: 200px;
     font-size: 12px;
     display: block;
     margin: 0 auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 
 textarea.content
