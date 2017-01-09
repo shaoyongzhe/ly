@@ -2072,11 +2072,8 @@ $('.saveToDb, .shenhe').click(function(){
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),
-	        // contentType: "application/json",
-	        // contentType: "application/json; charset=utf-8",
-			/*beforeSend: function (x) {
-	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
-	        },*/
+	        contentType: "application/json; charset=utf-8",
+			
 	        complete: function () {},
 	        timeout: function () {},
 	        success: function (returnedData) {
