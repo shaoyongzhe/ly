@@ -108,7 +108,7 @@
 	    /*background-color: #bbb;*/
 	}	
 	.handle-icon.on + .handle-btns-wrap {
-	    display: block;
+	    display: table;
 	}	
 	.handle-btns-wrap {
 	    display: none;
@@ -583,6 +583,7 @@ $('table').on("click",".handle-btns .modify",function(){
 		  area: ['90%',"80%"],
 		  maxmin: true,
 	      content: 'json/index.html',     
+	      scrollbar: false,
 	})
 })
 //启用
@@ -684,6 +685,7 @@ function btnAdd(){
 		  title: '新增',
 		  area: ["622px","90%"],
 		  maxmin: true,
+		  scrollbar: false,
 	      content: 'add.html', //显示内容，绑定对象，我发现绑定元素有margin，就会影响某些参数，如下面tips	     
 	})
 //	window.location.href='json/index.html';			
@@ -818,8 +820,8 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 				+"<td>"+td[i].secondlevel+"</td>"				
 				+"<td>"+td[i].thirdlevel+"</td>"
 				+"<td>"+td[i].fourthlevel+"</td>"
-				+"<td class='tdContent' title='"+ccc+"'><span class='text-overflow' style='width:100px;display:inline-block'>"+ccc+"</span></td>"
-				+"<td class='tdDescription' title='"+td[i].description+"'><span class='text-overflow' style='width:100px;display:inline-block'>"+td[i].description+"</span></td>"
+				+"<td class='tdContent' ><span class='text-overflow' style='width:100px;display:inline-block'>"+ccc+"</span></td>"
+				+"<td class='tdDescription' ><span class='text-overflow' style='width:100px;display:inline-block'>"+td[i].description+"</span></td>"
 				// +"<td>"+td[i].description+"</td>"//1213日修改为上侧
 				+"<td>"+td[i].version+"</td>"
 				// +"<td style='display:none'>"+td[i].state+"</td>"
@@ -828,7 +830,13 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 				if(data.readonly==1){
 					tr+="<td></td>"
 				}else{
-					tr+="<td><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>&#xe67f;</i></div><div class='handle-btns-wrap' style='width:-186px'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn modify'>修改</span>"
+					tr+="<td><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>&#xe67f;</i></div><div class='handle-btns-wrap' style='";
+					if(kkk=="未启用"){//目前先指定死宽度
+						tr+="width:182px"
+					}else{
+						tr+="width:128px"
+					}					
+					tr+="'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn modify'>修改</span>"
 					if(kkk=="未启用"){
 						tr+="<span class='btn open'>启用</span>"
 					}					
@@ -1034,6 +1042,7 @@ $(".pagesTbodyLong").on("click",".tdContent",function(){
 		  	type: 2,
 		 	closeBtn: 1,
 			shadeClose: true,
+			scrollbar: false,
 			success:function(){
 				layer.getChildFrame('body').find("#treeEditor").css("display","none");
 				layer.getChildFrame('body').find("#codeEditor").css("width","99%");	
@@ -1055,6 +1064,7 @@ $(".pagesTbodyLong").on("click",".tdContent",function(){
 			// skin: 'yourclass',
 		 	content: $(this).find("span").text(),
 		 	area:'80%',
+		 	scrollbar: false,
 		});	
 	}	
 })
@@ -1072,6 +1082,7 @@ $(".pagesTbodyLong").on("click",".tdDescription",function(){
 		  // skin: 'yourclass',
 		  content: $(this).find("span").text(),
 		  area: '80%',
+		  scrollbar: false,
 		  title:""
 		});	
 	}	

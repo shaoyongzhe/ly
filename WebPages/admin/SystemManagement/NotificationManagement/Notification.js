@@ -1,5 +1,5 @@
 // 导航切换
-var domailUrl = "";
+var domailUrl = "http://127.0.0.1:40008";
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
@@ -51,13 +51,13 @@ function getList(curr, handle, searchForm) {
 		td = data.content;
         for (var i = 0; i < td.length; i++) {
             var isHtml;
-            var contentFormat = "";
-            try {
-                var obj = JSON.parse(td[i].content);
-                contentFormat = JSON.stringify(obj, null, 4);
-            } catch (e) {
-                contentFormat = td[i].content;
-            }
+            var contentFormat = td[i].content;
+            //try {
+            //    var obj = JSON.parse(td[i].content);
+            //    contentFormat = JSON.stringify(obj, null, 4);
+            //} catch (e) {
+            //    contentFormat = td[i].content;
+            //}
             tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
 			+ "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
@@ -191,7 +191,7 @@ function getModulePeopleList(curr, handle, searchForm) {
 $(".search-btn").click(function () {
     layer.msg('正在查询...', { time: 20 });
     getList(1, 'search', getSearchForm());
-    });
+});
 //重置
 $(".reset-btn").click(function () {
     $('.search-area .gateway_templateid').val("");
@@ -238,10 +238,6 @@ function getOptionsValue() {
                 "category": firstType
             };
             _ajax("get", domailUrl + '/webapi/operation/notification/dict/subcategory', jsonData, "获取场景对应事件", function (data) {
-                //if (data.error) {
-                //    layer.msg('查询出错，出错原因：' + data.error);
-                //    return;
-                //}
                 for (var key in data) {
                     $('.second-type, .secondtype').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
                 }
@@ -345,17 +341,6 @@ $(".add").click(function () {
 });
 // 新增提交
 $('.add-btn').click(function () {
-    //var addForm = {
-    //    gateway_templateid: $('.addForm .gateway_templateid').val(),//外部模板编号
-    //    category: $('.addForm .firsttypeInput').val().trim() == "" ? $('.addForm .firsttype').find("option:selected").text() : $('.addForm .firsttypeInput').val().trim(),//场景
-    //    subcategory: $('.addForm .secondtypeInput').val().trim() == "" ? $('.addForm .secondtype').find("option:selected").text() : $('.addForm .secondtypeInput').val().trim(),
-    //    channel: $('.addForm .thirdAllType').find("option:selected").text().trim(),
-    //    groupname: $('.addForm .fourthtypeInput').val().trim() == "" ? $('.addForm .fourthtype').find("option:selected").text() : $('.addForm .fourthtypeInput').val().trim(),
-    //    content: $('.addForm .content').val(),
-    //    description: $('.addForm .description').val(),
-    //    area: "北京,北京,海淀",
-    //    isdefault: $('.addForm .isDefault').val()
-    //}
     var addForm = {
         gateway_templateid: $('.addForm .gateway_templateid').val(),//外部模板编号
         category: $('.addForm .firsttype').find("option:selected").text(),//场景
@@ -367,8 +352,6 @@ $('.add-btn').click(function () {
         area: getDistrict($("#loc_province").find("option:selected").text(), $("#loc_city").find("option:selected").text(), $("#loc_county").find("option:selected").text()),
         isdefault: parseInt($('.addForm .isDefault').val())
     }
-    //console.log(addForm);
-    //return;
     if (addForm.category == "-- 请选择 --") {
         layer.msg('请选择或输入场景');
         return;
@@ -389,9 +372,6 @@ $('.add-btn').click(function () {
         layer.msg('请输入正文内容');
         return;
     }
-    // console.log(addForm);
-    // return;
-    // var content = $('textarea.content');
     try {
         var obj = JSON.parse(addForm.content);
         var html = "";
@@ -401,24 +381,17 @@ $('.add-btn').click(function () {
             html = html.replace(/[>]/g, "&gt;");
             // html = html.replace(/[']/g,"");
             html = html.replace(/[ ]/g, "&nbsp;");
-            // console.log(html);//return
             obj[key] = html;
         }
         var str = $.trim(JSON.stringify(obj));
         addForm['content'] = str;
-        // content.removeClass('border-warn');
-        // return;
     } catch (e) {
         layer.msg('内容区域请输入JSON格式的数据！');
-        // content.addClass('border-warn');
-        // return;
     }
     $('.layui-layer-close').click();
     layer.msg('正在新增...', { time: 0 });
     console.log(addForm);
     _ajax("POST", domailUrl + "/webapi/operation/notification/template", addForm, '新增', function () {
-        // var cur = $('.laypage_curr').text();
-        // getList(cur,'add');
         getList(1, 'add');
     });
 });
@@ -462,11 +435,6 @@ $('table.notify')
                                      }
                                  }
                              }
-                             /*else {
-                                 thisTr.remove();
-                                 layer.msg("删除成功");
-                                 return;
-                             }*/
                              getList(cur, 'del');
                          });
                      });
@@ -500,13 +468,13 @@ $('table.notify')
                          state: tr.find('td:eq(7)').text(),
                          isdefault: tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0
                      };
-                     try {
-                         var contentObj = JSON.parse(data.content);
-                         data.content = contentObj;
-                     } catch (e) {
-                         console.log(e);
-                         //alert("测试使用" + data.content);
-                     }
+                     //try {
+                     //    var contentObj = JSON.parse(data.content);
+                     //    data.content = contentObj;
+                     //} catch (e) {
+                     //    console.log(e);
+                     //    //alert("测试使用" + data.content);
+                     //}
                      var jsonStr = JSON.stringify(data, null, 4);
                      $('#add').val(jsonStr);
                      $('#opType').val("notify");
