@@ -118,6 +118,8 @@
     <script type="text/javascript" src="/consumer/js/lib/lib.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script src="/consumer/js/lib/weixinshare-qrcode.js"></script>
     <script src="/consumer/js/ticket_common.js"></script>
     <script type="text/javascript" src="/consumer/js/cs-danhd-detail.js"></script>
@@ -303,7 +305,7 @@
                     } else if (activitytype == "ticket") {
                         wxjsshare($.extend({}, _wxoldjsshare, _wxjsshare.ticket, { sharetype: "ticket" }));
                     }
-                    qrcode.show()
+                    qrcode.show();
                     //shareticke(jsondata.share)
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

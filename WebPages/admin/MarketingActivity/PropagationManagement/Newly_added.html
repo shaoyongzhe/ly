@@ -143,10 +143,11 @@
 			    ,choose: function(datas){
 			      end.min = datas; //开始日选好后，重置结束日的最小日期
 			      end.start = datas //将结束日的初始值设定为开始日
-			    },
-			    elem: this, 
-			    istime: true, 
-			    format: 'YYYY-MM-DD hh:mm:ss'
+			    }
+			    // ,
+			    // elem: this, 
+			    // istime: true, 
+			    // format: 'YYYY-MM-DD hh:mm:ss'
 			  };
 			  var end = {
 			    min: laydate.now()
@@ -172,6 +173,11 @@ $(function(){
 
 	$('.Graphic_message div input:eq(0)').on('click',function(){
 		$('#LAY_demorange_s').val('');
+		$('#LAY_demorange_s').attr('disabled',true);
+	})
+	$('.Graphic_message div input:eq(1)').on('click',function(){
+		// $('#LAY_demorange_s').val('');
+		$('#LAY_demorange_s').attr('disabled',false);
 	})
 })
 	</script>
