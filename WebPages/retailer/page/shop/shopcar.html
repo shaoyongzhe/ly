@@ -8,6 +8,37 @@
 <link href="../../css/shopcar.css" type="text/css" rel="stylesheet" />
 
 <script type="text/javascript" src="../../js/jquery.js"></script>
+<script src="../../js/retailerid.js"></script>
+<script>
+	$(document).ready(function(){
+		$.get("/webapi/account/login/test-2-135-1",{},function(){},false);  
+    	$.ajax({
+    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
+	    	async:true,
+	    	cache:false,
+	        dataType:"json",
+	        type:"get",
+	        error:function(){alert("网络出错")},
+	        success:function(data1){
+	        		
+	        		sendId(data1)
+	        }
+    	})
+    	function sendId(data1){
+			$.ajax({
+				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/"+data1[0]["distributor_id"]+"?isvalid=0",
+				dataType:"json",
+				type:"get",
+				error:function(){alert("网络出错")},
+				success:function(){
+					alert(1)
+				}
+			})   		
+    	}
+
+		
+	})
+</script>
 </head>
 
 <body>
@@ -22,23 +53,23 @@
 		<div class="intr">
 			<div>满减</div><div>奥斯卡的技术可垃圾打算看了大家按时打算的撒的撒的撒打算撒开了的紧身裤垃圾袋</div>
 		</div>
-		<div class="list">
-			<span class="gouxuan lt"></span>
-			<div class="conh">
-				<img src="../../image/shop/p7.png" />
-				<div class="yuu">
-					<img src="../../image/shop/temp.jpg" />
-					<div>sd卡睡了多久撒娇大三了几点撒离开的健康索拉卡几点</div>
-					<p>230-465卷</p>
-					<p class="pp1">￥20.90</p>
-					<p class="intail">
-						<span>￥18.50</span>
-						<span>x15</span>
-					</p>
+			<div class="list">
+				<span class="gouxuan lt"></span>
+				<div class="conh">
+					<img src="../../image/shop/p7.png" />
+					<div class="yuu">
+						<img src="../../image/shop/temp.jpg" />
+						<div>sd卡睡了多久撒娇大三了几点撒离开的健康索拉卡几点</div>
+						<p>230-465卷</p>
+						<p class="pp1">￥20.90</p>
+						<p class="intail">
+							<span>￥18.50</span>
+							<span>x15</span>
+						</p>
+					</div>
 				</div>
+	
 			</div>
-
-		</div>
 		<div class="disc" id="disc">
 			<span>降价</span>
 			<span>7.5折</span>
