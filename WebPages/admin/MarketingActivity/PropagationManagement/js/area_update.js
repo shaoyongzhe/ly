@@ -20,7 +20,7 @@ $('.region-wrap').on('click', '.x', function() {
 
 $('.area_Update').on('click', function() {
 
-	$('.region-wrap').empty();
+	// $('.region-wrap').empty();
 
     // alert(1)
 	layer.open({
@@ -393,9 +393,7 @@ function dataLoad() {
 				_this.closest('.region-item').find('em:contains('+ selectedshi +')').closest('.city-wrap').remove();
 				_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'></div></div>");
 			}
-
 		});
-
 	});
 
 
@@ -702,7 +700,6 @@ $('.area-list .save').click(function() {
 
 	var areaObj = {};
 		areaObj["area"] = [];
-
 	var provArr = [];
 	var provObj = {};
 	$('.region-item').each(function(){
