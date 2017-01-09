@@ -34,7 +34,7 @@ function suppermarketactivitylist(container) {
                 '</div>',
             '</a>',
             '<a href="participateretailer_ticket.html?activity_id=${item.guid}">',
-            '{@if item.topicdata==undefined||item.topicdata.length==0 }',
+            '{@if item.topicdata==undefined||item.topicdata.activityid==undefined }',
                 '<div class="joinmd blx">',
             '{@else}',
                 '<div class="joinmd">',
@@ -42,11 +42,11 @@ function suppermarketactivitylist(container) {
                     '投放门店：<font>${item.retailercount}</font>家<span><img src="/distributor/image/icon04.png" /></span>',
                 '</div>',
             '</a>',
-            '{@if item.topicdata!=undefined&&item.topicdata.length>0 }',
-                '<div class="assetinfobj">  <a href="javascript:;" class="assetcontent">',
-                ' <p class="asset_money">${item.budget.subsidytotal}</p>',
-                ' <div class="asset_left"> <nobr>${item.topicdata[0].topictitle + (item.topicdata.length>1?"等活动":"")}</nobr> </div>',
-                ' <div class="asset_right"> <small>已参加</small>${item.topicdata[0].headcount}<small>人</small></div>',
+            '{@if item.topicdata!=undefined}',
+                '<div class="assetinfobj">  <a href="${testclick(item.topicdata)}" class="assetcontent">',
+                '<div class="assetimg"> <p>${item.topicdata.budget.subsidytotal}</p></div>',
+                ' <div class="asset_left"> <nobr>${item.topicdata.topiclist[0].topic.activitytitle + (item.topicdata.topiclist.length>1?"等活动":"")}</nobr> </div>',
+                ' <div class="asset_right"> <small>已参加</small>${item.topicdata.budget.obtained}<small>人</small></div>',
                 ' </a> </div>',
            '{@/if}',
         '</div>',
@@ -107,6 +107,15 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
     });
 }
 $(function () {
+
+    juicer.register("testclick", function (item) {
+        var topicid = ""
+        $.each(item.topiclist, function (index, item, array) {
+            topicid += "," + item.activityid
+        });
+        return "../page/active.html?topicid=" + topicid.substring(1)
+    });
+
     common.loading.show();
     var fans = new invitationfans("container");
     fans.render();
