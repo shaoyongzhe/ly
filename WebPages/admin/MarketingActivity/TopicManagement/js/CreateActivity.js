@@ -1746,7 +1746,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        "responsible_second_name": basic.find('.fzr2 .selected').text()
 	    },
 	    "area_condition": [],
-	    "sponser": $('.edit-area.condition .radio.on').attr("name")
+	    "sponsor": $('.edit-area.condition .radio.on').attr("name")
 	}
 
 	// 参与会员（会员类型 + 条件类型）
