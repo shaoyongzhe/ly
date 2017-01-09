@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-04 11:23:23
+ * @Last Modified time: 2017-01-09 13:32:42
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -640,127 +640,185 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         });
 });
 
-// 保存
-//  $(".Preservation").click(function() {
-//         // var audit = $('.examine').find('input').val();
-//         if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
-//             var a = 1;
-//         } else {
-//             var a = 0;
-//         }
-//         if ($('.send_object dir').find('div:eq(1) img').hasClass('xiyin_son') == true) {
-//             var b = 1;
-//         } else {
-//             var b = 0;
-//         }
-//         if ($('.send_object dir').find('div:eq(2) img').hasClass('xiyin_son') == true) {
-//             var c = 1;
-//         } else {
-//             var c = 0;
-//         }
-//         if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
-//             var d = 1;
-//         } else {
-//             var d = 0;
-//         }
-//         if ($('input[name="Fruit"]:checked').val()) {
-//             var e = 1;
-//         } else {
-//             var e = 0;
-//         }
-//          // 最后判断单选框
-//         var radio_val = $('input[name="Fruit"]:checked').val();
-//            if(radio_val==undefined){
-//             layer.msg('请选择图文发送方式');
-//             return;
-//            };
 
-//         var time_val = $('.date').val();
-//             if(radio_val=='bindwithperiodpush'){
-//                 var e  = 1;
-//                 // var time_val = new Date();
-//                 // var time_val='跟随每周推送消息一同推送';
-//             }else if(radio_val=='pushtime_supplier'){
-//                 if(time_val==''){
-//                     layer.msg('请选择时间');
-//                     return;
-//                 };
-//             };
+    $(".Preservation").click(function() {
+        // var audit = $('.examine').find('input').val();
+        if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+            var a = 1;
+        } else {
+            var a = 0;
+        }
+        if ($('.send_object dir').find('div:eq(1) img').hasClass('xiyin_son') == true) {
+            var b = 1;
+        } else {
+            var b = 0;
+        }
+        if ($('.send_object dir').find('div:eq(2) img').hasClass('xiyin_son') == true) {
+            var c = 1;
+        } else {
+            var c = 0;
+        }
+        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+            var d = 1;
+        } else {
+            var d = 0;
+        }
+        if ($('input[name="Fruit"]:checked').val()) {
+            var e = 1;
+        } else {
+            var e = 0;
+        }
+        
+         if($('.area_val').val()==''){
+            if($('.word').text()==0){
+                  layer.msg('请输入文案标题');
+                  layer.tips('请输入文案标题','#wordCount', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+                  return;
+            }
+            if ($('.region-item').length==0) {
+            layer.msg('请选择地区');
+            layer.tips('请选择地区','.area', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+            }
+        }
+        var time_time = $('.date').val();
+            if(time_time==undefined){
+                time_time=='';
+            }
+        var radio_val1 = $('input[name="Fruit"]:checked').val();
+            if(radio_val1=='pushtime_supplier'){
+                 var e = undefined;
+                }else{
+                    var e =1;
+                }
+
+
+        var pic1_url = $('#preview img').attr('src');
+        var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
+        var form_value = {
+            state: "draft",
+            optype: "draft",
+            service: srvice_val,
+            belong_group: $('.input-text').find('option:selected').text(),
+            area: JSON.stringify(JSON.parse($('.area_val').val()).area),
+            // area = JSON.stringify(area); 
+            push_distributor: a,
+            push_consumer: b,
+            push_retailer: c,
+            category: d,
+            poster_url: pic_url,
+            copywriting: JSON.stringify($('.mode textarea').val()),
+            bindwithperiodpush: e,
+            pushtime: time_time
+        }
+        // console.log(typeof(form_value.area[0]));
+        // form_value.area = JSON.stringify(form_value.area);
+        if (form_value.service == "") {
+            layer.msg('请输入文案标题');
+            layer.tips('请输入文案标题','#wordCount', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+
+         if ($('.region-item').length==0) {
+            layer.msg('请选择地区');
+            layer.tips('请选择地区','.area', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+        if (form_value.push_distributor == 0 && form_value.push_consumer== 0 && form_value.push_retailer== 0) {
+            layer.msg('请选择发送对象');
+            layer.tips('请选择发送对象','.send_object', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+
+        if (form_value.category == "") {
+            // layer.msg('请选择发送方式');
+            layer.tips('请选择发送方式','.mode1', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+
+        if (form_value.poster_url == undefined || form_value.poster_url =='') {
+            // layer.msg('请选择封面图片');
+            layer.tips('请选择封面图片','.cover_photo', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
         
 
-//         var pic1_url = $('#preview img').attr('src');
-//         var form_value = {
-//             state: $('.content_information .state').val(),
-//             optype: "draft",
-//             service: $('#textarea_value').val(),
-//             belong_group: $('.input-text').find('option:selected').text(),
+        if (form_value.copywriting.length==2) {
+            // layer.msg('请填写发送内容');
+            layer.tips('请填写发送内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+         // 最后判断单选框
+        var radio_val = $('input[name="Fruit"]:checked').val();
+           if(radio_val==undefined){
+            // layer.msg('请选择图文发送方式');
+             layer.tips('请选择图文发送方式','.Graphic_message', {
+                  tips: [3, '#F22525'],
+                  time: 4000
+                });
+            return;
+           };
+        // var myDate = new Date()
+        var time_val = $('.date').val();
+            if(radio_val=='bindwithperiodpush'){
+                var e  = 1;
+                // $('#LAY_demorange_s').val('');
+                // var time_val = myDate.getDate();
+                // var time_val='跟随每周推送消息一同推送';
+            }else if(radio_val=='pushtime_supplier'){
+                if(time_val==''){
+                    // layer.msg('请选择时间');
+                    layer.tips('请选择时间','#LAY_demorange_s', {
+                      tips: [3, '#F22525'],
+                      time: 4000
+                    });
+                    return;
+                };
+            };
+        // if (form_value.bindwithperiodpush == "") {
+        //     layer.msg('请选择图文消息发送时间');
+        //     return;
+        // }
+        // if (form_value.pushtime_supplier == "") {
+        //     layer.msg('请选择发送方式');
+        //     return;
+        // }
+        //  if (form_value.pushtime == "") {
+        //     layer.msg('请选择时间');
+        //     return;
+        // }
+        $('.layui-layer-close').click();
 
-//             area:JSON.stringify(JSON.parse($('.area_val').val()).area),
-//             // area = JSON.stringify(area); 
-//             push_distributor: a,
-//             push_consumer: b,
-//             push_retailer: c,
-//             category: d,
-//             poster_url: pic_url,
-//             copywriting: $('.mode textarea').val(),
-//             bindwithperiodpush: e,
-//             pushtime: time_val
-//                 // audit:audit
-//         }
-//         // console.log(typeof(form_value.area[0]));
-//         // form_value.area = JSON.stringify(form_value.area);
-//         if (form_value.service == "") {
-//             layer.msg('请输入文案标题');
-//             return;
-//         }
+        layer.msg('正在保存...', { time: 2000 });
 
-//          if ($('.region-item').length==0) {
-//             layer.msg('请选择地区');
-//             return;
-//         }
-
-//        if (form_value.push_distributor == 0 && form_value.push_consumer== 0 && form_value.push_retailer== 0) {
-//             layer.msg('请选择发送对象');
-//             return;
-//         }
-
-//         if (form_value.category == "") {
-//             layer.msg('请选择发送方式');
-//             return;
-//         }
-
-//         if (form_value.poster_url == '') {
-//             layer.msg('请选择封面图片');
-//             return;
-//         }
-
-//         if (form_value.copywriting == "") {
-//             layer.msg('请填写发送内容');
-//             return;
-//         }
-
-//         if (form_value.bindwithperiodpush == "") {
-//             layer.msg('请选择图文消息发送时间');
-//             return;
-//         }
-//         if (form_value.pushtime_supplier == "") {
-//             layer.msg('请选择发送方式');
-//             return;
-//         }
-//          if (form_value.pushtime == "") {
-//             layer.msg('请选择时间');
-//             return;
-//         }
-//         $('.layui-layer-close').click();
-
-//         layer.msg('正在新增...', { time: 2000 });
-
-//         _ajax("POST", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
-//             layer.msg('保存成功');
-//             $(".Preservation").unbind("click");
-//         });
-// });
-
+        _ajax("POST", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+            layer.msg('保存成功',{time:1500});
+        });
+});
 
     var _ajax = function(type, url, data, tip, success) {
         // console.log(JSON.stringify(data, null, 4));
