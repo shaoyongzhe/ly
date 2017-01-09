@@ -348,7 +348,7 @@ function fnwgjb() {
     var opt="";
     $.ajax({
         type: "get",
-        url: "http://127.0.0.1:40008/webapi/operation/1/breakruleslevels",
+        url: "/webapi/operation/1/breakruleslevels",
         data: "",
         success: function(data){
             $(".cgl-jzz").hide();
