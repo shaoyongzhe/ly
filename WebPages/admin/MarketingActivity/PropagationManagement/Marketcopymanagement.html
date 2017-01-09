@@ -253,6 +253,7 @@
 				<div class="_button">	
 					<button class="examine1_close">关闭<input type="hidden"></button>	
 					<button class="examine1_preview">预览<input type="hidden"></button>	
+					<button class="examine1_Preservation">保存<input type="hidden"></button>	
 					<button class="examine1">保存并提交审核<input type="hidden" value="audit"></button>
 					<button class="examine1_Newly_added">保存并继续新增<input type="hidden" value="audit"></button>
 					
@@ -365,7 +366,7 @@ $(function(){
 	selectCity();
 
 	$('.length_val').on('keyup',function(){
-		if($(this).val().length==65){layer.msg('文按标题字数已上限')}
+		if($(this).val().length==65){layer.msg('文案标题字数已上限')}
 	});
 
 
