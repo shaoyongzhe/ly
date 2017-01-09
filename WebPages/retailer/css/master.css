@@ -89,7 +89,12 @@ a,input{
 .icon-iconfontjianjie:before { content: "\e60e"; }
 .icon-xuexi:before { content: "\e607"; }
 
-
+.ad{
+	width:100%;border-top:8px solid #f1f2f6;border-bottom:8px solid #f1f2f6;
+}
+.emp{
+	padding:5px 12px;font-size: 1.5rem;
+}
 #conn{
 	display:flex
 }
@@ -201,7 +206,7 @@ section .remarks{
 	flex:1;text-align: right;color:#666
 }
 .discount{
-	width:100%;
+	width:100%;padding: 5px 0;
 }
 .discount-tit{
 	border-radius: 15%;border:1px solid #009f96;width:2.6rem;font-size: 1.2rem;text-align: center;color:#009f96;display: inline-block;
