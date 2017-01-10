@@ -593,7 +593,7 @@ function getcheckactivityshistory() {
                             activity_list_data += "    <div class='tabcont-cont-one per7 lineheight20'>" + distributor.address + "</div>";
                             activity_list_data += "        <div class='tabcont-cont-one per8 lineheight20'>" + activity.checktime + "</div>";
                             activity_list_data += "    <div class='tabcont-cont-one per9 lineheight20 '>" + activity.checkby + "</div>";
-                            activity.endtime = "2016-12-31 00:00:00";//测试可以重新审核
+                            //activity.endtime = "2016-12-31 00:00:00";//测试可以重新审核
                             if (activity.approveresult == "succeed") {
                                 activity_list_data += "<div class='tabcont-cont-one per10 lineheight20 sh-tongguo' style='height: 150px;' guid=" + activity.guid + ">";
                                 activity_list_data += "    <img src='../web_images/icon08.png'>通过 ";

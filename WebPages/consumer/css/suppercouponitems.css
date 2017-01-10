@@ -561,7 +561,9 @@
 .taocan hr {
     border-color: #f1ca60;
 }
-.weui_actionsheet {background-color:inherit !important;
+
+.weui_actionsheet {
+    background-color: inherit !important;
 }
 
 .weui_article h1 {
@@ -571,44 +573,61 @@
 }
 
 .weui_article p {
-    margin: 5px 0 !important; font-size:14px !important
+    margin: 5px 0 !important;
+    font-size: 14px !important;
 }
-.weui_article {padding: 10px 15px !important;
+
+.weui_article {
+    padding: 10px 15px !important;
 }
-    .weui_article h3 {    font-size: 15px !important;
+
+    .weui_article h3 {
+        font-size: 15px !important;
     }
-.weui_article section {
-    margin-bottom: 0.8em !important;
+
+    .weui_article section {
+        margin-bottom: 0.8em !important;
+    }
+
+.assetinfo {
+    width: calc(100% - 35px);
+    height: 40px;
+    background: url(/consumer/image/asset_consumer.png) no-repeat;
+    background-size: 100% 40px;
+    line-height: 40px;
+    padding: 0 15px 0 20px;
+    color: #fff;
 }
-   .assetinfo {
-            width: calc(100% - 35px);
-            height: 40px;
-            background: url(/consumer/image/asset_consumer.png) no-repeat;
-            background-size: 100% 40px;
-            line-height: 40px;
-            padding: 0 15px 0 20px;
-            color: #fff;
+
+    .assetinfo .asset_left {
+        width: calc(100% - 90px);
+        float: left;
+        height: 40px;
+        color: #fff;
+        font-weight: bold;
+    }
+
+        .assetinfo .asset_left .topictitle {
+            max-width: calc(100% - 40px);
+            overflow: hidden;
+            text-wrap: none;
+            text-overflow: ellipsis;
+            float: left;
         }
 
-            .assetinfo .asset_left {
-                width: calc(100% - 90px);
-                float: left;
-                height: 40px;
-                color: #fff;
-                font-weight: bold;
-                overflow: hidden;
-                text-wrap: none;
-                text-overflow: ellipsis;
-            }
+        .assetinfo .asset_left .topictitle_1 {
+            width: 40px;
+            float: left;
+        }
 
-            .assetinfo .asset_right {
-                width: 90px;
-                float: left;
-                height: 40px;
-                color: #fff;
-                text-align: right;
-            }
+    .assetinfo .asset_right {
+        width: 90px;
+        float: left;
+        height: 40px;
+        color: #fff;
+        text-align: right;
+    }
 
-                .assetinfo .asset_right small {
-                    font-size: 11px;
-                }
+        .assetinfo .asset_right small {
+            font-size: 11px;
+        }

@@ -475,9 +475,6 @@ $.ajax({
 	url: "/webapi/ipaloma/topic/config",
 	async: true,
 	success: function(data) {
-		// laji = data;
-
-		// c(data)
 
 		// console.log("success");
 		//控件1会员活动条件
@@ -499,9 +496,9 @@ $.ajax({
 		var hm = "";
 		for (i = 0; i < dca_1.length; i++) {
 			if (dca_1[i].localtype == "买赠") {
-				hm += '<div class="bor hi selectWrap2"><span class="diSpan"><label for="acLabel1" class="acCoRaMzla">买</label></span><input id="acLabel1" class="acCoRaMzip" type="text" value="3"/><span class="diSpansa">:</span><span><label class="acCoRaMzla" for="acLabel2">赠</label></span><input id="acLabel2" class="acCoRaMzip" type="text" value="2"/><input type="text" value="3"><input type="text" value="2"></div>'
+				hm += '<div class="bor hi selectWrap2"><span class="diSpan"><label for="acLabel1" class="acCoRaMzla">买</label></span><input id="acLabel1" class="acCoRaMzip" type="text" value=""/><span class="diSpansa">:</span><span><label class="acCoRaMzla" for="acLabel2">赠</label></span><input id="acLabel2" class="acCoRaMzip" type="text" value=""/><input type="text" value=""><input type="text" value=""></div>';
 			} else { //不考虑有礼					
-				hm += '<div class="bor hi selectWrap2"><input class="bor diInput" type="text" value="20"/><span class="diSpan por">%</span></div>'
+				hm += '<div class="bor hi selectWrap2"><input class="bor diInput" type="text" value=""/><span class="diSpan por">%</span></div>'
 			}
 		}
 		$(".addSub1 .acCoRa").append(hm);
