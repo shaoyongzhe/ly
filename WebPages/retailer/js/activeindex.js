@@ -6,7 +6,7 @@
 function fnurl () {
 	var ourl=decodeURI(window.location.search.replace("?",""));
 	if(ourl!=""){
-		console.log(JSON.parse(ourl))
+		//console.log(JSON.parse(ourl))
 		var url1=JSON.parse(ourl);
 		return url1;
 	}
@@ -40,11 +40,6 @@ function fnscroll() {
 }
 //菜单点击事件
 function fnclick() {
-/*    $(".cgl-menu>li").on("click",function () {
-        console.log(1)
-        $(this).addClass("clion").siblings().removeClass("clion");
-    })
-*/    
     var Accordion = function(el, multiple) {
 		this.el = el || {};
 		this.multiple = multiple || false;
@@ -53,22 +48,34 @@ function fnclick() {
 		var links = this.el.find('.link');
 		// Evento
 		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+		
+		var submenu=this.el.find('.submenu');
+		submenu.on("click","li",function () {
+			submenu.find("li").removeClass("col1");
+			$(this).addClass("col1");
+		})
 	}
-
 	Accordion.prototype.dropdown = function(e) {
 		var $el = e.data.el;
 			$this = $(this),
 			$next = $this.next();
 
-		$next.slideToggle();
+		$next.stop().slideToggle(300);
+		$el.find(">li").removeClass('clion');
 		$this.parent().addClass('clion');
-
-/*		if (!e.data.multiple) {
-			$el.find('.submenu').not($next).slideUp().parent().removeClass('clion');
+		$el.find(".link>i").show();
+		$this.find("i").hide();
+		if (!e.data.multiple) {
+			$el.find('.submenu').not($next).slideUp(300);
 		};
-*/	}	
-
+	}	
 	var accordion = new Accordion($('#cgl-menu'), false);
+}
+//二级菜单点击事件
+function fnerji () {
+	$(".sanji").on("click",function () {
+		$(".sanji-zi",this).toggle().show;
+	});
 }
 //动态设置cgl-cont的高度
 function fnmenuhei(){
@@ -98,7 +105,7 @@ function fncarnum(){
 function fnmenu () {
 	$.ajax({
         type: "get",
-      	//url: "/webapi/distributor/5ce1d14e07534139ae7774d8983f04f3/customer/57839d2ad6424786bd3c319585f2088e/itemtypegroups",
+      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/itemtypegroups",
       	url: "../../data/menu.json",
         data: "",
         timeout:"2000",
@@ -114,9 +121,11 @@ function fnmenu () {
         	console.log(data)
         	var oli="";
         	for(var k1 in data){
-        		
+        		oli+="<li><div class='link'>"+data[k1]["suppliername"]+"</div>"+
+        		"</li>";
         	}
-        	//$("#cgl-contlist").find("ul").html(oli);
+        	$("#cgl-menu").append(oli);
+        	fnclick();
         }
     });
 }
@@ -125,7 +134,7 @@ function fnmenu () {
 function fnhqactive () {
 	$.ajax({
         type: "get",
-      	//url: "/webapi/distributor/5ce1d14e07534139ae7774d8983f04f3/customer/57839d2ad6424786bd3c319585f2088e/activity",
+      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/activity",
       	url: "../../data/activeindex.json",
         data: {
         	"lastcount":0,
@@ -183,13 +192,13 @@ function fnhqactive () {
 
 $(function () {
 	fnurl();
-	//fnxrym();
+	fnxrym();
     fnscroll();
-    fnclick();
+    
     fnmenuhei();
     fncarnum();
     fnmenu();
     fnhqactive();
-    
+    fnerji();
 });
 

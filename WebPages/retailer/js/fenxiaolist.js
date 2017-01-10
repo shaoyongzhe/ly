@@ -4,8 +4,13 @@
 
 
 
+//获取Id
 
+function getid(){
+	return "57839d2ad6424786bd3c319585f2088e";
+}
 
+//底部菜单点击效果
 function fnfooterclick() {
     $("footer").on("click","div",function () {
         if($(this).find("ul").attr("class")=="on"){
@@ -25,10 +30,10 @@ function fnfooterclick() {
 function fngetlist() {
     $.ajax({
         type: "get",
-      	url: "/webapi/distributor/57839d2ad6424786bd3c319585f2088e/distributors",
+      	url: "/webapi/distributor/"+getid()+"/distributors",
       	//url: "../../data/fenxiaolist.json",
         data:"",
-        timeout:"1000",
+        timeout:"3000",
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
         	if(textStatus=="timeout"){
@@ -43,6 +48,8 @@ function fngetlist() {
             var ceng2=null;
             var ceng3=null;
             var thissp={
+            	distributor_id:null,
+            	shopid:getid(),
             	distributorname:null,
             	distributorimg:null,
             	contactperson:null,
@@ -53,6 +60,7 @@ function fngetlist() {
             };
             for(var k1 in data){
             	ceng1=data[k1];
+            	thissp.distributor_id=ceng1["distributor_id"];
             	thissp.distributorname=ceng1["distributorname"];
             	thissp.distributorimg=ceng1["distributorimg"];
             	thissp.contactperson=ceng1["contactperson"];
