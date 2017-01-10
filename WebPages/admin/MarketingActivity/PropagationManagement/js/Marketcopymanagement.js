@@ -59,7 +59,7 @@
 //                 df.pagesize = pagesize;
 //                 $.ajax({
 //                     type: 'get',
-//                     url: 'http://127.0.0.1:40007/webapi/ipaloma/propagation?parameters=' + JSON.stringify(df),
+//                     url: '/webapi/ipaloma/propagation?parameters=' + JSON.stringify(df),
 //                     dataType: 'json',
 //                     beforeSend: function() {
 //                         $('.dropload-load').css('display', 'block');
@@ -284,7 +284,7 @@ function getList(curr, handle, searchForm) {
 
             $.ajax({
                 type: "get",
-                url: "http://127.0.0.1:40007/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
+                url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
                 dataType: "json",
                 beforeSend: function() {
                     $('.search-btn').attr('disabled', true);
@@ -576,7 +576,7 @@ $('table.notify').on('click', '.handle-btns .del', function() {
         // window.localStorage.clear();
         // layer.msg('删除成功');
         // return;
-        _ajax("delete", 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '', null, '删除失败', function() {
+        _ajax("delete", '/webapi/ipaloma/propagation/' + guid + '', null, '删除失败', function() {
             var cur = $('.laypage_curr').text();
             if (cur) {
                 if ($('table.notify tbody tr').length == 1) {
@@ -627,7 +627,7 @@ $('table.notify').on('click', '.exm', function() {
         currentstate: realstate,
         optype: "audit"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
         getList(1, 'exm', getSearch());
     });
 });
@@ -670,7 +670,7 @@ $('table.notify').on('click', '.Reject', function() {
         currentstate: realstate,
         optype: "auditfail"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '驳回失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '驳回失败', function() {
         getList(1, 'Reject', getSearch());
     });
 });
@@ -711,7 +711,7 @@ $('table.notify').on('click', '.adopt', function() {
         currentstate: realstate,
         optype: "auditsuccess"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '审核失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '审核失败', function() {
         getList(1, 'adopt', getSearch());
     });
 });
@@ -752,7 +752,7 @@ $('table.notify').on('click', '.release', function() {
         currentstate: realstate,
         optype: "release"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
         getList(1, 'release', getSearch());
     });
 });
@@ -764,7 +764,7 @@ $('table.notify').on('click', '.release', function() {
         time: 2000
     });
 
-    _ajax("get", "http://127.0.0.1:40007/webapi/ipaloma/propagation/{'" + guid_val + "'}/release", '发布失败', function() {
+    _ajax("get", "/webapi/ipaloma/propagation/{'" + guid_val + "'}/release", '发布失败', function() {
         getList(1, 'released', getSearch());
 
     })
@@ -776,7 +776,7 @@ function previewImage(file) {
     var form = new FormData($('form')[0]);
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:40007/webapi/ipaloma/propagation/upload/imgupload",
+        url: "/webapi/ipaloma/propagation/upload/imgupload",
         data: form,
         xhr: function() {
             return $.ajaxSettings.xhr();
@@ -872,7 +872,7 @@ $('table.notify').on('click', '.modify', function() {
     var picture = tr.find('.imgUrl').val();
     $.ajax({
         type: "get",
-        url: 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/detail',
+        url: '/webapi/ipaloma/propagation/' + guid + '/detail',
         dataType: "json",
         // data: data,
         // 获取地区放到隐藏域
@@ -1121,7 +1121,7 @@ $('.examine1').on('click', function() {
 
     // form_value.area = JSON.stringify(form_value.area);
     layer.msg('正在提交');
-    _ajax('put', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/', form_value, '修改失败', function() {
+    _ajax('put', '/webapi/ipaloma/propagation/', form_value, '修改失败', function() {
         getList(1, 'release', getSearch());
     })
 })
@@ -1486,7 +1486,7 @@ $('.examine1_Newly_added').on('click', function() {
             time: 2000
         });
 
-        _ajax("put", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+        _ajax("put", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
             layer.msg('保存成功，请继续填写', {time: 1500});
             // window.location.reload();
 
@@ -1653,7 +1653,7 @@ $('.examine1_Preservation').on('click', function() {
             time: 2000
         });
 
-        _ajax("put", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+        _ajax("put", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
             layer.msg('保存成功', {time: 1500});
              // window.history.back();
              $('.layui-layer-close').click();
@@ -1715,7 +1715,7 @@ $('table.notify').on('click', '.detailed', function() {
     // 	})
     $.ajax({
         type: "get",
-        url: 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/detail',
+        url: '/webapi/ipaloma/propagation/' + guid + '/detail',
         dataType: "json",
         // data: data,
         success: function(data_text) {
@@ -1872,7 +1872,7 @@ $(document).on('click', '.D_examine', function() {
         currentstate: realstate,
         optype: "audit"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
         getList(1, 'exm', getSearch());
     });
 });
@@ -1908,7 +1908,7 @@ $(document).on('click', '.D_send', function() {
         currentstate: realstate,
         optype: "release"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
         getList(1, 'release', getSearch());
     });
 });

@@ -453,7 +453,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         // }+
         $('.layui-layer-close').click();
         layer.msg('正在新增...', { time: 2000 });
-        _ajax("POST", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '提交错误', function() {
+        _ajax("POST", "/webapi/ipaloma/propagation", form_value, '提交错误', function() {
             window.history.back();
         });
     })
@@ -634,7 +634,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         layer.msg('正在保存...', { time: 2000 });
 
-        _ajax("POST", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+        _ajax("POST", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
             layer.msg('保存成功，请继续填写',{time:1500});
             window.location.reload();
         });
@@ -815,7 +815,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         layer.msg('正在保存...', { time: 2000 });
 
-        _ajax("POST", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+        _ajax("POST", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
             layer.msg('保存成功',{time:1500});
         });
 });
@@ -849,7 +849,7 @@ function previewImage(file) {
     var form = new FormData($('form')[0]);
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:40007/webapi/ipaloma/propagation/upload/imgupload",
+        url: "/webapi/ipaloma/propagation/upload/imgupload",
         data: form,
         xhr: function() {
             return $.ajaxSettings.xhr();
