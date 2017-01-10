@@ -408,6 +408,7 @@ function fnwgjb() {
 function fncaozuo() {
 	var attr = "";
 	$("tbody").on("click", ".cgl-td13", function() {
+		$("#cgl-table").find("input:checkbox").prop("checked",false);
 		var td12 = $(this).parents("tr").find(".cgl-td12").html();
 		$(".cgl-td13").html("");
 		attr = "";
@@ -784,15 +785,15 @@ function querenwg_add(putdata) {
 }
 //全选单选事件
 function fnchec() {
-	$("#checall").on("click", function() {
+	$("#cgl-table").on("click","#checall", function() {
 		if($(this).prop("checked") == true) {
-			$(".thechec").prop("checked", true);
+			$(".thechec","#cgl-table").prop("checked", true);
 		} else {
-			$(".thechec").prop("checked", false);
+			$(".thechec","#cgl-table").prop("checked", false);
 		}
 	});
-	$(".thechec").on("click", function() {
-		if($(".thechec:checked").length == $(".thechec").length) {
+	$("#cgl-table").on("click",".thechec",function() {
+		if($(".thechec:checked","#cgl-table").length == $(".thechec","#cgl-table").length) {
 			$("#checall").prop("checked", true);
 		} else {
 			$("#checall").prop("checked", false);
