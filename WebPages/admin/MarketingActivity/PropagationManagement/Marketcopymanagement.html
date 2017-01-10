@@ -247,7 +247,7 @@
 					<span for='datepicker'>发送时间</span>
 					<div class="ck" style="display: inline-block;cursor: pointer; width: 14px;border-radius: 50%;height: 14px;border:1px solid #999999;margin-left:55px;margin-top: 4px;" name="fen" value="pushtime_supplier"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" height="8" width="11" alt=""></div><a style=" text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;"></a>
 
-					<input type="text" value="" class="input-text date" id="data_time" onclick="layui.laydate({elem: this, festival: true,format: 'YYYY-MM-DD'})">
+					<input type="text" value="" class="input-text date" id="data_time" onclick="laydate({elem:'#data_time',min: laydate.now(),max: laydate.now(+100000)});">
 					<span class="custom">*选择自定义以后，占用本地区会员消息推送一次</span></div>
 				</div>
 				<div class="_button">	
@@ -319,43 +319,38 @@
 <!-- <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/> -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> -->
 <!-- <script src="js/Datepicker/jquery.ui.datepicker-zh-CN.js" type="text/javascript"></script> -->
-<script src="layui-v1.0.2/layui-v1.0.2/layui/layui.js"></script>
+<!-- <script src="layui-v1.0.2/layui-v1.0.2/layui/layui.js"></script> -->
+<script type="text/javascript" src="laydate/laydate.js"></script>
 <script type="text/javascript">
-layui.use('laydate', function(){
-  var laydate = layui.laydate;
-  
-  var start = {
-    min: laydate.now(-1000)
-    ,max: '2099-06-16 23:59:59'
-    ,istoday: true
-    ,choose: function(datas){
-      end.min = datas; //开始日选好后，重置结束日的最小日期
-      end.start = datas //将结束日的初始值设定为开始日
-    }
-  };
-  
-  var end = {
-    min: laydate.now()
-    ,max: '2099-06-16 23:59:59'
-    ,istoday: true
-    ,choose: function(datas){
-      start.max = datas; //结束日选好后，重置开始日的最大日期
-    }
- //    ,
-	// elem: this, 
-	// istime: true,
-	// format: 'YYYY-MM-DD hh:mm:ss'
-			
-  };
-  document.getElementById('serverBeginTime').onclick = function(){
-    start.elem = this;
-    laydate(start);
+
+var start = {
+  elem: '#serverBeginTime',
+  event: 'focus',
+  format: 'YYYY/MM/DD',
+  min: laydate.now(), //设定最小日期为当前日期
+  max: '2099-06-16 23:59:59', //最大日期
+  // istime: true,
+  istoday: false,
+  choose: function(datas){
+     end.min = datas; //开始日选好后，重置结束日的最小日期
+     end.start = datas //将结束日的初始值设定为开始日
   }
-  document.getElementById('serverEndTime').onclick = function(){
-    end.elem = this
-    laydate(end);
+};
+var end = {
+  elem: '#serverEndTime',
+  event: 'focus',
+  format: 'YYYY/MM/DD',
+  min: laydate.now(),
+  max: '2099-06-16 23:59:59',
+  // istime: true,
+  istoday: false,
+  choose: function(datas){
+    start.max = datas; //结束日选好后，重置开始日的最大日期
   }
-});
+};
+laydate(start);
+laydate(end);
+ 
 
 //返回顶层
 $(function(){
