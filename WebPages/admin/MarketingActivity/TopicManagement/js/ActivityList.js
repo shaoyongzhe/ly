@@ -321,10 +321,8 @@ $(document).on("click",".activityList thead .checkBox",function(){
 	$(this).toggleClass("on");
 	if($(this).hasClass("on")){
 		$(".activityList tbody .checkBox").addClass("on");
-//		console.log(1)
 	}else{
 		$(".activityList tbody .checkBox").removeClass("on");
-//		console.log(2)
 	}
 	
 })
