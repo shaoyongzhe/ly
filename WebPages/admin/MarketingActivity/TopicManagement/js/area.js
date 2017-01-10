@@ -360,16 +360,14 @@ function dataLoad() {
 
 	// 选择全国
 	$('.quanguo').click(function(){
+		// debugger
 		if($(this).is(":checked")){
 			// alert(1);
 			$('.area-list :checked').not(this).prop('checked',false);
 			$('.area-list li.on').removeClass('on');
-			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em>全国</em><i class="x">×</i></span></div></div></div>');
+			$('.region-item').remove();
 			$('.Select_province1').empty();
 			$('.Select_province2').empty();
-		} else {
-			// alert(2);
-			$('.region-wrap').empty();
 		}
 	});
 
@@ -827,7 +825,6 @@ function dataLoad() {
 
 	function getDistrictHtml(){
 		var xian = "";
-
 		var qxObj = {};
 		$('.Select_province2 li :checkbox').each(function() {
 			if ($(this).is(":checked") == true) {
@@ -883,7 +880,7 @@ $('.area-list .save').click(function() {
 	$('.region-item').each(function(){
 		var _this = $(this);
 
-		debugger
+		// debugger
 		var sheng = _this.find('.provice span em').text();
 		var shengfzr = _this.find('.charge > span em').attr('shengfzr');
 
@@ -941,25 +938,7 @@ $('.area-list .save').click(function() {
 
 	// console.log(JSON.stringify(areaObj, null, 4));
 	$('#area-data').val(JSON.stringify(areaArr, null, 4));
-	// "area_condition": [
-	//       [
-	//           {
-	//               "charge": "",
-	//               "name": "",
-	//               "city": [
-	//                   {
-	//                       "charge": "",
-	//                       "name": "",
-	//                       "country": []
-	//                   }
-	//               ]
-	//           }
-	//       ]
-	// ],
-
-	// return;
 	$('.layui-layer-close').click();
-
 
 });
 
@@ -977,10 +956,10 @@ $('.zhiding').click(function(){
 	$(this).toggleClass('on');
 	if($(this).hasClass('on')){
 		// debugger
-		var sheng = $('.Select_province li input:checked').closest('li').stop().slideUp(300).clone(true).addClass('clone');
+		var sheng = $('.Select_province li input:checked').closest('li').stop().slideUp().clone(true).addClass('clone');
 		$(sheng).prependTo('.Select_province');
 
-		var shi = $('.Select_province1 li input:checked').closest('li').stop().slideUp(300).clone(true).addClass('clone');
+		var shi = $('.Select_province1 li input:checked').closest('li').stop().slideUp().clone(true).addClass('clone');
 		$(shi).prependTo('.Select_province1');
 
 
@@ -989,8 +968,8 @@ $('.zhiding').click(function(){
 		
 		$('.Select_province li.clone').remove();
 		$('.Select_province1 li.clone').remove();
-		$('.Select_province li').stop().slideDown(300);
-		$('.Select_province1 li').stop().slideDown(300);
+		$('.Select_province li').stop().slideDown();
+		$('.Select_province1 li').stop().slideDown();
 
 		
 	}

@@ -26,7 +26,7 @@ $(function(){
 });
 
 
-document.onkeypress = showKeyPress;
+/*document.onkeypress = showKeyPress;
 function showKeyPress(evt) { 
     evt = (evt) ? evt : window.event 
     // document.title = evt.keyCode;
@@ -54,7 +54,7 @@ function showKeyPress(evt) {
     // }
 
     // return false 
-} 
+} */
 // init();
 
 //图片上传
@@ -72,28 +72,17 @@ function previewImage(file) {
         cache: false,
         contentType: false,
         processData: false,
-        // timeout: function () {alert(1)},
         success: function(data) {
-            //console.warn(data.picture_url);
-			// console.log(file);
-
-			// debugger
-            // pic_url = data.picture_url;
-            // console.log(pic_url);
-            // alert(pic_url);
-            layer.msg("上传中...",{time:2000})
+            layer.msg("上传中...",{time:2000});
             setTimeout("$('.area.edit .haibao-wrap img').attr('src', '"+ data.picture_url +"');layer.msg('上传成功')",2000);
-
         },
-
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function() {
             console.log("上传 error");
         }
 
     });
 
 	// debugger
-
 	/*// 判断图片类型
     var type_val = $('#fileid').val();
 	if(type_val==""){
@@ -676,6 +665,7 @@ $(document).on('click','.check, .radio',function(){
 		if($(this).hasClass('on')){
 			$(this).removeClass('on');
 			$(this).closest('.butie-item').find('.butie-inner-item .check.buTie').removeClass('on');
+			$(this).closest('.butie-item').find('input').val("");
 		} else {
 			$(this).addClass('on');
 			$(this).closest('.butie-item').find('.butie-inner-item .check.buTie').addClass('on');
@@ -816,7 +806,7 @@ $("body").on("click",".option",function(e){
 	if($(this).closest('.member-type').length==1){
 		// alert('会员类型');
 
-		if(text == '消费者'){
+		/*if(text == '消费者'){
 			var ul = _this.closest('.addSub2').find('.acZige1 .select');
 			$(ul).find('li:contains(核销人数)').hide();
 			$(ul).find('li:contains(惠粉数)').hide();
@@ -826,7 +816,19 @@ $("body").on("click",".option",function(e){
 			$(ul).find('li:contains(核销人数)').show();
 			$(ul).find('li:contains(惠粉数)').show();
 			$(ul).find('li:contains(粉丝留存率)').show();
-		}
+		}*/
+
+		var arr = $(this).attr("conditiontype").split(',');	
+		var li = _this.closest('.addSub2').find('.acZige1 .option');
+		$(li).each(function(){
+			// console.log($(this).text());
+			$(this).hide();
+			for(i=0;i<arr.length;i++){
+				if($(this).text()==arr[i]){
+					$(this).show();
+				}
+			}
+		});
 
 		if(text == _this.parent().prev().text()){
 			_this.parent().hide().prev().text(text);
@@ -1746,20 +1748,20 @@ $('.saveToDb, .shenhe').click(function(){
 	        "responsible_second_name": basic.find('.fzr2 .selected').text()
 	    },
 	    "area_condition": [],
-        "sponser": sponser,
+        "sponser": $('.edit-area.condition .radio.on').attr('name')
 	}
 
 
 	// 2.参与活动条件
-	var condition = $('.condition'),
-		sponser = $('.edit-area.condition .radio.on').text();
+	// var condition = $('.condition'),
+		// sponser = $('.edit-area.condition .radio.on').text();
 
 	// 参与会员（会员类型 + 条件类型）
 	$('.member-type .selected').each(function(){
 		var _this = $(this),
 			memberType = _this.text();
-			// alert(memberType)
-			// console.log(memberType)
+			// alert(memberType);
+			// console.log(memberType);
 		// var memberRangeMin = _this.closest('.member').find('.acMe .selectWrap1.-hi .acMeI1').val(),
 		// memberRangeMax = _this.closest('.member').find('.acMe .selectWrap1.-hi .acMeI2').val();
 		// console.log("memberRangeMin: "+ memberRangeMin + ' memberRangeMax: ' + memberRangeMax);
@@ -1845,10 +1847,16 @@ $('.saveToDb, .shenhe').click(function(){
 
 	function getCondItemData( _self, memberType, conditionType ){
 		var acPrev = _self.parents('.addSub3').find('.acZige2 .selected').text();
+		
+		var curDate = _self.parents('.addSub3').find('.acZige3 input.date').val();
+		var begintime = "";
 		if(acPrev == "活动开始前"){
-			var curDate = _self.parents('.addSub3').find('.acZige3 input.date').val(),
-				begintimeInput = $('.begintime').val().substring(0,10),
+			if($('.select-wrap.acSe7 .selected').text() == "天"){
+				begintimeInput = $('.begintime').val().substring(0,10);
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
+			} else {
+				begintime = new Date(new Date().setMonth((new Date().getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+			}
 		}
 
 		var operator = _self.parents('.addSub3').find('.acZige4 .selected').text();
@@ -1861,12 +1869,14 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 
 		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
+		var statisticrange = _self.parents('.addSub3').find('.select-wrap.acSe6 .selected').text();
 		data[memberType][conditionType] = {
 			"state": "active",
 			"min" : min,
 			"operator": operator,
 			"max" : max,
-			"begintime" : begintime
+			"begintime" : begintime,
+			"statisticrange" : statisticrange
 		}
 
 	}
@@ -1900,8 +1910,8 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 
 		var item = {          
-			"state": "active",                              
-	    	"activitytype": activitytype, 
+			"state": "active",                
+	    	"activitytype": activitytype,
 	        "retailer_count" : {"min": ra_min, "max": ra_max}, 
 	        "discount":{"min":min, "operator": operator, "max" : max}
 	        // "state":""

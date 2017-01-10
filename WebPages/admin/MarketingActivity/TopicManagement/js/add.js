@@ -181,6 +181,20 @@ function acAdC() {
 
 	$("body").on("click", ".acZige .acAd4", function(e) {
 		$(this).closest(".acZige").append(addsub3HTML);
+		$(this).closest(".addSub2").find('.member-type .option').each(function(){//根据按钮向上找到控件2，然后以此向下找到控件2中的option
+			//下面代码和createActivity1中完全一致
+			var arr=$(this).attr("conditiontype").split(',');			
+			var li =$(this).closest('.addSub2').find('.acZige1 .option');
+			$(li).each(function(){
+				// console.log($(this).text());		
+				$(this).hide();
+				for(i=0;i<arr.length;i++){
+					if($(this).text()==arr[i]){
+						$(this).show();
+					}
+				}
+			})
+		});
 		$(this).closest(".acZige").find(".acAd3").css({
 			"visibility": "visible",
 			"cursor": "pointer"
@@ -512,7 +526,7 @@ $.ajax({
 		}
 		$(".section2 .sponsor").append(hm);
 		if (distributorBol == false) { //若无分销商，则第一个选中
-			$(".section2 .sponsor").find("span").eq(0).addClass("on")
+			$(".section2 .sponsor").find("span").eq(0).addClass("on");
 		}
 
 		//控件2参与会员
@@ -520,7 +534,8 @@ $.ajax({
 		//会员类型
 		$(".addSub2 .acSe4 .select").empty();
 		for (i = 0; i < dsm_1.length; i++) {
-			$(".addSub2 .acSe4 .select").append('<li class="option" name="' + dsm_1[i].type + '" type="' + dsm_1[i].type + '" restrictcount="' + dsm_1[i].restrictcount + '">' + dsm_1[i].localtype + '</li>');
+			$(".addSub2 .acSe4 .select").append('<li class="option" name="'+dsm_1[i].type+'" type="'+dsm_1[i].type+'" restrictcount="'+dsm_1[i].restrictcount+'" conditiontype="'+dsm_1[i].conditiontype+'">'+dsm_1[i].localtype+'</li>');
+
 		}
 		//参加名额
 		$(".addSub2 .acMe").empty();
@@ -583,6 +598,8 @@ $.ajax({
 				dss_2c[i].unit = "元/次";
 			} else if (dss_2c[i].unit == "分") {
 				dss_2c[i].unit = "分/次";
+			} else if (dss_2c[i].unit == "张") {
+				dss_2c[i].unit = "元/张";
 			} else if (dss_2c[i].unit == "") {
 				dss_2c[i].unit = "我是链接点击我，我是链接点击我";
 			}
@@ -602,8 +619,10 @@ $.ajax({
 				//范围值,防止日后接口变化，所以不用上面的addSub4Arr,
 				if (dss_2c[i].unit == "元") {
 					dss_2c[i].unit = "元/次";
-					// }else if(dss_2c[i].unit=="分"){
-					// dss_2c[i].unit="分/次";
+				}else if(dss_2c[i].unit=="分"){
+					dss_2c[i].unit="分/次";
+				}else if(dss_2c[i].unit=="张"){
+					dss_2c[i].unit="元/张";
 				} else if (dss_2c[i].unit == "") {
 					dss_2c[i].unit = "我是链接点击我，我是链接点击我";
 				} else if (dss_2c[i].unit == undefined) { //处理谢谢参与
