@@ -26,7 +26,7 @@ $(function(){
 });
 
 
-document.onkeypress = showKeyPress;
+/*document.onkeypress = showKeyPress;
 function showKeyPress(evt) { 
     evt = (evt) ? evt : window.event 
     // document.title = evt.keyCode;
@@ -53,8 +53,8 @@ function showKeyPress(evt) {
     // 	$('nav span:eq(3)').click();
     // }
 
-    // return false 
-} 
+    // return false;
+}*/
 // init();
 
 //图片上传
@@ -427,30 +427,74 @@ var fwmax;
 var count = 10;
 // $('.section3').off('click');
 $('.section3').on('click','.setgailv.on',function(){
+	var _this = $(this);
+
+	var addSub4 = _this.closest('.addSub4');
+	if(addSub4.find('.hdc3 .selected').text().indexOf('随机') != -1){
+		if(addSub4.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
+			// debugger
+			layer.tips('请先填写最小范围', addSub4.find('.hdc4d1.-hi input.hdc4In1'));
+			// addSub4.find('.selected').focus();
+			finished = false;
+			return false;
+		}
+		if(addSub4.find('.hdc4d1.-hi input.hdc4In2').val() == ""){
+			// debugger
+			layer.tips('请先填写最大范围', addSub4.find('.hdc4d1.-hi input.hdc4In2'));
+			// addSub4.find('.selected').focus();
+			finished = false;
+			return false;
+		}
+
+	} else {
+		if(addSub4.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
+			// debugger
+			layer.tips('请先填写值', addSub4.find('.hdc4d1.-hi input.hdc4In1'));
+			// addSub4.find('.selected').focus();
+			finished = false;
+			return false;
+		}
+	}
+
+	if(addSub4.find('.hdc5 input').val() == ""){
+		// debugger
+		layer.tips('请先填写发放上限次数', addSub4.find('.hdc5 input'));
+		// addSub4.find('.selected').focus();
+		finished = false;
+		return false;
+	}
+	if(addSub4.find('.sbys').val() == ""){
+		// debugger
+		layer.tips('请先填写申报预算', addSub4.find('.sbys'));
+		// addSub4.find('.selected').focus();
+		finished = false;
+		return false;
+	}
+
 	
 	$('.setProbability .yaoyiyaogailv').remove();
 
 	// debugger;
-	if($(this).closest('.addSub4').length == 1){
-		index = $(this).closest('.addSub4').index();
+	if(_this.closest('.addSub4').length == 1){
+		index = _this.closest('.addSub4').index();
 		// alert(index);
 
-		$(this).find('.gl').remove();
-		$(this).append('<input type="hidden" class="gl glHidden'+ index +'">');
+		_this.find('.gl').remove();
+		_this.append('<input type="hidden" class="gl glHidden'+ index +'">');
 
-		fwmin = parseInt($(this).closest('.addSub4').find('.hdc4In1').val());
-		fwmax = parseInt($(this).closest('.addSub4').find('.hdc4In2').val());
+		fwmin = parseInt(_this.closest('.addSub4').find('.hdc4In1').val());
+		fwmax = parseInt(_this.closest('.addSub4').find('.hdc4In2').val());
 
-	} else if($(this).closest('.addSub5').length == 1) {	// 摇一摇设置概率
-		yglindex = $(this).closest('.addSub5').index();
+	} else if(_this.closest('.addSub5').length == 1) {	// 摇一摇设置概率
+		yglindex = _this.closest('.addSub5').index();
 		// alert(index);
-		$(this).find('.ygl').remove();
-		$(this).append('<input type="hidden" class="ygl yglHidden'+ yglindex +'">');
+		_this.find('.ygl').remove();
+		_this.append('<input type="hidden" class="ygl yglHidden'+ yglindex +'">');
 		// return;
 		$('.setProbability').append('<i class="yaoyiyaogailv"></i>');
 	}
 
-	var btfz = $(this).closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
+	var btfz = _this.closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
 	$('.value_curve .number_doller em').text(btfz);
 
 	layer.open({
@@ -630,7 +674,10 @@ $('body.create').on('input','input',function(e){
 	if(isNaN(this.value)){
         layer.msg("请输入数字");
         $(this).val("");
-        return;
+
+    } else {
+    	// debugger
+    	$(this).val(parseInt($(this).val()))
     }
 
     // debugger
@@ -685,7 +732,7 @@ $(document).on('click','.check, .radio',function(){
 	}
 
 
-	$(this).toggleClass('on').siblings().removeClass('on');
+	$(this).addClass('on').siblings().removeClass('on');
 
 });
 
@@ -779,7 +826,7 @@ $("body").on("click",".option",function(e){
 	if($(this).closest('.activity').length==1){
 		// alert('活动类型');
 		// getSelected(_this, text);
-		debugger
+		// debugger
 		if(text == _this.parent().prev().text()){
 			_this.parent().hide().prev().text(text);
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
@@ -816,7 +863,7 @@ $("body").on("click",".option",function(e){
 	if($(this).closest('.member-type').length==1){
 		// alert('会员类型');
 
-		if(text == '消费者'){
+		/*if(text == '消费者'){
 			var ul = _this.closest('.addSub2').find('.acZige1 .select');
 			$(ul).find('li:contains(核销人数)').hide();
 			$(ul).find('li:contains(惠粉数)').hide();
@@ -826,7 +873,19 @@ $("body").on("click",".option",function(e){
 			$(ul).find('li:contains(核销人数)').show();
 			$(ul).find('li:contains(惠粉数)').show();
 			$(ul).find('li:contains(粉丝留存率)').show();
-		}
+		}*/
+
+		var arr=$(this).attr("conditiontype").split(',');			
+		var li = _this.closest('.addSub2').find('.acZige1 .option');
+		$(li).each(function(){
+			// console.log($(this).text());		
+			$(this).hide();
+			for(i=0;i<arr.length;i++){
+				if($(this).text()==arr[i]){
+					$(this).show();
+				}
+			}
+		});
 
 		if(text == _this.parent().prev().text()){
 			_this.parent().hide().prev().text(text);
@@ -898,7 +957,6 @@ $("body").on("click",".option",function(e){
 		return;
 	}
 
-	//统计范围
 	// console.log(this)
 	if($(this).closest('.acZige2')){
 		// alert(4);
@@ -1304,10 +1362,10 @@ $('.saveToDb, .shenhe').click(function(){
 
 		var finished = true;
 
-		if($('.section1 .activitytitle').val() == ""){
+		if($('.section1 .activityTitle').val() == ""){
 			$("nav span").eq(0).click();
-			layer.tips('请先填写活动主题', $('.activitytitle'));
-			$('.activitytitle').focus();
+			layer.tips('请先填写活动主题', $('.section1 .activityTitle'));
+			$('.section1 .activityTitle').focus();
 			return;
 		}
 		if($('.section1 .quhao').val() == ""){
@@ -2067,8 +2125,11 @@ $('.saveToDb, .shenhe').click(function(){
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),
+	        // contentType: "application/json",
 	        contentType: "application/json; charset=utf-8",
-			
+			/*beforeSend: function (x) {
+	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
+	        },*/
 	        complete: function () {},
 	        timeout: function () {},
 	        success: function (returnedData) {
