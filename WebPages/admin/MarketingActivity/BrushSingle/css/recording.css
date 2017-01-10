@@ -86,17 +86,16 @@ i,em,span,label{
 }
 .cgl-wgui{
     position: relative;
-    width: 128px;
     height: 16px;
     border: 1px solid #ddd;
-    padding: 5px;
+    padding: 5px 30px 5px 5px;
     font-size: 12px;
     cursor: pointer;
 }
 .cgl-wgui strong{font-weight: 100;}
 .cgl-wgui>ul{
     display: none;
-    width: 138px;
+    width: 100%;
     border: 1px solid #ddd;
     position: absolute;
     left: -1px;
@@ -277,8 +276,9 @@ select::-ms-expand { display: none; }
 #cgl-tbody tr:hover{background: #f1f1f1;}
 .cgl-td1{width: 3%;}
 .cgl-td2{width: 10%;}
-.cgl-td3{width: 10%;}
-.cgl-td4{width: 13%;}
+.cgl-td3{width: 6%;}
+.cgl-td4{width: 8%;}
+.cgl-td41{width: 10%;}
 .cgl-td5{width: 5%;}
 .cgl-td6{width: 5%;}
 .cgl-td7{width: 10%;}
@@ -329,10 +329,11 @@ select::-ms-expand { display: none; }
     text-align: center;
     color: #999;
     font-size: 12px;
-    position: fixed;
-    bottom: 30px;
+    line-height: 60px;
+    margin-top: -60px;
 }
 #shuamon,#koumon{padding-left: 20px;}
+#koumon{margin-bottom: 10px;}
 #shuamon>div,#koumon>div{display: inline-block;color: #ff6032;font-size: 20px;}
 #shuamon>div>span,#koumon>div>span{font-size: 12px;}
 #shua,#kou{margin-right: 12px;}
@@ -342,6 +343,12 @@ select::-ms-expand { display: none; }
 
 .layui-layer>.layui-layer-title{margin: 0 20px;background-color: #fff;border-bottom: 1px solid #ddd;padding-left: 0;color: #4c83db;}
 .layui-layer-content>ul{padding: 34px 90px;}
+.layui-layer{max-height: 90%;overflow-y: auto;}
+.layui-layer::-webkit-scrollbar{
+    width:0;
+    height:0;
+}
+
 .layui-layer-content>ul>li{overflow: hidden;}
 .layui-layer-content>ul h4{float: left;margin-right: 60px;font-weight: 100;}
 .cgl-li1>h4{line-height: 1;}
@@ -350,7 +357,8 @@ select::-ms-expand { display: none; }
 .cgl-li2{padding: 18px 0;}
 .cgl-li2>span{float: left;margin-right: 20px;}
 .cgl-li2>p{float: left;color: red;}
-.cgl-li3{padding: 0 0 36px;}
+.cgl-li3{padding: 0 0 20px;}
+.cgl-li6{padding: 0 0 36px;}
 .cgl-li3>p{float: left;}
 .cgl-li4{margin-bottom: 10px;}
 #cgl-li4ul{background: #f7f7f7;padding: 10px 3px;}
@@ -404,7 +412,7 @@ select::-ms-expand { display: none; }
 .cgl-antz>.layui-layer-close{position: relative;}
 
 /*****************加载中********************/
-.cgl-jzz{display: none; width: 150px;height: 50px;background: #333;opacity: 0.7; color: #fff;position: fixed;top:50%;left: 50%;text-align: center;line-height: 50px;border-radius: 5px;z-index: 100000000000;}
+.cgl-jzz{display: none; width: 150px;height: 50px;background: rgba(80,80,80,0.8); color: rgba(255,255,255,1);;position: fixed;top:50%;left: 50%;text-align: center;line-height: 50px;border-radius: 5px;z-index: 100000000000;}
 
 
 
