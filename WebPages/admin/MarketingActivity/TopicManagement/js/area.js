@@ -912,7 +912,7 @@ $('.area-list .save').click(function() {
 				});
 
 				cityObj = {
-					// "state": "active",
+					"state": "active",
 					"charge": JSON.parse(shengfzr),
 					"name": shi,
 					"country": quxianArr
@@ -925,6 +925,7 @@ $('.area-list .save').click(function() {
 			provObj = {
 				"charge": JSON.parse(shengfzr),
 				"name": sheng,
+                "state": "active",
 				"city": cityArr
 			}
 		}
