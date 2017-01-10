@@ -17,6 +17,7 @@
   	var _timer="";
   	var _price=0;
   	var height=0;
+  	var _add=0;
   	(function dd(){
   			height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
   			$("#select").css("height",height);
@@ -120,6 +121,7 @@ function shopList(pg){
 				   	}
 				   	_historyList="<dt>历史订单</dt>"+_historyList;
 				   	_shopList="<dt>进行中的</dt>"+_shopList;
+				   	_historyList+="<div class="+"\"loadings\""+"style="+"\"display:block;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>"
 						$("#dl2").html(_historyList)
 						$("#dl1").html(_shopList);
 						_historyList="";
@@ -139,7 +141,8 @@ function shopList(pg){
   var _fg=1;
 	function toShop(data,pg){
 		$(".orderlistbox dd").click(function(){
-				
+				localStorage.data=JSON.stringify(_data1);
+				localStorage.data1=JSON.stringify(data)
 				location.href="details.html?"+pg+"&"+$(this).attr("id")+"&"+data["paging"]["pageindex"];
 		})
 	}
@@ -150,7 +153,9 @@ function shopList(pg){
 			console.log(JSON.stringify(data["paging"]))
 			//alert($("#container").css("height").replace("px","")-height)
 				$("#container").scroll(function(){
-					if($("#container").scrollTop()>=($(".orderlistbox").css("height").replace("px","")-height) && _fg==1){
+					if($("#container").scrollTop()>=($(".orderlistbox").css("height").replace("px","")-height+10) && _fg==1){
+
+							
 							_fg=0;
 							$.ajax({
 								 	url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging="+JSON.stringify(data["paging"]),
