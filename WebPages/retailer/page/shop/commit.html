@@ -24,45 +24,107 @@
 
   $(document).ready(function()
   {
-  		var pg=-1;
+  		var pg=0;//后续需要加js！！！！！！！！！！！！！
+  		var _list="";
+  		var _cost=0;
+  		var _send="";
+  		var _flag=0;
       	$.ajax({
-    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
+    		url:"/webapi/distributor/"+getRetailerid()+"/orderform/items?distributor_id=5ce1d14e07534139ae7774d8983f04f3",
 	    	async:true,
 	    	cache:false,
 	        dataType:"json",
 	        type:"get",
 	        error:function(){alert("网络出错")},
-	        success:function(data1){
-	        console.log(data1)
-	        	getParam(data1)
+	        success:function(data2){
+	        console.log(data2)
 				
 				
 	        }
     	})
-      function getParam(data1) {
+      function getParam(data2) {
 		pg=Number(location.search.split("&")[0].replace("?",""));
 		var commodity=location.search.split("&")[1]
-		alert(pg)
-		op(data1,pg)
+		//op(data2,pg)
     }
 	
    $.get("/webapi/account/login/test-2-135-1",{},function(data){},false);
-   function op(data1,pg){
+   function op(data2,pg){
       $.ajax({
-      url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+data1[pg]["distributor_id"]+"&paging=",
+      url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+data2[pg]["distributor_id"]+"&paging=",
       async:true,
       cache:false,
       dataType:"json",
       type:"get",
-      error:function(){alert("")},
+      error:function(){alert("网络错误")},
       success:function(data)
        {
        		console.log(data)
-			
+       		data["paging"]["pageindex"]=2;
+       		for(var i=0;i<data["content"].length;i++){
+       			if(data["content"][i]["openflag"]==1){
+       				for(var z=0;z<data["content"][i]["details"].length;z++){
+       					if(data["content"][i]["details"][z]["billid_class"]=="tblbillpofromcustomer"){
+			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><img src="+"\"../../image/icon05.png\""+
+			       			" />"+data["content"][i]["details"][z]["itemobj"]["itemname"]+"</div><div class="+"\"shop-body\""+">￥"+Number(data["content"][i]["details"][z]["itemunitcost"]*
+			       			data["content"][i]["details"][z]["qualitycount"]).toFixed(2)+
+			       			"</div><div class="+"\"number\""+"><div>"+data["content"][i]["details"][z]["itemobj"]["specification"]+data["content"][i]["details"][z]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][i]["details"][z]["qualitycount"]+"</div></div></div></div><div class="+"\"discount\""+
+			       			"><div class="+"\"discount-tit\""+">降价</div><div class="+"\"discount-con\""+">7.5折</div></div></li>"         						
+       					}else{
+       						_flag++;
+				       		if(_flag==1){
+				       			_send+="<li><div class="+"\"gg\""+">赠品</div><div class="+"\"gifto\""+">"+data["content"][i]["details"][z]["itemobj"]["itemname"]+"</div><div class="+"\"shul\""+">×"+data["content"][i]["details"][z]["qualitycount"]+"</div></li>"
+				       		}else{
+				       			_send+="<li><div class="+"\"gift\""+">"+data["content"][i]["details"][z]["itemobj"]["itemname"]+"</div><div class="+"\"shul\""+">×"+data["content"][i]["details"][z]["qualitycount"]+"</div></li>"
+				   			}
+       					}
+     					
+       				}
+       			}
+       		}
+			$.ajax({
+	   	 	    url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+data2[pg]["distributor_id"]+"&paging="+JSON.stringify(data["paging"]),
+	   	 	    async:true,
+		        cache:false,
+		        dataType:"json",
+		        type:"get",
+		        error:function(){alert("网络错误")},
+      			success:function(data1){
+      				for(var j=0;j<data1["content"].length;j++){
+      					if(data1["content"][j]["openflag"]==1){
+      						for(var b=0;b<data1["content"][j]["details"].length;b++){
+	      						if(data1["content"][j]["details"][b]["billid_class"]=="tblbillpofromcustomer"){
+					   				_list+="<li><div class="+"\"shop-con\""+"><img src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><img src="+"\"../../image/icon05.png\""+
+					       			" />"+data1["content"][j]["details"][b]["itemobj"]["itemname"]+"</div><div class="+"\"shop-body\""+">￥29.90</div><div class="+"\"number\""+"><div>"+data1["content"][j]["details"][b]["itemobj"]["specification"]+data1["content"][j]["details"][b]["itemobj"]["packagetypename"]+"</div><div>×"+data1["content"][j]["details"][b]["qualitycount"]+"</div></div></div></div><div class="+"\"discount\""+
+					       			"><div class="+"\"discount-tit\""+">降价</div><div class="+"\"discount-con\""+">7.5折</div></div></li>"
+				       			}else{
+				       				_flag++;
+				       				if(_flag==1){
+				       					_send+="<li><div class="+"\"gg\""+">赠品</div><div class="+"\"gifto\""+">"+data1["content"][j]["details"][b]["itemobj"]["itemname"]+"</div><div class="+"\"shul\""+">×"+data1["content"][j]["details"][b]["qualitycount"]+"</div></li>"
+				       				}else{
+				       					_send+="<li><div class="+"\"gift\""+">"+data1["content"][j]["details"][b]["itemobj"]["itemname"]+"</div><div class="+"\"shul\""+">×"+data1["content"][j]["details"][b]["qualitycount"]+"</div></li>"
+				       				}
+				       			}
+      						}
+      					}
+
+      				}
+      				$(".shoplist").html(_list)
+      				$("#distributorName").text(data2[pg]["distributorname"])
+      				$("#sp3").text($(".shoplist li").length)
+      				$(".kind").html(_send)
+      				_list="";
+      				_send="";
+      				$("#ss div:nth-child(2)").text()
+      				$(".load").css({display:"none"})
+      			}
+		   })
        }//ajax的success方法结束
 
 	   });  //ajax结束
+	   
    }
+   
 
 
   }); //document结束
@@ -72,7 +134,7 @@
 </head>
 
 <body >
-
+	<div class="load" style="background:#fff;width:100%;height:100%;position:absolute;z-index: 100;"><img src="../../image/shop/loading.gif" style="width:4rem;height:4rem;margin:72% 0 0 45%" /></div>
 <div class="canlendar" style="display: none;">
 	<div class="canlendarCon">
 		<div class="calTit">送货时间</div>
@@ -108,7 +170,7 @@
 		</div>
 		<div class="introd">
 			<div class="saleTm-tit" id="distributorName"><span style="display:inline-block;">接口</span></div>
-			<div class="saleTm-con">共<span id="sp3">12</span>件</div>
+			<div class="saleTm-con">共<span id="sp3"></span>件</div>
 		</div>
 		<ul class="shoplist">
 			<li>
@@ -138,14 +200,7 @@
 		</ul>
 		<div class="giveto">
 			<ul class="kind">
-				<li><div class="gg">赠品</div><div class="gifto">汤臣倍健蛋白粉 153g</div><div class="shul">×15</div></li>
-				<li><div class="gift">汤臣倍健蛋白粉 153g</div></li>
-				<li><div class="gift">汤臣倍健蛋白粉 153g</div></li>
-				<li><div class="gift">汤臣倍健蛋白粉 153g</div></li>
-				<li><div class="gift">汤臣倍健蛋白粉 153g</div></li>
-				<li><div class="gift">汤臣倍健蛋白粉 153g</div></li>
-				<li><div class="gift">汤臣倍健蛋白粉 153g</div></li>
-				<li><div class="gift">汤臣倍健蛋白粉 153g</div></li>
+
 			</ul>
 		</div>
 		<div class="same">
