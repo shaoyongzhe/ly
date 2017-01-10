@@ -1,4 +1,5 @@
-var linshi='';
+
+var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
 var statusData="";//储存statusAjax()返回的数据。
@@ -125,34 +126,19 @@ $(".queryConditionButton .query").click(function(){
 	//活动预算
 	//暂时不需要
 	console.log("点击查询了，现在可以在控制台查询变量condition")
-//	var activityTimeArea='';
-//	activityTimeArea+=$(".qC_activityTime input:eq(0)").val();
-//	activityTimeArea+='-';
-//	activityTimeArea+=$(".qC_activityTime input:eq(1)").val();	
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
 		charge:charge,
 		times:times,
-//		qC_activityTimeMin:$(".qC_activityTime input:eq(0)").val(),
-//		qC_activityTimeMax:$(".qC_activityTime input:eq(1)").val(),
 		subsidy:subsidy,
-//		qC_subsidyReleasedMin:$(".qC_subsidyReleased input:eq(0)").val(),
-//		qC_subsidyReleasedMax:$(".qC_subsidyReleased input:eq(1)").val(),
 		membercount:membercount,
-//		qC_joinVipNumberMin:$(".qC_joinVipNumber input:eq(0)").val(),
-//		qC_joinVipNumberMax:$(".qC_joinVipNumber input:eq(1)").val(),
-//		districthash:$(".qC_activityArea input").val(),
 		districthash:districthash,
-//		budget:'"'+$(".qC_activityBudget input:eq(0)").val()+'","'+$(".qC_activityBudget input:eq(1)").val()+'"',//暂且不要
-//		qC_activityBudgetMin:$(".qC_activityBudget input:eq(0)").val(),
-//		qC_activityBudgetMax:$(".qC_activityBudget input:eq(1)").val(),
 		state:state,
 	}
 	if(statusData==""){
 		layer.alert('数据加载中，请稍后重试', {icon: 1});
 		return;
-//		statusData=statusInitialData;//不建议用此，因为数据可能陈旧
 	}
 	/*活动列表*/
 	$.ajax({
@@ -160,19 +146,13 @@ $(".queryConditionButton .query").click(function(){
 		url:"/webapi/ipaloma/topic/list/query",
 		async:true,
 		data:condition,
-//		data:{
-//			times:"2015-05-04 03:02:01,2017-09-05 04:04:04"
-//		},
 		success:function(data){
-			if(data.length<1){
-				layer.alert('查询数据为空', {icon: 5});
-				return;
-			}
+		    if(data.error)
+		        layer.alert(data.error);
+
 			console.log('success')
 			linshi=data;
-			//***************接口好的时候，删除下面代码
-//			data=linshidataJson;
-			//***************接口好的时候，删除上面代码
+
 			var activityListThead='';//表格Thead
 			var activityListTbody='';//表格Tbody
 			//表格Thead
@@ -193,13 +173,14 @@ $(".queryConditionButton .query").click(function(){
 			+'</tr>';
 			$(".activityList thead").empty();
 			$(".activityList thead").append(activityListThead);
-			//表格Tbody
-			for(i=0;i<data.length;i++){	
+		    //表格Tbody
+			var contentBody = data.content;
+			for(i=0;i<contentBody.length;i++){	
 				var stateHtml='';
 				//拼按钮
 				for(var key in statusData){//暂不用for，防止数据变化还得换回for in//遍历所有的statusData
 //					console.log(statusData[key].state);
-					if(statusData[key].state==data[i].state){
+				    if (statusData[key].state == contentBody[i].state) {
 //						console.log("iff")						
 						for(j=0;j<statusData[key].ops.length;j++){
 //							debugger
@@ -237,19 +218,19 @@ $(".queryConditionButton .query").click(function(){
 				}
 				activityListTbody+='<tr>'
 				+'<td><p class="checkBox"></p></td>'
-				+'<td class="activityCode">'+data[i].activitycode+'</td>'
-				+'<td class="activitytitle">'+data[i].activitytitle+'</td>'
-				+'<td class="activityTime">'+data[i].begintime+'-'+data[i].endtime+'</td>'
-				+'<td class="activityAreaAndCharge">'+'等待字段'+'</td>'
-				+'<td class="estimateJoinVipQuantity">'+data[i].membercount+'</td>'
-				+'<td class="JoinedVipQuantity">'+data[i].alreadyinmembercount+'</td>'
+				+'<td class="activityCode">'+contentBody[i].activitycode+'</td>'
+				+ '<td class="activitytitle">' + contentBody[i].activitytitle + '</td>'
+				+ '<td class="activityTime">' + contentBody[i].begintime + '-' + contentBody[i].endtime + '</td>'
+				+ '<td class="activityAreaAndCharge">' + JointDistrict(contentBody[i]["district"]) + '</td>'
+				+ '<td class="estimateJoinVipQuantity">' + contentBody[i].membercount + '</td>'
+				+ '<td class="JoinedVipQuantity">' + contentBody[i].alreadyinmembercount + '</td>'
 //				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
 //				+='<td><p class="approvalBudget">1</p><p class="_status">2</p>'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
 //				+='<td class="provideSubsidy">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
-				+'<td class="state">'+data[i].state+'</td>'
+				+ '<td class="state">' + contentBody[i].state + '</td>'
 				//具体的操作内容见
 				+'<td class="edit last"><img src="img/iconss1.png" alt="" /><div class="menu"><div class="menuArrow"></div><div class="menuContent">'+stateHtml+'</div></div></td>'
-				+'<td style="display:none;">'+data[i].guid+'</td>'
+				+ '<td style="display:none;">' + contentBody[i].guid + '</td>'
 				+'</tr>';
 			}			
 			$(".activityList tbody").empty();
@@ -314,6 +295,17 @@ function statusAjax(){
 		}
 	});
 }
+
+/*区域信息拼接*/
+function JointDistrict(districts)
+{
+    var queryResult = $.Enumerable.From(districts)
+    .Select(function (x) { return x["name"] })
+    .ToArray();
+    return queryResult.join(" - ");
+    
+}
+/**/
 
 /*新增按钮*/
 $(".addButton").click(function(){

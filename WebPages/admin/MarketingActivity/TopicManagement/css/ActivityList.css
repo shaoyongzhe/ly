@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*通用样式*/
 .displayNone {
   display: none; }
@@ -248,7 +248,7 @@ button {
   margin-left: 15px; }
 
 /*table*/
-.activityList table {
+.activityList {
   width: 100%; }
 
 .activityList table img {
