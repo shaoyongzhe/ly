@@ -255,9 +255,10 @@
                             <div class="clear"></div>
                         </ul>
                         <div class="assetinfo" ms-if="item.topiclist.length>0">
-                            <a href="javascript:;" class="assetcontent">
+                            <a href="javascript:;" class="assetcontent" ms-click="topicClick(item)">
                                 <div class="asset_left">
-                                    <nobr>{{item.topiclist[0].topictitle}}{{item.topiclist.length>1?'等活动':''}}</nobr>
+                                    <div class="topictitle"><nobr>{{item.topiclist[0].topictitle}}</nobr></div>
+                                    <div class="topictitle_1"><small>{{item.topiclist.length>1?'等活动':''}}</small></div>
                                 </div>
                                 <div class="asset_right">
                                     <small>已参加</small>{{item.topiclist[0].headcount}}<small>人</small>
@@ -637,6 +638,14 @@
                     var url = wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))
                     location.href = url;
                 }
+            },
+            topicClick: function (el) {
+                var topicid = "";
+                $.each(el.topiclist, function (index, item, array) {
+                    topicid += "," + item.topicid
+                });
+
+                location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
             }
         })
     </script>
