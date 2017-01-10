@@ -77,7 +77,7 @@ function fnmore() {
             $(".cgl-jzz").show();
             $.ajax({
                 type: "get",
-                url: "http://127.0.0.1:40011/webapi/earlywarningmanage/anticheating/getlist",
+                url: "/webapi/earlywarningmanage/anticheating/getlist",
                 data: state,
                 error:function () {
                     alert("网络出错，请重新加载")
@@ -132,7 +132,7 @@ function fnshijian(state) {
     $(".cgl-jzz").show();
     $.ajax({
         type: "get",
-        url: "http://127.0.0.1:40011/webapi/earlywarningmanage/anticheating/getlist",
+        url: "/webapi/earlywarningmanage/anticheating/getlist",
         data: state,
         error:function () {
             alert("网络出错，请重新加载")
@@ -160,7 +160,7 @@ function fnfind() {
         error:function () {
             alert("网络出错，请重新加载")
         },
-        url: "http://127.0.0.1:40011/webapi/earlywarningmanage/anticheating/getallcount",
+        url: "/webapi/earlywarningmanage/anticheating/getallcount",
         data: "",
         success: function(data){
             //console.log(data)
@@ -348,7 +348,7 @@ function fnwgjb() {
     var opt="";
     $.ajax({
         type: "get",
-        url: "http://127.0.0.1:40008/webapi/operation/1/breakruleslevels",
+        url: "/webapi/operation/1/breakruleslevels",
         data: "",
         success: function(data){
             $(".cgl-jzz").hide();
@@ -470,7 +470,7 @@ function article_add(that){
     $(".cgl-jzz").show();
     $.ajax({
         type: "get",
-        url: "http://127.0.0.1:40011/webapi/earlywarningmanage/anticheating/stateopdetail/"+guid,
+        url: "/webapi/earlywarningmanage/anticheating/stateopdetail/"+guid,
         data: "",
         error:function () {
             alert("网络出错，请重新加载")
@@ -522,7 +522,7 @@ function fnfstz(fstz) {
         error:function () {
             alert("网络出错，请重新加载")
         },
-        url: "http://127.0.0.1:40011/webapi/earlywarningmanage/anticheating/sendnotification",
+        url: "/webapi/earlywarningmanage/anticheating/sendnotification",
         data: fstz,
         success: function(data){
             $(".cgl-jzz").hide();
@@ -692,7 +692,7 @@ function tiaoz_add(dangq,guid) {
         $(".cgl-jzz").show();
         $.ajax({
             type: "put",
-            url: "http://127.0.0.1:40011/webapi/earlywarningmanage/anticheating/levelchanged",
+            url: "/webapi/earlywarningmanage/anticheating/levelchanged",
             data: djjson,
             error:function () {
                 alert("网络出错，请重新加载")
@@ -832,7 +832,7 @@ function fnwgjlzt(putdata) {
     $(".cgl-jzz").show();
     $.ajax({
         type: "put",
-        url: "http://127.0.0.1:40011/webapi/earlywarningmanage/anticheating/dealtstatechange",
+        url: "/webapi/earlywarningmanage/anticheating/dealtstatechange",
         data: putdata,
         error:function () {
             alert("网络出错，请重新加载")

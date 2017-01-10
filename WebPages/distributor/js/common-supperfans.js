@@ -26,7 +26,7 @@ invitationfans.prototype.render = function () {
             container.fadeIn(1000);
             return;
         }
-        container.fadeIn(1000);
+        container.fadeIn(500);
         var activity_id = common.getUrlParam("activity_id");
         var qrcode = qrcodeconfig["distributor"];
         var url = "/webapi/consumer/weixin/register_generate_code?qrtype=20";

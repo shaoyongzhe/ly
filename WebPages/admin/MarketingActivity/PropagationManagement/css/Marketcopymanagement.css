@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2016-12-28 18:38:39
+* @Last Modified time: 2017-01-06 12:29:55
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -101,6 +101,7 @@
 }
 
 .handle-btns{
+	background:none;
     position: absolute;
     z-index: 1;
     opacity: 1;
@@ -165,7 +166,7 @@ body{
     border: 0;
     line-height: 32px;
     right: 6%;
-    bottom: 70px;
+    bottom: 95px;
     width: 130px;
     height: 36px;
     cursor: pointer;
@@ -173,11 +174,12 @@ body{
 
 .search-wrap{
 	background-color: #fff;
+    height: 110px;
 }
 
 .search-area .input-contorl{
 	display: inline-block;
-	width: 30%;
+	width: 33%;
     position: relative;
 }
 .calendar1{
@@ -219,16 +221,15 @@ body{
     transition: .6s;
 }
 
-
 .input-contorl input{
-	width: 202px;
+	width: 30%;
 	margin-right:50px;
 }
 
 
 
 .input-contorl .date{
-	width: 27%;
+	width:100px;
     cursor: pointer;
     margin-right: 0;
      /* background: #fff url(datePicker.gif) no-repeat right; */
@@ -254,12 +255,32 @@ body{
 
 /* 弹框层 */
 
+
 .Text_Title{
-    width: 777px;
+    width: 70%;
     /* height: 73px; */
-    margin: 0 10%;
+    margin: 0 15%;
     /* background-color: red; */
     font-size: 14px;
+}
+
+.Float_Title{
+    width: 63px;
+    /* height: 73px; */
+    line-height: 78px;
+    /* float: left; */
+    clear: both;
+    display: inline-block;
+    float: left;
+}
+.Float_text{
+    width: 70%;
+    /* height: 73px; */
+    line-height: 60px;
+    margin-top:14px;
+    margin-left: 55px;
+    display: inline-block;
+
 }
 
 /* guoguanrong */ 
@@ -267,23 +288,22 @@ body{
     float: left;
 }
 /* guoguanrong */
-.Float_Title{
+/* .Float_Title{
     width: 63px;
 
     line-height: 71px;
-    /* float: left; */
+   
     clear: both;
     display: inline-block;
-}
-.Float_text{
-    width: 655px;
-    /* height: 73px; */
+} */
+/* .Float_text{
+    width: 50%;
     line-height: 20px;
     margin-top:30px;
     margin-left: 55px;
     display: inline-block;
 
-}
+} */
 
 .province{
     display: inline-block;
@@ -349,7 +369,7 @@ body{
     border: 0;
     line-height: 32px;
     right: 6%;
-    bottom: 30px;
+    bottom: 55px;
     width: 130px;
     height: 36px;
     cursor: pointer;
@@ -445,12 +465,26 @@ table thead {
     font-size: 12px;
 }
 
+
+
 .Float_text1{
-    margin-left: 60px;
-    display: inline-block;
+   margin-left: 123px;
+    margin-top: -32px;
+    width: 224px;
 }
 .Float_Title1{
     line-height: 20px;
+    margin-left: -61px;
+    display: inline-block;
+}
+.Float_text2{
+    margin-left: 185%;
+    margin-top: -138%;
+    width: 224px;
+}
+.Float_Title2{
+    line-height: 20px;
+    margin-left: 2px;
     display: inline-block;
 }
 /* .btn:first-child{

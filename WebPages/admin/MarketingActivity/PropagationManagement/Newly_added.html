@@ -44,7 +44,7 @@
 				</div>
 				<div class="mode1">
 					<span style="float: left; margin-top: 16px;">发送方式</span>
-					<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 16px;float: left;margin-left: 52px;" name="fen" value="图文消息推送"><img class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" height="8" width="11" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;margin-top: 17px;" href="javascript:;">图文消息推送</a>
+					<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 16px;float: left;margin-left: 52px;" name="fen" value="图文消息推送"><img class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;margin-top: 17px;" href="javascript:;">图文消息推送</a>
 				</div>
                <form  enctype="multipart/form-data" >
 				<div class="cover_photo">
@@ -143,10 +143,11 @@
 			    ,choose: function(datas){
 			      end.min = datas; //开始日选好后，重置结束日的最小日期
 			      end.start = datas //将结束日的初始值设定为开始日
-			    },
-			    elem: this, 
-			    istime: true, 
-			    format: 'YYYY-MM-DD hh:mm:ss'
+			    }
+			    // ,
+			    // elem: this, 
+			    // istime: true, 
+			    // format: 'YYYY-MM-DD hh:mm:ss'
 			  };
 			  var end = {
 			    min: laydate.now()
@@ -172,12 +173,23 @@ $(function(){
 
 	$('.Graphic_message div input:eq(0)').on('click',function(){
 		$('#LAY_demorange_s').val('');
+		$('#LAY_demorange_s').attr('disabled',true);
+	})
+	$('.Graphic_message div input:eq(1)').on('click',function(){
+		// $('#LAY_demorange_s').val('');
+		$('#LAY_demorange_s').attr('disabled',false);
 	})
 })
 	</script>
     </div>
+<!-- <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>  -->
 <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
-
+<!-- <script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>  -->
+<!-- <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>  -->
+<!-- <script type="text/javascript" src="static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
+<script src="lib/laypage-v1.3/laypage/laypage.js" type="text/javascript" charset="utf-8"></script> -->
+<!-- <script src="http://blog.51yip.com/demo/datepick/jquery.datepick-zh-CN.js"></script> -->
 		
 		<script src="js/area_select.js"></script>
 		<script src="js/area.js"></script>

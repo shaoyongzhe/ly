@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2016-12-28 18:26:46
+ * @Last Modified time: 2017-01-04 11:23:23
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -130,10 +130,14 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             area: $('area').val(),
             send_object: a +'  <br/> ' +b+' <br/> ' + c,
             mode1: d,
-            post_url: pic_url,
+            post_url: pic1_url,
             send_text: $('#send_text').val(),
             together: $('input[name="Fruit"]:checked').val(),
-            pushtime: time_val
+            pushtime: time_val,
+            // 这个是假的
+            push_distributor: a,
+            push_consumer: b,
+            push_retailer: c,
         }
 
         if (form_value.textarea_value == "") {
@@ -154,10 +158,15 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
         }
 
-        // if (form_value.push_distributor == 0 && form_value.push_consumer== 0 && form_value.push_retailer== 0) {
-        //     layer.msg('请选择发送对象');
-        //     return;
-        // }
+        
+        if (form_value.push_distributor == '' && form_value.push_consumer== '' && form_value.push_retailer== '') {
+            layer.msg('请选择发送对象');
+            layer.tips('请选择发送对象','.send_object', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
 
         if (form_value.mode1 == undefined) {
             // layer.msg('请选择发送方式');
@@ -323,14 +332,20 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
             }
         }
+        // 判断时间和选项框  有没有选中否则出来的数据就不对，null
         var time_time = $('.date').val();
         if(time_time==undefined){
             time_time=='';
         }
+        var radio_val1 = $('input[name="Fruit"]:checked').val();
+            if(radio_val1=='bindwithperiodpush'){
+                 var e = 1;
+                }
         var pic1_url = $('#preview img').attr('src');
+        var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
             state: $('.content_information .state').val(),  
-            service: $.trim($('#textarea_value').val()),
+            service:srvice_val ,
             belong_group: $('.input-text').find('option:selected').text(),
             area:JSON.stringify(JSON.parse($('.area_val').val()).area),
             push_distributor: a,
@@ -338,7 +353,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             push_retailer: c,
             category: d,
             poster_url: pic_url,
-            copywriting: $('.mode textarea').val(),
+            copywriting: JSON.stringify($('.mode textarea').val()),
             bindwithperiodpush: e,
             pushtime: time_time
         };
@@ -380,7 +395,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
         }
 
-        if (form_value.poster_url == '') {
+        if (form_value.poster_url == undefined || form_value.poster_url =='') {
             // layer.msg('请选择封面图片');
             layer.tips('请选择封面图片','.cover_photo', {
                   tips: [4, '#F22525'],
@@ -389,7 +404,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
         }
 
-        if (form_value.copywriting == "") {
+        if (form_value.copywriting.length == 2) {
             // layer.msg('请填写发送内容');
             layer.tips('请填写发送内容','.mode', {
                   tips: [1, '#F22525'],
@@ -491,12 +506,24 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
             }
         }
+        var time_time = $('.date').val();
+            if(time_time==undefined){
+                time_time=='';
+            }
+        var radio_val1 = $('input[name="Fruit"]:checked').val();
+            if(radio_val1=='pushtime_supplier'){
+                 var e = undefined;
+                }else{
+                    var e =1;
+                }
+
 
         var pic1_url = $('#preview img').attr('src');
+        var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
             state: "draft",
             optype: "draft",
-            service: $('#textarea_value').val(),
+            service: srvice_val,
             belong_group: $('.input-text').find('option:selected').text(),
             area: JSON.stringify(JSON.parse($('.area_val').val()).area),
             // area = JSON.stringify(area); 
@@ -505,9 +532,9 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             push_retailer: c,
             category: d,
             poster_url: pic_url,
-            copywriting: $('.mode textarea').val(),
+            copywriting: JSON.stringify($('.mode textarea').val()),
             bindwithperiodpush: e,
-            pushtime: $('.date').val()
+            pushtime: time_time
         }
         // console.log(typeof(form_value.area[0]));
         // form_value.area = JSON.stringify(form_value.area);
@@ -546,16 +573,17 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
         }
 
-        if (form_value.poster_url == '') {
-            // layer.msg('请选择封面图片' + "undefined");
-             layer.tips('请选择封面图片','.cover_photo', {
+        if (form_value.poster_url == undefined || form_value.poster_url =='') {
+            // layer.msg('请选择封面图片');
+            layer.tips('请选择封面图片','.cover_photo', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
             return;
         }
+        
 
-        if (form_value.copywriting == "") {
+        if (form_value.copywriting.length==2) {
             // layer.msg('请填写发送内容');
             layer.tips('请填写发送内容','.mode', {
                   tips: [1, '#F22525'],
@@ -778,21 +806,26 @@ function previewImage(file) {
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("上传失败，请检查网络后重试");
+            // layer.msg('上传失败，请检查网络后重试');
         }
     });
 
 // 判断图片类型
     var type_val = $('#fileid').val();
+        if(!/\.(gif|jpg|png)$/.test(type_val))  
+       
+        {  
+            layer.msg("图片类型必须是gif | jpg | png中的一种");
+                    $('#fileid').val("");
+                    $('#imghead').attr('src','');
+                    return false;  
+        } 
+
      if(type_val==""){
             layer.msg("请上传图片");return false;
         }
     
-    if(!/\.(gif|GIF|bmp|BMP|jpg|png|JPG|PNG)$/.test(type_val))  
-       
-        {  
-            layer.msg("图片类型必须是gif|GIF|bmp|BMP|jpg|png|JPG|PNG中的一种");
-                    return false;  
-            } 
+
 
 
 
