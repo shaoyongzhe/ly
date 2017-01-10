@@ -99,14 +99,14 @@ var vm = avalon.define({
             beforeSend: function () {
                 shelter.init({ icos: "/js/shelter/image/loading.gif" })
             },
-            url: '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&buildtype=web',
+            url: '/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false',
             success: function (json) {
                 if (json.user_notification != undefined && json.user_notification != null) {
                     vm.errorMsg = json.user_notification
                     vm.state = 2
                 } else {
                     shelter.close()
-                    draw(json.content)
+                    draw(json.qrstring)
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
