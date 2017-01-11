@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-09 14:13:23
+ * @Last Modified time: 2017-01-11 11:39:55
  */
 
 
@@ -408,7 +408,7 @@ function getList(curr, handle, searchForm) {
                         $('.pagesTbodyLong').scrollTop(100);
                     });
                 },
-                error: function(xhr, type) {
+                error: function() {
                     console.log('加载出错');
                     // layer.msg('加载出错');
                     // 即使加载出错，也得重置
@@ -477,8 +477,8 @@ function getSearch() {
     }
 
     // 获取地区的值
-    var sheng_val = $('.gf-select span em:eq(0)').text() + ',';
-    var shi_val = $('.gf-select span em:eq(1)').text() + ',';
+    var sheng_val = $('.gf-select span em:eq(0)').text()+ ',';
+    var shi_val = $('.gf-select span em:eq(1)').text()+ ',' ;
     var qu_val = $('.gf-select span em:eq(2)').text();
 
 
@@ -880,6 +880,13 @@ $('table.notify').on('click', '.modify', function() {
             var areaobj = {};
             areaobj["area"] = [];
             areaobj["area"] = data_text.content.area;
+            for(var i = 0 ; i< areaobj["area"].length;i++){
+                var areaobj1 = areaobj["area"][i];
+                // console.log(areaobj1.name);
+                if(areaobj1.name=='fullcountry'){
+                    areaobj1.name='全国';
+                }
+            }
             $('.area_val').val(JSON.stringify(areaobj, null, 4));
             // 地区
             // debugger
@@ -896,8 +903,8 @@ $('table.notify').on('click', '.modify', function() {
                 $('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title=" + area.name + ">" + area.name + "</em><i class='x'>×</i></span></div></div>");
 
                 // $('.region-wrap').append("<div class='row'><div class='provice'><span><em class='shengName' title=" + area.name + ">" + area.name + "</em><i class='x'>×</i></span></div><div class='charge'></div></div>");
-                
-                for (var j = 0; j < area.city.length; j++) {
+                if (area.city){
+                    for (var j = 0; j < area.city.length; j++) {
                     $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + area.city[j].name + "</em><i class='x'>×</i></span></div><div class='charge'><div class='district-wrap'></div></div></div>");
 
                     for (var k = 0; k < area.city[j].country.length; k++) {
@@ -907,6 +914,8 @@ $('table.notify').on('click', '.modify', function() {
                     }
 
                 }
+                }
+                
 
             }
         }
@@ -1080,6 +1089,14 @@ $('.examine1').on('click', function() {
         });
         return;
     }
+     if($('.region-wrap').text()==''){
+            layer.msg('请选择地区');
+            layer.tips('请选择地区', '.area', {
+                tips: [1, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
     if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
         layer.msg('请选择发送对象');
         layer.tips('请选择发送对象', '.send_object', {
@@ -1171,7 +1188,7 @@ $('.examine1_preview').click(function() {
                     // }
                     var temp = provinces[j].name + '<br />';
                     areastring += temp;
-                    if (provinces[j].city.length > 0) {
+                    if (provinces[j].city) {
                         for (var k = 0; k < provinces[j].city.length; k++) {
                             //process city
                             var citycharge = "";
@@ -1221,8 +1238,9 @@ $('.examine1_preview').click(function() {
             });
             return;
         }
-        var area_val = $('.area_val ').val();
-        if (area_val == '{"area": []}' || area_val == '') {
+        // 判断地区
+      var area_val2 = JSON.parse($('.area_val').val());
+        if (area_val2.area.length == 0) {
             layer.msg('请选择地区');
             layer.tips('请选择地区', '.area', {
                 tips: [1, '#F22525'],
@@ -1230,7 +1248,14 @@ $('.examine1_preview').click(function() {
             });
             return;
         }
-
+        if($('.region-wrap').text()==''){
+            layer.msg('请选择地区');
+            layer.tips('请选择地区', '.area', {
+                tips: [1, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
 
         if (form_value.push_distributor == '' && form_value.push_consumer == '' && form_value.push_retailer == '') {
             layer.msg('请选择发送对象');
@@ -1440,6 +1465,15 @@ $('.examine1_Newly_added').on('click', function() {
             });
             return;
         }
+
+         if($('.region-wrap').text()==''){
+            layer.msg('请选择地区');
+            layer.tips('请选择地区', '.area', {
+                tips: [1, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
         if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
             layer.msg('请选择发送对象');
             layer.tips('请选择发送对象', '.send_object', {
@@ -1506,8 +1540,8 @@ $('.examine1_Newly_added').on('click', function() {
             $('.mode1').find('div:eq(0) img').removeClass('xiyin_son');
             // 清空图片
             $('#imghead').attr('src', '');
-            $('#imghead').css('height', '0px');
-            $('#imghead').css('width', '0px');
+            // $('#imghead').css('height', '0px');
+            // $('#imghead').css('width', '0px');
             //清空发送内容
             $('#send_text').val('');
             // 新增标题
@@ -1567,6 +1601,15 @@ $('.examine1_Preservation').on('click', function() {
         if (pic_url == "") {
             pic_url = $('#imghead').attr('src');
         }
+
+        // var area_fullcountry = ;
+        // for(var i = 0;i<area_fullcountry.length;i++){
+        //     var area_fullcountry1 = area_fullcountry[i];
+        //     if(area_fullcountry1.name=='fullcountry'){
+        //         area_fullcountry2='全国';
+        //     }
+        // }
+        
         var guid = $(this).closest('.layui-layer-content').find('._guid').val();
         var state1 = $(this).closest('.layui-layer-content').find('.state').val();
         var textarea_value = JSON.stringify($.trim($('#textarea_value').val()));
@@ -1600,6 +1643,15 @@ $('.examine1_Preservation').on('click', function() {
         // 最新地区判断有没有值   // 
         var area_val2 = JSON.parse($('.area_val').val());
         if (area_val2.area.length == 0) {
+            layer.msg('请选择地区');
+            layer.tips('请选择地区', '.area', {
+                tips: [1, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
+
+         if($('.region-wrap').text()==''){
             layer.msg('请选择地区');
             layer.tips('请选择地区', '.area', {
                 tips: [1, '#F22525'],
