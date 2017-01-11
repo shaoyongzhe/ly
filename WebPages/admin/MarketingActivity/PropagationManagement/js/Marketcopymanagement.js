@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-06 15:39:11
+ * @Last Modified time: 2017-01-09 14:13:23
  */
 
 
@@ -59,7 +59,7 @@
 //                 df.pagesize = pagesize;
 //                 $.ajax({
 //                     type: 'get',
-//                     url: 'http://127.0.0.1:40007/webapi/ipaloma/propagation?parameters=' + JSON.stringify(df),
+//                     url: '/webapi/ipaloma/propagation?parameters=' + JSON.stringify(df),
 //                     dataType: 'json',
 //                     beforeSend: function() {
 //                         $('.dropload-load').css('display', 'block');
@@ -284,7 +284,7 @@ function getList(curr, handle, searchForm) {
 
             $.ajax({
                 type: "get",
-                url: "http://127.0.0.1:40007/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
+                url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
                 dataType: "json",
                 beforeSend: function() {
                     $('.search-btn').attr('disabled', true);
@@ -404,7 +404,8 @@ function getList(curr, handle, searchForm) {
                         $("table.notify tbody").prepend(tr);
                         // 每次数据插入，必须重置
                         me.resetload();
-						$('.pagesTbodyLong').scrollTop(100);
+                        // 重置
+                        $('.pagesTbodyLong').scrollTop(100);
                     });
                 },
                 error: function(xhr, type) {
@@ -425,11 +426,15 @@ function getList(curr, handle, searchForm) {
     });
 };
 
+$(document).on('click','.search-btn',function(){
+     getList(1, 'search', getSearch());
+})
+
 
 // 查询
-$("body").on("click", ".search-btn", function() {
-    getList(1, 'search', getSearch());
-});
+// $("body").on("click", ".search-btn", function() {
+//     getList(1, 'search', getSearch());
+// });
 
 
 // 查询文案		
@@ -571,7 +576,7 @@ $('table.notify').on('click', '.handle-btns .del', function() {
         // window.localStorage.clear();
         // layer.msg('删除成功');
         // return;
-        _ajax("delete", 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '', null, '删除失败', function() {
+        _ajax("delete", '/webapi/ipaloma/propagation/' + guid + '', null, '删除失败', function() {
             var cur = $('.laypage_curr').text();
             if (cur) {
                 if ($('table.notify tbody tr').length == 1) {
@@ -622,7 +627,7 @@ $('table.notify').on('click', '.exm', function() {
         currentstate: realstate,
         optype: "audit"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
         getList(1, 'exm', getSearch());
     });
 });
@@ -665,7 +670,7 @@ $('table.notify').on('click', '.Reject', function() {
         currentstate: realstate,
         optype: "auditfail"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '驳回失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '驳回失败', function() {
         getList(1, 'Reject', getSearch());
     });
 });
@@ -706,7 +711,7 @@ $('table.notify').on('click', '.adopt', function() {
         currentstate: realstate,
         optype: "auditsuccess"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '审核失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '审核失败', function() {
         getList(1, 'adopt', getSearch());
     });
 });
@@ -747,7 +752,7 @@ $('table.notify').on('click', '.release', function() {
         currentstate: realstate,
         optype: "release"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
         getList(1, 'release', getSearch());
     });
 });
@@ -759,7 +764,7 @@ $('table.notify').on('click', '.release', function() {
         time: 2000
     });
 
-    _ajax("get", "http://127.0.0.1:40007/webapi/ipaloma/propagation/{'" + guid_val + "'}/release", '发布失败', function() {
+    _ajax("get", "/webapi/ipaloma/propagation/{'" + guid_val + "'}/release", '发布失败', function() {
         getList(1, 'released', getSearch());
 
     })
@@ -771,7 +776,7 @@ function previewImage(file) {
     var form = new FormData($('form')[0]);
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:40007/webapi/ipaloma/propagation/upload/imgupload",
+        url: "/webapi/ipaloma/propagation/upload/imgupload",
         data: form,
         xhr: function() {
             return $.ajaxSettings.xhr();
@@ -814,7 +819,7 @@ function previewImage(file) {
             img.width = rect.width;
             img.height = rect.height;
             //                 img.style.marginLeft = rect.left+'px';
-            img.style.marginTop = rect.top + 'px';
+            img.style.marginTop = 0 + 'px';
         }
         var reader = new FileReader();
         reader.onload = function(evt) {
@@ -830,8 +835,8 @@ function previewImage(file) {
         var img = document.getElementById('imghead');
         img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
         var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
-        status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
-        div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;" + sFilter + src + "\"'></div>";
+        status = ('rect:' + ',' + rect.width + ',' + rect.height);
+        div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + 0 + "px;" + sFilter + src + "\"'></div>";
     }
 }
 
@@ -867,7 +872,7 @@ $('table.notify').on('click', '.modify', function() {
     var picture = tr.find('.imgUrl').val();
     $.ajax({
         type: "get",
-        url: 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/detail',
+        url: '/webapi/ipaloma/propagation/' + guid + '/detail',
         dataType: "json",
         // data: data,
         // 获取地区放到隐藏域
@@ -880,20 +885,23 @@ $('table.notify').on('click', '.modify', function() {
             // debugger
             // $('nav span:eq(1)').click();
             
-            console.log(JSON.stringify(areaobj, null, 4))
+            // console.log(JSON.stringify(areaobj, null, 4))
             for (var i = 0; i < areaobj.area.length; i++) {
                 // debugger
                 var area = areaobj.area[i];
                 if(area.name=='fullcountry'){
                     area.name='全国';
                 }
-                $('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title=" + area.name + ">" + area.name + "</em><i class='x'>×</i></span></div</div></div>");
+                // debugger
+                $('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title=" + area.name + ">" + area.name + "</em><i class='x'>×</i></span></div></div>");
 
+                // $('.region-wrap').append("<div class='row'><div class='provice'><span><em class='shengName' title=" + area.name + ">" + area.name + "</em><i class='x'>×</i></span></div><div class='charge'></div></div>");
+                
                 for (var j = 0; j < area.city.length; j++) {
                     $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + area.city[j].name + "</em><i class='x'>×</i></span></div><div class='charge'><div class='district-wrap'></div></div></div>");
 
                     for (var k = 0; k < area.city[j].country.length; k++) {
-                        console.log(area.city[j].country[k].name);
+                        // console.log(area.city[j].country[k].name);
 
                         $('.district-wrap').last().append("<span><em qx='" + JSON.stringify(area.city[j].country[k], null, 4) + "'>" + area.city[j].country[k] + "</em><i class='x'>×</i></span>");
                     }
@@ -902,6 +910,9 @@ $('table.notify').on('click', '.modify', function() {
 
             }
         }
+
+        // <div class="region-item"><div class='row'><div class='provice'><span><em class='shengName' title='天津市'>天津市</em><i class='x'>×</i></span></div><div class='charge'></div></div><div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>天津市 </em><i class='x'>×</i></span></div><div class='charge'><div class='district-wrap'><span><em>红桥区</em><i class='x'>×</i></span><span><em>西青区</em><i class='x'>×</i></span><span><em>宁河县</em><i class='x'>×</i></span></div></div></div></div>
+
     });
     var data = {
         guid: tr.find('.guid').val(),
@@ -921,7 +932,7 @@ $('table.notify').on('click', '.modify', function() {
         shadeClose: true,
         anim: 2,
         title: '修改文案',
-        area: ["50%", "100%"],
+        area: ["70%", "100%"],
         content: $('.c')
     });
 
@@ -1110,7 +1121,7 @@ $('.examine1').on('click', function() {
 
     // form_value.area = JSON.stringify(form_value.area);
     layer.msg('正在提交');
-    _ajax('put', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/', form_value, '修改失败', function() {
+    _ajax('put', '/webapi/ipaloma/propagation/', form_value, '修改失败', function() {
         getList(1, 'release', getSearch());
     })
 })
@@ -1375,7 +1386,6 @@ $('.examine1_Newly_added').on('click', function() {
             var e = undefined;
         }
 
-
         if ($('.Graphic_message .ck:eq(1)').find('img').hasClass('xiyin_son') == true) {
             var time_val = $('#data_time').val();
             if (time_val == '') {
@@ -1387,15 +1397,14 @@ $('.examine1_Newly_added').on('click', function() {
                 return;
             };
         }
-
         if (pic_url == "") {
             pic_url = $('#imghead').attr('src');
         }
-        // var guid = $(this).closest('.layui-layer-content').find('.guid').val();
+        var guid = $(this).closest('.layui-layer-content').find('._guid').val();
         var state1 = $(this).closest('.layui-layer-content').find('.state').val();
         var textarea_value = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
-            // guid: guid,
+            guid: guid,
             service: textarea_value,
             area: JSON.stringify(JSON.parse($('.area_val').val()).area),
             push_distributor: a,
@@ -1477,11 +1486,10 @@ $('.examine1_Newly_added').on('click', function() {
             time: 2000
         });
 
-        _ajax("POST", "http://127.0.0.1:40007/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
-            layer.msg('保存成功，请继续填写', {
-                time: 1500
-            });
+        _ajax("put", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+            layer.msg('保存成功，请继续填写', {time: 1500});
             // window.location.reload();
+
 
             // 清空输入框里面的内容
             $('#textarea_value').val('');
@@ -1502,16 +1510,157 @@ $('.examine1_Newly_added').on('click', function() {
             $('#imghead').css('width', '0px');
             //清空发送内容
             $('#send_text').val('');
+            // 新增标题
+            $('.layui-layer-title').text('新增文案');
             // 默认选择发送方式
             $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             // console.log(1);
             // 清空发送时间选择项
+            // 
             $('.Graphic_message .ck:eq(0)').find('img').removeClass('xiyin_son');
             $('.Graphic_message .ck:eq(1)').find('img').removeClass('xiyin_son');
             // 清空时间
             $('#data_time').val('');
         });
     })
+
+//修改中的保存
+$('.examine1_Preservation').on('click', function() {
+        if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+            var a = 1;
+        } else {
+            var a = 0;
+        }
+        if ($('.send_object dir').find('div:eq(1) img').hasClass('xiyin_son') == true) {
+            var b = 1;
+        } else {
+            var b = 0;
+        }
+        if ($('.send_object dir').find('div:eq(2) img').hasClass('xiyin_son') == true) {
+            var c = 1;
+        } else {
+            var c = 0;
+        }
+        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+            var d = 1;
+        } else {
+            var d = 0;
+        }
+
+        if ($('.Graphic_message .ck:eq(0)').find('img').hasClass('xiyin_son') == true) {
+            var e = 1;
+        } else {
+            var e = undefined;
+        }
+
+        if ($('.Graphic_message .ck:eq(1)').find('img').hasClass('xiyin_son') == true) {
+            var time_val = $('#data_time').val();
+            if (time_val == '') {
+                // layer.msg('请选择时间');
+                layer.tips('请选择时间', '#LAY_demorange_s', {
+                    tips: [3, '#F22525'],
+                    time: 4000
+                });
+                return;
+            };
+        }
+        if (pic_url == "") {
+            pic_url = $('#imghead').attr('src');
+        }
+        var guid = $(this).closest('.layui-layer-content').find('._guid').val();
+        var state1 = $(this).closest('.layui-layer-content').find('.state').val();
+        var textarea_value = JSON.stringify($.trim($('#textarea_value').val()));
+        var form_value = {
+            guid: guid,
+            service: textarea_value,
+            area: JSON.stringify(JSON.parse($('.area_val').val()).area),
+            push_distributor: a,
+            push_consumer: b,
+            push_retailer: c,
+            category: d,
+            poster_url: pic_url,
+            copywriting: $('#send_text').val(),
+            bindwithperiodpush: e,
+            pushtime: time_val,
+            currentstate: state1,
+            state: "draft",
+            optype: "draft"
+        };
+
+        if (form_value.service == "") {
+            layer.msg('请输入文案标题');
+            layer.tips('请输入文案标题', '#wordCount', {
+                tips: [4, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
+
+
+        // 最新地区判断有没有值   // 
+        var area_val2 = JSON.parse($('.area_val').val());
+        if (area_val2.area.length == 0) {
+            layer.msg('请选择地区');
+            layer.tips('请选择地区', '.area', {
+                tips: [1, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
+        if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
+            layer.msg('请选择发送对象');
+            layer.tips('请选择发送对象', '.send_object', {
+                tips: [4, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
+
+        if (form_value.category == "") {
+            // layer.msg('请选择发送方式');
+            layer.tips('请选择发送方式', '.mode1', {
+                tips: [1, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
+
+        // if (form_value.poster_url == '') {
+        //     layer.msg('请选择封面图片');
+        //     return;
+        // }
+        if ($('#imghead').attr('src') == '') {
+            // layer.msg('请选择封面图片');
+            layer.tips('请选择封面图片', '.cover_photo', {
+                tips: [4, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
+        if (form_value.copywriting == "") {
+            // layer.msg('请填写发送内容');
+            layer.tips('请填写发送内容', '.mode', {
+                tips: [1, '#F22525'],
+                time: 4000
+            });
+            return;
+        }
+
+        // form_value.area = JSON.stringify(form_value.area);
+        // $('.layui-layer-close').click();
+
+        layer.msg('正在保存...', {
+            time: 2000
+        });
+
+        _ajax("put", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+            layer.msg('保存成功', {time: 1500});
+             // window.history.back();
+             $('.layui-layer-close').click();
+             getList(1, 'search', getSearch());
+        });
+    })
+
     // 详情
 $('table.notify').on('click', '.detailed', function() {
     var tr = $(this).parents('tr');
@@ -1566,7 +1715,7 @@ $('table.notify').on('click', '.detailed', function() {
     // 	})
     $.ajax({
         type: "get",
-        url: 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/detail',
+        url: '/webapi/ipaloma/propagation/' + guid + '/detail',
         dataType: "json",
         // data: data,
         success: function(data_text) {
@@ -1723,7 +1872,7 @@ $(document).on('click', '.D_examine', function() {
         currentstate: realstate,
         optype: "audit"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function() {
         getList(1, 'exm', getSearch());
     });
 });
@@ -1759,7 +1908,7 @@ $(document).on('click', '.D_send', function() {
         currentstate: realstate,
         optype: "release"
     }
-    _ajax('post', 'http://127.0.0.1:40007/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
+    _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function() {
         getList(1, 'release', getSearch());
     });
 });
@@ -1767,7 +1916,7 @@ $(document).on('click', '.D_send', function() {
 $(document).on('click', '.btn_modify', function() {
         $('.layui-layer-close').click();
         var i = $(this).closest('.layui-layer-content').find('#trIndex').val();
-        console.log(typeof parseInt(i) + '1303行')
+        // console.log(typeof parseInt(i) + '1303行')
         var index_val = parseInt(i) + 1;
         $('tr:eq(' + index_val + ') td:eq(7) .modify').click()
     })
