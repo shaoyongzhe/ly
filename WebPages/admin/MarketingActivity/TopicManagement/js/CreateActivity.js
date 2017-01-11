@@ -2085,38 +2085,41 @@ $('.saveToDb, .shenhe').click(function(){
 
 	console.log(JSON.stringify(data, null, 4));
 
-
-    if($(this).text() == "提交审核"){
-
-		// var saveurl = '/webapi/ipaloma/topic';
-		$.ajax({
+    
+	if ($('nav span:last').hasClass('on')) {
+	    $.ajax({
 	        type: "post",
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),
 	        // contentType: "application/json",
 	        contentType: "application/json; charset=utf-8",
-			/*beforeSend: function (x) {
+	        /*beforeSend: function (x) {
 	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
 	        },*/
-	        complete: function () {},
-	        timeout: function () {},
+	        complete: function () { },
+	        timeout: function () { },
 	        success: function (returnedData) {
-	            if(!returnedData.error){
-					layer.msg('创建成功');
-					console.log(returnedData);
-				} else {
-				 	layer.msg(returnedData.error);
-				}
+	            if (!returnedData.error) {
+	                layer.msg('创建成功');
+	                console.log(returnedData);
+	            } else {
+	                layer.msg(returnedData.error);
+	            }
 	        },
 	        error: function () {
 	            console.warn("提交审核 error");
 	        }
-    	});
-		
-    } else {
-    	layer.msg('数据已保存');
-    }
+	    });
+
+	    return;
+	}
+
+
+	if ($(this).text() == "保存") {
+	    layer.msg('数据已保存');
+	    return;
+	}
 
 });
 
