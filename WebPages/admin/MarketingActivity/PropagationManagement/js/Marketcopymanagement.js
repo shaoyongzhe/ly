@@ -482,14 +482,14 @@ function getSearch() {
     var qu_val = $('.gf-select span em:eq(2)').text();
 
 
-    if (sheng_val == '省份') {
+    if (sheng_val == '省份,') {
         var sheng_val = "";
     }
 
     if (shi_val == '城市,') {
         var shi_val = "";
     }
-    if (qu_val == '区县,') {
+    if (qu_val == '区县') {
         var qu_val = "";
     }
 
