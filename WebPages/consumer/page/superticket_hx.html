@@ -281,13 +281,14 @@
             white-space: nowrap;
             overflow: hidden;
             color: red;
-            background: #fdead6; line-height:20px
+            background: #fdead6;
+            line-height: 20px;
         }
 
             .div_ad img {
                 height: 20px;
                 float: left;
-                margin:0 5px 0 10px
+                margin: 0 5px 0 10px;
             }
 
         .btn_jia {
@@ -557,11 +558,11 @@
                     <div class="content_box" ms-repeat="vm.topicdata">
                         <h1>{{el.activitytitle}}</h1>
                         <dl class="clearfix">
-                            <dt><img src="../image/content_img.png"></dt>
+                            <dt><img ms-attr-src="el.poster_url"></dt>
                             <dd>{{el.description}}</dd>
                         </dl>
                         <div class="L-alert">
-                            <span>恭喜您获得{{el.count}}{{el.assettype}}微信红包！请注意查收！</span>
+                            <span>恭喜您获得{{el.count+el.unit+el.assettype}}，请注意查收！</span>
                             <div class="arrow"></div>
                         </div>
                     </div>
@@ -584,12 +585,12 @@
                     <div class="content_box born" ms-repeat="vm.topicdata">
                         <h1>{{el.activitytitle}}</h1>
                         <dl class="clearfix">
-                            <dt><img src="../image/content_img.png"></dt>
+                            <dt><img ms-attr-src="el.poster_url"></dt>
                             <dd>{{el.description}}</dd>
                         </dl>
                     </div>
                     <div class="conten_wenan" ms-repeat="vm.topicdata">
-                        <p class="p_30">恭喜您在该活动中获得<span>{{el.count}}</span>{{el.assettype}}</p>
+                        <p class="p_30">恭喜您在该活动中获得<span>{{el.count}}</span>{{el.unit+el.assettype}}</p>
                         <!--<p class="p_40">快来抽奖吧!</p>
                         <a href="javascript:vido(0)">立即抽奖</a>-->
                     </div>
