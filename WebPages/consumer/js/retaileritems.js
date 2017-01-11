@@ -210,5 +210,13 @@ var vm = avalon.define({
             }
 
         }
+    },
+    topicClick: function (el) {
+        var topicid = "";
+        $.each(el.topiclist, function (index, item, array) {
+            topicid += "," + item.topicid
+        });
+
+        location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
     }
 })

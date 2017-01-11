@@ -12,16 +12,19 @@
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
     <link href="/consumer/css/supperticket_hx.css" rel="stylesheet" />
     <link href="/consumer/css/menustyle.css" rel="stylesheet" />
+    <link href="/consumer/css/reset.css" rel="stylesheet" />
+    <link href="/consumer/css/share.css" rel="stylesheet" />
     <link href="../css/shakegame/animate.css" rel="stylesheet" />
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>    
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/wx/share.js"></script>
     <script type="text/javascript" src="/js/wx/location.js"></script>
+    <script type="text/javascript" src="/js/wx/resetRem.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
@@ -40,6 +43,7 @@
                 margin-top: calc(40% - 60px);
                 margin-top: -moz-calc(40% - 60px);
                 margin-top: -webkit-calc(40% - 60px);
+                margin-bottom: 10px;
             }
 
             #page_msg p {
@@ -134,7 +138,7 @@
                     height: 20px;
                     vertical-align: top;
                     float: left;
-                    margin: 0 5px 0 10px;
+                    margin: -3px 5px 0 10px;
                 }
 
             #QRCode > img {
@@ -278,13 +282,13 @@
             overflow: hidden;
             color: red;
             background: #fdead6;
-            text-align: center;
+            line-height: 20px;
         }
 
             .div_ad img {
                 height: 20px;
                 float: left;
-                margin-left: 10px;
+                margin: 0 5px 0 10px;
             }
 
         .btn_jia {
@@ -345,10 +349,15 @@
             margin: -14px 0 0 5%;
             width: 30px;
         }
-        #divQrcode {min-height:280px
+
+        #divQrcode1 {
+            min-height: 280px;
         }
-        #divQrcode img { width:60%; margin:0 auto
-        }
+
+            #divQrcode1 img {
+                width: 60%;
+                margin: 0 auto;
+            }
     </style>
     <script>
         $(function () {
@@ -357,14 +366,14 @@
     </script>
 </head>
 <body style="background:#fff; " ms-controller="allMsg" class="ms-controller">
-  
+
     <div class="tip-w">
         <div class="tip">
             <img src="/consumer/image/shakegame/shareimg.png" style="width:80%;margin:20px 10% 0 10%" />
         </div>
     </div>
     <div ms-controller="superticket_hx" style="margin-bottom:10px">
-        <div class="div_ad" ms-if="vm.hxstate==20">
+        <div class="div_ad" ms-if="vm.hxstep==6">
             <img src="/consumer/image/supercoupons/exclamation.png" />  门店确认您输入的数量与实际不符,请重新输入
         </div>
         <div ms-if="vm.pageStep==1" id="page1" style="height:auto">
@@ -374,12 +383,12 @@
                         <img ms-attr-src="vm.jsondata.itempic" alt="">
                     </div>
                     <div class="div-text">
-                        <p style="margin-bottom:10px">
+                        <p style="margin-bottom:15px">
                             <span ms-attr-class="{{vm.jsondata.itemkind=='有礼'?'font-youli':vm.jsondata.itemkind=='降价'?'font-jiangjia':vm.jsondata.itemkind=='套餐'?'font-taocan':'font-maizeng'}}">{{vm.jsondata.itemkind}}券</span>
                             {{vm.jsondata.activitytitle}}
                         </p>
                         <p ms-if="vm.jsondata.itemkind=='有礼'" style="font-size:14px;">
-                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;" />
+                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;margin-top: -5px;" />
                             {{vm.jsondata.giftname}}
                         </p>
                         <ul style="width:100%; min-height:70px;">
@@ -396,9 +405,9 @@
                                 <p>￥{{vm.jsondata.discountprice}} <small>￥{{vm.jsondata.originalprice}}</small></p>
                             </li>
                             <li ms-if="selfVerify.token.length>0" style="float:right; padding-right:2px;font-size:18px;color:#000">
-                               1 张
+                                1 张
                             </li>
-                            <li style="float:right; padding-right:2px;"  ms-if="selfVerify.token.length==0">
+                            <li style="float:right; padding-right:2px;" ms-if="selfVerify.token.length==0">
                                 <small>今日可用{{vm.verifylimit}}张</small>
                                 <ul class="jiajian">
                                     <li style="width:40px;border-right:solid 1px #ff6600;">
@@ -407,7 +416,7 @@
                                     <li class="shuzi">
                                         <input value="1" type="text" id="txt_hx" ms-keyup="txtChange" />
                                     </li>
-                                    <li style="border-left:solid 1px #ff6600;width:40px">
+                                    <li style="border-left:solid 1px #ff6600;width:38px">
                                         <input type="button" class="btn_jia" ms-attr-id="{{vm.hxNum>=vm.verifylimit?'additions_gray':'additions'}}" ms-click="vm.additions" />
                                     </li>
                                 </ul>
@@ -421,12 +430,12 @@
                 </div>
             </div>
             <div ms-if="isselfverify">
-                <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png"  ms-if="selfVerify.token.length==0" />
+                <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png" ms-if="selfVerify.token.length==0" />
                 <div class="btn_css4" style="margin-top:50px" ms-click="selfVerify.VerifyScan">
-                 {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}   
+                    {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}
                 </div>
             </div>
-            <div class="btn_css4" ms-click="btnClick"  ms-if="selfVerify.token.length==0" >门店扫码核销</div>
+            <div class="btn_css4" ms-click="btnClick" ms-if="selfVerify.token.length==0">门店扫码核销</div>
             <div class="btn_css4" ms-click="selfVerify.closeWin" style="background-color:#fff" ms-if="selfVerify.token.length>0">我在想想</div>
         </div>
         <div id="page2" ms-if="vm.pageStep>=2" ms-controller="superticket_page2">
@@ -452,7 +461,7 @@
                         <img src="/consumer/image/supercoupons/richScanico.png" /><span id="span_tishi">{{vm.span_tishi}}</span>
                     </p>
                     <!--<img id="QRCode_img" />-->
-                    <div id="divQrcode">
+                    <div id="divQrcode1">
                         <img id="QRCode_img" />
                     </div>
                 </div>
@@ -487,14 +496,14 @@
                 <div class="div-top">
                     <div class="div-img" id="divQrcode">
                         <img ms-attr-src="vm.jsondata.itempic" alt="">
-                    
+
                     </div>
                     <div class="div-text">
-                        <p style="margin-bottom:10px">
+                        <p style="margin-bottom:15px">
                             <span ms-attr-class="vm.jsondata.itemkind=='有礼'?'font-youli':vm.jsondata.itemkind=='降价'?'font-jiangjia':vm.jsondata.itemkind=='套餐'?'font-taocan':'font-maizeng'">{{vm.jsondata.itemkind}}券</span> {{vm.jsondata.activitytitle}}
                         </p>
                         <p ms-if="vm.jsondata.itemkind=='有礼'">
-                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;" />
+                            <img src="/consumer/image/icon05.png" style="width:20px; float:left;margin-top: -5px;" />
                             {{vm.jsondata.giftname}}
                         </p>
                         <ul style="display:block;min-height:50px">
@@ -533,10 +542,63 @@
         </div>
     </div>
     <footer>
-        <div class="space"></div>
         <div id="bottom-nav"></div>
     </footer>
-   
+    <div class="share_pop1 share_pop">
+        <div class="share_bg"></div>
+        <div class="main_bg">
+            <p><a href="javascript:void(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
+        </div>
+        <div class="share_box">
+            <div class="share_main">
+                <div class="main_haed">
+                    <img src="../image/share_img.png">
+                </div>
+                <div class="main_content">
+                    <div class="content_box" ms-repeat="vm.topicdata">
+                        <h1>{{el.activitytitle}}</h1>
+                        <dl class="clearfix">
+                            <dt><img ms-attr-src="el.poster_url"></dt>
+                            <dd>{{el.description}}</dd>
+                        </dl>
+                        <div class="L-alert">
+                            <span>恭喜您获得{{el.count+el.unit+el.assettype}}，请注意查收！</span>
+                            <div class="arrow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="share_btn" href="javascript:void(0)">分享朋友圈</a>
+        </div>
+    </div>
+    <div class="share_pop2 share_pop">
+        <div class="share_bg"></div>
+        <div class="main_bg">
+            <p><a href="javascript:void(0)"><img class="pop_close" src="../image/Close_icon.png"></a><span></span></p>
+        </div>
+        <div class="share_box">
+            <div class="share_main main2">
+                <div class="main_haed">
+                    <img src="../image/share_img.png">
+                </div>
+                <div class="main_content">
+                    <div class="content_box born" ms-repeat="vm.topicdata">
+                        <h1>{{el.activitytitle}}</h1>
+                        <dl class="clearfix">
+                            <dt><img ms-attr-src="el.poster_url"></dt>
+                            <dd>{{el.description}}</dd>
+                        </dl>
+                    </div>
+                    <div class="conten_wenan" ms-repeat="vm.topicdata">
+                        <p class="p_30">恭喜您在该活动中获得<span>{{el.count}}</span>{{el.unit+el.assettype}}</p>
+                        <!--<p class="p_40">快来抽奖吧!</p>
+                        <a href="javascript:vido(0)">立即抽奖</a>-->
+                    </div>
+                </div>
+            </div>
+            <a class="share_btn" href="javascript:void(0)">分享朋友圈</a>
+        </div>
+    </div>
     <div id="qrcodediv" hidden></div>
     <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script src="/js/jquery/jquery.qrcode.min.js"></script>
