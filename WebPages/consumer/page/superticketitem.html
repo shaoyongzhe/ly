@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -118,13 +118,6 @@
                 </div>
                 <div class="li-text" ms-if="vm.jsondata.activitykind=='降价'">
                     <p>{{vm.jsondata.activitytitle}}</p>
-                    <!--<ul class="jiangjia_price">
-                        <li>￥{{vm.jsondata.discountprice}}</li>
-                        <li>
-                            <span>{{vm.jsondata.discount}}折</span>
-                            <p>￥{{vm.jsondata.originalprice}}</p>
-                        </li>
-                    </ul>-->
                     <table class="tbl_tc">
                         <tr>
                             <td rowspan="2" class="tbl_td_left">￥{{vm.jsondata.discountprice}}</td>
@@ -152,7 +145,6 @@
                 </div>
                 <div class="li-text" ms-if="vm.jsondata.activitykind=='套餐'">
                     <p>{{vm.jsondata.activitytitle}}</p>
-               
                     <table class="tbl_tc">
                         <tr>
                             <td rowspan="2" class="tbl_td_left">￥{{vm.jsondata.discountprice}}</td>
@@ -194,9 +186,10 @@
                 <div class="clear"></div>
             </ul>
             <div class="assetinfo" ms-if="vm.jsondata.topiclist.length>0">
-                <a href="javascript:;" class="assetcontent">
+                <a href="javascript:;" class="assetcontent"  ms-click="topicClick(vm.jsondata)">
                     <div class="asset_left">
-                        <nobr>{{vm.jsondata.topiclist[0].topictitle}}{{vm.jsondata.topiclist.length>1?'等活动':''}}</nobr>
+                        <div class="topictitle"><nobr>{{vm.jsondata.topiclist[0].topictitle}}</nobr></div>
+                        <div class="topictitle_1"><small>{{vm.jsondata.topiclist.length>1?'等活动':''}}</small></div>
                     </div>
                     <div class="asset_right">
                         <small>已参加</small>{{vm.jsondata.topiclist[0].headcount}}<small>人</small>
