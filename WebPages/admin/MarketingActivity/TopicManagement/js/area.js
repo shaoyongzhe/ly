@@ -125,7 +125,6 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 	*/
 
 	// c(dataprov)
-
 	// debugger
 	if($('.Select_province select').first().val() == null){
 	
@@ -883,7 +882,7 @@ $('.area-list .save').click(function() {
 	$('.region-item').each(function(){
 		var _this = $(this);
 
-		debugger
+		// debugger
 		var sheng = _this.find('.provice span em').text();
 		var shengfzr = _this.find('.charge > span em').attr('shengfzr');
 
@@ -913,7 +912,7 @@ $('.area-list .save').click(function() {
 				});
 
 				cityObj = {
-					// "state": "active",
+					"state": "active",
 					"charge": JSON.parse(shengfzr),
 					"name": shi,
 					"country": quxianArr
@@ -926,6 +925,7 @@ $('.area-list .save').click(function() {
 			provObj = {
 				"charge": JSON.parse(shengfzr),
 				"name": sheng,
+                "state": "active",
 				"city": cityArr
 			}
 		}

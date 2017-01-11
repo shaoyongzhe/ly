@@ -181,6 +181,20 @@ function acAdC() {
 
 	$("body").on("click", ".acZige .acAd4", function(e) {
 		$(this).closest(".acZige").append(addsub3HTML);
+		$(this).closest(".addSub2").find('.member-type .option').each(function(){//根据按钮向上找到控件2，然后以此向下找到控件2中的option
+			//下面代码和createActivity1中完全一致
+			var arr=$(this).attr("conditiontype").split(',');			
+			var li =$(this).closest('.addSub2').find('.acZige1 .option');
+			$(li).each(function(){
+				// console.log($(this).text());			
+				$(this).hide();
+				for(i=0;i<arr.length;i++){
+					if($(this).text()==arr[i]){
+						$(this).show();
+					}
+				}
+			})
+		})
 		$(this).closest(".acZige").find(".acAd3").css({
 			"visibility": "visible",
 			"cursor": "pointer"
@@ -461,9 +475,6 @@ $.ajax({
 	url: "/webapi/ipaloma/topic/config",
 	async: true,
 	success: function(data) {
-		// laji = data;
-
-		// c(data)
 
 		// console.log("success");
 		//控件1会员活动条件
@@ -485,9 +496,9 @@ $.ajax({
 		var hm = "";
 		for (i = 0; i < dca_1.length; i++) {
 			if (dca_1[i].localtype == "买赠") {
-				hm += '<div class="bor hi selectWrap2"><span class="diSpan"><label for="acLabel1" class="acCoRaMzla">买</label></span><input id="acLabel1" class="acCoRaMzip" type="text" value="3"/><span class="diSpansa">:</span><span><label class="acCoRaMzla" for="acLabel2">赠</label></span><input id="acLabel2" class="acCoRaMzip" type="text" value="2"/><input type="text" value="3"><input type="text" value="2"></div>'
+				hm += '<div class="bor hi selectWrap2"><span class="diSpan"><label for="acLabel1" class="acCoRaMzla">买</label></span><input id="acLabel1" class="acCoRaMzip" type="text" value=""/><span class="diSpansa">:</span><span><label class="acCoRaMzla" for="acLabel2">赠</label></span><input id="acLabel2" class="acCoRaMzip" type="text" value=""/><input type="text" value=""><input type="text" value=""></div>';
 			} else { //不考虑有礼					
-				hm += '<div class="bor hi selectWrap2"><input class="bor diInput" type="text" value="20"/><span class="diSpan por">%</span></div>'
+				hm += '<div class="bor hi selectWrap2"><input class="bor diInput" type="text" value=""/><span class="diSpan por">%</span></div>'
 			}
 		}
 		$(".addSub1 .acCoRa").append(hm);
@@ -520,7 +531,7 @@ $.ajax({
 		//会员类型
 		$(".addSub2 .acSe4 .select").empty();
 		for (i = 0; i < dsm_1.length; i++) {
-			$(".addSub2 .acSe4 .select").append('<li class="option" name="' + dsm_1[i].type + '" type="' + dsm_1[i].type + '" restrictcount="' + dsm_1[i].restrictcount + '">' + dsm_1[i].localtype + '</li>');
+			$(".addSub2 .acSe4 .select").append('<li class="option" name="'+dsm_1[i].type+'" type="'+dsm_1[i].type+'" restrictcount="'+dsm_1[i].restrictcount+'" conditiontype="'+dsm_1[i].conditiontype+'">'+dsm_1[i].localtype+'</li>');
 		}
 		//参加名额
 		$(".addSub2 .acMe").empty();

@@ -20,8 +20,11 @@ function invitefans() {
     var src = "/webapi/consumer/weixin/register_generate_code?qrtype=2023";
     if (retailer_id != "")
         src += "&retailer_id=" + retailer_id;
-    
-    $("#retailerqrcode").attr("src", src);
+    var qrcode = qrcodeconfig["retailer"];
+    qrcode["consumercard"]["url"] = src;
+    draw(qrcode, "consumercard", qrcodeconfig["consumer"]["logo"]);
+
+    //$("#retailerqrcode").attr("src", src);
 }
 $(function () {
     invitefans();

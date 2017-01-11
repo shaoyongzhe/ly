@@ -12,7 +12,7 @@ function shareactivities() {
             keyvalue = paraString[i].split("=");
             key = keyvalue[0];
             value = keyvalue[1];
-            ajaxdata[key] = value; 
+            ajaxdata[key] = value;
         }
     }
     $.ajax({
@@ -109,8 +109,15 @@ function shareactivities() {
                     //    html += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
                     //}
                     if (item.topiclist != undefined && item.topiclist.length > 0) {
-                        html += " <div class=\"assetinfo\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
-                        html += " <nobr>" + item.topiclist[0].topictitle + (item.topiclist.length > 1 ? '等活动' : '') + "</nobr> </div> <div class=\"asset_right\"><small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
+
+                        var topicid = ""
+                        $.each(item.topiclist, function (index, items, array) {
+                            topicid += "," + items.topicid
+                        });
+
+                        html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
+                        // html += " <nobr>" + item.topiclist[0].topictitle + (item.topiclist.length > 1 ? '等活动' : '') + "</nobr> </div> <div class=\"asset_right\"><small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
+                        html += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
                     }
                     html += '  <hr />  </div>'
                 }
@@ -243,4 +250,8 @@ function useticket(guid, verifylimit) {
         location.href = url;
 
     }
+}
+
+function topicClick(topicid) {
+    location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
 }
