@@ -4,14 +4,15 @@
         "logo": "/consumer/image/consumer_logo.png",
         "loadsuccess": function () { },
         "loaderror": function () { },
-        "loadbeforesend":function(){
+        "loadbeforesend": function () {
             common.loading.show();
         },
-        "minconsumercard":{
+        "minconsumercard": {
             "url": "/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetext=0&combineicon=0",
+
             "qrcode": {
-                "type": "qrcode",                
-                "bordercolor": "#d9d9d9",
+                "type": "qrcode",
+                "islogo": false,
                 "width": 44,
                 "height": 44,
                 "single": true,
@@ -74,7 +75,7 @@
                 "text": "",
                 "fontsize": 20,
                 "font": "Microsoft YaHei",
-                "fontcolor": "#666666",                
+                "fontcolor": "#666666",
                 "fillrectcolor": "#e7e7e7",
                 "fillrectwidth": 348,
                 "fillrectheight": 30,
@@ -159,7 +160,7 @@
                 "type": "text",
                 "depend": "qrcode",
                 "text": "扫一扫上面的二维码，成为超惠买惠粉！",
-                "fontsize": 20,                
+                "fontsize": 20,
                 "font": "Microsoft YaHei",
                 "fontcolor": "#0e9393",
                 "width": 384,
@@ -200,7 +201,7 @@
         },
         "limitverfiy": {
             "url": "/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false",
-            "background":{
+            "background": {
                 "type": "image",
                 "url": "/retailer/image/verify/verifycode.png",
                 "width": 420,
@@ -209,10 +210,10 @@
                 "depend": "title",
                 "x": 0,
                 "y": 0
-            },            
+            },
             "qrcode": {
                 "type": "qrcode",
-                "depend": "background",                
+                "depend": "background",
                 "width": 175,
                 "height": 175,
                 "single": false,
@@ -220,7 +221,7 @@
                 "y": 130
             }
         },
-        "inviteretailer": {            
+        "inviteretailer": {
             "nav": {
                 "type": "image",
                 "url": "/consumer/image/retailer_consumer_nav.png",
@@ -297,7 +298,7 @@
                 "bordercolor": "#d9d9d9",
                 "width": 348,
                 "height": 348,
-                "single": true,                
+                "single": true,
                 "x": 0,
                 "y": 0
             }
@@ -328,7 +329,7 @@
             },
             "qrcode": {
                 "type": "qrcode",
-                "bordercolor": "#d9d9d9",                
+                "bordercolor": "#d9d9d9",
                 "width": 348,
                 "height": 348,
                 "single": true,
@@ -350,9 +351,9 @@ function TextDraw(canvas, name, config, dependconfig) {
     var textinterval = setInterval(function () {
 
         if (dependconfig == undefined || dependconfig.success) {
-            clearInterval(textinterval);        
+            clearInterval(textinterval);
             if (config.fillrectcolor != undefined) {
-                canvas.fillStyle = config.fillrectcolor;                
+                canvas.fillStyle = config.fillrectcolor;
                 canvas.fillRect(config.x, config.y - config.fontsize, config.fillrectwidth, config.fillrectheight);
             }
             var font = config.fontsize + "px " + config.font;
@@ -365,7 +366,7 @@ function TextDraw(canvas, name, config, dependconfig) {
             canvas.fillText(config.text, config.width / 2, config.y);
             config.success = true;
         }
-    }, 200);
+    }, 100);
 }
 
 function ImageDraw(canvas, imagename, config, dependconfig) {
@@ -387,38 +388,45 @@ function ImageDraw(canvas, imagename, config, dependconfig) {
 
 function QrcodeDraw(canvas, imagename, config, logo, dependconfig) {
     var qrinterval = setInterval(function () {
-        if (dependconfig == undefined || dependconfig.success) {
+
+        if ((dependconfig == undefined || dependconfig.success) && $("#qrcodediv").length > 0) {
+
             clearInterval(qrinterval);
-            
             $("#canvasqrcode").remove();
-            $('#qrcodediv').qrcode({
+            var qrparmjson = {
                 text: config.text,
                 render: 'canvas',
                 height: config.height,
                 width: config.width,
                 typeNumber: -1,      //计算模式
-                correctLevel: QRErrorCorrectLevel.H,//纠错等级
+                correctLevel: QRErrorCorrectLevel.H,//纠错等级   
                 src: logo//这里配置Logo的地址即可。
-            });
-            setTimeout(function () {
-                var qrcanvas = document.getElementById('canvasqrcode');
-                var qrcodeimage = new Image();
-                qrcodeimage.src = qrcanvas.toDataURL("image/png");
-                qrcodeimage.onload = function () {
-                    var borderwidth = 0;                    
-                    if (config.bordercolor)
-                    {
-                        canvas.strokeStyle = "#ccc";
-                        canvas.lineWidth = 1;
-                        canvas.strokeRect(config.x, config.y, config.width, config.height);
-                        borderwidth = 10;
-                    }               
-                    canvas.drawImage(qrcodeimage, config.x + borderwidth, config.y + borderwidth, config.width - (2 * borderwidth), config.height - (2 * borderwidth));
-                    config.success = true;
+            }
+            if (config.islogo != undefined && config.islogo == false)
+                delete qrparmjson["src"];
+            $('#qrcodediv').qrcode(qrparmjson);
+            var buildqrinterval = setInterval(function () {
+                if ($("#qrcodediv").length > 0) {
+                    clearInterval(buildqrinterval);
+                    var qrcanvas = document.getElementById('canvasqrcode');
+                    var qrcodeimage = new Image();
+                    qrcodeimage.src = qrcanvas.toDataURL("image/png");
+                    qrcodeimage.onload = function () {
+                        var borderwidth = 0;
+                        if (config.bordercolor) {
+                            canvas.strokeStyle = "#ccc";
+                            canvas.lineWidth = 1;
+                            canvas.strokeRect(config.x, config.y, config.width, config.height);
+                            borderwidth = 10;
+                        }
+                        canvas.drawImage(qrcodeimage, config.x + borderwidth, config.y + borderwidth, config.width - (2 * borderwidth), config.height - (2 * borderwidth));
+                        config.success = true;
+                    }
                 }
-            }, 1000)
+
+            }, 200)
         }
-    }, 500);
+    }, 200);
 
 }
 
@@ -432,7 +440,7 @@ function draw(config, configname, logo) {
         var qrurl = config[configname]["qrcode"]["url"];
         $('#QRCode_img').attr("src", qrurl);
         if ($.isFunction(config.loadsuccess))
-                config.loadsuccess();
+            config.loadsuccess();
         return;
     }
 
@@ -440,7 +448,16 @@ function draw(config, configname, logo) {
     $.ajaxSettings.async = false;
     $.getJSON(qrcodeurl, function (data) {
         data = data || {};
-        $.extend(true, config[configname], data);
+        $.each(data, function (name, jsondata) {
+            $.each(config[configname], function (name1, jsondata1) {
+                if (name == name1) {
+                    $.extend(true, jsondata1, jsondata);
+                    return false;
+                }
+
+            });
+        });
+
     });
     $.ajaxSettings.async = true;
     var width = 0;
@@ -485,7 +502,7 @@ function draw(config, configname, logo) {
         var iserror = false;
         var allsuccess = true;
         $.each(config[configname], function (name, jsondata) {
-            if (name == "url")
+            if (name == "url" || name == "islogo")
                 return true;
             if (jsondata.success != true) {
                 allsuccess = false;
@@ -514,6 +531,6 @@ function draw(config, configname, logo) {
         config.loadsuccess();
         if (common.loading)
             common.loading.hide();//隐藏转圈动画
-    }, 500);
+    }, 200);
 
 }

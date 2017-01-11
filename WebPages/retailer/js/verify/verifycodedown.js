@@ -1,4 +1,4 @@
-﻿
+
 avalon.ready(function () {
     vm.getQRcode()
 })
@@ -15,17 +15,17 @@ var vm = avalon.define({
         //});
         //$('#QRCode_img').error(function () {
         //    vm.loadState = 1
-        //});         
+        //}); 
         var qrcode = qrcodeconfig["retailer"];
         qrcode.loadsuccess = function () {                        
             console.log("成功")
             vm.loadState = 2;
             $("#QRCode_img").show();
-            
+
         };
         qrcode.loaderror = function () {            
             console.log("失败")
-            vm.loadState = 1            
+                    vm.loadState = 1
         };
         draw(qrcode, "limitverfiy", qrcode["logo"]);        
         //$.ajax({
@@ -48,6 +48,6 @@ var vm = avalon.define({
         //        vm.loadState = 1
         //    }
         //});
-    }
+                }
 })
 

@@ -1804,13 +1804,8 @@ $('.saveToDb, .shenhe').click(function(){
 	        "responsible_second_name": basic.find('.fzr2 .selected').text()
 	    },
 	    "area_condition": [],
-        "sponser": sponser,
+	    "sponsor": $('.edit-area.condition .radio.on').attr("name")
 	}
-
-
-	// 2.参与活动条件
-	var condition = $('.condition'),
-		sponser = $('.edit-area.condition .radio.on').text();
 
 	// 参与会员（会员类型 + 条件类型）
 	$('.member-type .selected').each(function(){
