@@ -422,7 +422,6 @@ var vm = avalon.define({
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { qrkey: vm.qrkey },
             url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
                 vm.IsSearchStatus = false;
