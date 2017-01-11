@@ -206,17 +206,21 @@ $(".queryConditionButton .query").click(function(){
 							}else if(statusData[key].ops[j]=="下架"){
 								stateHtml+='<i class="Hui-iconfont">&#xe6de;</i>';
 							}else if(statusData[key].ops[j]=="上架"){
+								stateHtml+='<i class="Hui-iconfont">&#xe6de;</i>';
+							}else if(statusData[key].ops[j]=="修改"){
+								stateHtml+='<i class="Hui-iconfont">&#xe6de;</i>';
+							}else if(statusData[key].ops[j]=="详细"){
 								stateHtml+='<i class="Hui-iconfont">&#xe6dc;</i>';
 							}
-							stateHtml+='<span">'+statusData[key].ops[j]+'</span>';
+							stateHtml+="<span class='handle "+statusData[key].ops[j]+"'>"+statusData[key].ops[j]+"</span>";
 							stateHtml+='</p>';
-						}						
+						}
 					}
 				}
 				if(stateHtml==''){
 					stateHtml='<p class="menuElement" style="border:0px;"><span>不可操作</span></p>'
 				}
-				activityListTbody+='<tr>'
+				activityListTbody+='<tr guid='+contentBody[i].guid+'>'
 				+'<td><p class="checkBox"></p></td>'
 				+'<td class="activityCode">'+contentBody[i].activitycode+'</td>'
 				+ '<td class="activitytitle">' + contentBody[i].activitytitle + '</td>'
@@ -315,6 +319,8 @@ $(".addButton").click(function(){
 $(".printButton").click(function(){
 	layer.alert("暂不支持此功能，相关页面为完善")
 })
+
+
 /*表格th复选框*/
 $(document).on("click",".activityList thead .checkBox",function(){
 //$(".activityList thead .checkBox").click(function(){
@@ -326,6 +332,7 @@ $(document).on("click",".activityList thead .checkBox",function(){
 	}
 	
 })
+
 /*表格td复选框*/
 $(document).on("click",".activityList tbody .checkBox",function(){
 //$(".activityList tbody .checkBox").click(function(){
@@ -346,3 +353,31 @@ $(document).on("click",".edit",function(){
 $(document).click(function(){
 	$(".edit .menu").hide();
 })
+
+
+
+
+$('table.activityList').on('click',".handle",function(){
+
+	$('#guid').val($(this).closest('tr').attr('guid'));
+	// alert($('#guid').val());
+
+	if($(this).hasClass('下架')){
+
+		layer.open({
+			type: 2,
+			title: '详情',
+			shadeClose: true,
+			// shade: false,
+			maxmin: true, 
+			area: ['90%', '90%'],
+			content: 'detail.html',
+		});
+		
+	}
+
+	if($(this).hasClass('修改')){
+		window.location.href = "activityModify.html?guid=" + $('#guid').val();
+	}
+	
+});

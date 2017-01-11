@@ -677,7 +677,9 @@ $('body.create').on('input','input',function(e){
 
     } else {
     	// debugger
-    	$(this).val(parseInt($(this).val()))
+    	if($(this).val().indexOf('.') != 0){
+    		$(this).val(parseInt($(this).val()))
+    	}
     }
 
     // debugger
@@ -688,7 +690,6 @@ $('body.create').on('input','input',function(e){
     	if(addSub2.find('.member .selected').text() == ""){
     		layer.msg('请先选择会员类型');
     	}
-
     }
 
 });

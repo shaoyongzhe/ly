@@ -386,9 +386,133 @@
 }
 render(detailData);*/
 
+var detailData = {
+    "activity": {
+        "guid": "02e80f58cd594eb2a24cb413424e53c5",
+        "description": "11111111111111111111111111",
+        "state": "上架",
+        "begintime": "2017-01-10 00:00:00",
+        "endtime": "2017-01-11 23:59:59",
+        "earliestjointime": "2017-01-11 00:00:00",
+        "latestjointime": null,
+        "activitytitle": "shaoyongzhe: 测试6",
+        "servicephone": "111-1111111",
+        "singleselection": 0
+    },
+    "area_condition": {
+        "topicid": "02e80f58cd594eb2a24cb413424e53c5",
+        "districts": [
+            {
+                "name": "北京市",
+                "state": "active",
+                "charge": {
+                    "name": "shaoyongzhe",
+                    "guid": "4654269886BC4FD7B5914ED324208FB0",
+                    "oid": 2800992
+                },
+                "city": [
+                    {
+                        "name": "北京市",
+                        "state": "active",
+                        "charge": {
+                            "name": "shaoyongzhe",
+                            "guid": "4654269886BC4FD7B5914ED324208FB0",
+                            "oid": 2800992
+                        },
+                        "country": []
+                    }
+                ]
+            }
+        ]
+    },
+    "supplier_condition": {},
+    "distributor_condition": {
+        "state": "active",
+        "number_range": {
+            "min": "1",
+            "max": "11"
+        },
+        "ticket_verify": {
+            "state": "active",
+            "min": "111",
+            "operator": ">=",
+            "max": "",
+            "begintime": "2017-1-9",
+            "guid": "767f81af8bcb48d485071c1ad1a29874"
+        }
+    },
+    "consumer_condition": {},
+    "retailer_condition": {},
+    "activity_condition": [
+        {
+            "state": "active",
+            "activitytype": "package",
+            "retailer_count": {
+                "min": "1",
+                "max": "20"
+            },
+            "discount": {
+                "min": "1",
+                "operator": ">="
+            },
+            "guid": "af741cca16644d1ab84cc4ec987ca707"
+        }
+    ],
+    "event_handler_list": [
+        {
+            "state": "active",
+            "refund_to": "distributor",
+            "event": "verify_first",
+            "refund_content": "fixedmoney",
+            "min": "1",
+            "ceiling": "1111",
+            "applycount": "11111",
+            "limit": {
+                "perday": {
+                    "sum": "1",
+                    "time": "1"
+                },
+                "totalbudget": {
+                    "sum": "11",
+                    "time": "11"
+                }
+            },
+            "guid": "5ee9fd80764944569f50bf6fdede688e"
+        }
+    ],
+    "sponsor": "distributor",
+    "propagation": [
+        {
+            "activitytitle": "11",
+            "wechattitle": "11",
+            "propagation": "11",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "distributor"
+        },
+        {
+            "activitytitle": "22",
+            "wechattitle": "22",
+            "propagation": "111",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "retailer"
+        },
+        {
+            "activitytitle": "33",
+            "wechattitle": "33",
+            "propagation": "33",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "consumer"
+        }
+    ]
+}
+render(detailData);
 
 
 var topicId = '4b108a2261284dbb930f481b29426cff';
+
+/*debugger
+var topicId = parent.$('#guid').val();	
+// alert("zz  "+topicId);
 
 $.ajax({
     type: "get",
@@ -398,12 +522,13 @@ $.ajax({
     complete: function (){ $('.loading').fadeOut() },
     success: function (detailData){ render(detailData) },
     error: function (){ console.warn("详情 error") }
-});
+});*/
 
 
 
 function render(detailData){
 
+	// alert(1)
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
@@ -420,7 +545,7 @@ function render(detailData){
 	
 	// 2.参与活动条件
 	var second = $('.item.second');
-	var area = detailData.area_condition;  // 活动地区
+	var area = detailData.area_condition.districts;  // 活动地区
 	for(var i=0; i<area.length; i++){
 		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><span class='region-info'><span shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</span><br><span class='city'></span></span></div>");
 
@@ -523,7 +648,13 @@ function render(detailData){
 
 
 	function canyuHy(type, txt){
-		$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ type.number_range.min +" - "+ type.number_range.max +"</td><td></td></tr>");
+		// debugger
+		if(type.number_range){
+			// alert(2)
+			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ type.number_range.min +" - "+ type.number_range.max +"</td><td></td></tr>");
+		} else {
+			// alert(1)
+		}
 
 		// debugger
 		if(type.ticket_verify){
@@ -547,19 +678,23 @@ function render(detailData){
 	}
 
 	function condType(ctype, typeTxt){
-		var bgt1 = new Date(activity.begintime.substring(0,10)) * 1;
+		var bgt1 = new Date(activity.begintime) * 1;
 		var bgt2 = new Date(ctype.begintime) * 1;
 		var preDays = (bgt1 - bgt2) / 86400000;
 		var range = ctype.max ? ctype.max : ctype.min;
 
-		var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
+		var str = "";
 		if(ctype.operator == "between"){
 			ctype.operator = "介于";
 			str = "&nbsp;"+ ctype.operator +" <i>"+ ctype.min +"</i> - <i>"+ ctype.max +"</i>";
+		} else if(ctype.operator == ">="){
+			ctype.operator = "不低于";
+			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
 		}
 
 		// debugger
 		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ preDays +" <i>"+ ctype.timeunit +"</i>"+ str +" 次</p>");
+		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ preDays +" "+ str +" 次</p>");
 	}
 
 
@@ -688,7 +823,9 @@ function render(detailData){
 		}
 
 		var rangeStr = "<span class='fl'>"+ butie[i].min +"-"+ butie[i].max +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ butie[i].max * butie[i].ceiling +"</i><i>"+ danwei +"</i></td>";
-		if(!butie[i].max){
+		
+		// debugger;
+		if(!butie[i].max || butie[i].max == ""){
 			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ butie[i].min * butie[i].ceiling +"</i><i>"+ danwei +"</i></td>";
 		}
 
@@ -755,5 +892,13 @@ function render(detailData){
 		area.find('.propagation').text(propagation[i].propagation);
 		area.find('.posterurl').attr("src",propagation[i].poster_url);
 	}
+
+	$('.xiugai').click(function(){
+		debugger;
+		$('.layui-layer-shade').click();
+		$(this).closest('.layui-layer-iframe').find('.layui-layer-close').click();
+		// alert(1)
+		// window.location.href = "activityModify.html?guid=" + topicId;
+	});
 
 }
