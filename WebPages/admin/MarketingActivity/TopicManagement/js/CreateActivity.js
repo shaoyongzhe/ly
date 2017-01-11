@@ -583,7 +583,7 @@ var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
 $('.earliestjointime').val(tomorrow + " 00:00:00");
-$('.lastestjointime').val(tomorrow + " 23:59:59");
+$('.latestjointime').val(tomorrow + " 23:59:59");
 // laydate.skin('yalan');
 $('.time').click(function(e){
 	e.stopPropagation();
@@ -1799,9 +1799,9 @@ $('.saveToDb, .shenhe').click(function(){
 	        "responsible_id": basic.find('.fzr1 .selected').attr('guid'),
 	        "responsible_oid": parseInt(basic.find('.fzr1 .selected').attr('oid')),
 	        "responsible_name": basic.find('.fzr1 .selected').text(),
-	        "responsible_second_id": basic.find('.fzr2 .selected').attr('guid'),
-	        "responsible_second_oid": parseInt(basic.find('.fzr2 .selected').attr('oid')),
-	        "responsible_second_name": basic.find('.fzr2 .selected').text()
+	        "responsible2nd_id": basic.find('.fzr2 .selected').attr('guid'),
+	        "responsible2nd_oid": parseInt(basic.find('.fzr2 .selected').attr('oid')),
+	        "responsible2nd_name": basic.find('.fzr2 .selected').text()
 	    },
 	    "area_condition": [],
 	    "sponsor": $('.edit-area.condition .radio.on').attr("name")
@@ -1970,38 +1970,7 @@ $('.saveToDb, .shenhe').click(function(){
 	$('.activity .selected').each(function(){
 		var _this = $(this),
 			thisText = _this.text();
-
-		if(thisText == "买赠"){
-			getActivityType( _this, "buycount");
-		}
-
-		if(thisText == "套餐"){
-			getActivityType( _this, "package");
-		}
-
-		if(thisText == "降价"){
-			getActivityType( _this, "discount");
-		}
-
-		/*if(thisText == "有礼"){
-			var ra_min = _this.closest('.addSub1').find('.acPu .acPuI1').val(),
-				ra_max = _this.closest('.addSub1').find('.acPu .acPuI2').val(),
-
-				// cond1 = _this.closest('.addSub1').find('.acCoSc .bor.selectWrap1.-hi').text(),
-				operator = _this.closest('.addSub1').find('.acCoRe .selected').text(),
-				min = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi input').val()
-
-			var item = {                                                                                
-		    	"activitytype": _this.attr("name"), 
-		        "retailer_count" : {"min": ra_min, "max": ra_max}, 
-		        "discount":{"min": min, "operator": operator}, 
-		        // "state":""
-		    }
-
-		    acArr.push(item);
-		}*/
-
-		// console.log(acArr)
+		getActivityType(_this, thisText);
 
 		data['activity_condition'] = {
 			"product_category": [],
@@ -2037,8 +2006,8 @@ $('.saveToDb, .shenhe').click(function(){
 			"state": "active",
             // "guid": "",
             "refund_to": _this.attr("name"),
-            "event": addSub4.find('.hdc2 .selected').attr("name"),
-            "refund_content": addSub4.find('.hdc3 .selected').attr("name"),
+            "event": addSub4.find('.hdc2 .selected').text(),
+            "refund_content": addSub4.find('.hdc3 .selected').text(),
             "min": addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val(),
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
