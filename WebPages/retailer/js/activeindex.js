@@ -38,28 +38,40 @@ function fnscroll() {
         }
     });
 }
-//菜单点击事件
+//菜单(手风琴样式)点击事件
 function fnclick() {
     var Accordion = function(el, multiple) {
 		this.el = el || {};
 		this.multiple = multiple || false;
-
-		// Variables privadas
 		var links = this.el.find('.link');
-		// Evento
-		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
-		
+		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown);
 		var submenu=this.el.find('.submenu');
 		submenu.on("click","li",function () {
 			submenu.find("li").removeClass("col1");
 			$(this).addClass("col1");
+			if($(this).find(".hide1").length>0){
+				$(".sanji").slideDown(300).find("h4>i").css("transform","rotateZ(90deg)");
+				$("#cgl-contlist").find("ul").animate({
+					"margin-top":"1.95rem"
+				},300);
+				$(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
+			}else{
+				$(".sanji").slideUp(300);
+				$("#cgl-contlist").find("ul").animate({
+					"margin-top":"0"
+				},300);
+			}
 		})
 	}
 	Accordion.prototype.dropdown = function(e) {
-		var $el = e.data.el;
+		var $el = e.data.el,
 			$this = $(this),
 			$next = $this.next();
-
+		$next.find("li").removeClass("col1");//删除橙色字的颜色
+		$(".sanji").hide();//隐藏一级分类右下角的三角
+		$("#cgl-contlist").find("ul").animate({
+			"margin-top":0
+		},300);
 		$next.stop().slideToggle(300);
 		$el.find(">li").removeClass('clion');
 		$this.parent().addClass('clion');
@@ -71,10 +83,29 @@ function fnclick() {
 	}	
 	var accordion = new Accordion($('#cgl-menu'), false);
 }
-//二级菜单点击事件
+function fnmenuclick () {
+	var thetext="";
+	fnhqactive();
+	$("#cgl-menu").on("click",".link",function(){
+		thetext=$(this).text();
+		if(thetext=="我的预存货"){
+			fnyucun();
+		}else if(thetext=="促销活动"){
+			fnhqactive();
+		}else{
+			
+		}
+	});
+}
+//二级菜单遮罩上部点击事件
 function fnerji () {
 	$(".sanji").on("click",function () {
 		$(".sanji-zi",this).toggle().show;
+		if($(".sanji-zi",this).is(":visible")==true){
+			$("h4>i",this).css("transform","rotateZ(-90deg)");
+		}else{
+			$("h4>i",this).css("transform","rotateZ(90deg)");
+		}
 	});
 }
 //动态设置cgl-cont的高度
@@ -105,8 +136,8 @@ function fncarnum(){
 function fnmenu () {
 	$.ajax({
         type: "get",
-      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/itemtypegroups",
-      	url: "../../data/menu.json",
+      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/itemtypegroups",
+      	//url: "../../data/menu.json",
         data: "",
         timeout:"2000",
         dataType:"json",
@@ -121,21 +152,79 @@ function fnmenu () {
         	console.log(data)
         	var oli="";
         	for(var k1 in data){
-        		oli+="<li><div class='link'>"+data[k1]["suppliername"]+"</div>"+
-        		"</li>";
+        		oli+="<li>" +
+                "<div class='link'>"+data[k1]["suppliername"];
+                if(data[k1]["itemcategory"].length>0){
+                    oli+="<i></i>";
+                }
+                oli+="</div>" +
+                "<ul class='submenu'> ";
+                    for(var k2 in data[k1]["itemcategory"]){
+                        oli+="<li>"+data[k1]["itemcategory"][k2]["itemcategoryname"]+"<i> > </i><ul class='hide1' style='display: none;'>";
+                            for(var k3 in data[k1]["itemcategory"][k2]["itemsubcategory"]){
+                                oli+="<li>"+data[k1]["itemcategory"][k2]["itemsubcategory"][k3]["itemsubcategoryname"]+"</li>";
+                            }
+                            oli+="</ul></li>";
+                    }
+                oli+="</ul>" +
+                "</li>";
         	}
         	$("#cgl-menu").append(oli);
         	fnclick();
+        	fnmenuclick();
         }
     });
 }
-
-//获取活动列表
+//预存货列表
+function fnyucun() {
+	$.ajax({
+		type: "get",
+      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
+      	//url: "../../data/menu.json",
+        data: "",
+        timeout:"2000",
+        dataType:"json",
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+        	if(textStatus=="timeout"){
+        		console.log("请求超时")
+        		XMLHttpRequest.abort();
+        	}
+        },
+        success: function(data){
+        	console.log(data)
+        	var oli="";
+        	for(var k1 in data){
+        		oli+="<li>" +
+                    "<div class='cgl-top hori'> " +
+                        "<img src='"+data[k1]["itemimage"]+"' alt=''> " +
+                        "<div class='the-xiangxi'> " +
+                            "<h3><span></span>"+data[k1]["itemname"]+"</h3>" +
+                            "<p>"+data[k1]["specification"]+" | "+data[k1]["packagetypename"]+"</p>" +
+                            "<div class='c-price'><span>￥0</span>";
+                            	oli+="<div class='right'>";
+                                if(data[k1]["itemcount"]<=0){
+                                	oli+="<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>"+data[k1]["itemcount"]+"</span><span class='add'></span>";
+                                }else{
+                                	oli+="<span class='jian'></span><span class='price-z'>"+data[k1]["itemcount"]+"</span><span class='add'></span>";
+                                }
+                            oli+="</div>" +
+                            " </div>"+
+                            "<span class='del'>￥"+Number(data[k1]["itemunitcost"]).toFixed(1)+"0<i></i></span>"+
+                            "<div class='cgl-syu'>可提<span> "+data[k1]["remaincount"]+" </span>件</div>";
+                        oli+="</div>" +
+                    "</div> " +
+                "</li>";
+        	}
+        	$("#cgl-contlist").find("ul").html(oli);
+        }
+	});
+}
+//获取促销活动列表
 function fnhqactive () {
 	$.ajax({
         type: "get",
-      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/activity",
-      	url: "../../data/activeindex.json",
+      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/activity",
+      	//url: "../../data/activeindex.json",
         data: {
         	"lastcount":0,
         	"pagecount":10
@@ -194,11 +283,10 @@ $(function () {
 	fnurl();
 	fnxrym();
     fnscroll();
-    
     fnmenuhei();
     fncarnum();
     fnmenu();
-    fnhqactive();
     fnerji();
+   
 });
 
