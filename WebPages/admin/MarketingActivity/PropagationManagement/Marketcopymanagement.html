@@ -295,12 +295,12 @@
 	</div>
 	<!-- E -->
 <script type="text/javascript" src="/admin/lib/layer/2.1/layer.js"></script> 
-<script type="text/javascript" src="/admin/MarketingActivity/PropagationManagement/static/h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="/admin/MarketingActivity/PropagationManagement/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="/admin/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="/admin/static/H-ui.admin.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/Marketcopymanagement.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/dropload.js"></script>
-<script src="/admin/MarketingActivity/PropagationManagement/js/cityLink.js"></script>
-<script type="text/javascript" src="/admin/lib/laydate.js"></script>
+<script src="/admin/lib/district/cityLink.js"></script>
+<script type="text/javascript" src="/admin/lib/laydate/laydate.js"></script>
 <script type="text/javascript">
 var start = {
   elem: '#serverBeginTime',
@@ -330,7 +330,6 @@ var end = {
 laydate(start);
 laydate(end);
  
-
 //返回顶层
 $(function(){
 	// debugger;
@@ -342,6 +341,7 @@ $(function(){
 	$('.length_val').on('keyup',function(){
 		if($(this).val().length==65){layer.msg('文案标题字数已上限')}
 	});
+
 
 
 // 判断 选择时间的
