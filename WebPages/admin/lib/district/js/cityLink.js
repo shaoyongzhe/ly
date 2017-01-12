@@ -12,7 +12,7 @@ function comSelect(){
 	$(document).on("click",".gf-select > span > i",function(){
 		var parent = $(this).closest("span").next("ul");
 		parent.hide();
-//		return false;
+		return false;
 	});			
 	$(document).on("click",".gf-select ul li",function(){
 		var parent = $(this).closest("ul");
@@ -37,7 +37,7 @@ function comSelect(){
 }
 function selectCity(options){
 	var config = {
-		domSelect : ["#gf-province","#gf-city","#gf-area"],
+		domSelect : ["#province","#city","#area"],
 		domInit : ["省份","城市","区县"]
 	}
 	var opts = $.extend(config,options);

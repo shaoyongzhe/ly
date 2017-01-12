@@ -211,13 +211,17 @@
 }
 
 .Graphic_message input{
-	margin-left:38px;
+	margin-left:22px;
 }
 .Graphic_message .custom{
 	color:red;
 	margin-top:16px;
 }
 
+#LAY_demorange_s{
+	width: 100px;
+	margin-left: 0%;
+}
 ._button{
 	padding-left:23%;
 	margin :60px  auto;

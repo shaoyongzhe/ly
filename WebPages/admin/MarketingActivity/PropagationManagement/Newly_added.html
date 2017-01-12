@@ -131,14 +131,13 @@
 				</div>
 			</div>
 		</div>
-	<script src="laydate/laydate.js"></script>
+	<script src="/admin/lib/laydate/laydate.js"></script>
 	<script>
-
-laydate({
-  elem: '#LAY_demorange_s',
-  min: laydate.now(), //-1代表昨天，-2代表前天，以此类推
-  max: laydate.now(+100000) //+1代表明天，+2代表后天，以此类推
-});
+		laydate({
+		  elem: '#LAY_demorange_s',
+		  min: laydate.now(), //-1代表昨天，-2代表前天，以此类推
+		  max: laydate.now(+100000) //+1代表明天，+2代表后天，以此类推
+		});
 
 $(function(){
 	$('.send_object dir div').click(function(){

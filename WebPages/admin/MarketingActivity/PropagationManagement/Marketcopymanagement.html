@@ -40,15 +40,20 @@
 				<div class="search-area">
 
 
-					<div class="search-pos-item">
+					<!-- <div class="search-pos-item"> -->
 						<div class="input-contorl">
-							<label for='datepicker'>文案标题</label>
-							<input type="text" value="" class="input-text length_val" maxlength="65" id="service_val">
+							<label for='datepicker'>文案编号</label>
+							<input type="text" value="" class="input-text" id="numbul_val">
 						</div>
+						
 						<div class="input-contorl">
 							<label>发送时间</label>
 							<input type="text" value="" readonly="readonly" style="background:url(/admin/MarketingActivity/PropagationManagement/Images/2.png) no-repeat right"; class="input-text date"  id="serverBeginTime"> 至
 							<input type="text" value="" readonly="readonly" style="background:url(/admin/MarketingActivity/PropagationManagement/Images/2.png) no-repeat right"; class="input-text date"  id="serverEndTime">
+						</div>
+						<div class="input-contorl">
+							<label for='datepicker'>文案标题</label>
+							<input type="text" value="" class="input-text length_val" maxlength="65" id="service_val">
 						</div>
 						<div class="input-contorl">
 							<label>发送对象</label>
@@ -59,9 +64,9 @@
 								<option value="消费者">消费者</option>
 							</select>
 						</div>
-					</div>
+					<!-- </div> -->
 
-					<div class="search-pos-item">
+					<!-- <div class="search-pos-item"> -->
 						<div class="input-contorl">
 							<!-- <label>发送地区</label> -->
 							<!-- <input type="text" value="" class="input-text" id="area"> -->
@@ -112,11 +117,8 @@
 								</div>
 							</div>  -->	
 						</div>
-						<!-- <div class="input-contorl">
-							<label for='datepicker'>文案编号</label>
-							<input type="text" value="" class="input-text" id="numbul_val">
-						</div> -->
-					</div>
+						
+					<!-- </div> -->
 					<input type="button" value="查询" class="search-btn"/>				
 					<input type="button" value="重置" class="search-btn2 resetting"/>	
 				</div>
@@ -149,6 +151,9 @@
 				<tbody class="pagesTbodyLong content_drop">
 				</tbody>
 		</table>
+		<!-- <div class='content_drop'>
+			<span>点击加载更多</span>
+		</div> -->
 	
 		
 	</div>
@@ -182,7 +187,7 @@
 					<button id="count">保存</button>
 				</div>
 				<!-- 显示选择的地区 -->
-				<input type="hidden" class="area_val clear" value>
+				<input type="hidden" class="area_val clear" id='' value>
 				<div class="region-wrap">
 					<!-- <div class='region-item'></div> -->
 				</div>
@@ -299,17 +304,18 @@
 <script type="text/javascript" src="/admin/static/H-ui.admin.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/Marketcopymanagement.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/dropload.js"></script>
-<script src="/admin/lib/district/cityLink.js"></script>
+<!-- <script src='/admin/MarketingActivity/PropagationManagement/js/cityLink.js'></script>  -->
+<script type="text/javascript" src="/admin/lib/district/js/cityLink.js"></script>
 <script type="text/javascript" src="/admin/lib/laydate/laydate.js"></script>
 <script type="text/javascript">
 var start = {
   elem: '#serverBeginTime',
   event: 'focus',
   format: 'YYYY/MM/DD',
-  min: laydate.now(), //设定最小日期为当前日期
+  min: laydate.now(-1000000), //设定最小日期为当前日期
   max: '2099-06-16 23:59:59', //最大日期
   // istime: true,
-  istoday: false,
+  istoday: true,
   choose: function(datas){
      end.min = datas; //开始日选好后，重置结束日的最小日期
      end.start = datas //将结束日的初始值设定为开始日
@@ -322,7 +328,7 @@ var end = {
   min: laydate.now(),
   max: '2099-06-16 23:59:59',
   // istime: true,
-  istoday: false,
+  istoday: true,
   choose: function(datas){
     start.max = datas; //结束日选好后，重置开始日的最大日期
   }

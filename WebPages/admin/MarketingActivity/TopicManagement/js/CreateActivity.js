@@ -1857,42 +1857,9 @@ $('.saveToDb, .shenhe').click(function(){
 		// console.log(data[MemberType]['number_range'])
 		_this.parents('.addSub2').find('.addSub3 .selected.condition').each(function(){
 			var _self = $(this),
-				thisText = _self.text(),
-				name = _self.attr('name');
+				thisText = _self.text();
 
-			// console.log(thisText)
-
-			switch(name){
-				case "ticket_verify": 
-					getCondItemData( _self, MemberType, 'ticket_verify');
-					break;
-
-				case "verify_person_count": 
-					getCondItemData( _self, MemberType, 'verify_person_count');
-					break;
-
-				case "fans_range": 
-					getCondItemData( _self, MemberType, 'fans_range');
-					break;
-
-				case "activityfanspercentage": 
-					getCondItemData( _self, MemberType, 'activityfanspercentage');
-					break;
-
-				case "level": 
-					getCondItemData( _self, MemberType, 'level');
-					break;
-
-				case "credit_rating": 
-					getCondItemData( _self, MemberType, 'credit_rating');
-					break;
-
-				case "member_time": 
-					getCondItemData( _self, MemberType, 'member_time');
-					break;
-
-			}
-
+			getCondItemData(_self, MemberType, thisText);
 		});
 	}	
 
@@ -1921,7 +1888,6 @@ $('.saveToDb, .shenhe').click(function(){
 			"max" : max,
 			"begintime" : begintime
 		}
-
 	}
 
 	// 会员活动条件（活动类型）

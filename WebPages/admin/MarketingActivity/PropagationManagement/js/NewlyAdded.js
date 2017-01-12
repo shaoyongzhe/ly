@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-09 13:32:42
+ * @Last Modified time: 2017-01-12 14:34:01
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -51,7 +51,7 @@ $(function() {
     //点击关闭
     $('.close').click(function() {
         layer.msg("正在关闭···");
-        window.history.back();
+         window.location='Marketcopymanagement.html';
         layer.msg("已关闭");
     })
 $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
@@ -341,6 +341,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             if(radio_val1=='bindwithperiodpush'){
                  var e = 1;
                 }
+
+        $('#count').click();
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -454,7 +456,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         $('.layui-layer-close').click();
         layer.msg('正在新增...', { time: 2000 });
         _ajax("POST", "/webapi/ipaloma/propagation", form_value, '提交错误', function() {
-            window.history.back();
+            // window.history.back();
+            window.location='Marketcopymanagement.html';
         });
     })
 
@@ -517,7 +520,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                     var e =1;
                 }
 
-
+            $('#count').click();
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -698,7 +701,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                     var e =1;
                 }
 
-
+            $('#count').click();
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -858,7 +861,7 @@ function previewImage(file) {
         contentType: false,
         processData: false,
         success: function(data) {
-            //console.warn(data.picture_url);
+            console.warn(data.picture_url);
             pic_url = data.picture_url;
             console.log(pic_url)
         },
