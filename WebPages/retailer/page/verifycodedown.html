@@ -50,10 +50,12 @@
             margin: 20px auto;
             float: none;
         }
+      
     </style>
 </head>
 <body>
-    <div id="verifycode" ms-controller="verifycodedown" class="ms-controller">
+    <div id="verifycode" ms-controller="verifycodedown" class="ms-controller">        
+        <img id="QRCode_img" style="width:100%;height:400px;display:none" />
         <div ms-if="loadState!=2">
             <p>
                 <img ms-attr-src="/js/shelter/image/{{loadState==0?'loading.gif':'ico_error.png'}}" />
@@ -64,7 +66,8 @@
     </div>
     <p>长按图片下载，制作扫码牌</p>
     <p>让消费者扫码核销，节省您的时间</p>
-    <img id="QRCode_img" hidden />
+    
+    <div id="qrcodediv" hidden></div>
     <footer>
         <div id="bottom-nav"></div>
     </footer>
@@ -87,8 +90,8 @@
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script src="/js/shelter/shelter.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
-    <script src="/js/jquery/jquery.qrcode.min.js"></script>
-    <script src="/retailer/js/verify/drawImg.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script src="/retailer/js/verify/verifycodedown.js"></script>
 </body>
 </html>

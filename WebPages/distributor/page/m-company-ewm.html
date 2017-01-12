@@ -12,7 +12,8 @@
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t="+ new Date().getTime() +"\">");	document.writeln("<\/script>");	</script>
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/juicer-min.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
@@ -20,15 +21,22 @@
     <script type="text/javascript" src="/distributor/js/lib/common.js"></script>
     <script type="text/javascript" src="/distributor/js/lib/jquery-common.js"></script>
     <script type="text/javascript" src="/distributor/js/common-buttom-nav.js"></script>
-    <script type="text/javascript">
+
+    <script type="text/javascript">       
         $(function () {
             $.getJSON2("/webapi/distributor/weixin/distributorinfo", function (data) {
                 var jsondata = data || {};
                 var tpl = document.getElementById('companytemplate').innerHTML;
-                var html = juicer(tpl, jsondata);
+                var html = juicer(tpl, jsondata);                
                 $('body').prepend(html);
-                $('#qrcode').attr('src', $('#qrcode').attr('orgsrc'));
+                
+               
             });
+            var qrcode = qrcodeconfig["distributor"];
+            draw(qrcode, "consumercard", qrcodeconfig["distributor"]["logo"]);
+          
+
+
         });
     </script>
 
@@ -49,8 +57,9 @@
 <body style="background:#fff;">
     <div class="container-w">
         <div class="ewmboxz" style="line-height:24px; padding:36px 0 30px 0;">
-            <img class="ewm" style="width:80%" id="qrcode" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0" style="margin-bottom:10px; width:90%;" /><br />            
+            <img class="ewm" style="width:80%" id="QRCode_img" orgsrc="/webapi/consumer/weixin/register_generate_code?qrtype=20&combinetitle=0" style="margin-bottom:10px; width:90%;" /><br />            
             <span style="color:#c2c2c2;font-family:微软雅黑;">仅限手机使用</span>
+            <div id="qrcodediv" hidden></div>
         </div>
     </div>
 

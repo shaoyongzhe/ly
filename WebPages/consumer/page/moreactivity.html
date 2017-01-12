@@ -118,6 +118,8 @@
     <script type="text/javascript" src="/consumer/js/lib/lib.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script src="/consumer/js/lib/weixinshare-qrcode.js"></script>
     <script src="/consumer/js/ticket_common.js"></script>
     <script type="text/javascript" src="/consumer/js/cs-danhd-detail.js"></script>
@@ -241,8 +243,12 @@
                                 //}
 
                                 if (item.topiclist != undefined && item.topiclist.length > 0) {
-                                    content += " <div class=\"assetinfo\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
-                                    content += " <nobr>" + item.topiclist[0].topictitle + (item.topiclist.length > 1 ? '等活动' : '') + "</nobr> </div> <div class=\"asset_right\"><small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
+                                    var topicid = ""
+                                    $.each(item.topiclist, function (index, items, array) {
+                                        topicid += "," + items.topicid
+                                    });
+                                    content += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
+                                    content += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
                                 }
 
                                 content += '  <hr />  </div>'
@@ -303,7 +309,7 @@
                     } else if (activitytype == "ticket") {
                         wxjsshare($.extend({}, _wxoldjsshare, _wxjsshare.ticket, { sharetype: "ticket" }));
                     }
-                    qrcode.show()
+                    qrcode.show();
                     //shareticke(jsondata.share)
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -429,6 +435,10 @@
             }
         }
 
+
+        function topicClick(topicid) {
+            location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+        }
     </script>
 </body>
 </html>

@@ -49,19 +49,23 @@ qrcode.show = function () {
 
 
             var share_id = common.getUrlParam("share_id");
-
+            //search = search + "&sendimage=false"
             var qrcode_url = "/webapi/" + category + "/weixin/" + qrurl + search;
+          
 
             var qrtemtemplate = [
                 '<div class="ewmboxz1-w" id="shareqrcode">',
                 '<div class="ewmboxz1">',
-                '<img class="ewm" src="' + qrcode_url + '" /><br />',
+                '<img class="ewm" id="QRCode_img" /><br />',
                 '长按上方二维码图片关注超惠买<br />',
                 '<img class="adtext1" src="../image/adtext.png" />',
                 '</div>',
-                '</div>'
+                '</div><div id="qrcodediv" hidden></div>'
             ].join('');
             $("footer").before(qrtemtemplate);
+            var qrcode = qrcodeconfig["consumer"];
+            qrcodeconfig["consumer"]["sharecard"]["url"] = qrcode_url;
+            draw(qrcode, "sharecard", qrcode["logo"]);
 
             var updatecounturl = "/webapi/" + category + "/weixin/shareupdateopencount" + search;
             if (share_id != undefined) {

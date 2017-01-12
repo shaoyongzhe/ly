@@ -358,7 +358,7 @@ function dataLoad() {
 
 		if (_this.is(':checked') == false) {
 			$('.quanbushi').prop('checked',false);
-
+			// alert('debugger')
 			// debugger;
 			$('.city > span em').each(function(index, el) {
 				// debugger;
