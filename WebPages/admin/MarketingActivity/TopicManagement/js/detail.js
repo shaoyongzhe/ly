@@ -505,24 +505,29 @@ var detailData = {
         }
     ]
 }
-render(detailData);
+// render(detailData);
 
 
-var topicId = '4b108a2261284dbb930f481b29426cff';
+// var topicId = '4b108a2261284dbb930f481b29426cff';
 
-/*debugger
-var topicId = parent.$('#guid').val();	
-// alert("zz  "+topicId);
 
-$.ajax({
-    type: "get",
-    url: '/webapi/ipaloma/topic/detail/' + topicId,
-    dataType: "json",
-    beforeSend: function (){ $('.loading').fadeIn() },
-    complete: function (){ $('.loading').fadeOut() },
-    success: function (detailData){ render(detailData) },
-    error: function (){ console.warn("详情 error") }
-});*/
+// debugger
+var topicId = parent.$('#guid').val();
+if(topicId == undefined) {
+	// alert(0);
+	render(detailData);
+
+} else if(topicId != ""){
+	$.ajax({
+	    type: "get",
+	    url: '/webapi/ipaloma/topic/detail/' + topicId,
+	    dataType: "json",
+	    beforeSend: function (){ $('.loading').fadeIn() },
+	    complete: function (){ $('.loading').fadeOut() },
+	    success: function (detailData){ console.log(JSON.stringify(detailData, null, 4));render(detailData) },
+	    error: function (){ console.warn("详情 error") }
+	});
+}
 
 
 
@@ -559,7 +564,7 @@ function render(detailData){
 	for(var i=0; i<actCond.length; i++){
 
 		// debugger;
-		var type = "";
+		/*var type = "";
 		switch (actCond[i].activitytype) {
 			case "buycount":
 				type = "买赠";
@@ -570,7 +575,7 @@ function render(detailData){
 			case "discount":
 				type = "降价";
 				break;
-		}
+		}*/
 
 		var operator = "";
 		switch (actCond[i].discount.operator) {
@@ -594,7 +599,7 @@ function render(detailData){
 			str = "<td width='180' class='mz'>赠品比例 <span class='operator'>"+ operator +"</span> <span>"+ actCond[i].discount.min +" <i style='color:#999'>%</i></span></td>";
 		}
 
-		$('table.activity-condition tbody').append("<tr><td width='80'>"+ type +"</td>"+ str +"<td>"+ actCond[i].retailer_count.min +"-"+ actCond[i].retailer_count.max +"</td></tr>");
+		$('table.activity-condition tbody').append("<tr><td width='80'>"+ actCond[i].activitytype +"</td>"+ str +"<td>"+ actCond[i].retailer_count.min +"-"+ actCond[i].retailer_count.max +"</td></tr>");
 	}
 
 	// 主办方
@@ -728,7 +733,7 @@ function render(detailData){
 
 		}
 
-		var btCond = "";
+		/*var btCond = "";
 		switch(butie[i].event){
 
 			case "distributorinviteretailer":
@@ -775,9 +780,9 @@ function render(detailData){
 				btCond = '开通会员系统';
 				break;
 
-		}
+		}*/
 	
-		var btType = "";
+		/*var btType = "";
 		switch(butie[i].refund_content){
 
 			case "randompoints":
@@ -812,13 +817,13 @@ function render(detailData){
 				btType = '随机金额返现券';
 				break;
 
-		}
+		}*/
 
 		// debugger
 		var danwei = "";
-		if(btType.indexOf('积分') != -1){
+		if(butie[i].refund_content.indexOf('积分') != -1){
 			danwei = "分";
-		} else if(btType.indexOf('金额') != -1 || btType.indexOf('红包') != -1){
+		} else if(butie[i].refund_content.indexOf('金额') != -1 || butie[i].refund_content.indexOf('红包') != -1){
 			danwei = "元";
 		}
 
@@ -830,7 +835,7 @@ function render(detailData){
 		}
 
 		// debugger;
-		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ btCond +"'>"+ btCond +"</span></td><td>"+ btType +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ butie[i].applycount +"</i><i>"+ danwei +"</i></td></tr>");
+		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ butie[i].applycount +"</i><i>"+ danwei +"</i></td></tr>");
 	}
 
 	// debugger
@@ -893,12 +898,8 @@ function render(detailData){
 		area.find('.posterurl').attr("src",propagation[i].poster_url);
 	}
 
-	$('.xiugai').click(function(){
-		debugger;
-		$('.layui-layer-shade').click();
-		$(this).closest('.layui-layer-iframe').find('.layui-layer-close').click();
-		// alert(1)
-		// window.location.href = "activityModify.html?guid=" + topicId;
-	});
-
 }
+
+$('.xiugai').click(function(){
+	parent.window.location.href = "activityModify.html?guid=" + topicId;
+});
