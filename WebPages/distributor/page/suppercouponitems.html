@@ -13,10 +13,11 @@
     <link href="/distributor/css/weixintips.css" rel="stylesheet" />
     <link href="/distributor/css/suppercouponitems.css" rel="stylesheet" />
 
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script type="text/javascript">var jspath = window.location.pathname.replace(".html", ".js");document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk" + jspath + "\">");document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script type="text/javascript" src="/js/jquery/juicer-min.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
@@ -71,13 +72,13 @@
             height: 40px;
             background: url(/consumer/image/asset_consumer.png) no-repeat;
             background-size: 100% 40px;
-            line-height: 35px;
-            padding: 0 15px 0 20px;
+            line-height: 40px;
+            padding: 0 15px 0 25px;
             color: #fff;
         }
 
             .assetinfo .asset_left {
-                width: calc(100% - 90px);
+                width: calc(100% - 95px);
                 float: left;
                 height: 40px;
                 color: #fff;
@@ -235,14 +236,14 @@
                 <span></span>
                 {{el.ruledesc}}
             </div>
-            <div class="whiteblock" ms-if="el.topicdata==undefined||el.topicdata.length==0"></div>
-            <div class="assetinfo"  ms-if="el.topicdata!=undefined&&el.topicdata.length>0">
-                <a href="javascript:;" class="assetcontent">
+            <div class="whiteblock" ms-if="el.topiclist==undefined||el.topiclist.length==0"></div>
+            <div class="assetinfo"  ms-if="el.topiclist!=undefined&&el.topiclist.length>0">
+                <a href="javascript:;" class="assetcontent" ms-click="vm.topicClick(el)">
                     <div class="asset_left">
-                        <nobr>{{el.topicdata[0].topictitle}}{{el.topicdata.length>1?'等活动':''}}</nobr>
+                        <nobr>{{el.topiclist[0].topictitle}}<span ms-if="el.topiclist.length>1">等活动</span></nobr>
                     </div>
                     <div class="asset_right">
-                        <small>已参加</small>{{el.topicdata[0].headcount}}<small>人</small>
+                        <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>
                     </div>
                 </a>
             </div>

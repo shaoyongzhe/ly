@@ -77,6 +77,14 @@ var vm = avalon.define({
         console.log(tmdropme);
         if (tmdropme != null)
             tmdropme.resetload();
+    },
+    topicClick: function (el) {
+        var topicid = "";
+        $.each(el.topiclist, function (index, item, array) {
+            topicid += "," + item.topicid
+        });
+
+        location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
     }
 });
 
@@ -150,7 +158,7 @@ function loaddata(longitude, latitude, dropme) {
                 });
             } else
                 vm.jsondata = jsondata.data;
-          
+
 
             $("img.lazy").lazyload();
 
@@ -162,8 +170,9 @@ function loaddata(longitude, latitude, dropme) {
                 if ($.isFunction(wxjsshare)) {
                     wxjsshare(jsondata.share || {});
                 }
+                qrcode.show()
                 setTimeout(function () {
-                    qrcode.show()
+                    
                     $('#list').dropload({
                         scrollArea: window,
                         domDown: {
