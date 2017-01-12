@@ -386,24 +386,154 @@
 }
 render(detailData);*/
 
+var detailData = {
+    "activity": {
+        "guid": "02e80f58cd594eb2a24cb413424e53c5",
+        "description": "11111111111111111111111111",
+        "state": "上架",
+        "begintime": "2017-01-10 00:00:00",
+        "endtime": "2017-01-11 23:59:59",
+        "earliestjointime": "2017-01-11 00:00:00",
+        "latestjointime": null,
+        "activitytitle": "shaoyongzhe: 测试6",
+        "servicephone": "111-1111111",
+        "singleselection": 0
+    },
+    "area_condition": {
+        "topicid": "02e80f58cd594eb2a24cb413424e53c5",
+        "districts": [
+            {
+                "name": "北京市",
+                "state": "active",
+                "charge": {
+                    "name": "shaoyongzhe",
+                    "guid": "4654269886BC4FD7B5914ED324208FB0",
+                    "oid": 2800992
+                },
+                "city": [
+                    {
+                        "name": "北京市",
+                        "state": "active",
+                        "charge": {
+                            "name": "shaoyongzhe",
+                            "guid": "4654269886BC4FD7B5914ED324208FB0",
+                            "oid": 2800992
+                        },
+                        "country": []
+                    }
+                ]
+            }
+        ]
+    },
+    "supplier_condition": {},
+    "distributor_condition": {
+        "state": "active",
+        "number_range": {
+            "min": "1",
+            "max": "11"
+        },
+        "ticket_verify": {
+            "state": "active",
+            "min": "111",
+            "operator": ">=",
+            "max": "",
+            "begintime": "2017-1-9",
+            "guid": "767f81af8bcb48d485071c1ad1a29874"
+        }
+    },
+    "consumer_condition": {},
+    "retailer_condition": {},
+    "activity_condition": [
+        {
+            "state": "active",
+            "activitytype": "package",
+            "retailer_count": {
+                "min": "1",
+                "max": "20"
+            },
+            "discount": {
+                "min": "1",
+                "operator": ">="
+            },
+            "guid": "af741cca16644d1ab84cc4ec987ca707"
+        }
+    ],
+    "event_handler_list": [
+        {
+            "state": "active",
+            "refund_to": "distributor",
+            "event": "verify_first",
+            "refund_content": "fixedmoney",
+            "min": "1",
+            "ceiling": "1111",
+            "applycount": "11111",
+            "limit": {
+                "perday": {
+                    "sum": "1",
+                    "time": "1"
+                },
+                "totalbudget": {
+                    "sum": "11",
+                    "time": "11"
+                }
+            },
+            "guid": "5ee9fd80764944569f50bf6fdede688e"
+        }
+    ],
+    "sponsor": "distributor",
+    "propagation": [
+        {
+            "activitytitle": "11",
+            "wechattitle": "11",
+            "propagation": "11",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "distributor"
+        },
+        {
+            "activitytitle": "22",
+            "wechattitle": "22",
+            "propagation": "111",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "retailer"
+        },
+        {
+            "activitytitle": "33",
+            "wechattitle": "33",
+            "propagation": "33",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "consumer"
+        }
+    ]
+}
+// render(detailData);
 
 
-var topicId = '4b108a2261284dbb930f481b29426cff';
+// var topicId = '4b108a2261284dbb930f481b29426cff';
 
-$.ajax({
-    type: "get",
-    url: '/webapi/ipaloma/topic/detail/' + topicId,
-    dataType: "json",
-    beforeSend: function (){ $('.loading').fadeIn() },
-    complete: function (){ $('.loading').fadeOut() },
-    success: function (detailData){ render(detailData) },
-    error: function (){ console.warn("详情 error") }
-});
+
+// debugger
+var topicId = parent.$('#guid').val();
+if(topicId == undefined) {
+	// alert(0);
+	render(detailData);
+
+} else if(topicId != ""){
+	$.ajax({
+	    type: "get",
+	    url: '/webapi/ipaloma/topic/detail/' + topicId,
+	    dataType: "json",
+	    beforeSend: function (){ $('.loading').fadeIn() },
+	    complete: function (){ $('.loading').fadeOut() },
+	    success: function (detailData){ console.log(JSON.stringify(detailData, null, 4));render(detailData) },
+	    error: function (){ console.warn("详情 error") }
+	});
+}
 
 
 
 function render(detailData){
 
+	// alert(1)
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
@@ -420,7 +550,7 @@ function render(detailData){
 	
 	// 2.参与活动条件
 	var second = $('.item.second');
-	var area = detailData.area_condition;  // 活动地区
+	var area = detailData.area_condition.districts;  // 活动地区
 	for(var i=0; i<area.length; i++){
 		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><span class='region-info'><span shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</span><br><span class='city'></span></span></div>");
 
@@ -434,7 +564,7 @@ function render(detailData){
 	for(var i=0; i<actCond.length; i++){
 
 		// debugger;
-		var type = "";
+		/*var type = "";
 		switch (actCond[i].activitytype) {
 			case "buycount":
 				type = "买赠";
@@ -445,7 +575,7 @@ function render(detailData){
 			case "discount":
 				type = "降价";
 				break;
-		}
+		}*/
 
 		var operator = "";
 		switch (actCond[i].discount.operator) {
@@ -469,7 +599,7 @@ function render(detailData){
 			str = "<td width='180' class='mz'>赠品比例 <span class='operator'>"+ operator +"</span> <span>"+ actCond[i].discount.min +" <i style='color:#999'>%</i></span></td>";
 		}
 
-		$('table.activity-condition tbody').append("<tr><td width='80'>"+ type +"</td>"+ str +"<td>"+ actCond[i].retailer_count.min +"-"+ actCond[i].retailer_count.max +"</td></tr>");
+		$('table.activity-condition tbody').append("<tr><td width='80'>"+ actCond[i].activitytype +"</td>"+ str +"<td>"+ actCond[i].retailer_count.min +"-"+ actCond[i].retailer_count.max +"</td></tr>");
 	}
 
 	// 主办方
@@ -523,7 +653,13 @@ function render(detailData){
 
 
 	function canyuHy(type, txt){
-		$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ type.number_range.min +" - "+ type.number_range.max +"</td><td></td></tr>");
+		// debugger
+		if(type.number_range){
+			// alert(2)
+			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ type.number_range.min +" - "+ type.number_range.max +"</td><td></td></tr>");
+		} else {
+			// alert(1)
+		}
 
 		// debugger
 		if(type.ticket_verify){
@@ -547,19 +683,23 @@ function render(detailData){
 	}
 
 	function condType(ctype, typeTxt){
-		var bgt1 = new Date(activity.begintime.substring(0,10)) * 1;
+		var bgt1 = new Date(activity.begintime) * 1;
 		var bgt2 = new Date(ctype.begintime) * 1;
 		var preDays = (bgt1 - bgt2) / 86400000;
 		var range = ctype.max ? ctype.max : ctype.min;
 
-		var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
+		var str = "";
 		if(ctype.operator == "between"){
 			ctype.operator = "介于";
 			str = "&nbsp;"+ ctype.operator +" <i>"+ ctype.min +"</i> - <i>"+ ctype.max +"</i>";
+		} else if(ctype.operator == ">="){
+			ctype.operator = "不低于";
+			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
 		}
 
 		// debugger
 		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ preDays +" <i>"+ ctype.timeunit +"</i>"+ str +" 次</p>");
+		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ preDays +" "+ str +" 次</p>");
 	}
 
 
@@ -593,7 +733,7 @@ function render(detailData){
 
 		}
 
-		var btCond = "";
+		/*var btCond = "";
 		switch(butie[i].event){
 
 			case "distributorinviteretailer":
@@ -640,9 +780,9 @@ function render(detailData){
 				btCond = '开通会员系统';
 				break;
 
-		}
+		}*/
 	
-		var btType = "";
+		/*var btType = "";
 		switch(butie[i].refund_content){
 
 			case "randompoints":
@@ -677,23 +817,25 @@ function render(detailData){
 				btType = '随机金额返现券';
 				break;
 
-		}
+		}*/
 
 		// debugger
 		var danwei = "";
-		if(btType.indexOf('积分') != -1){
+		if(butie[i].refund_content.indexOf('积分') != -1){
 			danwei = "分";
-		} else if(btType.indexOf('金额') != -1 || btType.indexOf('红包') != -1){
+		} else if(butie[i].refund_content.indexOf('金额') != -1 || butie[i].refund_content.indexOf('红包') != -1){
 			danwei = "元";
 		}
 
 		var rangeStr = "<span class='fl'>"+ butie[i].min +"-"+ butie[i].max +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ butie[i].max * butie[i].ceiling +"</i><i>"+ danwei +"</i></td>";
-		if(!butie[i].max){
+		
+		// debugger;
+		if(!butie[i].max || butie[i].max == ""){
 			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ butie[i].min * butie[i].ceiling +"</i><i>"+ danwei +"</i></td>";
 		}
 
 		// debugger;
-		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ btCond +"'>"+ btCond +"</span></td><td>"+ btType +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ butie[i].applycount +"</i><i>"+ danwei +"</i></td></tr>");
+		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ butie[i].applycount +"</i><i>"+ danwei +"</i></td></tr>");
 	}
 
 	// debugger
@@ -757,3 +899,7 @@ function render(detailData){
 	}
 
 }
+
+$('.xiugai').click(function(){
+	parent.window.location.href = "activityModify.html?guid=" + topicId;
+});
