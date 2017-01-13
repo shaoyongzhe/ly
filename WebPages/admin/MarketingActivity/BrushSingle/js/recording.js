@@ -62,7 +62,7 @@ function fnxuanran(data) {
 
 function fncreattab(data) {
 	fnxuanran(data);
-	//滚动
+		//滚动
 	$("#cgl-tablebox").scroll(function() {
 		if($(this).scrollTop() > ($("#cgl-tablebox").find("table").height() - 500) && $("#cgl-tablebox").find("table").height() > 500) {
 			$("#cgl-more").show();
@@ -146,11 +146,12 @@ function fnshijian(state) {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 		},
 		success: function(data) {
-			console.log(data, state)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 				$("#cgl-tbody").html("");
+				$("#shua").text(data["shuadanjine"].toFixed(2));
+				$("#kou").text(data["koukuanjine"].toFixed(2));
 				var none1 = [{
 					chufazhong: 0,
 					jiechuweigui: 0,
@@ -160,6 +161,7 @@ function fnshijian(state) {
 					yijieshu: 0
 				}];
 				fndengji(none1);
+
 			} else {
 				allcont = data.allcont;
 				djcishu = 1;
@@ -192,11 +194,13 @@ function fnstate() {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 		},
 		success: function(data) {
-			console.log(data, state)
+			//console.log(data, state)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 				$("#cgl-tbody").html("");
+				$("#shua").text(data["shuadanjine"].toFixed(2));
+				$("#kou").text(data["koukuanjine"].toFixed(2));
 			} else {
 				fncreattab(data); //创建tbody
 			}
@@ -305,7 +309,6 @@ function fnjilu() {
 			}
 		}
 	}
-
 }
 //处理与待处理
 function fnxze1() {
@@ -358,7 +361,6 @@ function fndate() {
 			istime: false,
 			choose: function(dates) {
 				//layer.msg(dates);
-				console.log(state)
 				var isxy = $('#cgl-cxdata1').val().replace(/\-/g, "") - $('#cgl-cxdata').val().replace(/\-/g, "")
 				console.log(isxy)
 				if($('#cgl-cxdata').val() == state["querybegindate"] && $('#cgl-cxdata1').val() == state["queryenddate"]) {
@@ -370,7 +372,6 @@ function fndate() {
 					state["queryenddate"] = $('#cgl-cxdata1').val();
 					state["lastindex"] = 0;
 					fnshijian(state);
-					console.log(state)
 					localStorage.setItem("state", JSON.stringify(state));
 				}
 			}
@@ -1033,6 +1034,8 @@ function fnwgjlzt(putdata) {
 					});
 
 				}
+				state["lastindex"] = 0;
+				console.log(state)
 				$.ajax({
 					type: "get",
 					url: "/webapi/earlywarningmanage/anticheating/getlist",
@@ -1042,6 +1045,8 @@ function fnwgjlzt(putdata) {
 					},
 					success: function(data) {
 						fndengji(data.statecount);
+						fnxuanran(data);
+						$("#cgl-table").find("#checall").prop("checked", false);
 					}
 				});
 			}
