@@ -1481,10 +1481,10 @@ $('.saveToDb, .shenhe').click(function(){
 			$('.earliestjointime').focus();
 			return;
 		}
-		if($('.section1 .lastestjointime').val() == ""){
+		if($('.section1 .latestjointime').val() == ""){
 			$("nav span").eq(0).click();
-			layer.tips('请先完善会员参与结束时间', $('.lastestjointime'));
-			$('.lastestjointime').focus();
+			layer.tips('请先完善会员参与结束时间', $('.latestjointime'));
+			$('.latestjointime').focus();
 			return;
 		}
 		if($('.section1 #shenbao').val() == ""){
@@ -1875,7 +1875,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        "begintime"       : basic.find('.begintime').val(),
 	        "endtime"         : basic.find('.endtime').val(),
 	        "earliestjointime": basic.find('.earliestjointime').val(),
-	        "lastestjointime" : basic.find('.lastestjointime').val(),
+	        "latestjointime" : basic.find('.latestjointime').val(),
 	        "activitytitle"   : basic.find('.activityTitle').val(),
 	        "servicephone"    : servicephone,
 	        "singleselection" : singleselection,
