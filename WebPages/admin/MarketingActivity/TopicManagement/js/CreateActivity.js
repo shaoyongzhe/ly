@@ -410,7 +410,8 @@ $('.yaook').click(function(){
 		// return;
 
 		// subsidyItem['prize_content'] = y1yArr;
-		// layer.msg('已设置');
+		layer.msg('摇一摇数据已保存');
+
 	} else {
 		layer.msg('请先设置');
 		return;
@@ -463,6 +464,7 @@ $('.section3').on('click','.setgailv.on',function(){
 		finished = false;
 		return false;
 	}
+
 	if(addSub4.find('.sbys').val() == ""){
 		// debugger
 		layer.tips('请先填写申报预算', addSub4.find('.sbys'));
@@ -1237,7 +1239,7 @@ $("body").on("click",".option",function(e){
 				$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .max').hide();
 				$(this).closest('.yaoyiyao').find('.setgailv').removeClass('on');
 			}
-			$('.yaoyiyao .Yyy4 .Yyy4d1 input').keyup();
+			// $('.yaoyiyao .Yyy4 .Yyy4d1 input').keyup();
 	}
 		// })
 	//结束*****************************************************************************
@@ -1322,41 +1324,66 @@ var butiefz = function(){
 
 // 计算摇一摇补贴峰值
 // $('.yaoyiyao .Yyy4 .Yyy4d1 input').keyup(function(){
+$('.yaoWrap').off('keyup');
 $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 
-	debugger;
+	// debugger;
 	var _this = $(this);
 	var yaoyiyao = _this.closest('.yaoyiyao');
 
 	var cishu = _this.val();
 	var minInput = yaoyiyao.find('.Yyy2 .Yyy2d1 input.min');
 	var maxInput = yaoyiyao.find('.Yyy2 .Yyy2d1 input.max');
-	var gailvInput = yaoyiyao.find('.Yyy3 .Yyy3d1 input'), gailvVal = gailvInput.val();
 
 	var m = 0;
 	if(maxInput.css('display') == 'inline-block'){
 		m = maxInput.val();
-		maxInput.keyup(function(){
-			_this.keyup();
-		});
+		
 	} else {
 		m = minInput.val();
-		minInput.keyup(function(){
-			_this.keyup();
-		});
 	}
 
-	if(yaoyiyao.find('.hdc4dB').length == 1){
-		yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(cishu * gailvVal);
-	} else {
-		yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(m * cishu * gailvVal);
+	// if(yaoyiyao.find('.hdc4dB').length == 1){
+	if(m != 0) {
+		yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(cishu * m);
+		yfz();
 	}
 
-	gailvInput.keyup(function(){
-		_this.keyup();
+	// } else {
+		// yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(m * cishu * gailvVal);
+	// }
+
+	// yaoyiyao.find('.Yyy3 .Yyy3d1 input').keyup(function(){
+	// 	_this.keyup();
+	// });
+
+});
+
+
+$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
+	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
+});
+
+$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
+	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
+});
+
+// 摇一摇补贴峰值
+function yfz(){
+
+	// debugger
+	var yuanNum = 0;
+	$('.yaoWrap .Yyy5d1.fz:contains(元) input').each(function(){
+		yuanNum += parseInt($(this).val());
+		$('.layer.yao .cash').text(yuanNum);
 	});
-
-	yfz();
+	
+	var fenNum = 0;
+	$('.yaoWrap .Yyy5d1.fz:contains(分) input').each(function(){
+		fenNum += parseInt($(this).val());
+		$('.layer.yao .score').text(fenNum);
+	});
+	
 
 	/*var quan = 0;
 	$('.yaoWrap .Yyy5d1:contains(张) input').each(function(){
@@ -1364,10 +1391,7 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 	});
 	$('.layer.yao .quan').text(quan);*/
 
-});
-
-function yfz(){
-	var yuanDom = $('.yaoWrap .Yyy5d1.fz:contains(元) input');
+	/*var yuanDom = $('.yaoWrap .Yyy5d1.fz:contains(元) input');
 	var yuanL = yuanDom.length;
 	var yuanNum = 0;
 	if(yuanL != 0){
@@ -1377,9 +1401,9 @@ function yfz(){
 		});
 	} else {
 		$('.layer.yao .cash').text('0');
-	}
+	}*/
 
-	var fenDom = $('.yaoWrap .Yyy5d1.fz:contains(分) input');
+	/*var fenDom = $('.yaoWrap .Yyy5d1.fz:contains(分) input');
 	var fenL = fenDom.length;
 	var fenNum = 0;
 	if(fenL != 0){
@@ -1389,7 +1413,7 @@ function yfz(){
 		});
 	} else {
 		$('.layer.yao .score').text('0');
-	}
+	}*/
 }
 
 $('.areaSave').click(function(){
@@ -1410,6 +1434,7 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
 });
 
+// debugger
 
 // 拼数据
 var data = {};
