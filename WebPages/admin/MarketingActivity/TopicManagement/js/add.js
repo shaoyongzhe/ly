@@ -165,18 +165,18 @@ $("body").on("click", ".acMeD2", function(e) {
 // 			var lll=$(this).attr("typeL");
 // 			$(this).parents(".addSub4").find(".hdc2 .option").addClass("hi");
 // 			$(this).parents(".addSub4").find(".hdc2 ."+lll).removeClass("hi");
-// 		})
+// 		});
 // 	}
 // 	hdc3Tab();
 // 	//补贴形式，范围值联动
 // 	function hdc3Tab(){
 // 		$(".hdc3").find(".option").click(function(){	
-// 			// alert(1)
+// 			// alert(1);
 // 			// debugger
-// 			// alert($(this).text().indexOf('随机'))
+// 			// alert($(this).text().indexOf('随机'));
 // 			if($(this).text().indexOf('随机') != -1){
 // 				// alert(1);
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33)
+// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33);
 // 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 span').show();
 // 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').show();
 // 			} else {

@@ -1,19 +1,54 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>新建活动</title>
+	<title>修改</title>
 	<link rel="stylesheet" href="css/CreateActivity.css">
 	<link rel="stylesheet" type="text/css" href="css/add.css">
 	<link rel="stylesheet" type="text/css" href="css/area.css">
 	<link rel="stylesheet" type="text/css" href="css/probability.css">
+	<style>
+		/* .provice + .charge > span{
+			margin-left: 20px;
+		} */
+
+		.mangeStyle{
+	background:#eeeeee;
+	cursor:default;
+}
+.activityManger_addsub1State,
+.activityManger_addsub2State,
+.activityManger_addsub3State,
+.activityManger_addsub4State {
+  background: url(img/tingyong-big.png) no-repeat;
+  /*background-size: 100% 100%;*/
+  /*background-repeat: ;*/
+  width: 30px;
+  height: 30px;
+  /*vertical-align: middle;*/
+   }
+
+.activityManger_addsub1State.on,
+.on.activityManger_addsub2State,
+.on.activityManger_addsub3State,
+.on.activityManger_addsub4State {
+  background: url(img/kaiqi-big.png); 
+}
+
+.activityManger_addsub4State {
+  vertical-align: top; 
+}
+
+	</style>
 </head>
-<body class="create">
+<body class="create modify">
 
 	<div class="bread-crumb">
 		<span class="path-text">营销活动</span>
 		<i> &gt; </i>
-		<span class="this-text">新建活动</span>
+		<span class="path-text">活动主题</span>
+		<i> &gt; </i>
+		<span class="this-text">修改</span>
 	</div>
 
 	<div class="wrapper">
@@ -25,7 +60,6 @@
 			<span><i>4</i>宣传图文资料</span>
 		</nav>
 		<!-- <div class="scroll"> -->
-		
 
 		<!-- 1.活动基础信息 -->
 		<section class='section1 on'>
@@ -82,7 +116,7 @@
 					<i><i></i></i>否
 				</span> -->
 				<span class="radio">是</span>
-				<span class="radio on">否</span>
+				<span class="radio">否</span>
 			</div>
 
 			<div class="input-contorl fuzeren">
@@ -114,7 +148,7 @@
 			<div class="input-contorl">
 				<label for="">活动地区</label>
 
-				<span class="setBtn setAreaBtn">设置</span>
+				<!-- <span class="setBtn setAreaBtn">设置</span> -->
 				<input type="hidden" id='area-data'>
 				<div class="region-wrap">
 					<div class="handle">
@@ -159,7 +193,6 @@
 						<span class="btn save">确定</span>
 					</div>
 
-
 				</div>
 
 			</div>
@@ -177,6 +210,7 @@
 					<div class="addSub1P68">
 						<p class="p68 deleP dib">活动类型</p><p class="p68 deleP dib">优惠力度条件</p><p class="p68 deleP dib">投放门店数</p>				
 					</div>
+					<!-- <div class="addSub1" style="display:none"></div> -->
 					<div class="addSub1">
 
 						<!--活动类型activity type-->
@@ -222,9 +256,7 @@
 									<li class="option" name="==">等于</li>							
 								</ul>
 
-							</div>
-
-							<div class="dib acCoRa ver">
+							</div><div class="dib acCoRa ver">
 								<div class="bor selectWrap2">
 									<span class="diSpan">空</span>
 								</div>
@@ -281,9 +313,11 @@
 			<div class="input-contorl">
 				<label for="">超惠券活动<br>提供方</label>
 				<span class="edit-area condition">
-					<span class='radio' name="supplier">厂商</span>
-					<span class='radio on' name="distributor">分销商</span>
-					<span class='radio' name="retailer" >门店</span>
+					<span class='radio'>厂商</span>
+					<span class='radio on'>分销商</span>
+					<span class='radio'>门店</span>
+					<!-- <span class='radio'>第三方服务商</span> -->
+					<span class='radio'>无</span>
 				</span>
 			</div>
 
@@ -997,55 +1031,54 @@
 	                        </ul>
 							 <div class="Probability_value">
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10%" id="">
 	                                    <span>概率值</span>
 	                                </div>
-
 	                        </div>
 	                    </div>
 	                </div>
@@ -1178,10 +1211,10 @@
 						<label for="">宣传文案</label>
 						<span class='warn tip'>* 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
 
-
 						<div class="detail">
 						
 							<div class="wenan-text propagation"></div>
+
 							<!-- <div class="view-panel">
 
 								<div class="item">
@@ -1203,21 +1236,33 @@
 
 									<label for="" class="condition">参与活动条件</label>
 
-									<div class="sec region">
-										<label for="">活动地区</label>
-										
-										<div class="province">
-											<label for="">江苏省</label>
-											<div class='region-info'>
+									<div class="sec region-view">
+
+										<label>活动地区</label>
+
+										<div class="province-wrap">
+										<div class="province-item">
+											<label class="sheng">江苏省</label>
+											<span class='region-info'>
 												<span>负责人: XXXX</span><br>
 												<span class='city'>
-													<i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i>
+													<i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i>
 												</span>
-											</div>
+											</span>
 										</div>
 
-										<div class="province">
-											<label for="">江苏省</label>
+										<div class="province-item">
+											<label class="sheng">江苏省</label>
+											<span class='region-info'>
+												<span>负责人: XXXX</span><br>
+												<span class='city'>
+													<i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i>
+												</span>
+											</span>
+										</div>
+
+										<div class="province-item">
+											<label class="sheng">江苏省</label>
 											<span class='region-info'>
 												<span>负责人: XXXX</span><br>
 												<span class='city'>
@@ -1225,16 +1270,8 @@
 												</span>
 											</span>
 										</div>
-
-										<div class="province">
-											<label for="">江苏省</label>
-											<span class='region-info'>
-												<span>负责人: XXXX</span><br>
-												<span class='city'>
-													<i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i>
-												</span>
-											</span>
 										</div>
+
 
 									</div>
 									
@@ -1347,6 +1384,7 @@
 						<div class="detail">
 						
 							<div class="wenan-text propagation"></div>
+
 							<!-- <div class="view-panel">
 
 								<div class="item">
@@ -1522,6 +1560,7 @@
 
 								</div>
 							</div> -->
+							
 						</div>
 
 					</div>
@@ -2116,6 +2155,6 @@
 <script type="text/javascript" src="js/plugin/area_select.js"></script>
 
 <script type="text/javascript" src="js/CreateActivity.js"></script>
-<!-- <script type="text/javascript" src="js/response.js"></script> -->
+<script type="text/javascript" src="js/activityModify.js"></script>
 <script type="text/javascript" src="js/area.js"></script>
 <script type="text/javascript" src="js/add.js"></script>
