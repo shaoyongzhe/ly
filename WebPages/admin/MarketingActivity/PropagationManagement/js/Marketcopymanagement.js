@@ -408,8 +408,12 @@ function getList(curr, handle, searchForm) {
 
 function ProcessDate(date)
 {
-    var temp=date.split(' '); 
-    return temp[0];
+    if (date != null && date != 'undefined') {
+        var temp = date.split(' ');
+        return temp[0];
+    } else {
+        return "";
+    }
 }
 
 $(document).on('click', '.search-btn', function() {
