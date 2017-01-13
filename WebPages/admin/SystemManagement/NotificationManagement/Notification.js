@@ -1,5 +1,4 @@
-// 导航切换
-var domailUrl = "http://127.0.0.1:40008";
+
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
@@ -36,7 +35,7 @@ function getList(curr, handle, searchForm) {
         df = searchForm;
     }
     var pagesize = 25;
-    var url = domailUrl + '/webapi/operation/notification/templates?pageindex=' + curr + '&pagesize=' + pagesize;
+    var url = '/webapi/operation/notification/templates?pageindex=' + curr + '&pagesize=' + pagesize;
     _ajax("get", url, df, '刷新列表', function (data) {
         //if (data.error) {
         //    layer.msg('查询出错，出错原因：' + data.error);
@@ -159,7 +158,7 @@ function getList(curr, handle, searchForm) {
 };
 
 function getModulePeopleList(curr, handle, searchForm) {
-    var url = domailUrl + '/webapi/operation/' + "notification" + '/managers';
+    var url = '/webapi/operation/' + "notification" + '/managers';
     _ajax("get", url, {}, '刷新列表', function (data) {
         //if (data.error) {
         //    layer.msg('查询出错，出错原因：' + data.error);
@@ -220,7 +219,7 @@ function getSearchForm() {
     return searchForm;
 }
 function getOptionsValue() {
-    _ajax("get", domailUrl + '/webapi/operation/notification/dict/category', null, "获取使用场景", function (data) {
+    _ajax("get", '/webapi/operation/notification/dict/category', null, "获取使用场景", function (data) {
         for (var key in data) {
             $('.first-type, .firsttype').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
         }
@@ -237,7 +236,7 @@ function getOptionsValue() {
             var jsonData = {
                 "category": firstType
             };
-            _ajax("get", domailUrl + '/webapi/operation/notification/dict/subcategory', jsonData, "获取场景对应事件", function (data) {
+            _ajax("get", '/webapi/operation/notification/dict/subcategory', jsonData, "获取场景对应事件", function (data) {
                 for (var key in data) {
                     $('.second-type, .secondtype').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
                 }
@@ -257,7 +256,7 @@ function getOptionsValue() {
                 "category": firstType,
                 "subcategory": secondType
             };
-            _ajax("get", domailUrl + '/webapi/operation/notification/dict/channel', jsonData, "获取场景事件下的发送途径", function (data) {
+            _ajax("get", '/webapi/operation/notification/dict/channel', jsonData, "获取场景事件下的发送途径", function (data) {
                 for (var key in data) {
                     $('.third-type').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
                 }
@@ -274,7 +273,7 @@ function getOptionsValue() {
                 "category": firstType,
                 "subcategory": secondType
             };
-            _ajax("get", domailUrl + '/webapi/operation/notification/dict/groupname', jsonData, "获取场景事件下的发送分组", function (data) {
+            _ajax("get", '/webapi/operation/notification/dict/groupname', jsonData, "获取场景事件下的发送分组", function (data) {
                 for (var key in data) {
                     $('.fourthtype').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
                 }
@@ -294,7 +293,7 @@ function getOptionsValue() {
                 "channel": thirdType
             };
             console.log(jsonData);
-            _ajax("get", domailUrl + '/webapi/operation/notification/dict/groupname', jsonData, "获取场景事件发送途径下的组名", function (data) {
+            _ajax("get", '/webapi/operation/notification/dict/groupname', jsonData, "获取场景事件发送途径下的组名", function (data) {
                 for (var key in data) {
                     $('.fourth-type, .fourthtype').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
                 }
@@ -302,11 +301,11 @@ function getOptionsValue() {
         }
     });
     //设置所有组
-    _ajax("get", domailUrl + '/webapi/operation/notification/dict/groupname', null, "获取所有组名", function (data) {
+    _ajax("get", '/webapi/operation/notification/dict/groupname', null, "获取所有组名", function (data) {
         for (var key in data) {
             $('.group_type').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
         }
-        _ajax("get", domailUrl + '/webapi/operation/notification/template/currentgroup', null, "获取默认分组", function (data) {
+        _ajax("get", '/webapi/operation/notification/template/currentgroup', null, "获取默认分组", function (data) {
             if (data != "")
                 $('.group_type').find("option[data-key='" + data + "']").attr('selected', true);
         });
@@ -315,7 +314,7 @@ function getOptionsValue() {
 
 function getguid() {
 
-    _ajax("GET", domailUrl + '/webapi/notify/template/getguid', null, "getguid", function (guid) {
+    _ajax("GET", '/webapi/notify/template/getguid', null, "getguid", function (guid) {
         $(".addForm .templateid").val(guid);
     });
 
@@ -324,7 +323,7 @@ function getguid() {
 $(".add").click(function () {
     $('.addForm').show();
     //获取所有发送途径
-    _ajax("get", domailUrl + '/webapi/operation/notification/dict/allchannel', null, "发送途径", function (data) {
+    _ajax("get", '/webapi/operation/notification/dict/allchannel', null, "发送途径", function (data) {
         $('.thirdAllType').children(":not('option:first')").remove();
         for (var key in data) {
             $('.thirdAllType').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
@@ -391,7 +390,7 @@ $('.add-btn').click(function () {
     $('.layui-layer-close').click();
     layer.msg('正在新增...', { time: 0 });
     console.log(addForm);
-    _ajax("POST", domailUrl + "/webapi/operation/notification/template", addForm, '新增', function () {
+    _ajax("POST", "/webapi/operation/notification/template", addForm, '新增', function () {
         getList(1, 'add');
     });
 });
@@ -410,7 +409,7 @@ $(".setDefaultGroup").click(function () {
         return;
     }
     layer.msg('设置默认分组中...', { time: 0 });
-    _ajax("put", domailUrl + '/webapi/operation/notification/template/currentgroup', {
+    _ajax("put", '/webapi/operation/notification/template/currentgroup', {
         "groupname": groupNameText
     }, "设置默认分组", function (data) {
         layer.msg('默认分组设置完成...');
@@ -425,7 +424,7 @@ $('table.notify')
                          btn: ['确定', '取消']
                      }, function () {
                          layer.msg('正在删除...', { time: 0 });
-                         _ajax("DELETE", domailUrl + "/webapi/operation/notification/template/" + guid, null, '删除', function () {
+                         _ajax("DELETE", "/webapi/operation/notification/template/" + guid, null, '删除', function () {
                              var cur = $('.laypage_curr').text();
                              if (cur) {
                                  if ($('table.notify tbody tr').length == 1) {
@@ -446,7 +445,7 @@ $('table.notify')
                          btn: ['确定', '取消']
                      }, function () {
                          layer.msg('设置中...', { time: 0 });
-                         _ajax("put", domailUrl + "/webapi/operation/notification/template/" + guid + "/defaultflag", null, '设置默认模板', function () {
+                         _ajax("put",  "/webapi/operation/notification/template/" + guid + "/defaultflag", null, '设置默认模板', function () {
                              var cur = $('.laypage_curr').text();
                              getList(cur, 'setDefault');
                          });
@@ -533,7 +532,7 @@ $('table').on('click', '.open', function () {
     var guid = thisTr.find('.guid').val();
     var state = thisTr.find('.state');
     // state.text("已启用");return
-    _ajax('PUT', domailUrl + '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
+    _ajax('PUT',  '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
         if (data.error == "") {
             /*state.text("已启用");
             state.parents("tr").find('.handle-btns-wrap').innerWidth(75).html("<div class='handle-btns'><span class='arrow-right'></span><span class='btn modify'>修改</span></div>");
