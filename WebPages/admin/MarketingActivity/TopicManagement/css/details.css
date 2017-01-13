@@ -12,11 +12,11 @@ body.details section{
 	width: 960px;
 	height: 860px;
 	padding: 30px;
-	border: 1px solid #e4e4e4;
+	/*border: 1px solid #e4e4e4;*/
 	border-radius: 2px;
 	margin: 0 auto;
 	margin-top: 20px;
-	overflow: auto;
+	/*overflow: auto;*/
 	position: relative;
 }
 
@@ -101,7 +101,7 @@ body.details section{
 
 .detail-wrapper table.activity-condition .operator{
     text-align: center;
-	width: 30px;
+	width: 50px;
 }
 
 

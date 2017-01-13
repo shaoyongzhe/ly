@@ -796,7 +796,7 @@ span.tip.warn{
 }
 
 .area .item > span{
-    max-width: 870px;
+    max-width: 660px;
     vertical-align: middle;
 }
 
@@ -1356,4 +1356,10 @@ textarea{
 .sec.tuWen{
 	width: 1100px;
 	margin: 0 auto;
+}
+
+
+.gailvok.disabled{
+	background-color: #ccc;
+	cursor: pointer;
 }
