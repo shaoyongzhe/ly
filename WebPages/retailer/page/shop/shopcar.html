@@ -11,19 +11,85 @@
 <script src="../../js/retailerid.js"></script>
 <script>
 	$(document).ready(function(){
-		$.get("/webapi/account/login/test-2-135-1",{},function(){},false);  
-    	$.ajax({
-    		url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
-	    	async:true,
-	    	cache:false,
-	        dataType:"json",
-	        type:"get",
-	        error:function(){alert("网络出错")},
-	        success:function(data1){
-	        		
-	        		sendId(data1)
-	        }
-    	})
+		$.get("/webapi/account/login/test-2-135-1",{},function(){},false);
+		var _list="";
+		var _give="";
+			$.ajax({
+				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/5ce1d14e07534139ae7774d8983f04f3?isvalid=0",
+				async:true,
+		    	cache:false,
+		        dataType:"json",
+		        type:"get",
+		        error:function(){alert("网络出错")},
+		        success:function(data1){
+		        	console.log(data1)
+		        	show(data1)
+		        }
+			})
+		
+		function show(data1){
+			$(".addr").text("clienton")//需要修改
+			for(var i=0;i<data1.length;i++){
+				if(data1[i]["activityitem_id"]=="" && data1[i]["salestop"]==0){
+					_list+="<li><div class="+"\"list\""+"><i class="+"\"gouxuan\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
+					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
+					" />"+data1[i]["itemname"]+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><span>x15</span></p></div></div></div></li>"						
+				}else if(data1[i]["activityitem_id"]=="降价" && data1[i]["salestop"]==0){
+					_list+="<li><div class="+"\"list\""+"><i class="+"\"gouxuan\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
+					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
+					" />"+data1[i]["itemname"]+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><span>x15</span></p></div></div></div><div class="+"\"disc\""+
+					"<div class="+"\"disc\""+" id="+"\"disc\""+
+					"><span>降价</span><span>7.5折</span></div><div class="+"\"disc\""+"><span>阿萨德撒打算</span></div></li>"
+				}else if(data1[i]["activityitem_id"]=="有礼" && data1[i]["salestop"]==0){
+					_list+="<li><div class="+"\"list\""+"><i class="+"\"gouxuan\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
+					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
+					" />"+data1[i]["itemname"]+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><span>x15</span></p></div></div></div><div class="+"\"disc\""+
+					" id="+"\"disc\""+
+					"><span>有礼</span><span>7.5折</span></div><div class="+"\"disc\""+"><span>阿萨德撒打算</span></div></li>"					
+				}else if(data1[i]["activityitem_id"]=="满赠" && data1[i]["salestop"]==0){
+//					for(var j=0;j<data1[i]["giftitemobj"].length;j++){
+//						_give+="<span>"+data1[i]["giftitemobj"][j]["itemname"]+"<em>"+data1[i]["giftcount"]+"</em></span>"
+//					}
+					_list+="<li><div class="+"\"list\""+"><i class="+"\"gouxuan\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
+					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
+					" />"+data1[i]["itemname"]+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><span>x15</span></p></div></div></div><div class="+"\"disc\""+
+					" id="+"\"disc\""+
+					"><span>买赠</span><span>7.5折</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["remark"]+"</span></div></div><div class="+"\"giveTo\""+"><b>赠品</b><div><span>  啊实打实的萨达四大       </span><span>  啊实打实的萨达四大       </span></div></div></li>"						
+				}else if(data1[i]["salestop"]==1){
+					_list+="<li style="+"\"position:relative\""+"><div class="+"\"list\""+"><i class="+"\"gouxuan2\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="+
+					"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+" />"+data1[i]["itemname"]+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><span>x15</span></p></div></div></div><div style="+
+					"\"position:absolute;left:0;top:0;width:412px;height:111px;background:#ccc;opacity:0.5\""+"></div></li>"
+				}
+
+			}
+			$("section ul").html(_list)
+		}//"+data1[i]["giftitemobj"]["itemname"]+"
+		//add()
+		//function add(){
+//	    	$.ajax({
+//	    		url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
+//	    		contentType: "application/json; charset=utf-8",
+//		    	async:true,
+//		    	cache:false,
+//		        dataType:"json",
+//		        type:"post",
+//		        data:JSON.stringify({
+//		        	distributorid:"5ce1d14e07534139ae7774d8983f04f3",
+//					itemid:"adcca4abdd0647379a83fdae267808f4",
+//					itemcount:20,
+//					itemquality:"1",
+//					itemprice:80.00,
+//					isyucun:0,
+//					versiontime:new Date()
+//		        }),
+//		        error:function(){alert("网络出错")},
+//		        success:function(data){
+//		        		
+//		        		//sendId(data1)
+//		        		console.log(data)
+//		        }
+//	    	})
+    	//}
     	function sendId(data1){
 			$.ajax({
 				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/"+data1[0]["distributor_id"]+"?isvalid=0",
@@ -33,16 +99,26 @@
 				success:function(){
 					alert(1)
 				}
-			})   		
+			})		
     	}
 
-		
+		function select(){
+			$("section").on('click','.gouxuan',function(){
+				$(this).removeClass("gouxuan")
+				$(this).addClass("gouxuan2")
+			});
+			$("section").on('click','.gouxuan2',function(){
+				$(this).removeClass("gouxuan2")
+				$(this).addClass("gouxuan")
+			});
+		}
+		select()
 	})
 </script>
 </head>
 
 <body>
-	<section>
+	<section style="overflow: auto;margin-bottom: 60px;">
 		<div class="shop-title">
 			<div>购物车<span>(30)</span></div>
 			<div><span id="edit">编辑</span></div>
@@ -53,30 +129,9 @@
 		<div class="intr">
 			<div>满减</div><div>奥斯卡的技术可垃圾打算看了大家按时打算的撒的撒的撒打算撒开了的紧身裤垃圾袋</div>
 		</div>
-			<div class="list">
-				<span class="gouxuan lt"></span>
-				<div class="conh">
-					<img src="../../image/shop/p7.png" />
-					<div class="yuu">
-						<img src="../../image/shop/temp.jpg" />
-						<div>sd卡睡了多久撒娇大三了几点撒离开的健康索拉卡几点</div>
-						<p>230-465卷</p>
-						<p class="pp1">￥20.90</p>
-						<p class="intail">
-							<span>￥18.50</span>
-							<span>x15</span>
-						</p>
-					</div>
-				</div>
-	
-			</div>
-		<div class="disc" id="disc">
-			<span>降价</span>
-			<span>7.5折</span>
-		</div>
-		<div class="disc">
-			<span>阿萨德撒打算</span>
-		</div>
+		<ul>
+			
+		</ul>
 	</section>
 
  <!-- footer start -->
