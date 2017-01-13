@@ -422,7 +422,6 @@ var vm = avalon.define({
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { qrkey: vm.qrkey },
             url: '/webapi/consumer/weixin/getVerifyState',
             success: function (result) {
                 vm.IsSearchStatus = false;
@@ -432,6 +431,7 @@ var vm = avalon.define({
                    3：核销成功（未匹配到主题活动）
                    4：核销成功（匹配到主题活动）
                    5：返回主题活动列表
+                   6: 分享  sharekind : verifyresult
                 */
                 // console.log(result.state)
                 if (result.state == undefined)

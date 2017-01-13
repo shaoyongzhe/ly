@@ -1,62 +1,4 @@
-//cg
-// $('.select-wrap').click(function(e){
-// 	e.stopPropagation();
-// 	$(this).find('.select').toggle();
-// });		
-// $('.select .option').click(function(e){
-// 	e.stopPropagation();
-// 	$(this).parent().prev().text($(this).text());
-// 	$(this).parent().hide();		
-// });	
-// $(document).click(function(){
-// 	// debugger;
-// 	$('.select').hide();
-// });
-//lg
-// acSe1Tab();//函数名有待更换，更换封装内容	
-// function acSe1Tab(){//acSe1Tab封装关联切换
-//第一个关联下拉用selectWrap1，第二个关联下拉用selectWrap2
-/*$(".acSe1").find(".option").click(function(){		
-// alert(2)	
-	var index=$(this).parents(".addSub1").find(".select-wrap").find(".option") .index($(this));	
-	//第一个下拉切换
-	$(this).parents(".addSub1").find(".selectWrap1").addClass("hi");
-	$(this).parents(".addSub1").find(".selectWrap1").eq(index+1).removeClass("hi");
-	//第2个下拉切换
-	$(this).parents(".addSub1").find(".selectWrap2").addClass("hi");
-	$(this).parents(".addSub1").find(".selectWrap2").eq(index+1).removeClass("hi");
-});*/
-// }
 
-// acSe2Tab();//函数名有待更换，更换封装内容	
-// function acSe2Tab(){//封装关联切换		
-// 	$(".acSe4").find(".option").click(function(){	
-
-// 		var index=$(this).parents(".addSub2").find(".select-wrap").find(".option").index($(this));	
-// 		$(this).parents(".addSub2").find(".selectWrap1").addClass("hi");
-// 		$(this).parents(".addSub2").find(".selectWrap1").removeClass("-hi");
-// 		$(this).parents(".addSub2").find(".selectWrap1").eq(index+1).removeClass("hi");
-// 		$(this).parents(".addSub2").find(".selectWrap1").eq(index+1).addClass("-hi");
-
-// 	});
-
-// }
-// acZige1Tab();
-// function acZige1Tab(){//封装关联切换
-// 	var arr=["次","名","名","%","级","级","时",]
-// 	$(".acZige1").find(".option").click(function(){			
-// 		var index=$(this).parents(".acZige1").find(".select-wrap").find(".option").index($(this));				
-// 		$(this).parents(".addSub3").find(".acZige1Tab").find("p:last").text(arr[index])
-// 	})			
-// }
-// acZige2Tab();	
-// function acZige2Tab(){//封装关联切换		
-// 	$(".acZige2").find(".option").click(function(){			
-// 		var index=$(this).parents(".acZige2").find(".select-wrap").find(".option").index($(this));	
-// 		$(this).parents(".addSub3").find(".acZige2tab").addClass("hi");
-// 		$(this).parents(".addSub3").find(".acZige2tab").eq(index).removeClass("hi");			
-// 	})	
-// }
 acZige4Tab();
 
 function acZige4Tab() { //封装关联切换		
@@ -223,18 +165,18 @@ $("body").on("click", ".acMeD2", function(e) {
 // 			var lll=$(this).attr("typeL");
 // 			$(this).parents(".addSub4").find(".hdc2 .option").addClass("hi");
 // 			$(this).parents(".addSub4").find(".hdc2 ."+lll).removeClass("hi");
-// 		})
+// 		});
 // 	}
 // 	hdc3Tab();
 // 	//补贴形式，范围值联动
 // 	function hdc3Tab(){
 // 		$(".hdc3").find(".option").click(function(){	
-// 			// alert(1)
+// 			// alert(1);
 // 			// debugger
-// 			// alert($(this).text().indexOf('随机'))
+// 			// alert($(this).text().indexOf('随机'));
 // 			if($(this).text().indexOf('随机') != -1){
 // 				// alert(1);
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33)
+// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33);
 // 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 span').show();
 // 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').show();
 // 			} else {
@@ -337,64 +279,6 @@ function acAdD() {
 	})
 }
 
-//设置概率权限
-//	if(){
-//		console.log('等待补充');
-//	}
-//
-
-//***************开始摇一摇**************************
-// yaoyiyaoTab()
-// function yaoyiyaoTab(){
-// 	var arr=["无","元/次","元/次","分","蒙牛酸酸乳买一增益"];
-// 	var arr2=["无","元","元","分","张"];
-// 	$(".Yyy1 .option").click(function(){
-// 		var index=$(this).parents(".Yyy1").find(".option").index($(this));		
-// 		if($(this).text()!="特定超慧券"&&$(this).text()!="谢谢参与"){//范围/值
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d1").removeClass("hi");		
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d2").addClass("hi");	
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d3").addClass("hi");	
-// 			$(this).parents(".yaoyiyao").find(".hdc4dA").text(arr[index]);
-// 			$(this).parents(".yaoyiyao").find(".acSe15").css("background","white");
-// 		}else if($(this).text()=="谢谢参与"){
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d1").addClass("hi");
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d2").addClass("hi");	
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d3").removeClass("hi");				
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d3").text(arr[index]);
-// 			$(this).parents(".yaoyiyao").find(".acSe15").css("background","#FAF9F9");
-// 		}else if($(this).text()=="特定超慧券"){
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d1").addClass("hi");
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d2").removeClass("hi");	
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d3").addClass("hi");	
-// 			$(this).parents(".yaoyiyao").find(".Yyy2d2 a").text(arr[index]);
-// 			$(this).parents(".yaoyiyao").find(".acSe15").css("background","white");
-// 		}
-// 		if($(this).text()!="谢谢参与"){//补贴峰值
-// 			$(this).parents(".yaoyiyao").find(".Yyy5d1").removeClass("hi");		
-// 			$(this).parents(".yaoyiyao").find(".Yyy5d2").addClass("hi");
-// 			$(this).parents(".yaoyiyao").find(".Yyy5d1 span").text(arr2[index]);
-// 		}else{
-// 			$(this).parents(".yaoyiyao").find(".Yyy5d1").addClass("hi");
-// 			$(this).parents(".yaoyiyao").find(".Yyy5d2").removeClass("hi");	
-// 			$(this).parents(".yaoyiyao").find(".Yyy5d2").text(arr2[index]);
-// 		}
-
-// 		if($(this).text().indexOf('随机') != -1){
-// 			// alert(1);
-// 			$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .min').width(50)
-// 			$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 span').show();
-// 			$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .max').show();
-// 		} else {
-// 			$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .min').width(100)
-// 			$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 span').hide();
-// 			$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .max').hide();
-// 		}
-
-// 		$('.yaoyiyao .Yyy4 .Yyy4d1 input').keyup();
-
-// 	})
-// }
-// //控件5摇一摇的添加删除
 acAdE();
 
 function acAdE() {
@@ -482,7 +366,7 @@ $.ajax({
 		var dca_1 = data.conditionsetting.activitytype;
 		$(".addSub1 .acSe1 .select").empty();
 		for (i = 0; i < dca_1.length; i++) {
-			$(".addSub1 .acSe1 .select").append('<li class="option" name="' + dca_1[i].type + '" type="' + dca_1[i].type + '">' + dca_1[i].localtype + '</li>')
+			$(".addSub1 .acSe1 .select").append('<li class="option">' + dca_1[i].localtype + '</li>')
 		}
 		//控件1优惠力度条件的第一部分
 		$(".addSub1 .acCoSc").empty();
@@ -554,7 +438,7 @@ $.ajax({
 		//	console.log(addSub3Arr.length)
 		for (i = 0; i < dcc_1.length; i++) {
 			//条件类型
-			$(".addSub3 .acSe5 .select").append('<li class="option" name="' + dcc_1[i].type + '" type="' + dcc_1[i].type + '">' + dcc_1[i].localtype + '</li>');
+			$(".addSub3 .acSe5 .select").append('<li class="option">' + dcc_1[i].localtype + '</li>');
 			//条件["次", "名", "名", "%", "天"]
 			//		console.log(addSub3Arr.length)
 			addSub3Arr.push(dcc_1[i].unit);
@@ -580,7 +464,7 @@ $.ajax({
 		var dss_2b = data.subsidysetting.subsidycondition;
 		$(".addSub4 .acSe10 .select").empty();
 		for (i = 0; i < dss_2b.length; i++) {
-			$(".addSub4 .acSe10 .select").append('<li name="' + dss_2b[i].type + '" type="' + dss_2b[i].type + '" class="option">' + dss_2b[i].localtype + '</li>')
+		    $(".addSub4 .acSe10 .select").append('<li class="option">' + dss_2b[i] + '</li>')
 		}
 		//补贴形式、范围值、
 		var dss_2c = data.subsidysetting.subsidymethod;

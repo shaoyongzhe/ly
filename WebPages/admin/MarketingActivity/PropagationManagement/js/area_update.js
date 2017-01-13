@@ -11,10 +11,12 @@ $('.region-wrap').on('click', '.x', function() {
 		return;
 	}
 
+	
+		$(this).parent().remove();
 	// $(this).parent().addClass('on');
-	_this.parent().fadeOut(300, function() {
-		_this.remove();
-	});
+	// _this.parent().fadeOut(300, function() {
+	// 	_this.remove();
+	// });
 
 });
 

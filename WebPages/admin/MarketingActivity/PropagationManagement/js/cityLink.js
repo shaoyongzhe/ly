@@ -12,7 +12,7 @@ function comSelect(){
 	$(document).on("click",".gf-select > span > i",function(){
 		var parent = $(this).closest("span").next("ul");
 		parent.hide();
-		return;
+		return false;
 	});			
 	$(document).on("click",".gf-select ul li",function(){
 		var parent = $(this).closest("ul");
