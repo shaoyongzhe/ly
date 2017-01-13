@@ -148,7 +148,7 @@ $(".queryConditionButton .query").click(function(){
 		data:condition,
 		success:function(data){
 		    if(data.error)
-		        layer.alert(data.error);
+		        layer.alert("出错了^_^");
 
 			console.log('success')
 			linshi=data;
@@ -175,64 +175,7 @@ $(".queryConditionButton .query").click(function(){
 			$(".activityList thead").append(activityListThead);
 		    //表格Tbody
 			var contentBody = data.content;
-			for(i=0;i<contentBody.length;i++){	
-				var stateHtml='';
-				//拼按钮
-				for(var key in statusData){//暂不用for，防止数据变化还得换回for in//遍历所有的statusData
-//					console.log(statusData[key].state);
-				    if (statusData[key].state == contentBody[i].state) {
-//						console.log("iff")						
-						for(j=0;j<statusData[key].ops.length;j++){
-//							debugger
-							//判断是否是最后一个，决定是否有右border
-							if(j<statusData[key].ops.length-1){
-								stateHtml+='<p class="menuElement">';
-							}else if(j==statusData[key].ops.length-1){//最后一个不要右border
-								stateHtml+='<p class="menuElement" style="border:0px;">';								
-							}							
-							//判断其内容是什么，给对应的图标
-							if(statusData[key].ops[j]=="保存"){
-								stateHtml+='<i class="Hui-iconfont">&#xe632;</i>';
-							}else if(statusData[key].ops[j]=="提交审核"){
-								stateHtml+='<i class="Hui-iconfont">&#xe6e0;</i>';
-							}else if(statusData[key].ops[j]=="审核通过"){
-								stateHtml+='<i class="Hui-iconfont">&#xe6e1;</i>';
-							}else if(statusData[key].ops[j]=="审核失败"){
-								stateHtml+='<i class="Hui-iconfont">&#xe6dd;</i>';
-							}else if(statusData[key].ops[j]=="立即发布"){
-								stateHtml+='<i class="Hui-iconfont">&#xe603;</i>';
-							}else if(statusData[key].ops[j]=="删除"){
-								stateHtml+='<i class="Hui-iconfont">&#xe6e2;</i>';
-							}else if(statusData[key].ops[j]=="下架"){
-								stateHtml+='<i class="Hui-iconfont">&#xe6de;</i>';
-							}else if(statusData[key].ops[j]=="上架"){
-								stateHtml+='<i class="Hui-iconfont">&#xe6dc;</i>';
-							}
-							stateHtml+='<span">'+statusData[key].ops[j]+'</span>';
-							stateHtml+='</p>';
-						}						
-					}
-				}
-				if(stateHtml==''){
-					stateHtml='<p class="menuElement" style="border:0px;"><span>不可操作</span></p>'
-				}
-				activityListTbody+='<tr>'
-				+'<td><p class="checkBox"></p></td>'
-				+'<td class="activityCode">'+contentBody[i].activitycode+'</td>'
-				+ '<td class="activitytitle">' + contentBody[i].activitytitle + '</td>'
-				+ '<td class="activityTime">' + contentBody[i].begintime + '-' + contentBody[i].endtime + '</td>'
-				+ '<td class="activityAreaAndCharge">' + JointDistrict(contentBody[i]["district"]) + '</td>'
-				+ '<td class="estimateJoinVipQuantity">' + contentBody[i].membercount + '</td>'
-				+ '<td class="JoinedVipQuantity">' + contentBody[i].alreadyinmembercount + '</td>'
-//				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
-//				+='<td><p class="approvalBudget">1</p><p class="_status">2</p>'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
-//				+='<td class="provideSubsidy">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
-				+ '<td class="state">' + contentBody[i].state + '</td>'
-				//具体的操作内容见
-				+'<td class="edit last"><img src="img/iconss1.png" alt="" /><div class="menu"><div class="menuArrow"></div><div class="menuContent">'+stateHtml+'</div></div></td>'
-				+ '<td style="display:none;">' + contentBody[i].guid + '</td>'
-				+'</tr>';
-			}			
+			activityListTbody = ConstructRecord(contentBody, statusData);
 			$(".activityList tbody").empty();
 			$(".activityList tbody").append(activityListTbody+'</tr>');
 			/*拼接完毕，开始事件*/
@@ -247,6 +190,45 @@ $(".queryConditionButton .query").click(function(){
 		},
 	});
 });
+
+function ConstructRecord(contentBody, statusData)
+{
+    var stateHtmlArray = $.Enumerable.From(contentBody).Select(function(x) 
+    {
+        var stateHtml = ConstructOpStatus(statusData, x.state);
+        return '<tr guid='+x.guid+'>'
+				+'<td><p class="checkBox"></p></td>'
+				+'<td class="activityCode">'+x.activitycode+'</td>' 
+				+ '<td class="activitytitle">' + x.activitytitle + '</td>'
+				+ '<td class="activityTime">' + x.begintime + '-' + x.endtime + '</td>'
+				+ '<td class="activityAreaAndCharge">' + JointDistrict(x.district) + '</td>'
+				+ '<td class="estimateJoinVipQuantity">' + x.membercount + '</td>'
+				+ '<td class="JoinedVipQuantity">' + x.alreadyinmembercount + '</td>'
+//				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
+//				+='<td><p class="approvalBudget">1</p><p class="_status">2</p>'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
+//				+='<td class="provideSubsidy">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
+				+ '<td class="state">' + x.state + '</td>'
+				//具体的操作内容见
+				+'<td class="edit last"><img src="img/iconss1.png" alt="" /><div class="menu"><div class="menuArrow"></div><div class="menuContent">'+stateHtml+'</div></div></td>'
+				+ '<td style="display:none;">' + x.guid + '</td>'
+				+'</tr>';
+    }).ToArray();
+    return stateHtmlArray.join("\r\n");
+}
+
+function ConstructOpStatus(statusData, state)
+{
+    var opArray = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] }).First();
+    if (opArray.length == 0)
+        return '<p class="menuElement">' + "<span>" + "" + "</span>" + "</p>";
+    var statehtmlArray =$.Enumerable.From(opArray.slice(0, opArray.length - 1)).Select(function(x) 
+    {
+        return '<p class="menuElement">' + "<span class='handle "+ x + "'>"+x+"</span>" + "</p>";
+    }).ToArray();
+
+    var statehtml = statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
+    return statehtml;
+}
 
 /*负责人*/
 chargeAjax()
@@ -315,6 +297,8 @@ $(".addButton").click(function(){
 $(".printButton").click(function(){
 	layer.alert("暂不支持此功能，相关页面为完善")
 })
+
+
 /*表格th复选框*/
 $(document).on("click",".activityList thead .checkBox",function(){
 //$(".activityList thead .checkBox").click(function(){
@@ -326,16 +310,11 @@ $(document).on("click",".activityList thead .checkBox",function(){
 	}
 	
 })
-/*表格td复选框*/
+
 $(document).on("click",".activityList tbody .checkBox",function(){
 //$(".activityList tbody .checkBox").click(function(){
 	$(this).toggleClass("on");	
 })
-
-/*$(document).on("click","*",function(){
-	console.log($(this).get(0).tagName)
-	console.log($(this).text());
-})*/
 
 $(document).on("click",".edit",function(){
 //$(".edit").click(function(){
@@ -346,3 +325,87 @@ $(document).on("click",".edit",function(){
 $(document).click(function(){
 	$(".edit .menu").hide();
 })
+
+var DictFunction =
+    {
+        "详情": function () {
+            layer.open({
+                type: 2,
+                title: '详情',
+                shadeClose: true,
+                // shade: false,
+                maxmin: true,
+                area: ['90%', '90%'],
+                content: 'detail.html',
+            });
+        },
+        "修改": function () { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
+        "'提交审核', '审核通过', '立即发布'": function (op, currentstate)
+        {
+            $.ajax({
+                type: "put",
+                url: "/webapi/ipaloma/topic/operation/" + $('#guid').val(),
+                async: true,
+                data: {
+                    ["currentstate"]: currentstate,
+                    ["optype"]: op
+                },
+                success: function (data) {
+                    if (data.error)
+                        layer.alert("出错了^_^");
+                    layer.alert(op + " 成功");
+                },
+                error: function (xhr, textStatus) {
+                    layer.alert("出错了^_^");
+                    console.log(textStatus);
+                }
+
+            });
+        },
+        "删除": function ()
+        {
+            $.ajax({
+                type: "delete",
+                url: "/webapi/ipaloma/topic/" + $('#guid').val(),
+                async: true,
+                data: null,
+                success: function (data) {
+                    if (data.error)
+                        layer.alert("出错了^_^");
+                    layer.alert("删除成功");
+                },
+                error: function (xhr, textStatus) {
+                    layer.alert("出错了^_^");
+                    console.log(textStatus);
+                }
+
+            });
+        }
+    };
+
+
+
+$('table.activityList').on('click',".handle",function(){
+
+    $('#guid').val($(this).closest('tr').attr('guid'));
+    var matchKey = $(this).text();
+    if (!$(this).text())
+    {
+        layer.alert("出错了^_^");
+        return;
+    }
+	var executeKey = $.Enumerable.From(Object.keys(DictFunction)).First(function (x) {
+	    return x.match(matchKey) != null;
+	})
+	if (null != executeKey)
+	{
+	    DictFunction[executeKey]();
+	    return;
+	}
+    
+	layer.alert("出错了^_^");
+	    
+   
+   
+	
+});
