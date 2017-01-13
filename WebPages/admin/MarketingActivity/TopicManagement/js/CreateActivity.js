@@ -1425,7 +1425,7 @@ var fzrurl = '/webapi/ipaloma/topic/charge';
 _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
 	$(fzr.content).each(function(i,item){
-		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.name +'</li>');
+		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.nickname +'</li>');
 	});
 
 	/*$('.fzr .option').each(function(){
