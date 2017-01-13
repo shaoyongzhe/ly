@@ -1940,45 +1940,9 @@ $('.saveToDb, .shenhe').click(function(){
 		// console.log(data[MemberType]['number_range'])
 		_this.parents('.addSub2').find('.addSub3 .selected.condition').each(function(){
 			var _self = $(this),
-				thisText = _self.text(),
-				name = _self.attr('name');
+				thisText = _self.text();
 
-			// console.log(thisText)
-
-			/*switch(name){
-				case "ticket_verify": 
-					getCondItemData( _self, MemberType, 'ticket_verify');
-					break;
-
-				case "verify_person_count": 
-					getCondItemData( _self, MemberType, 'verify_person_count');
-					break;
-
-				case "fans_range": 
-					getCondItemData( _self, MemberType, 'fans_range');
-					break;
-
-				case "activityfanspercentage": 
-					getCondItemData( _self, MemberType, 'activityfanspercentage');
-					break;
-
-				case "level": 
-					getCondItemData( _self, MemberType, 'level');
-					break;
-
-				case "credit_rating": 
-					getCondItemData( _self, MemberType, 'credit_rating');
-					break;
-
-				case "member_time": 
-					getCondItemData( _self, MemberType, 'member_time');
-					break;
-
-			}*/
-
-			
-			getCondItemData( _self, MemberType, thisText);
-
+			getCondItemData(_self, MemberType, thisText);
 		});
 
 	}
@@ -2018,7 +1982,6 @@ $('.saveToDb, .shenhe').click(function(){
 			"statisticrange": statisticrange,
 			"timeunit": timeunit
 		}
-
 	}
 
 	// 会员活动条件（活动类型）
@@ -2183,26 +2146,27 @@ $('.saveToDb, .shenhe').click(function(){
 
 	console.log(JSON.stringify(data, null, 4));
 
-	if($('nav span:last').hasClass('on')){
-		$.ajax({
+    
+	if ($('nav span:last').hasClass('on')) {
+	    $.ajax({
 	        type: "post",
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),
 	        // contentType: "application/json",
 	        contentType: "application/json; charset=utf-8",
-			/*beforeSend: function (x) {
+	        /*beforeSend: function (x) {
 	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
 	        },*/
-	        complete: function () {},
-	        timeout: function () {},
+	        complete: function () { },
+	        timeout: function () { },
 	        success: function (returnedData) {
-	            if(!returnedData.error){
-					layer.msg('创建成功');
-					console.log(returnedData);
-				} else {
-				 	layer.msg(returnedData.error);
-				}
+	            if (!returnedData.error) {
+	                layer.msg('创建成功');
+	                console.log(returnedData);
+	            } else {
+	                layer.msg(returnedData.error);
+	            }
 	        },
 	        error: function () {
 	            console.warn("提交审核失败");
