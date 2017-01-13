@@ -135,8 +135,10 @@
 	}
 	.Activitytoppic{
 		width: 100%;
-		background: url(../image/3-1.png) no-repeat center 0.2rem;
-		background-size: 100%;
+		/*background: url(../image/3-1.png) no-repeat center 0.2rem;*/
+		background: url(../image/3-1.png) no-repeat 1.6rem 0.2rem;
+		/*background-size: 100%;*/
+		background-size: 90%;
 		padding-top:3.5rem;
 		height: 6.5rem;
 	}
@@ -144,44 +146,53 @@
 		font-size: 0.55rem;
 		color: #fff;
 		display: block;
-		margin-left: 4.8rem;
-		line-height: 0.9rem;
+		/*margin-left: 4.8rem;*/
+		text-align: center;
+		line-height: 0.2rem;
 	}
 	.yellow_money{
 		color: #ffff36;
 		font-family: "Arial";
 		font-weight: bold;
 		font-size: 0.85rem;
-		margin-left: 4.4rem;
+		/*margin-left: 4.4rem;*/
+		text-align: center;
+		margin-top:0.2rem;
 		display: block;
+
 	}
 	.issued{
 		width: 42%;
 		height: 0.9rem;
 		display: block;
 		margin-left: 3.95rem;
-		margin-top: 0.52rem;
+		/*margin-top: 0.52rem;*/
+		margin-top: 0.4rem;
+		text-align: center;
 	}
 	.issued a:nth-child(1){
 		color: #fff;
 		font-family: 'regular';
 		font-size: 0.6rem;
-		display: block;
-		float: left;
-		transform: rotate(12deg);
-		-webkit-transform: rotate(12deg);
-		margin-top: 0.18rem;
+		/*display: block;*/
+		display: inline-block;
+		/*float: left;*/
+		transform: rotate(5deg);
+		-webkit-transform: rotate(5deg);
+		margin-top: 0.1rem;
 	}
 	.issued a:nth-child(2){
 		color: #fff;
 		font-family: 'regular';
 		font-size: 0.9rem;
-		display: block;
+		/*display: block;*/
+		display: inline-block;
 		font-weight: bold;
-		margin-top: 0.18rem;
-		float: left;
-		transform: rotate(-5deg);
-		-webkit-transform: rotate(-5deg);
+		/*margin-top: 0.18rem;*/
+		margin-top: 0.3rem;
+		/*float: left;*/
+		transform: rotate(-2deg);
+		-webkit-transform: rotate(-2deg);
 	}
 	.enjoy{
 		display: block;
@@ -390,6 +401,7 @@
 		text-align: center;
 		font-size: 0.5rem;
 		vertical-align:center;
+		line-height: 0.7rem;
 	}
 
 
