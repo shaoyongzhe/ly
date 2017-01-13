@@ -511,7 +511,7 @@ var detailData = {
 // var topicId = '4b108a2261284dbb930f481b29426cff';
 
 
-// debugger
+debugger
 var topicId = parent.$('#guid').val();
 if(topicId == undefined) {
 	// alert(0);
@@ -685,7 +685,7 @@ function render(detailData){
 	function condType(ctype, typeTxt){
 		var bgt1 = new Date(activity.begintime) * 1;
 		var bgt2 = new Date(ctype.begintime) * 1;
-		var preDays = (bgt1 - bgt2) / 86400000;
+		var prevDays = (bgt1 - bgt2) / 86400000;
 		var range = ctype.max ? ctype.max : ctype.min;
 
 		var str = "";
@@ -698,8 +698,8 @@ function render(detailData){
 		}
 
 		// debugger
-		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ preDays +" <i>"+ ctype.timeunit +"</i>"+ str +" 次</p>");
-		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ preDays +" "+ str +" 次</p>");
+		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ ctype.timeunit +"</i>"+ str +" 次</p>");
+		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ prevDays +" "+ str +" 次</p>");
 	}
 
 
