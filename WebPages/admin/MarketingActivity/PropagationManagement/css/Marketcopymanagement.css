@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-12 11:31:44
+* @Last Modified time: 2017-01-13 16:38:14
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -29,6 +29,7 @@
     /*top: -40px;*/
     margin-top:10px;
     height:70px;
+    border-top: solid 10px #eee;
     /* background-color: #F69642; */
 
 }
@@ -43,15 +44,17 @@
     color:#FFFFFF;
     border:none;
     cursor: pointer;
+    border-radius: 3px;
 }
 
 
 .handle{
-	position: relat`ive;
+	position:relative;
 }
 .bread-crumb{
     font-size: 14px;
-    height: 24px;
+    height: 34px;
+    line-height: 22px;
 }
 
 .handle-btns-wrap{
@@ -95,7 +98,7 @@
 	display: inline-block;
 	width: 25px;
 	height: 25px;
-    background: url(../Images/iconss1.png) no-repeat center center;
+    background: url(/admin/MarketingActivity/PropagationManagement/Images/iconss1.png) no-repeat center center;
 	/* background-color: #B12FE2; */
     cursor: pointer;
 }
@@ -141,8 +144,8 @@ body{
 	}
 
 .page-container{
-	background-color: #fff;
-    padding:20px;
+	background-color: #F2F2F2;
+    padding: 10px 38px 10px 23px
 }
 
 /*查询div*/
@@ -158,15 +161,15 @@ body{
 }
 
 .search-area .search-btn{
-    background-color: rgba(0, 157, 217, 1);
+    background-color: #4C83DB !important;
     color: #fff;
     padding: 10px 30px;
     border-radius: 3px;
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 5%;
-    bottom: 100px;
+    right: 3%;
+    bottom: 96px;
     width: 130px;
     height: 36px;
     cursor: pointer;
@@ -181,6 +184,7 @@ body{
 	display: inline-block;
 	width: 32%;
     position: relative;
+    margin-left: 2px;
 }
 .calendar1{
     position: absolute;
@@ -195,7 +199,7 @@ body{
 .input-contorl label{
 	display: inline-block;
 	width: 70px;
-	margin-top: 20px;
+	margin-top: 13px;
 }
 
 .layer{
@@ -222,20 +226,20 @@ body{
 }
 
 .input-contorl input{
-	width: 30%;
-	margin-right:50px;
+	width: 40%;
+	/* margin-right:50px; */
 }
 
 
 
 .input-contorl .date{
-	width:24%;
+	width:26%;
     cursor: pointer;
     margin-right: 0;
      /* background: #fff url(datePicker.gif) no-repeat right; */
 }
 .input-text{
-	width: 30%;
+	width: 40%;
 }
 /* .input-contorl input, .input-contorl select{
 	display: block;
@@ -361,21 +365,21 @@ body{
 /* 郭冠荣 s */
 
 .search-area .search-btn2{
-    background-color:rgba(0, 157, 217, 1) ;
+    background-color:#AAAAAA ;
     color: #fff;
     padding: 10px 30px;
     border-radius: 3px;
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 5%;
-    bottom: 55px;
+    right: 3%;
+    bottom: 46px;
     width: 130px;
     height: 36px;
     cursor: pointer;
 }
 .text1{
-    width: 30%;
+    width: 40%;
     height: 32px;
     border:1px solid #cccccc !important;
     margin:21px 0 0 0px;
@@ -428,7 +432,9 @@ body{
     background-color: #fff;
 }
 
-
+.table1{
+    width: 97.5%;
+}
 .table1 tbody {
 
     display:block;
@@ -499,15 +505,15 @@ tbody td {
     span.name { display: block; width: 75px; text-align: left; line-height: 30px;}
     .gf-select { 
                 float: left;
-    width: 16%;
+    width: 16.9%;
     top: -30px;
-    margin-left: 6px;
-    left: 67px;
+    margin-left: 14px;
+    left: 60px;
     position: relative;
     }
-    .gf-select span {width: 95%; padding: 4px 0px 4px 10px;display: block; border: 1px solid #ddd; cursor: pointer;}
-    .gf-select span em {font-style: normal;}
-    .gf-select .icon-jt { background: url(../Images/21.png) center right no-repeat; width: 18px; height: 15px;position: absolute;right: -4px;top: 32%; margin-top: -3px;}
+    .gf-select span {width: 95%; padding: 1px 0px 1px 2px;display: block; border: 1px solid #ddd; cursor: pointer;}
+    .gf-select span em {font-style: normal;text-align: center;margin-top: 2px;}
+    .gf-select .icon-jt { background: url(/admin/MarketingActivity/PropagationManagement/Images/21.png) center right no-repeat; width: 18px; height: 15px;position: absolute;right: 5px;top: 37%; margin-top: -3px;}
     .gf-select ul {border: 1px solid #ddd; position: absolute; width: 100%; top: 31px; overflow-y :auto; display: none; background: #fff;}
     .gf-select ul li { border-bottom: 1px solid #ddd; line-height: 30px; padding-left: 10px;}
     .gf-select ul li:last-child{ border-bottom: none; }
@@ -529,3 +535,34 @@ tbody td {
 .tooltip.bottom .tooltip-arrow {top: 0;left: 50%;margin-left: -5px;border-width: 0 5px 5px;border-bottom-color: #000}
 .tooltip.bottom-left .tooltip-arrow {top: 0;left: 5px;border-width: 0 5px 5px;border-bottom-color: #000}
 .tooltip.bottom-right .tooltip-arrow {top: 0;right: 5px;border-width: 0 5px 5px;border-bottom-color: #000}
+
+
+
+.bigbx{
+    background: #fff;
+    height: 720px;
+}
+.foot_textzo{
+    color: #A0A0A0;
+    text-align: center;
+    display: block;
+    line-height: 65px;
+}
+
+
+
+.bread-crumb{
+    color: #A6A6A6;
+}
+/* 遮罩 */
+#msg{
+   z-index:9999;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   background:#585353;
+   filter:alpha(Opacity=50);
+   -moz-opacity:0.5;
+   opacity: 0.5;;top:0;
+}

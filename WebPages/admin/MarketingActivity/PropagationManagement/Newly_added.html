@@ -14,17 +14,20 @@
     </head>
     <body>
     <div class="page-container">
-    	<div class="bread-crumb">营销活动>市场文案管理>新增</div>
-		<div class="content">
+    	<div class="bread-crumb"><span class='activice'>营销活动></span> <span class='activice1'>市场文案管理></span>新增</div>
+    	<!-- <div id='bj'> -->
+			<div class="content">
 			<div class="content_information">
 				<input type="hidden" class="state" value="audit">
 				<div class="Copy_Title" id="wordCount">
 					<span>文案标题</span>
-					<textarea name="Copy_Title" id="textarea_value" cols="30" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" width="650px" rows="10" maxlength="65" resize: none; class="textarea_size"></textarea>
-					<span class="wordwrap" style="margin-right: 90px;margin-top: 12px;">
-						<var class="word">0</var>
-						/65
-					</span>
+					<div class='right_word'>
+						<textarea name="Copy_Title" id="textarea_value" cols="30" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" width="650px" rows="10" maxlength="65" resize: none; class="textarea_size"></textarea>
+						<span class="wordwrap" style="margin-right: 90px;margin-top: 12px;">
+							<var class="word">0</var>
+							/65
+						</span>
+					</div>
 				</div>
 				<div class="area">
 					<span>发送地区</span>
@@ -65,7 +68,7 @@
 					</div>
 				</div>
 				</form>
-
+		<!-- </div> -->
 
 <!-- 地区选择S -->
 	<div class="area-list wrapper"> 
@@ -109,7 +112,7 @@
 	<!-- <script src="js/area.js"></script> -->
 	<!-- 地区选择E -->
 				<div class="mode">
-					<span>发送内容</span>
+					<span class='send_content5'>发送内容</span>
 					<textarea name="" id="send_text" class="Edit_content" cols="30"  rows="10"></textarea>
 				</div>
 				<div class="Graphic_message">
@@ -119,7 +122,7 @@
 			        <div> 
 					<label for='datepicker'>发送时间</label>
 					<input name="Fruit" type="radio" value="pushtime_supplier" />自定义
-					<input type="text" value="" readonly="readonly" class="input-text date" id="LAY_demorange_s">
+					<input type="text" value="" readonly="readonly" class="input-text date" style="background:url(/admin/MarketingActivity/PropagationManagement/Images/2.png) no-repeat right"; id="LAY_demorange_s">
 					<span class="custom">*选择自定义以后，占用本地区会员消息推送一次</span></div>
 				</div>
 				<div class="_button">
@@ -131,6 +134,9 @@
 				</div>
 			</div>
 		</div>
+	<div class='foot_textzo'>
+		凌云科技版权所有  京ICP号10211557.
+	</div>
 	<script src="/admin/lib/laydate/laydate.js"></script>
 	<script>
 		laydate({

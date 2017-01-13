@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-12 14:34:01
+ * @Last Modified time: 2017-01-13 18:40:21
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -285,7 +285,9 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
     // 保存Preservation 提交审核
     $('.examine').click(function() {
-        // var audit = $('.examine').find('input').val();
+            
+
+                       // var audit = $('.examine').find('input').val();
         if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var a = 1;
         } else {
@@ -332,6 +334,14 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
             }
         }
+        if($('.word').text()==0){
+                  layer.msg('请输入文案标题');
+                  layer.tips('请输入文案标题','#wordCount', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+                  return;
+            }
         // 判断时间和选项框  有没有选中否则出来的数据就不对，null
         var time_time = $('.date').val();
         if(time_time==undefined){
@@ -357,7 +367,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             poster_url: pic_url,
             copywriting: JSON.stringify($('.mode textarea').val()),
             bindwithperiodpush: e,
-            pushtime: time_time
+            pushtime: time_time,
+            guid:guid_val
         };
         // console.log(typeof(form_value.area[0]));
         //form_value.area = JSON.stringify(form_value.area);
@@ -380,12 +391,12 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         }
 
         if (form_value.push_distributor == 0 && form_value.push_consumer== 0 && form_value.push_retailer== 0) {
-        	layer.msg('请选择发送对象');
+            layer.msg('请选择发送对象');
             layer.tips('请选择发送对象','.send_object', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
-        	return;
+            return;
         }
 
         if (form_value.category == "") {
@@ -455,13 +466,27 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         // }+
         $('.layui-layer-close').click();
         layer.msg('正在新增...', { time: 2000 });
-        _ajax("POST", "/webapi/ipaloma/propagation", form_value, '提交错误', function() {
-            // window.history.back();
-            window.location='Marketcopymanagement.html';
-        });
+
+        if(guid_val==''){
+             _ajax("POST", "/webapi/ipaloma/propagation", form_value, '提交错误', function() {
+                    // window.history.back();
+                 window.location='Marketcopymanagement.html';
+            });
+        }else{
+             _ajax("put", "/webapi/ipaloma/propagation", form_value, '提交错误', function() {
+                    // window.history.back();
+                 window.location='Marketcopymanagement.html';
+            });
+        }
+       
     })
 
 
+
+            //首先判断有没有保存，如果有保存的话那么就判断有没有保存后的guid
+        
+
+var guid_val = '';
     // 保存并继续新增
     $(".Newly_added").click(function() {
         // var audit = $('.examine').find('input').val();
@@ -509,6 +534,14 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
             }
         }
+         if($('.word').text()==0){
+                  layer.msg('请输入文案标题');
+                  layer.tips('请输入文案标题','#wordCount', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+                  return;
+            }
         var time_time = $('.date').val();
             if(time_time==undefined){
                 time_time=='';
@@ -537,7 +570,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             poster_url: pic_url,
             copywriting: JSON.stringify($('.mode textarea').val()),
             bindwithperiodpush: e,
-            pushtime: time_time
+            pushtime: time_time,
+            guid:guid_val
         }
         // console.log(typeof(form_value.area[0]));
         // form_value.area = JSON.stringify(form_value.area);
@@ -636,14 +670,22 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         $('.layui-layer-close').click();
 
         layer.msg('正在保存...', { time: 2000 });
-
+    if(guid_val==''){
         _ajax("POST", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
             layer.msg('保存成功，请继续填写',{time:1500});
             window.location.reload();
         });
+    }else{
+         _ajax("put", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+            layer.msg('保存成功',{time:1500});
+            layer.msg('保存成功，请继续填写',{time:1500});
+            window.location.reload();
+            // window.location='Marketcopymanagement.html';
+        });
+    }
 });
-
-
+ 
+// 保存
     $(".Preservation").click(function() {
         // var audit = $('.examine').find('input').val();
         if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
@@ -681,6 +723,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                 });
                   return;
             }
+
+            
             if ($('.region-item').length==0) {
             layer.msg('请选择地区');
             layer.tips('请选择地区','.area', {
@@ -690,6 +734,14 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
             }
         }
+        if($('.word').text()==0){
+                  layer.msg('请输入文案标题');
+                  layer.tips('请输入文案标题','#wordCount', {
+                  tips: [4, '#F22525'],
+                  time: 4000
+                });
+                  return;
+            }
         var time_time = $('.date').val();
             if(time_time==undefined){
                 time_time=='';
@@ -718,7 +770,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             poster_url: pic_url,
             copywriting: JSON.stringify($('.mode textarea').val()),
             bindwithperiodpush: e,
-            pushtime: time_time
+            pushtime: time_time,
+            guid:guid_val
         }
         // console.log(typeof(form_value.area[0]));
         // form_value.area = JSON.stringify(form_value.area);
@@ -818,9 +871,22 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         layer.msg('正在保存...', { time: 2000 });
 
-        _ajax("POST", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+
+        if(guid_val==''){
+            _ajax("POST", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
             layer.msg('保存成功',{time:1500});
+            guid_val = data.guid;
+            console.log(guid_val);
+            // window.location='Marketcopymanagement.html';
         });
+        }else{
+        _ajax("put", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
+            layer.msg('保存成功',{time:1500});
+            guid_val = data.guid;
+            console.log(guid_val)
+            // window.location='Marketcopymanagement.html';
+        });
+        }
 });
 
     var _ajax = function(type, url, data, tip, success) {
