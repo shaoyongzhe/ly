@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <title>确认订单</title>
     <meta charset="utf-8" />
@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="../../css/shopcar.css"/>
     <link href="../../css/common.css" rel="stylesheet" type="text/css">
     <link href="../../css/master.css" rel="stylesheet" type="text/css">
+    <link href="../../css/calendar.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../../js/scroll/iscroll.js"></script>
     <script type="text/javascript" src="../../js/retailerid.js"></script>
-	
+	<script type="text/javascript" src="../../js/date.js"></script>
     <script type="text/javascript">
 
 
@@ -24,11 +26,15 @@
 
   $(document).ready(function()
   {
-  		var pg=0;//后续需要加js！！！！！！！！！！！！！
+  		var pg=0;//门店        后续需要加js！！！！！！！！！！！！！
   		var _list="";
   		var _cost=0;
   		var _send="";
   		var _flag=0;
+  		var _year=new Date().getFullYear()
+  		var _month=new Date().getMonth()+1
+  		var _day=new Date().getDate()
+  		$("#beginTime").val(_year+"-"+_month+"-"+_day)
       	$.ajax({
     		url:"/webapi/distributor/"+getRetailerid()+"/orderform/items?distributor_id=5ce1d14e07534139ae7774d8983f04f3",
 	    	async:true,
@@ -125,8 +131,28 @@
 	   
    }
    
+	$("#sp1").click(function(){
+		$(".canlendar").css({display:"block"})
+		$("html").css({overflow:"hidden"})
+	})
 
+$(function(){
 
+	$('#beginTime').date();
+
+	$('#endTime').date({theme:"datetime"});
+
+});
+
+//	$("#inp2").focus(function(){
+//		$(this).css({textAlign:"left"})
+//	}).blur(function(){
+//		if($(this).val()==""){
+//			$(this).css({textAlign:"right"})
+//		}
+//		
+//	})
+	
   }); //document结束
 
 </script>
@@ -134,27 +160,12 @@
 </head>
 
 <body >
-	<div class="load" style="background:#fff;width:100%;height:100%;position:absolute;z-index: 100;"><img src="../../image/shop/loading.gif" style="width:4rem;height:4rem;margin:72% 0 0 45%" /></div>
-<div class="canlendar" style="display: none;">
-	<div class="canlendarCon">
-		<div class="calTit">送货时间</div>
-		<div class="conten">
-			<ul>
-				<li>2010</li>
-				<li>2011</li>
-				<li>2012</li>
-				<li>2013</li>
-				<li>2014</li>
-				<li>2015</li>
-				<li>2016</li>
-				<li>2017</li>
-				<li>2018</li>
-			</ul>
-			<ul></ul>
-			<ul></ul>
-		</div>
-	</div>
-</div>
+	<div class="load" style="background:#fff;width:100%;height:100%;display:none;position:absolute;z-index: 100;"><img src="../../image/shop/loading.gif" style="width:4rem;height:4rem;margin:72% 0 0 45%" /></div>
+
+
+
+
+<div id="datePlugin"></div>
  <!-- nav-header start-->
 
 <!-- nav-header end-->
@@ -162,11 +173,11 @@
 	<section>
 		<div class="saleTm">
 			<div class="saleTm-tit">送货时间</div>
-			<div class="saleTm-con"><span id="sp1">2016-12-29</span><img src="../../image/shop/rigArr.jpg" /></div>
+			<div class="saleTm-con"><div class="lie"><input  id="beginTime" class="kbtn" style="width:50%;font-size: 2rem;padding-top: 5px;height:40px;text-align: right;color:#009f96" /><img src="../../image/shop/rigArr.jpg"></div></div>
 		</div>
 		<div class="remarks">
-			<div class="saleTm-tit">备注</div>
-			<div class="saleTm-con"><span id="sp2">请在此处填写备注</span><img src="../../image/shop/rigArr.jpg" /></div>
+			<div class="saleTm-tit" style="width:10%">备注</div>
+			<div class="saleTm-con"><input placeholder="请在此处填写备注" style="width:85%;font-size: 1.8rem;height:40px;color:#333;text-align: right;" id="inp2" /><img src="../../image/shop/rigArr.jpg" /></div>
 		</div>
 		<div class="introd">
 			<div class="saleTm-tit" id="distributorName"><span style="display:inline-block;">接口</span></div>

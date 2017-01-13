@@ -53,16 +53,22 @@
 
 
 					   		$("#select li").click(function(){
-					   			  $(".onload").css({"display":"block"})
+					   			  
 								 		$("#select li").removeClass("selected")
 								 		$(this).attr("class","selected");
-								 		that=$(this).attr("id");
+								 		that=$(this);
 								 		_timer=setTimeout(function(){
 								 			
 								 			if(_flag==1){
 								 					_flag=0;
-								 					
-								 					shopList(that)
+								 					if(!that.css("border-left")){
+								 						$(".onload").css({"display":"block"})
+								 							shopList(that.attr("id"))
+								 							
+								 					}else{
+								 						alert(1)
+								 						_flag=1
+								 					}
 								 			}else{
 								 					
 								 					_timer()
@@ -203,7 +209,6 @@ function shopList(pg){
 						$("#dl1").html($("#dl1").html()+_shopList);
 						_historyList="";
 						_shopList="";
-						toShop(data,pg)
 						}else{
 							alert(data["error"])
 						}
