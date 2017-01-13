@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,10 +15,10 @@
     <link href="/consumer/css/reset.css" rel="stylesheet" />
     <link href="/consumer/css/share.css" rel="stylesheet" />
     <link href="../css/shakegame/animate.css" rel="stylesheet" />
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script type="text/javascript">var jspath = window.location.pathname.replace(".html", ".js");document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk" + jspath + "\">");document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>    
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
@@ -357,7 +357,7 @@
             #divQrcode1 img {
                 width: 60%;
                 margin: 0 auto;
-            }
+        }
     </style>
     <script>
         $(function () {
@@ -366,7 +366,7 @@
     </script>
 </head>
 <body style="background:#fff; " ms-controller="allMsg" class="ms-controller">
-
+  
     <div class="tip-w">
         <div class="tip">
             <img src="/consumer/image/shakegame/shareimg.png" style="width:80%;margin:20px 10% 0 10%" />
@@ -405,7 +405,7 @@
                                 <p>￥{{vm.jsondata.discountprice}} <small>￥{{vm.jsondata.originalprice}}</small></p>
                             </li>
                             <li ms-if="selfVerify.token.length>0" style="float:right; padding-right:2px;font-size:18px;color:#000">
-                                1 张
+                               1 张
                             </li>
                             <li style="float:right; padding-right:2px;" ms-if="selfVerify.token.length==0">
                                 <small>今日可用{{vm.verifylimit}}张</small>
@@ -432,7 +432,7 @@
             <div ms-if="isselfverify">
                 <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png" ms-if="selfVerify.token.length==0" />
                 <div class="btn_css4" style="margin-top:50px" ms-click="selfVerify.VerifyScan">
-                    {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}
+                 {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}   
                 </div>
             </div>
             <div class="btn_css4" ms-click="btnClick" ms-if="selfVerify.token.length==0">门店扫码核销</div>
@@ -496,7 +496,7 @@
                 <div class="div-top">
                     <div class="div-img" id="divQrcode">
                         <img ms-attr-src="vm.jsondata.itempic" alt="">
-
+                    
                     </div>
                     <div class="div-text">
                         <p style="margin-bottom:15px">

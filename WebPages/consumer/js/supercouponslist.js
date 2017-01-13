@@ -170,8 +170,9 @@ function loaddata(longitude, latitude, dropme) {
                 if ($.isFunction(wxjsshare)) {
                     wxjsshare(jsondata.share || {});
                 }
+                qrcode.show()
                 setTimeout(function () {
-                    qrcode.show()
+                    
                     $('#list').dropload({
                         scrollArea: window,
                         domDown: {
