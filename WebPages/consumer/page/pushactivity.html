@@ -181,7 +181,6 @@
                                         <p>￥{{item.originalprice}}</p>
                                     </li>
                                 </ul>-->
-                                <table class="tbl_t
                                 <table class="tbl_tc">
                                     <tr>
                                         <td rowspan="2" class="tbl_td_left">￥{{item.discountprice}}</td>
@@ -217,7 +216,6 @@
                                         <p>￥{{item.originalprice}}</p>
                                     </li>
                                 </ul>-->
-                                <table class="
                                 <table class="tbl_tc">
                                     <tr>
                                         <td rowspan="2" class="tbl_td_left">￥{{item.discountprice}}</td>
@@ -303,7 +301,7 @@
         <div id="bottom-nav"></div>
     </footer>
     <div id="activityrule"></div>
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script type="text/javascript">var jspath = window.location.pathname.replace(".html", ".js");document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk" + jspath + "\">");document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>

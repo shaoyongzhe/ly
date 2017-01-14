@@ -612,6 +612,7 @@ body.modify .region-wrap{
     vertical-align: middle;
     background: url(../img/tingyong.png) no-repeat 0 0;
     cursor: pointer;
+    display: none;
 }
 
 .region-wrap .status.on{
