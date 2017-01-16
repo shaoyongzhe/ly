@@ -201,7 +201,7 @@ a:hover {
 .area-list-item .choice {
      float: left;
     margin-left: 21px;
-    margin-top: -16px;
+    margin-top: 2px;
     display: block;
     cursor: pointer;
 }
@@ -700,7 +700,7 @@ input,select{
     top: 23px;
 }
 .Select_province1 .choice{
-        margin-top: -20px;
+        margin-top: 0px;
 }
 
 

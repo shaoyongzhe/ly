@@ -10,11 +10,11 @@ $('.region-wrap').on('click', '.x', function() {
 		_this.closest('.region-item').remove()
 		return;
 	}
-
+	$(this).parent().remove();
 	// $(this).parent().addClass('on');
-	_this.parent().fadeOut(300, function() {
-		_this.remove();
-	});
+	// _this.parent().fadeOut(300, function() {
+	// 	_this.remove();
+	// });
 
 });
 

@@ -1471,7 +1471,7 @@ var fzrurl = '/webapi/ipaloma/topic/charge';
 _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
 	$(fzr.content).each(function(i,item){
-		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.name +'</li>');
+		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.nickname +'</li>');
 	});
 
 	/*$('.fzr .option').each(function(){
@@ -1527,10 +1527,10 @@ $('.saveToDb, .shenhe').click(function(){
 			$('.earliestjointime').focus();
 			return;
 		}
-		if($('.section1 .lastestjointime').val() == ""){
+		if($('.section1 .latestjointime').val() == ""){
 			$("nav span").eq(0).click();
-			layer.tips('请先完善会员参与结束时间', $('.lastestjointime'));
-			$('.lastestjointime').focus();
+			layer.tips('请先完善会员参与结束时间', $('.latestjointime'));
+			$('.latestjointime').focus();
 			return;
 		}
 		if($('.section1 #shenbao').val() == ""){
@@ -1921,7 +1921,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        "begintime"       : basic.find('.begintime').val(),
 	        "endtime"         : basic.find('.endtime').val(),
 	        "earliestjointime": basic.find('.earliestjointime').val(),
-	        "lastestjointime" : basic.find('.lastestjointime').val(),
+	        "latestjointime" : basic.find('.latestjointime').val(),
 	        "activitytitle"   : basic.find('.activityTitle').val(),
 	        "servicephone"    : servicephone,
 	        "singleselection" : singleselection,
@@ -2182,11 +2182,11 @@ $('.saveToDb, .shenhe').click(function(){
 	data["propagation"] = tuwenArr;
 	// console.log(data);
 
-
+	var optype = $(this).text();
 	data["releaseset"] = {
 		// "flag": "",
 		// "releasetime":"",
-        "optype": $(this).text()
+	    "optype": optype
 
     }
 
@@ -2216,6 +2216,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        },
 	        error: function () {
 	            console.warn("提交审核失败");
+	            layer.msg(optype + "失败");
 	        }
     	});
 		

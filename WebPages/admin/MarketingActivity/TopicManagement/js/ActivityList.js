@@ -245,6 +245,7 @@ function chargeAjax(){
 				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].name+'</li>'
 			}
 			$(".qC_principal .selectL").empty().append(chargeHtml);
+			
 		},
 		error:function(data){
 			linshiCharge=data;
@@ -252,7 +253,6 @@ function chargeAjax(){
 		}
 	});
 }
-
 /*状态*/
 statusAjax()
 function statusAjax(){
@@ -269,6 +269,7 @@ function statusAjax(){
 				chargeHtml+='<li class="optionL">'+data[i].state+'</li>'
 			}
 			$(".qC_status .selectL").empty().append(chargeHtml);
+			
 		},
 		error:function(data){
 			linshiCharge=data;
@@ -320,15 +321,14 @@ $(document).on("click",".edit",function(){
 	$(this).find(".menu").toggle();
 	$(".edit").not(this).find(".menu").hide();
 	return false;
-});
-
+})
 $(document).click(function(){
 	$(".edit .menu").hide();
 })
 
 var DictFunction =
     {
-        "详情": function () {
+        "详情": function (op, currenttype) {
             layer.open({
                 type: 2,
                 title: '详情',
@@ -339,8 +339,8 @@ var DictFunction =
                 content: 'detail.html',
             });
         },
-        "修改": function () { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
-        "'提交审核', '审核通过', '立即发布'": function (op, currentstate)
+        "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
+        "'提交审核', '审核通过', '立即发布','下架', '上架'": function (op, currentstate)
         {
             $.ajax({
                 type: "put",
@@ -362,7 +362,7 @@ var DictFunction =
 
             });
         },
-        "删除": function ()
+        "删除": function (op, currenttype)
         {
             $.ajax({
                 type: "delete",
@@ -388,7 +388,7 @@ var DictFunction =
 $('table.activityList').on('click',".handle",function(){
 
     $('#guid').val($(this).closest('tr').attr('guid'));
-    
+    var currentState = $(this).closest('tr').find('td.state').text();
     var matchKey = $(this).text();
     if (!$(this).text())
     {
@@ -400,7 +400,7 @@ $('table.activityList').on('click',".handle",function(){
 	})
 	if (null != executeKey)
 	{
-	    DictFunction[executeKey]();
+	    DictFunction[executeKey]($(this).text(), currentState );
 	    return;
 	}
     
@@ -408,4 +408,5 @@ $('table.activityList').on('click',".handle",function(){
 	    
    
    
+	
 });
