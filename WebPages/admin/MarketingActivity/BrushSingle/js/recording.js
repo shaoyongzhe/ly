@@ -144,7 +144,7 @@ function fndengji(data) {
 function fnshijian(state) {
 	$("input:checked").prop("checked", false);
 	$(".cgl-jzz").html("加载中，请稍后···").show();
-	
+
 	$.ajax({
 		type: "get",
 		url: "/webapi/earlywarningmanage/anticheating/getlist",
@@ -153,27 +153,15 @@ function fnshijian(state) {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 		},
 		success: function(data) {
-			console.log(data)
+			//console.log(data)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
 				$("#kou").text(data["koukuanjine"].toFixed(2));
-/*				var none1 = [{
-					chufazhong: 0,
-					jiechuweigui: 0,
-					querenweigui: 0,
-					shensuzhong: 0,
-					weichuli: 0,
-					yijieshu: 0
-				}];
-				
-				
-*/				
-				
 				fndengji(data.statecount);
-			} else{
+			} else {
 				allcont = data.allcont;
 				djcishu = 1;
 				fndengji(data.statecount);
@@ -260,6 +248,9 @@ function fnreset() {
 		$("#province>span>em").html("省");
 		$("#city>span>em").html("市");
 		$("#area>span>em").html("区");
+		$("#cgl-wgdj").css({
+			"color": "#999"
+		});
 	});
 }
 
@@ -312,9 +303,10 @@ function fnjilu() {
 	$("#cgl-wgcs").val(state.brcount);
 	$("#cgl-vipname").val(state.membername);
 	if(state.level == "") {
-		$("#cgl-wgdj").val("lv1");
+		$("#cgl-wgdj").css({"color":"#999"}).find("option:eq(0)").attr("selected",true);
 	} else {
-		for(var j = 0; j < $("#cgl-wgdj option").length; j++) {
+		$("#cgl-wgdj").css({"color":"#333"});
+		for(var j = 1; j < $("#cgl-wgdj option").length; j++) {
 			if($("#cgl-wgdj option").eq(j).html() == state.level) {
 				$("#cgl-wgdj option").eq(j).attr("selected", true)
 			}
@@ -492,11 +484,11 @@ function fnweignum() {
 }
 //会员名称
 function fnvipname() {
-	var t=0;
+	var t = 0;
 	$("#cgl-vipname").on('input', function(e) {
 		clearTimeout(t);
-		var that=this;
-		t=setTimeout(function() {
+		var that = this;
+		t = setTimeout(function() {
 			state["membername"] = $(that).val();
 			state["membertype"] = $("#cgl-md").find("option:selected").val();
 			state["lastindex"] = 0;
@@ -515,7 +507,7 @@ function fnwgjb() {
 		data: "",
 		success: function(data) {
 			$(".cgl-jzz").hide();
-			opt = "<option>-请选择-</option>";
+			opt = "<option >-请选择-</option>";
 			for(var k1 in data) {
 				opt += "<option>" + data[k1]["level"] + "</option>";
 			}
@@ -526,6 +518,13 @@ function fnwgjb() {
 		var level = $(this).find("option:selected").text();
 		if(level == "-请选择-") {
 			level = "";
+			$("#cgl-wgdj").css({
+				"color": "#999"
+			});
+		} else {
+			$("#cgl-wgdj").css({
+				"color": "#333"
+			});
 		}
 		state["level"] = level;
 		state["lastindex"] = 0;
@@ -601,7 +600,7 @@ function article_add(that) {
 		"<p>" + $(".cgl-td4", parents).text() + "</p>" +
 		"</li>" +
 		"<li class='cgl-li6'>" +
-		"<h4>上报时间</h4>" +
+		"<h4>报警时间</h4>" +
 		"<p>" + $(".cgl-td41", parents).text() + "</p>" +
 		"</li>" +
 		"<li class='cgl-li4'>" +
@@ -621,7 +620,7 @@ function article_add(that) {
 		"</ul>" +
 		"</li>" +
 		"</ul>" +
-		"<div class='cgl-antc'><span class='cgl-close'>关闭</span>";
+		"<div class='cgl-antc'><span class='cgl-close cgl-ciyao'>关闭</span>";
 	for(var i = 0; i < $(that).nextAll().length; i++) {
 		cont += "<span class='cgl-import'>" + $(that).nextAll().eq(i).html() + "</span>";
 	}
@@ -745,7 +744,7 @@ function vipshensu_add(parents) {
 		        "<label><input name='shensu' type='checkbox'>描述4</label>" +
 		    "</div>" +
 		"</div>" +*/
-		"<div class='cgl-anfs'><span class='cgl-close'>关闭</span><span class='cgl-import quedss'>确定</span></div>" +
+		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>关闭</span><span class='cgl-import quedss'>确定</span></div>" +
 		"</div>";
 
 	var index = layer.open({
@@ -786,7 +785,7 @@ function jiechuwg_add(parents) {
 		        "<label><input name='shensu' type='checkbox'>描述4</label>" +
 		    "</div>" +
 		"</div>" +*/
-		"<div class='cgl-anfs'><span class='cgl-close'>关闭</span><span id='qrjcweig' class='cgl-import'>确定</span></div>" +
+		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>关闭</span><span id='qrjcweig' class='cgl-import'>确定</span></div>" +
 		"</div>";
 
 	var index = layer.open({
@@ -836,7 +835,7 @@ function tiaoz_add(dangq, guid) {
 		"<p class='cgl-dqdj'>" + dangq + "</p>" +
 		"<div class='cgl-tiaoz'>调整违规等级" +
 		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +
-		"<div class='cgl-antz'><span class='cgl-close'>关闭</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>" +
+		"<div class='cgl-antz'><span class='cgl-close cgl-ciyao'>关闭</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>" +
 		"</div>";
 
 	var index = layer.open({
