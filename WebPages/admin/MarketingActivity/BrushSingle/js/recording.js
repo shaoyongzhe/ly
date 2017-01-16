@@ -60,9 +60,6 @@ function fnxuanran(data) {
 	}
 }
 
-
-
-
 function fncreattab(data) {
 	fnxuanran(data);
 	//滚动
@@ -131,8 +128,6 @@ function fnmore() {
 		}
 	});
 }
-
-
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
@@ -149,6 +144,7 @@ function fndengji(data) {
 function fnshijian(state) {
 	$("input:checked").prop("checked", false);
 	$(".cgl-jzz").html("加载中，请稍后···").show();
+	
 	$.ajax({
 		type: "get",
 		url: "/webapi/earlywarningmanage/anticheating/getlist",
@@ -157,13 +153,14 @@ function fnshijian(state) {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 		},
 		success: function(data) {
+			console.log(data)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
 				$("#kou").text(data["koukuanjine"].toFixed(2));
-				var none1 = [{
+/*				var none1 = [{
 					chufazhong: 0,
 					jiechuweigui: 0,
 					querenweigui: 0,
@@ -171,8 +168,12 @@ function fnshijian(state) {
 					weichuli: 0,
 					yijieshu: 0
 				}];
-				fndengji(none1);
-			} else {
+				
+				
+*/				
+				
+				fndengji(data.statecount);
+			} else{
 				allcont = data.allcont;
 				djcishu = 1;
 				fndengji(data.statecount);
@@ -192,8 +193,9 @@ function fnshijian(state) {
 	});
 }
 //状态改变事件
-/*function fnstate() {
+function fnstate() {
 	$("input:checked").prop("checked", false);
+	fnjilu();
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
 		type: "get",
@@ -203,7 +205,7 @@ function fnshijian(state) {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 		},
 		success: function(data) {
-			console.log(data, state)
+			//console.log(data, state)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
@@ -211,14 +213,12 @@ function fnshijian(state) {
 				$("#shua").text(data["shuadanjine"].toFixed(2));
 				$("#kou").text(data["koukuanjine"].toFixed(2));
 			} else {
-				fnjilu();
-				fndengji(data.statecount);
 				fncreattab(data); //创建tbody
 			}
 		}
 	});
 }
-*///时间重置
+//时间重置
 function Fndate() {
 	var d = new Date();
 	if(d.getMonth() == 0) {
@@ -255,6 +255,7 @@ function fnreset() {
 			fnjilu();
 			fnshijian(state);
 			localStorage.setItem("state", JSON.stringify(state));
+
 		}
 		$("#province>span>em").html("省");
 		$("#city>span>em").html("市");
@@ -330,11 +331,9 @@ function fnxze1() {
 		}).eq($(this).index()).css({
 			"display": "block"
 		});
-
 		state["state"] = $(".ztai>.cgl-wgui:visible .cgl-con1:eq(0)>strong").html();
 		state["lastindex"] = 0;
-
-		fnshijian(state);
+		fnstate(state);
 		localStorage.setItem("state", JSON.stringify(state));
 	});
 }
@@ -347,7 +346,7 @@ function fnxiala() {
 		$(".cgl-con").html($(this).html());
 		state["lastindex"] = 0;
 		state["state"] = $(".cgl-wgui>.cgl-con>strong", ".ztai").html();
-		fnshijian(state);
+		fnstate(state);
 		localStorage.setItem("state", JSON.stringify(state));
 	});
 	$(document).click(function(e) {
