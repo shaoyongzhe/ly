@@ -39,8 +39,7 @@ $(function(){
 				dataType:'json',
 				// data:{},
 				success:function(data){ 
-
-					
+				
 					var str_sum='';
 					str_sum+='<div class="swiper-slide">'+
 								'<header class="hidden_page_b">'+
@@ -190,6 +189,7 @@ $(function(){
 				//三位数加上小数点	
 					function init1(){
 						$('.yellow_money span').html(formatCash1(Platform_subsidies)); //平台最高补贴输出页面
+						console.log(formatCash1(Platform_subsidies))
 						$('.issued a:eq(1)').html(formatCash1(issued)) //已发放输出页面
 						//$('.enjoy span span').html(formatCash1(getmoneys)); //获得输出到页面
 					}
@@ -223,6 +223,10 @@ $(function(){
 					 		keyy='门店'
 					 	}else if(keyy=='consumer'){
 					 		keyy='消费者'
+					 	}else if(keyy=='distributor_employee'){
+					 		keyy='分銷商店员'
+					 	}else if(keyy=='retailer_employee'){
+							keyy='门店店员'
 					 	}
 					 	return keyy;
 				 	}
@@ -337,6 +341,8 @@ $(function(){
 					    //autoplayDisableOnInteraction: false, 
 					    //effect: 'slide',
 					    speed:1200,
+					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
+						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
 					    //allowSwipeToPrev : true, //禁止向左滑动
 					    swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
