@@ -2136,11 +2136,11 @@ $('.saveToDb, .shenhe').click(function(){
 	data["propagation"] = tuwenArr;
 	// console.log(data);
 
-
+	var optype = $(this).text();
 	data["releaseset"] = {
 		// "flag": "",
 		// "releasetime":"",
-        "optype": $(this).text()
+	    "optype": optype
 
     }
 
@@ -2170,6 +2170,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        },
 	        error: function () {
 	            console.warn("提交审核失败");
+	            layer.msg(optype + "失败");
 	        }
     	});
 		
