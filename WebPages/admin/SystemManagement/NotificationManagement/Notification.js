@@ -265,8 +265,8 @@ function getOptionsValue() {
     });
     //新增区域
     $('.secondtype').change(function () {
-        var firstType = $('.addForm .firsttype').find("option:selected").text();
-        var secondType = $(this).find('option:selected').attr('data-key');
+        var firstType = "";//$('.addForm .firsttype').find("option:selected").text();
+        var secondType = ""; //$(this).find('option:selected').attr('data-key');
         $('.fourthtype').children(":not('option:first')").remove();
         if (secondType != "") {
             var jsonData = {
