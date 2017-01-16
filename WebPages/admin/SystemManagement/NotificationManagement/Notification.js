@@ -324,9 +324,9 @@ $(".add").click(function () {
     $('.addForm').show();
     //获取所有发送途径
     _ajax("get", '/webapi/operation/notification/dict/allchannel', null, "发送途径", function (data) {
-        $('.thirdAllType').children(":not('option:first')").remove();
+        $('.template_sendway').remove();
         for (var key in data) {
-            $('.thirdAllType').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
+            $('.template_sendway').append("<li data-key=" + data[key] + ">" + data[key] + "</li>");
         }
     });
     layer.open({
@@ -342,10 +342,10 @@ $(".add").click(function () {
 $('.add-btn').click(function () {
     var addForm = {
         gateway_templateid: $('.addForm .gateway_templateid').val(),//外部模板编号
-        category: $('.addForm .firsttype').find("option:selected").text(),//场景
-        subcategory: $('.addForm .secondtype').find("option:selected").text(),
-        channel: $('.addForm .thirdAllType').find("option:selected").text().trim(),
-        groupname: $('.addForm .fourthtypeInput').val().trim() == "" ? $('.addForm .fourthtype').find("option:selected").text() : $('.addForm .fourthtypeInput').val().trim(),
+        category: $('.addForm .category_input').text(),//场景
+        subcategory: $('.addForm .event_input').text(),
+        channel: $('.addForm .sendway_input').text().trim(),
+        groupname: $('.addForm .template_group').val().trim(),
         content: $('.addForm .content').val(),
         description: $('.addForm .description').val(),
         area: getDistrict($("#loc_province").find("option:selected").text(), $("#loc_city").find("option:selected").text(), $("#loc_county").find("option:selected").text()),
@@ -583,3 +583,22 @@ var _ajax = function (type, url, data, tip, success) {
         }
     });
 }
+
+
+$('body').on("click", ".select-wrap", function (e) {
+    // $('.select-wrap').click(function(e){
+    // debugger;
+    e.stopPropagation();
+    $(this).find('.select').toggle();
+    $(".select-wrap").not(this).find('.select').hide();
+});
+
+
+$('.select .option').click(function(e){
+	e.stopPropagation();
+	$(this).parent().hide().prev().val($(this).text());
+});
+
+$(document).click(function(){
+	$('.select').hide();
+});

@@ -14,8 +14,77 @@
     <link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
     <!-- <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" /> -->
     <script src="laydate/laydate.js"></script>
+    <style>
+        .select-wrap{
+	width: 200px;
+    border: 1px solid #e4e4e4;
+    line-height: 30px;
+    cursor: pointer;
+    position: relative;
+	border-radius: 2px;
+        margin: -23px 0 0 93px;
+}
+
+
+.select-wrap input{
+    width: 100%;
+    height: 20px;
+    border: none;
+    text-indent: 1em;
+    font-size: 14px;
+}
+
+.select-wrap i{
+	width: 30px;
+    position: absolute;
+    /* background: red; */
+    height: 20px;
+    right: 0;
+    top: 6px;
+    border-left: 1px solid #ccc;
+}
+
+.select-wrap i:before{
+	content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    transform: rotate(45deg);
+    /* background: red; */
+    display: inline-block;
+    margin: 0 0 7px 10px;
+}
+
+.select-wrap ul{
+    display: none; 
+
+    width: 100%;
+    padding: 0 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+    text-align: center; 
+    box-sizing: border-box; 
+    position: absolute;
+    top: 31px;
+    z-index: 1
+}
+
+
+.select-wrap ul li{
+    line-height:30px;
+    font-size: inherit;
+}
+
+.select-wrap ul li + li{
+	border-top: 1px solid #ddd;
+}
+
+    </style>
 </head>
 <body>
+    
     <div class="page-container">
         <div class="bread-crumb">系统管理<span> > </span>通知管理</div>
         <nav>
@@ -136,6 +205,7 @@
     </div>
 
     <div class="addForm">
+    
         <div class="input-contorl">
             <label>外部模板编号</label>
             <input type="text" value="" class="input-text gateway_templateid" placeholder="&nbsp;必要时可为空直接发送内容!">
@@ -143,9 +213,14 @@
 
         <div class="input-contorl">
             <label>使用场景</label>
-            <select name="" id="" class="firsttype">
-                <option value="" data-key="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <!--<em class="selected">shaoyongzhe</em>-->
+                <input type="text" name="name" value="" id="category_input" />
+                <ul class="select template_category">
+                    <li class="option">使用场景</li>
+                </ul>
+            </div>
         </div>
 
         <!--<div class="input-contorl">
@@ -155,9 +230,14 @@
 
         <div class="input-contorl">
             <label>事件</label>
-            <select name="" id="" class="secondtype">
-                <option value="" data-key="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <!--<em class="selected">shaoyongzhe</em>-->
+                <input type="text" name="name" value=""  id="event_input"/>
+                <ul class="select template_event">
+                    <li class="option">事件</li>
+                </ul>
+            </div>
         </div>
 
         <!--<div class="input-contorl">
@@ -167,22 +247,33 @@
 
         <div class="input-contorl">
             <label>发送途径</label>
-            <select name="" id="" class="thirdAllType">
-                <option value="" data-key="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <!--<em class="selected">shaoyongzhe</em>-->
+                <input type="text" name="name" value=""  id="sendway_input"/>
+                <ul class="select template_sendway">
+                    <li class="option">发送途径</li>
+                </ul>
+            </div>
+            
         </div>
 
         <div class="input-contorl">
             <label>组名</label>
-            <select name="" id="" class="fourthtype">
-                <option value="" data-key="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <!--<em class="selected">shaoyongzhe</em>-->
+                <input type="text" name="name" value="" id="group_input"/>
+                <ul class="select template_group" >
+                    <li class="option">预算管理分组</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="input-contorl">
+        <!--<div class="input-contorl">
             <label>新增组名</label>
             <input type="text" value="" class="input-text fourthtypeInput" placeholder="&nbsp;可为空，为空使用选择的组名">
-        </div>
+        </div>-->
 
         <div class="input-contorl">
             <label>影响省份</label>
@@ -233,6 +324,7 @@
 <script>
     showLocation();
     $(function () { $(window).on("scroll", $backToTopFun); $backToTopFun(); });
+   
 </script>
 <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> -->
 <!-- <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
