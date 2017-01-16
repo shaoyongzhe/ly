@@ -133,17 +133,26 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 		var url = '/webapi/ipaloma/district/charge?district_type=province';
 		_ajax("get", url, {}, '省负责人信息', function (dataprov){
 			// $('.layer-wait').remove();
-			// c(dataprov);
+			// debugger
+			// c(dataprov);return;
 			if(dataprov.error){
-				console.warn(JSON.stringify(dataprov, null, 4));
+				console.warn(JSON.stringify(dataprov.error, null, 4));
 				return;
 			}
+			
 			$('.Select_province li').each(function(i){
 				// debugger;
 				var _this = $(this);
 				var _thisprovice = _this.find('span').text();
+
+				try {
+					dataprov.content[i].provice
+				} catch(e) {
+					return false;
+				}
+
 				var provice = dataprov.content[i].provice;
-				// console.log('_thisprovice: ' + _thisprovice + '  provice: ' + provice);
+				console.log('_thisprovice: ' + _thisprovice + '  provice: ' + provice);
 
 				if(_thisprovice == provice){
 					_this.find('select').append('<option guid='+ dataprov.content[i].charge.guid +' oid='+ dataprov.content[i].charge.oid +' >'+ dataprov.content[i].charge.name +'</option>');
@@ -195,7 +204,7 @@ function _ajax(type, url, data, tip, success) {
 
 function dataLoad() {
 	// debugger;
-	var area_key_list = ['北京市', '北京市 ', '海淀区'];
+	var area_key_list = ['北京市', '北京市', '海淀区'];
 	var area_json = $.area_json['中国'];
 	var area_selected = new Array(); //区域选中级别
 	var area_selected_3 = new Array(); //区域选中级别
@@ -311,13 +320,13 @@ function dataLoad() {
 					console.warn(JSON.stringify(datacity, null, 4));
 					return;
 				}
+
 				$('.Select_province1 li select').empty();
 				$('.Select_province1 li').each(function(i,item){
 					// debugger;
 					var _this = $(this);
 					var _thiscity = _this.find('span').text();
 					var content = datacity.content[i];
-
 					var city = content.city;
 
 					// console.log('_thiscity: ' + _thiscity.substring(0, 3) + '  city: ' + city.substring(0, 3));
@@ -901,7 +910,7 @@ $('.area-list .save').click(function() {
 			_this.find('.city-wrap').each(function(){
 
 				// debugger;
-				var shi = $.trim($(this).find('.cityName').text());
+				var shi = $(this).find('.cityName').text();
 				// var shifzr = $(this).find('.charge-name em').text();
 				var shifzr = $(this).find('.charge-name em').attr('shifzr');
 

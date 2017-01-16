@@ -305,38 +305,18 @@ $('.rulesok').click(function(){
 });
 
 
-
 // 设置摇一摇、设置轮盘抽奖
 $('body').on("click",".set",function(e){
 	// $('.set').click(function(){
 	// debugger;
 	var addSub4 = $(this).closest('.addSub4');
-	index = addSub4.index();
 	// alert(index);
 	//return
 
 	var type = addSub4.find('.hdc3 .selected').text();
 	if( type == '摇一摇'){
-		$(this).next('.y1y').remove();
-		$(this).after('<input type="hidden" class="y1y y1yHidden'+ index +'">');
-		// return;
 
-		$('.addSub5').not(':first').remove();
-		$('.addSub5:first').find('.selected').text('');
-		$('.addSub5:first').find('input').val('');
-		$('.addSub5:first').find('.acAd2').removeClass('hi');
-
-		$('.addSub5:first').find('.setgailv.on').removeClass('on').find('input').remove();
-
-		// debugger
-		// try {
-		// 	alert(index - 1)
-		// 	delete data.event_handler_list[index - 1].prize_content
-		// } catch(e) {
-		// 	// alert(2)
-		// 	// delete data.event_handler_list[yglindex].prize_content
-		// }
-
+		y1yindex = addSub4.index();
 		layer.open({
 
 			type: 1,
@@ -346,6 +326,67 @@ $('body').on("click",".set",function(e){
 			content: $('.yao'),
 
 		});
+
+		// debugger;
+		debugger;
+		$('.yaoyiyao').not(':last').remove();
+		$('.yaoyiyao').find('.selected').text("");
+		$('.yaoyiyao').find('input').val("");
+
+
+		if($(this).closest('.hdc4d2').find('.y1y').length == 0){
+			$(this).after('<input type="hidden" class="y1y y1yHidden'+ y1yindex +'">');
+			// $('.yaoyiyao').not(':first').remove();
+
+		} else {
+
+			if($(this).next('.y1y').val() == ""){
+				return;
+			}
+
+			var y1yObj = {};
+			y1yObj = JSON.parse($(this).next('.y1y').val());
+			c(y1yObj);
+			c(y1yObj.length);
+
+			// $('.Probability_value input').val(0);
+			// $.each(y1yObj.value_curve,function(i){
+			// 	$('.Probability_value input').eq(i).val(y1yObj.value_curve[i].percentage);
+			// });
+			// $('.yaoyiyao').remove();
+			// $('.addSub5P68').after("<div class='preView'>dsadsa</div>");
+
+			for(var i=0; i<y1yObj.length; i++){
+
+				$('.yaoyiyao').last().find('.acAd2').click();
+				if(i == 0){
+					$('.yaoyiyao').first().remove();
+				}
+
+				var y1yItem = $('.yaoyiyao').eq(i);
+				// if(y1yObj[i].refund_content.indexOf('固定') != -1){
+					// y1yItem.find("li:contains("+ y1yObj[i].refund_content +")").click();
+				// } else {
+					// y1yItem.find('.selected').text(y1yObj[i].refund_content);
+				// }
+
+				y1yItem.find('li').each(function(){
+					if($(this).text() == y1yObj[i].refund_content){
+						$(this).click();
+					}
+				});
+
+				y1yItem.find('.min').val(y1yObj[i].min);
+				y1yItem.find('.max').val(y1yObj[i].max);
+				y1yItem.find('.Yyy3d1 input').val(y1yObj[i].precentage);
+				y1yItem.find('.Yyy4d1 input').val(y1yObj[i].timelimit).keyup();
+				y1yItem.find('.Yyy5-1 input').val(y1yObj[i].applycount);
+				// y1yItem.find('.Yyy6').val(JSON.stringify(y1yObj[i].probability, null, 4));
+				y1yItem.find('.Yyy6').append($(y1yObj[i].probability));
+
+			}
+
+		}
 
 	} else if( type == '轮盘抽奖'){
 		$(this).next('.lp').remove();
@@ -385,17 +426,19 @@ $('.yaook').click(function(){
 			// debugger;
 			var _this = $(this);
 			try {
-				var a = JSON.parse(_this.find('.Yyy6 input').val())
+				// var yaoyiyaogailv = JSON.parse(_this.find('.Yyy6 input').val())
+				var yaoyiyaogailv = _this.find('.Yyy6 input').prop("outerHTML");
 			} catch(e) {
 				// console.log(e);
 			}
 			y1yObj = {
 				"refund_content": _this.find('.Yyy1 .selected').text(),
 				"min": _this.find('.Yyy2 input:eq(0)').val(),
-				// "max": _this.find('.Yyy2 input:eq(1)').val(),
+				"max": _this.find('.Yyy2 input:eq(1)').val(),
 				"precentage": _this.find('.Yyy3 input').val(),
 				"timelimit": _this.find('.Yyy4 input').val(),
-				"probability": a
+				"applycount": _this.find('.Yyy5-1 input').val(),
+				"probability": yaoyiyaogailv
 			}
 			y1yArr.push(y1yObj);
 		});
@@ -405,7 +448,7 @@ $('.yaook').click(function(){
 		// }
 
 		// console.log(y1yObj);
-		$(".y1yHidden" + index).val(JSON.stringify(y1yArr, null, 4));
+		$(".y1yHidden" + y1yindex).val(JSON.stringify(y1yArr, null, 4));
 		// console.log($(".y1yHidden" + index).val());
 		// return;
 
@@ -429,6 +472,7 @@ var count = 10;
 // $('.section3').off('click');
 $('.section3').on('click','.setgailv.on',function(){
 	var _this = $(this);
+
 
 	var addSub4 = _this.closest('.addSub4');
 	if(addSub4.find('.hdc3 .selected').text().indexOf('随机') != -1){
@@ -473,6 +517,7 @@ $('.section3').on('click','.setgailv.on',function(){
 		return false;
 	}
 
+
 	
 	$('.setProbability .yaoyiyaogailv').remove();
 
@@ -487,7 +532,7 @@ $('.section3').on('click','.setgailv.on',function(){
 	});
 
 
-	// debugger;
+	debugger;
 	if(_this.closest('.addSub4').length == 1){
 		index = _this.closest('.addSub4').index();
 		// alert(index);
@@ -511,10 +556,14 @@ $('.section3').on('click','.setgailv.on',function(){
 
 		}
 
-
-		
 	} else if(_this.closest('.addSub5').length == 1) {
+		// debugger;
 		yglindex = _this.closest('.addSub5').index();
+
+		fwmin = parseInt(_this.closest('.addSub5').find('.min').val());
+		fwmax = parseInt(_this.closest('.addSub5').find('.max').val());
+
+
 		// alert(index);
 		_this.find('.ygl').remove();
 		_this.append('<input type="hidden" class="ygl yglHidden'+ yglindex +'">');
@@ -524,9 +573,6 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	var btfz = _this.closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
 	$('.value_curve .number_doller em').text(btfz);
-
-
-
 
 	var each = (fwmax - fwmin)/count;
 	for (var i=0; i<count+1; i++) {
@@ -1953,7 +1999,7 @@ $('.saveToDb, .shenhe').click(function(){
 		var curDate = _self.parents('.addSub3').find('.acZige3 input.date').val();
 		var begintime = "";
 		if(acPrev == "活动开始前"){
-			if($('.select-wrap.acSe7 .selected').text() == "天"){
+			if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').text() == "天"){
 				begintimeInput = $('.begintime').val().substring(0,10);
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
@@ -2196,8 +2242,9 @@ function _ajax(type, url, data, tip, success) {
         success: function (json) {
             success(json);
         },
-        error: function () {
+        error: function (data) {
             console.warn(tip + " error");
+            layer.alert(tip + ' :错误'+data.status, {icon: 5});
         }
     });
 }

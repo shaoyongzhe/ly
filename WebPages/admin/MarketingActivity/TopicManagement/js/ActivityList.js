@@ -245,7 +245,6 @@ function chargeAjax(){
 				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].name+'</li>'
 			}
 			$(".qC_principal .selectL").empty().append(chargeHtml);
-			
 		},
 		error:function(data){
 			linshiCharge=data;
@@ -253,6 +252,7 @@ function chargeAjax(){
 		}
 	});
 }
+
 /*状态*/
 statusAjax()
 function statusAjax(){
@@ -269,7 +269,6 @@ function statusAjax(){
 				chargeHtml+='<li class="optionL">'+data[i].state+'</li>'
 			}
 			$(".qC_status .selectL").empty().append(chargeHtml);
-			
 		},
 		error:function(data){
 			linshiCharge=data;
@@ -321,7 +320,8 @@ $(document).on("click",".edit",function(){
 	$(this).find(".menu").toggle();
 	$(".edit").not(this).find(".menu").hide();
 	return false;
-})
+});
+
 $(document).click(function(){
 	$(".edit .menu").hide();
 })
@@ -388,6 +388,7 @@ var DictFunction =
 $('table.activityList').on('click',".handle",function(){
 
     $('#guid').val($(this).closest('tr').attr('guid'));
+    
     var matchKey = $(this).text();
     if (!$(this).text())
     {
@@ -407,5 +408,4 @@ $('table.activityList').on('click',".handle",function(){
 	    
    
    
-	
 });
