@@ -42,18 +42,31 @@ img {
     padding: 0;
     vertical-align: middle;
 }
-
-em,
-strong {
+em{
     font-style: normal;
     font-weight: normal;
     /* white-space: nowrap; */
     /* text-overflow: ellipsis; */
     /* width: 4px; */
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     overflow: hidden;
-    display: inline-block;
+    /* display: inline-block; */
+    /* width: 41px; */
+    /* white-space: normal; */
+    /* width: 49px; */
+}
+em,
+strong {
+        font-style: normal;
+    font-weight: normal;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+    /* width: 4px; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    /* display: inline-block; */
     width: 41px;
 }
 
@@ -447,10 +460,10 @@ a:hover {
 
 .ui-widget-content span {
     width: 73px;
-    overflow: hidden;
+    /* overflow: hidden; */
     float: right;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
 }
 
 ul li a {
@@ -621,7 +634,7 @@ ul li a {
 
 .provice,
 .city{
-    width: 70px;
+    /* width: 70px; */
 }
 
 .provice,
@@ -662,10 +675,10 @@ input,select{
 
 .shengName{
     width: 40px;
-    vertical-align: middle;
+    /* vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
 }
 
 .btn-wrap{
