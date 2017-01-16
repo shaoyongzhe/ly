@@ -2195,9 +2195,10 @@ function _ajax(type, url, data, tip, success) {
         timeout: function () {},
         success: function (json) {
             success(json);
+            window.location.href = "CreateActivity.html";
         },
         error: function () {
-            console.warn(tip + " error");
+            layer.msg("创建主题活动失败!!!");
         }
     });
 }
