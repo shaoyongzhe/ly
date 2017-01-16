@@ -34,12 +34,14 @@
 <body>
 	<div class="page-container">
 		
-		<div class="bread-crumb">营销活动>市场文案管理</div>
+		<div class="bread-crumb">营销活动><span style="color:#000">市场文案管理</span></div>
 		<div class="search-wrap">
 
 				<div class="search-area">
 
-
+					<!-- ==========遮罩层=S==================== -->
+					<!-- <div class="xiaoxi" id="msg"> <a style="line-height:100%;position:absolute;left: 46%;top:50%;font-size:26px; color:#fff;" class="msgg">加载中...</a></p></div> -->
+					<!-- ==========遮罩层==E=================== -->
 					<!-- <div class="search-pos-item"> -->
 						<div class="input-contorl">
 							<label for='datepicker'>文案编号</label>
@@ -123,34 +125,34 @@
 					<input type="button" value="重置" class="search-btn2 resetting"/>	
 				</div>
 		</div>
-		<div class="line">
-				<a href="Newly_added.html">
-					<button class="Newly_added">新增
-					</button>
-				</a>
+		<div style="positon:relative" class="bigbx">
+			<div class="line">
+					<a href="Newly_added.html">
+						<button class="Newly_added">新增
+						</button>
+					</a>
+			</div>
+			<table class="table1 notify table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
+				<thead>
+					<tr class="text-c">
+						<th style="display:none"><input type="checkbox" name="" value=""></th>	
+						<th>文案编号</th>
+						<th>文案标题</th>
+						<th style="display:none">guid</th>
+						<!-- <th>发送目的</th> -->
+						<th>发送地区</th>
+						<th>发送内容</th>
+						<th>发送对象</th>
+						<th>计划发送</th>					
+						<th>发送状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+					<tbody style="postion:relative"  class="pagesTbodyLong content_drop">
+					</tbody>
+			</table>
 		</div>
-
-
-		
-		<table class="table1 notify table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
-			<thead>
-				<tr class="text-c">
-					<th style="display:none"><input type="checkbox" name="" value=""></th>	
-					<th>文案编号</th>
-					<th>文案标题</th>
-					<th style="display:none">guid</th>
-					<!-- <th>发送目的</th> -->
-					<th>发送地区</th>
-					<th>发送内容</th>
-					<th>发送对象</th>
-					<th>计划发送</th>					
-					<th>发送状态</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-				<tbody class="pagesTbodyLong content_drop">
-				</tbody>
-		</table>
+		<p class="foot_textzo">凌云科技版权所有&nbsp;&nbsp;京ICP号10211557.</p>
 		<!-- <div class='content_drop'>
 			<span>点击加载更多</span>
 		</div> -->

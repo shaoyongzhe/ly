@@ -65,8 +65,8 @@ $('.area_Update').on('click', function() {
 	});
 
 
-	// $('.Select_province1').empty();
-	// $('.Select_province2').empty();
+	$('.Select_province1').empty();
+	$('.Select_province2').empty();
 
 
 	$('.quanbusheng').prop("checked",false);
