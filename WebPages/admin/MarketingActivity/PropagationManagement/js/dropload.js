@@ -43,7 +43,7 @@
             // },
             domDown : {                                                          // 下方DOM
                 domClass   : 'dropload-down',
-                domRefresh : '<div class="dropload-refresh">数据加载完毕</div>',
+                domRefresh : '<div class="dropload-refresh">下拉加载</div>',
                 domLoad    : '<div class="dropload-load"><span class="loading"></span>正在加载</div>',
                 domNoData  : '<div class="dropload-noData">数据加载完毕</div>'
             },
