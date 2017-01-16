@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-13 16:38:14
+* @Last Modified time: 2017-01-16 11:15:52
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -474,13 +474,14 @@ table thead {
 
 
 .Float_text1{
-   margin-left: 123px;
+    margin-left: 118px;
     margin-top: -32px;
     width: 224px;
 }
+
 .Float_Title1{
     line-height: 20px;
-    margin-left: -61px;
+    margin-left: -63px;
     display: inline-block;
 }
 .Float_text2{
@@ -502,6 +503,12 @@ tbody td {
 
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 } */
+.cityName{
+    font-style: normal;
+}
+..district-wrap span em{
+    font-style: normal;
+}
     span.name { display: block; width: 75px; text-align: left; line-height: 30px;}
     .gf-select { 
                 float: left;
@@ -512,7 +519,17 @@ tbody td {
     position: relative;
     }
     .gf-select span {width: 95%; padding: 1px 0px 1px 2px;display: block; border: 1px solid #ddd; cursor: pointer;}
-    .gf-select span em {font-style: normal;text-align: center;margin-top: 2px;}
+    .gf-select span em {font-style: normal;text-align: center;margin-top: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 41px;
+    }
+    .gf-select span:hover{
+        border:solid 1px #3bb4f2;box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 8px rgba(102,175,233,0.075);
+    }
+
     .gf-select .icon-jt { background: url(/admin/MarketingActivity/PropagationManagement/Images/21.png) center right no-repeat; width: 18px; height: 15px;position: absolute;right: 5px;top: 37%; margin-top: -3px;}
     .gf-select ul {border: 1px solid #ddd; position: absolute; width: 100%; top: 31px; overflow-y :auto; display: none; background: #fff;}
     .gf-select ul li { border-bottom: 1px solid #ddd; line-height: 30px; padding-left: 10px;}
