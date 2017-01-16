@@ -60,6 +60,9 @@ function fnxuanran(data) {
 	}
 }
 
+
+
+
 function fncreattab(data) {
 	fnxuanran(data);
 		//滚动
@@ -122,6 +125,8 @@ function fnmore() {
 		}
 	});
 }
+
+
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];

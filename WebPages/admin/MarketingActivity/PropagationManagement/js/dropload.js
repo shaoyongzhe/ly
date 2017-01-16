@@ -6,8 +6,8 @@
 
 ;(function($){
     'use strict';
-    var win = window;
-    var doc = document;
+    var win = $("table.notify table");
+    var doc = $("table.notify tbody");
     var $win = $(win);
     var $doc = $(doc);
     $.fn.dropload = function(options){
@@ -43,12 +43,12 @@
             // },
             domDown : {                                                          // 下方DOM
                 domClass   : 'dropload-down',
-                domRefresh : '<div class="dropload-refresh">数据加载完毕</div>',
+                domRefresh : '<div class="dropload-refresh">下拉加载</div>',
                 domLoad    : '<div class="dropload-load"><span class="loading"></span>正在加载</div>',
                 domNoData  : '<div class="dropload-noData">数据加载完毕</div>'
             },
             autoLoad : true,                                                     // 自动加载
-            distance : 30,                                                       // 拉动距离
+            distance : 60,                                                       // 拉动距离
             threshold : '',                                                      // 提前加载距离
             // loadUpFn : '',  s                                                     // 上方function
             loadDownFn : ''                                                      // 下方function
@@ -63,7 +63,7 @@
         // 计算提前加载距离
         if(!!me.$domDown && me.opts.threshold === ''){
             // 默认滑到加载区2/3处时加载
-            me._threshold = Math.floor(me.$domDown.height()*1/3);
+            me._threshold = Math.floor(me.$domDown.height()*2/11);
         }else{
             me._threshold = me.opts.threshold;
         }
