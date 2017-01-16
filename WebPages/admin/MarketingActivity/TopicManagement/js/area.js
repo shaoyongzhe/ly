@@ -907,6 +907,7 @@ $('.area-list .save').click(function() {
 			provObj = {
 				"charge": JSON.parse(shengfzr),
 				"name": sheng,
+                "state": "active",
 				"city": []
 			}
 
