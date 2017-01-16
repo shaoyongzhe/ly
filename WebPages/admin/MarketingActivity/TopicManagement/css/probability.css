@@ -245,7 +245,9 @@ ul.number_doller:after {
 	position: relative;*/
 }
 
-
+.setProbability .Probability_value i{
+	margin-left: -15px;
+}
 
 
 .setProbability .Probability_value .input_a{

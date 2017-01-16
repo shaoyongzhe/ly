@@ -60,9 +60,12 @@ function fnxuanran(data) {
 	}
 }
 
+
+
+
 function fncreattab(data) {
 	fnxuanran(data);
-		//滚动
+	//滚动
 	$("#cgl-tablebox").scroll(function() {
 		if($(this).scrollTop() > ($("#cgl-tablebox").find("table").height() - 500) && $("#cgl-tablebox").find("table").height() > 500) {
 			$("#cgl-more").show();
@@ -117,11 +120,19 @@ function fnmore() {
 							"</tr>";
 					}
 					$("#cgl-tbody").append(otr);
+					if(data["shuadanjine"]) {
+						$("#shua").text(data["shuadanjine"].toFixed(2));
+					}
+					if(data["shuadanjine"]) {
+						$("#kou").text(data["koukuanjine"].toFixed(2));
+					}
 				}
 			});
 		}
 	});
 }
+
+
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
@@ -161,7 +172,6 @@ function fnshijian(state) {
 					yijieshu: 0
 				}];
 				fndengji(none1);
-
 			} else {
 				allcont = data.allcont;
 				djcishu = 1;
@@ -323,6 +333,7 @@ function fnxze1() {
 
 		state["state"] = $(".ztai>.cgl-wgui:visible .cgl-con1:eq(0)>strong").html();
 		state["lastindex"] = 0;
+
 		fnstate(state);
 		localStorage.setItem("state", JSON.stringify(state));
 	});
@@ -362,7 +373,7 @@ function fndate() {
 			choose: function(dates) {
 				//layer.msg(dates);
 				var isxy = $('#cgl-cxdata1').val().replace(/\-/g, "") - $('#cgl-cxdata').val().replace(/\-/g, "")
-				console.log(isxy)
+					//console.log(isxy)
 				if($('#cgl-cxdata').val() == state["querybegindate"] && $('#cgl-cxdata1').val() == state["queryenddate"]) {
 					return false;
 				} else if(isxy < 0 && $('#cgl-cxdata').val() != "" && $('#cgl-cxdata1').val() != "") {
@@ -482,12 +493,17 @@ function fnweignum() {
 }
 //会员名称
 function fnvipname() {
+	var t=0;
 	$("#cgl-vipname").on('input', function(e) {
-		state["membername"] = $(this).val();
-		state["membertype"] = $("#cgl-md").find("option:selected").val();
-		state["lastindex"] = 0;
-		fnshijian(state);
-		localStorage.setItem("state", JSON.stringify(state));
+		clearTimeout(t);
+		var that=this;
+		t=setTimeout(function() {
+			state["membername"] = $(that).val();
+			state["membertype"] = $("#cgl-md").find("option:selected").val();
+			state["lastindex"] = 0;
+			fnshijian(state);
+			localStorage.setItem("state", JSON.stringify(state));
+		}, 1000);
 	});
 }
 //违规级别
@@ -744,8 +760,8 @@ function vipshensu_add(parents) {
 	fnclose();
 	//申述描述
 	$(".quedss").click(function() {
-		var kuis = $("#cgl-kuaijie").find("input:checked").parent().text();
-		var mshu = $("#cgl-miaoshu").find("textarea").val() + "#" + kuis;
+		//var kuis = $("#cgl-kuaijie").find("input:checked").parent().text();
+		var mshu = $("#cgl-miaoshu").find("textarea").val();
 		var putdata = {
 			"description": mshu,
 			"dealtstate": "申诉中",
@@ -952,6 +968,9 @@ function fnanniu() {
 		} else if($("#cgl-tbody").find(".cgl-td12").html() == "解除违规") {
 			$(".cgl-jzz").html("已经是当前状态").fadeIn(500).delay(1000).fadeOut(500);
 			return false;
+		} else if($("#cgl-tbody").find(".cgl-td12").html() == "未处理") {
+			$(".cgl-jzz").html("不可解除违规").fadeIn(500).delay(1000).fadeOut(500);
+			return false;
 		} else {
 			var guid = fnguid();
 			//console.log(guid);
@@ -1035,7 +1054,7 @@ function fnwgjlzt(putdata) {
 
 				}
 				state["lastindex"] = 0;
-				console.log(state)
+				//console.log(state)
 				$.ajax({
 					type: "get",
 					url: "/webapi/earlywarningmanage/anticheating/getlist",
