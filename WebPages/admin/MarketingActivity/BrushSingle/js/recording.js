@@ -192,9 +192,8 @@ function fnshijian(state) {
 	});
 }
 //状态改变事件
-function fnstate() {
+/*function fnstate() {
 	$("input:checked").prop("checked", false);
-	fnjilu();
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
 		type: "get",
@@ -204,7 +203,7 @@ function fnstate() {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
 		},
 		success: function(data) {
-			//console.log(data, state)
+			console.log(data, state)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
@@ -212,12 +211,14 @@ function fnstate() {
 				$("#shua").text(data["shuadanjine"].toFixed(2));
 				$("#kou").text(data["koukuanjine"].toFixed(2));
 			} else {
+				fnjilu();
+				fndengji(data.statecount);
 				fncreattab(data); //创建tbody
 			}
 		}
 	});
 }
-//时间重置
+*///时间重置
 function Fndate() {
 	var d = new Date();
 	if(d.getMonth() == 0) {
@@ -254,7 +255,6 @@ function fnreset() {
 			fnjilu();
 			fnshijian(state);
 			localStorage.setItem("state", JSON.stringify(state));
-
 		}
 		$("#province>span>em").html("省");
 		$("#city>span>em").html("市");
@@ -334,7 +334,7 @@ function fnxze1() {
 		state["state"] = $(".ztai>.cgl-wgui:visible .cgl-con1:eq(0)>strong").html();
 		state["lastindex"] = 0;
 
-		fnstate(state);
+		fnshijian(state);
 		localStorage.setItem("state", JSON.stringify(state));
 	});
 }
@@ -347,7 +347,7 @@ function fnxiala() {
 		$(".cgl-con").html($(this).html());
 		state["lastindex"] = 0;
 		state["state"] = $(".cgl-wgui>.cgl-con>strong", ".ztai").html();
-		fnstate(state);
+		fnshijian(state);
 		localStorage.setItem("state", JSON.stringify(state));
 	});
 	$(document).click(function(e) {
