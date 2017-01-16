@@ -234,6 +234,7 @@ var vm = avalon.define({
         $.ajax({
             type: 'GET',
             dataType: 'json',
+            data: { count: vm.Moneys.count },
             url: '/webapi/consumer/mine/consumer/withdraw',
             success: function (json) {
                 common.loading.hide();

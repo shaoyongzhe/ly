@@ -89,7 +89,7 @@ var vm = avalon.define({
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
                     dealdropme(me);
-                   // toasterextend.showtips(json.error, "error");
+                    // toasterextend.showtips(json.error, "error");
                     return;
                 }
                 if (json.user_notification != undefined) {
@@ -98,7 +98,7 @@ var vm = avalon.define({
                     return;
                 }
 
-               
+
 
                 if (index != 1) {
                     if (vm.showType == 0) {//个人
@@ -203,10 +203,14 @@ var vm = avalon.define({
     },
     userwithdraw: function (type) {//用户提现
         // if (vm.Moneys.count > 0)
+        var count = type == "account" ? vm.Moneys.account.count : vm.Moneys.retailer.count
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { type: type },
+            data: {
+                type: type,
+                count: 1//count
+            },
             url: '/webapi/retailer/mine/retailer/withdraw',
             success: function (json) {
                 common.loading.hide();

@@ -622,20 +622,20 @@ var selfVerify = avalon.define({//自助核销
     $id: 'selfVerify',
     token: common.getUrlParam("token"),
     VerifyScan: function () {
-        if (selfVerify.token.length == 0) { //自助核销，调用微信扫一扫
-            wx.scanQRCode({
-                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-                scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-                success: function (res) {
-                    var token = res.split('token=')
-                    selfVerify.scanSuccess(token[1])
-                }
-            });
-        }
-        else
-            selfVerify.scanSuccess(selfVerify.token)
+        //if (selfVerify.token.length == 0) { //自助核销，调用微信扫一扫
+        //    wx.scanQRCode({
+        //        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+        //        scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+        //        success: function (res) {
+        //            var token = res.split('token=')
+        //            selfVerify.scanSuccess(token[1])
+        //        }
+        //    });
+        //}
+        //else
+        //    selfVerify.scanSuccess(selfVerify.token)
 
-        // selfVerify.scanSuccess("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiODgzYzBkNTE4MDhjNGJiZjhhZjE4YTMyZTE5NWMwZjEifQ.3_IPUE26EI49wv8VLL4GmD7sSsWe_3d5We0ri7qlXEQ")
+         selfVerify.scanSuccess("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJndWlkIjoiODgzYzBkNTE4MDhjNGJiZjhhZjE4YTMyZTE5NWMwZjEifQ.3_IPUE26EI49wv8VLL4GmD7sSsWe_3d5We0ri7qlXEQ")
     },
     scanSuccess: function (qrlimitken) {//开始自助核销
         vm.pageStep = 2;
