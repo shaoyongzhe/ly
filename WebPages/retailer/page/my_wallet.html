@@ -38,14 +38,14 @@
                         <li><h2>我的核销收入</h2></li>
                         <li><h3>￥{{toNumner(Moneys.account.count)}}</h3></li>
                         <!--<li><p>可提现 ￥{{toNumner(Moneys.account.count)}}</p></li>-->
-                        <li><a href="javascript:void(0)" ms-click="userwithdraw('retailer')">提现</a></li>
+                        <li><a href="javascript:void(0)" ms-click="userwithdraw('account')">提现</a></li>
                     </ul>
                     <span class="info_bg"></span>
                     <ul ms-attr-class="toNumner(Moneys.retailer.count)==0?'on':''">
                         <li><h2>自助核销收入</h2></li>
                         <li><h3>￥{{toNumner(Moneys.retailer.count)}}</h3></li>
                         <!--<li><p>可提现 ￥{{toNumner(Moneys.retailer.count)}}</p></li>-->
-                        <li><a href="javascript:void(0)" ms-click="userwithdraw('account')">提现</a></li>
+                        <li><a href="javascript:void(0)" ms-click="userwithdraw('retailer')">提现</a></li>
                     </ul>
                 </div>
             </div>
