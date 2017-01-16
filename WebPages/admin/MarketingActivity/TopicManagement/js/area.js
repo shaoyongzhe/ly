@@ -63,7 +63,13 @@ function toggleState( _this, toggle, data ){
 }
 
 
-$('.setAreaBtn, .areaPlus').on('click', function() {
+$('.section2').on('click', '.areaSave', function() {
+	$('.area-list .save').click();
+});
+
+
+$('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
+	// alert(1)
 	$('.setAreaBtn').hide();
 	$('.region-wrap').show();
 
@@ -133,7 +139,7 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 		var url = '/webapi/ipaloma/district/charge?district_type=province';
 		_ajax("get", url, {}, '省负责人信息', function (dataprov){
 			// $('.layer-wait').remove();
-			// debugger
+			// debugger;
 			// c(dataprov);return;
 			if(dataprov.error){
 				console.warn(JSON.stringify(dataprov.error, null, 4));
@@ -152,7 +158,8 @@ $('.setAreaBtn, .areaPlus').on('click', function() {
 				}
 
 				var provice = dataprov.content[i].provice;
-				console.log('_thisprovice: ' + _thisprovice + '  provice: ' + provice);
+				// console.log('_thisprovice: ' + _thisprovice + '  provice: ' + provice);
+				
 
 				if(_thisprovice == provice){
 					_this.find('select').append('<option guid='+ dataprov.content[i].charge.guid +' oid='+ dataprov.content[i].charge.oid +' >'+ dataprov.content[i].charge.name +'</option>');
@@ -203,7 +210,7 @@ function _ajax(type, url, data, tip, success) {
 
 
 function dataLoad() {
-	// debugger;
+	debugger;
 	var area_key_list = ['北京市', '北京市', '海淀区'];
 	var area_json = $.area_json['中国'];
 	var area_selected = new Array(); //区域选中级别
@@ -372,12 +379,12 @@ function dataLoad() {
 			// alert(1);
 			$('.area-list :checked').not(this).prop('checked',false);
 			$('.area-list li.on').removeClass('on');
-			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em>全国</em><i class="x">×</i></span></div></div></div>');
+			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em>全国</em><i class="x">×</i></span></div></div></div><div class="handle"><span class="btn areaPlus">添加</span>  <span class="btn areaSave">保存</span></div>');
 			$('.Select_province1').empty();
 			$('.Select_province2').empty();
-		} else {
+		} else {	
 			// alert(2);
-			$('.region-wrap').empty();
+			$('.region-item').remove();
 		}
 	});
 
@@ -931,8 +938,13 @@ $('.area-list .save').click(function() {
 
 			});
 
+			try {
+				var shengfzrObj = JSON.parse(shengfzr);
+			} catch(e) {
+			}
+
 			provObj = {
-				"charge": JSON.parse(shengfzr),
+				"charge": shengfzrObj,
 				"name": sheng,
                 "state": "active",
 				"city": cityArr
