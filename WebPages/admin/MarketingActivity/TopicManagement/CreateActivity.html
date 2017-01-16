@@ -11,7 +11,7 @@
 <body class="create">
 
 	<div class="bread-crumb">
-		<span class="path-text">营销sa活动</span>
+		<span class="path-text">营销活动</span>
 		<i> &gt; </i>
 		<span class="this-text">新建活动</span>
 	</div>
@@ -50,8 +50,8 @@
 			<div class="input-contorl">
 				<label for="">活动时间</label>
 				<span class="edit-area">
-					<input type="text" class="time actBegin begintime"> - 
-					<input type="text" class="time actEnd endtime">
+					<input type="text" class="time actBegin begintime" readonly> - 
+					<input type="text" class="time actEnd endtime" readonly>
 					<em class='tip forTime'> * 活动账户余额不足时活动会自动停止</em>
 				</span>
 			</div>
@@ -59,8 +59,8 @@
 			<div class="input-contorl">
 				<label for="">会员参与时间</label>
 				<span class="edit-area">
-					<input type="text" class="time involBegin earliestjointime"> - 
-					<input type="text" class="time involEnd lastestjointime">
+					<input type="text" class="time involBegin earliestjointime" readonly> - 
+					<input type="text" class="time involEnd latestjointime" readonly>
 				</span>
 			</div>
 
@@ -714,9 +714,9 @@
 					<div class="fl clr">
 						<dfn class='fl'>补贴峰值：</dfn>
 						<ul class="fl">
-							<li>现金<span class='cash'></span><i class='dw'>元</i></li>
+							<li>现金<span class='cash'>0</span><i class='dw'>元</i></li>
 							<!-- <li>返现券<span class='quan'>10</span><i class='dw'>张</i>，价值<span class='yuan'>20</span><i class='dw'>元</i></li> -->
-							<li>积分<span class='score'></span><i class='dw'>分</i></li>
+							<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
 						</ul>
 					</div>
 
@@ -821,7 +821,7 @@
 
 				<div class="left">
 					
-					<img src="http://a.hiphotos.baidu.com/zhidao/pic/item/adaf2edda3cc7cd92d82d6b73b01213fb80e9135.jpg" alt="">
+					<img src="img/set-rules.png"alt="">
 					
 					<br><span>范围示意图</span><br>
 
@@ -997,54 +997,55 @@
 	                        </ul>
 							 <div class="Probability_value">
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="10%" id="">
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
+
 	                        </div>
 	                    </div>
 	                </div>
@@ -2112,7 +2113,7 @@
 <script type="text/javascript" src="laydate/laydate.js"></script>
 <!-- <script type="text/javascript" src="js/plugin/slimscroll.js"></script> -->
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
-<script type="text/javascript" src="js/plugin/area_select.js"></script>
+<script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
 
 <script type="text/javascript" src="js/CreateActivity.js"></script>
 <!-- <script type="text/javascript" src="js/response.js"></script> -->

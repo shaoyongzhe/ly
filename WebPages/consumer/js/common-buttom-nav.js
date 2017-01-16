@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $("#bottom-nav").load("common-bottom-nav.html", function () {
+    $("#bottom-nav").load("common-bottom-nav.html?t=" + new Date().getMilliseconds(), function () {
         if (typeof (common) != 'undefined') {
             var activity_id = common.getUrlParam("activityid");
             if (activity_id != "")
