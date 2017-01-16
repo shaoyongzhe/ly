@@ -5,6 +5,9 @@
 var djcishu = 1,
 	allcont = 0;
 var state = {};
+
+
+
 if(localStorage.state) {
 	state = JSON.parse(localStorage.state);
 } else {
@@ -21,6 +24,7 @@ if(localStorage.state) {
 		pagecount: "50" //要查询的数据条数
 	};
 }
+
 
 function fnxuanran(data) {
 	var odata = data.data;
@@ -56,6 +60,9 @@ function fnxuanran(data) {
 	}
 }
 
+
+
+
 function fncreattab(data) {
 	fnxuanran(data);
 	//滚动
@@ -67,7 +74,6 @@ function fncreattab(data) {
 		}
 	});
 	allcont = data.allcount;
-
 }
 //加载更多
 function fnmore() {
@@ -119,6 +125,8 @@ function fnmore() {
 		}
 	});
 }
+
+
 //违规记录维度
 function fndengji(data) {
 	var odata = data["allcount"][0];

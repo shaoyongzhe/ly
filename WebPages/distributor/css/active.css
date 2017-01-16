@@ -173,7 +173,7 @@
 	.issued a:nth-child(1){
 		color: #fff;
 		font-family: 'regular';
-		font-size: 0.6rem;
+		font-size: 0.5rem;
 		/*display: block;*/
 		display: inline-block;
 		/*float: left;*/
@@ -184,7 +184,7 @@
 	.issued a:nth-child(2){
 		color: #fff;
 		font-family: 'regular';
-		font-size: 0.9rem;
+		font-size: 0.8rem;
 		/*display: block;*/
 		display: inline-block;
 		font-weight: bold;

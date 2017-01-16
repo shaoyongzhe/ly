@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-12 14:43:47
+ * @Last Modified time: 2017-01-13 18:42:34
  */
 
 
@@ -180,17 +180,17 @@
 // })(window, jQuery)
 
 // 遮罩加载层
-function tishi(content, url) {
-    var html = '<div class="xiaoxi none" id="msg" style="z-index:9999;left: 0;width: 100%;height: 100%;position: fixed;background:none;top:0;"> <p class="msg" style="background: none repeat scroll 0 0 #000;position:relative; border-radius: 30px;color: #fff; margin: 0 auto;padding: 1.5em;text-align: center;width: 100%;height: 100%;opacity: 0.5;"><a style="line-height:100%;position:absolute;left: 46%;top:50%;font-size:26px; color:#fff;" class="msgg"></a></p></div>';
-    $(document.body).append(html);
-    $("#msg").show();
-    $(".msgg").html(content);
-    if (url) {
-        window.setTimeout("location.href='" + url + "'", 1500);
-    } else {
-        setTimeout('$("#msg").fadeOut()', 1500);
-    }
-}
+// function tishi(content, url) {
+    // var html = '';
+    // $(document.body).append(html);
+    // $("#msg").show();
+    // $(".msgg").html(content);
+    // if (url) {
+        // window.setTimeout("location.href='" + url + "'", 1500);
+    // } else {
+        // setTimeout('$("#msg").fadeOut()', 1500);
+    // }
+// }
 // tishi('加载中···');
 
 
@@ -262,9 +262,10 @@ function getList(curr, handle, searchForm) {
                     $('.search-btn').attr('disabled', true);
                     $('.search-btn').css('background', '#8D8B8E');
                     $('.search-btn').val('查询中');
-                    $('.dropload-down').fadeIn(300)
+                    $('.dropload-down').fadeIn(100)
                         // console.log('1')
-                    tishi('加载中···');
+                    // $('.xiaoxi ').css('display', 'block');
+                    // $('#msg').css('display', 'block');
                 },
                 success: function(data) {
                     // console.log(data);
@@ -274,8 +275,8 @@ function getList(curr, handle, searchForm) {
                          $('.search-btn').css('background', '#009DD9');
                          $('.search-btn').attr('disabled', false);
                          $('.search-btn').val('查询');
-                         $('.xiaoxi ').css('display', 'none')
-                         $('.msg').css('display', 'none');
+                         // $('.xiaoxi ').css('display', 'none')
+                         // $('#msg').css('display', 'none');
                         return;
                     }
 
@@ -284,8 +285,8 @@ function getList(curr, handle, searchForm) {
                     $('.search-btn').attr('disabled', false);
                     $('.search-btn').css('background', '#009DD9');
                     $('.search-btn').val('查询');
-                    $('.xiaoxi ').css('display', 'none')
-                    $('.msg').css('display', 'none');
+                    // $('.xiaoxi ').css('display', 'none')
+                    // $('.msg').css('display', 'none');
                     var isSet = "",
                         autoW = "",
                         tr = "",
@@ -381,7 +382,9 @@ function getList(curr, handle, searchForm) {
                         // $('.lists').append(result);
                         $("table.notify tbody").append(tr);
                         // 每次数据插入，必须重置
-                        $('.dropload-down').fadeOut(1500);
+                        // $('.xiaoxi').css('display', 'none');
+                        // $('#msg').css('display', 'none');
+                        $('.dropload-down').fadeOut(4000);
                         me.resetload();
                         // 重置
                         // $('.pagesTbodyLong').scrollTop();
@@ -398,8 +401,8 @@ function getList(curr, handle, searchForm) {
                     $('.search-btn').attr('disabled', false);
                     $('.search-btn').css('background', '#009DD9');
                     $('.search-btn').val('查询');
-                    $('.xiaoxi ').css('display', 'none');
-                    $('#msg').css('display', 'none');
+                    // $('.xiaoxi ').css('display', 'none');
+                    // $('#msg').css('display', 'none');
                 }
             });
         }
@@ -408,12 +411,13 @@ function getList(curr, handle, searchForm) {
 
 function ProcessDate(date)
 {
-    if (date != null && date != 'undefined') {
-        var temp = date.split(' ');
+    if(date!=null||date!=undefined){
+        var temp=date.split(/\s/g); 
         return temp[0];
-    } else {
-        return "";
     }
+    
+    
+   
 }
 
 $(document).on('click', '.search-btn', function() {
@@ -986,11 +990,16 @@ $('table.notify').on('click', '.modify', function() {
     var data_pic = data.poster_url;
     $('#imghead').attr('src', data_pic);
 
-    var area_val3 = JSON.parse($('.area_val').val());
 
-    if (area_val3.area) {} else {
-        $('.region-wrap').text('')
+    var area_val5 = $('.area_val').val();
+    if(area_val5!=''){
+        var area_val3 = JSON.parse(area_val5);
     }
+   
+
+    if (!area_val3) {
+        $('.region-wrap').text('');
+    } 
 })
 
 // 修改 里面的提交审核
@@ -1028,7 +1037,7 @@ $('.examine1').on('click', function() {
         var time_val = $('#data_time').val();
         if (time_val == '') {
             // layer.msg('请选择时间');
-            layer.tips('请选择时间', '#LAY_demorange_s', {
+            layer.tips('请选择时间', '#data_time', {
                 tips: [3, '#F22525'],
                 time: 4000
             });
@@ -1306,14 +1315,14 @@ $('.examine1_preview').click(function() {
         var time_val = $('#data_time').val();
         if (radio_val == true) {
             var e = 1;
-            $('#LAY_demorange_s').val('');
+            $('#data_time').val('');
             // var time_val = new Date();
             var time_val = '跟随每周推送消息一同推送';
         } else if (radio_val1 == true) {
             // $('#LAY_demorange_s').attr('disabled',false);
             if (time_val == '') {
                 // layer.msg('请选择时间');
-                layer.tips('请选择时间', '#LAY_demorange_s', {
+                layer.tips('请选择时间', '#data_time', {
                     tips: [3, '#F22525'],
                     time: 4000
                 });
@@ -1415,7 +1424,7 @@ $('.examine1_Newly_added').on('click', function() {
         var time_val = $('#data_time').val();
         if (time_val == '') {
             // layer.msg('请选择时间');
-            layer.tips('请选择时间', '#LAY_demorange_s', {
+            layer.tips('请选择时间', '#data_time', {
                 tips: [3, '#F22525'],
                 time: 4000
             });
@@ -1596,7 +1605,7 @@ $('.examine1_Preservation').on('click', function() {
         var time_val = $('#data_time').val();
         if (time_val == '') {
             // layer.msg('请选择时间');
-            layer.tips('请选择时间', '#LAY_demorange_s', {
+            layer.tips('请选择时间', '#data_time', {
                 tips: [3, '#F22525'],
                 time: 4000
             });
@@ -1716,8 +1725,8 @@ $('.examine1_Preservation').on('click', function() {
             time: 1500
         });
         // window.history.back();
-        $('.layui-layer-close').click();
-        getList(1, 'search', getSearch());
+        // $('.layui-layer-close').click();
+        // getList(1, 'search', getSearch());
     });
 })
 
@@ -1870,7 +1879,7 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title1">图文消息<br />发送时间</div>' +
-                    '<div class="Float_text1">' + data_text.content.pushtime + '</div></div>' +
+                    '<div class="Float_text1">' + ProcessDate(data_text.content.pushtime) + '</div></div>' +
                     // '<div class="Text_Title">' +
                     // '<div class="Float_Title">发送时间</div>' +
                     // '<div class="Float_text">' + data_text.content.pushtime + '</div></div>' +
@@ -1977,7 +1986,7 @@ $(document).on('click', '.btn_modify', function() {
         $('.layui-layer-close').click();
         var i = $(this).closest('.layui-layer-content').find('#trIndex').val();
         // console.log(typeof parseInt(i) + '1303行')
-        var index_val = parseInt(i) + 1;
+        var index_val = parseInt(i);
         $('tr:eq(' + index_val + ') td:eq(7) .modify').click()
     })
     // 详情中的驳回
@@ -1985,7 +1994,7 @@ $(document).on('click', '.btn_Reject', function() {
         $('.layui-layer-close').click();
         var i = $(this).closest('.layui-layer-content').find('#trIndex').val();
         // console.log(typeof parseInt(i) + '1161行')
-        var index_val = parseInt(i) + 1;
+        var index_val = parseInt(i);
         $('tr:eq(' + index_val + ') td:eq(7) .Reject').click()
     })
     // 详情中的审核通过
@@ -1993,7 +2002,7 @@ $(document).on('click', '.btn_adopt', function() {
     $('.layui-layer-close').click();
     var i = $(this).closest('.layui-layer-content').find('#trIndex').val();
     // console.log(typeof parseInt(i) + '1161行')
-    var index_val = parseInt(i) + 1;
+    var index_val = parseInt(i);
     $('tr:eq(' + index_val + ') td:eq(7) .adopt').click()
 });
 
