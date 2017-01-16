@@ -72,7 +72,7 @@ $('.setBtn').on('click', function() {
 
 function dataLoad() {
 	// debugger;
-	var area_key_list = ['北京市', '北京市 ', '海淀区'];
+	var area_key_list = ['北京市', '北京市', '海淀区'];
 	var area_json = $.area_json['中国'];
 	var area_selected = new Array(); //区域选中级别
 	var area_selected_3 = new Array(); //区域选中级别
