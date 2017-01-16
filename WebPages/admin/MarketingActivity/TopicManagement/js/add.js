@@ -491,6 +491,7 @@ $.ajax({
 		$(".addSub5 .acSe15 .select").append('<li class="option">谢谢参与</li>');
 		addSub5Arr.push("无");
 		for (i = 0; i < dss_2c.length; i++) {
+
 			//补贴形式
 			if (dss_2c[i].showtype != "compose") { //摇一摇中拒绝嵌套摇一摇
 				$(".addSub5 .acSe15 .select").append('<li class="option" name="' + dss_2c[i].type + '" type="' + dss_2c[i].type + '" category="' + dss_2c[i].category + '" showtype=' + dss_2c[i].showtype + '>' + dss_2c[i].localtype + '</li>');
@@ -501,13 +502,23 @@ $.ajax({
 					// dss_2c[i].unit="分/次";
 				} else if (dss_2c[i].unit == "") {
 					dss_2c[i].unit = "我是链接点击我，我是链接点击我";
+
 				} else if (dss_2c[i].unit == undefined) { //处理谢谢参与
 					dss_2c[i].unit = "";
 				}
+
 				addSub5Arr.push(dss_2c[i].unit);
 			}
+			
 		}
 		addsub5HTML = $(".addSub5").get(0).outerHTML;
+
+
+		// $('nav span:eq(2)').click();
+		// $('.select-wrap.acSe11').click();
+		// $('li:contains(摇一摇)').click();
+		// $('a:contains(次)').click();
+		
 	},
 	error: function() {
 		console.warn("控件 error");

@@ -9,7 +9,7 @@
     <link href="/retailer/css/my_info.css" rel="stylesheet" />
     <link href="/retailer/css/my_retailer.css" rel="stylesheet" />
     <script src="/retailer/js/lib/common.js"></script>
-    <script type="text/javascript">var jspath = window.location.pathname.replace(".html", ".js");document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk" + jspath + "\">");document.writeln("<\/script>");</script>
+    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <link type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" rel="stylesheet" />
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
