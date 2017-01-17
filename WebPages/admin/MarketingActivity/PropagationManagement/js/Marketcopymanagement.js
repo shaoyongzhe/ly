@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-13 18:42:34
+ * @Last Modified time: 2017-01-17 09:57:04
  */
 
 
@@ -220,6 +220,8 @@ $('.resetting').on('click', function() {
     $('.gf-select span em:eq(1)').text('城市');
     $('.gf-select span em:eq(2)').text('区县');
     $('#numbul_val').val("");
+
+    $('.search-btn').click();
 });
 
 
@@ -238,7 +240,7 @@ function getList(curr, handle, searchForm) {
     // 页数
     var pageindex = 0;
     // 每页展示5个
-    var pagesize = 10;
+    var pagesize = 40;
     // $('.content_drop .dropload-down').siblings().remove()
     // 每次刷新的时候清空上一次的记录（加载记录）
     $('.content_drop .dropload-down').remove();
@@ -256,6 +258,7 @@ function getList(curr, handle, searchForm) {
 
             $.ajax({
                 type: "get",
+                // url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
                 url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
                 dataType: "json",
                 beforeSend: function() {
@@ -285,13 +288,15 @@ function getList(curr, handle, searchForm) {
                     $('.search-btn').attr('disabled', false);
                     $('.search-btn').css('background', '#009DD9');
                     $('.search-btn').val('查询');
-                    // $('.xiaoxi ').css('display', 'none')
+                    // $('.xiaoxi ').css('display', 'none');
                     // $('.msg').css('display', 'none');
                     var isSet = "",
                         autoW = "",
                         tr = "",
                         td = data.content;
-                    if (td.length > 0) {
+
+                    if (td.length>0) {
+                        // $('.tiaoshu').html('当前共有数据'+td.length+'条');
                         for (var i = 0; i < td.length; i++) {
                             // 状态
                             if (td[i].state == "draft") {
@@ -366,31 +371,22 @@ function getList(curr, handle, searchForm) {
                                 }
                             }
                             tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td title='" + td[i].copywriting + "'><span class='content'>" + td[i].copywriting + "</span></td><td>" + "<span>" + b + "</span>" + "<span>" + c + "</span>" +
-                                "<span>" + a + "</span>" + "</td><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
+                                "<span>" + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" + ProcessDate1(td[i].pushtime) + "><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
                         }
-
+                        
                         // 如果没有数据
                     } else {
                         // 锁定
-                        me.lock('down');
+                        me.lock();
                         // 无数据
                         me.noData(true);
                     }
-                    // 为了测试，延迟1秒加载
-                    setTimeout(function() {
-                        // 插入数据到页面，放到最后面
-                        // $('.lists').append(result);
-                        $("table.notify tbody").append(tr);
-                        // 每次数据插入，必须重置
-                        // $('.xiaoxi').css('display', 'none');
-                        // $('#msg').css('display', 'none');
+                    $("table.notify tbody").append(tr);
+                    $('.tiaoshu').html('当前共有数据'+'<span>'+ $('tr').length +'</span>'+ '条');
                         $('.dropload-down').fadeOut(4000);
                         me.resetload();
-                        // 重置
-                        // $('.pagesTbodyLong').scrollTop();
-                    });
-                },
 
+                },
                 error: function() {
                     console.log('加载出错');
                     // layer.msg('加载出错');
@@ -415,10 +411,17 @@ function ProcessDate(date)
         var temp=date.split(/\s/g); 
         return temp[0];
     }
-    
-    
-   
 }
+
+
+function ProcessDate1(date)
+{
+    if(date!=null||date!=undefined){
+        var temp=date.split(/\s/g); 
+        return temp;
+    }
+}
+// $('.pushtime').val().split(',')[1]
 
 $(document).on('click', '.search-btn', function() {
     getList(1, 'search', getSearch());
@@ -536,7 +539,7 @@ function getSearch() {
         delete searchForm.area;
     };
 
-    if (searchForm.state == '--请选择--') {
+    if (searchForm.state == '--请选择--'||searchForm.state == '') {
 
         delete searchForm.state;
     };
@@ -942,9 +945,23 @@ $('table.notify').on('click', '.modify', function() {
         anim: 2,
         title: '修改文案',
         area: ["70%", "100%"],
-        content: $('.c')
+        content: $('.c'),
+        end: function(){ 
+            // layer.open({
+            //   type: 2,
+            //   title: '很多时候',
+            //   shadeClose: true,
+            //   shade: false,
+            //   maxmin: true, //
+            //   area: ['893px', '600px'],
+            //   content: 'http://qixiaofei.com/'
+            // });
+            window.location='Marketcopymanagement.html';
+            // console.log(1);
+        }
     });
-
+    
+    
     $('.region-wrap').empty();
     // 获取到数据放到输入框中
     $('._guid').val(data.guid);
@@ -962,7 +979,9 @@ $('table.notify').on('click', '.modify', function() {
     arys1 = riqi.split('-'); //日期为输入日期，格式为 2013-3-10
     var ssdate = new Date(arys1[0], parseInt(arys1[1] - 1), arys1[2]);
     // console.log(ssdate.getDay());
-    if (ssdate.getDay() == 5) {
+    var minute = tr.find('.pushtime').val().split(',')[1];;
+        
+    if (ssdate.getDay() == 5 && minute=='09:00:00') {
         $('.Graphic_message .ck:eq(1)').find('img').removeClass('xiyin_son');
         $('.Graphic_message .ck:eq(0)').find('img').addClass('xiyin_son');
         $('#data_time').val('');
@@ -1070,7 +1089,8 @@ $('.examine1').on('click', function() {
         optype: "store"
     };
 
-    if (form_value.service == "") {
+
+         if (form_value.service == ""||$('#textarea_value').val().length=='0') {
         layer.msg('请输入文案标题');
         layer.tips('请输入文案标题', '#wordCount', {
             tips: [4, '#F22525'],
@@ -1078,15 +1098,15 @@ $('.examine1').on('click', function() {
         });
         return;
     }
-    // 地区就不要判断了，因为呼出一些小问题--出现可演示
-    // if ($('.region-wrap').length==0) {
-    //     layer.msg('请选择地区');
-    //     return;
-    // }
-    // if(form_value.area=='[]'){
-    //     layer.msg('请选择地区');
-    //     return;
-    // }
+
+        if(!$('#textarea_value').val()){
+        layer.msg('请输入文案标题');
+        layer.tips('请输入文案标题', '#wordCount', {
+            tips: [4, '#F22525'],
+            time: 4000
+        });
+        return;
+    }
 
     // 最新地区判断有没有值   // 
     var area_val2 = JSON.parse($('.area_val').val());
@@ -1155,7 +1175,13 @@ $('.examine1').on('click', function() {
 //修改里面的关闭
 $('.examine1_close').on('click', function() {
     $('.layui-layer-close').click();
+        //并提交审核后 回到页面刷新
+        $('.search-btn').click();
 })
+
+
+   
+
 
 // 修改中的预览  S
 $('.examine1_preview').click(function() {
@@ -1239,14 +1265,23 @@ $('.examine1_preview').click(function() {
             push_retailer: c,
         }
 
-        if (form_value.textarea_value == "") {
-            layer.msg('请输入文案标题');
-            layer.tips('请输入文案标题', '#wordCount', {
-                tips: [4, '#F22525'],
-                time: 4000
-            });
-            return;
-        }
+        if (form_value.service == ""||$('#textarea_value').val().length=='0') {
+        layer.msg('请输入文案标题');
+        layer.tips('请输入文案标题', '#wordCount', {
+            tips: [4, '#F22525'],
+            time: 4000
+        });
+        return;
+    }
+
+        if(!$('#textarea_value').val()){
+        layer.msg('请输入文案标题');
+        layer.tips('请输入文案标题', '#wordCount', {
+            tips: [4, '#F22525'],
+            time: 4000
+        });
+        return;
+    }
         // 判断地区
         var area_val2 = JSON.parse($('.area_val').val());
         if (area_val2.area.length == 0) {
@@ -1393,6 +1428,9 @@ $('.examine1_preview').click(function() {
 
 //修改中的保存并继续新增
 $('.examine1_Newly_added').on('click', function() {
+
+    // IsTrue1=2;
+    // $('#service_val').val($('#textarea_value').val());
     if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
         var a = 1;
     } else {
@@ -1456,7 +1494,7 @@ $('.examine1_Newly_added').on('click', function() {
         optype: "draft"
     };
 
-    if (form_value.service == "") {
+    if (form_value.service == ""||$('#textarea_value').val().length=='0') {
         layer.msg('请输入文案标题');
         layer.tips('请输入文案标题', '#wordCount', {
             tips: [4, '#F22525'],
@@ -1465,7 +1503,14 @@ $('.examine1_Newly_added').on('click', function() {
         return;
     }
 
-
+if(!$('#textarea_value').val()){
+        layer.msg('请输入文案标题');
+        layer.tips('请输入文案标题', '#wordCount', {
+            tips: [4, '#F22525'],
+            time: 4000
+        });
+        return;
+    }
     // 最新地区判断有没有值   // 
     var area_val2 = JSON.parse($('.area_val').val());
     if (area_val2.area.length == 0) {
@@ -1574,6 +1619,8 @@ $('.examine1_Newly_added').on('click', function() {
 
 //修改中的保存
 $('.examine1_Preservation').on('click', function() {
+    // IsTrue=2;
+    // $('#service_val').val($('#textarea_value').val());
     if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
         var a = 1;
     } else {
@@ -1654,6 +1701,14 @@ $('.examine1_Preservation').on('click', function() {
         return;
     }
 
+    if(!$('#textarea_value').val()){
+        layer.msg('请输入文案标题');
+        layer.tips('请输入文案标题', '#wordCount', {
+            tips: [4, '#F22525'],
+            time: 4000
+        });
+        return;
+    }
 
     // 最新地区判断有没有值   // 
     var area_val2 = JSON.parse($('.area_val').val());
@@ -1839,6 +1894,18 @@ $('table.notify').on('click', '.detailed', function() {
                 }
             }
 
+            var riqi = data_text.content.pushtime.substring(0, 10);
+            var arys1 = new Array();
+            arys1 = riqi.split('-'); //日期为输入日期，格式为 2013-3-10
+            var ssdate = new Date(arys1[0], parseInt(arys1[1] - 1), arys1[2]);
+            var minute = data_text.content.pushtime.split(' ')[1];
+        
+                if (ssdate.getDay() == 5 && minute=='09:00:00') {
+                    var pushtime_val = '跟随每周推送消息一同推送';
+                }else{
+                    var pushtime_val = riqi;
+                }
+
             var index = layer.open({
                 type: 1,
                 title: '详情',
@@ -1879,7 +1946,11 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title1">图文消息<br />发送时间</div>' +
-                    '<div class="Float_text1">' + ProcessDate(data_text.content.pushtime) + '</div></div>' +
+                    '<div class="Float_text1">' + pushtime_val + '</div></div>' +
+
+                    '<div class="Text_Title">' +
+                    '<div class="Float_Title">发送状态</div>' +
+                    '<div class="Float_text"><span>' + state + '</span></div></div>' +
                     // '<div class="Text_Title">' +
                     // '<div class="Float_Title">发送时间</div>' +
                     // '<div class="Float_text">' + data_text.content.pushtime + '</div></div>' +
@@ -1895,12 +1966,15 @@ $('table.notify').on('click', '.detailed', function() {
 
             } else if (abc.length == 2) {
                 $('.btn_center .btn').css('display', 'inline-block');
-                $('.btn_center .btn:eq(0)').css('margin-left', '30%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '40%');
             } else if (abc.length == 4) {
+                $('.btn_center .btn:eq(0)').css('margin-left', '26%');
                 $('.btn_center .btn').css('display', 'inline-block');
+                // $('.Float_Title1').css('margin-left','0px');
             } else if (abc.length == 3) {
                 $('.btn_center .btn').css('display', 'inline-block');
-                $('.btn_center .btn:eq(0)').css('margin-left', '10%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '31%');
+                // $('.Float_Title1').css('margin-left','0px');
             }
         },
         error: function() {

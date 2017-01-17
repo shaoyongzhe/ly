@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-13 16:38:14
+* @Last Modified time: 2017-01-16 21:09:42
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -280,7 +280,7 @@ body{
 .Float_text{
     width: 70%;
     /* height: 73px; */
-    line-height: 60px;
+    line-height: 61px;
     margin-top:14px;
     margin-left: 55px;
     display: inline-block;
@@ -474,14 +474,21 @@ table thead {
 
 
 .Float_text1{
-   margin-left: 123px;
-    margin-top: -32px;
+     margin-left: 118px;
+    /* margin-top: -32px; */
     width: 224px;
+        padding-bottom: 12px;
 }
+
+
 .Float_Title1{
+     width: 63px;
+    /* height: 73px; */
     line-height: 20px;
-    margin-left: -61px;
+    /* float: left; */
+    clear: both;
     display: inline-block;
+    float: left;
 }
 .Float_text2{
     margin-left: 185%;
@@ -502,6 +509,12 @@ tbody td {
 
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 } */
+.cityName{
+    font-style: normal;
+}
+..district-wrap span em{
+    font-style: normal;
+}
     span.name { display: block; width: 75px; text-align: left; line-height: 30px;}
     .gf-select { 
                 float: left;
@@ -512,7 +525,17 @@ tbody td {
     position: relative;
     }
     .gf-select span {width: 95%; padding: 1px 0px 1px 2px;display: block; border: 1px solid #ddd; cursor: pointer;}
-    .gf-select span em {font-style: normal;text-align: center;margin-top: 2px;}
+    .gf-select span em {font-style: normal;text-align: center;margin-top: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    width: 41px;
+    }
+    .gf-select span:hover{
+        border:solid 1px #3bb4f2;box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 8px rgba(102,175,233,0.075);
+    }
+
     .gf-select .icon-jt { background: url(/admin/MarketingActivity/PropagationManagement/Images/21.png) center right no-repeat; width: 18px; height: 15px;position: absolute;right: 5px;top: 37%; margin-top: -3px;}
     .gf-select ul {border: 1px solid #ddd; position: absolute; width: 100%; top: 31px; overflow-y :auto; display: none; background: #fff;}
     .gf-select ul li { border-bottom: 1px solid #ddd; line-height: 30px; padding-left: 10px;}
@@ -565,4 +588,17 @@ tbody td {
    filter:alpha(Opacity=50);
    -moz-opacity:0.5;
    opacity: 0.5;;top:0;
+}
+
+span.tiaoshu{
+    padding-left: 45px;
+}
+
+span.tiaoshu span{
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.provice span em{
+    font-style: normal;
 }
