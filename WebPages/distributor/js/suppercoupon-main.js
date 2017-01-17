@@ -52,8 +52,8 @@ function suppermarketactivitylist(container) {
                 '<div class="assetinfobj">  <a href="${testclick(item.topicdata)}" class="assetcontent">',
                     '<div class="assetimg"> <p>${item.topicdata.budget.subsidytotal}</p></div>',
                     '<div class="asset_left" style="width:calc(100% - 110px)"> ',
-                        '<p style="max-width:calc(100% - 55px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;">${item.topicdata.topiclist[0].topic.activitytitle}</p>',
-                        '<span style="width:50px;display:inline-block;font-size:0.8em;font-weight:normal">${(item.topicdata.topiclist.length>1?"等活动":"")}</span>' ,
+                        '<p style="max-width:calc(100% - 55px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1em;">${item.topicdata.topiclist[0].topic.activitytitle}</p>',
+                        '<span style="width:50px;display:inline-block;font-size:0.7em;font-weight:normal">${(item.topicdata.topiclist.length>1?"等活动":"")}</span>',
                     '</div>',
                 ' </a> </div>',
             '{@/if}',
@@ -68,7 +68,7 @@ var isInit = true;
 suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
     var activitylisttemplate = this.activitylisttemplate;
     var container = this.container;
-    var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "ticket", pageindex: pageIndex};    
+    var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "ticket", pageindex: pageIndex };
     if (wxjsconfig.sharekey != null)
         ajaxdata[wxjsconfig.sharekey] = "_";
 
@@ -86,23 +86,23 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
         if (pageIndex == 1)
             container.html(html);
         else
-            container.append(html);        
-    
+            container.append(html);
+
         $("img.lazy").lazyload();
-      
+
         if (pageIndex == 1 && isInit && !data.error && !data.user_notification) {
             if ($.isFunction(sharefunction)) {
                 sharefunction(data.share || {});
             }
             isInit = false;
             $('#dropload').dropload({
-                scrollArea: window, 
+                scrollArea: window,
                 domDown: {
                     domClass: 'dropload-down',
                     domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中</div>',
                     domNoData: '<div class="dropload-noData">暂无数据</div>'
-                },               
+                },
                 loadDownFn: function (me) {
                     pageIndex++;
                     new suppermarketactivitylist(".container-w").render(wxjsshare, me);
@@ -119,7 +119,9 @@ $(function () {
     juicer.register("testclick", function (item) {
         var topicid = ""
         $.each(item.topiclist, function (index, item, array) {
-            topicid += "," + item.activityid
+            if (index <= 20) {
+                topicid += "," + item.topic.guid
+            }
         });
         return "../page/active.html?topicid=" + topicid.substring(1)
     });
@@ -128,7 +130,7 @@ $(function () {
     var fans = new invitationfans("container");
     fans.render();
     var s = new suppermarketactivitylist(".container-w");
-    s.render(wxjsshare,null);
+    s.render(wxjsshare, null);
 });
 
 
