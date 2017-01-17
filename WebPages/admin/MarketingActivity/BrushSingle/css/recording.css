@@ -1,6 +1,6 @@
 body,h3,h4,p,ul,li{margin: 0;padding: 0;}
 ul,li{list-style: none;}
-input,select{outline: none;text-indent: .5em;}
+input,select{outline: none;text-indent: .5em;color: #333;font-family: "微软雅黑";}
 
 
 #cgl-table .cgl-ciyao:hover{background: #999;}
@@ -60,6 +60,7 @@ i,em,span,label{
 .xze1>div{
     float: left;
     cursor: pointer;
+    font-size: 14px;
 }
 .xze1>div:nth-of-type(1){margin-right: 54px;}
 .xze1>div>span {
@@ -248,6 +249,7 @@ select::-ms-expand { display: none; }
     margin: 10px 20px;
     padding: 19px 16px;
     background: #fff;
+    height: 588px;
 }
 .cgl-anniu>span{
     display: inline-block;
@@ -263,7 +265,7 @@ select::-ms-expand { display: none; }
 }
 #cgl-box{margin-right: 17px;position: relative;}
 #cgl-box:after{content: "";width: 18px;height: 100%;background: #f1f1f1;position: absolute;right: -17px;top: 0;border: 1px solid #eee;border-left: 0; border-bottom: 0;}
-#cgl-tablebox{margin-bottom: 10px;overflow-y: scroll;height: 500px;}
+#cgl-tablebox{margin-bottom: 10px;overflow-y: scroll;max-height: 500px;}
 .cgl-gd{position: absolute;width: 10px;height: 100%;top: 0;  right:0;background: #333;}
 #cgl-table table{
     width: 100%;
@@ -358,7 +360,7 @@ select::-ms-expand { display: none; }
 #cgl-more>span{cursor: pointer;position: relative;top: 10px;}
 /*****************详细弹窗********************/
 
-.layui-layer>.layui-layer-title{margin: 0 20px;background-color: #fff;border-bottom: 1px solid #ddd;padding-left: 0;color: #4c83db;}
+.layui-layer>.layui-layer-title{margin: 0 20px;background-color: #fff;font-size: 16px; border-bottom: 1px solid #ddd;padding-left: 0;color: #4c83db;}
 .layui-layer-content>ul{padding: 34px 90px;}
 .layui-layer{max-height: 90%;overflow-y: auto;}
 .layui-layer::-webkit-scrollbar{
@@ -421,12 +423,12 @@ select::-ms-expand { display: none; }
 #cgl-kuaijie label{margin-right: 5px;color: red;}
 #cgl-kuaijie label>input{float: left;}
 /*****************调整等级********************/
-.cgl-antz{text-align: center;padding-bottom: 30px;}
+.cgl-antz{text-align: center;padding-bottom: 38px;font-size: 16px;}
 .cgl-antz>span{display: inline-block;  background: #ff6032; color: #fff;  padding: 7px 40px;  margin-right: 17px; cursor: pointer; }
 .cgl-antz>.cgl-import:hover{background: #e65b33;}
 .cgl-antz>span:first-child{background: #aaa;}
-.cgl-dqdj{text-align: center;color: #ccc; padding: 60px 0 10px;}
-.cgl-tiaoz{text-align: center;padding: 0 0 56px;}
+.cgl-dqdj{text-align: center;color: #ccc; padding: 60px 0 10px;font-size: 14px;}
+.cgl-tiaoz{text-align: center;padding: 0 0 57px;font-size: 16px;}
 .qrentext,.jctext{padding-top: 70px;}
 .cgl-tiaoz select{width: 108px;height: 22px;padding-left: 30px;margin-left: 10px; border: 1px solid #ddd;border-radius: 3px;text-align: center;  appearance:none;  -moz-appearance:none;-webkit-appearance:none; background: url("../img/select.png") no-repeat scroll right center transparent; }
 .cgl-antz>.layui-layer-close{position: relative;}
@@ -470,6 +472,7 @@ span.name {
 
 .gf-select span em {
 	font-style: normal;
+	color: #333;
 }
 
 .gf-select .icon-jt {
@@ -483,6 +486,7 @@ span.name {
 }
 
 .gf-select ul {
+	color: #333;
 	border: 1px solid #ddd;
 	position: absolute;
 	width: 100%;

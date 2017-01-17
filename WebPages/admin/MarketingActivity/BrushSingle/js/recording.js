@@ -150,13 +150,13 @@ function fnshijian(state) {
 		url: "/webapi/earlywarningmanage/anticheating/getlist",
 		data: state,
 		error: function(data) {
-			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		},
 		success: function(data) {
 			//console.log(data)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
-				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
 				$("#kou").text(data["koukuanjine"].toFixed(2));
@@ -168,7 +168,7 @@ function fnshijian(state) {
 				fncreattab(data); //创建tbody
 				$("#cgl-tablebox").animate({
 					scrollTop: 0
-				}, 300);
+				},0);
 				$("#cgl-more").find("span").html("点击加载更多")
 				$("#cgl-more").hide(function() {
 					$("#cgl-more").css({
@@ -177,32 +177,6 @@ function fnshijian(state) {
 				});
 			}
 
-		}
-	});
-}
-//状态改变事件
-function fnstate() {
-	$("input:checked").prop("checked", false);
-	fnjilu();
-	$(".cgl-jzz").html("加载中，请稍后···").show();
-	$.ajax({
-		type: "get",
-		url: "/webapi/earlywarningmanage/anticheating/getlist",
-		data: state,
-		error: function(data) {
-			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
-		},
-		success: function(data) {
-			//console.log(data, state)
-			$(".cgl-jzz").hide();
-			if(data.allcount == 0) {
-				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
-				$("#cgl-tbody").html("");
-				$("#shua").text(data["shuadanjine"].toFixed(2));
-				$("#kou").text(data["koukuanjine"].toFixed(2));
-			} else {
-				fncreattab(data); //创建tbody
-			}
 		}
 	});
 }
@@ -237,7 +211,7 @@ function fnreset() {
 			pagecount: "50" //要查询的数据条数
 		};
 		if(JSON.stringify(state1) == JSON.stringify(state)) {
-			$(".cgl-jzz").html("已经是最初始状态").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("已经是最初始状态").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else {
 			state = state1;
 			fnjilu();
@@ -325,7 +299,7 @@ function fnxze1() {
 		});
 		state["state"] = $(".ztai>.cgl-wgui:visible .cgl-con1:eq(0)>strong").html();
 		state["lastindex"] = 0;
-		fnstate(state);
+		fnshijian(state);
 		localStorage.setItem("state", JSON.stringify(state));
 	});
 }
@@ -338,7 +312,7 @@ function fnxiala() {
 		$(".cgl-con").html($(this).html());
 		state["lastindex"] = 0;
 		state["state"] = $(".cgl-wgui>.cgl-con>strong", ".ztai").html();
-		fnstate(state);
+		fnshijian(state);
 		localStorage.setItem("state", JSON.stringify(state));
 	});
 	$(document).click(function(e) {
@@ -368,7 +342,7 @@ function fndate() {
 				if($('#cgl-cxdata').val() == state["querybegindate"] && $('#cgl-cxdata1').val() == state["queryenddate"]) {
 					return false;
 				} else if(isxy < 0 && $('#cgl-cxdata').val() != "" && $('#cgl-cxdata1').val() != "") {
-					$(".cgl-jzz").html("日期选择有误").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+					$(".cgl-jzz").html("日期选择有误").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				} else {
 					state["querybegindate"] = $('#cgl-cxdata').val();
 					state["queryenddate"] = $('#cgl-cxdata1').val();
@@ -639,7 +613,7 @@ function article_add(that) {
 		url: "/webapi/earlywarningmanage/anticheating/stateopdetail/" + guid,
 		data: "",
 		error: function() {
-			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		},
 		success: function(data) {
 			//console.log(data)
@@ -688,7 +662,7 @@ function fnfstz(fstz) {
 	$.ajax({
 		type: "post",
 		error: function() {
-			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		},
 		url: "/webapi/earlywarningmanage/anticheating/sendnotification",
 		data: fstz,
@@ -696,7 +670,7 @@ function fnfstz(fstz) {
 			$(".cgl-jzz").hide();
 			if(data.succeed == "succeed") {
 				//alert("发送成功");
-				$(".cgl-jzz").html("发送成功").fadeIn(500).delay(1000).fadeOut(500);
+				$(".cgl-jzz").html("发送成功").fadeIn(500).delay(1000).fadeOut(100);
 				/*				var cont = "<div style='text-align:center;line-height:50px;'>发送成功</div>";
 								var index = layer.open({
 									type: 5,
@@ -859,7 +833,7 @@ function tiaoz_add(dangq, guid) {
 			url: "/webapi/earlywarningmanage/anticheating/levelchanged",
 			data: djjson,
 			error: function() {
-				$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+				$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			},
 			success: function(data) {
 				$(".cgl-jzz").hide();
@@ -877,7 +851,7 @@ function tiaoz_add(dangq, guid) {
 						$("tr").each(function(n) {
 							if($(this).attr("gu-id") == guidarr[i]) {
 								$(this).find(".cgl-td6").html(djjson.level);
-								$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+								$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 							}
 						});
 
@@ -946,9 +920,9 @@ function fnguid() {
 function fnanniu() {
 	$("#cgl-qrwg1").click(function() {
 		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
-			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else if($("#cgl-tbody").find(".cgl-td12").html() == "确认违规") {
-			$(".cgl-jzz").html("已经是当前状态").fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("已经是当前状态").fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
 			var guid = fnguid();
@@ -962,12 +936,12 @@ function fnanniu() {
 	});
 	$("#cgl-jcwg1").click(function() {
 		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
-			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else if($("#cgl-tbody").find(".cgl-td12").html() == "解除违规") {
-			$(".cgl-jzz").html("已经是当前状态").fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("已经是当前状态").fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else if($("#cgl-tbody").find(".cgl-td12").html() == "未处理") {
-			$(".cgl-jzz").html("不可解除违规").fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("不可解除违规").fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
 			var guid = fnguid();
@@ -998,7 +972,7 @@ function fnanniu() {
 	});
 	$("#cgl-tzwg1").click(function() {
 		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
-			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else {
 			var guid = fnguid();
 			//console.log(guid);
@@ -1008,7 +982,7 @@ function fnanniu() {
 	});
 	$("#cgl-fstz1").click(function() {
 		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
-			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else {
 			var guid = fnguid();
 			//console.log(guid);
@@ -1029,7 +1003,7 @@ function fnwgjlzt(putdata) {
 		url: "/webapi/earlywarningmanage/anticheating/dealtstatechange",
 		data: putdata,
 		error: function() {
-			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		},
 		success: function(data) {
 			$(".cgl-jzz").hide();
@@ -1053,25 +1027,28 @@ function fnwgjlzt(putdata) {
 				}
 				state["lastindex"] = 0;
 				//console.log(state)
-				$.ajax({
+/*				$.ajax({
 					type: "get",
 					url: "/webapi/earlywarningmanage/anticheating/getlist",
 					data: state,
 					error: function() {
-						$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+						$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 					},
 					success: function(data) {
 						fndengji(data.statecount);
-						fnxuanran(data);
+						//fnxuanran(data);
 						$("#cgl-table").find("#checall").prop("checked", false);
 					}
 				});
+*/			
+				fnshijian(state);
 			}
 		}
 	});
 }
+
+
 $(function() {
-	//fnfind();
 	fnshijian(state);
 	fnjilu();
 	fnxze1();
