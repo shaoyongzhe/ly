@@ -1,3 +1,4 @@
+//20170117
 //loadingStart();
 //$(".BDcyhdCityD").empty();
 //$(".BDcyhdRequireD").empty();
@@ -21,14 +22,14 @@ var isReceivedTopicActivityID=false;//判断是否接收到指令活动列表id�
 
 //情形1.等待经销宝传令刷新页面
 engine.on('OnDisID_ActIDRefresh', OnDisID_ActIDRefresh, this);//主题活动id///***对接经销宝后解除注释####
-//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","dfa7bc5e08ee469b9dbdf5ea77bbb9aa");//***对接经销宝后注释掉***链接活动详情页面后注释掉
+//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","c45a7fbcec264532bfc01d8dd6d1e8a6");//***对接经销宝后注释掉***链接活动详情页面后注释掉
 function OnDisID_ActIDRefresh(){
+	isReceivedDistributorID=true;//可能需要改变
+	isReceivedTopicActivityID=true;//可能需要改变
 	if(arguments.length<1){
 		layer.alert('缺少参数', {icon: 5});
 		return;
 	}	
-	isReceivedDistributorID=true;//可能需要改变
-	isReceivedTopicActivityID=true;//可能需要改变
 	localStorage.fromTopicActivityList_DistributorID="";//防止情形1和情形2同时发生
 	localStorage.fromTopicActivityList_ActivityID="";
 	var parameter0=JSON.parse(arguments[0]);
@@ -62,8 +63,12 @@ function ajaxActivityDetails(a,b){
 		beforeSend:function(){
 			loadingStart();
 		},
-		success:function(data){
+		success:function(data){		
 			linshi=data;
+			if(data==""||data==[]){
+				layer.alert("数据为空，请重试", {icon: 5});
+				return;
+			}
 			if(data.topicid==undefined){
 				layer.alert('数据为空', {icon: 5});
 				return;
@@ -197,11 +202,15 @@ function ajaxActivityDetails(a,b){
 					//区,因为区要求同行，这里处理就特殊点
 					$(".BDcyhdCityD").append(hmQv);
 					var hmQvText="";
+					
 					for(m=0;m<data.district_condition[i].city[j].country.length;m++){//如果区为空，自然for一次都不执行
-						hmQvText+=data.district_condition[i].city[j].country[m]+"、";
+						//0116之前，区用以下代码进行遍历
+//						hmQvText+=data.district_condition[i].city[j].country[m]+"、";
+						//0116起，数据结构变化了，区用以下代码进行遍历，
+						hmQvText+=data.district_condition[i].city[j].country[m].name+"、";
 					}
-					hmQvText=hmQvText.substr(0,hmQvText.length-1)
-					$(".BDcyhdCityDsqv:last").find(".BDcyhdCityDsP").text(hmQvText)
+					hmQvText=hmQvText.substr(0,hmQvText.length-1);
+					$(".BDcyhdCityDsqv:last").find(".BDcyhdCityDsP").text(hmQvText);
 					zksq3Num+=Math.ceil(hmQvText.length/52);
 					if(zksq3Num>=6&&zksq3Bol==true){//条件需加
 						zksq3Bq=hmQvText;
@@ -318,14 +327,16 @@ function ajaxActivityDetails(a,b){
 				$(".BDcyhdCityDsMore").addClass("hi");
 			}
 			zksq3();
-			console.log(8888666)
+//			console.log(8888666)
 //			loadintEnd();
+			$(".initialHi").removeClass("initialHi");
 		},//success结束
 		error:function(data){			
 			layer.alert('通讯异常:错误'+data.status, {icon: 5});
 //			loadintEnd();
 			linshi1=data;
-			console.log(linshi)
+			console.log(linshi);
+			$(".Bwrap").removeClass("hi");
 		},
 		complete:function(data){
 			linshi2=data;
@@ -491,42 +502,31 @@ function returnToList(){
 	})	
 	$("header").click(function(){			
 		engine.call('ClosePage');
-		alert("header触发")
+//		alert("header触发")
 	})
 }
 
-function loadingStart(){
-	$(document.body).css({//禁用滚动条
-	   "overflow-x":"hidden",
-	   "overflow-y":"hidden"
-	});
-	$("body").prepend("<div class='loadingDiv'><img src='img/loading.gif' class='loadingImg'></div>")		
-}
-
-function loadintEnd(){
-	$(document.body).css({//启用滚动条
-		"overflow-x":"auto",
-		"overflow-y":"auto"
-	});			
-	$(".loadingDiv").remove();
-}
 
 
 //判断是否接收到经销商id，活动id	
-/*isReceivedID();
+isReceivedID();
 var isReceivedIDNum=0;
 var isReceivedIDTime='';
 function isReceivedID(){
 	isReceivedIDNum++;
 	isReceivedIDTime=setTimeout(isReceivedID,500);
 	console.log(isReceivedIDNum);
-	if(isReceivedIDNum>=10&&isReceivedDistributorID==false){
-		layer.alert('缺少经销商id，请重试', {icon: 5});
+	if(isReceivedIDNum>=10){
+		if(isReceivedDistributorID==false){
+	//		layer.alert('缺少经销商id，请重试', {icon: 5});
+			console.log('缺少经销商id');			
+		}
+		if(isReceivedTopicActivityID==false){
+	//		layer.alert('缺少活动id，请重试', {icon: 5});
+			console.log('缺少活动id');			
+		}
 		clearTimeout(isReceivedIDTime);
 	}
-	if(isReceivedIDNum>=10&&isReceivedTopicActivityID==false){
-		layer.alert('缺少活动id，请重试', {icon: 5});
-		clearTimeout(isReceivedIDTime);
-	}
+
 }
-*/
+

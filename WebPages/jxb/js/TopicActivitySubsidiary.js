@@ -1,3 +1,4 @@
+//20170117
 //loadingStart();
 //如果想查看静态页面，请注释掉Cajax()
 var linshi='';
@@ -15,7 +16,7 @@ function InitailCallBack(){
     engine.on('OnDistributorIDRefresh', OnDistributorIDRefresh, this);//经销商id//	  
     engine.on('OnTopicActivityIDRefresh', OnTopicActivityIDRefresh, this);//主题活动id/
 }
-//Cajax("5ce1d14e07534139ae7774d8983f04f3?ticketid=dfa7bc5e08ee469b9dbdf5ea77bbb9aa");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3?ticketid=e6eebb40b33443edb4aed35215ce75e8");	//***对接经销宝后注释掉***
 function OnDistributorIDRefresh(){
 	isReceivedDistributorID=true;
 //	layer.alert(arguments[0], {icon: 5});
@@ -39,11 +40,17 @@ function OnTopicActivityIDRefresh(){
 //	layer.alert(arguments[0], {icon: 5});
 	var parameter0=JSON.parse(arguments[0])
 	if(arguments.length<1){
-    	layer.alert('缺少参数', {icon: 5});
+    	console.log('缺少参数', {icon: 5});
     	return;
     }
-	if(parameter0==undefined){return};
-	if(allActivity==undefined||allActivity==null||allActivity==''){return}
+	if(parameter0==undefined){
+		console.log('参数未定义', {icon: 5});
+		return;
+	};
+	if(allActivity==undefined||allActivity==null||allActivity==''){
+		console.log('活动列表为空，无法展示指定活动', {icon: 5});
+		return;
+	}
 	for(i=0;i<allActivity.content.length;i++){
 		if(allActivity.content[i].guid==parameter0.data[0]){
 			ajaxSucFn(allActivity.content[i]);//刷新活动。
@@ -74,6 +81,14 @@ function Cajax(d){
 				loadingStart();
 			},		
 		success:function(data){
+			if(data==""||data==[]){
+				layer.alert("数据为空，请重试", {icon: 5});
+				return;
+			}
+			if(data.content==undefined){
+				layer.alert('数据结构变化，请通知管理员', {icon: 5});
+				return;
+			}
 			if(data.content.length==0){
 				layer.alert('数据为空', {icon: 5});
 				return;
@@ -84,6 +99,7 @@ function Cajax(d){
 			topicactivity_id=data.content[0].guid;//先存储第一个活动id
 			console.log(topicactivity_id);
 //			loadintEnd();
+			$(".initialHi").removeClass("initialHi");
 		},
 		error:function(data){
 			console.log("error");
@@ -229,38 +245,24 @@ $(".footerCkgd").click(function(){
 //}
 
 
-
-function loadingStart(){
-	$(document.body).css({//禁用滚动条
-	   "overflow-x":"hidden",
-	   "overflow-y":"hidden"
-	});
-	$("body").prepend("<div class='loadingDiv'><img src='img/loading.gif' class='loadingImg'></div>")		
-}
-
-function loadintEnd(){
-	$(document.body).css({//启用滚动条
-		"overflow-x":"auto",
-		"overflow-y":"auto"
-	});			
-	$(".loadingDiv").remove();
-}
-
 //判断是否接收到经销商id，活动id	
-/*isReceivedID();
+isReceivedID();
 var isReceivedIDNum=0;
 var isReceivedIDTime='';
 function isReceivedID(){
 	isReceivedIDNum++;
 	isReceivedIDTime=setTimeout(isReceivedID,500);
 	console.log(isReceivedIDNum);
-	if(isReceivedIDNum>=10&&isReceivedDistributorID==false){
-		layer.alert('缺少经销商id，请重试', {icon: 5});
-		clearTimeout(isReceivedIDTime);
-	}
-	if(isReceivedIDNum>=10&&isReceivedTopicActivityID==false){
-		layer.alert('缺少活动id，请重试', {icon: 5});
+	if(isReceivedIDNum>=10){
+		if(isReceivedDistributorID==false){
+	//		layer.alert('缺少经销商id，请重试', {icon: 5});
+			console.log('缺少经销商id');			
+		}
+		if(isReceivedTopicActivityID==false){
+	//		layer.alert('缺少活动id，请重试', {icon: 5});
+			console.log('缺少活动id');			
+		}
 		clearTimeout(isReceivedIDTime);
 	}
 }
-*/
+//alert(8)
