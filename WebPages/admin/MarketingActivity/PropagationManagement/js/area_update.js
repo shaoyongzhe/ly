@@ -52,7 +52,7 @@ $('.area_Update').on('click', function() {
 	/*$('.Select_the_province').on('click', '.ui-selected', function() {
 		$(this).addClass('on').siblings().removeClass('on');
 	});*/
-
+//全省
 	$('.provice .shengName').each(function(){
 		// debugger
 		var shengName = $(this).text();
@@ -63,7 +63,19 @@ $('.area_Update').on('click', function() {
 			}
 		});
 	});
-
+//全国
+$('.provice .shengName').each(function(){
+		// debugger
+		var quanguo = $(this).text();
+		$('.Select_the_province .qt').each(function(){
+			if($(this).text() == quanguo){
+				// $(this).closest('.diqushezhi').click();
+				$(this).find('input').prop("checked",true);
+			}else{
+				$(this).find('input').prop("checked",false);
+			}
+		});
+	});
 
 	$('.Select_province1').empty();
 	$('.Select_province2').empty();
@@ -205,7 +217,7 @@ function dataLoad() {
 			// alert(1);
 			$('.area-list :checked').not(this).prop('checked',false);
 			$('.area-list li.on').removeClass('on');
-			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em>全国</em><i class="x">×</i></span></div></div></div>');
+			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em class="shengName">全国</em><i class="x">×</i></span></div></div></div>');
 			$('.Select_province1').empty();
 			$('.Select_province2').empty();
 		} else {
