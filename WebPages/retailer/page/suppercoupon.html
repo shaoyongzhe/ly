@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -265,7 +265,9 @@
                             var item = value.topicdata;
                             var topicid=""
                             $.each(item.topiclist, function (index, items, array) {
-                                topicid += "," + items.activityid
+                                if (index<=20) {
+                                    topicid += "," + items.topic.guid
+                                }
                             });
                             listitem = listitem.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
                             listitem = listitem.replace("blx", "");

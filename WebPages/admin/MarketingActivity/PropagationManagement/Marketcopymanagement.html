@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -31,7 +31,7 @@
 
 <title>市场文案管理</title>
 </head>
-<body>
+<body class='body_close'>
 	<div class="page-container">
 		
 		<div class="bread-crumb">营销活动><span style="color:#000">市场文案管理</span></div>
@@ -151,7 +151,7 @@
 					<tbody style="postion:relative"  class="pagesTbodyLong content_drop">
 					</tbody>
 			</table>
-			<!-- <span class='tiaoshu'></span> -->
+			<span class='tiaoshu'></span>
 		</div>
 		<p class="foot_textzo">凌云科技版权所有&nbsp;&nbsp;京ICP号10211557.</p>
 		<!-- <div class='content_drop'>
@@ -173,6 +173,7 @@
 
 	<div class="c" style="display: none">
 			<div class="content_information">
+
 			<input type="hidden" class="state" value="draft">
 			<input type="hidden" class="_guid">
 				<div class="Copy_Title" id="wordCount">
@@ -242,7 +243,7 @@
 				</div>
 				<div class="Graphic_message">
 					<div style="margin-bottom: 10px;"><span>图文消息</span>
-					<div class='ck' style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border-radius: 50%;border:1px solid #999999;margin-left:55px;margin-top: 4px;" name="fen" value="bindwithperiodpush"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/3.png" height="8" width="11" alt=""></div><a style="text-decoration: none; color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;"></a>
+					<div class='ck' style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border-radius: 50%;border:1px solid #999999;margin-left:55px;margin-top: 4px;" name="fen" value="bindwithperiodpush"><img  class="xiyin" style="display: block;margin:4px 4px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/radioon.png" width="7px" alt=""></div><a style="text-decoration: none; color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;"></a>
 
 					<span class="custom">跟随每周推送消息一同推送</span></div>
 					<!-- <input style="border:none;background:#fff" type="text" value="跟随每周推送消息一同推送">
@@ -250,7 +251,7 @@
  -->					
 					
 					<span for='datepicker'>发送时间</span>
-					<div class="ck" style="display: inline-block;cursor: pointer; width: 14px;border-radius: 50%;height: 14px;border:1px solid #999999;margin-left:55px;margin-top: 4px;" name="fen" value="pushtime_supplier"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/3.png" height="8" width="11" alt=""></div><a style=" text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;"></a>
+					<div class="ck" style="display: inline-block;cursor: pointer; width: 14px;border-radius: 50%;height: 14px;border:1px solid #999999;margin-left:55px;margin-top: 4px;" name="fen" value="pushtime_supplier"><img  class="xiyin" style="display: block;margin:4px 4px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/radioon.png" width="7px" alt=""></div><a style=" text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;"></a>
 					<span class='zdy'>自定义</span>
 					<input type="text" value="" readonly="readonly" style="background:url(/admin/MarketingActivity/PropagationManagement/Images/2.png) no-repeat 97% 50%;"; class="input-text date" id="data_time" onclick="laydate({elem:'#data_time',min: laydate.now(),max: laydate.now(+100000)});">
 					<span class="custom">*选择自定义以后，占用本地区会员消息推送一次</span></div>
@@ -307,7 +308,6 @@
 <script type="text/javascript" src="/admin/static/H-ui.admin.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/Marketcopymanagement.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/dropload.js"></script>
-<!-- <script src='/admin/MarketingActivity/PropagationManagement/js/cityLink.js'></script>  -->
 <script type="text/javascript" src="/admin/lib/district/js/cityLink.js"></script>
 <script type="text/javascript" src="/admin/lib/laydate/laydate.js"></script>
 <script type="text/javascript">
@@ -339,6 +339,7 @@ var end = {
 laydate(start);
 laydate(end);
  
+
 //返回顶层
 $(function(){
 	// debugger;
@@ -350,8 +351,6 @@ $(function(){
 	$('.length_val').on('keyup',function(){
 		if($(this).val().length==65){layer.msg('文案标题字数已上限')}
 	});
-
-
 
 // 判断 选择时间的
 	$('.send_object dir div').click(function(){
