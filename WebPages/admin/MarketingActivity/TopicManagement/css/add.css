@@ -606,7 +606,7 @@ div.acZige:before{
     border-radius: 2px;
 }
 .hdc4 .hdc4In1{
-    width: 33px;
+    width: 39px!important;
     height: 36px;
     border: 1px solid transparent;
     /*text-indent: 10px;*/
@@ -617,7 +617,7 @@ div.acZige:before{
     outline: none;
 }
 .hdc4 .hdc4In2{
-	width: 33px;
+	width: 39px!important;
     height: 36px;
     border: 1px solid transparent;
     /*text-indent: 10px;*/
@@ -629,7 +629,7 @@ div.acZige:before{
 }
 .hdc4 .hdc4P1{
     position: absolute;
-    left: 35px;
+    left: 43px!important;
     top: 11px;
     z-index: 8;
 }

@@ -298,7 +298,7 @@ function acAdE() {
 		}
 		$(".addSub5").last().find(".acAd2").removeClass("hi"); //让最后一个控件显示加号
 
-		yfz();
+		yaoyiyaofengzhi();
 
 
 	})
@@ -487,9 +487,12 @@ $.ajax({
 		// 控件5摇一摇
 		// var .....还是用之前的dss_2c,之后应该会变
 		$(".addSub5 .acSe15 .select").empty();
+
 		//奖品类型
 		$(".addSub5 .acSe15 .select").append('<li class="option">谢谢参与</li>');
 		addSub5Arr.push("无");
+		// alert(1)
+
 		for (i = 0; i < dss_2c.length; i++) {
 
 			//补贴形式

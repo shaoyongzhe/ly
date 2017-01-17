@@ -41,9 +41,9 @@
 
 			<div class="input-contorl">
 				<label for="">服务电话</label>
-				<span class="edit-area">
-					<input type="text" class="quhao" placeholder='区号' maxlength="3"> - 
-					<input type="text" class="tel" maxlength="7">
+				<span class="edit-area dianhua">
+					<input type="text" class="quhao" placeholder='区号'> - 
+					<input type="text" class="tel">
 				</span>
 			</div>
 
@@ -171,7 +171,7 @@
 			</div>
 
 			<div class="input-contorl">
-				<label for="">会员超慧券<br>活动要求</label>
+				<label for="">会员超惠券<br>活动要求</label>
 
 				<div class="edit-area chenlong01">
 					<div class="addSub1P68">
@@ -549,7 +549,7 @@
 								<p class="dib hdc4dA ba">分/次</p>
 							</div> -->
 							<div class="dib -hi hdc4d1">
-								<input type="text" placeholder="" class="hdc4In1 dib" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->
+								<input type="text" placeholder="" class="hdc4In1 dib" maxlength="5" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" maxlength="5" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->
 							</div>
 							<div class="dib hi hdc4d2 link">
 								<a href="#" class="dib hdc4dB ver set"></a>
@@ -648,9 +648,9 @@
 							<!-- <p class="p68 deleP">范围/值</p>				 -->
 							<div class="acSe16 ba">		
 								<div class="dib -hi Yyy2d1 ver">
-									<input type="text" placeholder="请输入" class="dib min"/>
+									<input type="text" placeholder="请输入" class="dib min" maxlength="5" />
 									<span>-</span>
-									<input type="text" placeholder="请输入" class="dib max"/>
+									<input type="text" placeholder="请输入" class="dib max" maxlength="5" />
 									<p class="dib hdc4dA ba fr"></p><!--即将被替代为别的单位-->
 								</div>
 								<div class="dib hi Yyy2d2">
@@ -821,11 +821,11 @@
 
 				<div class="left">
 					
-					<img src="img/set-rules.png"alt="">
+					<img src="img/set-rules.png" alt="">
 					
 					<br><span>范围示意图</span><br>
 
-					<span class='path'>平台活动 > 主办方 > 分销商 > 门店 > 超惠券主题 > 超惠券</span>
+					<span class='path'>平台活动 <i>></i> 主办方 <i>></i> 分销商 <i>></i> 门店 <i>></i> 超惠券主题 <i>></i> 超惠券</span>
 
 				</div>
 
@@ -1820,7 +1820,8 @@
 								<form enctype="multipart/form-data">
 								<div class="ml16">
 									<span class="btn up warn file">上传
-										<input type="file" name="file" id="fileid" onchange="previewImage(this)" />    
+										<input type="file" name="file" id="file" onchange="previewImage(this)"/>    
+										<!-- <input type="file" name="file" id="fileid" onchange="previewImage(this)" />     -->
 									</span>
 									<!-- <span class="btn up warn">上 传</span><br> -->
 									<i class="check">同时上传至系统海报库</i>
