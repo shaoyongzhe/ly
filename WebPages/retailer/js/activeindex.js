@@ -93,7 +93,7 @@ function fnmenuclick () {
 		}else if(thetext=="促销活动"){
 			fnhqactive();
 		}else{
-			
+			fnlist();
 		}
 	});
 }
@@ -180,7 +180,7 @@ function fnyucun() {
 	$.ajax({
 		type: "get",
       	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
-      	//url: "../../data/menu.json",
+      	//url: "../../data/activeindex.json",
         data: "",
         timeout:"2000",
         dataType:"json",
@@ -278,15 +278,58 @@ function fnhqactive () {
         }
     });
 }
-
+//一般列表
+function fnlist() {
+	$.ajax({
+		type: "get",
+      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
+      	//url: "../../data/activeindex.json",
+        data: "",
+        timeout:"2000",
+        dataType:"json",
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+        	if(textStatus=="timeout"){
+        		console.log("请求超时")
+        		XMLHttpRequest.abort();
+        	}
+        },
+        success: function(data){
+        	console.log(data)
+        	var oli="";
+        	for(var k1 in data){
+        		oli+="<li>" +
+                    "<div class='cgl-top hori'> " +
+                        "<img src='"+data[k1]["itemimage"]+"' alt=''> " +
+                        "<div class='the-xiangxi'> " +
+                            "<h3><span></span>"+data[k1]["itemname"]+"</h3>" +
+                            "<p>"+data[k1]["specification"]+" | "+data[k1]["packagetypename"]+"</p>" +
+                            "<div class='c-price'><span>￥0</span>";
+                            	oli+="<div class='right'>";
+                                if(data[k1]["itemcount"]<=0){
+                                	oli+="<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>"+data[k1]["itemcount"]+"</span><span class='add'></span>";
+                                }else{
+                                	oli+="<span class='jian'></span><span class='price-z'>"+data[k1]["itemcount"]+"</span><span class='add'></span>";
+                                }
+                            oli+="</div>" +
+                            " </div>"+
+                            "<span class='del'>￥"+Number(data[k1]["itemunitcost"]).toFixed(1)+"0<i></i></span>"+
+                            "<div class='cgl-syu'>可提<span> "+data[k1]["remaincount"]+" </span>件</div>";
+                        oli+="</div>" +
+                    "</div> " +
+                "</li>";
+        	}
+        	$("#cgl-contlist").find("ul").html(oli);
+        }
+	});
+}
 $(function () {
-	fnurl();
-	fnxrym();
-    fnscroll();
-    fnmenuhei();
-    fncarnum();
-    fnmenu();
-    fnerji();
+	fnurl();//获取地址栏参数
+	fnxrym();//通过参数渲染页面
+    fnscroll();//打电话显示与隐藏
+    fnmenuhei();//动态设置菜单右侧高度
+    fncarnum();//商品数量加减
+    fnmenu();//获取菜单列表
+    fnerji();//遮罩点击
    
 });
 

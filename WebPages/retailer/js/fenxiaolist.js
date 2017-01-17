@@ -115,9 +115,9 @@ function fngetlist() {
 		                            	oli=oli.substring(0,oli.length-1);
 		                            	oli+="；";
 	                            	}
-	                          		oli=oli.substring(0,oli.length-1);
+	                          		oli=oli.substring(0,oli.length-1)+"</p>";
 	                            }
-                            oli+="</p></div>";
+                            oli+="</div>";
                         "</div>" +
                     "</li>";
             }
