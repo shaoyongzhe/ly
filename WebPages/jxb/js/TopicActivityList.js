@@ -1,3 +1,5 @@
+//20170117
+//alert(2);
 //loadingStart();
 //$(".contentCont").empty();
 //如果想查看静态页面，请注释掉$(".contentCont").empty();	ajaxAlready();ajaxNo()，当前函数是28 29 30
@@ -19,7 +21,7 @@
 
 //  ajaxAlready("5ce1d14e07534139ae7774d8983f04f3");//***对接经销宝后注释掉***
 //	ajaxNo("5ce1d14e07534139ae7774d8983f04f3");//***对接经销宝后注释掉***
-	console.log(7878)
+//	console.log(7878);
     //1.根据经销商id查询匹配和不匹配活动，同时将经销商id存入到localstorage中，传到详情页面
     function OnDistributorIDRefresh(){
     	isReceivedDistributorID=true;//接收到指令则赋值true；
@@ -33,7 +35,7 @@
 	    	ajaxNo(parameter0.data[0]);
 	    	ajaxAlready(parameter0.data[0]);   	
 	    	DistributorIDRefreshBol=false;
-	    	console.log(999)
+//	    	console.log(999);
 			//0114添加用于调试开始
 			if(arguments[0]){
 				console.log(arguments[0],"id是",parameter0.data[0]);		
@@ -123,7 +125,8 @@
 			},			
 			success:function(data){
 				linshi1=data;
-				sucessFn($(".Aalready"),data)				
+				sucessFn($(".Aalready"),data);
+				$(".Aalready .initialHi").removeClass("initialHi");
 			},
 			error:function(data){
 				console.log(data,"请求失败");
@@ -134,6 +137,7 @@
 				ajaxBol1=true;	
 				if(ajaxBol1&&ajaxBol2){
 					loadintEnd();
+					$(".Awrap").removeClass("initialHi");				
 				}
 			}
 		});	
@@ -155,6 +159,7 @@
 			success:function(data){
 				linshi2=data;
 				sucessFn($(".Ano"),data);
+				$(".Ano .initialHi").removeClass("initialHi");
 			},
 			error:function(data){
 				console.log(data,"请求失败");
@@ -165,6 +170,7 @@
 				ajaxBol2=true;	
 				if(ajaxBol1&&ajaxBol2){
 					loadintEnd();
+					$(".Awrap").removeClass("initialHi");				
 				}
 			}
 		});	
@@ -186,9 +192,19 @@
 
 	function sucessFn(obj,info){
 		console.log(info,'sucessFn');
-		if(info.error){
-			layer.alert(info.error, {icon: 5});
+		console.log(info)
+		if(info==""||info==[]){
+			layer.alert("数据为空，请重试", {icon: 5});
 			return;
+		}
+		if(info.error){
+			layer.alert(info.error, {icon: 5});			
+			return;
+		}
+		if(info.content==0&&obj.hasClass("Aalready")){
+			layer.alert("已匹配列表为空", {icon: 5});
+		}else if(info.content==0&&obj.hasClass("Ano")){
+			layer.alert("未匹配列表为空", {icon: 5});
 		}
 		var src=["img/a4.png","img/a3.png"];
 		var endtimeArr=[];
@@ -241,7 +257,7 @@
 				$(".Aalready").find(".ccfoot2:last").text("活动详情");			
 			}else if(obj.hasClass("Ano")){			
 				//处理是否能参与活动
-				if(info.content[i].cannotaccess=="1"){
+				if(info.content[i].cannotaccess=="0"){
 					$(".Ano").find(".ccNo:last").addClass("hi");
 //					$(".Ano").find(".ccfoot2:last").text("马上参与");
 				}else{
@@ -270,7 +286,7 @@
 //		OnTopicActivityIDRefresh();//***对接经销宝后注释掉***
 	}
 	
-	returnToList()
+	returnToList();
 	//返回超慧券列表
 	function returnToList(){
 		$(".returnToList .p2").click(function(){
@@ -335,21 +351,7 @@
 	}
 	
 
-function loadingStart(){
-	$(document.body).css({//禁用滚动条
-	   "overflow-x":"hidden",
-	   "overflow-y":"hidden"
-	});
-	$("body").prepend("<div class='loadingDiv'><img src='img/loading.gif' class='loadingImg'></div>")		
-}
 
-function loadintEnd(){
-	$(document.body).css({//启用滚动条
-		"overflow-x":"auto",
-		"overflow-y":"auto"
-	});			
-	$(".loadingDiv").remove();
-}
 
 
 //下面djs2()随时删除，仅仅用来测试
@@ -362,22 +364,25 @@ function loadintEnd(){
 
 
 //判断是否接收到经销商id，活动id	
-/*isReceivedID();
+isReceivedID();
 var isReceivedIDNum=0;
 var isReceivedIDTime='';
 function isReceivedID(){
 	isReceivedIDNum++;
 	isReceivedIDTime=setTimeout(isReceivedID,500);
 	console.log(isReceivedIDNum);
-	if(isReceivedIDNum>=10&&isReceivedDistributorID==false){
-		layer.alert('缺少经销商id，请重试', {icon: 5});
+	if(isReceivedIDNum>=10){
+		if(isReceivedDistributorID==false){
+	//		layer.alert('缺少经销商id，请重试', {icon: 5});
+			console.log('缺少经销商id');			
+		}
+		if(isReceivedTopicActivityID==false){
+	//		layer.alert('缺少活动id，请重试', {icon: 5});
+			console.log('缺少活动id');			
+		}
 		clearTimeout(isReceivedIDTime);
 	}
-	if(isReceivedIDNum>=10&&isReceivedTopicActivityID==false){
-		layer.alert('缺少活动id，请重试', {icon: 5});
-		clearTimeout(isReceivedIDTime);
-	}
-}*/
+}
 
 /*满n位，变'元'为'万'*/
 function moneyTransform(money,n){
