@@ -1098,8 +1098,11 @@ label.condition{
 	overflow: hidden;
 }
 
+
+.tip.wx,
 .tip.biaoyu{
 	bottom: 9px;
+	right: -70px;
 }
 
 textarea.wxtw{
