@@ -64,9 +64,9 @@ function previewImage(file) {
 	var imgSize = file.files[0].size;
 	if(imgSize > 1048576){
 		layer.msg('活动海报不能上传大于1M的图片');
+    	return;
 	}
 
-    return;
 
     $.ajax({
         type: "POST",
@@ -87,7 +87,7 @@ function previewImage(file) {
             // pic_url = data.picture_url;
             // console.log(pic_url);
             // alert(pic_url);
-            layer.msg("上传中...",{time:2000})
+            layer.msg("上传中...",{time:2000});
             setTimeout("$('.area.edit .haibao-wrap img').attr('src', '"+ data.picture_url +"');layer.msg('上传成功')",2000);
 
         },
@@ -198,11 +198,14 @@ $('body').on("click",".setRules",function(e){
 		return;
 	}
 
+	// $(this).closest('.butieSec').find('.butie-select-wrap .selected').text("");
+	// debugger
+	// $('.rules-title').remove();
 
 	layer.open({
 
 		type: 1,
-		title: '设置规则-单个' + $(this).closest('.butieSec').find('.butie-select-wrap .selected').text(),
+		title: "设置规则-单个<i class='rules-title'>" + $(this).closest('.addSub4').find('.butie-select-wrap .selected').text() + "</i>",
 		area: ['66%',"50%"],
 		maxmin: true,
 		content: $('.layer.set-rules')
@@ -210,7 +213,9 @@ $('body').on("click",".setRules",function(e){
 	});
 
 
-	switch ($('.edit-area.condition .radio.on').text()) {
+	// debugger;
+	var forPath = $('.addSub2:contains(主办方) .member-type:eq(0) .selected').text();
+	switch (forPath) {
 		case '厂商':
 			$('.path').html('平台活动 <i>&gt;</i> 厂商 <i>&gt;</i> 分销商 <i>&gt;</i> 超惠券主题 <i>&gt;</i> 超惠券 <i>&gt;</i> 门店');
 			break;
