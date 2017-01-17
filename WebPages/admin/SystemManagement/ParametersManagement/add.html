@@ -367,9 +367,11 @@ function ajaxAdd(a) {
         url: "/webapi/configservice/config",
         data: a,
         success: function(data) {
+//      	debugger;
             layer.close(indexLayer);
             parent.ajaxSele1();
             parent.$(".query_btn_div input").click();//和测试说明后，经理解可解除注释
+            parent.history.go(0);
             parent.$(".layui-layer-close").click();
             parent.layer.closeAll()
         },

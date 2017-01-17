@@ -328,7 +328,7 @@ $(document).click(function(){
 
 var DictFunction =
     {
-        "详情": function () {
+        "详情": function (op, currenttype) {
             layer.open({
                 type: 2,
                 title: '详情',
@@ -339,8 +339,8 @@ var DictFunction =
                 content: 'detail.html',
             });
         },
-        "修改": function () { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
-        "'提交审核', '审核通过', '立即发布'": function (op, currentstate)
+        "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
+        "'提交审核', '审核通过', '立即发布','下架', '上架'": function (op, currentstate)
         {
             $.ajax({
                 type: "put",
@@ -362,7 +362,7 @@ var DictFunction =
 
             });
         },
-        "删除": function ()
+        "删除": function (op, currenttype)
         {
             $.ajax({
                 type: "delete",
@@ -388,6 +388,7 @@ var DictFunction =
 $('table.activityList').on('click',".handle",function(){
 
     $('#guid').val($(this).closest('tr').attr('guid'));
+    var currentState = $(this).closest('tr').find('td.state').text();
     var matchKey = $(this).text();
     if (!$(this).text())
     {
@@ -399,7 +400,7 @@ $('table.activityList').on('click',".handle",function(){
 	})
 	if (null != executeKey)
 	{
-	    DictFunction[executeKey]();
+	    DictFunction[executeKey]($(this).text(), currentState );
 	    return;
 	}
     
