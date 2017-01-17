@@ -20,6 +20,8 @@ $(function(){
 		 	 _ajax_paly(new_arr[index]);
 		 }
 	}
+
+
 	/* function GetQueryString(name)
     {
          var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -27,7 +29,7 @@ $(function(){
          if(r!=null)return  unescape(r[2]); return null;
     }
     GetQueryString("search")*/
-
+    
 	 function _ajax_paly(topidcont){
 		
 		// for(var k=0;k<topid.length;k++){
@@ -39,17 +41,16 @@ $(function(){
 				dataType:'json',
 				// data:{},
 				success:function(data){ 
-
-					
+					console.log(data);
 					var str_sum='';
 					str_sum+='<div class="swiper-slide">'+
 								'<header class="hidden_page_b">'+
 									'<h1 class="head_font">'+'您促销凌云给您补贴盛大开启等您'+'</h1>'+
 									'<input class="oid_ipt" type="hidden" value="">'+
 									'<input class="guid_ipt" type="hidden" value="">'+
-									'<img class="closepage" src="../image/1-1-1.png" alt="">'+
+									// '<img class="closepage" src="../image/1-1-1.png" alt="">'+
 									'<img class="activesmallpic" src="../image/5-1.png" alt="">'+
-									'<a class="active1font" href="javascript:;">'+'活动'+'</a>'+
+									'<a class="active1font" href="javascript:;">'+'</a>'+
 								'</header>'+
 								'<article class="hidden_page_b">'+
 									'<section class="Topbanner swipe-handler">'+
@@ -190,6 +191,7 @@ $(function(){
 				//三位数加上小数点	
 					function init1(){
 						$('.yellow_money span').html(formatCash1(Platform_subsidies)); //平台最高补贴输出页面
+						console.log(formatCash1(Platform_subsidies))
 						$('.issued a:eq(1)').html(formatCash1(issued)) //已发放输出页面
 						//$('.enjoy span span').html(formatCash1(getmoneys)); //获得输出到页面
 					}
@@ -223,6 +225,10 @@ $(function(){
 					 		keyy='门店'
 					 	}else if(keyy=='consumer'){
 					 		keyy='消费者'
+					 	}else if(keyy=='distributor_employee'){
+					 		keyy='分銷商店员'
+					 	}else if(keyy=='retailer_employee'){
+							keyy='门店店员'
 					 	}
 					 	return keyy;
 				 	}
@@ -297,6 +303,19 @@ $(function(){
 					var servicephone=data.servicephone;
 					$('.T_time p a span').html(servicephone);
 				
+				//调整度数
+				if($('.issued a:nth-child(2)').text().length < 4){
+					$('.issued a:nth-child(1)').css({
+						'transform':'rotate(3deg)',
+						'-webkit-transform':'rotate(3deg)',
+						'margin-top':'0.3rem'
+					})
+				}
+
+				//活动编号
+				$('.active1font').html(function(index){
+					return "活动" + (index+1);
+				});
 
 
 				},
@@ -337,6 +356,8 @@ $(function(){
 					    //autoplayDisableOnInteraction: false, 
 					    //effect: 'slide',
 					    speed:1200,
+					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
+						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
 					    //allowSwipeToPrev : true, //禁止向左滑动
 					    swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
@@ -367,8 +388,9 @@ $(function(){
 	
 
 
+	
 
-
+	
 
 
 
