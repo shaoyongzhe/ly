@@ -20,6 +20,8 @@ $(function(){
 		 	 _ajax_paly(new_arr[index]);
 		 }
 	}
+
+
 	/* function GetQueryString(name)
     {
          var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -27,7 +29,7 @@ $(function(){
          if(r!=null)return  unescape(r[2]); return null;
     }
     GetQueryString("search")*/
-
+    
 	 function _ajax_paly(topidcont){
 		
 		// for(var k=0;k<topid.length;k++){
@@ -39,7 +41,7 @@ $(function(){
 				dataType:'json',
 				// data:{},
 				success:function(data){ 
-				
+					console.log(data);
 					var str_sum='';
 					str_sum+='<div class="swiper-slide">'+
 								'<header class="hidden_page_b">'+
@@ -48,7 +50,7 @@ $(function(){
 									'<input class="guid_ipt" type="hidden" value="">'+
 									// '<img class="closepage" src="../image/1-1-1.png" alt="">'+
 									'<img class="activesmallpic" src="../image/5-1.png" alt="">'+
-									'<a class="active1font" href="javascript:;">'+'活动'+'</a>'+
+									'<a class="active1font" href="javascript:;">'+'</a>'+
 								'</header>'+
 								'<article class="hidden_page_b">'+
 									'<section class="Topbanner swipe-handler">'+
@@ -301,6 +303,19 @@ $(function(){
 					var servicephone=data.servicephone;
 					$('.T_time p a span').html(servicephone);
 				
+				//调整度数
+				if($('.issued a:nth-child(2)').text().length < 4){
+					$('.issued a:nth-child(1)').css({
+						'transform':'rotate(3deg)',
+						'-webkit-transform':'rotate(3deg)',
+						'margin-top':'0.3rem'
+					})
+				}
+
+				//活动编号
+				$('.active1font').html(function(index){
+					return "活动" + (index+1);
+				});
 
 
 				},
@@ -373,8 +388,9 @@ $(function(){
 	
 
 
+	
 
-
+	
 
 
 
