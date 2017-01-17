@@ -282,9 +282,15 @@ function fnhqactive () {
 function fnlist() {
 	$.ajax({
 		type: "get",
-      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
+      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
+      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/items",
       	//url: "../../data/activeindex.json",
-        data: "",
+        data: {
+        	"filter":"",
+        	"filtertype":0,
+        	"lastcount":"0",
+        	"pagecount":"15"
+        },
         timeout:"2000",
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
