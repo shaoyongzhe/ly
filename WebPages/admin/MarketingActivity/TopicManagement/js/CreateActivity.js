@@ -1266,6 +1266,7 @@ $("body").on("click",".option",function(e){
 				// $(this).closest('.addSub4').find('.setgailv').addClass('on');
 
 				$(this).parents(".addSub4").find("input.sbys + p").text('次');
+
 				return;
 			}
 
@@ -1310,7 +1311,7 @@ $("body").on("click",".option",function(e){
 		// $(".Yyy1 .option").click(function(){
 			// console.log($(this))
 			// console.log($(this).parents(".Yyy1"))
-			var index=$(this).parents(".Yyy1").find(".option").index($(this));		
+			var index=$(this).parents(".Yyy1").find(".option").index($(this));
 			if($(this).text()!="特定超慧券"&&$(this).text()!="谢谢参与"){//范围/值
 				$(this).parents(".yaoyiyao").find(".Yyy2d1").removeClass("hi");		
 				$(this).parents(".yaoyiyao").find(".Yyy2d2").addClass("hi");	
@@ -1656,6 +1657,11 @@ $('.saveToDb, .shenhe').click(function(){
 
 		// debugger
 		
+		if($('.region-item').length == 0){
+			$("nav span").eq(1).click();
+			layer.tips('请先完善地区', $('.setAreaBtn'));
+			return;
+		}
 
 		// 会员活动条件
 		if(finished == true){
