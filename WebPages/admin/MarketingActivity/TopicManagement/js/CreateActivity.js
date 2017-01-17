@@ -184,12 +184,13 @@ $('body').on("click",".setRules",function(e){
 	// alert(index);
 	//return
 
+	// alert($(this).closest('.butie-select-wrap .selected').text());
 
 	// $(this).find('.gz').remove();
 	layer.open({
 
 		type: 1,
-		title: '设置规则-单个消费者',
+		title: '设置规则-单个' + $(this).closest('.butieSec').find('.butie-select-wrap .selected').text(),
 		area: ['66%',"50%"],
 		maxmin: true,
 		content: $('.layer.set-rules')
@@ -232,8 +233,9 @@ $('body').on("click",".setRules",function(e){
 	// debugger
 	// console.log($(this).closest('.butieSec').find('.hdc6-1 .acSe14 .btfz p').text())
 
-	// debugger
-	$('.butie-inner-item .sum').text($(this).closest('.butieSec').find('.hdc6-1 p').text());
+	// debugger;
+	// $('.butie-inner-item .sum').text("");
+	$('.butie-inner-item .sum').text($(this).closest('.addSub4').find('.hdc6-1 p').text());
 
 });
 
@@ -305,38 +307,18 @@ $('.rulesok').click(function(){
 });
 
 
-
 // 设置摇一摇、设置轮盘抽奖
 $('body').on("click",".set",function(e){
 	// $('.set').click(function(){
 	// debugger;
 	var addSub4 = $(this).closest('.addSub4');
-	index = addSub4.index();
 	// alert(index);
 	//return
 
 	var type = addSub4.find('.hdc3 .selected').text();
 	if( type == '摇一摇'){
-		$(this).next('.y1y').remove();
-		$(this).after('<input type="hidden" class="y1y y1yHidden'+ index +'">');
-		// return;
 
-		$('.addSub5').not(':first').remove();
-		$('.addSub5:first').find('.selected').text('');
-		$('.addSub5:first').find('input').val('');
-		$('.addSub5:first').find('.acAd2').removeClass('hi');
-
-		$('.addSub5:first').find('.setgailv.on').removeClass('on').find('input').remove();
-
-		// debugger
-		// try {
-		// 	alert(index - 1)
-		// 	delete data.event_handler_list[index - 1].prize_content
-		// } catch(e) {
-		// 	// alert(2)
-		// 	// delete data.event_handler_list[yglindex].prize_content
-		// }
-
+		y1yindex = addSub4.index();
 		layer.open({
 
 			type: 1,
@@ -346,6 +328,72 @@ $('body').on("click",".set",function(e){
 			content: $('.yao'),
 
 		});
+
+		// debugger;
+		// debugger;
+		$('.yaoyiyao').not(':last').remove();
+		$('.yaoyiyao').find('.selected').text("");
+		$('.yaoyiyao').find('input').val("");
+
+
+		if($(this).closest('.hdc4d2').find('.y1y').length == 0){
+			$(this).after('<input type="hidden" class="y1y y1yHidden'+ y1yindex +'">');
+			// $('.yaoyiyao').not(':first').remove();
+
+		} else {
+
+			if($(this).next('.y1y').val() == ""){
+				return;
+			}
+
+			var y1yObj = {};
+			y1yObj = JSON.parse($(this).next('.y1y').val());
+			c(y1yObj);
+			c(y1yObj.length);
+
+			// $('.Probability_value input').val(0);
+			// $.each(y1yObj.value_curve,function(i){
+			// 	$('.Probability_value input').eq(i).val(y1yObj.value_curve[i].percentage);
+			// });
+			// $('.yaoyiyao').remove();
+			// $('.addSub5P68').after("<div class='preView'>dsadsa</div>");
+
+			for(var i=0; i<y1yObj.length; i++){
+
+				$('.yaoyiyao').last().find('.acAd2').click();
+				if(i == 0){
+					$('.yaoyiyao').first().remove();
+				}
+
+				var y1yItem = $('.yaoyiyao').eq(i);
+				// if(y1yObj[i].refund_content.indexOf('固定') != -1){
+					// y1yItem.find("li:contains("+ y1yObj[i].refund_content +")").click();
+				// } else {
+					// y1yItem.find('.selected').text(y1yObj[i].refund_content);
+				// }
+
+				y1yItem.find('li').each(function(){
+					if($(this).text() == y1yObj[i].refund_content){
+						$(this).click();
+					}
+				});
+
+				y1yItem.find('.min').val(y1yObj[i].min);
+				y1yItem.find('.max').val(y1yObj[i].max);
+				y1yItem.find('.Yyy3d1 input').val(y1yObj[i].precentage);
+				y1yItem.find('.Yyy4d1 input').val(y1yObj[i].timelimit).keyup();
+				y1yItem.find('.Yyy5-1 input').val(y1yObj[i].applycount);
+				// y1yItem.find('.Yyy6').append("<input type='hidden' class='ygl yglHidden"+ yglindex +"' value='" + JSON.stringify(y1yObj[i].probability, null, 4) + "'");
+				// y1yItem.find('.Yyy6').append($(y1yObj[i].probability));
+
+				y1yItem.find('.setgailv.on').click();
+				$('.value_curve').closest('.layui-layer').find('.layui-layer-close').click();
+
+				y1yItem.find('.setgailv.on input').val(JSON.stringify(y1yObj[i].probability, null, 4));
+
+			}
+
+		}
 
 	} else if( type == '轮盘抽奖'){
 		$(this).next('.lp').remove();
@@ -385,17 +433,19 @@ $('.yaook').click(function(){
 			// debugger;
 			var _this = $(this);
 			try {
-				var a = JSON.parse(_this.find('.Yyy6 input').val())
+				var yaoyiyaogailv = JSON.parse(_this.find('.Yyy6 input').val())
+				// var yaoyiyaogailv = _this.find('.Yyy6 input').prop("outerHTML");
 			} catch(e) {
 				// console.log(e);
 			}
 			y1yObj = {
 				"refund_content": _this.find('.Yyy1 .selected').text(),
 				"min": _this.find('.Yyy2 input:eq(0)').val(),
-				// "max": _this.find('.Yyy2 input:eq(1)').val(),
+				"max": _this.find('.Yyy2 input:eq(1)').val(),
 				"precentage": _this.find('.Yyy3 input').val(),
 				"timelimit": _this.find('.Yyy4 input').val(),
-				"probability": a
+				"applycount": _this.find('.Yyy5-1 input').val(),
+				"probability": yaoyiyaogailv
 			}
 			y1yArr.push(y1yObj);
 		});
@@ -405,7 +455,7 @@ $('.yaook').click(function(){
 		// }
 
 		// console.log(y1yObj);
-		$(".y1yHidden" + index).val(JSON.stringify(y1yArr, null, 4));
+		$(".y1yHidden" + y1yindex).val(JSON.stringify(y1yArr, null, 4));
 		// console.log($(".y1yHidden" + index).val());
 		// return;
 
@@ -429,6 +479,7 @@ var count = 10;
 // $('.section3').off('click');
 $('.section3').on('click','.setgailv.on',function(){
 	var _this = $(this);
+
 
 	var addSub4 = _this.closest('.addSub4');
 	if(addSub4.find('.hdc3 .selected').text().indexOf('随机') != -1){
@@ -473,6 +524,7 @@ $('.section3').on('click','.setgailv.on',function(){
 		return false;
 	}
 
+
 	
 	$('.setProbability .yaoyiyaogailv').remove();
 
@@ -498,35 +550,48 @@ $('.section3').on('click','.setgailv.on',function(){
 		// debugger;
 		if(_this.find('.gl').length == 0){
 			_this.append('<input type="hidden" class="gl glHidden'+ index +'">');
+			$('.Probability_value input').val(10);
 
 		} else {
 			var glObj = "";
-			glObj = JSON.parse(_this.find('.gl').val());
-			// console.log(glObj.value_curve);
-
-			$('.Probability_value input').val(0);
-			$.each(glObj.value_curve,function(i){
-				$('.Probability_value input').eq(i).val(glObj.value_curve[i].percentage);
-			});
-
+			if(_this.find('.gl').val() != ""){
+				glObj = JSON.parse(_this.find('.gl').val());
+				// console.log(glObj.value_curve);
+				$.each(glObj.value_curve,function(i){
+					$('.Probability_value input').eq(i).val(glObj.value_curve[i].percentage);
+				});
+			}
 		}
 
-
-		
 	} else if(_this.closest('.addSub5').length == 1) {
+		// debugger;
 		yglindex = _this.closest('.addSub5').index();
+
+		fwmin = parseInt(_this.closest('.addSub5').find('.min').val());
+		fwmax = parseInt(_this.closest('.addSub5').find('.max').val());
+
 		// alert(index);
-		_this.find('.ygl').remove();
-		_this.append('<input type="hidden" class="ygl yglHidden'+ yglindex +'">');
+		// _this.find('.ygl').remove();
+		if(_this.find('.ygl').length == 0){
+			_this.append('<input type="hidden" class="ygl yglHidden'+ yglindex +'">');
+			$('.Probability_value input').val(10);
+		} else {
+			var yglObj = "";
+			if(_this.find('.ygl').val() != ""){
+				yglObj = JSON.parse(_this.find('.ygl').val());
+				// console.log(glObj.value_curve);
+				$.each(yglObj.value_curve,function(i){
+					$('.Probability_value input').eq(i).val(yglObj.value_curve[i].percentage);
+				});
+			}
+		}
+
 		// return;
 		$('.setProbability').append('<i class="yaoyiyaogailv"></i>');
 	}
 
 	var btfz = _this.closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
 	$('.value_curve .number_doller em').text(btfz);
-
-
-
 
 	var each = (fwmax - fwmin)/count;
 	for (var i=0; i<count+1; i++) {
@@ -603,33 +668,7 @@ $('.gailvok').click(function(){
 	// return
 });
 
-$('.Probability_value input').on("blur",function(){
-
-	// debugger
-	var total = 0;
-	$('.Probability_value input').each(function(){
-
-		if($(this).val() == ""){
-			$(this).val(0);
-		}
-
-		total += parseInt($(this).val());
-		if(total > 100){
-			layer.msg('概率值总和不能高于100%');
-			$('.gailvok').addClass('disabled');
-			return false;
-		} else {
-			$('.gailvok').removeClass('disabled');
-		}
-
-	});
-
-	// console.log(total);
-
-});
-
-
-
+	
 
 
 var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
@@ -735,9 +774,28 @@ $('body.create').on('input','input',function(e){
     		return;
     	}
 
-    	if($(this).val().indexOf('.') != 0){
-    		$(this).val(parseInt($(this).val()))
+
+    	if($(this).val().indexOf(" ") != 0){
+    		// alert($(this).val().indexOf(" "))
+    		// alert('cxcxcxcx')
     	}
+
+
+
+    	if($(this).closest('.input_a').length == 1){
+    		
+    		if($(this).val().indexOf('.') == 1){
+    			$(this).attr("maxlength","4");
+    			return
+    		}
+    		if($(this).val().indexOf('.') == 2){
+    			$(this).attr("maxlength","5");
+    			return
+    		}
+
+    	}
+    	
+    	$(this).val(parseInt($(this).val()));
 
     }
 
@@ -753,6 +811,35 @@ $('body.create').on('input','input',function(e){
 
 });
 
+$('.Probability_value input').on("blur",function(){
+
+	// debugger
+	var total = 0;
+	$('.Probability_value input').each(function(){
+
+		if($(this).val() == ""){
+			$(this).val(0);
+		}
+
+		if($(this).val().indexOf('.') != 0){
+			total += Number($(this).val()).toFixed(2);
+		} else {
+			total += parseInt($(this).val());
+		}
+		
+		if(total > 100){
+			layer.msg('概率值总和不能高于100%');
+			$('.gailvok').addClass('disabled');
+			return false;
+		} else {
+			$('.gailvok').removeClass('disabled');
+		}
+
+	});
+
+	// console.log(total);
+
+});
 
 // 文本框输入
 $('textarea, input').on('input',function(){
@@ -850,6 +937,7 @@ $('.editok').click(function(){
 	$('.layui-layer-close').click();
 
 });
+
 
 
 
@@ -1099,10 +1187,10 @@ $("body").on("click",".option",function(e){
 			//补贴峰值
 			var text="";
 			if(addSub4Arr[index+1].indexOf("元")!=-1){
-				text="元";		
+				text="元";
 			}else if(addSub4Arr[index+1].indexOf("分")!=-1){
 				text="分";		
-			}			
+			}
 			$(this).parents(".addSub4").find(".hdc6").find(".acSe14 p").text(text);
 			// $(this).parents(".addSub4").find(".hdc6.fz .acSe14 p").text(text);
 			//设置概率
@@ -1142,6 +1230,8 @@ $("body").on("click",".option",function(e){
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 
 				$(this).closest('.addSub4').find('.setgailv').addClass('on');
+
+				$(this).parents(".addSub4").find("input.sbys + p").text('次');
 				return;
 			}
 
@@ -1643,7 +1733,7 @@ $('.saveToDb, .shenhe').click(function(){
 				// 	// return false;
 				// }
 
-				if(_this.find('.selectWrap1.-hi input.acMeI1').not(':disabled').val() == ""){
+				/*if(_this.find('.selectWrap1.-hi input.acMeI1').not(':disabled').val() == ""){
 					// debugger
 					$("nav span").eq(1).click();
 					layer.tips('请先完善', _this.find('.selectWrap1.-hi input.acMeI1'));
@@ -1659,7 +1749,7 @@ $('.saveToDb, .shenhe').click(function(){
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
-				}
+				}*/
 
 			});
 		} else {
@@ -1953,7 +2043,7 @@ $('.saveToDb, .shenhe').click(function(){
 		var curDate = _self.parents('.addSub3').find('.acZige3 input.date').val();
 		var begintime = "";
 		if(acPrev == "活动开始前"){
-			if($('.select-wrap.acSe7 .selected').text() == "天"){
+			if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').text() == "天"){
 				begintimeInput = $('.begintime').val().substring(0,10);
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
@@ -1973,6 +2063,7 @@ $('.saveToDb, .shenhe').click(function(){
 		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
 		var statisticrange = _self.parents('.addSub3').find('.select-wrap.acSe6 .selected').text();
 		var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').text();
+		if(conditionType == ""){return}
 		data[memberType][conditionType] = {
 			"state": "active",
 			"min": min,
@@ -2136,11 +2227,11 @@ $('.saveToDb, .shenhe').click(function(){
 	data["propagation"] = tuwenArr;
 	// console.log(data);
 
-
+	var optype = $(this).text();
 	data["releaseset"] = {
 		// "flag": "",
 		// "releasetime":"",
-        "optype": $(this).text()
+	    "optype": optype
 
     }
 
@@ -2169,14 +2260,15 @@ $('.saveToDb, .shenhe').click(function(){
 	            }
 	        },
 	        error: function () {
-	            console.warn("提交审核失败");
+	            // console.warn("提交审核失败");
+	            layer.msg(optype + "失败");
 	        }
     	});
 		
 		return;
 	}
 
-		
+	
 	if (!$('nav span:last').hasClass('on') && $(this).text() == "保存")
 	{
 		layer.msg('数据已保存');
@@ -2196,8 +2288,9 @@ function _ajax(type, url, data, tip, success) {
         success: function (json) {
             success(json);
         },
-        error: function () {
+        error: function (data) {
             console.warn(tip + " error");
+            layer.alert(tip + ' :错误'+data.status, {icon: 5});
         }
     });
 }
