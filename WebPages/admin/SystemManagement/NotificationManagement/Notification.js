@@ -351,6 +351,10 @@ $(".add").click(function () {
 
 // 新增提交
 $('.add-btn').click(function () {
+
+
+
+
     var addForm = {
         gateway_templateid: $('.addForm .gateway_templateid').val(),//外部模板编号
         category: $('.addForm .category_input').val(),//场景
@@ -359,7 +363,7 @@ $('.add-btn').click(function () {
         groupname: $('.addForm .group_input').val(),
         content: $('.addForm .content').val(),
         description: $('.addForm .description').val(),
-        area: getDistrict($("#loc_province").find("option:selected").text(), $("#loc_city").find("option:selected").text(), $("#loc_county").find("option:selected").text()),
+        area: getDistrict($('#province span em').text(), $('#city span em').text(), $('#area span em').text()),
         isdefault: parseInt($('.addForm .isDefault').val())
     }
     if (addForm.category == "-- 请选择 --") {
@@ -408,8 +412,8 @@ $('.add-btn').click(function () {
 
 function getDistrict(province, city, county) {
     if (province == "省份") return ",,";
-    if (city == "地级市") return ",," + province;
-    if (county == "市、县、区") return "," + city + "," + province;
+    if (city == "城市") return ",," + province;
+    if (county == "区县") return "," + city + "," + province;
     return province + "," + city + "," + county;
 }
 //设置默认分组
@@ -634,8 +638,6 @@ $('.select').on('click', '.option', function (e) {
                 $('.addForm .template_group').append("<li class='option'>" + data[key] + "</li>");
             }
         });
-    } else if ($(this).parent().hasClass('template_event')) {
-
     }
 });
 

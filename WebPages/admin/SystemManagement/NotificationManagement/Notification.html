@@ -67,7 +67,7 @@
                 box-sizing: border-box;
                 position: absolute;
                 top: 31px;
-                z-index: 1;
+                z-index: 100;
             }
 
 
@@ -79,6 +79,113 @@
                     .select-wrap ul li + li {
                         border-top: 1px solid #ddd;
                     }
+
+
+
+        .gf-select {
+            width: 33% !important;
+            float: left;
+            position: relative;
+            width: 200px;
+        }
+
+            .gf-select span {
+                width: 83%;
+                padding: 4px 0px 0 10px;
+                display: block;
+                border: 1px solid #ddd;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+
+                .gf-select span em {
+                    font-style: normal;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 50px;
+                    display: inline-block;
+                }
+
+            .gf-select .icon-jt {
+                width: 30px;
+                position: absolute;
+                /* background: red; */
+                height: 20px;
+                right: 5px;
+                top: 6px;
+                border-left: 1px solid #ccc;
+                z-index: -1;
+            }
+
+                .gf-select .icon-jt:before {
+                    content: "";
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid #ccc;
+                    border-bottom: 2px solid #ccc;
+                    transform: rotate(45deg);
+                    /* background: red; */
+                    display: inline-block;
+                    margin: 3px 0 7px 10px;
+                }
+
+            .gf-select ul {
+                border: 1px solid #ddd;
+                position: absolute;
+                width: 100%;
+                top: 31px;
+                overflow-y: auto;
+                display: none;
+                background: #fff;
+            }
+
+                .gf-select ul li {
+                    border-bottom: 1px solid #ddd;
+                    line-height: 30px;
+                    padding-left: 10px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                    .gf-select ul li:last-child {
+                        border-bottom: none;
+                    }
+
+        .regionAll {
+            width: 396px;
+            height: 46px;
+        }
+
+        .regionAll_left {
+            float: left;
+            width: 93px;
+            height: 46px;
+        }
+
+        .regionall_right {
+            float: left;
+            width: 303px;
+            height: 46px;
+        }
+
+        .regionAll_left p {
+            line-height: 31px;
+            font-size: 15px;
+        }
+
+        #province ul {
+            z-index: 99999;
+        }
+
+        #city ul {
+            z-index: 9999;
+        }
+
+        #area ul {
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
@@ -271,8 +378,35 @@
             <label>新增组名</label>
             <input type="text" value="" class="input-text fourthtypeInput" placeholder="&nbsp;可为空，为空使用选择的组名">
         </div>-->
+        <!-- 新增s -->
+        <div class="regionAll">
+            <div class="regionAll_left">
+                <p>影响区域</p>
 
-        <div class="input-contorl">
+            </div>
+            <div class="regionall_right">
+                <div class="gf-select" id="province">
+                    <span><em>省份</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+                    <ul>
+                        <li data-value="">省份</li>
+                    </ul>
+                </div>
+                <div class="gf-select" id="city">
+                    <span><em>城市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+                    <ul>
+                        <li data-value="">城市</li>
+                    </ul>
+                </div>
+                <div class="gf-select" id="area">
+                    <span><em>区县</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+                    <ul>
+                        <li data-value="">区县</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 新增e -->
+        <!-- <div class="input-contorl">
             <label>影响省份</label>
             <select class="form-control" id="loc_province" name="loc_province"></select>
         </div>
@@ -283,7 +417,7 @@
         <div class="input-contorl">
             <label>影响市、县、区</label>
             <select class="form-control" id="loc_county" name="loc_county"></select>
-        </div>
+        </div> -->
         <div class="input-contorl">
             <label>内容</label>
             <textarea name="" id="" class="content"></textarea>
@@ -321,6 +455,11 @@
 <script>
     showLocation();
     $(function () { $(window).on("scroll", $backToTopFun); $backToTopFun(); });
+    $(function(){
+        comSelect();
+        selectCity();
+    });
+
 
 </script>
 <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> -->
