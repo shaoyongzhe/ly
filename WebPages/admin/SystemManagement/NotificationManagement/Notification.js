@@ -324,9 +324,18 @@ $(".add").click(function () {
     $('.addForm').show();
     //获取所有发送途径
     _ajax("get", '/webapi/operation/notification/dict/allchannel', null, "发送途径", function (data) {
-        $('.template_sendway').remove();
+        $('.addForm .template_sendway').children().remove();
+
         for (var key in data) {
-            $('.template_sendway').append("<li data-key=" + data[key] + ">" + data[key] + "</li>");
+            //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+            $('.addForm .template_sendway').append("<li class='option'>" + data[key] + "</li>");
+        }
+    });
+    _ajax("get", '/webapi/operation/notification/dict/category?parameters={"category":""}', null, "发送途径", function (data) {
+        $('.addForm .template_category').children().remove();
+        for (var key in data) {
+            //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+            $('.addForm .template_category').append("<li class='option'>" + data[key] + "</li>");
         }
     });
     layer.open({
@@ -338,14 +347,16 @@ $(".add").click(function () {
         content: $('.addForm'),
     });
 });
+
+
 // 新增提交
 $('.add-btn').click(function () {
     var addForm = {
         gateway_templateid: $('.addForm .gateway_templateid').val(),//外部模板编号
-        category: $('.addForm .category_input').text(),//场景
-        subcategory: $('.addForm .event_input').text(),
-        channel: $('.addForm .sendway_input').text().trim(),
-        groupname: $('.addForm .template_group').val().trim(),
+        category: $('.addForm .category_input').val(),//场景
+        subcategory: $('.addForm .event_input').val(),
+        channel: $('.addForm .sendway_input').val().trim(),
+        groupname: $('.addForm .group_input').val(),
         content: $('.addForm .content').val(),
         description: $('.addForm .description').val(),
         area: getDistrict($("#loc_province").find("option:selected").text(), $("#loc_city").find("option:selected").text(), $("#loc_county").find("option:selected").text()),
@@ -399,7 +410,7 @@ function getDistrict(province, city, county) {
     if (province == "省份") return ",,";
     if (city == "地级市") return ",," + province;
     if (county == "市、县、区") return "," + city + "," + province;
-    return county + "," + city + "," + province;
+    return province + "," + city + "," + county;
 }
 //设置默认分组
 $(".setDefaultGroup").click(function () {
@@ -445,7 +456,7 @@ $('table.notify')
                          btn: ['确定', '取消']
                      }, function () {
                          layer.msg('设置中...', { time: 0 });
-                         _ajax("put",  "/webapi/operation/notification/template/" + guid + "/defaultflag", null, '设置默认模板', function () {
+                         _ajax("put", "/webapi/operation/notification/template/" + guid + "/defaultflag", null, '设置默认模板', function () {
                              var cur = $('.laypage_curr').text();
                              getList(cur, 'setDefault');
                          });
@@ -532,7 +543,7 @@ $('table').on('click', '.open', function () {
     var guid = thisTr.find('.guid').val();
     var state = thisTr.find('.state');
     // state.text("已启用");return
-    _ajax('PUT',  '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
+    _ajax('PUT', '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
         if (data.error == "") {
             /*state.text("已启用");
             state.parents("tr").find('.handle-btns-wrap').innerWidth(75).html("<div class='handle-btns'><span class='arrow-right'></span><span class='btn modify'>修改</span></div>");
@@ -593,12 +604,41 @@ $('body').on("click", ".select-wrap", function (e) {
     $(".select-wrap").not(this).find('.select').hide();
 });
 
+var staticcategory = "";
+$('.select').on('click', '.option', function (e) {
+    e.stopPropagation();
+    $(this).parent().hide().prev().val($(this).text());
+    if ($(this).parent().hasClass('template_category')) {
+        var category = $(this).parent().prev().val();
+        staticcategory = category;
+        var jsonData = {
+            "category": category
+        };
+        _ajax("get", '/webapi/operation/notification/dict/subcategory', jsonData, "发送途径", function (data) {
+            $('.addForm .template_event').children().remove();
+            for (var key in data) {
+                //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+                $('.addForm .template_event').append("<li class='option'>" + data[key] + "</li>");
+            }
+        });
+    } else if ($(this).parent().hasClass('template_event')) {
+        var subcategory = $(this).parent().prev().val();
+        var jsonData = {
+            "category": staticcategory,
+            "subcategory": subcategory
+        }
+        _ajax("get", '/webapi/operation/notification/dict/groupname', jsonData, "发送途径", function (data) {
+            $('.addForm .template_group').children().remove();
+            for (var key in data) {
+                //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+                $('.addForm .template_group').append("<li class='option'>" + data[key] + "</li>");
+            }
+        });
+    } else if ($(this).parent().hasClass('template_event')) {
 
-$('.select .option').click(function(e){
-	e.stopPropagation();
-	$(this).parent().hide().prev().val($(this).text());
+    }
 });
 
-$(document).click(function(){
-	$('.select').hide();
+$(document).click(function () {
+    $('.select').hide();
 });
