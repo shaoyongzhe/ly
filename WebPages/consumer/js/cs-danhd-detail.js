@@ -112,7 +112,8 @@ function shareactivities() {
 
                         var topicid = ""
                         $.each(item.topiclist, function (index, items, array) {
-                            topicid += "," + items.topicid
+                            if (index <= 20)
+                                topicid += "," + items.topicid
                         });
 
                         html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
