@@ -4,8 +4,23 @@
 //获取数据写入tbody
 var djcishu = 1,
 	allcont = 0;
-var state = {};
 var arr1 = new Fndate();
+var state = {
+	state: "未处理", //状态
+	membername: "", //会员名称
+	membertype: "", //会员类型
+	querybegindate: arr1.strold, //查询开始日期
+	queryenddate: arr1.strnew, //查询截止日期
+	province: "", //省
+	city: "", //市
+	county: "", //区
+	brcount: "", //违规次数
+	compare: "等于", //违规次数比较符号
+	level: "", //违规级别
+	lastindex: "0", //上次返回结果的最后一条数据索引
+	pagecount: "50" //要查询的数据条数
+};;
+
 if(localStorage.state) {
 	state = JSON.parse(localStorage.state);
 } else {
@@ -168,7 +183,7 @@ function fnshijian(state) {
 				fncreattab(data); //创建tbody
 				$("#cgl-tablebox").animate({
 					scrollTop: 0
-				},0);
+				}, 0);
 				$("#cgl-more").find("span").html("点击加载更多")
 				$("#cgl-more").hide(function() {
 					$("#cgl-more").css({
@@ -189,43 +204,6 @@ function Fndate() {
 		this.strold = d.getFullYear() + "-" + (d.getMonth().length > 1 ? d.getMonth() : "0" + d.getMonth()) + "-" + d.getDate();
 	}
 	this.strnew = d.getFullYear() + "-" + ((d.getMonth() + 1).length > 1 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + d.getDate();
-}
-
-function fnreset() {
-	//重置按钮
-	$("#cgl-reset").on("click", function() {
-		var arr = new Fndate();
-		var state1 = {
-			state: "未处理", //状态
-			membername: "", //会员名称
-			membertype: "", //会员类型
-			querybegindate: arr.strold, //查询开始日期
-			queryenddate: arr.strnew, //查询截止日期
-			province: "", //省
-			city: "", //市
-			county: "", //区
-			brcount: "", //违规次数
-			compare: "等于", //违规次数比较符号
-			level: "", //违规级别
-			lastindex: "0", //上次返回结果的最后一条数据索引
-			pagecount: "50" //要查询的数据条数
-		};
-		if(JSON.stringify(state1) == JSON.stringify(state)) {
-			$(".cgl-jzz").html("已经是最初始状态").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-		} else {
-			state = state1;
-			fnjilu();
-			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
-
-		}
-		$("#province>span>em").html("省");
-		$("#city>span>em").html("市");
-		$("#area>span>em").html("区");
-		$("#cgl-wgdj").css({
-			"color": "#999"
-		});
-	});
 }
 
 //记录状态
@@ -277,9 +255,14 @@ function fnjilu() {
 	$("#cgl-wgcs").val(state.brcount);
 	$("#cgl-vipname").val(state.membername);
 	if(state.level == "") {
-		$("#cgl-wgdj").css({"color":"#999"}).find("option:eq(0)").attr("selected",true);
+		$("#cgl-wgdj").css({
+			"color": "#999"
+		}).val("-请选择-");
+		
 	} else {
-		$("#cgl-wgdj").css({"color":"#333"});
+		$("#cgl-wgdj").css({
+			"color": "#333"
+		});
 		for(var j = 1; j < $("#cgl-wgdj option").length; j++) {
 			if($("#cgl-wgdj option").eq(j).html() == state.level) {
 				$("#cgl-wgdj option").eq(j).attr("selected", true)
@@ -333,8 +316,10 @@ function fndate() {
 			format: 'YYYY-MM-DD',
 			// format: 'YYYY-MM-DD',
 			max: laydate.now(),
-			istoday: true,
 			istime: false,
+			isclear: false, //是否显示清空
+			istoday: false, //是否显示今天
+			issure: false,
 			choose: function(dates) {
 				//layer.msg(dates);
 				var isxy = $('#cgl-cxdata1').val().replace(/\-/g, "") - $('#cgl-cxdata').val().replace(/\-/g, "")
@@ -353,7 +338,12 @@ function fndate() {
 			}
 		});
 	});
+
 }
+$('#cgl-cxdata').change(function() {
+	alert('123');
+});
+
 //发生地区
 function fnfsdiqu() {
 	$("#province>ul").on("click", "li", function() {
@@ -504,6 +494,40 @@ function fnwgjb() {
 		state["lastindex"] = 0;
 		fnshijian(state);
 		localStorage.setItem("state", JSON.stringify(state));
+	});
+}
+//重置按钮
+function fnreset() {
+	$("#cgl-reset").on("click", function() {
+		var arr = new Fndate();
+		var state1 = {
+			state: "未处理", //状态
+			membername: "", //会员名称
+			membertype: "", //会员类型
+			querybegindate: arr.strold, //查询开始日期
+			queryenddate: arr.strnew, //查询截止日期
+			province: "", //省
+			city: "", //市
+			county: "", //区
+			brcount: "", //违规次数
+			compare: "等于", //违规次数比较符号
+			level: "", //违规级别
+			lastindex: "0", //上次返回结果的最后一条数据索引
+			pagecount: "50" //要查询的数据条数
+		};
+		if(JSON.stringify(state1) == JSON.stringify(state)) {
+			$(".cgl-jzz").html("已经是最初始状态").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+		} else {
+			state = state1;
+			fnshijian(state);
+			localStorage.setItem("state", JSON.stringify(state));
+		}
+		$("#province>span>em").html("省");
+		$("#city>span>em").html("市");
+		$("#area>span>em").html("区");
+		$("#cgl-wgdj").css({
+			"color": "#999"
+		}).val("-请选择-");
 	});
 }
 
@@ -689,9 +713,10 @@ function fnfstz(fstz) {
 //关闭按钮
 function fnclose() {
 	$(".cgl-close").click(function() {
-		$(".layui-layer-shade").remove();
-		$(".layui-layer").remove();
-		//$("html").css({"overflow":"scroll"});
+//		$(".layui-layer-shade").remove();
+//		$(".layui-layer").remove();
+		//$(doc).css({"overflow":"scroll"});
+		$('.layui-layer-close').click();
 	});
 }
 //操作中的发送通知
@@ -997,6 +1022,7 @@ function fnanniu() {
 }
 //改变违规记录状态
 function fnwgjlzt(putdata) {
+	console.log(putdata)
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
 		type: "put",
@@ -1008,13 +1034,11 @@ function fnwgjlzt(putdata) {
 		success: function(data) {
 			$(".cgl-jzz").hide();
 			if(data.error) {
-				alert(data.error);
-				$(".layui-layer-shade").remove();
-				$(".layui-layer").remove();
+				$('.layui-layer-close').click();
+				$(".cgl-jzz").html("操作失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			}
 			if(data.succeed) {
-				$(".layui-layer-shade").remove();
-				$(".layui-layer").remove();
+				$('.layui-layer-close').click();
 				var guidarr = putdata.anticheatingids.split(",");
 				for(var i = 0; i < guidarr.length; i++) {
 					$("tr").each(function(n) {
@@ -1027,30 +1051,28 @@ function fnwgjlzt(putdata) {
 				}
 				state["lastindex"] = 0;
 				//console.log(state)
-/*				$.ajax({
-					type: "get",
-					url: "/webapi/earlywarningmanage/anticheating/getlist",
-					data: state,
-					error: function() {
-						$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-					},
-					success: function(data) {
-						fndengji(data.statecount);
-						//fnxuanran(data);
-						$("#cgl-table").find("#checall").prop("checked", false);
-					}
-				});
-*/			
+				/*				$.ajax({
+									type: "get",
+									url: "/webapi/earlywarningmanage/anticheating/getlist",
+									data: state,
+									error: function() {
+										$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+									},
+									success: function(data) {
+										fndengji(data.statecount);
+										//fnxuanran(data);
+										$("#cgl-table").find("#checall").prop("checked", false);
+									}
+								});
+				*/
 				fnshijian(state);
 			}
 		}
 	});
 }
 
-
 $(function() {
 	fnshijian(state);
-	fnjilu();
 	fnxze1();
 	fnxiala(); //下拉菜单
 	fndate(); //发送时间
