@@ -48,7 +48,7 @@
 									<p class="ccCo">查询中...<a style="color: #F4606C;" href="#" class="longa">read more</a></p>
 								</div>
 								<div class="ccTi">						
-										<p class="dib">参与时间&nbsp;:&nbsp;</p><span class="ccTis1">查询中...</span><p class="dib">参与条件&nbsp;:&nbsp;</p><img src="img/a3.png" alt="" /><span class="ccTis2">地区</span><img class="hi" src="img/a4.png" alt="" /><span class="ccTis2 hi">商品类名</span><img src="img/a3.png" alt="" /><span class="ccTis2">超惠活动要求</span><img src="img/a3.png" alt="" /><span class="ccTis2">参与会员资格</span>				
+										<p class="dib">参与时间&nbsp;:&nbsp;</p><span class="ccTis1">查询中...</span><p class="dib">参与条件&nbsp;:&nbsp;</p><img src="img/a3.png" alt="" /><span class="ccTis2">地区</span><img class="hi" src="img/a4.png" alt="" /><span class="ccTis2 hi">商品类目</span><img src="img/a3.png" alt="" /><span class="ccTis2">超惠活动要求</span><img src="img/a3.png" alt="" /><span class="ccTis2">参与会员资格</span>				
 								</div>
 								<div class="ccfoot">
 									<div class="ccfootRight">
@@ -68,10 +68,17 @@
 			</div>
 			<!--未参与的活动-->
 			<div class="content -hi Ano">
-				<div class="contentDq">
+				<div class="contentDq hi"><!--方案改变，2个地区不用切换所以这里注释掉，如果有一天需要地区切换，那就找20170117以及之前的版本-->
 					<img src="img/a7.png" alt="" /><span>本地区</span>				
 				</div>
-				<div class="contentCont"></div>
+				<div class="contentCont"><!--contentCont会在js中清空-->
+					<div class="thisDistrict">
+						<div class="contentDq"><img src="img/a7.png" alt="" /><span>本地区</span></div>
+					</div>
+					<div class="elseDistrict">
+						<div class="contentDq"><img src="img/a7.png" alt="" /><span>其他地区</span></div>
+					</div>
+				</div>
 			</div>			
 		</div>
 
