@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title></title>
+<title>购物车</title>
 <link href="../../css/common.css" type="text/css" rel="stylesheet" /> 
 <link href="../../css/shopcar.css" type="text/css" rel="stylesheet" />
 
@@ -15,6 +15,7 @@
 		var _list="";
 		var _give="";
 		var _color="";
+		var _active="";
 			$.ajax({
 				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/5ce1d14e07534139ae7774d8983f04f3?isvalid=0",
 				async:true,
@@ -29,6 +30,8 @@
 			})
 		
 		function show(data1){
+			var _price=0;
+			var _count=0;
 			$(".addr").text("clienton")//需要修改
 			var _name="";
 			for(var i=0;i<data1.length;i++){
@@ -39,52 +42,88 @@
 				}
 				_name=data1[i]["itemslist"]?data1[i]["itemslist"][data1[i]["selectedindex"]]["itemname"]:data1[i]["itemname"]
 				if(data1[i]["activityitem_id"]=="" && data1[i]["salestop"]==0){
+					_active+="";
+					_price+=Number(data1[i]["price"]);
+					_count++;
 					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="
 					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div></p></div></div></div><div class="+
+					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+					"><div>备注：<span>"+data1[i]["remark"]+"</span></div></div><div class="+
 					"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
-				}else if(data1[i]["activityitem_id"]=="降价" && data1[i]["salestop"]==0){
+				}else if(data1[i]["itemkind"]=="降价" && data1[i]["salestop"]==0){
+					_active+="<div class="+"\"intr\""+"><div>降价</div><div>"+data1[i]["ruledesc"]+"</div></div>"
+					_price+=Number(data1[i]["price"]);
+					_count++;
 					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
 					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["discountprice"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["originalprice"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+
+					">-</span></div></p></div></div></div><div class="+"\"disc\""+
 					"<div class="+"\"disc\""+" id="+"\"disc\""+
-					"><span>降价</span><span>7.5折</span></div><div class="+"\"disc\""+"><span>阿萨德撒打算</span></div><div style="+
+					"><span>降价</span><span>"+data1[i]["discount"]+"</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
 					"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
-				}else if(data1[i]["activityitem_id"]=="有礼" && data1[i]["salestop"]==0){
+				}else if(data1[i]["itemkind"]=="折扣" && data1[i]["salestop"]==0){
+					_active+="<div class="+"\"intr\""+"><div>降价</div><div>"+data1[i]["ruledesc"]+"</div></div>"
+					_price+=Number(data1[i]["price"]);
+					_count++;
 					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
 					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]*data1[i]["discount"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["price"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+					"<div class="+"\"disc\""+" id="+"\"disc\""+
+					"><span>折扣</span><span>"+data1[i]["discount"]+"</span></div>div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
+					"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
+				}else if(data1[i]["itemkind"]=="有礼" && data1[i]["salestop"]==0){
+					_active+="<div class="+"\"intr\""+"><div>有礼</div><div>"+data1[i]["ruledesc"]+"</div></div>"
+					_price+=Number(data1[i]["price"]);
+					_count++;
+					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
+					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
+					" />"+_name+"</div><p>"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
 					" id="+"\"disc\""+
-					"><span>有礼</span><span>7.5折</span></div><div class="+"\"disc\""+"><span>阿萨德撒打算</span></div><div style="+
+					"><span>有礼</span><span>购买"+data1[i]["specification"]+data1[i]["packagetypename"]+data1[i]["itemcategoryname"]+data1[i]["itemsubcategoryname"]+"赠送"+
+					data1[i]["giftitemobj"]["itemcategoryname"]+data1[i]["giftitemobj"]["itemsubcategoryname"]+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</span></div>div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
 					"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"					
-				}else if(data1[i]["activityitem_id"]=="满赠" && data1[i]["salestop"]==0){
+				}else if(data1[i]["itemkind"]=="满赠" && data1[i]["salestop"]==0){
 //					for(var j=0;j<data1[i]["giftitemobj"].length;j++){
 //						_give+="<span>"+data1[i]["giftitemobj"][j]["itemname"]+"<em>"+data1[i]["giftcount"]+"</em></span>"
 //					}
+					_count++;
+					_price+=Number(data1[i]["price"]);
+					_active+="<div class="+"\"intr\""+"><div>满赠</div><div>"+data1[i]["ruledesc"]+"</div></div>"
 					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
 					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+"><span>￥18.50</span><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+					" />"+_name+"</div><p>"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
 					" id="+"\"disc\""+
-					"><span>买赠</span><span>7.5折</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["remark"]+"</span></div></div><div class="+"\"giveTo\""+"><b>赠品</b><div><span>  啊实打实的萨达四大       </span><span>  啊实打实的萨达四大       </span></div></div><div class="+
+					"><span>买赠</span><span>买"+data1[i]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"赠"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div class="+"\"giveTo\""+"><b>赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span></div></div><div class="+
 					"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
 				}else if(data1[i]["salestop"]==1){
 					_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="+
-					"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+" />"+data1[i]["itemname"]+"</div><p>230-465卷</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><p class="+"\"intail\""+
-					"><span>￥18.50</span><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div style="+
+					"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+" />"+data1[i]["itemname"]+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div style="+
 					"\"position:absolute;left:0;top:0;width:100%;height:111px;background:#ddd;opacity:0.5\""+"></div></li>"
 				}
 			}
 			$("section ul").html(_list)
+			$(".summ").text("("+_count+")")
+			if(_active==""){
+				$(".intr").css({padding:0})
+			}
+			$(".intr").text(_active)
+			$(".amountBig span").text(_price)
+			$(".commit span").text("("+_count+")")
 			select()
 			change(data1);
 			deLete(data1)
+			$(".loads").css({display:"none"})
 		}//"+data1[i]["giftitemobj"]["itemname"]+"
 		//add()
 		//function add(){
 			function deLete(data1){
 				var _dl="";
 				$("#edit").click(function(){
-					$(".set").css({display:"block"})
+					if($(".set").css("display")=="none"){
+						$(".set").css({display:"block"})
+					}else{
+						$(".set").css({display:"none"})
+					}
 				})
 				$(".delete").click(function(){
 					$(".ifDelt").css({display:"block"})
@@ -170,7 +209,8 @@
 								$(".gg").css({background:"url(../../image/shop/crect.jpg) center center no-repeat",backgroundSize:"1.4rem 1.4rem",borderColor:"#5d5c5c"});
 								$(".gg").attr("flag","1")
 								_ll=0
-							}							
+							}
+							$(".commit span").text("("+_ll+")")
 						}
 
 				}
@@ -303,7 +343,7 @@
 
 <body>
 	<div class="ifDelt" style="width:100%;height:100%;background:rgba(170,170,170,0.3);position:fixed;bottom:0;display:none;z-index:1000">
-		<div style="width:80%;height:10rem;background:#fff;margin:28% 10% 0 10%;border:1px solid #fff;line-height: 10rem;text-align: center;font-size:14px">确认要删除折1种商品</div>
+		<div style="width:80%;height:10rem;background:#fff;margin:28% 10% 0 10%;border-bottom:1px solid #ccc;line-height: 10rem;text-align: center;font-size:14px">确认要删除折1种商品</div>
 		<div>
 			<span>取消</span>
 			<span>确认</span>
@@ -311,7 +351,7 @@
 	</div>
 	<section style="overflow: auto;margin-bottom: 5.3rem;">
 		<div class="shop-title">
-			<div>购物车<span>(30)</span></div>
+			<div>购物车<span class="summ">(30)</span></div>
 			<div><span id="edit">编辑</span></div>
 		</div>
 		<div class="addr">
@@ -336,7 +376,7 @@
                           
                             <div class="totalsum">
                             	<span class="all"><i flag="1" class="gg"  style="width:1.4rem;height:1.4rem;border:1px solid #3a3635;border-radius: 1.4rem;"></i><span>全选</span></span>
-                                          <p class="amountBig" style="margin-left: 0;float:left"> 合计：￥50元</p> 
+                                          <p class="amountBig" style="margin-left: 0;float:left"> 合计：￥<span>50</span>元</p> 
                                             <p style="margin-left: 0;">已优惠金额：￥139.00  </p> 
                                             <div class="commit">去提交<span>(20)</span></div>
                                       </div>
@@ -350,6 +390,6 @@
                           </div> -->
                         </div>
   <!-- footer end -->
-
+<div class="loads"><img src="../../image/shop/loading.gif" style="width:15%;margin: 70% 0 0 44%"/></div>
 </body>
 </html>

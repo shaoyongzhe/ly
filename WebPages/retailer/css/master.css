@@ -230,7 +230,7 @@ section .remarks{
 	width:3rem;float:right;padding:5px 0;text-align: right;
 }
 .giveto{
-	width:94%;font-size: 1.4rem;padding:12px;border-bottom: 10px solid #f1f2f6;
+	font-size: 1.4rem;padding:12px;border-bottom: 10px solid #f1f2f6;
 }
 .gg{
 	display: inline-block;width:10%
@@ -242,10 +242,13 @@ section .remarks{
 	width:100%;
 }
 .gift{
-	width:80%;display: inline-block;margin-left: 10%;
+	float:right;margin-left:5px;width:88%
 }
 .gifto{
-	width:80%;display: inline-block;
+	width:10%;float:left
+}
+.gifty{
+	float:right
 }
 .shul{
 	width:10%;display: inline-block;text-align: right;

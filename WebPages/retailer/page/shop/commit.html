@@ -60,7 +60,7 @@
 	       		"><img src="+"\"../../image/icon05.png\""+" />"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
 	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div></li>"
        		}else if(data[i]["promotionactivity"]["details"]){
-       			       		_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
        		"><img src="+"\"../../image/icon05.png\""+" />"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
        		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><div class="+"\"discount-con\""+
        		">7.5折</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品</div><div class="+"\"give-con\""+">汤臣倍健蛋白粉 153g</div><p>×2</p></div></li>"
@@ -73,7 +73,21 @@
 		
 	   });  //ajax结束
 	   
-   
+   	$(".submit").click(function(){
+   		$.ajax({
+   			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
+   			type:"post",
+   			data:{
+   				distributor_id:"5ce1d14e07534139ae7774d8983f04f3",
+				remark:"", 
+				deliverdate:$("#beginTime").val()
+   			},
+   			error:function(){},
+   			success:function(data){
+   				console.log(data)
+   			}
+   		})
+   	})
    
 	$("#sp1").click(function(){
 		$(".canlendar").css({display:"block"})
@@ -133,7 +147,13 @@ $(function(){
 		</ul>
 		<div class="giveto">
 			<ul class="kind">
-
+				<div class="gifto">赠品 </div>
+				<div class="gift">
+					<div>促销政策中幸存的<span class="gifty">x45</span></div>
+					<div>促销政策中幸存的</div>
+					<div>促销政策中幸存的</div>
+					<div>促销政策中幸存的</div>
+				</div>
 			</ul>
 		</div>
 		<div class="same">
