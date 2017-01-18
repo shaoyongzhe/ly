@@ -30,6 +30,9 @@ html,body{
 .hi2{//用于js中，区别月hi的操作
     display: none;
 }
+.initialHi{//用于js中，仅仅用于复制html中dom结构，不让加载ajax返回数据时显示这些dom结构，在success的最后溢出此类名
+    display: none;
+}
 //非通用样式
 header{
     background: #4e9fee;
@@ -635,19 +638,3 @@ vertical-align: middle;
 };
 
 
-.loadingDiv{
-    width:100%;height:100%;
-//  background:rgba(100,100,100,0.8);
-    position:absolute;z-index: 2;
-    top:0;left:0;               
-}   
-.loadingImg{
-    width:25%;
-    /*margin:0px auto;*/
-    display:block;
-    position: absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    -webkit-transform:translate(-50%,-50%);
-}   

@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-16 12:00:04
+ * @Last Modified time: 2017-01-17 09:57:04
  */
 
 
@@ -288,7 +288,7 @@ function getList(curr, handle, searchForm) {
                     $('.search-btn').attr('disabled', false);
                     $('.search-btn').css('background', '#009DD9');
                     $('.search-btn').val('查询');
-                    // $('.xiaoxi ').css('display', 'none')
+                    // $('.xiaoxi ').css('display', 'none');
                     // $('.msg').css('display', 'none');
                     var isSet = "",
                         autoW = "",
@@ -296,7 +296,7 @@ function getList(curr, handle, searchForm) {
                         td = data.content;
 
                     if (td.length>0) {
-                        // $('.tiaoshu').html(td);
+                        // $('.tiaoshu').html('当前共有数据'+td.length+'条');
                         for (var i = 0; i < td.length; i++) {
                             // 状态
                             if (td[i].state == "draft") {
@@ -382,6 +382,7 @@ function getList(curr, handle, searchForm) {
                         me.noData(true);
                     }
                     $("table.notify tbody").append(tr);
+                    $('.tiaoshu').html('当前共有数据'+'<span>'+ $('tr').length +'</span>'+ '条');
                         $('.dropload-down').fadeOut(4000);
                         me.resetload();
 
@@ -944,9 +945,23 @@ $('table.notify').on('click', '.modify', function() {
         anim: 2,
         title: '修改文案',
         area: ["70%", "100%"],
-        content: $('.c')
+        content: $('.c'),
+        end: function(){ 
+            // layer.open({
+            //   type: 2,
+            //   title: '很多时候',
+            //   shadeClose: true,
+            //   shade: false,
+            //   maxmin: true, //
+            //   area: ['893px', '600px'],
+            //   content: 'http://qixiaofei.com/'
+            // });
+            window.location='Marketcopymanagement.html';
+            // console.log(1);
+        }
     });
-
+    
+    
     $('.region-wrap').empty();
     // 获取到数据放到输入框中
     $('._guid').val(data.guid);
@@ -1156,21 +1171,17 @@ $('.examine1').on('click', function() {
         getList(1, 'release', getSearch());
     })
 })
-// 
-// 判断保存  并提交审核后 回到页面刷新全局变量
-var IsTrue = 1;
-var IsTrue1 = 1;
+
 //修改里面的关闭
 $('.examine1_close').on('click', function() {
     $('.layui-layer-close').click();
-
-// 判断保存  并提交审核后 回到页面刷新
-     if(IsTrue1==2){
+        //并提交审核后 回到页面刷新
         $('.search-btn').click();
-    }else if(IsTrue==2){
-        $('.search-btn').click();
-    }
 })
+
+
+   
+
 
 // 修改中的预览  S
 $('.examine1_preview').click(function() {
@@ -1418,8 +1429,8 @@ $('.examine1_preview').click(function() {
 //修改中的保存并继续新增
 $('.examine1_Newly_added').on('click', function() {
 
-    IsTrue1=2;
-    $('#service_val').val($('#textarea_value').val());
+    // IsTrue1=2;
+    // $('#service_val').val($('#textarea_value').val());
     if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
         var a = 1;
     } else {
@@ -1608,8 +1619,8 @@ if(!$('#textarea_value').val()){
 
 //修改中的保存
 $('.examine1_Preservation').on('click', function() {
-    IsTrue=2;
-    $('#service_val').val($('#textarea_value').val());
+    // IsTrue=2;
+    // $('#service_val').val($('#textarea_value').val());
     if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
         var a = 1;
     } else {
@@ -1939,7 +1950,7 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title">发送状态</div>' +
-                    '<div class="Float_text">' + state + '</div></div>' +
+                    '<div class="Float_text"><span>' + state + '</span></div></div>' +
                     // '<div class="Text_Title">' +
                     // '<div class="Float_Title">发送时间</div>' +
                     // '<div class="Float_text">' + data_text.content.pushtime + '</div></div>' +
@@ -1957,10 +1968,13 @@ $('table.notify').on('click', '.detailed', function() {
                 $('.btn_center .btn').css('display', 'inline-block');
                 $('.btn_center .btn:eq(0)').css('margin-left', '40%');
             } else if (abc.length == 4) {
+                $('.btn_center .btn:eq(0)').css('margin-left', '26%');
                 $('.btn_center .btn').css('display', 'inline-block');
+                // $('.Float_Title1').css('margin-left','0px');
             } else if (abc.length == 3) {
                 $('.btn_center .btn').css('display', 'inline-block');
                 $('.btn_center .btn:eq(0)').css('margin-left', '31%');
+                // $('.Float_Title1').css('margin-left','0px');
             }
         },
         error: function() {

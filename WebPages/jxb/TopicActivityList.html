@@ -2,9 +2,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>TopicActivityList.html</title>
+		<title>列表</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="css/reset.css"/>				
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>			
+		<link rel="stylesheet" type="text/css" href="css/public.css"/>
 		<link rel="stylesheet" type="text/css" href="css/TopicActivityList.css"/>
 		<style type="text/css">
 
@@ -12,7 +13,7 @@
 	</head>
 	<body>
 		<header><img src="img/a8.png" alt="" /><span>亲爱的会员，下午好!</span><img src="img/a9.png" alt="" /></header>
-		<div class="Awrap">		
+		<div class="Awrap initialHi">		
 			<div class="returnToList">	
 				<p class="p1 hi">返回主题活动列表</p>
 				<p class="p2">返回超惠券列表</p>
@@ -29,7 +30,7 @@
 				</div>
 				<!--每行内容的容器-->
 				<div class="contentCont">
-					<div class="alist">
+					<div class="alist initialHi"><!--改为ajax中插入，success的最后移除类名hi-->
 						<!--每行内容-->
 						<div class="con">
 							<div class="conImg por dib">
@@ -77,6 +78,7 @@
 	</body>
 	<!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
 	<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
 	<!--<script src="//cdn.bootcss.com/jQuery.dotdotdot/1.7.4/jquery.dotdotdot.js">用于多行省略</script>-->
 	<!--<script src="jquery.dotdotdot.js" type="text/javascript" charset="utf-8">用于多行省略<</script>-->
 	<script src="lib/layer-v2.4/layer/layer.js" type="text/javascript" charset="utf-8"></script>

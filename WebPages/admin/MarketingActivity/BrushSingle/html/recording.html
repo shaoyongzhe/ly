@@ -7,16 +7,48 @@
 		<link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.7/iconfont.css" />
 		<link rel="stylesheet" type="text/css" href="../css/recording.css">
 		<link rel="stylesheet" type="text/css" href="../laydate/need/laydate.css">
+		
 		<script src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
 		<script src="../laydate/laydate.js"></script>
 		<script src="../../../lib/layer-v2.4/layer/layer.js"></script>
+				<script>
+		$(function(){
+			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0") {
+				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+					time: 3000
+				}); //IE 6.0
+				return;
+			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0") {
+				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+					time: 3000
+				}); //IE 7.0
+				return;
+			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+					time: 3000
+				}); //IE 8.0
+				return;
+			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE9.0") {
+				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+					time: 3000
+				}); //IE 9.0
+				return;
+			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE10.0") {
+				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+					time: 3000
+				}); //IE 10.0
+				return;
+			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE11.0") {
+				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+					time: 3000
+				}); //IE 10.0
+				return;
+			}
+		})
+		</script>
+
 		<script src="../../../lib/district/js/cityLink.js"></script>
 		<script src="../js/recording.js"></script>
-		
-		<!--============================-->
-		<style>
-		
-		</style>
 	</head>
 
 	<body class="create">
