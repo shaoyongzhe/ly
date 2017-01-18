@@ -1,3 +1,4 @@
+setTimeout(function(){window.scrollTo(0,0);}, 50);
 function loadingStart(){
 	$(document.body).css({//禁用滚动条
 	   "overflow-x":"hidden",
