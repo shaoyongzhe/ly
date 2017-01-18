@@ -193,7 +193,8 @@ a:hover {
 .area-list .selectable li {
     margin: 0px;
     padding: 10px 0 0 10px;
-    font-size: 0.6em;
+    /*font-size: 0.6em;*/
+    font-size: 12px;
     height: 20px;
     width: 75px;
     display: inline-block;
