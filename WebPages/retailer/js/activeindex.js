@@ -1,7 +1,20 @@
 /**
  * Created by Administrator on 2017/1/3.
  */
-
+function fnpinpai () {
+	$(".titlestyle").on("click","span",function () {
+		$(this).next().toggle().show;
+	});
+	$(".titlestyle").on("click","ul>li",function () {
+		$(".titlestyle>span").html($(this).html());
+		$(".titlestyle>ul").hide();
+	});
+	$(document).click(function(e) {
+		if(!$(e.target).closest(".titlestyle").length) {
+			$(".titlestyle>ul").hide();
+		}
+	});
+}
 //获取地址栏参数
 function fnurl () {
 	var ourl=decodeURI(window.location.search.replace("?",""));
@@ -136,8 +149,8 @@ function fncarnum(){
 function fnmenu () {
 	$.ajax({
         type: "get",
-      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/itemtypegroups",
-      	//url: "../../data/menu.json",
+      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/itemtypegroups",
+      	url: "../../data/menu.json",
         data: "",
         timeout:"2000",
         dataType:"json",
@@ -179,8 +192,8 @@ function fnmenu () {
 function fnyucun() {
 	$.ajax({
 		type: "get",
-      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
-      	//url: "../../data/activeindex.json",
+      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
+      	url: "../../data/activeindex.json",
         data: "",
         timeout:"2000",
         dataType:"json",
@@ -223,8 +236,8 @@ function fnyucun() {
 function fnhqactive () {
 	$.ajax({
         type: "get",
-      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/activity",
-      	//url: "../../data/activeindex.json",
+      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/activity",
+      	url: "../../data/activeindex.json",
         data: {
         	"lastcount":0,
         	"pagecount":10
@@ -282,9 +295,8 @@ function fnhqactive () {
 function fnlist() {
 	$.ajax({
 		type: "get",
-      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/prepayinventorys",
-      	url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/items",
-      	//url: "../../data/activeindex.json",
+      	//url: "/webapi/distributor/"+fnurl().distributor_id+"/customer/"+fnurl().shopid+"/items",
+      	url: "../../data/activeindex.json",
         data: {
         	"filter":"",
         	"filtertype":0,
@@ -329,6 +341,7 @@ function fnlist() {
 	});
 }
 $(function () {
+	fnpinpai();//品牌下拉点击事件
 	fnurl();//获取地址栏参数
 	fnxrym();//通过参数渲染页面
     fnscroll();//打电话显示与隐藏

@@ -30,8 +30,8 @@ function fnfooterclick() {
 function fngetlist() {
     $.ajax({
         type: "get",
-      	url: "/webapi/distributor/"+getid()+"/distributors",
-      	//url: "../../data/fenxiaolist.json",
+      	//url: "/webapi/distributor/"+getid()+"/distributors",
+      	url: "../../data/fenxiaolist.json",
         data:"",
         timeout:"3000",
         dataType:"json",
