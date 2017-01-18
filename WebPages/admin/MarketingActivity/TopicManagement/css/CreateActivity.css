@@ -71,6 +71,7 @@ section::-webkit-scrollbar-thumb{
 	line-height: 36px;
 }
 
+.path i,
 .bread-crumb i {
 	color: #999;
 	font-family: simsun;
@@ -397,7 +398,7 @@ input.time{
 
 .tip.ab{
 	bottom: 10px;
-    right: 10px;
+    right: 20px;
     color: #999;
 }
 
@@ -796,7 +797,7 @@ span.tip.warn{
 }
 
 .area .item > span{
-    max-width: 870px;
+    max-width: 660px;
     vertical-align: middle;
 }
 
@@ -917,7 +918,7 @@ span.tip.warn{
 
 .wenan-text span.tip{
 	bottom: 30px;
-    right: 10px;
+    right: 20px;
 }
 
 
@@ -1097,8 +1098,11 @@ label.condition{
 	overflow: hidden;
 }
 
+
+.tip.wx,
 .tip.biaoyu{
 	bottom: 9px;
+	right: -70px;
 }
 
 textarea.wxtw{
@@ -1356,4 +1360,11 @@ textarea{
 .sec.tuWen{
 	width: 1100px;
 	margin: 0 auto;
+}
+
+
+.gailvok.disabled,
+.shenhe.disabled{
+	background-color: #ccc;
+	cursor: default;
 }

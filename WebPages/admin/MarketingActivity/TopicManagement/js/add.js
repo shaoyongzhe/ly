@@ -165,18 +165,18 @@ $("body").on("click", ".acMeD2", function(e) {
 // 			var lll=$(this).attr("typeL");
 // 			$(this).parents(".addSub4").find(".hdc2 .option").addClass("hi");
 // 			$(this).parents(".addSub4").find(".hdc2 ."+lll).removeClass("hi");
-// 		})
+// 		});
 // 	}
 // 	hdc3Tab();
 // 	//补贴形式，范围值联动
 // 	function hdc3Tab(){
 // 		$(".hdc3").find(".option").click(function(){	
-// 			// alert(1)
+// 			// alert(1);
 // 			// debugger
-// 			// alert($(this).text().indexOf('随机'))
+// 			// alert($(this).text().indexOf('随机'));
 // 			if($(this).text().indexOf('随机') != -1){
 // 				// alert(1);
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33)
+// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33);
 // 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 span').show();
 // 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').show();
 // 			} else {
@@ -298,7 +298,7 @@ function acAdE() {
 		}
 		$(".addSub5").last().find(".acAd2").removeClass("hi"); //让最后一个控件显示加号
 
-		yfz();
+		yaoyiyaofengzhi();
 
 
 	})
@@ -487,10 +487,14 @@ $.ajax({
 		// 控件5摇一摇
 		// var .....还是用之前的dss_2c,之后应该会变
 		$(".addSub5 .acSe15 .select").empty();
+
 		//奖品类型
 		$(".addSub5 .acSe15 .select").append('<li class="option">谢谢参与</li>');
 		addSub5Arr.push("无");
+		// alert(1)
+
 		for (i = 0; i < dss_2c.length; i++) {
+
 			//补贴形式
 			if (dss_2c[i].showtype != "compose") { //摇一摇中拒绝嵌套摇一摇
 				$(".addSub5 .acSe15 .select").append('<li class="option" name="' + dss_2c[i].type + '" type="' + dss_2c[i].type + '" category="' + dss_2c[i].category + '" showtype=' + dss_2c[i].showtype + '>' + dss_2c[i].localtype + '</li>');
@@ -501,13 +505,23 @@ $.ajax({
 					// dss_2c[i].unit="分/次";
 				} else if (dss_2c[i].unit == "") {
 					dss_2c[i].unit = "我是链接点击我，我是链接点击我";
+
 				} else if (dss_2c[i].unit == undefined) { //处理谢谢参与
 					dss_2c[i].unit = "";
 				}
+
 				addSub5Arr.push(dss_2c[i].unit);
 			}
+			
 		}
 		addsub5HTML = $(".addSub5").get(0).outerHTML;
+
+
+		// $('nav span:eq(2)').click();
+		// $('.select-wrap.acSe11').click();
+		// $('li:contains(摇一摇)').click();
+		// $('a:contains(次)').click();
+		
 	},
 	error: function() {
 		console.warn("控件 error");
