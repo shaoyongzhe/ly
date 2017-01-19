@@ -77,8 +77,6 @@
 		width: 100%;
 		
 		height: 1.05rem;
-		/* background:#ff5555;
-		opacity: 0.7; */
 		background: rgba(255,80,80,0.7);
 		position: absolute;
 		left: 0;
@@ -106,7 +104,6 @@
 	.Bottombanner_cont{
 		width: 100%;
 		
-		/* max-height: 8.875rem; */
 	}
 	.Bottombanner_contfont{
 		color: #666;
@@ -114,7 +111,6 @@
 		margin: 0 auto;
 		display: block;
 		line-height: 1rem;
-		/* margin-bottom: 1rem; */
 	}
 	.Activity{
 		width: 93.75%;
@@ -135,8 +131,8 @@
 	}
 	.Activitytoppic{
 		width: 100%;
-		background: url(../image/3-1.png) no-repeat center 0.2rem;
-		background-size: 100%;
+		background: url(../image/3-1.png) no-repeat 1.6rem 0.2rem;
+		background-size: 90%;
 		padding-top:3.5rem;
 		height: 6.5rem;
 	}
@@ -144,44 +140,49 @@
 		font-size: 0.55rem;
 		color: #fff;
 		display: block;
-		margin-left: 4.8rem;
-		line-height: 0.9rem;
+		text-align: center;
+		line-height: 0.2rem;
 	}
 	.yellow_money{
 		color: #ffff36;
 		font-family: "Arial";
 		font-weight: bold;
 		font-size: 0.85rem;
-		margin-left: 4.4rem;
+		text-align: center;
+		margin-top:0.2rem;
 		display: block;
+
 	}
 	.issued{
-		width: 42%;
+		/*width: 42%;*/
+		width: 100%;
 		height: 0.9rem;
 		display: block;
-		margin-left: 3.95rem;
-		margin-top: 0.52rem;
+		/*margin-left: 3.95rem;*/
+		text-align: center;
+		margin-top: 0.4rem;
+		text-align: center;
 	}
 	.issued a:nth-child(1){
 		color: #fff;
 		font-family: 'regular';
-		font-size: 0.6rem;
-		display: block;
-		float: left;
-		transform: rotate(12deg);
-		-webkit-transform: rotate(12deg);
-		margin-top: 0.18rem;
+		font-size: 0.5rem;
+		display: inline-block;
+		transform: rotate(7deg);
+		-webkit-transform: rotate(7deg);
+		margin-top: 0.1rem;
+		vertical-align: middle;
 	}
 	.issued a:nth-child(2){
 		color: #fff;
 		font-family: 'regular';
-		font-size: 0.9rem;
-		display: block;
+		font-size: 0.8rem;
+		display: inline-block;
 		font-weight: bold;
-		margin-top: 0.18rem;
-		float: left;
-		transform: rotate(-5deg);
-		-webkit-transform: rotate(-5deg);
+		margin-top: 0.3rem;
+		transform: rotate(-4deg);
+		-webkit-transform: rotate(-4deg);
+		vertical-align: middle;
 	}
 	.enjoy{
 		display: block;
@@ -198,7 +199,6 @@
 	}
 	.enjoy span{
 		color: #ffff36;
-		/* font-size: 0.65rem; */
 		font-weight: bold;
 	}
 	.tablecont{
@@ -390,6 +390,7 @@
 		text-align: center;
 		font-size: 0.5rem;
 		vertical-align:center;
+		line-height: 0.7rem;
 	}
 
 

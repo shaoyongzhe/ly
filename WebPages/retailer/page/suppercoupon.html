@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -80,11 +80,11 @@
             .assetinfobj .assetimg {
                 width: 85px;
                 height: 60px;
-            position: absolute;
+                position: absolute;
                 background: url(/consumer/image/asset_bt.png) no-repeat;
                 background-size: auto 60px;
                 z-index: 3;
-        }
+            }
 
                 .assetinfobj .assetimg p {
                     width: 45px;
@@ -159,7 +159,8 @@
         <div id="bottom-nav"></div>
     </footer>
     <div class="overlay"></div>
-    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
+    <script type="text/javascript" src="/js/wx/md5.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
@@ -237,51 +238,57 @@
                         dealdropme(dropme);
                         return;
                     }
-                    $.each(json.data, function (i, value) {
 
-                        listitem += tem;
+                    $.each(json.data, function (i, value) {
+                        var temphtml = tem
 
                         if (typeof (value.activity_id) !== 'undefined')
-                            listitem = listitem.replace("activityid", value.activity_id);
+                            temphtml = temphtml.replace("activityid", value.activity_id);
 
                         if (typeof (value.activitytitle) !== 'undefined')
-                            listitem = listitem.replace("activitytitle", value.activitytitle);
+                            temphtml = temphtml.replace("activitytitle", value.activitytitle);
 
                         if (typeof (value.distributorname) !== 'undefined')
-                            listitem = listitem.replace("distributorname", value.distributorname);
+                            temphtml = temphtml.replace("distributorname", value.distributorname);
 
                         if (value.begintime !== 'undefined' && value.begintime !== "" && value.endtime !== 'undefined' && value.endtime !== "")
-                            listitem = listitem.replace("begintimeandendtime", value.begintime + "至" + value.endtime);
+                            temphtml = temphtml.replace("begintimeandendtime", value.begintime + "至" + value.endtime);
 
                         if (typeof (value.posterpic) !== 'undefined')
-                            listitem = listitem.replace("posterpic", value.posterpic);
+                            temphtml = temphtml.replace("posterpic", value.posterpic);
 
                         if (typeof (value.fansinhistorycount) !== 'undefined')
-                            listitem = listitem.replace("fansinhistorycount", value.fansinhistorycount);
+                            temphtml = temphtml.replace("fansinhistorycount", value.fansinhistorycount);
 
                         if (typeof (value.activitystate) !== 'undefined')
-                            listitem = listitem.replace("activitystate", value.activitystate);
+                            temphtml = temphtml = temphtml.replace("activitystate", value.activitystate);
                         if (typeof (value.topicdata) !== 'undefined' && value.topicdata != null) {
                             var item = value.topicdata;
-                            var topicid=""
+                            var topicid = ""
                             $.each(item.topiclist, function (index, items, array) {
-                                topicid += "," + items.activityid
+                                if (index <= 20) {
+                                    topicid += "," + items.topic.guid
+                                }
                             });
-                            listitem = listitem.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
-                            listitem = listitem.replace("blx", "");
-                            listitem = listitem.replace("none", "block");
-                            listitem = listitem.replace("topictitle", item.topiclist[0].topic.activitytitle);
-                            listitem = listitem.replace("headcount", item.budget.subsidytotal);
-                            listitem = listitem.replace("subsidytotal", item.budget.subsidytotal);
+                            temphtml = temphtml.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
+                            temphtml = temphtml.replace("blx", "");
+                            temphtml = temphtml.replace("none", "block");
+                            temphtml = temphtml.replace("topictitle", item.topiclist[0].topic.activitytitle);
+                            temphtml = temphtml.replace("headcount", item.budget.subsidytotal);
+                            temphtml = temphtml.replace("subsidytotal", item.budget.subsidytotal);
                         }
 
                         if (typeof (value.activitystate) !== 'undefined' && value.activitystate != '已生效') {
-                            listitem = listitem.replace("spanbackground", "background:rgba(51,51,51,.9)");
+                            temphtml = temphtml.replace("spanbackground", "background:rgba(51,51,51,.9)");
                         }
                         else {
-                            listitem = listitem.replace("spanbackground", "");
+                            temphtml = temphtml.replace("spanbackground", "");
                         }
+
+                        listitem += temphtml;
                     });
+
+
 
                     if (pageIndex == 1)
                         $('#list').html(listitem);

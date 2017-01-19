@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-16 12:00:04
+ * @Last Modified time: 2017-01-18 17:19:53
  */
 
 
@@ -245,9 +245,9 @@ function getList(curr, handle, searchForm) {
     // 每次刷新的时候清空上一次的记录（加载记录）
     $('.content_drop .dropload-down').remove();
     // dropload
-    $('.content_drop').dropload({
+    $('.content_drop').Drop_down_loading({
 
-        scrollArea: $('tbody'),
+        gundong: $('tbody'),
         loadDownFn: function(me) {
             pageindex++;
             // 拼接HTML
@@ -262,13 +262,11 @@ function getList(curr, handle, searchForm) {
                 url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
                 dataType: "json",
                 beforeSend: function() {
-                    $('.search-btn').attr('disabled', true);
                     $('.search-btn').css('background', '#8D8B8E');
+                    $('.search-btn').attr('disabled', true);
+                    $('.search-btn2').attr('disabled', true);
                     $('.search-btn').val('查询中');
                     $('.dropload-down').fadeIn(100)
-                        // console.log('1')
-                    // $('.xiaoxi ').css('display', 'block');
-                    // $('#msg').css('display', 'block');
                 },
                 success: function(data) {
                     // console.log(data);
@@ -277,26 +275,21 @@ function getList(curr, handle, searchForm) {
                         layer.msg('暂无数据');
                          $('.search-btn').css('background', '#009DD9');
                          $('.search-btn').attr('disabled', false);
+                         $('.search-btn2').attr('disabled', false);
                          $('.search-btn').val('查询');
-                         // $('.xiaoxi ').css('display', 'none')
-                         // $('#msg').css('display', 'none');
                         return;
                     }
-
-                    // $(".totalcount").text(data.content.length);
-                    // $("table.notify tbody").empty();
                     $('.search-btn').attr('disabled', false);
+                    $('.search-btn2').attr('disabled', false);
                     $('.search-btn').css('background', '#009DD9');
                     $('.search-btn').val('查询');
-                    // $('.xiaoxi ').css('display', 'none')
-                    // $('.msg').css('display', 'none');
                     var isSet = "",
                         autoW = "",
                         tr = "",
                         td = data.content;
 
                     if (td.length>0) {
-                        // $('.tiaoshu').html(td);
+                        // $('.tiaoshu').html('当前共有数据'+td.length+'条');
                         for (var i = 0; i < td.length; i++) {
                             // 状态
                             if (td[i].state == "draft") {
@@ -382,6 +375,7 @@ function getList(curr, handle, searchForm) {
                         me.noData(true);
                     }
                     $("table.notify tbody").append(tr);
+                    $('.tiaoshu').html('当前共有数据'+'<span>'+ $('.pagesTbodyLong tr').length +'</span>'+ '条');
                         $('.dropload-down').fadeOut(4000);
                         me.resetload();
 
@@ -396,8 +390,6 @@ function getList(curr, handle, searchForm) {
                     $('.search-btn').attr('disabled', false);
                     $('.search-btn').css('background', '#009DD9');
                     $('.search-btn').val('查询');
-                    // $('.xiaoxi ').css('display', 'none');
-                    // $('#msg').css('display', 'none');
                 }
             });
         }
@@ -436,6 +428,7 @@ $(document).on('click', '.search-btn', function() {
 // 查询文案		
 function getSearch() {
     // alert('1');
+    $('.tiaoshu').html('当前共有数据'+'<span>'+ 0 +'</span>'+ '条');
     var send_object = $(".text2").find("option:selected").text();
     if (send_object == "分销商") {
         var a = 1;
@@ -448,6 +441,7 @@ function getSearch() {
     } else {
         var b = 0;
     }
+
     if (send_object == "门店") {
         var c = 1;
     } else {
@@ -867,6 +861,7 @@ function clacImgZoomParam(maxWidth, maxHeight, width, height) {
 }
 // 修改
 $('table.notify').on('click', '.modify', function() {
+    // $('.layui-layer-setwin a').css('display','none');
     var tr = $(this).closest('tr');
     var trIndex = $(this).closest('tr').index();
     $("#trIndex").val(trIndex);
@@ -944,9 +939,24 @@ $('table.notify').on('click', '.modify', function() {
         anim: 2,
         title: '修改文案',
         area: ["70%", "100%"],
-        content: $('.c')
+        content: $('.c'),
+        end: function(){ 
+            // layer.open({
+            //   type: 2,
+            //   title: '很多时候',
+            //   shadeClose: true,
+            //   shade: false,
+            //   maxmin: true, //
+            //   area: ['893px', '600px'],
+            //   content: 'http://qixiaofei.com/'
+            // });
+            // window.location='Marketcopymanagement.html';
+            // console.log(1);
+            // $('.search-btn').click();
+        }
     });
-
+    
+    $('.qxf_colse').css('display','none');
     $('.region-wrap').empty();
     // 获取到数据放到输入框中
     $('._guid').val(data.guid);
@@ -1156,20 +1166,12 @@ $('.examine1').on('click', function() {
         getList(1, 'release', getSearch());
     })
 })
-// 
-// 判断保存  并提交审核后 回到页面刷新全局变量
-var IsTrue = 1;
-var IsTrue1 = 1;
+
 //修改里面的关闭
 $('.examine1_close').on('click', function() {
-    $('.layui-layer-close').click();
-
-// 判断保存  并提交审核后 回到页面刷新
-     if(IsTrue1==2){
+    // $('.layui-layer-close').click();
+        //并提交审核后 回到页面刷新
         $('.search-btn').click();
-    }else if(IsTrue==2){
-        $('.search-btn').click();
-    }
 })
 
 // 修改中的预览  S
@@ -1418,8 +1420,8 @@ $('.examine1_preview').click(function() {
 //修改中的保存并继续新增
 $('.examine1_Newly_added').on('click', function() {
 
-    IsTrue1=2;
-    $('#service_val').val($('#textarea_value').val());
+    // IsTrue1=2;
+    // $('#service_val').val($('#textarea_value').val());
     if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
         var a = 1;
     } else {
@@ -1608,8 +1610,8 @@ if(!$('#textarea_value').val()){
 
 //修改中的保存
 $('.examine1_Preservation').on('click', function() {
-    IsTrue=2;
-    $('#service_val').val($('#textarea_value').val());
+    // IsTrue=2;
+    // $('#service_val').val($('#textarea_value').val());
     if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
         var a = 1;
     } else {
@@ -1939,7 +1941,7 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title">发送状态</div>' +
-                    '<div class="Float_text">' + state + '</div></div>' +
+                    '<div class="Float_text"><span>' + state + '</span></div></div>' +
                     // '<div class="Text_Title">' +
                     // '<div class="Float_Title">发送时间</div>' +
                     // '<div class="Float_text">' + data_text.content.pushtime + '</div></div>' +
@@ -1957,10 +1959,13 @@ $('table.notify').on('click', '.detailed', function() {
                 $('.btn_center .btn').css('display', 'inline-block');
                 $('.btn_center .btn:eq(0)').css('margin-left', '40%');
             } else if (abc.length == 4) {
+                $('.btn_center .btn:eq(0)').css('margin-left', '26%');
                 $('.btn_center .btn').css('display', 'inline-block');
+                // $('.Float_Title1').css('margin-left','0px');
             } else if (abc.length == 3) {
                 $('.btn_center .btn').css('display', 'inline-block');
                 $('.btn_center .btn:eq(0)').css('margin-left', '31%');
+                // $('.Float_Title1').css('margin-left','0px');
             }
         },
         error: function() {

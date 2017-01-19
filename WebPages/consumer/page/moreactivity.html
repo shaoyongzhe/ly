@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -106,7 +106,8 @@
         <div id="bottom-nav"></div>
     </footer>
     <div id="activityrule"></div>
-    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
+    <script type="text/javascript" src="/js/wx/md5.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
@@ -231,8 +232,23 @@
                                               + '<td class="tbl_td_right"> <p>已节省' + item.sparevalue + '元</p></td> </tr>'
                                               + ' <tr > <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥' + item.originalprice + '</td></tr> </table>'
                                 }
-                                content += ' </div> <div class="img_tag"> </div> <div class="clear"></div></div><div class="whiteblock"></div>'
-                                + '  <ul class="div-down "> <li>' + (item.itemtotalnum == null ? '0' : item.itemtotalnum) + ' <p>投放</p></li>'
+
+
+                                content += '</div> <div class="img_tag"> </div> <div class="clear"></div></div>'
+
+                                if (item.topiclist != undefined && item.topiclist.length > 0) {
+                                    var topicid = ""
+                                    $.each(item.topiclist, function (index, items, array) {
+                                        if (index < 20)
+                                            topicid += "," + items.topicid
+                                    });
+                                    content += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
+                                    content += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div></div></div>"
+                                } else {
+                                    content+="<div class=\"whiteblock\"></div>"
+                                }
+
+                                content += '  <ul class="div-down "> <li>' + (item.itemtotalnum == null ? '0' : item.itemtotalnum) + ' <p>投放</p></li>'
                                 + ' <li style="border-right:none">' + (item.totalverifynum == null ? '0' : item.totalverifynum) + ' <p>已用</p></li>'
                                 + '<li style="min-height:40px;border-right:none"> </li>'
                                 + ' <li style="width:40%;border-right:none"><div style="margin-top:9px" class="btn_css ' + (item.verifylimit > 0 ? 'btn_css1' : ' btn_css2') + '" onclick="useticket(\'' + item.guid + '\',' + item.verifylimit + ')">'
@@ -242,14 +258,7 @@
                                 //    content += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
                                 //}
 
-                                if (item.topiclist != undefined && item.topiclist.length > 0) {
-                                    var topicid = ""
-                                    $.each(item.topiclist, function (index, items, array) {
-                                        topicid += "," + items.topicid
-                                    });
-                                    content += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
-                                    content += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
-                                }
+
 
                                 content += '  <hr />  </div>'
                             }
