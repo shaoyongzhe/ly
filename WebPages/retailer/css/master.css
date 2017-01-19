@@ -89,11 +89,16 @@ a,input{
 .icon-iconfontjianjie:before { content: "\e60e"; }
 .icon-xuexi:before { content: "\e607"; }
 
-
-#conn{
-	
+.ad{
+	width:100%;border-top:8px solid #f1f2f6;border-bottom:8px solid #f1f2f6;
 }
-.container{ width:75%; max-width:640px;margin-left: 25%;}
+.emp{
+	padding:5px 12px;font-size: 1.5rem;
+}
+#conn{
+	display:flex
+}
+.container{ flex:1; max-width:640px;overflow-y: scroll;}
 .top-header{ width:100%; margin:0 auto; padding:10px 0 0 0; overflow:hidden;}
 .nav-header{width:100%; margin:0 auto;  background:#282828; color:#fff;font-size:1.8rem; overflow:hidden; text-align:left;position: fixed;height:46px;line-height: 4.5rem;}
 .nav-header i a{font-family:"iconfont" !important;float:left;font-size:1.8rem;padding:0px 10px ;height:100%;margin-top:0.2rem}
@@ -104,6 +109,27 @@ a,input{
 .top-header .logo img{ width:100%; height:auto}
 .top-header .user{ float:right; text-align:right;padding-right:10px; color:#999; }
 .top-header .user a{ padding:0 10px; display:inline-block}
+.canlendar{
+	width:100%;height:100%;background:#999999;z-index: 10000;background: rgba(153,153,153,0.5);position:absolute;
+}
+.canlendar .canlendarCon{
+	width:78%;height:40%;background:#fff;margin:40% 0 0 11% ;border:1px solid #fff;border-radius: 3%;
+}
+.calTit{
+	font-size: 1.4rem;height:5%;text-align: center;padding:5% 0
+}
+.conten{
+	width:100%;height:65%;overflow: hidden;position: relative;
+}
+.canlendar ul:nth-child(1){
+	width:33.3%;background:red;position: absolute;
+}
+.canlendar ul:nth-child(2){
+	width:33.3%;background:red;position: absolute;left:33.3%
+}
+.canlendar ul li{
+	text-align: center;font-size: 2rem;line-height: 4rem;
+}
 section{
 	width:100%;padding-bottom:5.2rem;background:#fff;overflow:hidden
 }
@@ -116,8 +142,8 @@ section .remarks{
 .saleTm-tit{
 	width:30%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
 }
-#distributorName{
-	background:url("../../image/shop/phone.jpg") no-repeat;
+#distributorName span{
+	background:url("../image/shop/phone.jpg") no-repeat right;background-size: 2.5rem 2.5rem;padding-right: 3.2rem;height:100%
 }
 .saleTm-con{
 	flex:1;height:100%;text-align: right;line-height: 45px;
@@ -150,13 +176,13 @@ section .remarks{
 	width:100%;height:auto
 }
 .shoplist li{
-	padding:12px 12px 0 12px;border-bottom: 1px solid #e8e8e8;
+	padding:12px 12px 12px 12px;border-bottom: 1px solid #e8e8e8;
 }
 .shoplist li img{
 	width:55px;height:55px
 }
 .shop-tit{
-	width:70%;float:left;
+	width:60%;float:left;
 }
 .shop-tit img{
 	float:left
@@ -183,7 +209,7 @@ section .remarks{
 	flex:1;text-align: right;color:#666
 }
 .discount{
-	width:100%;
+	width:100%;padding: 5px 0;
 }
 .discount-tit{
 	border-radius: 15%;border:1px solid #009f96;width:2.6rem;font-size: 1.2rem;text-align: center;color:#009f96;display: inline-block;
@@ -204,7 +230,7 @@ section .remarks{
 	width:3rem;float:right;padding:5px 0;text-align: right;
 }
 .giveto{
-	width:94%;font-size: 1.4rem;padding:12px;border-bottom: 10px solid #f1f2f6;
+	font-size: 1.4rem;padding:12px;border-bottom: 10px solid #f1f2f6;
 }
 .gg{
 	display: inline-block;width:10%
@@ -216,10 +242,13 @@ section .remarks{
 	width:100%;
 }
 .gift{
-	width:80%;display: inline-block;margin-left: 10%;
+	float:right;margin-left:5px;width:88%
 }
 .gifto{
-	width:80%;display: inline-block;
+	width:10%;float:left
+}
+.gifty{
+	float:right
 }
 .shul{
 	width:10%;display: inline-block;text-align: right;
@@ -570,46 +599,52 @@ section .remarks{
 .titelorder{width:100%;height:26px; line-height:26px; font-size:26px; vertical-align:middle;  margin:0px auto;padding:15px 0px; color:#333; text-align:left;border-bottom:1px #ddd solid; background: #fff; }
 .titelorder span{width:3px;height:26px; line-height:26px; margin-right:10px;  display:inline-block;  background:#f7af01;}
 .select{
-	width:25%;float:left;position:fixed;height:100%
+	width:25%;overflow-y: scroll;margin-right: -15px;padding-right: 15px;
 }
 .select ul{
-	background:#f5f5f5;width:100%
+	width:100%;height:50%
 }
 .select li{
 	padding:5px;font-size: 14px;height:36px;  
 -webkit-line-clamp: 2;text-overflow: ellipsis;
 display: -webkit-box;-webkit-box-orient: vertical;
 overflow: hidden;
-color:#666
+color:#666;background:#f5f5f5;
 }
-.selected{
+.select .selected{
 	border-left: 4px solid #f7af01;background: #fff;color:#333;
 }
+.onload{
+	width:75%;background:#fff;position: absolute;right: 0;top:0;height:100%;display: none;
+}
+.onload img{
+	width:20%;margin:95% 0 0 40%
+}
 .orderlistbox{width:100%; height:auto; padding:5px 0px; margin:0; background:#fff;}
-.orderlistbox dl{width:100%; height:auto; padding:5px 0px; margin:0;background:#fff;}
+.orderlistbox dl{width:100%; height:auto; padding:5px 0 0 0; margin:0;background:#fff;}
 .orderlistbox dt{width:100%; height:30px; line-height:30px; font-size:24px; vertical-align:middle;padding:15px 0px; text-indent:10px; background:url(../image/shop/icon_title.png) no-repeat left center;border-bottom:1px #ddd solid; }
 
-.orderlistbox dd{width:100%; padding:20px 0px; clear:both; }
+.orderlistbox dd{width:100%;clear:both; }
 .orderlistbox .imagebox{width:20%; float:left; background:#fff; }
-.orderlistbox .iconbox{width:5%; float:left; padding-left:10px; background:#fff; }
+.orderlistbox .iconbox{width:1.4rem; float:left; padding-left:0.4rem; background:#fff; padding-top:0.2rem}
 .orderlistbox .iconbox img{width:100%; height:100%; }
 .orderlistbox .imagebox img{width:100%; height:100%; padding:0; margin:0; }
 .orderlistbox .dectitlebox{width:71%; color:#333; float:right; padding:0px 0px; margin:0px; font-size:18px; background:#fff; }
-.orderlistbox .dectitlebox a{padding:0px 0px; margin:0px; line-height:28px;}
-.orderlistbox .dectitlebox i{ float:right; padding-right:5px; color:#999; font-size:18px;background:url(../image/shop/arrow_right2.png) right center no-repeat; padding-right:25px; }
-.orderlistbox .descbox{width:100%; padding:5px 0px; background:#f6f6f6;font-size:16px;  border-bottom:2px #d8d8d8 solid; clear:both; }
-.orderlistbox .descbox p{ padding:5px 12px; color:#333;}
-.orderlistbox .descbox i{ padding:5px 10px; width:45%;font-size:14px; color:#333;display:inline-block;}
+.orderlistbox .dectitlebox a{padding:0px 0px 1.2rem 0; margin:0px;font-size: 1.6rem;}
+.orderlistbox .dectitlebox i{ float:right; padding-right:5px; color:#999; font-size:1.6rem;background:url(../image/shop/arrow_right2.png) right center no-repeat; padding-right:1.4rem; }
+.orderlistbox .descbox{width:100%; padding:5px 0px; background:#f6f6f6;font-size:1.4rem;  border-bottom:2px #d8d8d8 solid; clear:both; }
+.orderlistbox .descbox p{ padding:5px 0 5px 12px; color:#333;}
+.orderlistbox .descbox i{ width:45%;font-size:1.2rem; color:#333;display:inline-block;}
 .orderlistbox .descbox i span{ padding:0px; display:inline-block;}
 .orderlistbox .descbox .pricstyle{ color:#ff0000;}
 
-.orderlistbox .descbox .il{width:50%; }
-.orderlistbox .descbox .ir{float:right; text-align:right;width:34%;}
+.orderlistbox .descbox .il{width:56%; padding-left: 12px;}
+.orderlistbox .descbox .ir{float:right; text-align:right;width:36%;padding-right: 0.5rem;}
 
-.orderlistbox .image2box{width:77%; float:left; background:#fff; }
+.orderlistbox .image2box{width:70%; float:left; background:#fff; }
 .orderlistbox .image2box a{ display:inline-block; margin-right:5px;}
-.orderlistbox .image2box img{ width:65px; height:65px;}
-.orderlistbox  .ammount{ float:right; margin-top:30px; padding-right:15px; font-size:18px;   color:#999; background:url(../image/shop/arrow_right2.png) right center no-repeat;  }
+.orderlistbox .image2box img{ width:4rem; height:4rem;}
+.orderlistbox  .ammount{ float:right; margin-top:1.4rem; padding-right:15px; font-size:1.6rem;   color:#999; background:url(../image/shop/arrow_right2.png) right center no-repeat;  }
 
 
 

@@ -7,111 +7,218 @@
 <link href="../../css/master.css" rel="stylesheet" type="text/css">
 <link href="../../css/menu.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.mobile.custom.min.js"></script>
 <script type="text/javascript" src="../../js/retailerid.js"></script>
-<script type="text/javascript" src="../../js/scroll/iscroll.js"></script>
 <script type="text/javascript">
   var distributor_id=top.window.parent.distributor_id;
 
   $(document).ready(function(){
-  	onload();
-  function onload(){
-    myScroll1 = new iScroll('conn', 
-    { 
-     mouseWheel: true,//PC端的鼠标事件也监听，方便PC端调试
-     click: true,//允许点击事件
-     eventPassthrough: false,//纵向滚动整个页面，横向滚动iscroll区域
-     scrollX:false,//默认是纵向，横向需要设置scrollX
-     
-     });
-    myScroll2 = new iScroll('select', 
-    { 
-     mouseWheel: true,//PC端的鼠标事件也监听，方便PC端调试
-     click: true,//允许点击事件
-     eventPassthrough: false,//纵向滚动整个页面，横向滚动iscroll区域
-     scrollX:false,//默认是纵向，横向需要设置scrollX
-     vScrollbar:false
-     });
-}
+  	var _flag=0;
+  	var _timer="";
+  	var _price=0;
+  	var height=0;
+  	var _add=0;
+  	var _data2="";
+  	(function dd(){
+  			height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+  			$("#select").css("height",height);
+  			$("#container").css("height",height)
+  	})()
+			 var _nameList="";
+			 var _shopList="";
+			 var _bookTm="";
+			 var _historyList="";
+			 var _d=new Date().getTime();
+			 var _data1="";
+			$.get("/webapi/account/login/test-2-135-1",{},function(){},false); 
+    	$.ajax({
+    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
+	    	async:true,
+	    	cache:false,
+	        dataType:"json",
+	        type:"get",
+	        error:function(){alert("网络出错")},
+	        success:function(data1){
+	        		_data1=data1;
+	        		console.log(_data1)
+		  		 	  for(var i=0;i<_data1.length;i++){
+					 	  		_nameList+="<li id="+i+"><span>"+_data1[i]["distributorname"]+"</span></li>";
+					 	  }
+		  		 	  //_nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
+						  $("#select ul").html(_nameList);
+						  		$("#select li:first-child").addClass("selected")
+					 	  		if($("#select li span").css("width").replace("px","")+14<=$("#select li").css("width")){
+						  				$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
+						 			}							
 
-	 $("#select li").click(function(){
-	 	$("#select li").removeClass("selected")
-	 	$(this).attr("class","selected");
-	 	
-	 })
-   $.get("/webapi/account/login/test-2-135-1",{},function(){},false);
-   $.ajax({
-	  url:"/webapi/distributor/"+getRetailerid()+"/orderforms",
-	  async:true,
-	  cache:false,
-	  dataType:"json",
-	  type:"get",
-	  error:function(){alert("网络出错")},
-	  success:function(data)
-		 {
-			   
-		   for (var j = 0; j < data.length; j++) 
-		   {
-		   	   billlist=data[j].billlist;
-		   	   distributor_id=data[j].distributor_id;
-			   for(var i=0;i<billlist.length;i++)  //遍历订单列表  目前总共有三个订单列表
-			    {
-					if(billlist[i].details.length>1) {
 
-						var $_dd=$("#dl1:eq(0)");
-						var str='<dd style="padding-top:10px;" class="ddclick">';
-						str+='<div class="image2box"><a href="#"><img src="images/p7.png" ></a><a href="#"><img src="images/p6.png" ></a><a href="#"><img src="images/p7.png" ></a></div>';
-						str+='<i  class="ammount">共'+billlist[i].details.length+'件</i>';
-						str+='<div class="descbox">';
-						str+='<p>订单号：'+billlist[i].serialnumber+'</p>';
-						str+='<i class="il">送货时间：'+billlist[i].billexpecteddelivertime+'</i>';
-						//统计商品列表中总共的价格
-						menoy=parseInt(0);
-						for(j=0;j<billlist[i].details.length;j++)   //遍历每个订单列表中的商品
-						{
-							menoy1=parseInt(billlist[i].details[j].itemunitcost);
-							menoy=menoy+menoy1;
+					   		$("#select li").click(function(){
+					   			  
+								 		$("#select li").removeClass("selected")
+								 		$(this).attr("class","selected");
+								 		that=$(this);
+								 		_timer=setTimeout(function(){
+								 			
+								 			if(_flag==1){
+								 					_flag=0;
+								 					if(!that.css("border-left")){
+								 						$(".onload").css({"display":"block"})
+								 							shopList(that.attr("id"))
+								 							
+								 					}else{
+								 						alert(1)
+								 						_flag=1
+								 					}
+								 			}else{
+								 					
+								 					_timer()
+								 			}
+								 			
+								 		},10)
+								 		
+								 })
+//					   		var width = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+					   		//alert(width)
+					   		
+
+					   	shopList(0)
+	        }
+    	})	
+function shopList(pg){
+			//alert(pg)
+		 $.ajax({
+			  url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging=",
+			  async:true,
+			  cache:false,
+			  dataType:"json",
+			  type:"get",
+			  error:function(){alert("网络出错")},
+			  success:function(data)
+				 {	
+				 	if(data["error"]==""){
+				 	console.log(data)
+				   	for(var j=0;j<data["content"].length;j++){
+				   			if(data["content"][j]["details"].length>1){
+				   				_price=0;
+			   				for(var z=0;z<data["content"][j]["details"].length;z++){
+											if(data["content"][j]["details"][z]["itemtype"]!=3){
+												_price+=Number(data["content"][j]["details"][z]["itemunitcost"])*Number(data["content"][j]["details"][z]["qualitycount"])
+											}
+								}
+				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
+		  		_bookTm = (new Date(_bookTm)).getTime();
+				   	if(data["content"][j]["openflag"]=="0"){
+				   			_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+				 		}else{
+								_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+				 		}
+					 			}else if(data["content"][j]["details"].length>0 && data["content"][j]["details"].length<=1){
+					 				if(data["content"][j]["openflag"]=="0"){
+					 						_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 				}else{
+					 						_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 				}
+					 				
+					 			}
+								
+				   	}
+				   	_historyList="<dt>历史订单</dt>"+_historyList;
+				   	_shopList="<dt>进行中的</dt>"+_shopList;
+				   	_historyList+="<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>"
+						$("#dl2").html(_historyList)
+						$("#dl1").html(_shopList);
+						_historyList="";
+						_shopList="";
+						_flag=1;
+						$(".onload").css({"display":"none"})
+						$("#container").scrollTop("0")
+						toShop(data,pg)
+						onScroll(data,pg)
+						}else{
+							alert(data["error"])
 						}
-						str+='<i class="ir">合计：<span class="pricstyle">￥'+menoy+'</span></i>';
-						str+='</div>';
-						str+='</dd>';
-						$_dd.append(str);
-
-
-
-					}else {
-
-						var $_dd=$("#dl1:eq(0)");
-						var str='<dd class="ddclick">';
-						str+='<div class="imagebox"><a href="#"><img src="images/p7.png" ></a></div>';
-						str+='<div class="iconbox"><img src="images/icon_lin.png" width="30" height="30"> </div>';
-						str+='<div class="dectitlebox">';
-						str+='<a style="float:left;" href="#" >'+billlist[i].details[0].itemobj.itemname+'</a>';
-						str+='<i>共'+billlist[i].details.length+'件</i>';
-						str+='</div>';
-						str+='<div class="descbox">';
-						str+='<p id="serialnumber">订单号：'+billlist[i].serialnumber+'</p>';
-						str+='<i class="il">送货时间：'+billlist[i].billexpecteddelivertime+'</i>';
-						str+='<i class="ir">合计：<span class="pricstyle">￥'+billlist[i].details[0].itemunitcost+'</span></i>';
-						str+='</div>';
-						str+='</dd>';
-						$_dd.append(str);
-
+				 }//ajax的success方法结束
+		 });
+}
+  //ajax结束
+  var _fg=1;
+	function toShop(data,pg){
+		$(".orderlistbox dd").click(function(){
+				localStorage.data=JSON.stringify(_data1);
+				localStorage.data1=JSON.stringify(data)
+				localStorage.data2=JSON.stringify(_data2)
+				location.href="details.html?"+pg+"&"+$(this).attr("id");
+		})
+	}
+		
+		function onScroll(data,pg){
+			
+			data["paging"]["pageindex"]=2;
+			console.log(JSON.stringify(data["paging"]))
+			//alert($("#container").css("height").replace("px","")-height)
+				$("#container").scroll(function(){
+					if($("#container").scrollTop()>=($(".orderlistbox").css("height").replace("px","")-height+10) && _fg==1){
+							$(".loadings").css({display:"block"})
+							_fg=0;
+							$.ajax({
+								 	url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging="+JSON.stringify(data["paging"]),
+								  async:true,
+								  cache:false,
+								  type:"get",
+								  error:function(){alert("网络出错")},
+								  success:function(data2){
+								  	_data2=data2
+								  		$(".loadings").css({display:"none"})
+								  		console.log(data2)
+								  if(data2["error"]==""){
+				   				for(var r=0;r<data2["content"].length;r++){
+				   			if(data2["content"][r]["details"].length>1){
+				   				_price=0;
+			   				for(var t=0;t<data2["content"][r]["details"].length;t++){
+											if(data2["content"][r]["details"][t]["itemtype"]!=3){
+												_price+=Number(data2["content"][r]["details"][t]["itemunitcost"])*Number(data2["content"][r]["details"][t]["qualitycount"])
+											}
+								}
+				   	_bookTm=data2["content"][r]["issuetime"].replace(new RegExp("-","gm"),"/");
+		  		_bookTm = (new Date(_bookTm)).getTime();
+				   	if(data2["content"][r]["openflag"]=="0"){
+				   			_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+				 		}else{
+								_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"image2box\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+"></a><a href="+"\"#\"><img src=\""+"../../image/shop/p6.png\""+"></a><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""
+					 	  			+"></a></div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+				 		}
+					 			}else if(data2["content"][r]["details"].length>0 && data2["content"][r]["details"].length<=1){
+					 				if(data2["content"][r]["openflag"]=="0"){
+					 						_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 				}else{
+					 						_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+"\"../../image/shop/p7.png\""+" ></a></div><div class="+"\"iconbox\""+"><img src="+"\"../../image/shop/icon_lin.png\""+" width="+"\"30\""+" height="+"\"30\""+"> </div><div class="+"\"dectitlebox\""
+					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 				}
+					 				
+					 			}
+								
+				   	}
+				   	_historyList+="<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>"
+						$("#dl2").html($("#dl2").html()+_historyList)
+						$("#dl1").html($("#dl1").html()+_shopList);
+						_historyList="";
+						_shopList="";
+						}else{
+							alert(data["error"])
+						}
+								  }
+								
+							})
 					}
+				})
 
-					//点击进入订单详情页面
-					$(".ddclick").click(function () {
-						var serialnumber=$(this).find("p").text().substring('订单号：'.length);
-					window.parent.location.href="p13_orderdetail.html?serialnumber="+serialnumber+"=distributor_id="+distributor_id;
-				 });
-
-			    }  //for循环遍历订单
-
-			  };//for循环遍历分销商
-			 
-
-		 }//ajax的success方法结束
-   });  //ajax结束
-
+		}
   }); //document结束
 
 
@@ -125,98 +232,32 @@
 	<div id="conn">
 	<div class="select" id="select">
 	<ul>
-		<li>阿萨德就撒了点击是打算阿萨德撒的撒的撒打算的撒萨克</li>
-		<li>阿斯科利就到了刷</li>
-		<li>asdsad</li>
-		<li>asdsad</li>
-		<li>asdasdsad</li>
-		<li>asdsad</li>
-		<li>asdsadsad</li>
-				<li>阿萨德就撒了点击是打算阿萨德撒的撒的撒打算的撒萨克</li>
-		<li>阿斯科利就到了刷</li>
-		<li>asdsad</li>
-		<li>asdsad</li>
-		<li>asdasdsad</li>
-		<li>asdsad</li>
-		<li>asdsadsad</li>
-				<li>阿萨德就撒了点击是打算阿萨德撒的撒的撒打算的撒萨克</li>
-		<li>阿斯科利就到了刷</li>
-		<li>asdsad</li>
-		<li>asdsad</li>
-		<li>asdasdsad</li>
-		<li>asdsad</li>
-		<li>asdsadsad</li>
+
 	</ul>
 </div>
-<div class="container" id="container">
+<div class="container" id="container" style="overflow-x:hidden ;">
 <!-- order-list 订单列表 start-->
 
 <div class="orderlistbox">
 <dl id="dl1">
-<dt>进行中的</dt>
-
-<dd>
-<div class="imagebox"><a href="#"><img src="../../image/shop/p7.png" ></a></div>
-<div class="iconbox"><img src="../../image/shop/icon_lin.png" width="30" height="30"> </div>
-<div class="dectitlebox">
-<a style="float:left;" href="#" >三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a>
-<i>共1件</i>
-</div>
-
-<div class="descbox">
-<p>订单号：201601101309123</p>
-<i class="il">送货时间：2016/07/01</i>
-<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>
-</div>
-</dd>
-
-
-<dd style="padding-top:10px;">
-<div class="image2box"><a href="#"><img src="../../image/shop/p7.png" ></a><a href="#"><img src="../../image/shop/p6.png" ></a><a href="#"><img src="../../image/shop/p7.png" ></a></div>
-<i  class="ammount">共1件</i>
-
-<div class="descbox">
-<p>订单号：201601101309123</p>
-<i class="il">送货时间：2016/07/01</i>
-<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>
-</div>
-</dd>
 
 </dl>
 
 
 
-<dl>
-<dt>历史订单</dt>
-<dd>
-<div class="imagebox"><a href="#"><img src="../../image/shop/p7.png" ></a></div>
-<div class="iconbox"><img src="../../image/shop/icon_lin.png" width="30" height="30"> </div>
-<div class="dectitlebox">
-<a style="float:left;" href="#" >三只松鼠松鼠坚果炒货三只松鼠松鼠坚果炒货</a>
-<i>共1件</i>
-</div>
-<div class="descbox">
-<p>订单号：201601101309123</p>
-<i class="il">送货时间：2016/07/01</i>
-<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>
-</div>
-</dd>
+<dl id="dl2">
 
 
-<!--<dd style="padding-top:10px;">-->
-<!--<div class="image2box"><a href="#"><img src="images/p7.png" ></a><a href="#"><img src="images/p6.png" ></a><a href="#"><img src="images/p7.png" ></a></div>-->
-<!--<i  class="ammount">共1件</i>-->
-<!--&lt;!&ndash; desc&ndash;&gt;-->
-<!--<div class="descbox">-->
-<!--<p>订单号：201601101309123</p>-->
-<!--<i class="il">送货时间：2016/07/01</i>-->
-<!--<i class="ir">合计：<span class="pricstyle">￥20.90</span></i>-->
-<!--</div>-->
-<!--</dd>-->
-<!--</dl>-->
+
+
+
 </div>
 
-
+<div class="onload" style="display: block;">
+		
+			<img src="../../image/shop/loading.gif" />
+		
+</div>
 
 <!-- order-list 订单列表 end-->
 </div>

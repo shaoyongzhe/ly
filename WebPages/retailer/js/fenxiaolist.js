@@ -30,8 +30,8 @@ function fnfooterclick() {
 function fngetlist() {
     $.ajax({
         type: "get",
-      	url: "/webapi/distributor/"+getid()+"/distributors",
-      	//url: "../../data/fenxiaolist.json",
+      	//url: "/webapi/distributor/"+getid()+"/distributors",
+      	url: "../../data/fenxiaolist.json",
         data:"",
         timeout:"3000",
         dataType:"json",
@@ -115,9 +115,9 @@ function fngetlist() {
 		                            	oli=oli.substring(0,oli.length-1);
 		                            	oli+="；";
 	                            	}
-	                          		oli=oli.substring(0,oli.length-1);
+	                          		oli=oli.substring(0,oli.length-1)+"</p>";
 	                            }
-                            oli+="</p></div>";
+                            oli+="</div>";
                         "</div>" +
                     "</li>";
             }

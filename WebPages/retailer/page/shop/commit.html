@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>确认订单</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="aplus-terminal" content="1">
+    <link rel="stylesheet" href="../../css/shopcar.css"/>
+    <link href="../../css/common.css" rel="stylesheet" type="text/css">
+    <link href="../../css/master.css" rel="stylesheet" type="text/css">
+    <link href="../../css/calendar.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../../js/scroll/iscroll.js"></script>
+    <script type="text/javascript" src="../../js/retailerid.js"></script>
+	<script type="text/javascript" src="../../js/date.js"></script>
+    <script type="text/javascript">
+
+
+      //解析URL
+
+
+
+
+  $(document).ready(function()
+  {
+  		var pg=0;//门店        后续需要加js！！！！！！！！！！！！！
+  		var _list="";
+  		var _cost=0;
+  		var _send="";
+  		var _flag=0;
+  		var _year=new Date().getFullYear()
+  		var _month=new Date().getMonth()+1
+  		var _day=new Date().getDate()
+  		$("#beginTime").val(_year+"-"+_month+"-"+_day)
+	
+   $.get("/webapi/account/login/test-2-135-1",{},function(data){},false);
+      $.ajax({
+      url:"/webapi/distributor/"+getRetailerid()+"/orderform/items?distributor_id=5ce1d14e07534139ae7774d8983f04f3",
+      async:true,
+      cache:false,
+      dataType:"json",
+      type:"get",
+      error:function(){alert("网络错误")},
+      success:function(data)
+       {
+       	console.log(data)
+       	var _list="";
+       	var _name="";
+       	for(var i=0;i<data.length;i++){
+       		if(data[i]["itemslist"]){
+       			_name=data[i]["itemslist"][data[i]["selectedindex"]]["itemname"]
+       		}else{
+       			_name=data[i]["itemname"]
+       		}
+       		if(data[i]["activityitem_id"]==""){
+       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		"><img src="+"\"../../image/icon05.png\""+" />"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div></li>"
+       		}else if(data[i]["promotionactivity"]["details"]){
+       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+       		"><img src="+"\"../../image/icon05.png\""+" />"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><div class="+"\"discount-con\""+
+       		">7.5折</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品</div><div class="+"\"give-con\""+">汤臣倍健蛋白粉 153g</div><p>×2</p></div></li>"
+       		}
+
+       	}
+       	$(".shoplist").html(_list)
+       	$("#sp3").text(data.length)
+       }//ajax的success方法结束
+		
+	   });  //ajax结束
+	   
+   	$(".submit").click(function(){
+   		$.ajax({
+   			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
+   			type:"post",
+   			data:{
+   				distributor_id:"5ce1d14e07534139ae7774d8983f04f3",
+				remark:"", 
+				deliverdate:$("#beginTime").val()
+   			},
+   			error:function(){},
+   			success:function(data){
+   				console.log(data)
+   			}
+   		})
+   	})
+   
+	$("#sp1").click(function(){
+		$(".canlendar").css({display:"block"})
+		$("html").css({overflow:"hidden"})
+	})
+
+$(function(){
+
+	$('#beginTime').date();
+
+	$('#endTime').date({theme:"datetime"});
+
+});
+
+//	$("#inp2").focus(function(){
+//		$(this).css({textAlign:"left"})
+//	}).blur(function(){
+//		if($(this).val()==""){
+//			$(this).css({textAlign:"right"})
+//		}
+//		
+//	})
+	
+  }); //document结束
+
+</script>
+
+</head>
+
+<body >
+	<div class="load" style="background:#fff;width:100%;height:100%;display:none;position:absolute;z-index: 100;"><img src="../../image/shop/loading.gif" style="width:4rem;height:4rem;margin:72% 0 0 45%" /></div>
+
+
+
+
+<div id="datePlugin"></div>
+ <!-- nav-header start-->
+
+<!-- nav-header end-->
+
+	<section>
+		<div class="saleTm">
+			<div class="saleTm-tit">送货时间</div>
+			<div class="saleTm-con"><div class="lie"><input  id="beginTime" class="kbtn" style="width:50%;font-size: 2rem;padding-top: 5px;height:40px;text-align: right;color:#009f96" /><img src="../../image/shop/rigArr.jpg"></div></div>
+		</div>
+		<div class="remarks">
+			<div class="saleTm-tit" style="width:20%">备注</div>
+			<div class="saleTm-con"><input placeholder="请在此处填写备注" style="width:85%;font-size: 1.8rem;height:40px;color:#333;text-align: right;" id="inp2" /><img src="../../image/shop/rigArr.jpg" /></div>
+		</div>
+		<div class="introd">
+			<div class="saleTm-tit" id="distributorName"><span style="display:inline-block;">clienton</span></div>
+			<div class="saleTm-con">共<span id="sp3"></span>件</div>
+		</div>
+		<ul class="shoplist">
+
+			
+		</ul>
+		<div class="giveto">
+			<ul class="kind">
+				<div class="gifto">赠品 </div>
+				<div class="gift">
+					<div>促销政策中幸存的<span class="gifty">x45</span></div>
+					<div>促销政策中幸存的</div>
+					<div>促销政策中幸存的</div>
+					<div>促销政策中幸存的</div>
+				</div>
+			</ul>
+		</div>
+		<div class="same">
+			<div>商品促销优惠金额</div>
+			<div>￥15.5</div>
+		</div>
+		<div class="same" id="ss">
+			<div>赠品金额</div>
+			<div>￥15.5</div>
+		</div>
+		<div class="same">
+			<div>商品应付金额</div>
+			<div>￥15.5</div>
+		</div>
+		<div class="same">
+			<div>微信下单专享</div>
+			<div>￥15.5</div>
+		</div>
+		<div id="same-ss">
+			<div>满减</div>
+			<div>(满100元减10元；满500元减50元)</div>
+			<div>￥15.5</div>
+		</div>
+	</section>
+            
+         
+            
+            
+            <!-- footer start -->
+                        <div class="bottomlayout">
+                        
+                       
+                          
+                       
+                          
+                          <!-- orderlayout 3 description -->
+                          
+                            <div class="totalsum">
+                                          <p class="amountBig"> 合计：￥50元</p> 
+                                            <p>已优惠金额：￥139.00  </p> 
+                                            <div class="submit">去提交<span>(20)</span></div>
+                                      </div>
+                            
+                          
+                          
+                          
+                         <!--  <div class="bottomsubmit">
+                          <input type="button" data-evt="buy-cart-m/biz/go:submit" class="" >去提交(<span class="">20</span>)</input>
+                          
+                          </div> -->
+                        </div>
+                        <!-- footer end -->
+            
+            
+
+
+
+
+
+
+</body>
+</html>
