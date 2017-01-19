@@ -627,7 +627,7 @@ var selfVerify = avalon.define({//自助核销
                 needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
                 scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
                 success: function (res) {
-                    var token = res.split('token=')
+                    var token = res.resultStr.split('token=')
                     selfVerify.scanSuccess(token[1])
                 }
             });

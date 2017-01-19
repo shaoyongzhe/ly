@@ -41,17 +41,17 @@
 
 			<div class="input-contorl">
 				<label for="">服务电话</label>
-				<span class="edit-area">
-					<input type="text" class="quhao" placeholder='区号' maxlength="3"> - 
-					<input type="text" class="tel" maxlength="7">
+				<span class="edit-area dianhua">
+					<input type="text" class="quhao" placeholder='区号'> - 
+					<input type="text" class="tel">
 				</span>
 			</div>
 
 			<div class="input-contorl">
 				<label for="">活动时间</label>
 				<span class="edit-area">
-					<input type="text" class="time actBegin begintime"> - 
-					<input type="text" class="time actEnd endtime">
+					<input type="text" class="time actBegin begintime" readonly> - 
+					<input type="text" class="time actEnd endtime" readonly>
 					<em class='tip forTime'> * 活动账户余额不足时活动会自动停止</em>
 				</span>
 			</div>
@@ -59,8 +59,8 @@
 			<div class="input-contorl">
 				<label for="">会员参与时间</label>
 				<span class="edit-area">
-					<input type="text" class="time involBegin earliestjointime"> - 
-					<input type="text" class="time involEnd lastestjointime">
+					<input type="text" class="time involBegin earliestjointime" readonly> - 
+					<input type="text" class="time involEnd latestjointime" readonly>
 				</span>
 			</div>
 
@@ -124,14 +124,18 @@
 				</div>
 
 				<div class="area-list wrapper hide">
-						
-					<div class="area-list-item Select_the_province"> 
+
+					<div class="zhidingWrap">
+						<span class="radio zhiding">已选置顶</span>
+					</div>
+
+					<div class="area-list-item Select_the_province">
 						<div class="region-text">省</div> 
 						<div class="b"> 
 							<div class="qt"><input type="checkBox" title="选择全国" class="quanguo" />全国</div> 
 							<ul name="check" class="selectable Select_province area_list_js"> 
 							</ul>
-						</div> 
+						</div>
 						<div class='layer-wait'></div>
 					</div>
 
@@ -171,7 +175,7 @@
 			</div>
 
 			<div class="input-contorl">
-				<label for="">会员超慧券<br>活动要求</label>
+				<label for="">会员超惠券<br>活动要求</label>
 
 				<div class="edit-area chenlong01">
 					<div class="addSub1P68">
@@ -284,6 +288,7 @@
 					<span class='radio' name="supplier">厂商</span>
 					<span class='radio on' name="distributor">分销商</span>
 					<span class='radio' name="retailer" >门店</span>
+					<span class='radio' name="retailer" >无</span>
 				</span>
 			</div>
 
@@ -318,9 +323,9 @@
 								<div class="selectWrap1 -hi">
 
 									<span>
-										<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span>
+										<input class="bor acMeI1" type="text" value="10"/><span class="acMeS1">家</span>
 									</span><span class='to'></span><span>
-										<input class="bor acMeI2" type="text"  value="" />
+										<input class="bor acMeI2" type="text"  value="30" />
 										<span class="acMeS2">家</span>
 									</span>
 
@@ -495,7 +500,7 @@
 					<!--等待更改下面的类名acTy-->
 					<div class="dib hdc2 ver re">
 						<!-- <p class="p68 deleP">补贴条件</p>				 -->
-						<div class="select-wrap  acSe10 ba">
+						<div class="select-wrap acSe10 ba butieCond">
 							<i></i>
 							<em class="selected"></em>
 
@@ -549,7 +554,7 @@
 								<p class="dib hdc4dA ba">分/次</p>
 							</div> -->
 							<div class="dib -hi hdc4d1">
-								<input type="text" placeholder="" class="hdc4In1 dib" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->
+								<input type="text" placeholder="" class="hdc4In1 dib" maxlength="5" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" maxlength="5" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->
 							</div>
 							<div class="dib hi hdc4d2 link">
 								<a href="#" class="dib hdc4dB ver set"></a>
@@ -602,20 +607,20 @@
 					<dfn class='fl'>活动预算峰值：</dfn>
 					<ul class='fl'>
 						<li>直发现金<span class='cash'>0</span><i class='dw'>元</i></li>
-						<!-- <li>返现券<span class='quan'>10</span><i class='dw'>张</i>，价值<span>1,000.00</span><i class='dw yuan'>元</i></li> -->
+						<li>返现券<span class='quan'>0</span><i class='dw'>张</i>，价值<span>0</span><i class='dw yuan'>元</i></li>
 						<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
 					</ul>
 				</div>
 
 				<div class='fr'>
 					<div class="item">
-						<label>活动申报预算</label>
+						<label>申报总预算</label>
 						<span class='hdsbys_text yuan'>0</span><i>元</i>
 					</div>
-					<div class="item">
-						<label>活动申报预算</label>
+					<!-- <div class="item">
+						<label>申报总预算</label>
 						<span class='hdsbys_text fen'>0</span><i>分</i>
-					</div>
+					</div> -->
 				</div>
 
 			</div>
@@ -648,9 +653,9 @@
 							<!-- <p class="p68 deleP">范围/值</p>				 -->
 							<div class="acSe16 ba">		
 								<div class="dib -hi Yyy2d1 ver">
-									<input type="text" placeholder="请输入" class="dib min"/>
+									<input type="text" placeholder="请输入" class="dib min" maxlength="5" />
 									<span>-</span>
-									<input type="text" placeholder="请输入" class="dib max"/>
+									<input type="text" placeholder="请输入" class="dib max" maxlength="5" />
 									<p class="dib hdc4dA ba fr"></p><!--即将被替代为别的单位-->
 								</div>
 								<div class="dib hi Yyy2d2">
@@ -714,9 +719,9 @@
 					<div class="fl clr">
 						<dfn class='fl'>补贴峰值：</dfn>
 						<ul class="fl">
-							<li>现金<span class='cash'></span><i class='dw'>元</i></li>
+							<li>现金<span class='cash'>0</span><i class='dw'>元</i></li>
 							<!-- <li>返现券<span class='quan'>10</span><i class='dw'>张</i>，价值<span class='yuan'>20</span><i class='dw'>元</i></li> -->
-							<li>积分<span class='score'></span><i class='dw'>分</i></li>
+							<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
 						</ul>
 					</div>
 
@@ -821,11 +826,11 @@
 
 				<div class="left">
 					
-					<img src="http://a.hiphotos.baidu.com/zhidao/pic/item/adaf2edda3cc7cd92d82d6b73b01213fb80e9135.jpg" alt="">
+					<img src="img/set-rules.png" alt="">
 					
 					<br><span>范围示意图</span><br>
 
-					<span class='path'>平台活动 > 主办方 > 分销商 > 门店 > 超惠券主题 > 超惠券</span>
+					<span class='path'>平台活动 <i>></i> 主办方 <i>></i> 分销商 <i>></i> 门店 <i>></i> 超惠券主题 <i>></i> 超惠券</span>
 
 				</div>
 
@@ -835,7 +840,7 @@
 						<label for="">选择限制范围: </label>
 						<span class="select-wrap xzfw">
 							<i></i>
-							<em class="selected">按超惠券主题</em>
+							<em class="selected">请选择</em>
 							<ul class="select">
 								<li class="option" name="ticket">按超惠券主题</li>				
 							</ul>
@@ -896,7 +901,7 @@
 
 						<div class="guizerules">
 							<dfn>规则说明： </dfn>
-							<span>1个微信号在一个超惠券主题活动中<br>最多可享受补贴一百元；<br>每日补贴次数最多5次</span>
+							<span>1个<i>微信号</i>在一个超惠券主题活动中<br>最多可享受补贴一百元；<br>每日补贴次数最多5次</span>
 						</div>
 
 
@@ -997,52 +1002,52 @@
 	                        </ul>
 							 <div class="Probability_value">
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
 	                                <div class="input_a">
-	                                    <input type="text" value="0" maxlength='2'><i>%</i>
+	                                    <input type="text" value="10" maxlength='3'><i>%</i>
 	                                    <span>概率值</span>
 	                                </div>
 
@@ -1797,7 +1802,7 @@
 						<span class="edit-area re">
 							<span class='tip warn mb2 wx'>* 用于微信图文消息标题</span><br>
 							<textarea name="" class="wxtw" maxlength="64"></textarea>
-							<span class="tip ab"><em>0</em>/64</span>
+							<span class="tip ab wx"><em>0</em>/64</span>
 						</span>
 					</div>
 
@@ -1820,7 +1825,8 @@
 								<form enctype="multipart/form-data">
 								<div class="ml16">
 									<span class="btn up warn file">上传
-										<input type="file" name="file" id="fileid" onchange="previewImage(this)" />    
+										<input type="file" name="file" id="file" onchange="previewImage(this)"/>    
+										<!-- <input type="file" name="file" id="fileid" onchange="previewImage(this)" />     -->
 									</span>
 									<!-- <span class="btn up warn">上 传</span><br> -->
 									<i class="check">同时上传至系统海报库</i>
@@ -2113,7 +2119,7 @@
 <script type="text/javascript" src="laydate/laydate.js"></script>
 <!-- <script type="text/javascript" src="js/plugin/slimscroll.js"></script> -->
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
-<script type="text/javascript" src="js/plugin/area_select.js"></script>
+<script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
 
 <script type="text/javascript" src="js/CreateActivity.js"></script>
 <!-- <script type="text/javascript" src="js/response.js"></script> -->

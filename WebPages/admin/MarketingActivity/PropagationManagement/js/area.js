@@ -754,7 +754,7 @@ $('.area-list .save').click(function() {
 	});
 
 	$('.area_val').val(JSON.stringify(areaObj, null, 4));
-	console.log(JSON.stringify(areaObj, null, 4));
+	// console.log(JSON.stringify(areaObj, null, 4));
 
 	// "area_condition": [
 	//       [

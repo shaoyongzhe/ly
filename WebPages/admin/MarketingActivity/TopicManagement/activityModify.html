@@ -75,17 +75,17 @@
 
 			<div class="input-contorl">
 				<label for="">服务电话</label>
-				<span class="edit-area">
-					<input type="text" class="quhao" placeholder='区号' maxlength="3"> - 
-					<input type="text" class="tel" maxlength="7">
+				<span class="edit-area dianhua">
+					<input type="text" class="quhao" placeholder='区号'> - 
+					<input type="text" class="tel">
 				</span>
 			</div>
 
 			<div class="input-contorl">
 				<label for="">活动时间</label>
 				<span class="edit-area">
-					<input type="text" class="time actBegin begintime"> - 
-					<input type="text" class="time actEnd endtime">
+					<input type="text" class="time actBegin begintime" readonly> - 
+					<input type="text" class="time actEnd endtime" readonly>
 					<em class='tip forTime'> * 活动账户余额不足时活动会自动停止</em>
 				</span>
 			</div>
@@ -93,8 +93,8 @@
 			<div class="input-contorl">
 				<label for="">会员参与时间</label>
 				<span class="edit-area">
-					<input type="text" class="time involBegin earliestjointime"> - 
-					<input type="text" class="time involEnd lastestjointime">
+					<input type="text" class="time involBegin earliestjointime" readonly> - 
+					<input type="text" class="time involEnd latestjointime" readonly>
 				</span>
 			</div>
 
@@ -204,7 +204,7 @@
 			</div>
 
 			<div class="input-contorl">
-				<label for="">会员超慧券<br>活动要求</label>
+				<label for="">会员超惠券<br>活动要求</label>
 
 				<div class="edit-area chenlong01">
 					<div class="addSub1P68">
@@ -855,7 +855,7 @@
 
 				<div class="left">
 					
-					<img src="http://a.hiphotos.baidu.com/zhidao/pic/item/adaf2edda3cc7cd92d82d6b73b01213fb80e9135.jpg" alt="">
+					<img src="img/set-rules.png"alt="">
 					
 					<br><span>范围示意图</span><br>
 
@@ -1859,7 +1859,7 @@
 								<form enctype="multipart/form-data">
 								<div class="ml16">
 									<span class="btn up warn file">上传
-										<input type="file" name="file" id="fileid" onchange="previewImage(this)" />    
+										<input type="file" name="file" id="file" onchange="previewImage(this)" />    
 									</span>
 									<!-- <span class="btn up warn">上 传</span><br> -->
 									<i class="check">同时上传至系统海报库</i>
@@ -2152,7 +2152,7 @@
 <script type="text/javascript" src="laydate/laydate.js"></script>
 <!-- <script type="text/javascript" src="js/plugin/slimscroll.js"></script> -->
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
-<script type="text/javascript" src="js/plugin/area_select.js"></script>
+<script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
 
 <script type="text/javascript" src="js/CreateActivity.js"></script>
 <script type="text/javascript" src="js/activityModify.js"></script>
