@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -28,7 +28,6 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-
 <title>市场文案管理</title>
 </head>
 <body class='body_close'>
@@ -305,9 +304,10 @@
 	<!-- E -->
 <script type="text/javascript" src="/admin/lib/layer/2.1/layer.js"></script> 
 <script type="text/javascript" src="/admin/static/h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="/admin/static/H-ui.admin.js"></script>
+<script type="text/javascript" src="/admin/static/H-ui.admin/js/H-ui.admin.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/Marketcopymanagement.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/dropload.js"></script>
+<!-- <script src='/admin/MarketingActivity/PropagationManagement/js/cityLink.js'></script>  -->
 <script type="text/javascript" src="/admin/lib/district/js/cityLink.js"></script>
 <script type="text/javascript" src="/admin/lib/laydate/laydate.js"></script>
 <script type="text/javascript">
@@ -338,8 +338,6 @@ var end = {
 };
 laydate(start);
 laydate(end);
- 
-
 //返回顶层
 $(function(){
 	// debugger;
@@ -351,7 +349,6 @@ $(function(){
 	$('.length_val').on('keyup',function(){
 		if($(this).val().length==65){layer.msg('文案标题字数已上限')}
 	});
-
 // 判断 选择时间的
 	$('.send_object dir div').click(function(){
 		$(this).find('img').toggleClass('xiyin_son')
@@ -372,7 +369,6 @@ $(function(){
 		$('#data_time').attr('disabled',false);
 	});
 });
-
 </script> 
 <script src="/admin/MarketingActivity/PropagationManagement/js/area_select.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/area_update.js"></script>

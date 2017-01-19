@@ -80,7 +80,7 @@ function Cajax(d){
 			beforeSend:function(){
 				loadingStart();
 			},		
-		success:function(data){
+		success:function(data){			
 			if(data==""||data==[]){
 				layer.alert("数据为空，请重试", {icon: 5});
 				return;
@@ -93,6 +93,7 @@ function Cajax(d){
 				layer.alert('数据为空', {icon: 5});
 				return;
 			}
+			console.log(data);
 			linshi=data;//存储所有活动，所有活动都在data.content[i]
 			allActivity=data;
 			ajaxSucFn(data.content[0]);//先显示第一个活动，			

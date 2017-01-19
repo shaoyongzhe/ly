@@ -1,5 +1,6 @@
 //20170117
 //loadingStart();
+console.log(8288);
 //$(".BDcyhdCityD").empty();
 //$(".BDcyhdRequireD").empty();
 //$(".BDQFd1").empty();
@@ -22,7 +23,7 @@ var isReceivedTopicActivityID=false;//判断是否接收到指令活动列表id�
 
 //情形1.等待经销宝传令刷新页面
 engine.on('OnDisID_ActIDRefresh', OnDisID_ActIDRefresh, this);//主题活动id///***对接经销宝后解除注释####
-//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","c45a7fbcec264532bfc01d8dd6d1e8a6");//***对接经销宝后注释掉***链接活动详情页面后注释掉
+//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","a486c6fdfd0b4e339014b16bc6b685d6");//***对接经销宝后注释掉***链接活动详情页面后注释掉
 function OnDisID_ActIDRefresh(){
 	isReceivedDistributorID=true;//可能需要改变
 	isReceivedTopicActivityID=true;//可能需要改变
@@ -73,11 +74,12 @@ function ajaxActivityDetails(a,b){
 				layer.alert('数据为空', {icon: 5});
 				return;
 			}
+			console.log(data);
 			//1226添加开始
 			$('.BtuwenTu img').attr('src',data.poster_url)
 			//1226添加结束
 			var Barrzige=["img/b5.png","img/b6.png"];
-			var welcomeArr=["哎呦，您差一点点就课可以赚补贴哦！","恭喜您，您的公司已达到活动资格！"];
+			var welcomeArr=["哎呦，您差一点点就可以赚补贴哦！","哇哦，您完全符合活动条件！赚补贴不要手软哦！"];
 			var colorArr=["#ff0000","#3fbe00"];
 			if(data.matched==true){
 				data.matched=1;
@@ -93,6 +95,7 @@ function ajaxActivityDetails(a,b){
 			$(".BsmallTitle").text(data.activitytitle);
 			$(".BtuwenWenP1").text(data.content);
 			//展开收起
+//			debugger;
 			$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");
 			zksq1();
 			data.time=data.begintime+"-"+data.endtime;
@@ -115,8 +118,8 @@ function ajaxActivityDetails(a,b){
 			$(".BsubsidyAP3").text(data.budget.days);
 			$(".BsubsidyAP4").text(data.budget.obtained);
 			//活动补贴说明开始
-			//0103添加会员参与时间
-			$(".BbtsmRright12 span").text(data.earliestjointime+'-'+data.latestjointime);			
+			//0103添加会员参与时间//有结束时间则是范围，没有结束时间则是开始时间
+			$(".BbtsmRright12 span").text(data.latestjointime?data.earliestjointime+'-'+data.latestjointime:data.earliestjointime);			
 			//判断有几个btsm
 			$(".btsm").addClass("hi");
 			var num=0;
@@ -329,7 +332,7 @@ function ajaxActivityDetails(a,b){
 			zksq3();
 //			console.log(8888666)
 //			loadintEnd();
-			$(".initialHi").removeClass("initialHi");
+			$(".initialHi").removeClass("initialHi");//因为展开收起插件与显示隐藏冲突，所以，本页面dom中将initialHi变成了-initialHi
 		},//success结束
 		error:function(data){			
 			layer.alert('通讯异常:错误'+data.status, {icon: 5});
@@ -350,6 +353,7 @@ function ajaxActivityDetails(a,b){
 //zksq1();//对接后台后请注释掉******
 //展开收起函数封装，用于页面上面的活动介绍
 function zksq1(){
+//	debugger;
 //	$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");
     $("p.ellipsis-text").dotdotdot({
         after: 'a.more',
@@ -476,11 +480,26 @@ function mmm(){
 	if(zksq3Qy=="区"){//收起状态下，最后一行是否是区，具体怎么判断哪个是最后一行，见相应代码
 		if(zksq3q5s>6){//大于6
 			kkk=923;
+			//0118添加开始
+			if($(window).width()<1000){//小屏幕			
+				kkk=732;	
+			}
+			//0118添加结束
 		}else{//等于6，小于6的情况不需要考虑，因为只看第6行。废话；。
 			if(zksq3Bq.length%52==0){//处理刚好6行整
 				kkk=923;
+				//0118添加开始
+				if($(window).width()<1000){//小屏幕			
+					kkk=732;	
+				}
+				//0118添加结束				
 			}else{//6行，但不满
 				kkk=(zksq3Bq.length%52)*14+220;		
+				//0118添加开始
+				if($(window).width()<1000){//小屏幕			
+					kkk=(zksq3Bq.length%38)*14+220;		
+				}
+				//0118添加结束					
 			}					
 		}
 	}else{
@@ -512,7 +531,12 @@ function returnToList(){
 isReceivedID();
 var isReceivedIDNum=0;
 var isReceivedIDTime='';
+$(document).scrollTop(0); 
 function isReceivedID(){
+//		document.documentElement.scrollTop=0;
+//	document.body.scrollTop=0;
+//	console.log(document.documentElement.scrollTop,document.body.scrollTop);
+//$(document).scrollTop(0); 
 	isReceivedIDNum++;
 	isReceivedIDTime=setTimeout(isReceivedID,500);
 	console.log(isReceivedIDNum);
