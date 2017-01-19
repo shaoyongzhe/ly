@@ -184,16 +184,16 @@ $(function(){
 					for(var p=0;p<getmoneys.length;p++){
 						str_small+=getmoneys[p]
 					}
-					$('.enjoy span:eq(1)').html(formatCash1(str_small))
+					//$('.enjoy span:eq(1)').html(formatCash1(str_small))
 					//console.log(getmoneys)
 
 				//三位数加上小数点	
-					function init1(){
+					/*function init1(){
 						$('.yellow_money span').html(formatCash1(Platform_subsidies)); //平台最高补贴输出页面
 						$('.issued a:eq(1)').html(formatCash1(issued)) //已发放输出页面
 						//$('.enjoy span span').html(formatCash1(getmoneys)); //获得输出到页面
 					}
-					init1()
+					init1()*/
 					function formatCash1( cash ){
 						var str_cash = cash + "";
 						var ret_cash = "";
