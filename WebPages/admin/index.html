@@ -45,6 +45,7 @@
 			}
 			
 			/* 样式调整 */
+            /*字体*/
 			@font-face {
 			  font-family: 'iconfont';  /* project id 175093 */
 			  src: url('//at.alicdn.com/t/font_mywaqi3jbyxbhuxr.eot');
@@ -328,14 +329,14 @@
 		<script src="lib/layer-v2.4/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(".yonghu").text(localStorage.account);
-//			$(".project").eq(1).addClass("hi"); //控制左侧菜单一级项目显示隐藏
-//			$(".project").eq(2).addClass("hi");
-//			$(".project").eq(4).addClass("hi");
-//			$(".project").eq(0).find("li").addClass("hi")
+			$(".project").eq(1).addClass("hi"); //控制左侧菜单一级项目显示隐藏
+			$(".project").eq(2).addClass("hi");
+			$(".project").eq(4).addClass("hi");
+			$(".project").eq(0).find("li").addClass("hi")
 			$(".project").eq(0).find("li").eq(4).removeClass("hi"); //控制左侧菜单系统管理的二级项目显示隐藏
 			$(".project").eq(0).find("li").eq(5).removeClass("hi");
-//			$(".project").eq(3).find("li").eq(1).addClass("hi");
-//			$(".project").eq(3).find("li").eq(4).addClass("hi");
+			$(".project").eq(3).find("li").eq(1).addClass("hi");
+			$(".project").eq(3).find("li").eq(4).addClass("hi");
 			if(localStorage.status != "true") {
 				// alert(localStorage.status)
 				window.location.href = "login/signin.html";
