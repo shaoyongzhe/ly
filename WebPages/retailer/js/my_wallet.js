@@ -98,8 +98,6 @@ var vm = avalon.define({
                     return;
                 }
 
-
-
                 if (index != 1) {
                     if (vm.showType == 0) {//个人
                         $.each(json.content, function (i, v) {
@@ -209,18 +207,29 @@ var vm = avalon.define({
             dataType: 'json',
             data: {
                 type: type,
-                count: 1//count
+                count: count
             },
             url: '/webapi/retailer/mine/retailer/withdraw',
+            beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
             success: function (json) {
-                common.loading.hide();
+                shelter.close()
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
-                    toasterextend.showtips(json.error, "error");
+                    shelter.init({
+                        title: json.error,
+                        icos: "/js/shelter/image/ico_warn.png",
+                        autoClear: 5,
+                        shadeClose: true
+                    })
                     return;
                 }
                 if (json.user_notification != undefined) {
-                    toasterextend.showtips(json.user_notification, "info");
+                    shelter.init({
+                        title: json.user_notification,
+                        icos: "/js/shelter/image/ico_warn.png",
+                        autoClear: 5,
+                        shadeClose: true
+                    })
                     return;
                 }
 
@@ -228,15 +237,25 @@ var vm = avalon.define({
                 vm.getMoney()
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                common.loading.hide();//隐藏转圈动画
+                shelter.close();//隐藏转圈动画
                 var errormsg = "访问异常";
                 if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                     var json = JSON.parse(XMLHttpRequest.responseText);
-                    errormsg = JSON.parse(json.Message).error;
+                    if (json.error != undefined && json.error != null) {
+                        errormsg = json.error + (json.user_notification != undefined ? json.user_notification : "")
+                    } else
+                        errormsg = JSON.parse(json.Message).error;
                     if (errormsg == undefined || errormsg == '')
                         errormsg = "Http error: " + XMLHttpRequest.statusText;
                 }
-                toasterextend.showtips(errormsg, "error");
+
+                shelter.init({
+                    title: errormsg,
+                    icos: "/js/shelter/image/ico_error.png",
+                    autoClear: 5,
+                    shadeClose: true
+                })
+
             }
         });
     }
