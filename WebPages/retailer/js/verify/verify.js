@@ -89,7 +89,6 @@ var vm = avalon.define({
                                 var errormsg = "当前网络不给力，请稍候重试";
                                 if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                                     var json = JSON.parse(XMLHttpRequest.responseText);
-                                    alert(json)
                                     if (json.indexOf("Message") >= 0)
                                         errormsg = JSON.parse(json.Message).error;
                                     else

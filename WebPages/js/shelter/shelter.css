@@ -34,7 +34,7 @@
     }
     #shelterContent p { height:20px; line-height:20px;
     }
-         #shelterContent p img {width:20px;vertical-align:top;margin-right:5px
+         #shelterContent p img {width:20px;vertical-align:top;margin-right:5px;float: left;
             }
 /* 按钮 */
 .btnVerify { width:45%;height:30px;border:solid 1px #009f96;color:#009f96; text-align:center; line-height:30px;float:left;
