@@ -44,7 +44,8 @@ if(localStorage.state) {
 function fnxuanran(data) {
 	var odata = data.data;
 	var otr = "",
-		viplx = "";
+		viplx = "",
+		diqu = [];
 	for(var k1 in odata) {
 		otr += "<tr gu-id='" + odata[k1]["guid"] + "'>" +
 			"<td class='cgl-td1'><input class='thechec' type='checkbox'></td>" +
@@ -52,8 +53,10 @@ function fnxuanran(data) {
 		if(odata[k1]["anticheatingobj_class"] == "tblretailer") {
 			viplx = "门店"
 		}
-		otr += "<td class='cgl-td3'>" + viplx + "</td>" +
-			"<td class='cgl-td4'>" + odata[k1]["locale"] + "</td>" +
+		otr += "<td class='cgl-td3'>" + viplx + "</td>";
+		diqu = odata[k1]["locale"].split(",").reverse();
+		var str = diqu.join("");
+		otr += "<td class='cgl-td4'>" + str + "</td>" +
 			"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 			"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 			"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
@@ -258,7 +261,7 @@ function fnjilu() {
 		$("#cgl-wgdj").css({
 			"color": "#999"
 		}).val("-请选择-");
-		
+
 	} else {
 		$("#cgl-wgdj").css({
 			"color": "#333"
@@ -647,7 +650,16 @@ function article_add(that) {
 				oli += "<li>暂无记录</li>";
 			}
 			for(var i = data.length - 1; i >= 0; i--) {
-				oli += "<li><span>" + data[i]["issuetime"] + "</span><span>" + data[i]["issueby_name"] + "</span><div>" + data[i]["dealtstate"] + "：<span>" + data[i]["description"] + "</span></div></li>";
+				oli += "<li>" +
+						"<span>" + data[i]["issuetime"] + "</span>" +
+						"<span>" + data[i]["issueby_name"] + "</span>";
+						if(data[i]["dealtstate"]=="确认违规"){
+							oli+="<div>" + data[i]["dealtstate"] +"；</div>";
+						}else{
+							oli+="<div>" + data[i]["dealtstate"] + "：<span>" + data[i]["description"] + "</span></div>";
+						}
+						
+					oli+="</li>";
 			}
 			$(".cgl-czjl").html(oli);
 		}
@@ -713,8 +725,8 @@ function fnfstz(fstz) {
 //关闭按钮
 function fnclose() {
 	$(".cgl-close").click(function() {
-//		$(".layui-layer-shade").remove();
-//		$(".layui-layer").remove();
+		//		$(".layui-layer-shade").remove();
+		//		$(".layui-layer").remove();
 		//$(doc).css({"overflow":"scroll"});
 		$('.layui-layer-close').click();
 	});
