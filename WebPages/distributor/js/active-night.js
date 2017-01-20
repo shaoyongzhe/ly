@@ -68,7 +68,7 @@ $(function(){
 									'</section>'+
 									'<section class="Activity">'+
 										'<div class="Activitytop">'+
-											'<p class="active_font">'+'活动补贴规则'+'</p>'+
+											'<p class="active_font">'+'活动补贴说明'+'</p>'+
 										'</div>'+
 										'<div class="Activitytoppic">'+
 											'<a class="subsidies" href="javascript:void(0)">'+'平台最高补贴'+'</a>'+
