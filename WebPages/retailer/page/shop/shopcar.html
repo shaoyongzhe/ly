@@ -16,6 +16,7 @@
 		var _give="";
 		var _color="";
 		var _active="";
+		var _distrgive="";
 			$.ajax({
 				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/5ce1d14e07534139ae7774d8983f04f3?isvalid=0",
 				async:true,
@@ -100,6 +101,30 @@
 					"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+" />"+data1[i]["itemname"]+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div style="+
 					"\"position:absolute;left:0;top:0;width:100%;height:111px;background:#ddd;opacity:0.5\""+"></div></li>"
 				}
+			}
+			$.ajax({
+	    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
+		    	async:true,
+		    	cache:false,
+		        dataType:"json",
+		        type:"get",
+		        error:function(){alert("网络出错")},
+		        success:function(data){
+		        	console.log(data)
+		        	if(data[0]["promotionactivity"] && data[0]["promotionactivity"]["details"].length>0){
+		        	  	for(var p=0;p<data[0]["promotionactivity"]["details"].length;p++){
+		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"]){
+		        	  			for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
+		        	  				_distrgive+="<div>"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"
+		        	  			}
+		        			}
+						}
+		        	}
+		        }
+	    	})
+			if(_distrgive!=""){
+				$(".giveto").css({display:"block"})
+				$(".gift").html(_distrgive)
 			}
 			$("section ul").html(_list)
 			$(".summ").text("("+_count+")")
@@ -343,7 +368,7 @@
 
 <body>
 	<div class="ifDelt" style="width:100%;height:100%;background:rgba(170,170,170,0.3);position:fixed;bottom:0;display:none;z-index:1000">
-		<div style="width:80%;height:10rem;background:#fff;margin:28% 10% 0 10%;border-bottom:1px solid #ccc;line-height: 10rem;text-align: center;font-size:14px">确认要删除折1种商品</div>
+		<div style="width:80%;height:10rem;background:#fff;margin:28% 10% 0 10%;border-bottom:1px solid #ccc;line-height: 10rem;text-align: center;font-size:14px">确认要删除这1种商品</div>
 		<div>
 			<span>取消</span>
 			<span>确认</span>
@@ -363,6 +388,13 @@
 		<ul style="overflow: hidden;">
 			
 		</ul>
+		<div class="giveto" style="display: none;">
+			<div class="kind">
+				<div class="gifto">赠品 </div>
+				<div class="gift">
+				</div>
+			</div>
+		</div>
 	</section>
 
  <!-- footer start -->
