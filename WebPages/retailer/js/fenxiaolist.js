@@ -30,10 +30,10 @@ function fnfooterclick() {
 function fngetlist() {
     $.ajax({
         type: "get",
-      	//url: "/webapi/distributor/"+getid()+"/distributors",
-      	url: "../../data/fenxiaolist.json",
+      	url: "/webapi/distributor/"+getid()+"/distributors",
+      	//url: "../../data/fenxiaolist.json",
         data:"",
-        timeout:"3000",
+        timeout:"9000",
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
         	if(textStatus=="timeout"){
@@ -136,7 +136,7 @@ $(function () {
         type: "get",
       	url: "/webapi/account/login/test-2-135-1",
         data: "",
-        timeout:"1000",
+        timeout:"9000",
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
         	if(textStatus=="timeout"){
