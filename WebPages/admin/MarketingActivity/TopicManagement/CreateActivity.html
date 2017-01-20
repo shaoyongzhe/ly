@@ -124,14 +124,18 @@
 				</div>
 
 				<div class="area-list wrapper hide">
-						
-					<div class="area-list-item Select_the_province"> 
+
+					<div class="zhidingWrap">
+						<span class="radio zhiding">已选置顶</span>
+					</div>
+
+					<div class="area-list-item Select_the_province">
 						<div class="region-text">省</div> 
 						<div class="b"> 
 							<div class="qt"><input type="checkBox" title="选择全国" class="quanguo" />全国</div> 
 							<ul name="check" class="selectable Select_province area_list_js"> 
 							</ul>
-						</div> 
+						</div>
 						<div class='layer-wait'></div>
 					</div>
 
@@ -284,6 +288,7 @@
 					<span class='radio' name="supplier">厂商</span>
 					<span class='radio on' name="distributor">分销商</span>
 					<span class='radio' name="retailer" >门店</span>
+					<span class='radio' name="retailer" >无</span>
 				</span>
 			</div>
 
@@ -318,9 +323,9 @@
 								<div class="selectWrap1 -hi">
 
 									<span>
-										<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span>
+										<input class="bor acMeI1" type="text" value="10"/><span class="acMeS1">家</span>
 									</span><span class='to'></span><span>
-										<input class="bor acMeI2" type="text"  value="" />
+										<input class="bor acMeI2" type="text"  value="30" />
 										<span class="acMeS2">家</span>
 									</span>
 
@@ -495,7 +500,7 @@
 					<!--等待更改下面的类名acTy-->
 					<div class="dib hdc2 ver re">
 						<!-- <p class="p68 deleP">补贴条件</p>				 -->
-						<div class="select-wrap  acSe10 ba">
+						<div class="select-wrap acSe10 ba butieCond">
 							<i></i>
 							<em class="selected"></em>
 
@@ -602,20 +607,20 @@
 					<dfn class='fl'>活动预算峰值：</dfn>
 					<ul class='fl'>
 						<li>直发现金<span class='cash'>0</span><i class='dw'>元</i></li>
-						<!-- <li>返现券<span class='quan'>10</span><i class='dw'>张</i>，价值<span>1,000.00</span><i class='dw yuan'>元</i></li> -->
+						<li>返现券<span class='quan'>0</span><i class='dw'>张</i>，价值<span>0</span><i class='dw yuan'>元</i></li>
 						<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
 					</ul>
 				</div>
 
 				<div class='fr'>
 					<div class="item">
-						<label>活动申报预算</label>
+						<label>申报总预算</label>
 						<span class='hdsbys_text yuan'>0</span><i>元</i>
 					</div>
-					<div class="item">
-						<label>活动申报预算</label>
+					<!-- <div class="item">
+						<label>申报总预算</label>
 						<span class='hdsbys_text fen'>0</span><i>分</i>
-					</div>
+					</div> -->
 				</div>
 
 			</div>
@@ -835,7 +840,7 @@
 						<label for="">选择限制范围: </label>
 						<span class="select-wrap xzfw">
 							<i></i>
-							<em class="selected">按超惠券主题</em>
+							<em class="selected">请选择</em>
 							<ul class="select">
 								<li class="option" name="ticket">按超惠券主题</li>				
 							</ul>
@@ -896,7 +901,7 @@
 
 						<div class="guizerules">
 							<dfn>规则说明： </dfn>
-							<span>1个微信号在一个超惠券主题活动中<br>最多可享受补贴一百元；<br>每日补贴次数最多5次</span>
+							<span>1个<i>微信号</i>在一个超惠券主题活动中<br>最多可享受补贴一百元；<br>每日补贴次数最多5次</span>
 						</div>
 
 

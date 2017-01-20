@@ -230,7 +230,18 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="whiteblock"></div>
+                        <div class="assetinfo" ms-if="item.topiclist.length>0">
+                            <a href="javascript:;" class="assetcontent" ms-click="topicClick(item)">
+                                <div class="asset_left">
+                                    <div class="topictitle"><nobr>{{item.topiclist[0].topictitle}}</nobr></div>
+                                    <div class="topictitle_1"><small>{{item.topiclist.length>1?'等活动':''}}</small></div>
+                                </div>
+                                <div class="asset_right">
+                                    <small>已参加</small>{{item.topiclist[0].headcount}}<small>人</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="whiteblock" ms-if="item.topiclist==null"></div>
                         <ul class="div-down  ">
                             <li>
                                 {{item.itemtotalnum==null?'0':item.itemtotalnum}}
@@ -252,17 +263,7 @@
                             </li>
                             <div class="clear"></div>
                         </ul>
-                        <div class="assetinfo" ms-if="item.topiclist.length>0">
-                            <a href="javascript:;" class="assetcontent" ms-click="topicClick(item)">
-                                <div class="asset_left">
-                                    <div class="topictitle"><nobr>{{item.topiclist[0].topictitle}}</nobr></div>
-                                    <div class="topictitle_1"><small>{{item.topiclist.length>1?'等活动':''}}</small></div>
-                                </div>
-                                <div class="asset_right">
-                                    <small>已参加</small>{{item.topiclist[0].headcount}}<small>人</small>
-                                </div>
-                            </a>
-                        </div>
+                      
                         <hr />
                     </div>
                     <div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; ">
@@ -641,7 +642,7 @@
             topicClick: function (el) {
                 var topicid = "";
                 $.each(el.topiclist, function (index, item, array) {
-                    if (index <= 20)
+                    if (index < 20)
                         topicid += "," + item.topicid
                 });
 

@@ -110,7 +110,7 @@
 	$(".contentCont").empty();	//若查看静态页面，请注释掉	
 	//ajax已经参与活动,因为ui图上没有地区区别，所以不需要考虑地区
 	function ajaxAlready(a){
-		console.log("ajax开始ajaxAlready")
+		console.log("ajax开始ajaxAlready");
 		$.ajax({
 			type:"get",
 //			url:"http://localhost:3000/a",
@@ -121,7 +121,7 @@
 			},
 			async:true,
 			beforeSend:function(){
-				loadingStart()
+				loadingStart();
 			},			
 			success:function(data){
 				linshi1=data;
@@ -178,21 +178,13 @@
 
 	//	地区点击
 	var contentDqBol=true;
-	$(".contentDq span").click(function(){
-		if(contentDqBol){
-			$(".contentDq span").text("其他地区");
-			contentDqBol=false;
-		}else{
-			$(".contentDq span").text("本地区");
-			contentDqBol=true;
-		}
-		$(".Ano").find(".alist").toggleClass("hi")
+	$(document).on("click",".contentDq",function(){
+		$(this).next().toggle();
 	})
-	
 
 	function sucessFn(obj,info){
 		console.log(info,'sucessFn');
-		console.log(info)
+//		console.log(info)
 		if(info==""||info==[]){
 			layer.alert("数据为空，请重试", {icon: 5});
 			return;
@@ -208,15 +200,35 @@
 		}
 		var src=["img/a4.png","img/a3.png"];
 		var endtimeArr=[];
+		if(obj.hasClass("Ano")){//目前只有未参与的有本地区其他地区
+			$(".Ano .contentCont").append(''
+				+'<div class="thisDistrict">'
+				+	'<div class="contentDq"><img src="img/a7.png" alt="" /><span>本地区</span></div>'
+				+   '<div class="thisDistrictContent"></div>'
+				+'</div>'
+				+'<div class="elseDistrict">'
+				+	'<div class="contentDq"><img src="img/a7.png" alt="" /><span>其他地区</span></div>'
+				+   '<div class="elseDistrictContent"></div>'
+				+'</div>'
+			);
+		}
 		for(i=0;i<info.content.length;i++){	
 //			console.log(info.content[i]);
+/*			if(obj.hasClass("Ano")&&info.content[i].condition.area_matched=="1"){
+				$(".Ano .thisDistrict").append(initialDom);
+			}else if(obj.hasClass("Ano")&&info.content[i].condition.area_matched=="0"){
+				$(".Ano .elseDistrict").append(initialDom);
+			}else if(obj.hasClass("Aalready")){
+				obj.find(".contentCont").append(initialDom);
+			}*/
 			obj.find(".contentCont").append(initialDom);
 			//新存入guid开始****
 			obj.find(".con:last").append('<i style="display:none" class="Aguid">'+info.content[i].guid+'</i>');//id名可能变化为topid、**id
 			//新存入guid结束****
 			//20170109添加已参与数量开始***
 			if(info.content[i].participate_count!=undefined){
-				$(".cCHeadSp2:last").removeClass("hi").text("已参与分销商数："+info.content[i].participate_count);				
+				console.log(999999999)
+				obj.find(".cCHeadSp2:last").removeClass("hi").text("已参与分销商数："+info.content[i].participate_count);				
 			}
 			//20170109添加已参与数量结束***			
 			if(info.content[i].budget==undefined){
@@ -246,8 +258,8 @@
 			obj.find(".ccCo:last").text(info.content[i].content);
 			obj.find(".ccTi:last").find(".ccTis1").text(info.content[i].begintime.substr(0,16)+"-"+info.content[i].endtime.substr(0,16));
 			obj.find(".ccTi:last").find(".ccTis2").eq(0).prev("img").attr("src",src[info.content[i].condition.area_matched]);
-			obj.find(".ccTi:last").find(".ccTis2").eq(2).prev("img").attr("src",src[info.content[i].condition.activity_matched]);
-			obj.find(".ccTi:last").find(".ccTis2").eq(3).prev("img").attr("src",src[info.content[i].condition.condition_matched]);
+			obj.find(".ccTi:last").find(".ccTis2").eq(2).prev("img").attr("src",src[info.content[i].condition.condition_matched]);//超惠
+			obj.find(".ccTi:last").find(".ccTis2").eq(3).prev("img").attr("src",src[info.content[i].condition.activity_matched]);//参与activity_matched
 			endtimeArr.push(info.content[i].endtime);
 			//多行溢出隐藏//因为只需要支持谷歌浏览器，所以换成css来实现多行溢出
 //			zhanShou(obj.find('.ccCo:last'));		
@@ -261,20 +273,37 @@
 					$(".Ano").find(".ccNo:last").addClass("hi");
 //					$(".Ano").find(".ccfoot2:last").text("马上参与");
 				}else{
+//					debugger;
 					$(".Ano").find(".ccNo:last").removeClass("hi");
-//					$(".Ano").find(".ccfoot2:last").text("活动详情");
+					$(".Ano").find(".ccfoot2:last").text("活动详情");
+					if(info.content[i].condition.area_matched==0){
+						$(".Ano").find(".ccfoot2:last").text("随便看看");
+					}else if(info.content[i].condition.condition_matched==0){
+						$(".Ano").find(".ccfoot2:last").text("查看详情");
+					}
 				}
-				$(".Ano").find(".ccfoot2:last").text("活动详情");//去掉马上参与显示，一律为活动详情
-				//处理本地区其他地区
+//				$(".Ano").find(".ccfoot2:last").text("活动详情");//去掉马上参与显示，一律为活动详情
+//				//处理本地区其他地区
 				if(info.content[i].condition.area_matched=="1"){//本地区显示，不要用district了，哲哥会删掉的。
-					$(".Ano").find(".alist:last").removeClass("hi");
+//					$(".Ano").find(".alist:last").removeClass("hi");//之前那种方案
+					$(".Ano").find(".alist:last").addClass("thisDistrictList");
 				}else{
-					$(".Ano").find(".alist:last").addClass("hi");
+					$(".Ano").find(".alist:last").addClass("elseDistrictList");
+//					$(".Ano").find(".alist:last").addClass("hi");//之前那种方案
 				}			
-			}
-	
-		}
-		djs()
+			}	
+		}//for结束
+		//处理本地区其他地区
+		$(".Ano .alist").each(function(){
+			if($(this).hasClass("elseDistrictList")){				
+				$('.elseDistrictContent').append($(this));
+				//$(this).remove();//而无需此
+			}else{
+				$('.thisDistrictContent').append($(this));
+				//$(this).remove();//而无需此
+			}			
+		})
+		djs();
 		function djs(){
 			countDown(obj,endtimeArr);	
 			setTimeout(djs,500);
