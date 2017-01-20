@@ -33,7 +33,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 /**************搜索***************/
 .proSearch{margin: 0.5rem;padding: 0.3rem; border: 1px solid #c6c6c6;border-radius:0.125rem; }
 .titlestyle{width:2rem;height: 0.85rem; background: url("../image/shop/arrow_right.png") no-repeat right center;background-size:50%;padding-right: 0.3rem;position: relative;}
-.titlestyle>ul{display: block;border: 1px solid #c6c6c6;position: absolute;top: 1.25rem;left: -0.3rem;width: 100%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;box-shadow: 0 0 5px #aaa;}
+.titlestyle>ul{display: none;border: 1px solid #c6c6c6;position: absolute;top: 1.25rem;left: -0.3rem;width: 100%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;box-shadow: 0 0 5px #aaa;}
 .titlestyle>ul>li{margin: 0 0.3rem;border-bottom:1px solid #C6C6C6 ;}
 .titlestyle>ul>li:last-of-type{border: 0;}
 .inputbox{-webkit-box-flex: 1;}
@@ -52,8 +52,9 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .col1{color: #f7af01;}
 .link{position: relative;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .link>i{display: block;width: 0.55rem;height: 0.55rem;background: url(../image/shop/mor1.png) no-repeat;background-size:0.55rem ;position: absolute;right: 0;bottom: 0;}
-#loading{position: fixed;top: 50%;left: 50%; width: 3.1rem;height: 3.1rem;display: none;}
-#loading>img{width: 100%;}
+#loading{position: fixed;width: 75%;height: 100%;display: none;}
+#loading>img{width: 2.1rem;height: 2.1rem;margin: 4rem auto 0.1rem;}
+#loading>div{text-align: center;}
 
 
 .cgl-contlist{overflow-y:scroll;width: 73.5%;height: 100%;position: relative;}
@@ -71,9 +72,10 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .cgl-contlist>ul>li:last-child{border: 0;}
 .cgl-top img{width: 2.5rem;height: 2.5rem;margin-right: 0.4rem;}
 .the-xiangxi{-webkit-box-flex: 1;}
+.cgl-linqi{display: inline-block;width:0.75rem;height: 0.75rem; background: url("../image/shop/icon_lin.png") no-repeat center;background-size:0.75rem ;margin:0 0.1rem -0.1rem 0;}
 .the-xiangxi>h3{font-weight: 100;color: #333;font-size: 0.65rem;}
 .the-xiangxi>p{color: #999;font-size: 0.5rem;}
-.c-price>span{color: red;font-size: 0.6rem;}
+.c-price>span{color: red;font-size: 0.7rem;}
 .c-price>div{padding-right: 0.5rem;}
 .c-price>div>span{float: left;}
 .jian,.add{display: inline-block; width: 1.375rem;height: 1.375rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.37rem;}
@@ -81,11 +83,12 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .price-z{display: inline-block;height: 1.375rem;padding: 0 0.15rem;line-height: 1.375rem;}
 .the-xiangxi>del,.del{color: #bbb;font-size: 0.5rem;}
 .del{position: relative;}
-.del>i{display: inline-block;width: 0.7rem;height: 0.7rem;background: url(../image/shop/yucun.png) no-repeat center;background-size: 0.7rem;margin:0 2px -0.1rem 2px;}
+.del>i{display: inline-block;width: 0.7rem;height: 0.7rem;background: url("../image/shop/yucun.png") no-repeat center;background-size: 0.7rem;margin:0 2px -0.1rem 2px;}
 .del:after{content: "";width: 100%;height: 1px;position: absolute;top: 50%;left: 0; background: #999;}
 .cgl-syu{color: #bbb;font-size: 0.6rem;}
-.cgl-active{color: #009f96;margin-bottom: 0.3rem;}
+.cgl-active{color: #009f96;margin-bottom: 0.2rem;}
 .cgl-active>span{display: inline-block;padding: 0.1rem; border: 1px solid #009f96;border-radius: 0.15rem;line-height: 1;margin-right: 0.15rem;}
+.youligift{margin: -0.85rem 0.5rem 0 1.75rem;}
 .cgl-beizhu{color: #999;}
 
 /**************一般列表***************/
@@ -97,7 +100,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 footer{height: 50px;background: #333;color: #fff;}
 .footerl{-webkit-box-flex: 1;position: relative;}
 .cart{width: 43px;height: 43px;border-radius: 50%;position: absolute;top: -9px;left: 11px;background:#000 url("../image/shop/buycar2.png") no-repeat center;background-size: 50%;}
-.ammount{width: 16px;height: 16px;background: red;color: #fff; text-align: center;line-height: 17px;border: 1px solid #fff;border-radius: 50%;position: absolute;top: 0;right: -5px;font-size: 10px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.ammount{width: 32px;height: 32px;background: red;color: #fff; text-align: center;line-height: 32px;border: 2px solid #fff;border-radius: 50%;position: absolute;top:-10px;right: -14px;font-size: 16px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;transform:scale(0.5);}
 .price{padding-left: 59px;line-height: 50px;font-size: 13px;}
 .footerr{width: 79px;background: #009f96;text-align: center;line-height: 50px;font-size: 14px;}
 .footerr>span{font-size: 12px;}
