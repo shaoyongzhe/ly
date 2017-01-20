@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>主题活动预算管理</title>
+	<link rel="stylesheet" type="text/css" href="css/Activityoperation.css">
+</head>
+<body style="background:#F2F2F2">
+	<div class="wrap">
+		<div class="Title_Index">
+			<a href="javascript:;">财务管理</a>
+			<i>></i>
+			<a href="javascript:;">主题活动预算管理</a>
+		</div>
+		<div class="Query_reset">
+			<div class="Query_reset_left">
+				<!-- 左边 -->
+				<div class="Query_reset_Modular1">
+					<div class="regin_box">
+						<a href="javascript:;">活动地区</a>
+						<div class="regin">
+						
+						<!-- 城市三级联动 -->
+							<div class="gf-select" id="province">
+								<span><em>省</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+								<ul>
+									<li data-value="">省份</li>
+								</ul>
+							</div>
+							<div class="gf-select" id="city">
+								<span><em>市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+								<ul>
+									<li data-value="">城市</li>
+								</ul>
+							</div>	
+							<div class="gf-select" id="area">
+								<span><em>区</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+								<ul>
+									<li data-value="">区县</li>
+								</ul>
+							</div>	
+
+						</div>
+					</div>
+					<div class="Person">
+						<a href="javascript:;">负责人</a>
+						<div class="Person_box">
+							<input disabled="disabled" class="Person_box_ipt" type="text" value="--请选择--">
+							<!-- <a class="show_font" href="javascript:;">--请选择--</a> -->
+							<img src="images/2.png" height="16" width="16" alt="">
+							<ul class="Person_box_son">
+								<li><a href="javascript:;">负责人1</a></li>
+								<li><a href="javascript:;">负责人2</a></li>
+								<li><a href="javascript:;">负责人3</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="declare">
+						<a href="javascript:;">申报</a>
+						<div class="declare_box">
+							<label>
+								<div class="inpt_father">
+									<div class="shen_min">
+										<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="de_ipt1 s_min" type="text">
+										<a  class="de_mon1" href="javascript:;">元</a>
+									</div> 
+									<a class="small_Line" href="javascript:;">-</a>
+									<div class="shen_max">
+										<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="de_ipt2" type="text" placeholder="10000">
+										<a class="de_mon2" href="javascript:;">元</a>
+									</div>
+								</div>
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- 中间 -->
+				<div class="Query_reset_Modular2">
+					<div class="regin_box1">
+						<a href="javascript:;">预算事由</a>
+						<div class="regin_box1_son">
+							<input disabled="disabled" class="regin_box_ipt" type="text" value="--请选择--">
+							<img src="images/2.png" height="16" width="16" alt="">
+							<ul class="regin_box_sonul">
+								<li><a href="javascript:;">负责人1</a></li>
+								<li><a href="javascript:;">负责人2</a></li>
+								<li><a href="javascript:;">负责人3</a></li>
+							</ul>
+						</div>
+						
+					</div>
+					<div class="Person Person1">
+						<a href="javascript:;">使用预算时间</a>
+						<input id="end" type="text" readonly="readonly" class="time laydate-icon actBegin begintime">
+						
+						<a class="Z_hi" href="javascript:;">至</a> 
+						<input id="start" type="text" readonly="readonly"  class="time laydate-icon actEnd endtime">
+						<!-- <img class="Person1_img1" src="images/1.png" height="16" width="16" alt="">
+						<img class="Person1_img2" src="images/1.png" height="16" width="16" alt=""> -->
+					</div>
+					<div class="declare declare1">
+						<a href="javascript:;">已审批</a>
+						<label>
+							<div style="width: 218px;" class="declare_box declare1_box">
+								<div class="pi_min">
+									<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="de_ipt1 de1_ipt1" type="text">
+									<a class="de_mon1 de1_mon1" href="javascript:;">元</a>
+								</div>
+									<a class="line_xxi" href="javascript:;">-</a>
+								<div class="pi_max">
+									<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="de_ipt2 de1_ipt2" type="text" placeholder="10000">
+									<a class="de_mon2 de1_mon2" href="javascript:;">元</a>
+								</div>
+							</div>
+						</label>
+					</div>
+				</div>
+				<!-- 右边 -->
+				<div class="Query_reset_Modular3">
+
+					<div class="regin_box2">
+						<a href="javascript:;">预算编号</a>
+						<div class="regin_box2_son">
+							<!-- <input class="regin2_box_ipt" type="text" value=""> -->
+							<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="regin2_box_ipt" type="text" value="">
+							<!-- <img src="images/2.png" height="16" width="16" alt="">
+							<ul class="regin2_box_sonul">
+								<li><a href="javascript:;">负责人1</a></li>
+								<li><a href="javascript:;">负责人2</a></li>
+								<li><a href="javascript:;">负责人3</a></li>
+							</ul> -->
+						</div>
+						
+					</div>
+					<div class="Person Person2">
+						<a href="javascript:;">预算状态</a>
+						<div class="Person2_son">
+							<input disabled="disabled" class="Person2_ipt" type="text" value="--请选择--">
+							<img src="images/2.png" height="16" width="16" alt="">
+							<ul class="Person2_sonul">
+								<li><a href="javascript:;">负责人1</a></li>
+								<li><a href="javascript:;">负责人2</a></li>
+								<li><a href="javascript:;">负责人3</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="declare declare2">
+						<a href="javascript:;">已发放</a>
+						<div class="declare_box declare1_box">
+							<label>
+								<div class="fa-bigbox">
+									<div class="fa_min">
+										<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="de_ipt1 de1_ipt1" type="text">
+										<a class="de_mon1 de1_mon1" href="javascript:;">元</a>
+									</div>
+									<a class="lin_fax" href="javascript:;">-</a>
+									<div class="fa_max">
+										<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="de_ipt2 de1_ipt2" type="text" placeholder="10000">
+										<a class="de_mon2 de1_mon2" href="javascript:;">元</a>
+									</div>
+								</div>
+							</label>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- 右边按钮 -->
+			<div class="rig_iptn">
+				<input class="query_iptn" type="button" value="查询">
+				<input class="reste_iptn" type="button" value="重置">
+			</div>
+		</div>
+		<!-- 表格里面的内容 -->
+		<!-- 上面固定的table -->
+		<div class="tab_wrap">
+			<table class="table1" width="96%" height="600px" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th>预算编号</th>
+						<th>活动地区</th>
+						<th>预算事由</th>
+						<th>负责人</th>
+						<!-- <th>申报(元)</th>
+						<th>已审批(元)</th>
+						<th>已发放(元)</th> -->
+						<th>使用预算时间</th>
+						<th>预算状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+
+		
+		</div>
+
+		<!-- 末尾的字 -->
+		<p class="footer_text_logo">凌云科技版权所有 京ICP号10211557.</p>
+	</div>
+</div>
+<!-- 弹窗 s-->
+<div id="layer_bigbox" style="padding:20px;">
+	<div class="firts_bix"><p class="information">预算基本信息</p><hr></div>
+	<!-- 预算编号 -->
+	<div class="Budget_number">
+		<p id="asd" class="Budget_numson">预算编号</p>
+		<a class="Bud_number" href="javascript:;">1234</a>
+	</div>
+	<!-- 预算事由 -->
+	<div class="Budgetary_reasons">
+		<div class="Budgetary_reasons_left">
+			<p>预算事由</p>
+		</div>
+		<div class="Budgetary_reasons_right">
+			<p class="purpose"></p>
+			<div class="operation">
+				<div class="operation_left">
+					<a href="javascript:;">活动地区</a>
+				</div>
+				<div class="operation_right"></div>
+			</div>
+			<div class="Three_arrea">
+				
+			</div>
+		</div>
+	</div>
+	<!-- 预算峰值 -->
+	<div class="Budget_peak">
+		<div class="Budget_peak_left">
+			<p>预算峰值</p>
+		</div>
+		<div class="Budget_peak_right">
+			
+		</div>
+	</div>
+	<div style="margin-top: 15px" class="firts_bix"><p class="information">预算申报及审批详情</p><hr style="width: 740px;"></div>
+	<!-- 预算状态 -->
+	<div class="Budget_status">
+		<p class="status_1">预算状态:</p>
+		<a class="status_2" href="javascript:;"></a>
+	</div>
+	 <!-- 表格 -->
+	<table class="table2" width="100%" height="290px" border="1" cellspacing="0" cellpadding="2" bordercolor="#cccccc">
+		 <thead>
+		 	<tr>
+		 		<td>补贴对象</td>
+		 		<td>已审批预算(元)</td>
+		 		<td>追加/缩减预算</td>
+		 	</tr>
+		 </thead>
+		 <tbody>
+		 	<tr>
+		 		<td></td>
+		 		<td></td>
+		 		<td></td>
+		 	</tr>
+		 </tbody>
+	</table>
+	<div style="margin-top: 15px" class="firts_bix"><p class="information">操作信息</p><hr style="width: 820px;"></div>
+	<!-- 实时信息 -->
+	<div class="time_message">
+		<ul class="information_list"></ul>
+	</div>
+	<!-- 按钮组 -->
+	<div class="button_iptn">
+		<input class="close_iptn" type="button" value="关闭"> 
+		<input id="Add_reed" class="Additional_red" type="button" value="追加/缩减预算">  
+	</div>
+</div>
+<!-- 弹窗 e-->
+<!-- 追加缩减弹窗 s-->
+<div id="layer_addreebox" style="padding:20px;display: none;">
+	<table class="table3" width="100%" height="345px" border="1" cellspacing="0" cellpadding="2" bordercolor="#cccccc">
+		<thead>
+			<tr>
+				<td>补贴对象</td>
+		 		<td>申报预算(元)</td>
+		 		<td>已审批(元)</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+		 		<td width="26.83%"></td>
+		 		<td width="40.17%"></td>
+		 		<td style="position: relative" height="40px">
+		 			<input type="text">
+		 			<span class="parten_box">
+			 			<a class="fix_font" href="javascript:;">追加</a>
+			 			<i class="triangle"><img src="images/3.png" alt=""></i>
+			 			<i class="shu_xian"><img src="images/4.png" alt=""></i>
+		 			</span>
+		 			<ul class="add_redd">
+		 				<li>追加</li>
+		 				<li>缩减</li>
+		 			</ul>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td></td>
+		 		<td></td>
+		 		<td style="position: relative" height="40px">
+		 			<input type="text">
+		 			<span class="parten_box">
+			 			<a class="fix_font" href="javascript:;">追加</a>
+			 			<i class="triangle"><img src="images/3.png" alt=""></i>
+			 			<i class="shu_xian"><img src="images/4.png" alt=""></i>
+		 			</span>
+		 			<ul class="add_redd">
+		 				<li>追加</li>
+		 				<li>缩减</li>
+		 			</ul>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td></td>
+		 		<td></td>
+		 		<td style="position: relative" height="40px">
+		 			<input type="text">
+		 			<span class="parten_box">
+			 			<a class="fix_font" href="javascript:;">追加</a>
+			 			<i class="triangle"><img src="images/3.png" alt=""></i>
+			 			<i class="shu_xian"><img src="images/4.png" alt=""></i>
+		 			</span>
+		 			<ul class="add_redd">
+		 				<li>追加</li>
+		 				<li>缩减</li>
+		 			</ul>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td></td>
+		 		<td></td>
+		 		<td style="position: relative" height="40px">
+		 			<input type="text">
+		 			<span class="parten_box">
+			 			<a class="fix_font" href="javascript:;">追加</a>
+			 			<i class="triangle"><img src="images/3.png" alt=""></i>
+			 			<i class="shu_xian"><img src="images/4.png" alt=""></i>
+		 			</span>
+		 			<ul class="add_redd">
+		 				<li>追加</li>
+		 				<li>缩减</li>
+		 			</ul>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td></td>
+		 		<td></td>
+		 		<td style="position: relative" height="40px">
+		 			<input type="text">
+		 			<span class="parten_box">
+			 			<a class="fix_font" href="javascript:;">追加</a>
+			 			<i class="triangle"><img src="images/3.png" alt=""></i>
+			 			<i class="shu_xian"><img src="images/4.png" alt=""></i>
+		 			</span>
+		 			<ul class="add_redd">
+		 				<li>追加</li>
+		 				<li>缩减</li>
+		 			</ul>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td></td>
+		 		<td></td>
+		 		<td></td>
+		 	</tr>
+		</tbody>
+	</table>
+	<div class="layer_add_btn">
+		<input class="cancel" type="button" value="取消">
+		<input type="button" value="确定缩减">
+	</div>
+</div>
+<!-- 追加缩减弹窗 e-->
+
+<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="laydate/laydate.js"></script>
+<!--<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>	 -->
+<script src="javascript/cityLink.js"></script>
+<script type="text/javascript" src="javascript/jquery.mockjax.js"></script>
+<script type="text/javascript" src="javascript/jquery.autocomplete.js"></script>
+<script type="text/javascript" src="javascript/Activityoperation_nig.js"></script>
+
+</body>
+</html>
+
