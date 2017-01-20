@@ -478,10 +478,11 @@ $('table.notify')
                          channel: tr.find('td:eq(2)').text(),
                          groupname: tr.find('td:eq(3)').text(),
                          area: tr.find('td:eq(4)').text(),
-                         gateway_templateid: tr.find('td:eq(5)').text(),
-                         content: JSON.parse(tr.find('td:eq(6)').text()),
-                         state: tr.find('td:eq(7)').text(),
-                         isdefault: tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0
+                         description: tr.find('td:eq(5)').text(),
+                         gateway_templateid: tr.find('td:eq(6)').text(),
+                         content: JSON.parse(tr.find('td:eq(7)').text()),
+                         state: tr.find('td:eq(8)').text(),
+                         isdefault: tr.find('td:eq(9)').text().trim() == "默认" ? 1 : 0
                      };
                      //try {
                      //    var contentObj = JSON.parse(data.content);

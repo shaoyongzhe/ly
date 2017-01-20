@@ -127,7 +127,6 @@
     $('#saveBtn').click(function () {
         var prepareData = $('.jsoneditor textarea').val();
         try {
-            alert(prepareData);
             prepareData = JSON.parse(prepareData);
             var opType = parent.$('#opType').val();
             if (opType == "notify") {
