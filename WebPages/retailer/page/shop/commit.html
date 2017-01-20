@@ -32,8 +32,8 @@
   		var _send="";
   		var _flag=0;
   		var _year=new Date().getFullYear()
-  		var _month=new Date().getMonth()+1
-  		var _day=new Date().getDate()
+  		var _month=(new Date().getMonth()+1)>10?new Date().getMonth()+1:("0"+(new Date().getMonth()+1))
+  		var _day=new Date().getDate()>10?new Date().getDate():"0"+new Date().getDate()
   		var _distrgive="";
   		var _reduce=0;
   		$("#beginTime").val(_year+"-"+_month+"-"+_day)
