@@ -476,20 +476,46 @@ var selfVerify = avalon.define({//自助核销
     $id: 'selfVerify',
     token: common.getUrlParam("token"),
     VerifyScan: function () {
-        //if (selfVerify.token.length == 0) { //自助核销，调用微信扫一扫
-        //    wx.scanQRCode({
-        //        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-        //        scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-        //        success: function (res) {
-        //            var token = res.resultStr.split('token=')
-        //            selfVerify.scanSuccess(token[1])
-        //        }
-        //    });
-        //}
-        //else
-        //    selfVerify.scanSuccess(selfVerify.token)
+        var value = $("#txt_hx").val().trim();
+        var reg = /^[1-9]\d*$/;
+        if (value == "") {
+            $("#txt_hx").val("1")
+            vm.hxNum = 1
+            toasterextend.showtips("请至少选择一张超惠券", "error");
+            return false
+        } else
+            if (!reg.test(value)) {
+                $("#txt_hx").val("1")
+                vm.hxNum = 1
+                toasterextend.showtips("只能填写数字", "error");
+                return false
+            }
+            else if (value <= 0) {
+                $("#txt_hx").val("1")
+                vm.hxNum = 1
+                toasterextend.showtips("请至少选择一张超惠券", "error");
+                return false
+            } else if (parseInt(value) > vm.verifylimit) {
+                $("#txt_hx").val(vm.verifylimit)
+                vm.hxNum = vm.verifylimit
+                toasterextend.showtips("最多只能选择" + vm.verifylimit + "张", "error");
+                return false
+            }
 
-        selfVerify.scanSuccess("42ce7193d0d0477eb32fe9b451b09f3d")
+        vm.hxNum = parseInt($("#txt_hx").val())
+        if (selfVerify.token.length == 0) { //自助核销，调用微信扫一扫
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                    var token = res.resultStr.split('token=')
+                    selfVerify.scanSuccess(token[1])
+                }
+            });
+        }
+        else
+            selfVerify.scanSuccess(selfVerify.token)
+        // selfVerify.scanSuccess("42ce7193d0d0477eb32fe9b451b09f3d")
     },
     scanSuccess: function (qrlimitken) {//开始自助核销
         vm.pageStep = 2;
