@@ -41,18 +41,15 @@
     <script type="text/javascript" src="lib/ace/theme-textmate.js"></script>
     <script type="text/javascript" src="lib/ace/theme-jsoneditor.js"></script> -->
     <style type="text/css">
-        div.convert-right
-        {
+        div.convert-right {
             background: url('jsoneditor/css/img/jsoneditor-icons.png') -0 -48px;
         }
 
-        div.convert-left
-        {
+        div.convert-left {
             background: url('jsoneditor/css/img/jsoneditor-icons.png') -24px -48px;
         }
 
-        div.saveBtn
-        {
+        div.saveBtn {
             float: right;
             margin-right: 40px;
             background-color: rgba(0, 157, 217, 1);
@@ -130,6 +127,7 @@
     $('#saveBtn').click(function () {
         var prepareData = $('.jsoneditor textarea').val();
         try {
+            alert(prepareData);
             prepareData = JSON.parse(prepareData);
             var opType = parent.$('#opType').val();
             if (opType == "notify") {
@@ -139,7 +137,7 @@
                 parent.layer.msg('保存中', { shade: 0.3 })
                 $.ajax({
                     type: 'put',
-                    url: parent.domailUrl + '/webapi/operation/notification/template',
+                    url: '/webapi/operation/notification/template',
                     dataType: "json",
                     data: prepareData,
                     success: function (data) {
@@ -147,6 +145,7 @@
                         parent.$('.layui-layer-close').click();
                     },
                     error: function () {
+                        layer.msg("编辑失败!");
                         console.warn("编辑 error");
                     }
                 });
@@ -155,7 +154,7 @@
                 $.ajax({
                     type: 'put',
                     data: JSON.stringify(prepareData),
-                    url: parent.domailUrl + '/webapi/operation/notification/manager',
+                    url: '/webapi/operation/notification/manager',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
@@ -163,6 +162,7 @@
                         parent.$('.layui-layer-close').click();
                     },
                     error: function () {
+                        layer.msg("保存失败!");
                         console.warn("编辑 error");
                     }
                 });

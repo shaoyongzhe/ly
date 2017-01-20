@@ -62,6 +62,7 @@ function getList(curr, handle, searchForm) {
             + "</td><td>" + td[i].channel
             + "</td><td>" + td[i].groupname
             + "</td><td>" + td[i].area
+            + "</td><td>" + td[i].description
             + "</td><td class='templateid'>" + td[i].gateway_templateid
 			+ "</td><td title='" + contentFormat + "'><span class='content'>" + contentFormat
 			+ "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
@@ -478,7 +479,7 @@ $('table.notify')
                          groupname: tr.find('td:eq(3)').text(),
                          area: tr.find('td:eq(4)').text(),
                          gateway_templateid: tr.find('td:eq(5)').text(),
-                         content: tr.find('td:eq(6)').text(),
+                         content: JSON.parse(tr.find('td:eq(6)').text()),
                          state: tr.find('td:eq(7)').text(),
                          isdefault: tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0
                      };
@@ -489,6 +490,8 @@ $('table.notify')
                      //    console.log(e);
                      //    //alert("测试使用" + data.content);
                      //}
+                     //var jsonStr = JSON.stringify(data, null, 4);
+
                      var jsonStr = JSON.stringify(data, null, 4);
                      $('#add').val(jsonStr);
                      $('#opType').val("notify");
