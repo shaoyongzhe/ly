@@ -88,7 +88,7 @@ a:hover {
 }
 
 .area-list .area-list-item1 {
-    width: 545px;
+    width: 527px;
     float: left;
     /* margin-left: 10px; */
     /* background-color: #FwDFDFD; */
@@ -193,7 +193,8 @@ a:hover {
 .area-list .selectable li {
     margin: 0px;
     padding: 10px 0 0 10px;
-    font-size: 0.6em;
+    /*font-size: 0.6em;*/
+    font-size: 12px;
     height: 20px;
     width: 75px;
     display: inline-block;
@@ -738,3 +739,12 @@ body.modify .region-wrap{
 }
 
 
+.zhidingWrap{
+    text-align: right;
+    margin: 6px 0;
+}
+
+.zhidingWrap .zhiding{
+    margin-right: 20px;
+    cursor: pointer;
+}

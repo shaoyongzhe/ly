@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-16 11:15:52
+* @Last Modified time: 2017-01-17 22:09:37
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -280,7 +280,7 @@ body{
 .Float_text{
     width: 70%;
     /* height: 73px; */
-    line-height: 60px;
+    line-height: 61px;
     margin-top:14px;
     margin-left: 55px;
     display: inline-block;
@@ -474,15 +474,21 @@ table thead {
 
 
 .Float_text1{
-    margin-left: 118px;
-    margin-top: -32px;
+     margin-left: 118px;
+    /* margin-top: -32px; */
     width: 224px;
+        padding-bottom: 12px;
 }
 
+
 .Float_Title1{
+     width: 63px;
+    /* height: 73px; */
     line-height: 20px;
-    margin-left: -63px;
+    /* float: left; */
+    clear: both;
     display: inline-block;
+    float: left;
 }
 .Float_text2{
     margin-left: 185%;
@@ -582,4 +588,17 @@ tbody td {
    filter:alpha(Opacity=50);
    -moz-opacity:0.5;
    opacity: 0.5;;top:0;
+}
+
+span.tiaoshu{
+    padding-left: 45px;
+}
+
+span.tiaoshu span{
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.provice span em{
+    font-style: normal;
 }

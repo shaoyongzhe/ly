@@ -1,3 +1,122 @@
+var resdata = {
+    "activity": {
+        "guid": "02e80f58cd594eb2a24cb413424e53c5",
+        "description": "11111111111111111111111111",
+        "state": "上架",
+        "begintime": "2017-01-10 00:00:00",
+        "endtime": "2017-01-11 23:59:59",
+        "earliestjointime": "2017-01-11 00:00:00",
+        "latestjointime": null,
+        "activitytitle": "shaoyongzhe: 测试6",
+        "servicephone": "111-1111111",
+        "singleselection": 0
+    },
+    "area_condition": {
+        "topicid": "02e80f58cd594eb2a24cb413424e53c5",
+        "districts": [
+            {
+                "name": "北京市",
+                "state": "active",
+                "charge": {
+                    "name": "shaoyongzhe",
+                    "guid": "4654269886BC4FD7B5914ED324208FB0",
+                    "oid": 2800992
+                },
+                "city": [
+                    {
+                        "name": "北京市",
+                        "state": "active",
+                        "charge": {
+                            "name": "shaoyongzhe",
+                            "guid": "4654269886BC4FD7B5914ED324208FB0",
+                            "oid": 2800992
+                        },
+                        "country": []
+                    }
+                ]
+            }
+        ]
+    },
+    "supplier_condition": {},
+    "distributor_condition": {
+        "state": "active",
+        "number_range": {
+            "min": "1",
+            "max": "11"
+        },
+        "ticket_verify": {
+            "state": "active",
+            "min": "111",
+            "operator": ">=",
+            "max": "",
+            "begintime": "2017-1-9",
+            "guid": "767f81af8bcb48d485071c1ad1a29874"
+        }
+    },
+    "consumer_condition": {},
+    "retailer_condition": {},
+    "activity_condition": [
+        {
+            "state": "active",
+            "activitytype": "package",
+            "retailer_count": {
+                "min": "1",
+                "max": "20"
+            },
+            "discount": {
+                "min": "1",
+                "operator": ">="
+            },
+            "guid": "af741cca16644d1ab84cc4ec987ca707"
+        }
+    ],
+    "event_handler_list": [
+        {
+            "state": "active",
+            "refund_to": "distributor",
+            "event": "verify_first",
+            "refund_content": "fixedmoney",
+            "min": "1",
+            "ceiling": "1111",
+            "applycount": "11111",
+            "limit": {
+                "perday": {
+                    "sum": "1",
+                    "time": "1"
+                },
+                "totalbudget": {
+                    "sum": "11",
+                    "time": "11"
+                }
+            },
+            "guid": "5ee9fd80764944569f50bf6fdede688e"
+        }
+    ],
+    "sponsor": "distributor",
+    "propagation": [
+        {
+            "activitytitle": "11",
+            "wechattitle": "11",
+            "propagation": "11",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "distributor"
+        },
+        {
+            "activitytitle": "22",
+            "wechattitle": "22",
+            "propagation": "111",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "retailer"
+        },
+        {
+            "activitytitle": "33",
+            "wechattitle": "33",
+            "propagation": "33",
+            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
+            "object": "consumer"
+        }
+    ]
+}
 
 function GetUrlParam() {
     
@@ -19,6 +138,7 @@ function GetUrlParam() {
 }
 
 
+
 // debugger
 if(!$.isEmptyObject(GetUrlParam())){
 
@@ -34,8 +154,8 @@ if(!$.isEmptyObject(GetUrlParam())){
 
 } else {
     layer.alert("跳转到修改失败了");
+    // render(resdata)
 }
-
 
 function render(resdata){
 

@@ -60,8 +60,14 @@ function showKeyPress(evt) {
 //图片上传
 // var pic_url = "";
 function previewImage(file) {
-	// console.log(file);
-    var form = new FormData($('form')[0]);
+	
+	var imgSize = file.files[0].size;
+	if(imgSize > 1048576){
+		layer.msg('活动海报不能上传大于1M的图片');
+    	return;
+	}
+
+
     $.ajax({
         type: "POST",
         url: "/webapi/ipaloma/propagation/upload/imgupload",
@@ -77,11 +83,11 @@ function previewImage(file) {
             //console.warn(data.picture_url);
 			// console.log(file);
 
-			// debugger
+			// debugger;
             // pic_url = data.picture_url;
             // console.log(pic_url);
             // alert(pic_url);
-            layer.msg("上传中...",{time:2000})
+            layer.msg("上传中...",{time:2000});
             setTimeout("$('.area.edit .haibao-wrap img').attr('src', '"+ data.picture_url +"');layer.msg('上传成功')",2000);
 
         },
@@ -187,14 +193,48 @@ $('body').on("click",".setRules",function(e){
 	// alert($(this).closest('.butie-select-wrap .selected').text());
 
 	// $(this).find('.gz').remove();
+	if($(this).closest('.addSub4').find('.butie-select-wrap .selected').text() == ""){
+		layer.tips('请先完善补贴对象', $(this).closest('.addSub4').find('.butie-select-wrap'));
+		return;
+	}
+
+	// $(this).closest('.butieSec').find('.butie-select-wrap .selected').text("");
+	// debugger
+	// $('.rules-title').remove();
+
+	var butieduixiang = $(this).closest('.addSub4').find('.butie-select-wrap .selected').text();
 	layer.open({
 
 		type: 1,
-		title: '设置规则-单个' + $(this).closest('.butieSec').find('.butie-select-wrap .selected').text(),
+		title: "设置规则-单个<i class='rules-title'>" + butieduixiang + "</i>",
 		area: ['66%',"50%"],
 		maxmin: true,
 		content: $('.layer.set-rules')
 
+	});
+
+
+	// debugger;
+	var forPath = $('.addSub2:contains(主办方) .member-type:eq(0) .selected').text();
+	switch (forPath) {
+		case '厂商':
+			$('.path').html('平台活动 <i>&gt;</i> 厂商 <i>&gt;</i> 分销商 <i>&gt;</i> 超惠券主题 <i>&gt;</i> 超惠券 <i>&gt;</i> 门店');
+			break;
+		case '分销商':
+			$('.path').html('平台活动 <i>&gt;</i> 分销商 <i>&gt;</i> 超惠券主题 <i>&gt;</i> 超惠券 <i>&gt;</i> 门店');
+			break;
+		case '门店':
+			$('.path').html('平台活动 <i>&gt;</i> 超惠券主题 <i>&gt;</i> 超惠券 <i>&gt;</i> 门店');
+			break;
+	}
+
+	$('.guizerules i').text(butieduixiang);
+
+
+	// debugger
+	$('.select-wrap.xzfw').find('ul').empty();
+	$('.member-type .selected').each(function(){
+		$('.select-wrap.xzfw').find('ul').append("<li class='option'>"+ $(this).text() +"</li>");
 	});
 
 	// debugger
@@ -675,7 +715,7 @@ var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
 $('.earliestjointime').val(tomorrow + " 00:00:00");
-$('.latestjointime').val(tomorrow + " 23:59:59");
+$('.latestjointime').val(tomorrow + " 00:00:00");
 // laydate.skin('yalan');
 $('.time').click(function(e){
 	e.stopPropagation();
@@ -762,42 +802,51 @@ $('.btn.next').click(function(){
 $('body.create').on('input','input',function(e){
 	e.stopPropagation();
 
+	$(this).val($.trim($(this).val()));
 
-	if(isNaN(this.value)){
+	if(isNaN($(this).val())){
+
+		// debugger
+		if($(this).closest('.area-list').length == 1){
+			return;
+		}
+
         layer.msg("请输入数字");
         $(this).val("");
-
-    } else {
-
-    	// debugger
-    	if($(this).val() == ""){
-    		return;
-    	}
-
-
-    	if($(this).val().indexOf(" ") != 0){
-    		// alert($(this).val().indexOf(" "))
-    		// alert('cxcxcxcx')
-    	}
-
-
-
-    	if($(this).closest('.input_a').length == 1){
-    		
-    		if($(this).val().indexOf('.') == 1){
-    			$(this).attr("maxlength","4");
-    			return
-    		}
-    		if($(this).val().indexOf('.') == 2){
-    			$(this).attr("maxlength","5");
-    			return
-    		}
-
-    	}
-    	
-    	$(this).val(parseInt($(this).val()));
+        return;
 
     }
+
+
+	// debugger
+	if($(this).val() == ""){
+		if($(this).closest('.btfz').length == 1){
+			$(this).val(0);
+			$(this).keyup();
+		}
+		return;
+	}
+	if($(this).closest('.dianhua').length == 1){return;}
+	if($(this).closest('.input_a').length == 1 || 
+	   $(this).closest('.hdc4d1').length == 1 || 
+	   $(this).closest('.Yyy2d1').length == 1 ||
+	   $(this).closest('.btfz').length != 1){
+		
+		if($(this).val().indexOf('.') == 1){
+			$(this).attr("maxlength","4");
+			return
+		}
+
+		if($(this).val().indexOf('.') == 2){
+			$(this).attr("maxlength","5");
+			return
+		}
+
+	}
+
+	
+	$(this).val(parseInt($(this).val()));
+
 
     // debugger
 	var _this = $(this);
@@ -809,7 +858,9 @@ $('body.create').on('input','input',function(e){
     	}
     }
 
+
 });
+
 
 $('.Probability_value input').on("blur",function(){
 
@@ -845,6 +896,7 @@ $('.Probability_value input').on("blur",function(){
 $('textarea, input').on('input',function(){
 	$(this).next().find('em').text($(this).val().length);
 });
+
 
 // 复选 多选
 $(document).on('click','.check, .radio',function(){
@@ -882,7 +934,6 @@ $(document).on('click','.check, .radio',function(){
 	$(this).addClass('on').siblings().removeClass('on');
 
 });
-
 
 
 // 宣传图文资料 编辑按钮
@@ -939,8 +990,6 @@ $('.editok').click(function(){
 });
 
 
-
-
 $('.heading-toggle').click(function(){
 	$(this).toggleClass('on').parent().next().slideToggle();
 	$(this).next().toggle();
@@ -955,9 +1004,28 @@ $('.heading-toggle').click(function(){
 	}
 	return false
 }*/
+
+
+// 补贴条件
+/*$('.xzfw .select').click(function(){
+	
+	var _this = $(this);
+
+	// debugger
+	_this.find('li').remove();
+	$('.member-type .selected').each(function(){
+		_this.append("<li class='option'>"+ $(this).text() +"</li>");
+	});
+
+	// return;
+
+});*/
+
 // $('.select .option').click(function(e){
-$("body").on("click",".option",function(e){
+$("body").on("click","li.option",function(e){
 	e.stopPropagation();
+
+	// debugger;
 	// alert(1);
 	var _this = $(this),
 		text = _this.text();
@@ -1116,6 +1184,7 @@ $("body").on("click",".option",function(e){
 			$(this).parents(".acZige2").next().find(".acZige2tab").eq(index+1).removeClass("hi");			
 		// })	
 	}
+
 	if($(this).closest('.acZige4')){
 	// $(".acZige4").find(".option").click(function(){			
 			var index=$(this).parents(".acZige4").find(".select-wrap").find(".option").index($(this));	
@@ -1134,17 +1203,17 @@ $("body").on("click",".option",function(e){
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
 			return;
 		}
-		var d = true;
-		var thisSelected = $('.addSub4 .butie-select-wrap .selected');
-		$(thisSelected).each(function(i,item){
-			if(text == $(this).text()){
-				layer.msg($(this).text()+' 已选');
-				d = false;
-				return false;
-			}
-		});
+		// var d = true;
+		// var thisSelected = $('.addSub4 .butie-select-wrap .selected');
+		// $(thisSelected).each(function(i,item){
+		// 	if(text == $(this).text()){
+		// 		layer.msg($(this).text()+' 已选');
+		// 		d = false;
+		// 		return false;
+		// 	}
+		// });
 
-		if(d == true){
+		// if(d == true){
 			_this.parent().hide().prev().text(text);
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
 			//开始*********************************************************************************************
@@ -1157,26 +1226,56 @@ $("body").on("click",".option",function(e){
 					if($(this).text()==dArr[i]){
 						$(this).removeClass("hi");
 					}
-				})	
+				});
 			}
 			//结束********************************************************************************************
-		}
+		// }
 		return;
 	}
 
-	_this.parent().hide().prev().text(text);
-	_this.parent().hide().prev().attr("name",_this.attr('name'));
+
+	// 补贴条件
+	if($(this).closest('.butieCond').length==1){
+		var _this = $(this);
+
+		var butieduixiang = $('.addSub4 .butie-select-wrap .selected');
+		var this_duixiang_txt = _this.closest('.addSub4').find('.butie-select-wrap .selected').text();
+		
+		var selected = false;
+		$(".addSub4 .butie-select-wrap .selected:contains("+ this_duixiang_txt +")").each(function(){
+			// alert($(this).text());
+			$(this).closest('.addSub4').find('.butieCond .selected').each(function(){
+
+				if($(this).text() == _this.text()){
+					layer.msg(_this.text() + " 已选");
+					selected = true;
+				}
+			});
+		});
+
+		// return;
+	}
+
+	if(!selected){
+		_this.parent().hide().prev().text(text);
+		_this.parent().hide().prev().attr("name",_this.attr('name'));
+	}
+
 	//开始*********************************************************************************************
 	//控件4活动补贴规则****直接复制add.js中hdc3Tab()并纳入$('.select').on("click",".option",function(e){}
 	// $(".hdc3").find(".option").click(function(){
 	if($(this).closest('.acSe11').length==1){	
-		// alert(1)
+		// alert(1);
 
 		// debugger;
 		$(this).closest(".addSub4").find("input").val("");
 		
+
 		// return
 		// var arr=["分/次","分/次","元/次","元/次","元/次","元/次","元/张","元/张","微信手机红包；随机金额返现","轮盘抽奖，祝你好运","蒙牛酸酸乳，买一赠一"];
+
+		var shenbaoyusuanInput = $(this).closest('.addSub4').find('.hdc6-1 input');
+
 		if($(this).text()!="摇一摇"&&$(this).text()!="轮盘抽奖"&&$(this).text()!="特定超慧券  >"){
 			$(this).parents(".addSub4").find(".hdc4d1").removeClass('hi');
 			$(this).parents(".addSub4").find(".hdc4d2").addClass('hi');					
@@ -1201,6 +1300,7 @@ $("body").on("click",".option",function(e){
 			})*/
 			// $(this).parents(".addSub4").find(".hdc7").removeClass('on');
 			//内部修改项结束**********************
+			shenbaoyusuanInput.removeClass('vihi');
 
 		} else {
 			// debugger
@@ -1229,10 +1329,11 @@ $("body").on("click",".option",function(e){
 				// $(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 
-				$(this).closest('.addSub4').find('.setgailv').addClass('on');
-
+				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
 				$(this).parents(".addSub4").find("input.sbys + p").text('次');
+				shenbaoyusuanInput.addClass('vihi');
 				return;
+
 			}
 
 		}
@@ -1255,12 +1356,15 @@ $("body").on("click",".option",function(e){
 		//内部修改项开始**********************
 		// $(this).closest('.addSub4').find('.hdc6 .acSe14 p').width(14);		
 		//内部修改项结束**********************
-		$('.addSub4 .acSe13 input').keyup();
-		$('.butieSec .sbys').keyup();
+
+
+		// $('.addSub4 .acSe13 input').keyup();
+		// $('.butieSec .sbys').keyup();
 
 	}
 	// });
 	//结束********************************************************************************************
+
 
 	//开始*********************************************************************************************
 	//控件5摇一摇//****直接复制add.js中yaoyiyaoTab()并纳入$('.select').on("click",".option",function(e){}
@@ -1273,19 +1377,13 @@ $("body").on("click",".option",function(e){
 		// $(".Yyy1 .option").click(function(){
 			// console.log($(this))
 			// console.log($(this).parents(".Yyy1"))
-			var index=$(this).parents(".Yyy1").find(".option").index($(this));		
+			var index=$(this).parents(".Yyy1").find(".option").index($(this));
 			if($(this).text()!="特定超慧券"&&$(this).text()!="谢谢参与"){//范围/值
 				$(this).parents(".yaoyiyao").find(".Yyy2d1").removeClass("hi");		
 				$(this).parents(".yaoyiyao").find(".Yyy2d2").addClass("hi");	
 				$(this).parents(".yaoyiyao").find(".Yyy2d3").addClass("hi");	
 				$(this).parents(".yaoyiyao").find(".hdc4dA").text(addSub5Arr[index]);
 				$(this).parents(".yaoyiyao").find(".acSe15").css("background","white");
-			}else if($(this).text()=="谢谢参与"){
-				$(this).parents(".yaoyiyao").find(".Yyy2d1").addClass("hi");
-				$(this).parents(".yaoyiyao").find(".Yyy2d2").addClass("hi");	
-				$(this).parents(".yaoyiyao").find(".Yyy2d3").removeClass("hi");				
-				$(this).parents(".yaoyiyao").find(".Yyy2d3").text(addSub5Arr[index]);
-				$(this).parents(".yaoyiyao").find(".acSe15").css("background","#FAF9F9");
 			}else if($(this).text()=="特定超慧券"){
 				$(this).parents(".yaoyiyao").find(".Yyy2d1").addClass("hi");
 				$(this).parents(".yaoyiyao").find(".Yyy2d2").removeClass("hi");	
@@ -1294,6 +1392,15 @@ $("body").on("click",".option",function(e){
 				$(this).parents(".yaoyiyao").find(".acSe15").css("background","white");
 			}
 
+			if($(this).text()=="谢谢参与"){
+				$(this).parents(".yaoyiyao").find(".Yyy2d1").addClass("hi");
+				$(this).parents(".yaoyiyao").find(".Yyy2d2").addClass("hi");	
+				$(this).parents(".yaoyiyao").find(".Yyy2d3").removeClass("hi");				
+				$(this).parents(".yaoyiyao").find(".Yyy2d3").text(addSub5Arr[index]);
+				$(this).parents(".yaoyiyao").find(".acSe15").css("background","#FAF9F9");
+				// debugger
+			} 
+			
 			//补贴峰值
 			var text="";
 			// console.log(index)
@@ -1305,15 +1412,19 @@ $("body").on("click",".option",function(e){
 			// console.log(addSub4Arr[index],text)
 			$(this).parents(".yaoyiyao").find(".Yyy5d1").removeClass("hi");		
 			$(this).parents(".yaoyiyao").find(".Yyy5d2").addClass("hi");
-			if($(this).text()!="谢谢参与"){//补贴峰值				
-				$(this).parents(".yaoyiyao").find(".Yyy5d1 span").text(text);
-				// $(this).parents(".yaoyiyao").find(".Yyy5d1.fz span").text(text);
-			}else{
+
+			var shenbaoyusuanInput = $(this).closest('.yaoyiyao').find('.Yyy5-1 input');
+			if($(this).text()=="谢谢参与"){//补贴峰值				
 				$(this).parents(".yaoyiyao").find(".Yyy5d1 span").text('');
+				// $(this).parents(".yaoyiyao").find(".Yyy5d1.fz span").text(text);
+				shenbaoyusuanInput.hide();
+			}else{
+				$(this).parents(".yaoyiyao").find(".Yyy5d1 span").text(text);
 				// $(this).parents(".yaoyiyao").find(".Yyy5d1.fz span").text('');
 			// 	$(this).parents(".yaoyiyao").find(".Yyy5d1").addClass("hi");
 			// 	$(this).parents(".yaoyiyao").find(".Yyy5d2").removeClass("hi");
 			// 	$(this).parents(".yaoyiyao").find(".Yyy5d2").text(text);
+				shenbaoyusuanInput.show();
 			}
 
 			if($(this).text().indexOf('随机') != -1){
@@ -1323,7 +1434,7 @@ $("body").on("click",".option",function(e){
 				$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .max').show();
 				$(this).closest('.yaoyiyao').find('.setgailv').addClass('on');
 			} else {
-				// alert(2);
+				// alert(2);	
 				$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .min').width(100);
 				$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 span').hide();
 				$(this).closest('.yaoyiyao').find('.Yyy2 .Yyy2d1 .max').hide();
@@ -1333,7 +1444,16 @@ $("body").on("click",".option",function(e){
 	}
 		// })
 	//结束*****************************************************************************
+
+
 });
+
+
+
+
+
+
+
 
 // $('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2').on("input",function(){
 $('.butieSec').on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
@@ -1346,10 +1466,14 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 	// debugger;
 	var _this = $(this);
 	var thisText = _this.val();
+	if(isNaN(thisText)){
+		thisText = 0;
+	}
 
 	var m = 0;
 	var minInput = _this.closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In1');
 	var maxInput = _this.closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2');
+
 	if(maxInput.css('display') == 'block'){
 		m = maxInput.val();
 	} else {
@@ -1359,7 +1483,14 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 		});
 	}
 
-	_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(m * thisText);
+	// debugger;
+	if( isNaN(maxInput.val()) || isNaN(minInput.val()) ){
+		_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(0 * thisText));
+		butiefz();
+		return;
+	}
+
+	_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(m * thisText).toFixed(2));
 
 	butiefz();
 
@@ -1390,10 +1521,14 @@ var butiefz = function(){
 	var yuanL = yuanDom.length;
 	var yuanNum = 0;
 	if(yuanL != 0){
+
 		yuanDom.each(function(){
-			yuanNum += parseInt($(this).val());
-			$('.ysfz .cash').text(yuanNum);
+			// if($(this).val() == ""){return false}
+			yuanNum += Number($(this).val());
 		});
+
+		$('.ysfz .cash').text(yuanNum);
+
 	} else {
 		$('.ysfz .cash').text('0');
 	}
@@ -1403,8 +1538,8 @@ var butiefz = function(){
 	var fenNum = 0;
 	if(fenL != 0){
 		fenDom.each(function(){
-			fenNum += parseInt($(this).val());
-			$('.ysfz .score').text(fenNum);
+			fenNum += Number($(this).val()).toFixed(2);
+			$('.ysfz .score').text(Number(fenNum));
 		});
 	} else {
 		$('.ysfz .score').text('0');
@@ -1421,7 +1556,11 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 	var _this = $(this);
 	var yaoyiyao = _this.closest('.yaoyiyao');
 
-	var cishu = _this.val();
+	var cishu = Number(_this.val());
+	if(isNaN(cishu)){
+		cishu = 0;
+	}
+
 	var minInput = yaoyiyao.find('.Yyy2 .Yyy2d1 input.min');
 	var maxInput = yaoyiyao.find('.Yyy2 .Yyy2d1 input.max');
 
@@ -1433,11 +1572,18 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 		m = minInput.val();
 	}
 
-	// if(yaoyiyao.find('.hdc4dB').length == 1){
-	if(m != 0) {
-		yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(cishu * m);
-		yfz();
+	// debugger;
+	if( isNaN(maxInput.val()) || isNaN(minInput.val()) ){
+		yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(cishu * 0);
+		yaoyiyaofengzhi();
+		return;
 	}
+
+	// if(yaoyiyao.find('.hdc4dB').length == 1){
+	// if(m != 0) {
+		yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(Number(m * cishu).toFixed(2));
+		yaoyiyaofengzhi();
+	// }
 
 	// } else {
 		// yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(m * cishu * gailvVal);
@@ -1459,9 +1605,9 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
 });
 
 // 摇一摇补贴峰值
-function yfz(){
+function yaoyiyaofengzhi(){
 
-	// debugger
+	/*// debugger
 	var yuanNum = 0;
 	$('.yaoWrap .Yyy5d1.fz:contains(元) input').each(function(){
 		yuanNum += parseInt($(this).val());
@@ -1472,39 +1618,28 @@ function yfz(){
 	$('.yaoWrap .Yyy5d1.fz:contains(分) input').each(function(){
 		fenNum += parseInt($(this).val());
 		$('.layer.yao .score').text(fenNum);
-	});
-	
+	});*/
 
-	/*var quan = 0;
-	$('.yaoWrap .Yyy5d1:contains(张) input').each(function(){
-		quan += parseInt($(this).val());
-	});
-	$('.layer.yao .quan').text(quan);*/
-
-	/*var yuanDom = $('.yaoWrap .Yyy5d1.fz:contains(元) input');
+	// debugger;
+	var yuanDom = $('.yaoWrap .Yyy5d1.fz:contains(元) input');
 	var yuanL = yuanDom.length;
 	var yuanNum = 0;
 	if(yuanL != 0){
+
 		yuanDom.each(function(){
-			yuanNum += parseInt($(this).val());
-			$('.layer.yao .cash').text(yuanNum);
+			// if($(this).val() == ""){return false}
+			yuanNum += Number($(this).val());
 		});
+
+		$('.layer.yao .cash').text(yuanNum);
+
 	} else {
 		$('.layer.yao .cash').text('0');
-	}*/
+	}
 
-	/*var fenDom = $('.yaoWrap .Yyy5d1.fz:contains(分) input');
-	var fenL = fenDom.length;
-	var fenNum = 0;
-	if(fenL != 0){
-		fenDom.each(function(){
-			fenNum += parseInt($(this).val());
-			$('.layer.yao .score').text(fenNum);
-		});
-	} else {
-		$('.layer.yao .score').text('0');
-	}*/
+	
 }
+
 
 $('.areaSave').click(function(){
 	$('.area-list .save').click();
@@ -1524,9 +1659,9 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
 });
 
-// debugger
 
-// 拼数据
+
+// debugger
 var data = {};
 $('.saveToDb, .shenhe').click(function(){
 
@@ -1597,6 +1732,11 @@ $('.saveToDb, .shenhe').click(function(){
 
 		// debugger
 		
+		if($('.region-item').length == 0){
+			$("nav span").eq(1).click();
+			layer.tips('请先完善地区', $('.setAreaBtn'));
+			return;
+		}
 
 		// 会员活动条件
 		if(finished == true){
@@ -1733,7 +1873,7 @@ $('.saveToDb, .shenhe').click(function(){
 				// 	// return false;
 				// }
 
-				/*if(_this.find('.selectWrap1.-hi input.acMeI1').not(':disabled').val() == ""){
+				if(_this.find('.selectWrap1.-hi input.acMeI1').not(':disabled').val() == ""){
 					// debugger
 					$("nav span").eq(1).click();
 					layer.tips('请先完善', _this.find('.selectWrap1.-hi input.acMeI1'));
@@ -1749,7 +1889,7 @@ $('.saveToDb, .shenhe').click(function(){
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
-				}*/
+				}
 
 			});
 		} else {
@@ -1948,7 +2088,10 @@ $('.saveToDb, .shenhe').click(function(){
 		return
 	}
 
+	if($(this).hasClass('disabled')){return}
 
+
+	// 拼数据
 	// 1.活动基础信息
 	var basic = $('.basic-msg'),
 		servicephone = basic.find('.quhao').val() + "-" + basic.find('.tel').val(),
@@ -2246,10 +2389,12 @@ $('.saveToDb, .shenhe').click(function(){
 	        data: JSON.stringify(data),
 	        // contentType: "application/json",
 	        contentType: "application/json; charset=utf-8",
-	        /*beforeSend: function (x) {
-	        	x.setRequestHeader("contentType", "application/json; charset=utf-8");
-	        },*/
-	        complete: function () { },
+	        beforeSend: function (x) {
+	        	// x.setRequestHeader("contentType", "application/json; charset=utf-8");
+	        	layer.msg('数据正在保存...');
+	        	$('.shenhe').addClass('disabled');
+	        },
+	        complete: function () { $('.shenhe').removeClass('disabled'); },
 	        timeout: function () { },
 	        success: function (returnedData) {
 	            if (!returnedData.error) {
@@ -2269,8 +2414,7 @@ $('.saveToDb, .shenhe').click(function(){
 	}
 
 	
-	if (!$('nav span:last').hasClass('on') && $(this).text() == "保存")
-	{
+	if (!$('nav span:last').hasClass('on') && $(this).text() == "保存"){
 		layer.msg('数据已保存');
 		return;
 	}
@@ -2290,7 +2434,7 @@ function _ajax(type, url, data, tip, success) {
         },
         error: function (data) {
             console.warn(tip + " error");
-            layer.alert(tip + ' :错误'+data.status, {icon: 5});
+            // layer.alert(tip + ' :错误'+data.status, {icon: 5});
         }
     });
 }

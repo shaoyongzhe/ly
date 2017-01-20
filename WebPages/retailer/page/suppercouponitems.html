@@ -157,7 +157,7 @@
                             <div class="whiteblock"></div>
                             {@else}
                             <div class="assetinfo">
-                            <a href="${testclick(item.topiclist)}" class="assetcontent">
+                            <a href="${testclick(item)}" class="assetcontent">
                                     <div class="asset_left">
                                     <nobr>${item.topiclist[0].topictitle + (item.topiclist.length>1?'等活动':'')}</nobr>
                                     </div>
@@ -207,10 +207,10 @@
     <script type="text/javascript">
 
         $(function () {
-            juicer.register("testclick", function (item) {
+            juicer.register("testclick", function (items) {
                 var topicid=""
-                $.each(item.topiclist, function (index, item, array) {
-                    topicid += "," + item.activityid
+                $.each(items.topiclist, function (index, item, array) {
+                    topicid += "," + item.topicid
                 });
                 return "../page/participate.html?topicid=" + topicid.substring(1)
             });

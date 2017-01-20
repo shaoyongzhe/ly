@@ -77,7 +77,7 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 		type: 1,
 		// skin: 'layui-layer-lan', //加上边框
 		skin: 'layui-layer', //加上边框
-		area: ['845px', '755px'], //宽高
+		area: ['845px', '785px'], //宽高
 		shadeClose: true, //点击这招是否关闭 true,false
 		time: 0, //默认关闭时间 0
 		// anim: 5, //动画
@@ -210,7 +210,7 @@ function _ajax(type, url, data, tip, success) {
 
 
 function dataLoad() {
-	debugger;
+	// debugger;
 	var area_key_list = ['北京市', '北京市', '海淀区'];
 	var area_json = $.area_json['中国'];
 	var area_selected = new Array(); //区域选中级别
@@ -907,6 +907,7 @@ $('.area-list .save').click(function() {
 			provObj = {
 				"charge": JSON.parse(shengfzr),
 				"name": sheng,
+                "state": "active",
 				"city": []
 			}
 
