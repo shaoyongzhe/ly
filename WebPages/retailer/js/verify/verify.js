@@ -202,5 +202,8 @@ var vm = avalon.define({
                 location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=" + token[1];
             }
         });
+    },
+    verifycodedown: function () {
+        location.href = "/retailer/page/verifycodedown.html?IsApply=" + (vm.isbinding ? 0 : 1)
     }
 })
