@@ -16,7 +16,7 @@ var vm = avalon.define({
         //$('#QRCode_img').error(function () {
         //    vm.loadState = 1
         //}); 
-        var qrcode = qrcodeconfig["retailer"];
+        var qrcode = qrcodeconfig["consumer"];
         qrcode.loadsuccess = function () {                        
            
             vm.loadState = 2;
