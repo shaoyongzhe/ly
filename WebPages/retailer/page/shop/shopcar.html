@@ -17,6 +17,7 @@
 		var _color="";
 		var _active="";
 		var _distrgive="";
+		var _id="";
 			$.ajax({
 				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/5ce1d14e07534139ae7774d8983f04f3?isvalid=0",
 				async:true,
@@ -33,6 +34,7 @@
 		function show(data1){
 			var _price=0;
 			var _count=0;
+			var _discount=0;
 			$(".addr").text("clienton")//需要修改
 			var _name="";
 			for(var i=0;i<data1.length;i++){
@@ -55,6 +57,7 @@
 					_active+="<div class="+"\"intr\""+"><div>降价</div><div>"+data1[i]["ruledesc"]+"</div></div>"
 					_price+=Number(data1[i]["price"]);
 					_count++;
+					_discount+=data1[i]["price"]-(data1[i]["price"]*data1[i]["discount"])
 					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
 					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
 					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["discountprice"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["originalprice"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+
@@ -66,6 +69,7 @@
 					_active+="<div class="+"\"intr\""+"><div>降价</div><div>"+data1[i]["ruledesc"]+"</div></div>"
 					_price+=Number(data1[i]["price"]);
 					_count++;
+					_discount+=data1[i]["price"]-(data1[i]["price"]*data1[i]["discount"])
 					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
 					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
 					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]*data1[i]["discount"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["price"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
@@ -98,7 +102,8 @@
 					"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
 				}else if(data1[i]["salestop"]==1){
 					_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="+
-					"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+" />"+data1[i]["itemname"]+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div style="+
+					"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+" />"+data1[i]["itemname"]+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+
+					"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
 					"\"position:absolute;left:0;top:0;width:100%;height:111px;background:#ddd;opacity:0.5\""+"></div></li>"
 				}
 			}
@@ -137,6 +142,7 @@
 			select()
 			change(data1);
 			deLete(data1)
+			$(".ab span").text(_discount.toFixed(2))
 			$(".loads").css({display:"none"})
 		}//"+data1[i]["giftitemobj"]["itemname"]+"
 		//add()
@@ -153,7 +159,7 @@
 				$(".delete").click(function(){
 					$(".ifDelt").css({display:"block"})
 					$("html").css({overflow:"hidden"})
-					
+					$(".ifDelt div:nth-child(1)").attr("id","y"+$(this).parent().parent().attr("id"))
 
 				})
 				$(".ifDelt span:nth-child(1)").click(function(){
@@ -161,10 +167,11 @@
 					$("html").css({overflow:"auto"})
 				})
 				$(".ifDelt span:nth-child(2)").click(function(){
-					if(data1[$(this).parent().parent().attr("id")]["itemslist"]){
-						_dl=data1[$(this).parent().parent().attr("id")]["itemslist"][data1[$(this).parent().parent().attr("id")]["selectedindex"]]["guid"]
+					_id=$(this).parent().prev().attr("id").replace("y","");
+					if(data1[_id]["itemslist"]){
+						_dl=data1[_id]["itemslist"][data1[_id]["selectedindex"]]["guid"]
 					}else{
-						_dl=data1[$(this).parent().parent().attr("id")]["itemid"]
+						_dl=data1[_id]["itemid"]
 					}
 					console.log(_dl)
 					$.ajax({
@@ -173,34 +180,14 @@
 						error:function(){alert("网络出错")},
 						success:function(data){
 							console.log(data)
-							$(".delete").remove($(".delete").parent().parent())
+							//$(".delete").remove($(".delete").parent().parent())
+							$("html").css({overflow:"auto"})
+							$(".ifDelt").css({display:"none"})
+							$("#"+_id).remove()
 						}
 					})
 				})
 			}
-	    	$.ajax({
-	    		url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
-	    		contentType: "application/json; charset=utf-8",
-		    	async:true,
-		    	cache:false,
-		        dataType:"json",
-		        type:"post",
-		        data:JSON.stringify({
-		        	distributorid:"5ce1d14e07534139ae7774d8983f04f3",
-					itemid:"c98aaa7e02fa44669d7c7419b1f30bf4",
-					itemcount:20,
-					itemquality:"1",
-					itemprice:80.00,
-					isyucun:0,
-					versiontime:formaty()
-		        }),
-		        error:function(){alert("网络出错")},
-		        success:function(data){
-		        		
-		        		//sendId(data)
-		        		console.log(data)
-		        }
-	    	})
     	//}
     	function sendId(data1){
 			$.ajax({
@@ -218,13 +205,14 @@
 			var _ll=0;
 			$("section").on('click','.gouxuan',function(){
 				if($(this).attr("flag")==1){
-					$(this).css({"background":"none",borderColor:"#5d5c5c"});
 					$(this).attr("flag","0")
+					$(this).css({"background":"none",borderColor:"#5d5c5c"});
 				}else{
-					$(this).css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
 					$(this).attr("flag","1")
+					$(this).css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
 				}
-				for(var l=0;l<$(".list i").length;l++){
+				if(_ll<$(".list i").length){
+					for(var l=0;l<$(".list i").length;l++){
 						if($(".list i")[l].getAttribute("flag")==0){
 							$(".gg").css({background:"none",borderColor:"#fff"});
 							$(".gg").attr("flag","0")
@@ -237,8 +225,11 @@
 							}
 							$(".commit span").text("("+_ll+")")
 						}
-
+					}
+				}else{
+					
 				}
+
 			});
 			$(".all").on('click','.gg',function(){
 				if($(this).attr("flag")==1){
@@ -409,7 +400,7 @@
                             <div class="totalsum">
                             	<span class="all"><i flag="1" class="gg"  style="width:1.4rem;height:1.4rem;border:1px solid #3a3635;border-radius: 1.4rem;"></i><span>全选</span></span>
                                           <p class="amountBig" style="margin-left: 0;float:left"> 合计：￥<span>50</span>元</p> 
-                                            <p style="margin-left: 0;">已优惠金额：￥139.00  </p> 
+                                            <p style="margin-left: 0;" class="ab">已优惠金额：￥<span>139.00</span>  </p> 
                                             <div class="commit">去提交<span>(20)</span></div>
                                       </div>
                             
