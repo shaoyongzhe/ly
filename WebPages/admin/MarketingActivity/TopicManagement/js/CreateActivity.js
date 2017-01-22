@@ -60,8 +60,8 @@ function showKeyPress(evt) {
 //图片上传
 // var pic_url = "";
 function previewImage(file) {
-	
-
+	// 齐枭飞修改
+  var form = new FormData($('form')[0]);
 	var imgSize = file.files[0].size;
 	if(imgSize > 1048576){
 		layer.msg('活动海报不能上传大于1M的图片');
@@ -71,7 +71,7 @@ function previewImage(file) {
     $.ajax({
         type: "POST",
         url: "/webapi/ipaloma/propagation/upload/imgupload",
-        data: file,
+        data: form,
         xhr: function() {
             return $.ajaxSettings.xhr();
         },
