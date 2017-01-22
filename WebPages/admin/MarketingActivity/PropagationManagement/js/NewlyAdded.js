@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-17 19:15:47
+ * @Last Modified time: 2017-01-22 11:34:04
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -198,7 +198,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         var radio_val = $('input[name="Fruit"]:checked').val();
            if(radio_val==undefined){
             // layer.msg('请选择图文发送方式');
-             layer.tips('请选择图文发送方式','.Graphic_message', {
+             layer.tips('请选择方式','.Graphic_message', {
                   tips: [3, '#F22525'],
                   time: 4000
                 });

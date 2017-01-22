@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-18 17:19:53
+ * @Last Modified time: 2017-01-22 11:30:58
  */
 
 
@@ -176,7 +176,6 @@
 //             }
 //         });
 //     });
-
 // })(window, jQuery)
 
 // 遮罩加载层
@@ -240,7 +239,7 @@ function getList(curr, handle, searchForm) {
     // 页数
     var pageindex = 0;
     // 每页展示5个
-    var pagesize = 40;
+    var pagesize = 15;
     // $('.content_drop .dropload-down').siblings().remove()
     // 每次刷新的时候清空上一次的记录（加载记录）
     $('.content_drop .dropload-down').remove();
@@ -295,7 +294,7 @@ function getList(curr, handle, searchForm) {
                             if (td[i].state == "draft") {
                                 td[i].draft = "草稿";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + '&#xe6f5;' + "</i>" + '详细' + "</a>" + "<a class='ml-5 exm'  title='提交审核'>" + "<input type='hidden' value='draft' />" + "<i class='Hui-iconfont'>" + "&#xe615;" + "</i>" + '提交审核' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "310";
+                                autoW = "335";
                             } else if (td[i].state == "auditsuccess") {
                                 td[i].auditsuccess = "待发送";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
@@ -303,15 +302,15 @@ function getList(curr, handle, searchForm) {
                             } else if (td[i].state == 'auditfail') {
                                 td[i].auditfail = "审核未通过";
                                 isSet = "<a class='ml-5 detailed'title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<input type='hidden' value='auditfail' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "180";
+                                autoW = "220";
                             } else if (td[i].state == 'toberelease') {
                                 td[i].toberelease = "待发送";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<input type='hidden' value='store' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 release' title='立即发送'>" + "<i class='Hui-iconfont'>" + "&#xe68a;" + "</i>" + '立即发送' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "310";
+                                autoW = "335";
                             } else if (td[i].state == 'audit') {
                                 td[i].audit = "审核中";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>" + "<a class='ml-5 Reject'  title='驳回'>" + "<input type='hidden' value='audit' />" + "<i class='Hui-iconfont'>" + "&#xe6a6;" + "</i>" + '驳回' + "</a>" + "<a class='ml-5 adopt' title='审核通过'>" + "<i class='Hui-iconfont'>" + "&#xe6a7;" + "</i>" + '审核通过' + "</a>";
-                                autoW = "317";
+                                autoW = "407";
                             } else if (td[i].state == 'released') {
                                 td[i].released = "已发送";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
@@ -1086,8 +1085,8 @@ $('.examine1').on('click', function() {
 
 
          if (form_value.service == ""||$('#textarea_value').val().length=='0') {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1095,8 +1094,8 @@ $('.examine1').on('click', function() {
     }
 
         if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1122,8 +1121,8 @@ $('.examine1').on('click', function() {
         return;
     }
     if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
-        layer.msg('请选择发送对象');
-        layer.tips('请选择发送对象', '.send_object', {
+        layer.msg('请选择对象');
+        layer.tips('请选择对象', '.send_object', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1132,7 +1131,7 @@ $('.examine1').on('click', function() {
 
     if (form_value.category == "") {
         // layer.msg('请选择发送方式');
-        layer.tips('请选择发送方式', '.mode1', {
+        layer.tips('请选择方式', '.mode1', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1145,7 +1144,7 @@ $('.examine1').on('click', function() {
     // }
     if ($('#imghead').attr('src') == '') {
         // layer.msg('请选择封面图片');
-        layer.tips('请选择封面图片', '.cover_photo', {
+        layer.tips('请上传图片', '.cover_photo', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1153,7 +1152,7 @@ $('.examine1').on('click', function() {
     }
     if (form_value.copywriting == "") {
         // layer.msg('请填写发送内容');
-        layer.tips('请填写发送内容', '.mode', {
+        layer.tips('请填写内容', '.mode', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1257,8 +1256,8 @@ $('.examine1_preview').click(function() {
         }
 
         if (form_value.service == ""||$('#textarea_value').val().length=='0') {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1266,8 +1265,8 @@ $('.examine1_preview').click(function() {
     }
 
         if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1293,8 +1292,8 @@ $('.examine1_preview').click(function() {
         }
 
         if (form_value.push_distributor == '' && form_value.push_consumer == '' && form_value.push_retailer == '') {
-            layer.msg('请选择发送对象');
-            layer.tips('请选择发送对象', '.send_object', {
+            layer.msg('请选择对象');
+            layer.tips('请选择对象', '.send_object', {
                 tips: [4, '#F22525'],
                 time: 4000
             });
@@ -1303,7 +1302,7 @@ $('.examine1_preview').click(function() {
 
         if (form_value.mode1 == undefined) {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择发送方式', '.mode1', {
+            layer.tips('请选择方式', '.mode1', {
                 tips: [1, '#F22525'],
                 time: 4000
             });
@@ -1312,7 +1311,7 @@ $('.examine1_preview').click(function() {
 
         if (form_value.post_url == "") {
             // layer.msg('请选择封面图片');
-            layer.tips('请选择封面图片', '.cover_photo', {
+            layer.tips('请上传图片', '.cover_photo', {
                 tips: [4, '#F22525'],
                 time: 4000
             });
@@ -1321,7 +1320,7 @@ $('.examine1_preview').click(function() {
 
         if (form_value.send_text == "") {
             // layer.msg('请填写发送内容');
-            layer.tips('请填写发送内容', '.mode', {
+            layer.tips('请填写内容', '.mode', {
                 tips: [1, '#F22525'],
                 time: 4000
             });
@@ -1331,7 +1330,7 @@ $('.examine1_preview').click(function() {
         var radio_val = $('.Graphic_message').find('.ck:eq(0) img').hasClass('xiyin_son');
         var radio_val1 = $('.Graphic_message').find('.ck:eq(1) img').hasClass('xiyin_son');
         if (radio_val == false && radio_val1 == false) {
-            layer.tips('请选择图文发送方式', '.Graphic_message', {
+            layer.tips('请选择方式', '.Graphic_message', {
                 tips: [3, '#F22525'],
                 time: 4000
             });
@@ -1486,8 +1485,8 @@ $('.examine1_Newly_added').on('click', function() {
     };
 
     if (form_value.service == ""||$('#textarea_value').val().length=='0') {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1495,8 +1494,8 @@ $('.examine1_Newly_added').on('click', function() {
     }
 
 if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1523,8 +1522,8 @@ if(!$('#textarea_value').val()){
     }
 
     if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
-        layer.msg('请选择发送对象');
-        layer.tips('请选择发送对象', '.send_object', {
+        layer.msg('请选择对象');
+        layer.tips('请选择对象', '.send_object', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1533,7 +1532,7 @@ if(!$('#textarea_value').val()){
 
     if (form_value.category == "") {
         // layer.msg('请选择发送方式');
-        layer.tips('请选择发送方式', '.mode1', {
+        layer.tips('请选择方式', '.mode1', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1546,7 +1545,7 @@ if(!$('#textarea_value').val()){
     // }
     if ($('#imghead').attr('src') == '') {
         // layer.msg('请选择封面图片');
-        layer.tips('请选择封面图片', '.cover_photo', {
+        layer.tips('请上传图片', '.cover_photo', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1554,7 +1553,7 @@ if(!$('#textarea_value').val()){
     }
     if (form_value.copywriting == "") {
         // layer.msg('请填写发送内容');
-        layer.tips('请填写发送内容', '.mode', {
+        layer.tips('请填写内容', '.mode', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1684,8 +1683,8 @@ $('.examine1_Preservation').on('click', function() {
     };
 
     if (form_value.service == "") {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1693,8 +1692,8 @@ $('.examine1_Preservation').on('click', function() {
     }
 
     if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1721,8 +1720,8 @@ $('.examine1_Preservation').on('click', function() {
         return;
     }
     if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
-        layer.msg('请选择发送对象');
-        layer.tips('请选择发送对象', '.send_object', {
+        layer.msg('请选择对象');
+        layer.tips('请选择对象', '.send_object', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1731,7 +1730,7 @@ $('.examine1_Preservation').on('click', function() {
 
     if (form_value.category == "") {
         // layer.msg('请选择发送方式');
-        layer.tips('请选择发送方式', '.mode1', {
+        layer.tips('请选择方式', '.mode1', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1744,7 +1743,7 @@ $('.examine1_Preservation').on('click', function() {
     // }
     if ($('#imghead').attr('src') == '') {
         // layer.msg('请选择封面图片');
-        layer.tips('请选择封面图片', '.cover_photo', {
+        layer.tips('请上传图片', '.cover_photo', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1752,7 +1751,7 @@ $('.examine1_Preservation').on('click', function() {
     }
     if (form_value.copywriting == "") {
         // layer.msg('请填写发送内容');
-        layer.tips('请填写发送内容', '.mode', {
+        layer.tips('请填写内容', '.mode', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1953,18 +1952,18 @@ $('table.notify').on('click', '.detailed', function() {
             var abc = $('.button_two .btn_center button');
             if (abc.length == 1) {
                 $('.btn_center .btn').css('display', 'block');
-                $('.btn_center .btn').css('margin-left', '45%');
+                $('.btn_center .btn').css('margin-left', '18%');
 
             } else if (abc.length == 2) {
                 $('.btn_center .btn').css('display', 'inline-block');
-                $('.btn_center .btn:eq(0)').css('margin-left', '40%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '0%');
             } else if (abc.length == 4) {
-                $('.btn_center .btn:eq(0)').css('margin-left', '26%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '-30%');
                 $('.btn_center .btn').css('display', 'inline-block');
                 // $('.Float_Title1').css('margin-left','0px');
             } else if (abc.length == 3) {
                 $('.btn_center .btn').css('display', 'inline-block');
-                $('.btn_center .btn:eq(0)').css('margin-left', '31%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '-16%');
                 // $('.Float_Title1').css('margin-left','0px');
             }
         },
