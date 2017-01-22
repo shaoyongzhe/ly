@@ -380,7 +380,9 @@
 	.Bu_time p span{
 		color: #fd806f;
 	}
-	
+	.Bu_time p a span{
+		color:#333;
+	}
 	.qualification{
 		width: 93.75%;
 		margin:0.4rem auto 0;
