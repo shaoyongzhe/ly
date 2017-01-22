@@ -2,6 +2,7 @@
 //	alert(4);
 //loadingStart();
 //$(".contentCont").empty();
+console.log("非经销宝内部环境，网络出错刷新，会报错Cannot read property '0' of undefined属于正常情况，无需处理");
 //如果想查看静态页面，请注释掉$(".contentCont").empty();	ajaxAlready();ajaxNo()，当前函数是28 29 30
 	var linshi1='';
 	var linshi2='';
@@ -22,8 +23,8 @@
 	  engine.on('OnTopicActivityIDRefresh', OnTopicActivityIDRefresh, this);//主题活动id
 	}	
 
-    ajaxAlready("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
-	ajaxNo("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
+//  ajaxAlready("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
+//	ajaxNo("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
 //	console.log(7878);
     //1.根据经销商id查询匹配和不匹配活动，同时将经销商id存入到localstorage中，传到详情页面
     function OnDistributorIDRefresh(){
@@ -142,7 +143,7 @@
 //				layer.alert('通讯异常:错误'+data.status+"无法获取已参与活动，请稍后重试", {icon: 5});	
 				console.log('通讯异常:错误'+data.status+"无法获取已参与活动，请稍后重试");
 				popupsFn(function(){
-					ajaxAlready(OnDistributorIDRefreshParameter0.data[0]);   
+					ajaxAlready(OnDistributorIDRefreshParameter0.data[0]);   					
 				})
 			},
 			complete:function(data){

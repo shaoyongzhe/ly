@@ -23,7 +23,7 @@ var OnDisID_ActIDRefreshParameter0=OnDisID_ActIDRefreshParameter1="";//0120添�
 
 //情形1.等待经销宝传令刷新页面
 engine.on('OnDisID_ActIDRefresh', OnDisID_ActIDRefresh, this);//主题活动id///***对接经销宝后解除注释####
-ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","a486c6fdfd0b4e339014b16bc6b685d6");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***链接活动详情页面后注释掉
+//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","a486c6fdfd0b4e339014b16bc6b685d6");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***链接活动详情页面后注释掉
 function OnDisID_ActIDRefresh(){
 	isReceivedDistributorID=true;//可能需要改变
 	isReceivedTopicActivityID=true;//可能需要改变
@@ -353,7 +353,7 @@ function ajaxActivityDetails(a,b){
 			$(".BDQFd3").empty();
 			if(data.consumer.length){
 				for(i=0;i<data.consumer.length;i++){
-					data.retailer[i].localtype=data.retailer[i].type;
+					data.consumer[i].localtype=data.consumer[i].type;
 					$(".BDQFd3").append('<p><img class="vis" src="'
 					+BDcyhdRequireDarr[data.consumer[i].matched]
 					+'"/><span>'

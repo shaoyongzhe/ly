@@ -513,11 +513,11 @@ var detailData = {
 
 // debugger
 var topicId = parent.$('#guid').val();
-// if(topicId == undefined) {
+if(topicId == undefined) {
 // 	// alert(0);
-// 	render(detailData);
+	render(detailData);
 
-// } else if(topicId != ""){
+} else if(topicId != ""){
 	$.ajax({
 	    type: "get",
 	    url: '/webapi/ipaloma/topic/detail/' + topicId,
@@ -527,7 +527,7 @@ var topicId = parent.$('#guid').val();
 	    success: function (detailData){ console.log(JSON.stringify(detailData, null, 4));render(detailData) },
 	    error: function (){ console.warn("详情 error") }
 	});
-// }
+}
 
 
 
@@ -551,7 +551,7 @@ function render(detailData){
 	
 	// 2.参与活动条件
 	var second = $('.item.second');
-	var area = detailData.area_condition;  // 活动地区
+	var area = detailData.area_condition.districts;  // 活动地区
 	for(var i=0; i<area.length; i++){
 		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><span class='region-info'><span shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</span><br><span class='city'></span></span></div>");
 
