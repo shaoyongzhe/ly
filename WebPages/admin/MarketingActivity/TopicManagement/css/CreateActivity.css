@@ -1235,13 +1235,18 @@ textarea{
 	margin-bottom: 20px;
 }
 
-.set-rules .guizerules dfn{
+.set-rules .guizerules-wrap dfn{
 	color: #ff6032
 }
 
-.set-rules .guizerules > span{
+.set-rules .guizerules-wrap > span{
 	vertical-align: top;
 }
+
+.set-rules .guizerules-wrap ul{
+	margin: -18px 0 0 80px;
+}
+
 
 .set-rules input{
 	width:120px;
@@ -1375,3 +1380,4 @@ textarea{
 	background-color: #ccc;
 	cursor: default;
 }
+
