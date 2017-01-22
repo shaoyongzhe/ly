@@ -533,8 +533,8 @@ var topicId = parent.$('#guid').val();
 
 function render(detailData){
 
-	debugger
-	// alert(1)
+	// debugger;
+	// alert(1);
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;

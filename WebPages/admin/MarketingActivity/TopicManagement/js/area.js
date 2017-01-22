@@ -92,6 +92,8 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 		content: $('.area-list')
 	});
 
+	// debugger
+
 	dataLoad();
 
 
@@ -115,20 +117,6 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 
 	$('.quanbusheng').prop("checked",false);
 
-	/*
-	{
-	    "content": [
-	    {
-	        "provice": "北京市",
-	        "charge": {
-	            "name": "shaoyongzhe",
-	            "guid": "4654269886BC4FD7B5914ED324208FB0",
-	            "oid": 2800992
-	        },
-	        "type": "province"
-	    },
-
-	*/
 
 	// c(dataprov)
 	// debugger
@@ -168,6 +156,9 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 				}
 
 			});
+
+			$('.radio.zhiding.on').removeClass('on').click();
+			
 		});
 
 	}
@@ -185,6 +176,7 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 	}
 
 	$('span:contains('+ shengText +')').closest('li').click();
+
 
 });
 
@@ -415,6 +407,10 @@ function dataLoad() {
 		if (_this.is(':checked') == false) {
 			// alert(1)
 			$('.quanbusheng').prop("checked",false);
+
+			var thisProvince = $(this).closest('li').find('span').text();
+			$(".Select_province li:contains("+ thisProvince +") :checkbox").prop('checked',false);
+
 			$('.provice > span em').each(function(index, el) {
 				// debugger;
 				var _this = $(this),
@@ -429,6 +425,11 @@ function dataLoad() {
 			});
 
 			return;
+
+		} else {
+
+			var thisProvince = $(this).closest('li').find('span').text();
+			$(".Select_province li:contains("+ thisProvince +") :checkbox").prop('checked',true);
 		}
 
 		// console.log(shengText);
@@ -613,6 +614,10 @@ function dataLoad() {
 		if (_this.is(':checked') == false) {
 			$('.quanbushi').prop('checked',false);
 
+
+			var thisCity = $(this).closest('li').find('span').text();
+			$(".Select_province1 li:contains("+ thisCity +") :checkbox").prop('checked',false);
+
 			// debugger;
 			$('.city > span em').each(function(index, el) {
 				// debugger;
@@ -628,6 +633,10 @@ function dataLoad() {
 			});
 
 			return;
+
+		} else {
+			var thisCity = $(this).closest('li').find('span').text();
+			$(".Select_province1 li:contains("+ thisCity +") :checkbox").prop('checked',true);
 		}
 
 		$('.provice > span em').each(function(index, el) {
@@ -990,14 +999,15 @@ $('.btn.clear').click(function(){
 	$('.area-list :checkbox').prop('checked',false);
 	$('.area-list li.on').removeClass('on');
 	$('.area-list .Select_province2').empty();
-	$('.region-wrap').empty();
+	$('.region-item').remove();
 });
-	
+
 
 $('.zhiding').click(function(){
 
-	$(this).toggleClass('on');
-	if($(this).hasClass('on')){
+	// $(this).toggleClass('on');
+	if(!$(this).hasClass('on')){
+
 		// debugger
 		var sheng = $('.Select_province li input:checked').closest('li').stop().slideUp(300).clone(true).addClass('clone');
 		$(sheng).prependTo('.Select_province');
@@ -1005,15 +1015,13 @@ $('.zhiding').click(function(){
 		var shi = $('.Select_province1 li input:checked').closest('li').stop().slideUp(300).clone(true).addClass('clone');
 		$(shi).prependTo('.Select_province1');
 
-
 	} else {
+
 		// debugger
-		
 		$('.Select_province li.clone').remove();
 		$('.Select_province1 li.clone').remove();
 		$('.Select_province li').stop().slideDown(300);
 		$('.Select_province1 li').stop().slideDown(300);
-
 		
 	}
 

@@ -181,7 +181,7 @@
 					<div class="addSub1P68">
 						<p class="p68 deleP dib">活动类型</p><p class="p68 deleP dib">优惠力度条件</p><p class="p68 deleP dib">投放门店数</p>				
 					</div>
-					<div class="addSub1">
+					<div class="addSub1 created_l">
 
 						<!--活动类型activity type-->
 						<div class="dib acTy ver re">
@@ -299,7 +299,7 @@
 						<p class="p68 deleP dib">会员类型</p><p class="p68 deleP dib">参加名额</p>			
 					</div>
 					<!--控件2参与会员,含控件3参与资格-->
-					<div class="addSub2">
+					<div class="addSub2 created_l">
 						<div class="member">
 							<!--会员类型acLy-->
 							<div class="dib acLy ver">
@@ -365,7 +365,7 @@
 							<div class="addSub3P68">
 								<p class="p68 deleP dib">条件类型</p><p class="p68 deleP dib">统计范围</p><p class="p68 deleP dib">条件</p>				
 							</div>
-							<div class="addSub3">
+							<div class="addSub3 created_l">
 								<!--等待更换类名-->
 								<div class="dib acZige1 ver">
 									<!-- <p class="p68 deleP">条件类型</p>		 -->
@@ -410,22 +410,23 @@
 											</ul>
 										</div>							
 									</div>
-									<!-- <div class="acZige3a hi acZige2tab">
+									<div class="acZige3a hi acZige2tab">
 										<input type="text" class="date" />
 										<div class="select-wrap  acSe7 dib">
 											<i></i>
 											<span class="selected">天</span>
 											<ul class="select">
 												<li class="option">天</li>
-												<li class="option">月</li>	
+												<li class="option">月</li>
 											</ul>
-										</div>							
-									</div> -->
+										</div>
+									</div>
 									<div class="acZige3b hi acZige2tab">
 										<input type="text" class="dib" value="不限" disabled/>		
 										<p class="dib">- 至今</p>
-									</div>			
+									</div>
 								</div>
+
 								<!--条件-->
 								<div class="dib acZige4 ver">
 									<!-- <p class="p68 deleP">条件</p>				 -->
@@ -479,7 +480,7 @@
 				</div>
 				<!-- *********************************** -->
 				<!--控件4，活动补贴规则页面hd-->
-				<div class="addSub4">
+				<div class="addSub4 created_l">
 					<!--等待更改下面的类名acTy-->
 					<div class="dib hdc1 ver re">
 						<!-- <p class="p68 deleP">补贴对象</p>				 -->
@@ -579,7 +580,7 @@
 					<div class="dib hdc6 hdc6-1 ver re">
 						<!-- <p class="p68 deleP">申报预算</p>				 -->
 						<div class="acSe14 ba btfz">						
-							<input type="text" class="sbys " />
+							<input type="text" class="sbys " value="" />
 							<p class="dib">元</p><!--即将被替代为别的单位-->
 						</div>
 					</div>
@@ -632,7 +633,7 @@
 					<div class="addSub5P68">
 						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><p class="p68 deleP dib">申报预算</p>				
 					</div>
-					<div class="yaoyiyao addSub5"><!--合并的时候，请修改此名-->
+					<div class="yaoyiyao addSub5 created_l"><!--合并的时候，请修改此名-->
 
 						<div class="dib Yyy1 ver re">
 							<!-- <p class="p68 deleP">奖品类型</p>				 -->
@@ -899,9 +900,13 @@
 						</div>
 
 
-						<div class="guizerules">
+						<div class="guizerules-wrap">
 							<dfn>规则说明： </dfn>
-							<span>1个<i>微信号</i>在一个超惠券主题活动中<br>最多可享受补贴一百元；<br>每日补贴次数最多5次</span>
+							<ul class="rules">
+								<li>1个<i class='butieduixiang'>微信号</i>在一个 <i class='forXzfw'></i> 中</li>
+								<li>最多可享受补贴 <i class='forBudgetSum'></i> 元；</li>
+								<li>每日补贴次数最多 <i class='forPerdayTime'></i> 次</li>
+							</ul>
 						</div>
 
 
@@ -1204,41 +1209,36 @@
 									<span class></span>
 								</div>
 
-								<div class="item tiaojian">
+								<div class="item tiaojian ">
 
 									<label for="" class="condition">参与活动条件</label>
 
-									<div class="sec region">
+									<div class="sec region region-view">
 										<label for="">活动地区</label>
 										
-										<div class="province">
-											<label for="">江苏省</label>
-											<div class='region-info'>
-												<span>负责人: XXXX</span><br>
-												<span class='city'>
-													<i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i>
-												</span>
+										<div class="region-item">
+											<div class="row">
+												<div class="provice">
+													<span><em class="shengName" title="河北省">河北省</em><i class="x">×</i></span>
+												</div>
+												<div class="charge">
+													<span><em shengfzr="">六月雪</em><i class="x">×</i></span>
+												</div>
 											</div>
-										</div>
-
-										<div class="province">
-											<label for="">江苏省</label>
-											<span class='region-info'>
-												<span>负责人: XXXX</span><br>
-												<span class='city'>
-													<i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i>
-												</span>
-											</span>
-										</div>
-
-										<div class="province">
-											<label for="">江苏省</label>
-											<span class='region-info'>
-												<span>负责人: XXXX</span><br>
-												<span class='city'>
-													<i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i><i>县县县</i>
-												</span>
-											</span>
+											<div class="row city-wrap">
+												<div class="city city-item">
+													<span><em class="cityName">邯郸市</em><i class="x">×</i></span>
+												</div>
+												<div class="charge">
+													<div class="charge-name">
+														<em>六月雪</em><i class="x">×</i>
+													</div>
+													<div class="district-wrap">
+														<span><em qx="">邱  县</em><i class="x">×</i></span>
+														<span><em qx="">武安市</em><i class="x">×</i></span>
+													</div>
+												</div>
+											</div>
 										</div>
 
 									</div>
@@ -2121,7 +2121,8 @@
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
 <script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
 
+
 <script type="text/javascript" src="js/CreateActivity.js"></script>
-<!-- <script type="text/javascript" src="js/response.js"></script> -->
 <script type="text/javascript" src="js/area.js"></script>
+<!-- <script type="text/javascript" src="js/add.js"></script> -->
 <script type="text/javascript" src="js/add.js"></script>
