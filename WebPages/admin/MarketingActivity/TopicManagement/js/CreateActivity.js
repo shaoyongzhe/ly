@@ -2147,7 +2147,7 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 
 		if(memberType == '门店'){
-			getMemberType( _this, 'retailer_condtion');
+			getMemberType( _this, 'retailer_condition');
 		}
 
 		if(memberType == '消费者'){
