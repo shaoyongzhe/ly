@@ -38,6 +38,8 @@ function fnxrym() {
 		$(".proDetailBox").html(url1.active);
 		$(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
 		$(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);
+		$(".footerl>a").attr("href","shopcar.html?distributor_id="+url1.distributor_id);
+		$(".footerr>a").attr("href","commit.html?distributor_id="+url1.distributor_id)
 	}
 }
 //打电话滚动隐藏与显示
@@ -197,7 +199,8 @@ function fnyucun() {
 		success: function(data) {
 			console.log(data)
 			$("#loading").hide();
-			var oli = "",dataid=null;
+			var oli = "",
+				dataid = null;
 			for(var k1 in data) {
 				dataid = {
 					distributorid: fnurl().distributor_id,
@@ -330,7 +333,7 @@ function fnlist() {
 			"filter": "",
 			"filtertype": 0,
 			"lastcount": "0",
-			"pagecount": "15"
+			"pagecount": "5"
 		},
 		timeout: "9000",
 		dataType: "json",
@@ -342,26 +345,26 @@ function fnlist() {
 		},
 		success: function(data) {
 			console.log(data)
-			var oli = "",dataid=null;
-			
+			var oli = "",
+				dataid = null;
 			for(var k1 in data) {
-				dataid = {
-					distributorid: fnurl().distributor_id,
-					itemid: data[k1]["itemid"],
-					itemquality: data[k1]["itemquality"],
-					itemprice: Number(data[k1]["discountprice"]).toFixed(1),
-					isyucun: 0
-				}
 				if(data[k1].itemslist) {
 					if(data[k1].itemslist.length > 1) {
-						oli += "<li class='cgl-ggmore'>";
+						oli += "<li class='cgl-ggmore' index='"+data[k1].index+"'>";
 						for(var k2 in data[k1]["itemslist"]) {
+							dataid = {
+								distributorid: fnurl().distributor_id,
+								itemquality: data[k1]["itemquality"],
+								itemid: data[k1]["itemslist"][k2]["guid"],
+								itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
+								isyucun: 0
+							}
 							oli += "<div class='cgl-top hori'> " +
 								"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
 								"<div class='the-xiangxi'> " +
 								"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
 								"<div class='ggdiv'><p class='ggborder'>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + " > </p></div>" +
-								"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥"+data[k1]["itemslist"][k2]["price"]+"</span>" +
+								"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + data[k1]["itemslist"][k2]["price"] + "</span>" +
 								"<div class='right'>";
 							if(data[k1]["itemcount"] <= 0) {
 								oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -374,13 +377,20 @@ function fnlist() {
 
 					} else {
 						for(var k2 in data[k1]["itemslist"]) {
-							oli += "<li>" +
+							dataid = {
+								distributorid: fnurl().distributor_id,
+								itemquality: data[k1]["itemquality"],
+								itemid: data[k1]["itemslist"][k2]["guid"],
+								itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
+								isyucun: 0
+							}
+							oli += "<li index='"+data[k1].index+"'>" +
 								"<div class='cgl-top hori'> " +
 								"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
 								"<div class='the-xiangxi'> " +
 								"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
 								"<p>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + "</p>" +
-								"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>"+data[k1]["itemslist"][k2]["price"]+"</span>" +
+								"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>" + data[k1]["itemslist"][k2]["price"] + "</span>" +
 								"<div class='right'>";
 							if(data[k1]["itemcount"] <= 0) {
 								oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -393,13 +403,20 @@ function fnlist() {
 					}
 
 				} else {
-					oli += "<li>" +
+					dataid = {
+						distributorid: fnurl().distributor_id,
+						itemquality: data[k1]["itemquality"],
+						itemid: data[k1]["itemid"],
+						itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
+						isyucun: 0
+					}
+					oli += "<li index='"+data[k1].index+"'>" +
 						"<div class='cgl-top hori'> " +
 						"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
 						"<div class='the-xiangxi'> " +
 						"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
 						"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥"+data[k1]["originalprice"]+"</span>";
+						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</span>";
 					oli += "<div class='right'>";
 					if(data[k1]["itemcount"] <= 0) {
 						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -448,18 +465,18 @@ function fncarnum() {
 			$(".ammount").html($(".ammount").html() - 1);
 			$(".num").html($(".ammount").html());
 		}
-		fnaddcar($(this).parents(".c-price").attr("dataid"), $(this).next().html() - 0);
+		fnaddcar(this, $(this).next().html() - 0);
 	}).on("click", ".add", function() {
 		var num = Number($(this).prev().html());
 		$(this).prev().html(num + 1).show().prev().show();
 		$(".ammount").html(Number($(".ammount").html()) + 1);
 		$(".num").html($(".ammount").html());
-		fnaddcar($(this).parents(".c-price").attr("dataid"), $(this).prev().html() - 0);
+		fnaddcar(this, $(this).prev().html() - 0);
 	});
 }
 //添加购物车
 function fnaddcar(that, a) {
-	var dataid = JSON.parse(that);
+	var dataid = JSON.parse($(that).parents(".c-price").attr("dataid"));
 	dataid.itemcount = a;
 	dataid.versiontime = formaty();
 	console.log(dataid)
@@ -480,6 +497,7 @@ function fnaddcar(that, a) {
 		},
 		success: function(data) {
 			console.log(data)
+			return data;
 		}
 	})
 
