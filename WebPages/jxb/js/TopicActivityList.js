@@ -22,8 +22,8 @@
 	  engine.on('OnTopicActivityIDRefresh', OnTopicActivityIDRefresh, this);//主题活动id
 	}	
 
-//  ajaxAlready("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
-//	ajaxNo("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
+    ajaxAlready("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
+	ajaxNo("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
 //	console.log(7878);
     //1.根据经销商id查询匹配和不匹配活动，同时将经销商id存入到localstorage中，传到详情页面
     function OnDistributorIDRefresh(){
@@ -306,7 +306,7 @@
 			}
 			obj.find(".ccBt:last").text(info.content[i].activitytitle);
 			obj.find(".ccCo:last").text(info.content[i].content);
-			obj.find(".ccTi:last").find(".ccTis1").text(info.content[i].begintime.substr(0,16)+"-"+info.content[i].endtime.substr(0,16));
+			obj.find(".ccTi:last").find(".ccTis1").text(info.content[i].earliestjointime.substr(0,16)+"-"+info.content[i].latestjointime.substr(0,16));//0122将begintime换成earliestjointime，endtime换成latestjointime，
 			obj.find(".ccTi:last").find(".ccTis2").eq(0).prev("img").attr("src",src[info.content[i].condition.area_matched]);
 			obj.find(".ccTi:last").find(".ccTis2").eq(2).prev("img").attr("src",src[info.content[i].condition.condition_matched]);//超惠
 			obj.find(".ccTi:last").find(".ccTis2").eq(3).prev("img").attr("src",src[info.content[i].condition.activity_matched]);//资格
