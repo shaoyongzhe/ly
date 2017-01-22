@@ -87,7 +87,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             areastring = "";
             var provinces = JSON.parse($('.area_val').val()).area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+            if (provinces.length == 1 && provinces[0].name == "全国") {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
