@@ -27,13 +27,16 @@ img,fieldset,table,input,textarea,button{border:none;}
 	width:1.4rem ;height:1.4rem ;display: inline-block;background: url(../image/shop/crect2.jpg) no-repeat center center;background-size: 1.4rem 1.4rem;margin:33px 15px 0 6px;border: 1px solid #ccc;border-radius: 1.4rem;
 }
 .intr{
-	padding:0.6rem 5px 0.6rem 10px;font-size: 1.4rem;display: flex;border:1px solid #d8d8d8;
+	padding:0.6rem 5px 0.6rem 10px;font-size: 1.4rem;border:1px solid #d8d8d8;display: flex;
 }
 .intr div:nth-child(1){
-	float:left;width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 1.4rem;color:#ff0000
+	width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 1.4rem;color:#ff0000;
 }
 .intr div:nth-child(2){
-	flex: 1;padding-left: 5px;
+	padding-left: 5px;flex: 1;
+}
+.intr div:nth-child(3){
+	clear:both;padding:5px 12px
 }
 .list{
 	padding:10px;display: flex;
@@ -60,7 +63,7 @@ img,fieldset,table,input,textarea,button{border:none;}
 	font-size: 1.6rem;color:#ff0000
 }
 .disc{
-	padding-left:3rem
+	padding-left:15%
 }
 section li{
 	clear:both
@@ -164,4 +167,7 @@ section li{
 }
 .kind{
 	display: inline-block;width:100%
+}
+ul li{
+	border-bottom: 1px solid #d8d8d8;
 }
