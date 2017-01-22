@@ -1,4 +1,4 @@
-//20170121
+//20170122
 //	alert(4);
 //loadingStart();
 //$(".contentCont").empty();
@@ -22,8 +22,8 @@
 	  engine.on('OnTopicActivityIDRefresh', OnTopicActivityIDRefresh, this);//主题活动id
 	}	
 
-    ajaxAlready("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
-	ajaxNo("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
+//  ajaxAlready("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
+//	ajaxNo("5ce1d14e07534139ae7774d8983f04f3");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***
 //	console.log(7878);
     //1.根据经销商id查询匹配和不匹配活动，同时将经销商id存入到localstorage中，传到详情页面
     function OnDistributorIDRefresh(){
@@ -285,6 +285,9 @@
 				info.content[i].budget.subsidyreleased=0;
 			}		
 			var budgetSubsidytotal=moneyTransform(info.content[i].budget.subsidytotal,4);//万，元，单位处理
+			if(info.content[i].poster_url!=undefined&&info.content[i].poster_url!=" "&&info.content[i].poster_url!=""){				
+				obj.find(".conImg:last").find("img").eq(0).attr("src",info.content[i].poster_url);			
+			}
 			obj.find(".conImg:last").find("span").eq(0).text(budgetSubsidytotal);
 			var hanzi="";//已参与与未参与的补贴提示不一样
 			if(obj.hasClass("Aalready")){
@@ -294,8 +297,11 @@
 			}					
 			var budgetSubsidyreleased=moneyTransform(info.content[i].budget.subsidyreleased,4);//万，元，单位处理
 			obj.find(".conImg:last").find("span").eq(1).text(hanzi+budgetSubsidyreleased);
+			if(info.content[i].post==" "){
+				info.content[i].post="暂无标题"
+			}
 			obj.find(".cCHead:last").find(".cCHeadSp1").text(info.content[i].post);
-			if(info.content[i].activitytitle==""){
+			if(info.content[i].activitytitle==""||info.content[i].activitytitle==" "){
 				info.content[i].activitytitle=info.content[i].post;
 			}
 			obj.find(".ccBt:last").text(info.content[i].activitytitle);

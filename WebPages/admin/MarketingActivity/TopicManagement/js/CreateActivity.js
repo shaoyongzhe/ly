@@ -202,10 +202,11 @@ $('body').on("click",".setRules",function(e){
 	// debugger
 	// $('.rules-title').remove();
 
+	var butieduixiang = $(this).closest('.addSub4').find('.butie-select-wrap .selected').text();
 	layer.open({
 
 		type: 1,
-		title: "设置规则-单个<i class='rules-title'>" + $(this).closest('.addSub4').find('.butie-select-wrap .selected').text() + "</i>",
+		title: "设置规则-单个<i class='rules-title'>" + butieduixiang + "</i>",
 		area: ['66%',"50%"],
 		maxmin: true,
 		content: $('.layer.set-rules')
@@ -226,6 +227,15 @@ $('body').on("click",".setRules",function(e){
 			$('.path').html('平台活动 <i>&gt;</i> 超惠券主题 <i>&gt;</i> 超惠券 <i>&gt;</i> 门店');
 			break;
 	}
+
+	$('.guizerules i').text(butieduixiang);
+
+
+	// debugger
+	$('.select-wrap.xzfw').find('ul').empty();
+	$('.member-type .selected').each(function(){
+		$('.select-wrap.xzfw').find('ul').append("<li class='option'>"+ $(this).text() +"</li>");
+	});
 
 	// debugger
 
@@ -705,7 +715,7 @@ var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
 $('.earliestjointime').val(tomorrow + " 00:00:00");
-$('.latestjointime').val(tomorrow + " 23:59:59");
+$('.latestjointime').val(tomorrow + " 00:00:00");
 // laydate.skin('yalan');
 $('.time').click(function(e){
 	e.stopPropagation();
@@ -792,25 +802,35 @@ $('.btn.next').click(function(){
 $('body.create').on('input','input',function(e){
 	e.stopPropagation();
 
-	$(this).val($.trim($(this).val()))
+	$(this).val($.trim($(this).val()));
 
 	if(isNaN($(this).val())){
+
+		// debugger
+		if($(this).closest('.area-list').length == 1){
+			return;
+		}
+
         layer.msg("请输入数字");
         $(this).val("");
-        return
+        return;
+
     }
+
 
 	// debugger
 	if($(this).val() == ""){
-		// alert(1)
+		if($(this).closest('.btfz').length == 1){
+			$(this).val(0);
+			$(this).keyup();
+		}
 		return;
 	}
-
-
-	if($(this).closest('.dianhua').length == 1){return}
+	if($(this).closest('.dianhua').length == 1){return;}
 	if($(this).closest('.input_a').length == 1 || 
 	   $(this).closest('.hdc4d1').length == 1 || 
-	   $(this).closest('.Yyy2d1').length == 1){
+	   $(this).closest('.Yyy2d1').length == 1 ||
+	   $(this).closest('.btfz').length != 1){
 		
 		if($(this).val().indexOf('.') == 1){
 			$(this).attr("maxlength","4");
@@ -827,7 +847,6 @@ $('body.create').on('input','input',function(e){
 	
 	$(this).val(parseInt($(this).val()));
 
-    
 
     // debugger
 	var _this = $(this);
@@ -985,9 +1004,28 @@ $('.heading-toggle').click(function(){
 	}
 	return false
 }*/
+
+
+// 补贴条件
+/*$('.xzfw .select').click(function(){
+	
+	var _this = $(this);
+
+	// debugger
+	_this.find('li').remove();
+	$('.member-type .selected').each(function(){
+		_this.append("<li class='option'>"+ $(this).text() +"</li>");
+	});
+
+	// return;
+
+});*/
+
 // $('.select .option').click(function(e){
-$("body").on("click",".option",function(e){
+$("body").on("click","li.option",function(e){
 	e.stopPropagation();
+
+	// debugger;
 	// alert(1);
 	var _this = $(this),
 		text = _this.text();
@@ -1195,22 +1233,49 @@ $("body").on("click",".option",function(e){
 		return;
 	}
 
-	_this.parent().hide().prev().text(text);
-	_this.parent().hide().prev().attr("name",_this.attr('name'));
 
+	// 补贴条件
+	if($(this).closest('.butieCond').length==1){
+		var _this = $(this);
 
+		var butieduixiang = $('.addSub4 .butie-select-wrap .selected');
+		var this_duixiang_txt = _this.closest('.addSub4').find('.butie-select-wrap .selected').text();
+		
+		var selected = false;
+		$(".addSub4 .butie-select-wrap .selected:contains("+ this_duixiang_txt +")").each(function(){
+			// alert($(this).text());
+			$(this).closest('.addSub4').find('.butieCond .selected').each(function(){
+
+				if($(this).text() == _this.text()){
+					layer.msg(_this.text() + " 已选");
+					selected = true;
+				}
+			});
+		});
+
+		// return;
+	}
+
+	if(!selected){
+		_this.parent().hide().prev().text(text);
+		_this.parent().hide().prev().attr("name",_this.attr('name'));
+	}
 
 	//开始*********************************************************************************************
 	//控件4活动补贴规则****直接复制add.js中hdc3Tab()并纳入$('.select').on("click",".option",function(e){}
 	// $(".hdc3").find(".option").click(function(){
 	if($(this).closest('.acSe11').length==1){	
-		// alert(1)
+		// alert(1);
 
 		// debugger;
 		$(this).closest(".addSub4").find("input").val("");
 		
+
 		// return
 		// var arr=["分/次","分/次","元/次","元/次","元/次","元/次","元/张","元/张","微信手机红包；随机金额返现","轮盘抽奖，祝你好运","蒙牛酸酸乳，买一赠一"];
+
+		var shenbaoyusuanInput = $(this).closest('.addSub4').find('.hdc6-1 input');
+
 		if($(this).text()!="摇一摇"&&$(this).text()!="轮盘抽奖"&&$(this).text()!="特定超慧券  >"){
 			$(this).parents(".addSub4").find(".hdc4d1").removeClass('hi');
 			$(this).parents(".addSub4").find(".hdc4d2").addClass('hi');					
@@ -1235,6 +1300,7 @@ $("body").on("click",".option",function(e){
 			})*/
 			// $(this).parents(".addSub4").find(".hdc7").removeClass('on');
 			//内部修改项结束**********************
+			shenbaoyusuanInput.removeClass('vihi');
 
 		} else {
 			// debugger
@@ -1263,11 +1329,11 @@ $("body").on("click",".option",function(e){
 				// $(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 
-				// $(this).closest('.addSub4').find('.setgailv').addClass('on');
-
+				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
 				$(this).parents(".addSub4").find("input.sbys + p").text('次');
-
+				shenbaoyusuanInput.addClass('vihi');
 				return;
+
 			}
 
 		}
@@ -1378,7 +1444,16 @@ $("body").on("click",".option",function(e){
 	}
 		// })
 	//结束*****************************************************************************
+
+
 });
+
+
+
+
+
+
+
 
 // $('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2').on("input",function(){
 $('.butieSec').on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
@@ -2359,7 +2434,7 @@ function _ajax(type, url, data, tip, success) {
         },
         error: function (data) {
             console.warn(tip + " error");
-            layer.alert(tip + ' :错误'+data.status, {icon: 5});
+            // layer.alert(tip + ' :错误'+data.status, {icon: 5});
         }
     });
 }

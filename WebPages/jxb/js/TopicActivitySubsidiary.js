@@ -1,4 +1,4 @@
-//20170120
+//20170122
 //loadingStart();
 //如果想查看静态页面，请注释掉Cajax()
 var linshi='';
@@ -21,6 +21,8 @@ function InitailCallBack(){
     engine.on('OnTopicActivityIDRefresh', OnTopicActivityIDRefresh, this);//主题活动id/
 }
 //Cajax("5ce1d14e07534139ae7774d8983f04f3?ticketid=e6eebb40b33443edb4aed35215ce75e8");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3","607fce8dee184586b276d6f9d2fa8e87","f4ca401c0dce42e8bb8d99d5a1cde0aa");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3","607fce8dee184586b276d6f9d2fa8e87","");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
 function OnDistributorIDRefresh(){
 	isReceivedDistributorID=true;	
     if(arguments.length<1){
@@ -84,14 +86,19 @@ function OnTopicActivityIDRefresh(){
 		TopicActivityIDRefreshBol=false;
 	}
 }
-function Cajax(d){
+function Cajax(m,a,b){
 	console.log("ajax开始")
 	$.ajax({
-		type:"get",
+		type:"post",//0121更新为post
 		dataType:'json',	
 //		url:"http://localhost:3000/c",//本地模拟
-		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+d,//代理到哲哥电脑
-//		url:"http://192.168.10.61:40007/webapi/ipaloma/topic/jingxiaobao/activity/"+d,//
+//		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+d,//代理到哲哥电脑
+		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m,//
+//		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
+		data:{
+			"activityid": a, // 对应的活动id
+   			"retailerids": b// 对应的门店id，以逗号分割
+		},
 		async:true,
 			beforeSend:function(){
 				loadingStart();

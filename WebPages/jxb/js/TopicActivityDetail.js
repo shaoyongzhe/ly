@@ -1,5 +1,5 @@
-//20170121
-//loadingStart();
+//20170122
+//marginShade();//空白遮罩
 console.log(8288);
 //$(".BDcyhdCityD").empty();
 //$(".BDcyhdRequireD").empty();
@@ -47,6 +47,9 @@ function OnDisID_ActIDRefresh(){
 		console.log(arguments[1],OnDisID_ActIDRefreshParameter1.data[0]);		
 	}	
 	//0114添加用于调试结束
+	//0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
+	$(".returnChaohuiquanList").removeClass("hi");
+	$(".returnTopicList").addClass("hi");
 }
 
 //情形2.由活动列表跳转至此
@@ -57,6 +60,10 @@ if(location.href.indexOf('fromList')!=-1){
 		isReceivedTopicActivityID=true;//可能需要改变	
 		ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);//***对接经销宝后解除注释####
 	}
+	//0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
+	$(".returnChaohuiquanList").addClass("hi");
+	$(".returnTopicList").removeClass("hi");
+	
 }
 
 //ajaxActivityDetails();
@@ -69,6 +76,7 @@ function ajaxActivityDetails(a,b){
 		async:true,
 		beforeSend:function(){
 			loadingStart();
+			$(".marginShade").remove();
 		},
 		success:function(data){		
 			linshi=data;
@@ -149,6 +157,8 @@ function ajaxActivityDetails(a,b){
 			//活动补贴说明开始
 			//0103添加会员参与时间//有结束时间则是范围，没有结束时间则是开始时间
 			$(".BbtsmRright12 span").text(data.latestjointime?data.earliestjointime+'-'+data.latestjointime:data.earliestjointime);			
+			/*倒计时*/
+			countDownCirculation($(".BsubsidyB span"),data.endtime);
 			//判断有几个btsm
 			$(".btsm").addClass("hi");
 			var num=0;
@@ -597,7 +607,7 @@ function isReceivedID(){
 //$(document).scrollTop(0); 
 	isReceivedIDNum++;
 	isReceivedIDTime=setTimeout(isReceivedID,500);
-	console.log(isReceivedIDNum);
+	console.log(isReceivedIDNum);	
 	if(isReceivedIDNum>=10){
 		if(isReceivedDistributorID==false){
 	//		layer.alert('缺少经销商id，请重试', {icon: 5});
@@ -613,4 +623,3 @@ function isReceivedID(){
 }
 
 
-countDownCirculation($(".BsubsidyB span"),"2017-01-22 00:00:00");

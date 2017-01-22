@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   background: white;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   top: 0;
   left: 0; }
@@ -18,6 +18,16 @@
   top: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%); }
+
+/*空白遮罩，目前只有详情页在用*/
+.marginShade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 99999; }
 
 /*弹窗提示*/
 * {

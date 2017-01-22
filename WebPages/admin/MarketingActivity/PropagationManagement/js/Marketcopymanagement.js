@@ -340,7 +340,7 @@ function getList(curr, handle, searchForm) {
                             var areastring = "";
                             var provinces = td[i].area;
                             var array = [];
-                            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+                            if (provinces.length == 1 && provinces[0].name == "全国") {
                                 areastring = "全国";
                             } else {
                                 for (var j = 0; j < provinces.length; j++) {
@@ -880,7 +880,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj["area"].length; i++) {
                 var areaobj1 = areaobj["area"][i];
                 // console.log(areaobj1.name);
-                if (areaobj1.name == 'fullcountry') {
+                if (areaobj1.name == '全国') {
                     areaobj1.name = '全国';
                 }
             }
@@ -893,7 +893,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj.area.length; i++) {
                 // debugger
                 var area = areaobj.area[i];
-                if (area.name == 'fullcountry') {
+                if (area.name == '全国') {
                     area.name = '全国';
                 }
                 // debugger
@@ -1203,7 +1203,7 @@ $('.examine1_preview').click(function() {
             areastring = "";
             var provinces = JSON.parse($('.area_val').val()).area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+            if (provinces.length == 1 && provinces[0].name == "全国") {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -1851,7 +1851,7 @@ $('table.notify').on('click', '.detailed', function() {
             var areastring = "";
             var provinces = data_text.content.area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+            if (provinces.length == 1 && provinces[0].name == "全国") {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
