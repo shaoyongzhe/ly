@@ -325,14 +325,14 @@
 				}else{//超惠不符合-活动详情，地区不符合-随便看看，参与会员资格不符合-查看原因。
 //					debugger;
 					$(".Ano").find(".ccNo:last").removeClass("hi");
+				}
+				$(".Ano").find(".ccfoot2:last").text("活动详情");
+				if(info.content[i].condition.area_matched==0){//优先级从高到底，随便看看，查看原因，活动详情
+					$(".Ano").find(".ccfoot2:last").text("随便看看");
+				}else if(info.content[i].condition.activity_matched==0){
+					$(".Ano").find(".ccfoot2:last").text("查看原因");
+				}else if(info.content[i].condition.condition_matched==0){
 					$(".Ano").find(".ccfoot2:last").text("活动详情");
-					if(info.content[i].condition.area_matched==0){//优先级从高到底，随便看看，查看原因，活动详情
-						$(".Ano").find(".ccfoot2:last").text("随便看看");
-					}else if(info.content[i].condition.activity_matched==0){
-						$(".Ano").find(".ccfoot2:last").text("查看原因");
-					}else if(info.content[i].condition.condition_matched==0){
-						$(".Ano").find(".ccfoot2:last").text("活动详情");
-					}
 				}
 //				$(".Ano").find(".ccfoot2:last").text("活动详情");//去掉马上参与显示，一律为活动详情
 //				//处理本地区其他地区
