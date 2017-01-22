@@ -137,7 +137,7 @@ function fnmenu() {
 		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/itemtypegroups",
 		//url: "../../data/menu.json",
 		data: "",
-		timeout: "2000",
+		timeout: "9000",
 		dataType: "json",
 		error: function(XMLHttpRequest, textStatus, errorThrown) {
 			if(textStatus == "timeout") {

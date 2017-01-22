@@ -32,8 +32,10 @@
   		var _send="";
   		var _flag=0;
   		var _year=new Date().getFullYear()
-  		var _month=new Date().getMonth()+1
-  		var _day=new Date().getDate()
+  		var _month=(new Date().getMonth()+1)>10?new Date().getMonth()+1:("0"+(new Date().getMonth()+1))
+  		var _day=new Date().getDate()>10?new Date().getDate():"0"+new Date().getDate()
+  		var _distrgive="";
+  		var _reduce=0;
   		$("#beginTime").val(_year+"-"+_month+"-"+_day)
 	
    $.get("/webapi/account/login/test-2-135-1",{},function(data){},false);
@@ -49,26 +51,126 @@
        	console.log(data)
        	var _list="";
        	var _name="";
+       	var _price=0;
+       	var _zengprice=0;
+       	var _discount=0;
        	for(var i=0;i<data.length;i++){
        		if(data[i]["itemslist"]){
        			_name=data[i]["itemslist"][data[i]["selectedindex"]]["itemname"]
        		}else{
        			_name=data[i]["itemname"]
        		}
-       		if(data[i]["activityitem_id"]==""){
+       		if(data[i]["isyucun"]===0){
+       			alert(1313)
+       			if(data[i]["activityitem_id"]==""){
+       			_price+=data[i]["price"];
        			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
-	       		"><img src="+"\"../../image/icon05.png\""+" />"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
 	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div></li>"
-       		}else if(data[i]["promotionactivity"]["details"]){
-       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
-       		"><img src="+"\"../../image/icon05.png\""+" />"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
-       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><div class="+"\"discount-con\""+
-       		">7.5折</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品</div><div class="+"\"give-con\""+">汤臣倍健蛋白粉 153g</div><p>×2</p></div></li>"
+	       		}else if(data[i]["itemkind"]=="降价"){
+	       			_discount+=data[i]["originalprice"]-data[i]["discountprice"]
+	       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><div class="+"\"discount-con\""+
+	       		">"+data[i]["discount"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"
+	       		}else if(data[i]["itemkind"]=="满赠"){
+	       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">满赠</div><div class="+"\"discount-con\""+
+	       		">"+data[i]["discount"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["giftitemobj"]["itemname"]+"</div></div><div class="+
+	       		"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"
+	       		}else if(data[i]["itemkind"]=="有礼"){
+	       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">满赠</div><div class="+"\"discount-con\""+
+	       		">购买"+data[i]["specification"]+data[i]["packagetypename"]+data[i]["itemcategoryname"]+data[i]["itemsubcategoryname"]+"赠送"+
+						data[i]["giftitemobj"]["itemcategoryname"]+data[i]["giftitemobj"]["itemsubcategoryname"]+data[i]["giftitemobj"]["specification"]+data[i]["giftitemobj"]["packagetypename"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["itemname"]+"</div></div><div class="+
+	       		"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"
+	       		}else if(data[i]["itemkind"]=="折扣"){
+	       			_discount+=data[i]["price"]-(data[i]["price"]*data[i]["discount"])
+	       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">折扣</div><div class="+"\"discount-con\""+
+	       		">"+data[i]["discount"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"   			
+	       		}
+       		}else{
+       			if(data[i]["activityitem_id"]==""){
+       			_price+=data[i]["price"];
+       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div></li>"
+	       		}else if(data[i]["itemkind"]=="降价"){
+	       			_discount+=data[i]["originalprice"]-data[i]["discountprice"]
+	       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><div class="+"\"discount-con\""+
+	       		">"+data[i]["discount"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"
+	       		}else if(data[i]["itemkind"]=="满赠"){
+	       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">满赠</div><div class="+"\"discount-con\""+
+	       		">"+data[i]["discount"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["giftitemobj"]["itemname"]+"</div></div><div class="+
+	       		"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"
+	       		}else if(data[i]["itemkind"]=="有礼"){
+	       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">满赠</div><div class="+"\"discount-con\""+
+	       		">购买"+data[i]["specification"]+data[i]["packagetypename"]+data[i]["itemcategoryname"]+data[i]["itemsubcategoryname"]+"赠送"+
+						data[i]["giftitemobj"]["itemcategoryname"]+data[i]["giftitemobj"]["itemsubcategoryname"]+data[i]["giftitemobj"]["specification"]+data[i]["giftitemobj"]["packagetypename"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["itemname"]+"</div></div><div class="+
+	       		"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"
+	       		}else if(data[i]["itemkind"]=="折扣"){
+	       			_discount+=data[i]["price"]-(data[i]["price"]*data[i]["discount"])
+	       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+	       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
+	       		"><div>135-467卷</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">折扣</div><div class="+"\"discount-con\""+
+	       		">"+data[i]["discount"]+"</div></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data[i]["ruledesc"]+"</div></div></li>"   			
+	       		}       			
        		}
 
        	}
+       	$.ajax({
+	    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
+		    	async:true,
+		    	cache:false,
+		        dataType:"json",
+		        type:"get",
+		        error:function(){alert("网络出错")},
+		        success:function(data){
+		        	console.log(data)
+		        	$("#phoneto").attr("href","tel:"+data[0]["mobilephone"])
+		        	if(data[0]["promotionactivity"] && data[0]["promotionactivity"]["details"].length>0){
+		        	  	for(var p=0;p<data[0]["promotionactivity"]["details"].length;p++){
+		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"]){
+		        	  			for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
+		        	  				_zengprice+=data[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"]
+		        	  				_distrgive+="<div>"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"
+		        	  			}
+		        			}
+						}
+		        	}
+		        	if(_distrgive!=""){
+						$(".giveto").css({display:"block"})
+						$(".gift").html(_distrgive)
+					}
+		        	$("#ss div:nth-child(2)").text("￥"+_zengprice)
+		        	$(".loads").css({display:"none"})
+		        }
+	    	})
+       	$("#cc div:nth-child(2)").text("￥"+_discount)
+		$("#kk div:nth-child(2)").text("￥"+_price)
+		$(".amountBig span").text(_price)
+		$(".ab span").text(_discount.toFixed(2))
+		if(_price>=100 && _price<500){
+			$("#same-ss div:nth-child(3)").text("￥10")
+		}else if(_price>=500){
+			$("#same-ss div:nth-child(3)").text("￥50")
+		}else{
+			$("#same-ss div:nth-child(3)").text("￥0")
+		}
+		
        	$(".shoplist").html(_list)
        	$("#sp3").text(data.length)
+       	$(".submit span").text("("+data.length+")")
        }//ajax的success方法结束
 		
 	   });  //ajax结束
@@ -85,6 +187,7 @@
    			error:function(){},
    			success:function(data){
    				console.log(data)
+   				window.location="myorder.html"
    			}
    		})
    	})
@@ -94,13 +197,13 @@
 		$("html").css({overflow:"hidden"})
 	})
 
-$(function(){
-
-	$('#beginTime').date();
-
-	$('#endTime').date({theme:"datetime"});
-
-});
+	$(function(){
+	
+		$('#beginTime').date();
+	
+		$('#endTime').date({theme:"datetime"});
+	
+	});
 
 //	$("#inp2").focus(function(){
 //		$(this).css({textAlign:"left"})
@@ -110,7 +213,7 @@ $(function(){
 //		}
 //		
 //	})
-	
+
   }); //document结束
 
 </script>
@@ -138,25 +241,21 @@ $(function(){
 			<div class="saleTm-con"><input placeholder="请在此处填写备注" style="width:85%;font-size: 1.8rem;height:40px;color:#333;text-align: right;" id="inp2" /><img src="../../image/shop/rigArr.jpg" /></div>
 		</div>
 		<div class="introd">
-			<div class="saleTm-tit" id="distributorName"><span style="display:inline-block;">clienton</span></div>
+			<div class="saleTm-tit" id="distributorName"><span style="float: left;margin-right: 5px;">clienton</span><a style="float:left;height:40px" id="phoneto"><img src="../../image/shop/phone.jpg" style="width:2.6rem;padding: 4px 5px;" /></a></div>
 			<div class="saleTm-con">共<span id="sp3"></span>件</div>
 		</div>
 		<ul class="shoplist">
 
 			
 		</ul>
-		<div class="giveto">
+		<div class="giveto" style="display: none;">
 			<ul class="kind">
 				<div class="gifto">赠品 </div>
 				<div class="gift">
-					<div>促销政策中幸存的<span class="gifty">x45</span></div>
-					<div>促销政策中幸存的</div>
-					<div>促销政策中幸存的</div>
-					<div>促销政策中幸存的</div>
 				</div>
 			</ul>
 		</div>
-		<div class="same">
+		<div class="same" id="cc">
 			<div>商品促销优惠金额</div>
 			<div>￥15.5</div>
 		</div>
@@ -164,7 +263,7 @@ $(function(){
 			<div>赠品金额</div>
 			<div>￥15.5</div>
 		</div>
-		<div class="same">
+		<div class="same" id="kk">
 			<div>商品应付金额</div>
 			<div>￥15.5</div>
 		</div>
@@ -192,8 +291,8 @@ $(function(){
                           <!-- orderlayout 3 description -->
                           
                             <div class="totalsum">
-                                          <p class="amountBig"> 合计：￥50元</p> 
-                                            <p>已优惠金额：￥139.00  </p> 
+                                          <p class="amountBig"> 合计：￥<span>50</span>元</p> 
+                                            <p class="ab">已优惠金额：￥<span>139.00</span>  </p> 
                                             <div class="submit">去提交<span>(20)</span></div>
                                       </div>
                             
@@ -211,7 +310,7 @@ $(function(){
 
 
 
-
+<div class="loads"><img src="../../image/shop/loading.gif" style="width:15%;margin: 70% 0 0 44%"/></div>
 
 
 </body>
