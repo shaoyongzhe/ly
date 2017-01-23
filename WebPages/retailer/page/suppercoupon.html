@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -80,11 +80,11 @@
             .assetinfobj .assetimg {
                 width: 85px;
                 height: 60px;
-                position: absolute;
+            position: absolute;
                 background: url(/consumer/image/asset_bt.png) no-repeat;
                 background-size: auto 60px;
                 z-index: 3;
-            }
+        }
 
                 .assetinfobj .assetimg p {
                     width: 45px;
@@ -198,8 +198,13 @@
                 " <div class=\"assetinfobj\" style='display:none'>" +
                 " <a href=\"hrefs\" class=\"assetcontent\">" +
                 " <div class=\"assetimg\">  <p>subsidytotal</p> </div>" +
-                " <div class=\"asset_left\"> <nobr>topictitle</nobr> </div>" +
-                "<div class=\"asset_right\"> <small>已参加</small>headcount<small>人</small> </div></a>" +
+                "<div class=\"asset_left\" style=\"width:calc(100% - 110px)\"> "+
+                    "<p style=\"max-width:calc(100% - 65px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1rem;margin-left:0.4rem;_display:inline-block;\">topictitle</p>"+
+                    "<span style=\"width:50px;display:inline-block;font-size:0.7em;font-weight:normal;\">等活动</span>"+
+                "</div>"+
+                /*" <div class=\"asset_left\"> <nobr>topictitle</nobr> </div>" +
+                "<div class=\"asset_right\"> <small>已参加</small>headcount<small>人</small> </div>"*/
+                "</a>" +
                 "  </div>" +
                 "  </li>	"
 
@@ -270,12 +275,13 @@
                                     topicid += "," + items.topic.guid
                                 }
                             });
-                            temphtml = temphtml.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
-                            temphtml = temphtml.replace("blx", "");
-                            temphtml = temphtml.replace("none", "block");
-                            temphtml = temphtml.replace("topictitle", item.topiclist[0].topic.activitytitle);
-                            temphtml = temphtml.replace("headcount", item.budget.subsidytotal);
-                            temphtml = temphtml.replace("subsidytotal", item.budget.subsidytotal);
+                            listitem = listitem.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
+                            listitem = listitem.replace("blx", "");
+                            if(item.topiclist.length>1)
+                            listitem = listitem.replace("none", "block");
+                            listitem = listitem.replace("topictitle", item.topiclist[0].topic.activitytitle);
+                            listitem = listitem.replace("headcount", item.budget.subsidytotal);
+                            listitem = listitem.replace("subsidytotal", item.budget.subsidytotal);
                         }
 
                         if (typeof (value.activitystate) !== 'undefined' && value.activitystate != '已生效') {
