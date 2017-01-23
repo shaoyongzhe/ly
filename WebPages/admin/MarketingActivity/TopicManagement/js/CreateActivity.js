@@ -1729,6 +1729,20 @@ $('.saveToDb, .shenhe').click(function(){
 	// debugger
 	if($(this).text() ==  "提交审核"){
 
+	    //获取活动时间与会员参与时间
+	    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
+	    var basic = $('.basic-msg');
+	    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
+	    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
+	    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
+	    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
+
+	    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+	    var activeEnd = (new Date(endtime)).getTime(); 
+	    var joinBegin = (new Date(earliestjointime)).getTime(); 
+	    var joinEnd = (new Date(latestjointime)).getTime(); 
+        //var  activeBegin = basic.find('.begintime').val()
+
 		var finished = true;
 
 		if($('.section1 .activityTitle').val() == ""){
@@ -1773,6 +1787,28 @@ $('.saveToDb, .shenhe').click(function(){
 			$('.latestjointime').focus();
 			return;
 		}
+
+	    //验证活动时间与会员参与时间
+	    if (activeBegin > activeEnd) {
+//	        	alert(1)
+	            $("nav span").eq(0).click();
+	            layer.tips('请先检查活动结束时间', $('.endtime'));
+	            $('.endtime').focus();
+	            return;
+	        }
+	        if (joinBegin > joinEnd) {
+	            $("nav span").eq(0).click();
+	            layer.tips('请先检查会员参与结束时间', $('.latestjointime'));
+	            $('.endtime').focus();
+	            return;
+	        }
+		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
+		    $("nav span").eq(0).click();
+		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
+		    $('.earliestjointime').focus();
+		    return;
+		}
+
 		if($('.section1 #shenbao').val() == ""){
 			$("nav span").eq(0).click();
 			layer.tips('请先填写申报说明', $('#shenbao'));
