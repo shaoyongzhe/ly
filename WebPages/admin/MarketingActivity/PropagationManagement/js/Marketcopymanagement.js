@@ -339,7 +339,7 @@ function getList(curr, handle, searchForm) {
                             var areastring = "";
                             var provinces = td[i].area;
                             var array = [];
-                            if (provinces.length == 1 && provinces[0].name == "全国") {
+                            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
                                 areastring = "全国";
                             } else {
                                 for (var j = 0; j < provinces.length; j++) {
