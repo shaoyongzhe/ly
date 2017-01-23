@@ -138,14 +138,19 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 		// $('.Select_province').parent().append("<div class='layer-wait'>");
 		var url = '/webapi/ipaloma/district/charge?district_type=province';
 		_ajax("get", url, {}, '省负责人信息', function (dataprov){
-			// $('.layer-wait').remove();
-			// debugger;
-			// c(dataprov);return;
+
 			if(dataprov.error){
 				console.warn(JSON.stringify(dataprov.error, null, 4));
 				return;
 			}
-			
+
+			var appendCharge = '<option>' + '请选择负责人' + '</option>';
+			if (dataprov.allcharge.length > 0) {
+			    for (var chargeIndex = 0 in dataprov.allcharge) {
+			        appendCharge += '<option guid=' + dataprov.allcharge[chargeIndex].guid + ' oid=' + dataprov.allcharge[chargeIndex].oid + ' >' + dataprov.allcharge[chargeIndex].name + '</option>';
+			    }
+			}
+
 			$('.Select_province li').each(function(i){
 				// debugger;
 				var _this = $(this);
@@ -164,12 +169,12 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 				if(_thisprovice == provice){
 					_this.find('select').append('<option guid='+ dataprov.content[i].charge.guid +' oid='+ dataprov.content[i].charge.oid +' >'+ dataprov.content[i].charge.name +'</option>');
 				} else {
-					// _this.find('select').append('<option guid='+ '' +' oid='+ '' +' >'+ '请选择负责人' +'</option>');
+
 					$('.Select_province li').find('span:contains('+ provice +')').next().append('<option guid='+ dataprov.content[i].charge.guid +' oid='+ dataprov.content[i].charge.oid +' >'+ dataprov.content[i].charge.name +'</option>');
-					// console.log(_this.find('select option').length);
-					// 齐枭飞添加0----------------------
 					if(_this.find('select option').length==0){
-						_this.find('select').append('<option>'+ '请选择负责人' +'</option>'+'<option guid='+ dataprov.allcharge[0].guid +' oid='+ dataprov.allcharge[0].oid +' >'+ dataprov.allcharge[0].name +'</option>');
+					    _this.find('select').append(appendCharge);
+					    
+
 					}
 				}
 
@@ -338,7 +343,12 @@ function dataLoad() {
 					console.warn(JSON.stringify(datacity, null, 4));
 					return;
 				}
-
+				var appendCharge = '<option>' + '请选择负责人' + '</option>';
+				if (datacity.allcharge.length > 0) {
+				    for (var chargeIndex = 0 in datacity.allcharge) {
+				        appendCharge += '<option guid=' + datacity.allcharge[chargeIndex].guid + ' oid=' + datacity.allcharge[chargeIndex].oid + ' >' + datacity.allcharge[chargeIndex].name + '</option>';
+				    }
+				}
 				$('.Select_province1 li select').empty();
 				$('.Select_province1 li').each(function(i,item){
 					// debugger;
@@ -356,14 +366,9 @@ function dataLoad() {
 						$('.Select_province1 li').find('span:contains('+ city +')').next().append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
 					// 齐枭飞添加0----------------------
 					if(_this.find('select option').length==0){
-						_this.find('select').append('<option>'+ '请选择负责人' +'</option>'+'<option guid='+ dataprov.allcharge[0].guid +' oid='+ dataprov.allcharge[0].oid +' >'+ dataprov.allcharge[0].name +'</option>');
+					    _this.find('select').append(appendCharge);
 					}
 					}
-
-					// if(_this.find('select option').length == 0){
-					// 	_this.hide();
-					// }
-
 				});
 
 			});
