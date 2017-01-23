@@ -226,7 +226,7 @@ function ConstructRecord(contentBody, statusData)
 //				+='<td class="provideSubsidy">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
 				+ '<td class="state">' + x.state + '</td>'
 				//具体的操作内容见
-				+'<td class="edit last"><img src="img/iconss1.png" alt="" />'+stateHtml+'</td>'
+				+'<td class="edit last"><img src="img/iconss1.png" alt="" /><div class="menu"><div class="menuArrow"></div><div class="menuContent">'+stateHtml+'</div></div></td>'
 				+ '<td style="display:none;">' + x.guid + '</td>'
 				+'</tr>';
     }).ToArray();
@@ -235,17 +235,16 @@ function ConstructRecord(contentBody, statusData)
 
 function ConstructOpStatus(statusData, state)
 {
-
     var opArray = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] }).First();
     if (opArray.length == 0)
-        return "";
+        return '<p class="menuElement">' + "<span>" + "" + "</span>" + "</p>";
     var statehtmlArray =$.Enumerable.From(opArray.slice(0, opArray.length - 1)).Select(function(x) 
     {
         return '<p class="menuElement">' + "<span class='handle "+ x + "'>"+x+"</span>" + "</p>";
     }).ToArray();
 
     var statehtml = statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
-    return '<div class="menu"><div class="menuArrow"></div><div class="menuContent">' + statehtml + '</div></div>';
+    return statehtml;
 }
 
 // $(".activityAreaAndCharge").hover(function(){
@@ -267,7 +266,7 @@ function chargeAjax(){
 //			var chargeHtml='<li guid="" class="optionL">请选择</li>';//用于拼接
 			var chargeHtml='';//用于拼接
 			for(i=0;i<data.content.length;i++){
-				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].nickname+'</li>'
+				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].name+'</li>'
 			}
 			$(".qC_principal .selectL").empty().append(chargeHtml);
 			
