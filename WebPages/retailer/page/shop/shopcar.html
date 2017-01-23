@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html style="overflow: hidden;">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -15,16 +15,18 @@
 		var _list="";
 		var _give="";
 		var _color="";
-		var _active="";
 		var _distrgive="";
 		var _id="";
+		var _count=0;
+		var _save=0;
+		var _arr=[];
 			$.ajax({
 				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/5ce1d14e07534139ae7774d8983f04f3?isvalid=0",
 				async:true,
 		    	cache:false,
 		        dataType:"json",
 		        type:"get",
-		        error:function(){alert("网络出错")},
+		        error:function(){},
 		        success:function(data1){
 		        	console.log(data1)
 		        	show(data1)
@@ -33,79 +35,92 @@
 		
 		function show(data1){
 			var _price=0;
-			var _count=0;
+
 			var _discount=0;
 			$(".addr").text("clienton")//需要修改
 			var _name="";
+			var _index=0;
+			var _tell="";
+			var _active="";
+			var _image="";
 			for(var i=0;i<data1.length;i++){
 				if(data1[i]["itemcount"]==1){
 					_color="#dbdfe4"
 				}else{
 					_color="#009f96"
 				}
-				_name=data1[i]["itemslist"]?data1[i]["itemslist"][data1[i]["selectedindex"]]["itemname"]:data1[i]["itemname"]
-				if(data1[i]["activityitem_id"]=="" && data1[i]["salestop"]==0){
-					_active+="";
-					_price+=Number(data1[i]["price"]);
-					_count++;
-					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="
-					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
-					"><div>备注：<span>"+data1[i]["remark"]+"</span></div></div><div class="+
-					"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
-				}else if(data1[i]["itemkind"]=="降价" && data1[i]["salestop"]==0){
-					_active+="<div class="+"\"intr\""+"><div>降价</div><div>"+data1[i]["ruledesc"]+"</div></div>"
-					_price+=Number(data1[i]["price"]);
-					_count++;
-					_discount+=data1[i]["price"]-(data1[i]["price"]*data1[i]["discount"])
-					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
-					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["discountprice"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["originalprice"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+
-					">-</span></div></p></div></div></div><div class="+"\"disc\""+
-					"<div class="+"\"disc\""+" id="+"\"disc\""+
-					"><span>降价</span><span>"+data1[i]["discount"]+"</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
-					"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
-				}else if(data1[i]["itemkind"]=="折扣" && data1[i]["salestop"]==0){
-					_active+="<div class="+"\"intr\""+"><div>降价</div><div>"+data1[i]["ruledesc"]+"</div></div>"
-					_price+=Number(data1[i]["price"]);
-					_count++;
-					_discount+=data1[i]["price"]-(data1[i]["price"]*data1[i]["discount"])
-					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
-					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]*data1[i]["discount"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["price"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
-					"<div class="+"\"disc\""+" id="+"\"disc\""+
-					"><span>折扣</span><span>"+data1[i]["discount"]+"</span></div>div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
-					"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
-				}else if(data1[i]["itemkind"]=="有礼" && data1[i]["salestop"]==0){
-					_active+="<div class="+"\"intr\""+"><div>有礼</div><div>"+data1[i]["ruledesc"]+"</div></div>"
-					_price+=Number(data1[i]["price"]);
-					_count++;
-					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
-					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
-					" id="+"\"disc\""+
-					"><span>有礼</span><span>购买"+data1[i]["specification"]+data1[i]["packagetypename"]+data1[i]["itemcategoryname"]+data1[i]["itemsubcategoryname"]+"赠送"+
-					data1[i]["giftitemobj"]["itemcategoryname"]+data1[i]["giftitemobj"]["itemsubcategoryname"]+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</span></div>div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
-					"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"					
-				}else if(data1[i]["itemkind"]=="满赠" && data1[i]["salestop"]==0){
-//					for(var j=0;j<data1[i]["giftitemobj"].length;j++){
-//						_give+="<span>"+data1[i]["giftitemobj"][j]["itemname"]+"<em>"+data1[i]["giftcount"]+"</em></span>"
-//					}
-					_count++;
-					_price+=Number(data1[i]["price"]);
-					_active+="<div class="+"\"intr\""+"><div>满赠</div><div>"+data1[i]["ruledesc"]+"</div></div>"
-					_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"yoo\""+"><img class="
-					+"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+
-					" />"+_name+"</div><p>"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
-					" id="+"\"disc\""+
-					"><span>买赠</span><span>买"+data1[i]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"赠"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div class="+"\"giveTo\""+"><b>赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span></div></div><div class="+
-					"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
-				}else if(data1[i]["salestop"]==1){
-					_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="+
-					"\"img2\" "+"src="+"\"../../image/shop/temp.jpg\""+" />"+data1[i]["itemname"]+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+
-					"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ccc\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
-					"\"position:absolute;left:0;top:0;width:100%;height:111px;background:#ddd;opacity:0.5\""+"></div></li>"
+				if(data1[i]["itemquality"]==0){
+					_image="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
 				}
+				_name=data1[i]["itemslist"]?data1[i]["itemslist"][data1[i]["selectedindex"]]["itemname"]:data1[i]["itemname"]
+				if(!data1[i]["itemslist"]){
+					if(data1[i]["activityitem_id"]=="" && data1[i]["salestop"]==0){
+						_price+=Number(data1[i]["price"]);
+						_count++;
+						_arr.push(i)
+						_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+						"><div>备注：<span>"+data1[i]["remark"]+"</span></div></div><div class="+
+						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
+					}else if(data1[i]["itemkind"]=="降价" && data1[i]["salestop"]==0){
+						_price+=Number(data1[i]["price"]);
+						_count++;
+						_arr.push(i)
+						_discount+=data1[i]["price"]-(data1[i]["price"]*data1[i]["discount"])
+						_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["discountprice"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["originalprice"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+
+						">-</span></div></p></div></div></div><div class="+"\"disc\""+
+						"<div class="+"\"disc\""+
+						"><span>降价</span><span>"+data1[i]["discount"]+"</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
+						"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
+					}else if(data1[i]["itemkind"]=="折扣" && data1[i]["salestop"]==0){
+						_price+=Number(data1[i]["price"]);
+						_count++;
+						_arr.push(i)
+						_discount+=data1[i]["price"]-(data1[i]["price"]*data1[i]["discount"])
+						_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]*data1[i]["discount"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["price"]+"</span></p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+						"<div class="+"\"disc\""+" id="+"\"disc\""+
+						"><span>折扣</span><span>"+data1[i]["discount"]+"</span></div>div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
+						"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
+					}else if(data1[i]["itemkind"]=="有礼" && data1[i]["salestop"]==0){
+						_price+=Number(data1[i]["price"]);
+						_count++;
+						_arr.push(i)
+						_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p>"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+						"><span>有礼</span><span>购买"+data1[i]["specification"]+data1[i]["packagetypename"]+data1[i]["itemcategoryname"]+data1[i]["itemsubcategoryname"]+"赠送"+
+						data1[i]["giftitemobj"]["itemcategoryname"]+data1[i]["giftitemobj"]["itemsubcategoryname"]+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</span></div>div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div style="+
+						"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"					
+					}else if(data1[i]["itemkind"]=="满赠" && data1[i]["salestop"]==0){
+						_tell="<div class="+"\"disc\""+
+						"><span>买赠</span><span>买"+data1[i]["specification"]+/*data1[i]["giftitemobj"]["packagetypename"]+"赠"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+*/"</span></div>"
+						_count++;
+						_arr.push(i)
+						_price+=Number(data1[i]["price"]);
+						_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p>"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+						"><span>买赠</span><span>买"+data1[i]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"赠"+data1[i]["giftitemobj"]["specification"]+data1[i]["giftitemobj"]["packagetypename"]+"</span></div><div class="+"\"disc\""+"><div>备注：<span>"+data1[i]["ruledesc"]+"</span></div></div><div class="+"\"giveTo\""+"><b>赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span></div></div><div class="+
+						"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
+					}else if(data1[i]["salestop"]==1){
+						_arr.push(i)
+						_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemname"]+"</div><p>"+data1[i]["specification"]+data1[i]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+
+						"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
+						"\"position:absolute;left:0;top:0;width:100%;height:111px;background:#ddd;opacity:0.5\""+"></div></li>"
+					}					
+				}else{
+					_index=data1[i]["selectedindex"];
+					if(data1[i]["activityitem_id"]=="" && data1[i]["salestop"]==0){
+						_price+=Number(data1[i]["itemslist"][_index]["price"]);
+						_count++;
+						_list+="<li id=\""+i+"\"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemslist"][_index]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="
+						+"\"img2\" "+"src="+_image+
+						" />"+_name+"</div><p>"+data1[i]["itemslist"][_index]["specification"]+data1[i]["itemslist"][_index]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["itemslist"][_index]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div></p></div></div></div><div class="+"\"disc\""+
+						"><div>备注：<span>"+data1[i]["remark"]+"</span></div></div><div class="+
+						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"
+					}else if(data1[i]["salestop"]==1){
+						_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+"><img class="+
+						"\"img2\" "+"src="+_image+" />"+data1[i]["itemslist"][_index]["itemname"]+"</div><p>"+data1[i]["itemslist"][_index]["specification"]+data1[i]["itemslist"][_index]["packagetypename"]+"</p><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\""+">-</span></div></p></div></div></div><div class="+
+						"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
+						"\"position:absolute;left:0;top:0;width:100%;height:111px;background:#ddd;opacity:0.5\""+"></div></li>"
+					}
+				}
+			_save=_count;
 			}
 			$.ajax({
 	    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
@@ -113,18 +128,44 @@
 		    	cache:false,
 		        dataType:"json",
 		        type:"get",
-		        error:function(){alert("网络出错")},
+		        error:function(){},
 		        success:function(data){
 		        	console.log(data)
+		        	var _nm="";
+		        	var _jies="";
 		        	if(data[0]["promotionactivity"] && data[0]["promotionactivity"]["details"].length>0){
 		        	  	for(var p=0;p<data[0]["promotionactivity"]["details"].length;p++){
-		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"]){
+		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"] && data[0]["itemkind"]=="满赠"){
 		        	  			for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
 		        	  				_distrgive+="<div>"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"
+		        	  				_active+=data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]
+		        	  				_nm="满赠"
+		        	  				_jies="您已满"+data[0]["promotionactivity"]["details"][p]["moneysum"]+"元，获赠"
+		        	  			}
+							$(".intr div:nth-child(1)").text(_nm)
+							$(".intr div:nth-child(2) span:nth-child(1)").text(_jies)
+							$(".intr div:nth-child(2) span:nth-child(2)").text(_active)		        	  			
+		        			}else if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"] && data[0]["itemkind"]=="满减"){
+		        				for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
+		        	  				_active+="<span>"+data[0]["promotionactivity"]["details"][p]["moneysum"]+"</span>"
+		        	  				_nm="满减"
+		        	  				_jies="您已满"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"]+"元，已减"
 		        	  			}
 		        			}
 						}
 		        	}
+					if(_active==""){
+						$(".intr").css({display:"none"})
+					}
+					if(_price<data[0]["cutgift"]){
+						$(".commit").css({background:"#ccc",width:"auto"})
+						$(".commit").text("还差 "+(data[0]["cutgift"]-_price)+" 元起送")
+					}else{
+						aa()
+					}
+					$("html").css({overflow:"auto"})
+					$(".loads").css({display:"none"})
+					
 		        }
 	    	})
 			if(_distrgive!=""){
@@ -133,17 +174,14 @@
 			}
 			$("section ul").html(_list)
 			$(".summ").text("("+_count+")")
-			if(_active==""){
-				$(".intr").css({padding:0})
-			}
-			$(".intr").text(_active)
+
 			$(".amountBig span").text(_price)
 			$(".commit span").text("("+_count+")")
 			select()
 			change(data1);
 			deLete(data1)
 			$(".ab span").text(_discount.toFixed(2))
-			$(".loads").css({display:"none"})
+			
 		}//"+data1[i]["giftitemobj"]["itemname"]+"
 		//add()
 		//function add(){
@@ -203,33 +241,30 @@
 
 		function select(){
 			var _ll=0;
+			console.log(_arr)
 			$("section").on('click','.gouxuan',function(){
 				if($(this).attr("flag")==1){
 					$(this).attr("flag","0")
 					$(this).css({"background":"none",borderColor:"#5d5c5c"});
+					_arr.splice($(this).parent().parent().attr("id"),1,-1)
+					console.log(_arr)
+					_count-=1
 				}else{
+					_arr.splice($(this).parent().parent().attr("id"),1,parseInt($(this).parent().parent().attr("id")))
+					console.log(_arr)
 					$(this).attr("flag","1")
 					$(this).css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
-				}
-				if(_ll<$(".list i").length){
-					for(var l=0;l<$(".list i").length;l++){
-						if($(".list i")[l].getAttribute("flag")==0){
-							$(".gg").css({background:"none",borderColor:"#fff"});
-							$(".gg").attr("flag","0")
-						}else{
-							_ll++;
-							if(_ll==$(".list i").length){
-								$(".gg").css({background:"url(../../image/shop/crect.jpg) center center no-repeat",backgroundSize:"1.4rem 1.4rem",borderColor:"#5d5c5c"});
-								$(".gg").attr("flag","1")
-								_ll=0
-							}
-							$(".commit span").text("("+_ll+")")
-						}
-					}
-				}else{
-					
+					_count+=1
 				}
 
+				if(_count==_save){
+					$(".gg").attr("flag","1")
+					$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
+				}else{
+					$(".gg").attr("flag","0")
+					$(".gg").css({"background":"none",borderColor:"#fff"});
+				}
+				$(".commit span").text("("+_count+")")
 			});
 			$(".all").on('click','.gg',function(){
 				if($(this).attr("flag")==1){
@@ -350,9 +385,12 @@
 			}
 			return _year+"-"+_month+"-"+_day+" "+_hour+":"+_minute+":"+_second+"."+_msecond
 		}
-		$(".commit").click(function(){
-			location.href="commit.html"
-		})
+		function aa(){
+			$(".commit").click(function(){
+				location.href="commit.html?"+_arr.join("/")
+			})			
+		}
+		
 	})
 </script>
 </head>
@@ -374,7 +412,8 @@
 			<span class="gouxuan"></span><div>接口</div>
 		</div>
 		<div class="intr">
-			<div>满减</div><div>奥斯卡的技术可垃圾打算看了大家按时打算的撒的撒的撒打算撒开了的紧身裤垃圾袋</div>
+			<div>满赠</div>
+			<div><span></span><span></span></div>
 		</div>
 		<ul style="overflow: hidden;">
 			

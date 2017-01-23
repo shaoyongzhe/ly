@@ -61,7 +61,6 @@
        			_name=data[i]["itemname"]
        		}
        		if(data[i]["isyucun"]===0){
-       			alert(1313)
        			if(data[i]["activityitem_id"]==""){
        			_price+=data[i]["price"];
        			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemslist"][data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
@@ -142,7 +141,7 @@
 		        	  	for(var p=0;p<data[0]["promotionactivity"]["details"].length;p++){
 		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"]){
 		        	  			for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
-		        	  				_zengprice+=data[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"]
+		        	  				_zengprice+=Number(data[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"])
 		        	  				_distrgive+="<div>"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"
 		        	  			}
 		        			}
@@ -159,7 +158,7 @@
        	$("#cc div:nth-child(2)").text("￥"+_discount)
 		$("#kk div:nth-child(2)").text("￥"+_price)
 		$(".amountBig span").text(_price)
-		$(".ab span").text(_discount.toFixed(2))
+		
 		if(_price>=100 && _price<500){
 			$("#same-ss div:nth-child(3)").text("￥10")
 		}else if(_price>=500){
@@ -167,7 +166,9 @@
 		}else{
 			$("#same-ss div:nth-child(3)").text("￥0")
 		}
-		
+		_discount-=$("#same-ss div:nth-child(3)").text()
+		_discount-=$(".same")
+		$(".ab span").text(_discount.toFixed(2))
        	$(".shoplist").html(_list)
        	$("#sp3").text(data.length)
        	$(".submit span").text("("+data.length+")")
@@ -269,7 +270,7 @@
 		</div>
 		<div class="same">
 			<div>微信下单专享</div>
-			<div>￥15.5</div>
+			<div>￥5</div>
 		</div>
 		<div id="same-ss">
 			<div>满减</div>
