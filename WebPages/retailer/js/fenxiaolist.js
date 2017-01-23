@@ -69,9 +69,7 @@ function fngetlist() {
             	thissp.itemcount=ceng1["itemcount"];
             	oli+="<li class='hori' data-xx='"+JSON.stringify(thissp)+"'>" +
                         "<div class='main-l'>" +
-                            "<a href='activeindex.html'>" +
                                 "<img src='"+ceng1["distributorimg"]+"'>" +
-                            "</a>" +
                         "</div>" +
                         "<div class='main-r'>" +
                             "<div class='main-rt'>" +
@@ -81,7 +79,7 @@ function fngetlist() {
                                     "</a>" +
                                     "<p>起送价 ￥<strong>"+ceng1["cutgift"]+"</strong>元</p>" +
                                 "</div>" +
-                                "<span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span>" +
+                                "<a href='shopcar.html?distributor_id="+thissp.distributor_id+"'><span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span></a>" +
                             "</div>" +
                             "<div class='cgl-manj'>"+
 	                            "<p>微信下单立减5元</p>";
