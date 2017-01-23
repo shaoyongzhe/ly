@@ -40,7 +40,10 @@ function acAdA() {
 		$(".chenlong01").append(parent.get(0).outerHTML);
 		// parent.find('p').rempve()
 		$(this).addClass("hi");
-
+		$(".addSub1:last .acAd1").css({//0113添加
+			"visibility": "hidden",
+			"cursor": "default"
+		});
 		// $(".addSub1").not(":first").find(".deleP").remove();//解决p标签bug
 
 		//$('.addSub1').last().find('.selected,.selectWrap1,.selectWrap2').text('');
@@ -57,6 +60,8 @@ function acAdA() {
 		$(".addSub1").last().find(".selectWrap2").first().removeClass('hi').addClass('-hi');
 		$(".addSub1").last().find(".selectWrap2").not(':first').addClass('hi');
 		$(".addSub1").last().find("input").val('');
+		$(".addSub1").last().find(".acCoSc .selectWrap1:eq(0)").text('');//0113添加
+		
 	});
 }
 
@@ -107,7 +112,6 @@ function acAdB() {
 
 acAdC();
 var jkjk = "";
-
 function acAdC() {
 	$("body").on("click", ".acZige .acAd3", function(e) {
 		if ($(this).closest(".acZige").find(".addSub3").length <= 1) {
@@ -134,7 +138,7 @@ function acAdC() {
 			//下面代码和createActivity1中完全一致
 //			debugger;
 			if($(this).closest(".addSub2").find(".acSe4 em").text()==$(this).text()){
-				var arr=$(this).attr("conditiontype").split(',');			
+				var arr=$(this).attr("conditiontype").split(',');
 				var li =$(this).closest('.addSub2').find('.acZige1 .option');
 				$(li).each(function(){
 					// console.log($(this).text());			
@@ -144,9 +148,9 @@ function acAdC() {
 							$(this).show();
 						}
 					}
-				})				
+				});
 			}
-		})
+		});
 		$(this).closest(".acZige").find(".acAd3").css({
 			"visibility": "visible",
 			"cursor": "pointer"
@@ -375,19 +379,19 @@ $.ajax({
 		//控件1会员活动条件
 		//控件1活动类型
 		var dca_1 = data.conditionsetting.activitytype;
-		$(".addSub1 .acSe1 .select").empty();
+		$(".addSub1.created_l .acSe1 .select").empty();
 		for (i = 0; i < dca_1.length; i++) {
 			$(".addSub1 .acSe1 .select").append('<li class="option">' + dca_1[i].localtype + '</li>')
 		}
 		//控件1优惠力度条件的第一部分
-		$(".addSub1 .acCoSc").empty();
-		$(".addSub1 .acCoSc").append('<p class="bor selectWrap1"></p>');
+		$(".addSub1.created_l .acCoSc").empty();
+		$(".addSub1.created_l .acCoSc").append('<p class="bor selectWrap1"></p>');
 		for (i = 0; i < dca_1.length; i++) {
 			$(".addSub1 .acCoSc").append('<p class="bor hi selectWrap1">' + dca_1[i].conditionname + '</p>')
 		}
 		//控件1优惠力度条件的第三部分
-		$(".addSub1 .acCoRa").empty();
-		$(".addSub1 .acCoRa").append('<div class="bor selectWrap2"><span class="diSpan"></span></div>');
+		$(".addSub1.created_l .acCoRa").empty();
+		$(".addSub1.created_l .acCoRa").append('<div class="bor selectWrap2"><span class="diSpan"></span></div>');
 		var hm = "";
 		for (i = 0; i < dca_1.length; i++) {
 			if (dca_1[i].localtype == "买赠") {
@@ -424,14 +428,14 @@ $.ajax({
 		//控件2参与会员
 		var dsm_1 = data.conditionsetting.membership;
 		//会员类型
-		$(".addSub2 .acSe4 .select").empty();
+		$(".addSub2.created_l .acSe4 .select").empty();
 		for (i = 0; i < dsm_1.length; i++) {
 			$(".addSub2 .acSe4 .select").append('<li class="option" name="'+dsm_1[i].type+'" type="'+dsm_1[i].type+'" restrictcount="'+dsm_1[i].restrictcount+'" conditiontype="'+dsm_1[i].conditiontype+'">'+dsm_1[i].localtype+'</li>');
 		}
 		//参加名额
-		$(".addSub2 .acMe").empty();
+		$(".addSub2.created_l .acMe").empty();
 		hm = '';
-		$(".addSub2 .acMe").append('<p class="p68 deleP deleP1"></p><div class="selectWrap1 -hi"><span><input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span></span><span class="to"></span><span><input class="bor acMeI2" type="text"  value="" /><span class="acMeS2">家</span></span></div>');
+		$(".addSub2.created_l .acMe").append('<p class="p68 deleP deleP1"></p><div class="selectWrap1 -hi"><span><input class="bor acMeI1" type="text" value="10"/><span class="acMeS1"></span></span><span class="to"></span><span><input class="bor acMeI2" type="text"  value="30" /><span class="acMeS2"></span></span></div>');
 		for (i = 0; i < dsm_1.length; i++) {
 			if (dsm_1[i].localtype == "消费者") {
 				hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value=""/><span class="acMeS1">人</span><span class="to"></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">人</span></div>'
@@ -444,7 +448,7 @@ $.ajax({
 		//console.log(addsub2HTML)
 		//控件3设置参与资格
 		var dcc_1 = data.conditionsetting.conditiontype;
-		$(".addSub3 .acSe5 .select").empty();
+		$(".addSub3.created_l .acSe5 .select").empty();
 		addSub3Arr = [""];
 		//	console.log(addSub3Arr.length)
 		for (i = 0; i < dcc_1.length; i++) {
@@ -455,12 +459,15 @@ $.ajax({
 			addSub3Arr.push(dcc_1[i].unit);
 		}
 		//统计范围的第二部分
-		// $(".addSub3 .acZige3").prepend('<div class="acZige3z  acZige2tab" style="width:135px;"></div>');
-		addsub3HTML = $(".addSub3").get(0).outerHTML;
-		addsub2HTML = $(".addSub2").get(0).outerHTML;
+//		 $(".addSub3 .acZige3").prepend('<div class="acZige3z  acZige2tab" style="width:135px;"></div>');
+		addsub3HTML = $(".addSub3.created_l").get(0).outerHTML;
+		addsub2HTML = $(".addSub2.created_l").get(0).outerHTML;
+		if(location.href.indexOf("activityModify.html")>0){			
+			$(".addSub2.created_l").remove();
+		}
 		//控件4参与活动条件
 		var dss_2a = data.subsidysetting.subsidyobject;
-		$(".addSub4 .acSe9 .select").empty();
+		$(".addSub4.created_l .acSe9 .select").empty();
 		//补贴对象
 		for (i = 0; i < dss_2a.length; i++) {
 			$(".addSub4 .acSe9 .select").append('<li class="option" refundtoclass="' + dss_2a[i].refundtoclass + '" name="' + dss_2a[i].type + '" type="' + dss_2a[i].type + '">' + dss_2a[i].localtype + '</li>');
@@ -473,13 +480,13 @@ $.ajax({
 		}
 		//补贴条件
 		var dss_2b = data.subsidysetting.subsidycondition;
-		$(".addSub4 .acSe10 .select").empty();
+		$(".addSub4.created_l .acSe10 .select").empty();
 		for (i = 0; i < dss_2b.length; i++) {
 		    $(".addSub4 .acSe10 .select").append('<li class="option">' + dss_2b[i] + '</li>')
 		}
 		//补贴形式、范围值、
 		var dss_2c = data.subsidysetting.subsidymethod;
-		$(".addSub4 .acSe11 .select").empty();
+		$(".addSub4.created_l .acSe11 .select").empty();
 		addSub4Arr = [""]
 		for (i = 0; i < dss_2c.length; i++) {
 			//补贴形式
@@ -494,18 +501,17 @@ $.ajax({
 			}
 			addSub4Arr.push(dss_2c[i].unit);
 		}
-		addsub4HTML = $(".addSub4").get(0).outerHTML;
+		addsub4HTML = $(".addSub4.created_l").get(0).outerHTML;
+		if(location.href.indexOf("activityModify.html")>0){			
+			$(".addSub4.created_l").remove();
+		}
 		// 控件5摇一摇
 		// var .....还是用之前的dss_2c,之后应该会变
 		$(".addSub5 .acSe15 .select").empty();
-
 		//奖品类型
 		$(".addSub5 .acSe15 .select").append('<li class="option">谢谢参与</li>');
 		addSub5Arr.push("无");
-		// alert(1)
-
 		for (i = 0; i < dss_2c.length; i++) {
-
 			//补贴形式
 			if (dss_2c[i].showtype != "compose") { //摇一摇中拒绝嵌套摇一摇
 				$(".addSub5 .acSe15 .select").append('<li class="option" name="' + dss_2c[i].type + '" type="' + dss_2c[i].type + '" category="' + dss_2c[i].category + '" showtype=' + dss_2c[i].showtype + '>' + dss_2c[i].localtype + '</li>');
@@ -516,25 +522,16 @@ $.ajax({
 					// dss_2c[i].unit="分/次";
 				} else if (dss_2c[i].unit == "") {
 					dss_2c[i].unit = "我是链接点击我，我是链接点击我";
-
 				} else if (dss_2c[i].unit == undefined) { //处理谢谢参与
 					dss_2c[i].unit = "";
 				}
-
 				addSub5Arr.push(dss_2c[i].unit);
 			}
-			
 		}
 		addsub5HTML = $(".addSub5").get(0).outerHTML;
-
-
-		// $('nav span:eq(2)').click();
-		// $('.select-wrap.acSe11').click();
-		// $('li:contains(摇一摇)').click();
-		// $('a:contains(次)').click();
-		
 	},
 	error: function() {
 		console.warn("控件 error");
 	}
 });
+

@@ -199,28 +199,6 @@
                 "y": 560
             }
         },
-        "limitverfiy": {
-            "url": "/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false",
-            "background": {
-                "type": "image",
-                "url": "/retailer/image/verify/verifycode.png",
-                "width": 420,
-                "height": 595,
-                "single": true,
-                "depend": "title",
-                "x": 0,
-                "y": 0
-            },
-            "qrcode": {
-                "type": "qrcode",
-                "depend": "background",
-                "width": 175,
-                "height": 175,
-                "single": false,
-                "x": 122.5,
-                "y": 130
-            }
-        },
         "inviteretailer": {
             "nav": {
                 "type": "image",
@@ -301,6 +279,28 @@
                 "single": true,
                 "x": 0,
                 "y": 0
+            }
+        },
+        "limitverfiy": {
+            "url": "/webapi/retailer/weixin/limit_verify_code?qrtype=10001&sendimage=false",
+            "background": {
+                "type": "image",
+                "url": "/retailer/image/verify/verifycode.png",
+                "width": 420,
+                "height": 595,
+                "single": true,
+                "depend": "title",
+                "x": 0,
+                "y": 0
+            },
+            "qrcode": {
+                "type": "qrcode",
+                "depend": "background",
+                "width": 175,
+                "height": 175,
+                "single": false,
+                "x": 122.5,
+                "y": 130
             }
         },
         "consumercard": {

@@ -45,49 +45,61 @@ function getList(curr, handle, searchForm) {
         $("table.notify tbody").empty();
 
         var isSet = "<span class='btn setDefault'>设为默认</span><span class='btn del' title='删除'>删除</span>",
-		autoW = "210",//75
+        autoW = "210",//75
         tr = "",
-		td = data.content;
+        td = data.content;
         for (var i = 0; i < td.length; i++) {
             var isHtml;
             var contentFormat = td[i].content;
-            //try {
-            //    var obj = JSON.parse(td[i].content);
-            //    contentFormat = JSON.stringify(obj, null, 4);
-            //} catch (e) {
-            //    contentFormat = td[i].content;
-            //}
+            var content = {};
+            try {
+                if (typeof (contentFormat) == "object") {
+                    content = JSON.stringify(td[i].content);//content = JSON.stringify(td[i].content, null, 4);
+                    // console.log(1)
+                } else {
+                    content = JSON.parse('"' + td[i].content + '"');//注意存入localstorage的时候，也要处理。
+                    // console.log(2)
+                };
+            } catch (e) {
+                content = "";
+            }
+            // try{
+            //          content = JSON.parse(contentFormat);
+            //      }catch(e){
+            //          content= contentFormat;
+            //      }
             tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
-			+ "</span></td><td>" + td[i].subcategory
+            + "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
             + "</td><td>" + td[i].groupname
             + "</td><td>" + td[i].area
+            + "</td><td>" + td[i].description
             + "</td><td class='templateid'>" + td[i].gateway_templateid
-			+ "</td><td title='" + contentFormat + "'><span class='content'>" + contentFormat
-			+ "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
-			+ "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
-			+ " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+            + "</td><td title='" + content + "'><span class='content'>" + content
+            + "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
+            + "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
+            + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
         }
 
         $("table.notify tbody").append(tr);
         // $(tr).appendTo($("table.notify tbody")).show(600);
 
         /*$(tr).appendTo($("table.notify tbody"));
-		// alert($(tr).length);
-		var len = $(tr).length;
-		var index = 0;
-		var interval = setInterval(next, 100);
+        // alert($(tr).length);
+        var len = $(tr).length;
+        var index = 0;
+        var interval = setInterval(next, 100);
 
-		function next() {
-			$('.notify tbody tr').eq(index).show(300);
-			index++;
-			if(index > len){
-				clearInterval(interval);
-				console.log(interval);
-				// return;
-				$('.pager-wrap').fadeIn(1000);
-			}
-		}*/
+        function next() {
+            $('.notify tbody tr').eq(index).show(300);
+            index++;
+            if(index > len){
+                clearInterval(interval);
+                console.log(interval);
+                // return;
+                $('.pager-wrap').fadeIn(1000);
+            }
+        }*/
 
         $('td span.content').each(function () {
             $(this).text($(this).html())
@@ -109,19 +121,19 @@ function getList(curr, handle, searchForm) {
                         return;
                     }
                     /*// alert($(tr).length);
-					var len = $('.notify tbody tr').length + 1;
-					var index = len;
-					var interval = setInterval(prev, 100);
-					layer.msg('正在查询...');
-					function prev() {
-						$('.notify tbody tr').eq(index).hide(600);
-						index--;
-					}*/
+                    var len = $('.notify tbody tr').length + 1;
+                    var index = len;
+                    var interval = setInterval(prev, 100);
+                    layer.msg('正在查询...');
+                    function prev() {
+                        $('.notify tbody tr').eq(index).hide(600);
+                        index--;
+                    }*/
                     getList(obj.curr, 'page');
                     /*if(handle=='open'){
-						layer.msg('正在查询...',{time:0});
-						getList(obj.curr, 'search');
-					}*/
+                        layer.msg('正在查询...',{time:0});
+                        getList(obj.curr, 'search');
+                    }*/
                 }
             }
         });
@@ -137,17 +149,17 @@ function getList(curr, handle, searchForm) {
                 return;
             }
             /*if(handle=='edit'){
-				layer.msg("修改成功");
-			}*/
+                layer.msg("修改成功");
+            }*/
             /*if(handle=='search'){
-				layer.msg("查询成功");
-			}*/
+                layer.msg("查询成功");
+            }*/
             if (handle == 'setDefault') {
                 layer.msg("设置默认模板成功");
             }
             /*if(handle=='open'){
-				layer.msg("已开启为当前使用模板");
-			}*/
+                layer.msg("已开启为当前使用模板");
+            }*/
             if (handle == 'page') {
                 layer.msg("加载成功");
                 return;
@@ -469,6 +481,12 @@ $('table.notify')
                  .on('click', '.modify', function () {
                      var tr = $(this).parents('tr');
                      var trIndex = $(this).parents('tr').index();
+                     var con1;
+                     try {
+                         con1 = JSON.parse($(this).parents("tr").find("td").eq(7).text());
+                     } catch (e) {
+                         con1 = $(this).parents("tr").find("td").eq(7).text();
+                     }
                      $('#trIndex').val(trIndex);
                      var data = {
                          guid: tr.find('td:eq(0) .guid').val(),
@@ -477,19 +495,16 @@ $('table.notify')
                          channel: tr.find('td:eq(2)').text(),
                          groupname: tr.find('td:eq(3)').text(),
                          area: tr.find('td:eq(4)').text(),
-                         gateway_templateid: tr.find('td:eq(5)').text(),
-                         content: tr.find('td:eq(6)').text(),
-                         state: tr.find('td:eq(7)').text(),
-                         isdefault: tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0
+                         description: tr.find('td:eq(5)').text(),
+                         gateway_templateid: tr.find('td:eq(6)').text(),
+                         content: con1,
+                         state: tr.find('td:eq(8)').text(),
+                         isdefault: tr.find('td:eq(9)').text().trim() == "默认" ? 1 : 0
                      };
-                     //try {
-                     //    var contentObj = JSON.parse(data.content);
-                     //    data.content = contentObj;
-                     //} catch (e) {
-                     //    console.log(e);
-                     //    //alert("测试使用" + data.content);
-                     //}
-                     var jsonStr = JSON.stringify(data, null, 4);
+                     var jsonStr = JSON.stringify(data);
+                     // var template = jsonStr.replace("\"","");
+                     // localStorage.template=JSON.stringify(data);    
+                     // localStorage.ajaxType='modify';//纪录当前模式为修改。
                      $('#add').val(jsonStr);
                      $('#opType').val("notify");
                      //防止被修改
@@ -501,7 +516,7 @@ $('table.notify')
                          maxmin: true,
                          content: 'json/index.html',
                      });
-                 });// 单行修改	弹出插件本身
+                 });// 单行修改 弹出插件本身
 $('table.modulePeople')
                  .on('click', '.modify', function () {
                      var tr = $(this).parents('tr');
@@ -516,7 +531,7 @@ $('table.modulePeople')
                          maxmin: true,
                          content: 'json/index.html',
                      });
-                 });// 单行修改	弹出插件本身
+                 });// 单行修改 弹出插件本身
 
 // 批量删除
 /*$('.batchDel').click(function(){

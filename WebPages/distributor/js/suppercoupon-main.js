@@ -119,7 +119,7 @@ $(function () {
     juicer.register("testclick", function (item) {
         var topicid = ""
         $.each(item.topiclist, function (index, item, array) {
-            if (index <= 20) {
+            if (index < 20) {
                 topicid += "," + item.topic.guid
             }
         });
