@@ -235,8 +235,10 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-				 	if(keyy == ''){
+				 	console.log(subsidy);
+				 	if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
 				 		return str='';
+				 		
 				 	}else{
 						for(key in subsidy){
 							str+='<div class="tablecont_one">'+
