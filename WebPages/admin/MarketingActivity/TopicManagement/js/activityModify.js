@@ -1,3 +1,4 @@
+//20170123
 var linshi="";
 /*变量说明，resdataFix为创建活动拼接好的数据，阅后即焚。resdata为ajax的data，_resdata_为方便切换使用resdataFix和resdata的变量*/
 var resdataFix = {
@@ -810,7 +811,7 @@ function render(resdata){
             state = "status";
         }
 
-        $('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title="+ area.name +">"+ area.name +"</em></span></div><div class='charge'><span><em shengfzr='"+ JSON.stringify(area.charge, null, 4) +"'>负责人 "+ area.charge.name +"</em><i class='"+ state +"'></i></span></div></div></div>");
+        $('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title="+ area.name +">"+ area.name +"</em><i class='x'>&times;</i></span></div><div class='charge'><span><em shengfzr='"+ JSON.stringify(area.charge, null, 4) +"'>负责人 "+ area.charge.name +"</em><i class='x'>&times;</i></span></div></div></div>");
 
 
         for(var j=0; j<area.city.length; j++){
@@ -821,7 +822,7 @@ function render(resdata){
                 state = "status";
             }
 
-            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>负责人 "+ area.city[j].charge.name +"</em><i class='"+ state +"'></i></div><div class='district-wrap'></div></div></div>");
+            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>负责人 "+ area.city[j].charge.name +"</em><i class='x'>&times;</i></div><div class='district-wrap'></div></div></div>");
 
 
             for(var k=0; k<area.city[j].country.length; k++){
@@ -832,7 +833,7 @@ function render(resdata){
                     state = "status";
                 }
 
-                $('.district-wrap').last().append("<span><em qx='"+ JSON.stringify(area.city[j].country[k], null, 4) +"'>"+ area.city[j].country[k].name +"</em><i class='"+ state +"'></i></span>");
+                $('.district-wrap').last().append("<span><em qx='"+ JSON.stringify(area.city[j].country[k], null, 4) +"'>"+ area.city[j].country[k].name +"</em><i class='x'>&times;</i></span>");
             }
 
         }
@@ -1091,7 +1092,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '</div>'
 	        +               '</div>'
 	        +               '<!--设置参与资格默认隐藏acZige-->'
-	        +               '<div class="acZige hi">'
+	        +               '<div class="acZige -hi">'
 	        +                   '<div class="addSub3P68">'
 	        +                       '<p class="p68 deleP dib">条件类型</p><p class="p68 deleP dib">统计范围</p><p class="p68 deleP dib">条件</p>'             
 	        +                   '</div>'
@@ -1449,6 +1450,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '</div>'
 	        +                   '<div class="dib hi hdc4d2 link">'
 	        +                       '<a href="#" class="dib hdc4dB ver set"></a>'
+	        +												'<input type="hidden" class="y1y">'
 	        +                   '</div>'
 	        +               '</div>'
 	        +           '</div>'
@@ -1636,7 +1638,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi3").text("有相关字段的时候，改变这里");      
 	//  }
 	
-	    if(activityManger_addSub4Data[i].refund_content!="shake"){
+	    if(activityManger_addSub4Data[i].refund_content!="摇一摇"){//shake
 	//      debugger
 	        $(".addSub4Mange:last").find(".hdc4d1").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d2").addClass('hi'); 
@@ -1648,7 +1650,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4P1").addClass("hi");
 	            
 	        }       
-	    }else if(activityManger_addSub4Data[i].refund_content=="shake"){
+	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
 	    }
@@ -1664,10 +1666,11 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*申报预算*/
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) input").val(activityManger_addSub4Data[i].applycount); 
 			/*设置摇一摇*/
-			if(activityManger_addSub4Data[i].xxx){
-				var addSub4MangeYaoyiyao=JSON.stringify(activityManger_addSub4Data[i].xxx, null, 4);
-				$(".addSub4Mange:last").find(".hdc4d2").val(addSub4MangeYaoyiyao);   
+			if(activityManger_addSub4Data[i].prize_content){
+				var addSub4MangeYaoyiyao=JSON.stringify(activityManger_addSub4Data[i].prize_content, null, 4);
+				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao);   
 			}
+			 $(".addSub4Mange:last").find(".hdc4d2 .y1y").addClass("y1yHidden"+(i+1));
 	    /*设置概率*/
 	    if(activityManger_addSub4Data[i].probability){//prize_content
 	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
@@ -1937,7 +1940,12 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub2Mange:last").find(".acAd2").removeClass("hi");//最后一个控件加号显示
 	    //控件3
 	    //时刻记住，我是在控件2里的
-	    $(".addSub2Mange").find(".addSub3.created_l").remove();//0123临时注释掉
+	    $(".addSub2Mange").each(function(){
+		    if($(this).find(".addSub3Mange").length>0){
+			   $(this).find(".addSub3.created_l").remove();
+		    }  	
+	    })
+
 //	    $(".addSub2Mange").find(".addSub3Mange:last").find(".acAd3").css("visibility","hidden");//最后一个控件减号隐藏
 	    $(".addSub2Mange").find(".addSub3Mange:last").find(".acAd4").removeClass("hi");//最后一个控件加号显示
 	    //控件4
@@ -1958,7 +1966,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 /*调试用代码*/
 /*
 $("section").removeClass("on");
-$(".section2").addClass("on");
+$(".section3").addClass("on");
 $(".acZige").removeClass("hi");
 //0123临时注释掉
 */

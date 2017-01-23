@@ -1389,7 +1389,6 @@ $("body").on("click","li.option",function(e){
 				$(this).closest('.addSub4').find('.hdc5 .acSe13 input').val("");
 				// $(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
-
 				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
 				$(this).parents(".addSub4").find("input.sbys + p").text('次');
 				shenbaoyusuanInput.addClass('vihi');
@@ -1961,7 +1960,7 @@ $('.saveToDb, .shenhe').click(function(){
 		if(finished == true){
 
 			$('.section3 .addSub4').each(function(){
-				// debugger
+//				 debugger
 				var _this = $(this);
 				if(_this.find('.butie-select-wrap .selected').text() == ""){
 					// debugger
@@ -1987,6 +1986,7 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}
+				var isShake = false;
 				if(_this.find('.hdc3 .selected').text().indexOf('随机') != -1){
 					if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
 						// debugger
@@ -2009,10 +2009,19 @@ $('.saveToDb, .shenhe').click(function(){
 					if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
 						// debugger
 						$("nav span").eq(2).click();
-						layer.tips('请先填写值', _this.find('.hdc4d1.-hi input.hdc4In1'));
-						// _this.find('.selected').focus();
-						finished = false;
-						return false;
+						
+						if(_this.find('.select-wrap.acSe11 .selected').text() == "摇一摇"){
+							isShake = true;
+						}
+
+						if(!isShake){
+							layer.tips('请先填写值', _this.find('.hdc4d1.-hi input.hdc4In1'));
+							// _this.find('.selected').focus();
+							finished = false;
+						}
+						
+//						return false;
+						
 					}
 				}
 
@@ -2024,14 +2033,17 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}
-				if(_this.find('.sbys').val() == ""){
-					// debugger
-					$("nav span").eq(2).click();
-					layer.tips('请先填写申报预算', _this.find('.sbys'));
-					// _this.find('.selected').focus();
-					finished = false;
-					return false;
+				if(!isShake){
+					if(_this.find('.sbys').val() == ""){
+						// debugger
+						$("nav span").eq(2).click();
+						layer.tips('请先填写申报预算', _this.find('.sbys'));
+						// _this.find('.selected').focus();
+						finished = false;
+						return false;
+					}
 				}
+				
 
 				// debugger
 				// alert(_this.find('.setgailv.on input').val())
@@ -2108,23 +2120,23 @@ $('.saveToDb, .shenhe').click(function(){
 				// var index = $('.section4 .area .activitytitle').get(i); 
 				// var title = $(index).text();
 				if( _this.find('.activitytitle').text() == ""){
-					// $("nav span").eq(2).click();
+					 $("nav span").eq(3).click();
 					layer.tips('请先完善活动标语', _this.find('.activitytitle'));
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
 				}
 				if(_this.find('.wechattitle').text() == ""){
-					debugger
-					// $("nav span").eq(2).click();
+//					debugger
+					 $("nav span").eq(3).click();
 					layer.tips('微信图文消息标题', _this.find('.wechattitle'));
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
 				}
 				if(_this.find('.wenan-text').text() == ""){
-					debugger
-					// $("nav span").eq(2).click();
+//					debugger
+					 $("nav span").eq(3).click();
 					layer.tips('请先完善宣传文案', _this.find('.wenan-text'));
 					// _this.find('.selected').focus();
 					finished = false;

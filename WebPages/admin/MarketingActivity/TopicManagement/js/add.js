@@ -467,7 +467,7 @@ function addAjax(){
 			addsub2HTML = $(".addSub2.created_l").get(0).outerHTML;
 			if(location.href.indexOf("activityModify.html")>0){		//0123临时注释掉	
 				if($(".addSub2Mange").length>0){//0123添加
-				    $(".addSub2.created_l").remove();//去除页面初始的addSub1	    	
+				    $(".addSub2.created_l").remove();//去除页面初始的addSub2	    	
 			    }				
 			}
 			//控件4参与活动条件
@@ -508,7 +508,9 @@ function addAjax(){
 			}
 			addsub4HTML = $(".addSub4.created_l").get(0).outerHTML;
 			if(location.href.indexOf("activityModify.html")>0){	//0123临时注释掉		
-				$(".addSub4.created_l").remove();
+				if($(".addSub4Mange").length>0){//0123添加
+				    $(".addSub4.created_l").remove();//去除页面初始的addSub4	    	
+			    }					
 			}
 			// 控件5摇一摇
 			// var .....还是用之前的dss_2c,之后应该会变
