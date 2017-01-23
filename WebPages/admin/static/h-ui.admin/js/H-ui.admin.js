@@ -173,7 +173,15 @@ function reloadPage(){
 	var hash_y = window.location.hash.replace(/#/,"").split("&");
 	if(hash_y !=''){
 		var href_y = hash_y[0]+".html";
-		var name_y = hash_y[1]
+		var name_y = hash_y[1];
+		var a_y = $(".Hui-aside").find(".icoLong2").find("a");
+//		console.log(a_y)
+		$.each(a_y,function(){
+			if($(this).attr("data-title") == name_y){
+				$(this).addClass("action_y");
+				$(this).parent("li").parent("ul").parent("dd").css({"display":"block"})
+			}
+		})
 		//console.log(href_y+"------>"+name_y)
 		creatIframe(href_y,name_y)
 	}

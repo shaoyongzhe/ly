@@ -92,8 +92,6 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 		content: $('.area-list')
 	});
 
-	// debugger
-
 	dataLoad();
 
 
@@ -117,6 +115,20 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 
 	$('.quanbusheng').prop("checked",false);
 
+	/*
+	{
+	    "content": [
+	    {
+	        "provice": "北京市",
+	        "charge": {
+	            "name": "shaoyongzhe",
+	            "guid": "4654269886BC4FD7B5914ED324208FB0",
+	            "oid": 2800992
+	        },
+	        "type": "province"
+	    },
+
+	*/
 
 	// c(dataprov)
 	// debugger
@@ -126,14 +138,19 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 		// $('.Select_province').parent().append("<div class='layer-wait'>");
 		var url = '/webapi/ipaloma/district/charge?district_type=province';
 		_ajax("get", url, {}, '省负责人信息', function (dataprov){
-			// $('.layer-wait').remove();
-			// debugger;
-			// c(dataprov);return;
+
 			if(dataprov.error){
 				console.warn(JSON.stringify(dataprov.error, null, 4));
 				return;
 			}
-			
+
+			var appendCharge = '<option>' + '请选择负责人' + '</option>';
+			if (dataprov.allcharge.length > 0) {
+			    for (var chargeIndex = 0 in dataprov.allcharge) {
+			        appendCharge += '<option guid=' + dataprov.allcharge[chargeIndex].guid + ' oid=' + dataprov.allcharge[chargeIndex].oid + ' >' + dataprov.allcharge[chargeIndex].name + '</option>';
+			    }
+			}
+
 			$('.Select_province li').each(function(i){
 				// debugger;
 				var _this = $(this);
@@ -152,13 +169,21 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 				if(_thisprovice == provice){
 					_this.find('select').append('<option guid='+ dataprov.content[i].charge.guid +' oid='+ dataprov.content[i].charge.oid +' >'+ dataprov.content[i].charge.name +'</option>');
 				} else {
+
 					$('.Select_province li').find('span:contains('+ provice +')').next().append('<option guid='+ dataprov.content[i].charge.guid +' oid='+ dataprov.content[i].charge.oid +' >'+ dataprov.content[i].charge.name +'</option>');
+					if(_this.find('select option').length==0){
+					    _this.find('select').append(appendCharge);
+					    
+
+					}
 				}
 
-			});
+				// 齐枭飞-----------------------------------
+				// if(_thisprovice){
+				// 	console.log(_this.find('select:selected').val());
+				// }
 
-			$('.radio.zhiding.on').removeClass('on').click();
-			
+			});
 		});
 
 	}
@@ -176,7 +201,6 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 	}
 
 	$('span:contains('+ shengText +')').closest('li').click();
-
 
 });
 
@@ -319,7 +343,12 @@ function dataLoad() {
 					console.warn(JSON.stringify(datacity, null, 4));
 					return;
 				}
-
+				var appendCharge = '<option>' + '请选择负责人' + '</option>';
+				if (datacity.allcharge.length > 0) {
+				    for (var chargeIndex = 0 in datacity.allcharge) {
+				        appendCharge += '<option guid=' + datacity.allcharge[chargeIndex].guid + ' oid=' + datacity.allcharge[chargeIndex].oid + ' >' + datacity.allcharge[chargeIndex].name + '</option>';
+				    }
+				}
 				$('.Select_province1 li select').empty();
 				$('.Select_province1 li').each(function(i,item){
 					// debugger;
@@ -335,12 +364,11 @@ function dataLoad() {
 						$(this).find('select').append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
 					} else {
 						$('.Select_province1 li').find('span:contains('+ city +')').next().append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
+					// 齐枭飞添加0----------------------
+					if(_this.find('select option').length==0){
+					    _this.find('select').append(appendCharge);
 					}
-
-					// if(_this.find('select option').length == 0){
-					// 	_this.hide();
-					// }
-
+					}
 				});
 
 			});
@@ -404,13 +432,10 @@ function dataLoad() {
 			oid: _this.closest('li').find(':selected').attr('oid'),
 		};
 
+
 		if (_this.is(':checked') == false) {
 			// alert(1)
 			$('.quanbusheng').prop("checked",false);
-
-			var thisProvince = $(this).closest('li').find('span').text();
-			$(".Select_province li:contains("+ thisProvince +") :checkbox").prop('checked',false);
-
 			$('.provice > span em').each(function(index, el) {
 				// debugger;
 				var _this = $(this),
@@ -434,8 +459,13 @@ function dataLoad() {
 
 		// console.log(shengText);
 		if (shengText != "") {
+			if(shengfzr.name=='请选择负责人'){
+			$('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title="+ shengText +">" + shengText + "</em><i class='x'>×</i></span></div></div><div class='allCity'>已选择全部市</div></div>");
+		}else{
+
 			$('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title="+ shengText +">" + shengText + "</em><i class='x'>×</i></span></div><div class='charge'><span><em shengfzr='"+ JSON.stringify(shengfzr, null, 4) +"'>" + shengfzr.name + "</em><i class='x'>×</i></span></div></div><div class='allCity'>已选择全部市</div></div>");
 		}
+	}
 		
 	});
 
@@ -594,7 +624,12 @@ function dataLoad() {
 			// alert(JSON.stringify(shengfzr, null, 4))
 			// var a = JSON.stringify(shengfzr, null, 4)
 			if (shengText != "") {
-				$('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title="+ shengText +">" + shengText + "</em><i class='x'>×</i></span></div><div class='charge'><span><em shengfzr='"+ JSON.stringify(shengfzr, null, 4) +"'>" + shengfzr.name + "</em><i class='x'>×</i></span></div></div><div class='allCity'>已选择全部市</div></div>");
+				if(shengfzr.name=='请选择负责人'){
+					$('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title="+ shengText +">" + shengText + "</em><i class='x'>×</i></span></div></div><div class='allCity'>已选择全部市</div></div>");
+				}else{
+					$('.region-wrap').append("<div class='region-item'><div class='row'><div class='provice'><span><em class='shengName' title="+ shengText +">" + shengText + "</em><i class='x'>×</i></span></div><div class='charge'><span><em shengfzr='"+ JSON.stringify(shengfzr, null, 4) +"'>" + shengfzr.name + "</em><i class='x'>×</i></span></div></div><div class='allCity'>已选择全部市</div></div>");
+				}
+				
 			}
 
 			return;
@@ -913,12 +948,25 @@ $('.area-list .save').click(function() {
 
 		if($('.quanbusheng').is(":checked")){
 
-			provObj = {
-				"charge": JSON.parse(shengfzr),
+			if(shengfzr==undefined)
+			{
+				provObj = {
+				// "charge": JSON.parse(shengfzr),
 				"name": sheng,
                 "state": "active",
 				"city": []
 			}
+			}
+			else
+			{
+				provObj = {
+				"charge": JSON.parse(shengfzr),
+				"name": sheng,
+                "state": "active",
+				"city": []
+				}
+			}
+			
 
 		} else {
 			
@@ -937,12 +985,28 @@ $('.area-list .save').click(function() {
 					quxianArr.push(JSON.parse($(this).attr("qx")));
 				});
 
+
+		if(shengfzr==undefined)
+			{
+			cityObj = {
+					"state": "active",
+					// "charge": JSON.parse(shengfzr),
+					"name": shi,
+					"country": quxianArr
+				}
+
+			}
+			else
+			{
 				cityObj = {
 					"state": "active",
 					"charge": JSON.parse(shengfzr),
 					"name": shi,
 					"country": quxianArr
 				}
+			}
+
+				
 
 				cityArr.push(cityObj);
 

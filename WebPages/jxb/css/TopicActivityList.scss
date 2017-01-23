@@ -283,7 +283,7 @@ header img:nth-of-type(2){
     font-size:14px;////////////rem(14);//14px;
     color:#999;
 //  height:40px;//clamps.js要求不能设置高，否则失效。所以这里不设置，反正2个行高，刚好也是40px
-    line-height:20px;////////////rem(20);//;
+    line-height:22px;////////////rem(20);//;
     //下面代码是用于多行溢出，但仅仅支持谷歌，所以决定通过用插件，完成溢出目的//因为只需要支持谷歌，所以又恢复用此，放弃插件
     overflow: hidden;
     text-overflow: ellipsis;

@@ -68,7 +68,7 @@ $(function(){
 									'</section>'+
 									'<section class="Activity">'+
 										'<div class="Activitytop">'+
-											'<p class="active_font">'+'活动补贴规则'+'</p>'+
+											'<p class="active_font">'+'活动补贴说明'+'</p>'+
 										'</div>'+
 										'<div class="Activitytoppic">'+
 											'<a class="subsidies" href="javascript:void(0)">'+'平台最高补贴'+'</a>'+
@@ -86,7 +86,7 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										
+										allSubsidy()+
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -232,28 +232,34 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-					for(key in subsidy){
-						str+='<div class="tablecont_one">'+
-								'<div class="xps_q">'+
-									'<a href="javascript:;">'+keyg(key) +'</a>'+
-								'</div>'+
-								'<div class="Focus_box">'+
-									'<div class="Focus_box_left">'+
-										'<ul>'+
-											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
-											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
-											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
-										'</ul>'+
+				 	// if(subsidy.distributor == ''){
+				 	if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
+				 		return str='';
+				 	}else{
+						for(key in subsidy){
+							str+='<div class="tablecont_one">'+
+									'<div class="xps_q">'+
+										'<a href="javascript:;">'+keyg(key) +'</a>'+
 									'</div>'+
-									'<div class="Focus_box_right">'+
-										'<div class="swiper-container swiper1">'+
-											'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+									'<div class="Focus_box">'+
+										'<div class="Focus_box_left">'+
+											'<ul>'+
+												'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+												'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+												'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="Focus_box_right">'+
+											'<div class="swiper-container swiper1">'+
+												'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+											'</div>'+
 										'</div>'+
 									'</div>'+
-								'</div>'+
-							 '</div>'			
-					}
-					$('.tablecont').html(str);
+								 '</div>'	
+								 return str;
+						}
+					};
+					// $('.tablecont').html(str);
 					// console.log(str);
 					// function composeSubsidyDescription(subsidycontent)
 					// {
@@ -272,7 +278,7 @@ $(function(){
 						{
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
 								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidyparameter[i].subsidymethod + '</a>'
-								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:<br/>';
+								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+keyg(key) +'在一个超惠卷主题活动中:'+'<br/>';
 								
 								var textson = subsidyparameter[i].ruledescription;
 								for( var y = 0; y < textson.length; y++ ){
