@@ -18,6 +18,7 @@ $(function(){
 		 // _ajax_paly(new_arr[0]);
 		 for (var index = 0; index <new_arr.length; index++) {
 		 	 _ajax_paly(new_arr[index]);
+		 	 console.log(new_arr[index])
 		 }
 	}
 	/* function GetQueryString(name)
@@ -84,7 +85,7 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										
+										allSubsidy() +
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -124,7 +125,7 @@ $(function(){
 											'本次活动最终解释权归凌云科技所有'
 										'</p>'+
 									'</footer>'+
-								'<article>'+
+								'</article>'+
 							'</div>'
 							 
 					$('.swiper2>.swiper-wrapper').append(str_sum);
@@ -210,10 +211,11 @@ $(function(){
 					}
 
 
-				allSubsidy();
+				// allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
+					// console.log(str);
 					var keyy = '';
 				 	function keyg(keyy){
 					 if(keyy=='distributor'){
@@ -229,28 +231,42 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-					for(key in subsidy){
-						str+='<div class="tablecont_one">'+
-								'<div class="xps_q">'+
-									'<a href="javascript:;">'+keyg(key) +'</a>'+
-								'</div>'+
-								'<div class="Focus_box">'+
-									'<div class="Focus_box_left">'+
-										'<ul>'+
-											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
-											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
-											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
-										'</ul>'+
+				 	if(keyy == ''){
+				 		return str='';
+				 	}else{
+						for(key in subsidy){
+							str+='<div class="tablecont_one">'+
+									'<div class="xps_q">'+
+										'<a href="javascript:;">'+keyg(key) +'</a>'+
 									'</div>'+
-									'<div class="Focus_box_right">'+
-										'<div class="swiper-container swiper1">'+
-											'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+									'<div class="Focus_box">'+
+										'<div class="Focus_box_left">'+
+											'<ul>'+
+												'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+												'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+												'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="Focus_box_right">'+
+											'<div class="swiper-container swiper1">'+
+												'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+											'</div>'+
 										'</div>'+
 									'</div>'+
-								'</div>'+
-							 '</div>'			
-					}
-					$('.tablecont').html(str);
+								 '</div>'		
+								return str;	
+						}
+					};
+					 // $('.tablecont').html(str);
+					//console.log(str);
+
+					
+
+
+					/*jQuery.each(str, function(i, val) {  
+
+					    $('.tablecont').html(str[i]);
+					}); */ 
 					// console.log(str);
 					// function composeSubsidyDescription(subsidycontent)
 					// {
