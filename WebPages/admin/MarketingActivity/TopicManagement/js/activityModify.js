@@ -1206,6 +1206,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $('.addSub2:last').before(activityManger_addSub2Html);
 //	  debugger;
 	    $('.addSub2Mange:last').find(".acSe4 .selected").text(participants);
+	    if(participants!="分销商"){
+	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");	 
+	    	$('.addSub2Mange:last').find(".acMeI2").attr("disabled","disabled");	    	
+	    }
 	    $('.addSub2Mange:last').find(".acMeS1").text(unit);
 	    $('.addSub2Mange:last').find(".acMeS2").text(unit);
 	    if(obj.number_range){
@@ -1356,7 +1360,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                console.log(bgt1_,bgt2_)
 	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
 	                var preMonths_=parseInt(preDays_/30);               
-	                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字
+	                if(obj[key].begintime!=""){
+		                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
+	                }
 	                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
 	            }else{
 	                $('.addSub3Mange:last .acZige3b').removeClass("hi");        
