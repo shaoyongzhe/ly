@@ -2503,10 +2503,10 @@ $('.saveToDb, .shenhe').click(function(){
 
 	console.log(JSON.stringify(data, null, 4));
 
-    
+    var updateFlag = location.href.indexOf("activityModify.html")!=-1;
 	if ($('nav span:last').hasClass('on')) {
 	    $.ajax({
-	        type: "post",
+	        type:updateFlag ? "post" : "put",
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),

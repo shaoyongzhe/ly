@@ -113,7 +113,7 @@ $(".queryConditionButton .query").click(function(){
 	if($("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"){
 		districthash='';
 	}else{
-		districthash=$("#gf-province em").text()+","+$("#gf-city em").text()+","+$("#gf-area em").text();
+		districthash=$("#province em").text()+","+$("#city em").text()+","+$("#area em").text();
 	}	
 	//状态
 	var state="";
@@ -225,7 +225,7 @@ function ConstructRecord(contentBody, statusData)
 //				+='<td class="provideSubsidy">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
 				+ '<td class="state">' + x.state + '</td>'
 				//具体的操作内容见
-				+'<td class="edit last"><img src="img/iconss1.png" alt="" /><div class="menu"><div class="menuArrow"></div><div class="menuContent">'+stateHtml+'</div></div></td>'
+				+'<td class="edit last"><img src="img/iconss1.png" alt="" />'+stateHtml+'</td>'
 				+ '<td style="display:none;">' + x.guid + '</td>'
 				+'</tr>';
     }).ToArray();
@@ -235,16 +235,16 @@ function ConstructRecord(contentBody, statusData)
 function ConstructOpStatus(statusData, state)
 {
     var findedState = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] });
-    var opArray = findedState.length > 0 ? findedState.First() : [];
+    var opArray = findedState.Count() > 0 ? findedState.First() : [];
     if (opArray.length == 0)
-        return '<p class="menuElement">' + "<span>" + "" + "</span>" + "</p>";
+        return "";
     var statehtmlArray =$.Enumerable.From(opArray.slice(0, opArray.length - 1)).Select(function(x) 
     {
         return '<p class="menuElement">' + "<span class='handle "+ x + "'>"+x+"</span>" + "</p>";
     }).ToArray();
 
-    var statehtml = statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
-    return statehtml;
+    var statehtml =  statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
+    return '<div class="menu"><div class="menuArrow"></div><div class="menuContent">' +  statehtml + '</div></div>';
 }
 
 // $(".activityAreaAndCharge").hover(function(){

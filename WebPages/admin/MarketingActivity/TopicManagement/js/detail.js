@@ -551,7 +551,7 @@ function render(detailData){
 	
 	// 2.参与活动条件
 	var second = $('.item.second');
-	var area = detailData.area_condition.districts;  // 活动地区
+	var area = detailData.area_condition;  // 活动地区
 	for(var i=0; i<area.length; i++){
 		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><span class='region-info'><span shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</span><br><span class='city'></span></span></div>");
 
@@ -697,9 +697,10 @@ function render(detailData){
 			ctype.operator = "不低于";
 			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
 		}
-
+		var timeunit = isNaN(prevDays) ? "" : ctype.timeunit;
+		prevDays = isNaN(prevDays) ? "" : prevDays;
 		// debugger;
-		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ ctype.timeunit +"</i>"+ str +" 次</p>");
+		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ timeunit +"</i>"+ str +" 次</p>");
 		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ prevDays +" "+ str +" 次</p>");
 		
 	}
