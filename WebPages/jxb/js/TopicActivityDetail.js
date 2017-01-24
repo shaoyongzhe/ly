@@ -124,6 +124,7 @@ function ajaxActivityDetails(a,b){
 				data.activitytitle=data.poster;
 			}
 			$(".BsmallTitle").text(data.activitytitle);
+			$(".BbigTitle span").text("已参与分销商数:"+data.joinedcount+"人");
 			$(".BtuwenWenP1").text(data.content);
 			//展开收起
 //			debugger;
