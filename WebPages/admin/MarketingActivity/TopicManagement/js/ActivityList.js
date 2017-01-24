@@ -147,17 +147,19 @@ $(".queryConditionButton .query").click(function(){
 		async:true,
 		data:condition,
 		success:function(data){
+			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
 			console.log('success')
 			linshi=data;
 
+
 			var activityListThead='';//表格Thead
 			var activityListTbody='';//表格Tbody
 			//表格Thead
 			activityListThead+='<tr>'
-			+'<th><p class="checkBox"></p></th>'
+			// +'<th><p class="checkBox"></p></th>'
 			+'<th>活动编号</th>'
 			+'<th>活动主题</th>'
 			+'<th>活动时间</th>'
@@ -182,26 +184,41 @@ $(".queryConditionButton .query").click(function(){
 			//隐藏所有按钮详情
 			$(".edit .menu").hide();
 			//点击按钮，显示
+
+			$('.activityList td:not(".last")').on("mouseover",function(){
+				$(this).attr("title",$(this).html())
+			})
+
+			$('.activityList .activityAreaAndCharge').on("click",function(){
+				$(this).toggleClass('ac_tip');
+				console.log(2);
+			})
 			
+		},
+		beforeSend:function(){
+			$(".loaded").fadeIn();
+
 		},
 		error:function(data){
 			linshi=data;
 			layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
-		},
+			$(".loaded").fadeOut();
+
+		}
 	});
 });
-
+  		
 function ConstructRecord(contentBody, statusData)
 {
     var stateHtmlArray = $.Enumerable.From(contentBody).Select(function(x) 
     {
         var stateHtml = ConstructOpStatus(statusData, x.state);
         return '<tr guid='+x.guid+'>'
-				+'<td><p class="checkBox"></p></td>'
+				// +'<td><p class="checkBox"></p></td>'
 				+'<td class="activityCode">'+x.activitycode+'</td>' 
 				+ '<td class="activitytitle">' + x.activitytitle + '</td>'
-				+ '<td class="activityTime">' + x.begintime + '-' + x.endtime + '</td>'
-				+ '<td class="activityAreaAndCharge">' + JointDistrict(x.district) + '</td>'
+				+ '<td class="activityTime">' + x.begintime + ' -- ' + x.endtime + '</td>'
+				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) + '</td>'
 				+ '<td class="estimateJoinVipQuantity">' + x.membercount + '</td>'
 				+ '<td class="JoinedVipQuantity">' + x.alreadyinmembercount + '</td>'
 //				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
@@ -209,7 +226,7 @@ function ConstructRecord(contentBody, statusData)
 //				+='<td class="provideSubsidy">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
 				+ '<td class="state">' + x.state + '</td>'
 				//具体的操作内容见
-				+'<td class="edit last"><img src="img/iconss1.png" alt="" />'+stateHtml+'</td>'
+				+'<td class="edit last"><img src="img/iconss1.png" alt="" /><div class="menu"><div class="menuArrow"></div><div class="menuContent">'+stateHtml+'</div></div></td>'
 				+ '<td style="display:none;">' + x.guid + '</td>'
 				+'</tr>';
     }).ToArray();
@@ -218,18 +235,24 @@ function ConstructRecord(contentBody, statusData)
 
 function ConstructOpStatus(statusData, state)
 {
-
     var opArray = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] }).First();
     if (opArray.length == 0)
-        return "";
+        return '<p class="menuElement">' + "<span>" + "" + "</span>" + "</p>";
     var statehtmlArray =$.Enumerable.From(opArray.slice(0, opArray.length - 1)).Select(function(x) 
     {
         return '<p class="menuElement">' + "<span class='handle "+ x + "'>"+x+"</span>" + "</p>";
     }).ToArray();
 
     var statehtml = statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
-    return '<div class="menu"><div class="menuArrow"></div><div class="menuContent">' + statehtml + '</div></div>';
+    return statehtml;
 }
+
+// $(".activityAreaAndCharge").hover(function(){
+	
+// })
+
+
+
 
 /*负责人*/
 chargeAjax()
@@ -243,7 +266,7 @@ function chargeAjax(){
 //			var chargeHtml='<li guid="" class="optionL">请选择</li>';//用于拼接
 			var chargeHtml='';//用于拼接
 			for(i=0;i<data.content.length;i++){
-				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].nickname+'</li>'
+				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].name+'</li>'
 			}
 			$(".qC_principal .selectL").empty().append(chargeHtml);
 			
@@ -407,7 +430,6 @@ $('table.activityList').on('click',".handle",function(){
     
 	layer.alert("出错了^_^");
 	    
-   
-   
 	
 });
+
