@@ -322,6 +322,8 @@ console.log("非经销宝内部环境，网络出错刷新，会报错Cannot rea
 				//处理是否能参与活动
 				if(info.content[i].cannotaccess=="0"){
 					$(".Ano").find(".ccNo:last").addClass("hi");
+					$(".Ano").find(".cCHeadP:last").removeClass("hi")//仅剩多少席
+					$(".Ano").find(".cCHeadP:last .cCHeadPs2").text(info.content[i].left_count)//仅剩多少席
 //					$(".Ano").find(".ccfoot2:last").text("马上参与");
 				}else{//超惠不符合-活动详情，地区不符合-随便看看，参与会员资格不符合-查看原因。
 //					debugger;
