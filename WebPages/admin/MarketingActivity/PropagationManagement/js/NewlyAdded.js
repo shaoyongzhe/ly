@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-22 11:34:04
+ * @Last Modified time: 2017-01-23 20:40:42
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -87,7 +87,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             areastring = "";
             var provinces = JSON.parse($('.area_val').val()).area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+            if (provinces.length == 1 && provinces[0].name == "fullcountry" || provinces[0].name =='全国') {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -98,7 +98,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                     }
                     var temp = provinces[j].name + ':' + provincecharge + '<br />';
                     areastring += temp;
-                    if (provinces[j].city.length > 0) {
+                    if (provinces[j].city) {
                         for (var k = 0; k < provinces[j].city.length; k++) {
                             //process city
                             var citycharge = "";
@@ -107,7 +107,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                             }
                             var citytemp = provinces[j].city[k].name + ':' + citycharge + '<br />';
                             areastring += citytemp;
-                            if (provinces[j].city[k].country.length > 0) {
+                            if (provinces[j].city[k].country) {
                                 //process country
                                 areastring += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
@@ -1001,6 +1001,5 @@ function clacImgZoomParam(maxWidth, maxHeight, width, height) {
     param.top = Math.round((maxHeight - param.height) / 2);
     return param;
 }
-
 
 

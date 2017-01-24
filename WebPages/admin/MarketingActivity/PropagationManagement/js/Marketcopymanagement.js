@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-22 11:30:58
+ * @Last Modified time: 2017-01-23 21:28:34
  */
 
 
@@ -227,6 +227,7 @@ $('.resetting').on('click', function() {
 
 function getList(curr, handle, searchForm) {
     $("table.notify tbody").empty();
+   // alert('我执行了');
     $('.layui-layer-close').click();
     // console.log(searchForm)
     if (curr == undefined || curr == "") {
@@ -339,7 +340,7 @@ function getList(curr, handle, searchForm) {
                             var areastring = "";
                             var provinces = td[i].area;
                             var array = [];
-                            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+                            if (provinces.length == 1 && provinces[0].name == "fullcountry"||provinces[0].name =='全国') {
                                 areastring = "全国";
                             } else {
                                 for (var j = 0; j < provinces.length; j++) {
@@ -351,7 +352,7 @@ function getList(curr, handle, searchForm) {
                                             //process city
                                             var citytemp = provinces[j].city[k].name + ' ';
                                             areastring += citytemp;
-                                            if (provinces[j].city[k].country.length > 0) {
+                                            if (provinces[j].city[k].country) {
                                                 //process country
                                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
                                                     var countrytemp = provinces[j].city[k].country[l] + ' ';
@@ -413,10 +414,15 @@ function ProcessDate1(date)
 }
 // $('.pushtime').val().split(',')[1]
 
-$(document).on('click', '.search-btn', function() {
-    getList(1, 'search', getSearch());
-})
+    // $(document).on('click', '.search-btn', function() {
+    // getList(1, 'search', getSearch());
+    // })
+    $('.search-btn').click(function(){
+          getList(1, 'search', getSearch());
+    })
 
+
+    
 
 // 查询
 // $("body").on("click", ".search-btn", function() {
@@ -1202,7 +1208,7 @@ $('.examine1_preview').click(function() {
             areastring = "";
             var provinces = JSON.parse($('.area_val').val()).area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+            if (provinces.length == 1 && provinces[0].name == "fullcountry"||provinces[0].name =='全国') {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -1222,7 +1228,7 @@ $('.examine1_preview').click(function() {
                             // }
                             var citytemp = provinces[j].city[k].name + '<br />';
                             areastring += citytemp;
-                            if (provinces[j].city[k].country.length > 0) {
+                            if (provinces[j].city[k].country) {
                                 //process country
                                 areastring += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
@@ -1262,7 +1268,7 @@ $('.examine1_preview').click(function() {
             time: 4000
         });
         return;
-    }
+        }
 
         if(!$('#textarea_value').val()){
         layer.msg('请输入标题');
@@ -1850,7 +1856,7 @@ $('table.notify').on('click', '.detailed', function() {
             var areastring = "";
             var provinces = data_text.content.area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+            if (provinces.length == 1 && provinces[0].name == "fullcountry"||provinces[0].name =='全国') {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -1861,7 +1867,7 @@ $('table.notify').on('click', '.detailed', function() {
                     // }
                     var temp = provinces[j].name + '<br />';
                     areastring += temp;
-                    if (provinces[j].city.length > 0) {
+                    if (provinces[j].city) {
                         for (var k = 0; k < provinces[j].city.length; k++) {
                             //process city
                             // var citycharge = "";
@@ -1870,7 +1876,7 @@ $('table.notify').on('click', '.detailed', function() {
                             // }
                             var citytemp = provinces[j].city[k].name + '<br />';
                             areastring += citytemp;
-                            if (provinces[j].city[k].country.length > 0) {
+                            if (provinces[j].city[k].country) {
                                 //process country
                                 areastring += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
