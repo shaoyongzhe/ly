@@ -1937,7 +1937,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	$(".addSub2Mange input").removeAttr("disabled");
 //	$(".addSub1Mange input").removeAttr("disabled");
 	/*只保留有数据的控件，加号再其后*/
-	if(location.href.indexOf("activityModify.html")>0){         
+	if(location.href.indexOf("activityModify.html")!=-1){         
 	    //控件1
 	    if($(".addSub1Mange").length>0){
 		    $(".addSub1.created_l").remove();//去除页面初始的addSub1	    	
