@@ -400,7 +400,7 @@
 										<p></p>
 									</div>
 									<div class="acZige3a hi acZige2tab">
-										<input type="text" class="date" />
+										<input type="text" class="date"/>
 										<div class="select-wrap  acSe7 dib">
 											<i></i>
 											<span class="selected">天</span>
@@ -410,8 +410,8 @@
 											</ul>
 										</div>							
 									</div>
-									<div class="acZige3a hi acZige2tab">
-										<input type="text" class="date" />
+									<div class="acZige3a hi acZige2tab" style="visibility: hidden;">
+										<input type="text" class="date"/>
 										<div class="select-wrap  acSe7 dib">
 											<i></i>
 											<span class="selected">天</span>
@@ -421,10 +421,72 @@
 											</ul>
 										</div>
 									</div>
-									<div class="acZige3b hi acZige2tab">
-										<input type="text" class="dib" value="不限" disabled/>		
-										<p class="dib">- 至今</p>
+									<div class="acZige3b hi acZige2tab acZige3b_y">
+										<input type="text"class="time time_y dib" id="time_y" value="不限" >	
+										<!--<input type="text" class="dib dib_y" id="dib_y"  value="不限"/>
+										<div class="acSe7_y hid" id="reClass">	
+											<ul>
+												<li>
+													
+													<!--<b class="define_y">自定义时间</b>-->
+												<!--</li>
+												<li class="buxian">不限</li>
+												
+											</ul>
+																				
+										</div>-->
+										<p class="dib">- 至今</p>			
 									</div>
+									<style type="text/css">
+										.acZige3b_y>input.time {
+											background: #fff;
+										}
+										/*.acZige3b_y{
+											position: relative;
+										}
+										.hid{
+											display: none;
+										}
+										.acZige3b_y>.acSe7_y{
+											position: absolute;
+										    padding: 0 10px;
+										    width: 75%;
+										    height: 65px;
+										    background-color: #efefef;
+										    border: 1px solid #ccc;
+										    border-top: 0;
+										    text-align: center;
+										    box-sizing: border-box;
+										    position: absolute;
+										    top: 25px;
+										    z-index: 1;
+											    
+										}
+										.acZige3b_y>.acSe7_y>ul>li{
+											width: 100%;
+										}
+										.acZige3b_y>.acSe7_y>ul>li:nth-of-type(2){
+											line-height: 32px;
+										}
+										.acZige3b_y>.acSe7_y input{
+											position: absolute;
+									            bottom: -60px;
+    										left: -11px;
+										    /*border: 0;*/
+										  /* border-left: 0;
+    										border-right: 0;
+										}
+										.acZige3b_y>.acSe7_y>ul>li:nth-of-type(1){
+											position: relative;
+										}
+										.define_y{
+											font-weight: normal;
+											position: absolute;
+											left: 15px;
+    										bottom: -56px;
+										}*/
+									</style>
+									
 								</div>
 
 								<!--条件-->
@@ -2121,6 +2183,23 @@
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
 <script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
 
+<!-- 修复 时间控件 -->
+<script type="text/javascript">
+	var d = new Date();
+	var dates = d.toLocaleDateString().replace(/\//g, '-');
+	var time_y = {		
+	  elem: '#time_y',
+	  format: 'YYYY/MM/DD',
+	  istime: false,
+	  istoday: false,
+	  max: dates, //最大日期
+	  choose: function(){
+//	    time_y.max = datas; //结束日选好后，重置开始日的最大日期
+//	    layer.msg(datas);  
+	  }
+	};
+	laydate(time_y);
+</script>
 
 <script type="text/javascript" src="js/CreateActivity.js"></script>
 <script type="text/javascript" src="js/area.js"></script>

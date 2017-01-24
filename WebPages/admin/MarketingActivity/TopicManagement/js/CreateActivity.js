@@ -167,7 +167,7 @@ $('body').on("click",".select-wrap",function(e){
 	// $('.select-wrap').click(function(e){
 	// debugger;
 	e.stopPropagation();
-	$(this).find('.select').toggle();
+	$(this).find('.select').toggle();	
 	$(".select-wrap").not(this).find('.select').hide();
 });
 
@@ -2229,6 +2229,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 	});
 
+	// 条件类型
 	function getMemberType( _this, MemberType){
 
 		// debugger;
@@ -2252,21 +2253,55 @@ $('.saveToDb, .shenhe').click(function(){
 		});
 
 	}
-
+	
+	// 统计范围
 	function getCondItemData( _self, memberType, conditionType ){
 		// debugger
-		var acPrev = _self.parents('.addSub3').find('.acZige2 .selected').text();		
+		// 名称
+		var acPrev = _self.parents('.addSub3').find('.acZige2 .selected').text();	
+		// 时间--数字
 		var curDate = _self.parents('.addSub3').find('.acZige3 input.date').val();
+		// 统计开始时间
 		var begintime = "";
+		// 判断名称 -- 活动开始前、活动开始时、至今
 		if(acPrev == "活动开始前"){
+			// 判断时间--单位  天、月
 			if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text() == "天"){
 				begintimeInput = $('.begintime').val().substring(0,10);
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
-				begintime = new Date(new Date().setMonth((new Date().getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+				begintime = new Date(new Date().setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
 			}
+			// 统计范围---时间单位
+			var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
+		}else if(acPrev == "活动开始时"){
+			// 判断时间--单位  天、月
+			//if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text() == "天"){
+				begintimeInput = $('.begintime').val().substring(0,10);
+				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
+//			} else {
+//				begintime = new Date(new Date().setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+//			}
+			// 统计范围---时间单位
+			var timeunit = '';
+		}else{
+			// 判断时间--单位  天、月
+			//if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text() == "天"){
+				begintimeInput = $('#time_y').val();
+				if(begintimeInput != ''){
+					begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
+				}else{
+					begintime = '';
+				}
+				
+			//} else {
+				//begintime = new Date(new Date().setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+			//}
+			// 统计范围---时间单位
+			var timeunit = '';
 		}
-
+		
+		// 条件
 		var operator = _self.parents('.addSub3').find('.acZige4 .selected').text();
 		var min = '';
 		if(operator == '>='){
@@ -2277,8 +2312,14 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 
 		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
+		
+		// 统计范围的名称---活动开始前、活动开始时、至今
 		var statisticrange = _self.parents('.addSub3').find('.select-wrap.acSe6 .selected').text();
-		var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
+		
+		// 统计范围---时间单位
+		//var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
+		
+		
 		if(conditionType == ""){return}
 		data[memberType][conditionType] = {
 			"state": "active",
@@ -2493,6 +2534,97 @@ $('.saveToDb, .shenhe').click(function(){
 	}
     
 });
+
+
+// hug修复_y	
+
+	$("body").on("focus",".time_y",function(){
+		$("#time_y").val("");
+		console.log(1)
+	})
+//	$("body").on("blur",".time_y",function(){
+//		if($(this).val() == ""){
+//			$("#time_y").val("不限");
+//		}	
+//	})
+	
+//	$("body").on("click","input.dib_y",function(){
+////		console.log(1)
+//		$("#reClass").removeClass("hid")
+//	})
+//	
+//	$("body").on("click",".select-wrap",function(){
+//		$("#reClass").addClass("hid")
+//	})
+//	
+//	var ab = false;
+//	$("body").on("click","#dib_y",function(){
+//		console.log(100)
+////		$("#reClass").toggle()		 
+//		if(!ab){
+//			$("#reClass").removeClass("hid");
+//			ab = false
+//		}else{
+//			$("#reClass").addClass("hid");
+//			ab = true;
+//		}
+//		console.log(ab)
+//	})
+//	
+//	
+//	$("body").on("click",".buxian",function(){
+//		$("#dib_y").val($(this).text());
+//		$("#reClass").addClass("hid")
+//	})
+//	
+//	$.fn.watch = function(callback) {
+//      return this.each(function() {
+//          //缓存以前的值
+//          $.data(this, 'originVal', $(this).val());
+//          //event
+//          $(this).on('keyup paste', function() {
+//              var originVal = $(this, 'originVal');
+//              var currentVal = $(this).val();
+//
+//              if (originVal !== currentVal) {
+//                  $.data(this, 'originVal', $(this).val());
+//                  callback(currentVal);
+//              }
+//          });
+//      });
+//  }
+	
+//	$("#time_y").watch(function(value){
+//		if($("#time_y").val()){
+////			alert(1)		
+//			console.log(22)
+//			var val_y = $("#time_y").val().slice(0,10).replace(/\//g, '-');
+//			$("#dib_y").val(val_y);				
+//			$("#time_y").val(" ")	
+//			$("#reClass").addClass("hid")
+//		}	
+//		
+//		
+//	})
+	
+
+//	$("body").on("focus",".time_y" ,function(){
+//		if($("#time_y").val()!='' && $("#time_y").val()!=' '){
+////			alert(1)		
+//			console.log(22)
+//			var val_y = $("#time_y").val().slice(0,10).replace(/\//g, '-');
+//			$("#dib_y").val(val_y);				
+//			$("#time_y").val(" ")	
+//			$("#reClass").addClass("hid")
+//		}	
+//	})
+	
+//	if($("#time_y").val()){
+//		console.log(1)
+//		$("#time_y").click(function(){
+//			
+//		})
+//	}
 
 function _ajax(type, url, data, tip, success) {
     $.ajax({
