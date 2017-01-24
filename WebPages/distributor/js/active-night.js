@@ -48,7 +48,6 @@ $(function(){
 									'<h1 class="head_font">'+data.post+'</h1>'+
 									'<input class="oid_ipt" type="hidden" value="'+data.oid+'">'+
 									'<input class="guid_ipt" type="hidden" value="'+data.guid+'">'+
-									// '<img class="closepage" src="../image/1-1-1.png" alt="">'+
 									'<img class="activesmallpic" src="../image/5-1.png" alt="">'+
 									'<a class="active1font" href="javascript:;">'+'</a>'+
 								'</header>'+
@@ -86,7 +85,7 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										allSubsidy()+
+										//allSubsidy()+
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -147,31 +146,7 @@ $(function(){
 
 	 				
 
-					/*var _guid = data.guid; //获取guid
-					var _oid = data.oid; //获取oid;
-					$('.oid_ipt').val(_oid);
-					$('.guid_ipt').val(_guid);*/
-
-					/*var subsidiesstart = data.begintime; //补贴开始时间
-					var subsidiesend = data.endtime;	//补贴结束时间
-					$('.begin_times').html(subsidiesstart); //补贴时间输出到页面
-					$('.end_times').html(subsidiesend);*/
-
-					//服务电话
-					/*var Service_telephone=data.servicephone;
-					$('.T_time p a span').html(Service_telephone);*/
-
-					/*var postslogan = data.post; //获取标题
-					$('header h1').html(postslogan); //标题输出到页面*/
-
-					/*var Activity_theme = data.activitytitle; //获取主题
-					$('.Topbanner_contimgbox a').html(Activity_theme); //主题输出到页面*/
-
-					// var posturlpic = data.poster_url; //获取图片
-					// $('.Topbanner_contimg img').attr('src',posturlpic); //图片输出到页面
 					
-					/*var Advertising_copywriter = data.content; //获取宣传文案
-					$('.Bottombanner_cont a').html(Advertising_copywriter); //宣传文案输出到页面*/
 
 					
 
@@ -185,8 +160,7 @@ $(function(){
 					for(var p=0;p<getmoneys.length;p++){
 						str_small+=getmoneys[p]
 					}
-					// $('.enjoy span:eq(1)').html(formatCash1(str_small))
-					//console.log(getmoneys)
+					
 
 				//三位数加上小数点	
 					/*function init1(){
@@ -218,6 +192,7 @@ $(function(){
 					var subsidy=data.subsdiydescription;
 					var str='';
 					var keyy = '';
+
 				 	function keyg(keyy){
 					 if(keyy=='distributor'){
 					 		keyy='分销商'
@@ -231,11 +206,11 @@ $(function(){
 							keyy='门店店员'
 					 	}
 					 	return keyy;
-				 	}
-				 	// if(subsidy.distributor == ''){
-				 	if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
+				 		}
+				 	
+				 	/*if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
 				 		return str='';
-				 	}else{
+				 	}else{*/
 						for(key in subsidy){
 							str+='<div class="tablecont_one">'+
 									'<div class="xps_q">'+
@@ -256,11 +231,17 @@ $(function(){
 										'</div>'+
 									'</div>'+
 								 '</div>'	
-								 return str;
-						}
-					};
-					// $('.tablecont').html(str);
-					// console.log(str);
+								 //return str;
+								 
+						$('.tablecont:last').html(str);
+						};
+						
+						
+						
+						
+
+					// };
+					
 					// function composeSubsidyDescription(subsidycontent)
 					// {
 					// 	var subsidyevent = subsidycontent["subsidyevent"];
@@ -303,12 +284,6 @@ $(function(){
 					slidesPerView :2,
 				});
 
-
-
-				//服务电话
-				/*	var servicephone=data.servicephone;
-					$('.T_time p a span').html(servicephone);
-				*/
 				//调整度数
 				if($('.issued a:nth-child(2)').text().length < 4){
 					$('.issued a:nth-child(1)').css({
@@ -367,9 +342,6 @@ $(function(){
 					    //allowSwipeToPrev : true, //禁止向左滑动
 					    // swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
-					     
-					     // alert(123)
-					     console.log(1)
 					      //currentindex++;
 					       //alert(currentindex); //切换结束时，告诉我现在是第几个slide
 					       // if(currentindex<new_arr.length)
