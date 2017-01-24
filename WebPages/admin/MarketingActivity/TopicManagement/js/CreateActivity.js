@@ -2196,7 +2196,7 @@ $('.saveToDb, .shenhe').click(function(){
 	    "area_condition": [],
 	    "sponsor": $('.edit-area.condition .radio.on').attr("name")
 	}
-	if(location.href.indexOf("activityModify.html")>0){
+	if(location.href.indexOf("activityModify.html")!=-1){
 		data.guid=basic.find('.activityTitle').attr("guid");//0124添加
 	}	
 
@@ -2294,7 +2294,7 @@ $('.saveToDb, .shenhe').click(function(){
 			"statisticrange": statisticrange,
 			"timeunit": timeunit
 		}
-		if(location.href.indexOf("activityModify.html")>0){
+		if(location.href.indexOf("activityModify.html")!=-1){
 			data[memberType][conditionType].guid=_self.parents('.addSub3').find('.acZige1 .acSe5 em').attr("guid");//0124添加
 		}			
 	}
@@ -2336,7 +2336,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        "discount":{"min":min, "operator": operator, "max" : max}
 	        // "state":""
 	    }
-		if(location.href.indexOf("activityModify.html")>0){
+		if(location.href.indexOf("activityModify.html")!=-1){
 			item.guid=_this.closest('.addSub1').find('.acTy .acSe1 .selected').attr("guid");//0124添加
 		}	
 	    // if(max == undefined){
@@ -2393,7 +2393,7 @@ $('.saveToDb, .shenhe').click(function(){
             "ceiling": addSub4.find('.hdc5 input').val(),
             "applycount": addSub4.find('.hdc6-1 input').val()
         }
-		if(location.href.indexOf("activityModify.html")>0){
+		if(location.href.indexOf("activityModify.html")!=-1){
 			subsidyItem.guid=addSub4.find('.acSe9 .selected').attr("guid");//0124添加
 		}	
 

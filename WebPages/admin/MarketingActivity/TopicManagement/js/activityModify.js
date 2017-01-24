@@ -792,6 +792,11 @@ function render(resdata){
     basic.find('.fzr1 .selected').text(activity.responsible_id.nickname);
     basic.find('.fzr2 .selected').text(activity.responsible2nd_id.nickname);
     
+    basic.find('.fzr1 .selected').attr("oid",activity.responsible_id.oid);
+    basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
+    
+    
+    
     if(activity.singleselection == 1){
         $('.radio:contains(是)').addClass('on');
     } else {
@@ -827,7 +832,7 @@ function render(resdata){
                 state = "status";
             }
 
-            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>负责人 "+ area.city[j].charge.name +"</em><i class='x'>&times;</i></div><div class='district-wrap'></div></div></div>");
+            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>"+ area.city[j].charge.name +"</em><i class='x'>&times;</i></div><div class='district-wrap'></div></div></div>");
 
 
             for(var k=0; k<area.city[j].country.length; k++){
@@ -1051,8 +1056,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家");
 	    console.log('分销商')
 	}
-	if(!$.isEmptyObject(_resdata_.retailer_condtion)&&_resdata_.retailer_condtion!=undefined){
-	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condtion;  
+	if(!$.isEmptyObject(_resdata_.retailer_condition)&&_resdata_.retailer_condition!=undefined){
+	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condition;  
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家");
 	    console.log('门店')
 	}
@@ -1201,6 +1206,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $('.addSub2:last').before(activityManger_addSub2Html);
 //	  debugger;
 	    $('.addSub2Mange:last').find(".acSe4 .selected").text(participants);
+	    if(participants!="分销商"){
+	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");	 
+	    	$('.addSub2Mange:last').find(".acMeI2").attr("disabled","disabled");	    	
+	    }
 	    $('.addSub2Mange:last').find(".acMeS1").text(unit);
 	    $('.addSub2Mange:last').find(".acMeS2").text(unit);
 	    if(obj.number_range){
@@ -1351,7 +1360,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                console.log(bgt1_,bgt2_)
 	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
 	                var preMonths_=parseInt(preDays_/30);               
-	                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字
+	                if(obj[key].begintime!=""){
+		                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
+	                }
 	                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
 	            }else{
 	                $('.addSub3Mange:last .acZige3b').removeClass("hi");        
@@ -1937,7 +1948,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	$(".addSub2Mange input").removeAttr("disabled");
 //	$(".addSub1Mange input").removeAttr("disabled");
 	/*只保留有数据的控件，加号再其后*/
-	if(location.href.indexOf("activityModify.html")>0){         
+	if(location.href.indexOf("activityModify.html")!=-1){         
 	    //控件1
 	    if($(".addSub1Mange").length>0){
 		    $(".addSub1.created_l").remove();//去除页面初始的addSub1	    	
@@ -1968,7 +1979,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	    $(".addSub5Mange:last").find(".acAd1").css("visibility","hidden");//最后一个控件减号隐藏
 	    $(".addSub5Mange:last").find(".acAd2").removeClass("hi");//最后一个控件加号显示       
 	}
-
+butiefz();
+$('.butieSec .sbys').keyup();
 }
 
 
