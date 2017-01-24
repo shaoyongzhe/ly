@@ -234,7 +234,8 @@ function ConstructRecord(contentBody, statusData)
 
 function ConstructOpStatus(statusData, state)
 {
-    var opArray = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] }).First();
+    var findedState = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] });
+    var opArray = findedState.length > 0 ? findedState.First() : [];
     if (opArray.length == 0)
         return '<p class="menuElement">' + "<span>" + "" + "</span>" + "</p>";
     var statehtmlArray =$.Enumerable.From(opArray.slice(0, opArray.length - 1)).Select(function(x) 
@@ -265,7 +266,7 @@ function chargeAjax(){
 //			var chargeHtml='<li guid="" class="optionL">请选择</li>';//用于拼接
 			var chargeHtml='';//用于拼接
 			for(i=0;i<data.content.length;i++){
-				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].name+'</li>'
+				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].nickname+'</li>'
 			}
 			$(".qC_principal .selectL").empty().append(chargeHtml);
 			
