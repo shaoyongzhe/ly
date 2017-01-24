@@ -201,7 +201,8 @@ header img:nth-of-type(2) {
 .conCon {
   width: 800px;
   height: 183px;
-  position: relative; }
+  position: relative;
+  left: 10px; }
 
 .cCHeadSp1 {
   color: #f83232;
@@ -256,7 +257,7 @@ header img:nth-of-type(2) {
   font-family: "微软雅黑";
   font-size: 14px;
   color: #999;
-  line-height: 20px;
+  line-height: 22px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
