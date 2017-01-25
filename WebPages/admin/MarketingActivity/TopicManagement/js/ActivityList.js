@@ -109,12 +109,21 @@ $(".queryConditionButton .query").click(function(){
 		membercount=$(".qC_joinVipNumber input:eq(0)").val()+','+$(".qC_joinVipNumber input:eq(1)").val();
 	}
 	//活动区域
-	var districthash='';
-	if($("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"){
-		districthash='';
-	}else{
-		districthash=$("#province em").text()+","+$("#city em").text()+","+$("#area em").text();
-	}	
+
+	var areaProvince = $("#province em").text();
+	var areaCity = $("#city em").text();
+	var areaCountry = $("#area em").text();
+	var districthash= areaProvince == "省份" ? "" : areaProvince;
+	if (areaCity != "城市")
+	{
+		districthash += "," + areaCity;
+		if (areaCountry != "区县")
+		{
+			districthash += "," + areaCountry;
+		}
+	}
+	
+	
 	//状态
 	var state="";
 	if($(".qC_status .selectLedL").text()=="请选择"){
@@ -122,9 +131,7 @@ $(".queryConditionButton .query").click(function(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-	//活动预算
-	//暂时不需要
-	console.log("点击查询了，现在可以在控制台查询变量condition")
+
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -135,6 +142,12 @@ $(".queryConditionButton .query").click(function(){
 		districthash:districthash,
 		state:state,
 	}
+    $.each(condition, function(key, value){
+    if (value === "" || value === null){
+        delete condition[key];
+    }
+    });
+
 	if(statusData==""){
 		layer.alert('数据加载中，请稍后重试', {icon: 1});
 		return;
