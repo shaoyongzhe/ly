@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,10 +13,11 @@
     <link href="/distributor/css/weixintips.css" rel="stylesheet" />
     <link href="/distributor/css/suppercouponitems.css" rel="stylesheet" />
 
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script type="text/javascript" src="/js/jquery/juicer-min.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
@@ -238,8 +239,12 @@
             <div class="whiteblock" ms-if="el.topiclist==undefined||el.topiclist.length==0"></div>
             <div class="assetinfo"  ms-if="el.topiclist!=undefined&&el.topiclist.length>0">
                 <a href="javascript:;" class="assetcontent" ms-click="vm.topicClick(el)">
-                    <div class="asset_left">
+                    <!-- <div class="asset_left">
                         <nobr>{{el.topiclist[0].topictitle}}<span ms-if="el.topiclist.length>1">等活动</span></nobr>
+                    </div> -->
+                    <div class="asset_left">
+                        <p style="max-width:calc(100% - 55px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1em;">{{el.topiclist[0].topictitle}}</p>
+                        <span style="width:50px;display:inline-block;font-size:0.7em;font-weight:normal">等活动</span>
                     </div>
                     <div class="asset_right">
                         <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>

@@ -1,5 +1,6 @@
 function comSelect(){
 	$(document).on("click",".gf-select > span",function(){
+
 		$(this).closest(".gf-select").css("z-index",100);
 		$(".gf-select ul").hide();
 		if($(this).next("ul").children().length>4){
@@ -9,11 +10,18 @@ function comSelect(){
 		}
 		$(this).next("ul").show();
 	});
-	$(document).on("click",".gf-select > span > i",function(){
-		var parent = $(this).closest("span").next("ul");
-		parent.hide();
-//		return false;
-	});			
+	$(document).on("click",".gf-select > span >i",function(){
+		$(this).closest(".gf-select").css("z-index",100);
+		$(".gf-select ul").hide();
+		if($(this).next("ul").children().length>4){
+			$(this).next("ul").css({"height":154,"overflow":"auto"});
+		}else{
+			$(this).next("ul").css({"height":"auto"});
+		}
+		$(this).next("ul").show();
+	});
+
+
 	$(document).on("click",".gf-select ul li",function(){
 		var parent = $(this).closest("ul");
 		var select = $(this).closest(".gf-select");
@@ -25,6 +33,7 @@ function comSelect(){
 		}				
 		select.css("z-index",1);
 		select.find("em").html(text);
+		select.find('em').attr('title',text)
 		select.find("input[type='hidden']").val(value!=0?value:"");
 		parent.hide();
 	});
@@ -37,7 +46,7 @@ function comSelect(){
 }
 function selectCity(options){
 	var config = {
-		domSelect : ["#gf-province","#gf-city","#gf-area"],
+		domSelect : ["#province","#city","#area"],
 		domInit : ["省份","城市","区县"]
 	}
 	var opts = $.extend(config,options);

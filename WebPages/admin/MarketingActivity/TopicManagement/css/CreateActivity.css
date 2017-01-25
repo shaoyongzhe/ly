@@ -41,6 +41,13 @@ ul{
 	position: absolute;
 }
 
+
+.vihi{
+	visibility: hidden;
+}
+.vivi{
+	visibility: visible;
+}
 /* section::-webkit-scrollbar{
 	width:10px;
 	margin-right: 10px;
@@ -71,6 +78,7 @@ section::-webkit-scrollbar-thumb{
 	line-height: 36px;
 }
 
+.path i,
 .bread-crumb i {
 	color: #999;
 	font-family: simsun;
@@ -397,7 +405,7 @@ input.time{
 
 .tip.ab{
 	bottom: 10px;
-    right: 10px;
+    right: 20px;
     color: #999;
 }
 
@@ -796,7 +804,7 @@ span.tip.warn{
 }
 
 .area .item > span{
-    max-width: 870px;
+    max-width: 660px;
     vertical-align: middle;
 }
 
@@ -917,7 +925,7 @@ span.tip.warn{
 
 .wenan-text span.tip{
 	bottom: 30px;
-    right: 10px;
+    right: 20px;
 }
 
 
@@ -1097,8 +1105,11 @@ label.condition{
 	overflow: hidden;
 }
 
+
+.tip.wx,
 .tip.biaoyu{
 	bottom: 9px;
+	right: -70px;
 }
 
 textarea.wxtw{
@@ -1224,13 +1235,18 @@ textarea{
 	margin-bottom: 20px;
 }
 
-.set-rules .guizerules dfn{
+.set-rules .guizerules-wrap dfn{
 	color: #ff6032
 }
 
-.set-rules .guizerules > span{
+.set-rules .guizerules-wrap > span{
 	vertical-align: top;
 }
+
+.set-rules .guizerules-wrap ul{
+	margin: -18px 0 0 80px;
+}
+
 
 .set-rules input{
 	width:120px;
@@ -1357,3 +1373,11 @@ textarea{
 	width: 1100px;
 	margin: 0 auto;
 }
+
+
+.gailvok.disabled,
+.shenhe.disabled{
+	background-color: #ccc;
+	cursor: default;
+}
+
