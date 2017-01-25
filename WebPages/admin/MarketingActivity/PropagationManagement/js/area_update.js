@@ -367,7 +367,11 @@ function dataLoad() {
 			$('.quanbusheng').prop('checked',false);
 			// console.log($(this).closest('li').find('span').text());
 			var this_city = $(this).closest('li').find('span').text();
-			$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			if($("span:contains("+ this_city +")").length==3){
+				$("span:contains("+ this_city +"):eq(2)").closest('li').find(":checkbox").click();
+			}else{
+				$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			}
 
 			return;
 		}
