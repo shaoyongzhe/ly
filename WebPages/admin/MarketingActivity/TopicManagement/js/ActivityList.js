@@ -1,4 +1,3 @@
-
 var linshi = '';
 var linshiCharge="";
 var linshiStatus="";

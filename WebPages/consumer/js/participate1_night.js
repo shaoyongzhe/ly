@@ -85,7 +85,7 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										allSubsidy() +
+										//allSubsidy() +
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -211,7 +211,7 @@ $(function(){
 					}
 
 
-				// allSubsidy();
+				allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
@@ -231,9 +231,9 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-				 	if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
+				 	/*if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
 				 		return str='';
-				 	}else{
+				 	}else{*/
 						for(key in subsidy){
 							str+='<div class="tablecont_one">'+
 									'<div class="xps_q">'+
@@ -254,10 +254,10 @@ $(function(){
 										'</div>'+
 									'</div>'+
 								 '</div>'		
-								return str;	
+								$('.tablecont:last').html(str);	
 						}
-					};
-					 // $('.tablecont').html(str);
+					// };
+					 //$('.tablecont').html(str);
 					//console.log(str);
 
 					
