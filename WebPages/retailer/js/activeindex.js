@@ -65,7 +65,6 @@ function fnclick() {
 		}, this.dropdown);
 		var submenu = this.el.find('.submenu');
 		submenu.on("click", "li", function() {
-			console.log($(this).text())
 			submenu.find("li").removeClass("col1");
 			$(this).addClass("col1");
 			if($(this).find(".hide1").length > 0) {
@@ -116,13 +115,18 @@ function fnmenuclick() {
 			$(".cgl-contlist").off("scroll");
 		} else {
 			console.log($(this).parents("li"))
-			var odata = {
-				"filter": "",
-				"filtertype": 0,
-				"lastcount": 0,
-				"pagecount": 5
+			var ckid = $(this).parents("li").attr("id");
+			if($("#cgl-contlist").find(">ul>li." + ckid).length > 0) {
+				
+			} else {
+				var odata = {
+					"filter": "",
+					"filtertype": 0,
+					"lastcount": 0,
+					"pagecount": 15
+				}
+				fnlist(odata);
 			}
-			fnlist();
 
 		}
 	});
@@ -504,7 +508,6 @@ function fnaddcar(that, a) {
 		},
 		success: function(data) {
 			console.log(data)
-			return data;
 		}
 	})
 
@@ -567,18 +570,20 @@ function fncontscroll() {
 				$(".cgl-menu").find(">li").removeClass('clion').find('.submenu').slideUp(300);
 				$(".link>i").show();
 				$("#" + heiarr[0].split("=")[0]).addClass("clion").find(">.link>i").hide();
-			} else if($("." + heiarr[j + 1].split("=")[0] + ":last").attr("index") - $("." + heiarr[j].split("=")[0] + ":last").attr("index") != 1) {
-
 			} else if($(this)[0].scrollTop > heiarr[j].split("=")[1] && $(this)[0].scrollTop < heiarr[j + 1].split("=")[1]) {
 				$(".cgl-menu").find(">li").removeClass('clion').find('.submenu').slideUp(300);
 				$(".link>i").show();
 				$("#" + heiarr[j + 1].split("=")[0]).addClass("clion").find(">.link>i").hide();
 			}
 		}
+
 	});
 }
-
+//搜索
 function fnserach() {
+	$(".clear").on("click", function() {
+		$(".content").val("");
+	});
 	var odata = {
 		"filter": "",
 		"filtertype": 0,
@@ -605,5 +610,5 @@ $(function() {
 	fnerji(); //遮罩点击
 	fnggmore(); //商品规格点击切换
 	fncarnum(); //商品数量加减
-	fnserach();
+	fnserach(); //搜索
 });
