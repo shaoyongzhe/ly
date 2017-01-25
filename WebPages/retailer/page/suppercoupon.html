@@ -197,10 +197,16 @@
                 " <div class=\"assetinfobj\" style='display:none'>" +
                 " <a href=\"hrefs\" class=\"assetcontent\">" +
                 " <div class=\"assetimg\">  <p>subsidytotal</p> </div>" +
-                " <div class=\"asset_left\"> <nobr>topictitle</nobr> </div>" +
-                "<div class=\"asset_right\"> <small>已参加</small>headcount<small>人</small> </div></a>" +
+                "<div class=\"asset_left\" style=\"width:calc(100% - 110px)\"> "+
+                    "<p style=\"max-width:calc(100% - 65px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.2rem;margin-left:0.4rem;_display:inline-block;font-weight:bold;\">topictitle</p>"+
+                    "<span style=\"width:50px;display:inline-block;font-size:1rem;font-weight:normal;\">等活动</span>"+
+                "</div>"+
+                /*" <div class=\"asset_left\"> <nobr>topictitle</nobr> </div>" +
+                "<div class=\"asset_right\"> <small>已参加</small>headcount<small>人</small> </div>"*/
+                "</a>" +
                 "  </div>" +
                 "  </li>	"
+
 
 
 
@@ -271,7 +277,8 @@
                             });
                             listitem = listitem.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
                             listitem = listitem.replace("blx", "");
-                            listitem = listitem.replace("none", "block");
+                            if(item.topiclist.length>1)
+                                listitem = listitem.replace("none", "block");
                             listitem = listitem.replace("topictitle", item.topiclist[0].topic.activitytitle);
                             listitem = listitem.replace("headcount", item.budget.subsidytotal);
                             listitem = listitem.replace("subsidytotal", item.budget.subsidytotal);

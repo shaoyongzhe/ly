@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -159,7 +159,18 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="whiteblock"></div>
+            <div class="assetinfo" ms-if="vm.jsondata.topiclist.length>0">
+                <a href="javascript:;" class="assetcontent" ms-click="topicClick(vm.jsondata)">
+                    <div class="asset_left">
+                        <div class="topictitle"><nobr>{{vm.jsondata.topiclist[0].topictitle}}</nobr></div>
+                        <div class="topictitle_1"><small>{{vm.jsondata.topiclist.length>1?'等活动':''}}</small></div>
+                    </div>
+                    <div class="asset_right">
+                        <small>已参加</small>{{vm.jsondata.topiclist[0].headcount}}<small>人</small>
+                    </div>
+                </a>
+            </div>
+            <div class="whiteblock"  ms-if="vm.jsondata.topiclist == null"></div>
             <ul class="div-down">
                 <li>
                     {{vm.jsondata.itemtotalnum==null?'0':vm.jsondata.itemtotalnum}}
@@ -185,17 +196,7 @@
                 </li>
                 <div class="clear"></div>
             </ul>
-            <div class="assetinfo" ms-if="vm.jsondata.topiclist.length>0">
-                <a href="javascript:;" class="assetcontent"  ms-click="topicClick(vm.jsondata)">
-                    <div class="asset_left">
-                        <div class="topictitle"><nobr>{{vm.jsondata.topiclist[0].topictitle}}</nobr></div>
-                        <div class="topictitle_1"><small>{{vm.jsondata.topiclist.length>1?'等活动':''}}</small></div>
-                    </div>
-                    <div class="asset_right">
-                        <small>已参加</small>{{vm.jsondata.topiclist[0].headcount}}<small>人</small>
-                    </div>
-                </a>
-            </div>
+           
             <hr />
         </div>
         <div class="title" style="border-bottom:solid 1px #ccc; margin-top:10px;">

@@ -40,28 +40,28 @@ $(function(){
 				// data:{},
 				success:function(data){ 
 
-					
+					console.log(data);
 					var str_sum='';
 					str_sum+='<div class="swiper-slide">'+
 								'<header class="hidden_page_b">'+
-									'<h1 class="head_font">'+'您促销凌云给您补贴盛大开启等您'+'</h1>'+
-									'<input class="oid_ipt" type="hidden" value="">'+
-									'<input class="guid_ipt" type="hidden" value="">'+
-									'<img class="closepage" src="../image/1-1.png" alt="">'+
+									'<h1 class="head_font">'+data.post+'</h1>'+
+									'<input class="oid_ipt" type="hidden" value="'+data.oid+'">'+
+									'<input class="guid_ipt" type="hidden" value="'+data.guid+'">'+
+									// '<img class="closepage" src="../image/1-1-1.png" alt="">'+
 									'<img class="activesmallpic" src="../image/5-1.png" alt="">'+
-									'<a class="active1font" href="javascript:;">'+'活动'+'</a>'+
+									'<a class="active1font" href="javascript:;">'+'</a>'+
 								'</header>'+
 								'<article class="hidden_page_b">'+
 									'<section class="Topbanner swipe-handler">'+
 										'<div class="Topbanner_cont">'+
 											'<div class="Topbanner_contimg" href="javascript:void(0);">'+
-												'<img src="../image/1.gif" alt="">'+
+												'<img src="'+data.poster_url+'" alt="">'+
 												'<p class="Topbanner_contimgbox">'+
-													'<a href="javascript:;">'+'主题主题主题主题主题主题主题主题主题主题主题主题主题'+'</a>'+
+													'<a href="javascript:;">'+data.activitytitle+'</a>'+
 												'</p>'+
 											'</div>'+
 											'<div id="pl_1" class="Bottombanner_cont">'+
-												'<a class="Bottombanner_contfont" href="javascript:void(0)">'+'宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案'+'</a>'+
+												'<a class="Bottombanner_contfont" href="javascript:void(0)">'+data.content+'</a>'+
 											'</div>'+
 										'</div>'+
 									'</section>'+
@@ -72,29 +72,29 @@ $(function(){
 										'<div class="Activitytoppic">'+
 											'<a class="subsidies" href="javascript:void(0)">'+'平台最高补贴'+'</a>'+
 											'<a class="yellow_money" href="javascript:void(0)">'+'￥'+
-												'<span>'+'100,000'+'</span>'+
+												'<span>'+formatCash1(data.budget.subsidytotal)+'</span>'+
 											'</a>'+
 											'<p class="issued">'+
 												'<a href="javascript:void(0)">'+'已发放￥'+'</a>'+
-												'<a href="javascript:void(0)">'+'100,000'+'</a>'+
+												'<a href="javascript:void(0)">'+formatCash1(data.budget.subsidyreleased)+'</a>'+
 											'</p>'+
 											'<p class="enjoy">'+'你已经享受补贴'+
-												'<a style="color: #ffff36;" href="javascript:;">'+'50'+'</a>'+'天,获得'+
-												'<span>'+'￥'+'</span>'+'<span>'+'1,000'+'</span>'+
+												'<a style="color: #ffff36;" href="javascript:;">'+data.budget.days+'</a>'+'天,获得'+
+												'<span>'+'￥'+'</span>'+'<span>'+formatCash1(data.budget.obtained)+'</span>'+
 											'</p>'+
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										
+										//allSubsidy()+
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
 											'<p>'+
 												'<span>'+'补贴时间:&nbsp;'+'</span>'+
 												'<a href="javascript:void(0)">'+
-													'<span class="begin_times">'+'2016.12.03&nbsp;&nbsp;00:00'+
+													'<span class="begin_times">'+data.begintime+
 													'</span>'+'-'+
-													'<span class="end_times">'+'2016.12.19  23:59'+
+													'<span class="end_times">'+data.endtime+
 													'</span>'+
 												'</a>'+
 											'</p>'+
@@ -103,39 +103,34 @@ $(function(){
 											'<div class="qualification_top">'+
 												'<h2>'+'参与资格'+'</h2>'+
 											'</div>'+
-											'<div class="xsp_z">'+
-												'<a href="javascript:;">'+'门店'+'</a>'+
+											'<div class="qua_box">'+
+												'<div class="variety">'+
+													'<a href="javascript:;">'+'活动商'+'</a>'+
+												'</div>'+
+												'<div class="xsp_x">'+
+													'<div class="xsp_x_left">'+
+														'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
+													'</div>'+
+													'<div class="xsp_x_right">'+
+														'<a href="javascript:;">'+'110'+'</a>'+
+													'</div>'+
+												'</div>'+
 											'</div>'+
-											'<div class="lification">'+
-											'</div>'+
-											'<div style="margin-top: 0.25rem;" class="xsp_z">'+
-												'<a href="javascript:;">'+'消费者'+'</a>'+
-											'</div>'+
-											'<div class="consum">'+
-											'</div>'+
-											// '<div class="xsp_x">'+
-											// 	'<div class="xsp_x_left">'+
-											// 		'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
-											// 	'</div>'+
-											// 	'<div class="xsp_x_right">'+
-											// 		'<a href="javascript:;">'+'活动开始前23天,大于等于100次'+'</a>'+
-											// 	'</div>'+
-											// '</div>'+
 										'</section>'+
 										'<div class="T_time">'+
 											'<p>'+
 												'<img src="../image/4.png" alt="">'+
 												'<a href="javascript:void(0)">'+
 													'服务电话&nbsp;&nbsp;&nbsp;'+
-													'<span>'+'13645967893、13213213332'+'</span>'+
+													'<span>'+data.servicephone+'</span>'+
 												'</a>'+
 											'</p>'+
 										'</div>'+
 										'<p class="ownership">'+
-											'本次活动最终解释权归超惠买所有'+
+											'本次活动最终解释权归凌云科技所有'
 										'</p>'+
 									'</footer>'+
-								'<article>'+
+								'</article>'+
 							'</div>'
 							 
 					$('.swiper2>.swiper-wrapper').append(str_sum);
@@ -156,7 +151,7 @@ $(function(){
 
 	 				
 
-					var _guid = data.guid; //获取guid
+					/*var _guid = data.guid; //获取guid
 					var _oid = data.oid; //获取oid;
 					$('.oid_ipt').val(_oid);
 					$('.guid_ipt').val(_guid);
@@ -180,30 +175,30 @@ $(function(){
 					$('.Topbanner_contimg img').attr('src',posturlpic); //图片输出到页面
 					
 					var Advertising_copywriter = data.content; //获取宣传文案
-					$('.Bottombanner_cont a').html(Advertising_copywriter); //宣传文案输出到页面
+					$('.Bottombanner_cont a').html(Advertising_copywriter); //宣传文案输出到页面*/
 
 					
 
 				//钱袋
 					var Platform_subsidies=data.budget.subsidytotal; //平台最高补贴
 					var issued=data.budget.subsidyreleased; //已发放
-					var enjoys=data.budget.days; //已经补贴
-					$('.enjoy a').html(enjoys); //已经补贴输出到页面
+					/*var enjoys=data.budget.days; //已经补贴
+					$('.enjoy a').html(enjoys); //已经补贴输出到页面*/
 					var getmoneys=data.budget.obtained; //获取获得
 					var str_small='';
 					for(var p=0;p<getmoneys.length;p++){
 						str_small+=getmoneys[p]
 					}
-					$('.enjoy span:eq(1)').html(formatCash1(str_small))
+					//$('.enjoy span:eq(1)').html(formatCash1(str_small))
 					//console.log(getmoneys)
 
 				//三位数加上小数点	
-					function init1(){
+					/*function init1(){
 						$('.yellow_money span').html(formatCash1(Platform_subsidies)); //平台最高补贴输出页面
 						$('.issued a:eq(1)').html(formatCash1(issued)) //已发放输出页面
 						//$('.enjoy span span').html(formatCash1(getmoneys)); //获得输出到页面
 					}
-					init1()
+					init1()*/
 					function formatCash1( cash ){
 						var str_cash = cash + "";
 						var ret_cash = "";
@@ -221,7 +216,7 @@ $(function(){
 					}
 
 
-				allSubsidy();
+				//allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
@@ -233,31 +228,41 @@ $(function(){
 					 		keyy='门店'
 					 	}else if(keyy=='consumer'){
 					 		keyy='消费者'
+					 	}else if(keyy=='distributor_employee'){
+					 		keyy='分銷商店员'
+					 	}else if(keyy=='retailer_employee'){
+							keyy='门店店员'
 					 	}
 					 	return keyy;
 				 	}
-					for(key in subsidy){
-						str+='<div class="tablecont_one">'+
-								'<div class="xps_q">'+
-									'<a href="javascript:;">'+keyg(key) +'</a>'+
-								'</div>'+
-								'<div class="Focus_box">'+
-									'<div class="Focus_box_left">'+
-										'<ul>'+
-											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
-											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
-											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
-										'</ul>'+
+				 	/*if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
+				 		return str='';
+				 		
+				 	}else{*/
+						for(key in subsidy){
+							str+='<div class="tablecont_one">'+
+									'<div class="xps_q">'+
+										'<a href="javascript:;">'+keyg(key) +'</a>'+
 									'</div>'+
-									'<div class="Focus_box_right">'+
-										'<div class="swiper-container swiper1">'+
-											'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+									'<div class="Focus_box">'+
+										'<div class="Focus_box_left">'+
+											'<ul>'+
+												'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+												'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+												'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="Focus_box_right">'+
+											'<div class="swiper-container swiper1">'+
+												'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+											'</div>'+
 										'</div>'+
 									'</div>'+
-								'</div>'+
-							 '</div>'			
-					}
-					$('.tablecont').html(str);
+								 '</div>'	
+								 $('.tablecont:last').html(str)		
+						}
+					// }
+					//$('.tablecont').html(str);
 					// console.log(str);
 					// function composeSubsidyDescription(subsidycontent)
 					// {
@@ -276,7 +281,7 @@ $(function(){
 						{
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
 								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidyparameter[i].subsidymethod + '</a>'
-								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:<br/>';
+								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+keyg(key) +'在一个超惠卷主题活动中:'+'<br/>';
 								
 								var textson = subsidyparameter[i].ruledescription;
 								for( var y = 0; y < textson.length; y++ ){
@@ -303,12 +308,10 @@ $(function(){
 
 
 
-				//服务电话
-					var servicephone=data.servicephone;
-					$('.T_time p a span').html(servicephone);
+			
 
 				//参与资格（条件）
-			Participationqualification()
+			/*Participationqualification()
 			function Participationqualification(){
 
 				var conditions=data.condition;
@@ -346,8 +349,85 @@ $(function(){
 					$('.consum').html(strs2);
 				}
 				//console.log(conditions.retailer.length)
+			}*/
+
+			//参与资格
+			Participationqualification();
+			function Participationqualification(){
+					var conditions = data.condition;
+					var str='';
+					var key = '';
+				 	function keyname(key){
+					 if(key=='distributor'){
+					 		key='分销商'
+					 	}else if(key=='retailer'){
+					 		key='门店'
+					 	}else if(key=='consumer'){
+					 		key='消费者'
+					 	}else if(key=='distributor_employee'){
+					 		key='分銷商店员'
+					 	}else if(key=='retailer_employee'){
+							key='门店店员'
+					 	}
+					 	return key;
+				 	}
+				 	jQuery.each(conditions, function(key, value) {  
+                         	str+='<div class="variety">'+
+								'<a href="javascript:;">'+keyname(key)+'</a>'+
+							'</div>';
+
+							if(conditions==undefined){
+								$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+							}else if(conditions.length==0){
+								$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+							}else{
+								for (var i = 0; i <value.length; i++) {
+								str+= '<div class="xsp_x">'+
+										'<div class="xsp_x_left">'+
+											'<a href="javascript:;">'+value[i].localtype+'</a>'+
+										'</div>'+
+										'<div class="xsp_x_right">'+
+											'<a href="javascript:;">'+value[i].description+'</a>'+
+										'</div>'+
+									'</div>';
+								}
+							};
+                    });  
+					
+					$('.qua_box').html(str);
 			}
 
+
+			//参与资格（条件）
+					/*var conditions=data.condition;
+					if(conditions==undefined){
+						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					}else if(conditions.length==0){
+						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					}else{
+						for(var i=0;i<conditions.length;i++){
+							var description=conditions[i].description;
+							var localtype = conditions[i].localtype;
+						}
+						$('.xsp_x_left a').html(localtype);
+						$('.xsp_x_right a').html(description);
+
+					}*/
+					//console.log(conditions.length)
+
+				//调整度数
+				if($('.issued a:nth-child(2)').text().length < 4){
+					$('.issued a:nth-child(1)').css({
+						'transform':'rotate(3deg)',
+						'-webkit-transform':'rotate(3deg)',
+						'margin-top':'0.3rem'
+					})
+				}
+
+				//活动编号
+				$('.active1font').html(function(index){
+					return "活动" + (index+1);
+				});
 
 				},
 				error:function(jqXHR){
@@ -387,8 +467,10 @@ $(function(){
 					    //autoplayDisableOnInteraction: false, 
 					    //effect: 'slide',
 					    speed:1200,
+					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
+						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
 					    //allowSwipeToPrev : true, //禁止向左滑动
-					    swipeHandler : '.swipe-handler', //作用域
+					    // swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
 					     
 					     // alert(123)

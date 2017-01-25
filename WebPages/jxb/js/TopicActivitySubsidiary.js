@@ -1,8 +1,9 @@
-//20170117
+//20170122
 //loadingStart();
 //如果想查看静态页面，请注释掉Cajax()
 var linshi='';
 var linshi2="";
+var tiaoshi0119="";//过了0119就删除；
 var allActivity='';//储存ajax收到的所有的活动
 var topicactivity_id='';//存储的当前显示主题活动的id
 var CbdDimgArr=["img/c7.png","img/c8.png"];//笑脸图标数组
@@ -10,77 +11,99 @@ var CimgArr2=["img/a4.png","img/a3.png"];//对勾数组
 var isReceivedDistributorID=false;//判断是否接收到指令经销商id。
 var isReceivedTopicActivityID=false;//判断是否接收到指令活动列表id。
 
+var DistributorIDRefreshBol=true;//只接收一次指令
+var TopicActivityIDRefreshBol=true;//只接收一次指令
+	
 InitailCallBack();//***对接经销宝后解除注释####
 function InitailCallBack(){   
 //	layer.alert("我来证明我动了，但是engine.on动了吗，请期待，调试好，请删除我	", {icon: 5});
     engine.on('OnDistributorIDRefresh', OnDistributorIDRefresh, this);//经销商id//	  
     engine.on('OnTopicActivityIDRefresh', OnTopicActivityIDRefresh, this);//主题活动id/
 }
-//Cajax("5ce1d14e07534139ae7774d8983f04f3?ticketid=e6eebb40b33443edb4aed35215ce75e8");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3?ticketid=e6eebb40b33443edb4aed35215ce75e8");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3","607fce8dee184586b276d6f9d2fa8e87","f4ca401c0dce42e8bb8d99d5a1cde0aa");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3","607fce8dee184586b276d6f9d2fa8e87","");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
 function OnDistributorIDRefresh(){
-	isReceivedDistributorID=true;
-//	layer.alert(arguments[0], {icon: 5});
+	isReceivedDistributorID=true;	
     if(arguments.length<1){
 		layer.alert('缺少参数', {icon: 5});
 		return;
 	}
-	var parameter0=JSON.parse(arguments[0])
-	Cajax(parameter0.data[0]);	
-	//0114添加用于调试开始
-	if(arguments[0]){
-		console.log(arguments[0],parameter0.data[0]);		
-	}
-	if(arguments[1]){
-		console.log(arguments[1],parameter0.data[0]);		
-	}	
-	//0114添加用于调试结束	
+    if(DistributorIDRefreshBol){
+		var parameter0=JSON.parse(arguments[0])
+		Cajax(parameter0.data[0]);	
+		//0114添加用于调试开始
+		if(arguments[0]){
+			console.log(arguments[0],parameter0.data[0]);		
+		}
+		if(arguments[1]){
+			console.log(arguments[1],parameter0.data[0]);		
+		}	
+		//0114添加用于调试结束	    
+		DistributorIDRefreshBol=false;
+    }
 }
 function OnTopicActivityIDRefresh(){
+//	debugger;
+	var parameter0=JSON.parse(arguments[0])
+	console.log("活动id出现",parameter0);
 	isReceivedTopicActivityID=true;
 //	layer.alert(arguments[0], {icon: 5});
-	var parameter0=JSON.parse(arguments[0])
-	if(arguments.length<1){
-    	console.log('缺少参数', {icon: 5});
-    	return;
-    }
-	if(parameter0==undefined){
-		console.log('参数未定义', {icon: 5});
-		return;
-	};
-	if(allActivity==undefined||allActivity==null||allActivity==''){
-		console.log('活动列表为空，无法展示指定活动', {icon: 5});
-		return;
-	}
-	for(i=0;i<allActivity.content.length;i++){
-		if(allActivity.content[i].guid==parameter0.data[0]){
-			ajaxSucFn(allActivity.content[i]);//刷新活动。
-			topicactivity_id=allActivity.content[i].guid;
-			console.log(topicactivity_id)
-			break;
+	if(TopicActivityIDRefreshBol){		
+		if(arguments.length<1){
+	    	console.log('缺少参数', {icon: 5});
+	    	return;
+	    }
+		if(parameter0==undefined){
+			console.log('参数未定义', {icon: 5});
+			return;
+		};
+		if(allActivity==undefined||allActivity==null||allActivity==''){
+			console.log('活动列表为空，无法展示指定活动', {icon: 5});
+			return;
 		}
-	}	
-	//0114添加用于调试开始
-	if(arguments[0]){
-		console.log(arguments[0],parameter0.data[0]);		
+		for(i=0;i<allActivity.content.length;i++){	
+//			console.log(i,allActivity.content[i].guid,parameter0.data[0]);
+			if(allActivity.content[i].guid==parameter0.data[0]){
+//				console.log(i);
+				ajaxSucFn(allActivity.content[i]);//刷新活动。
+				tiaoshi0119=allActivity;
+//				console.log(i);
+				topicactivity_id=allActivity.content[i].guid;
+//				console.log(i);
+				console.log(topicactivity_id)
+				break;
+			}
+		}	
+		//0114添加用于调试开始
+		if(arguments[0]){
+			console.log(arguments[0],parameter0.data[0]);		
+		}
+		if(arguments[1]){
+			console.log(arguments[1],parameter0.data[0]);		
+		}	
+		//0114添加用于调试结束	
+		TopicActivityIDRefreshBol=false;
 	}
-	if(arguments[1]){
-		console.log(arguments[1],parameter0.data[0]);		
-	}	
-	//0114添加用于调试结束	
 }
-function Cajax(d){
+function Cajax(m,a,b){
 	console.log("ajax开始")
 	$.ajax({
-		type:"get",
+		type:"post",//0121更新为post
 		dataType:'json',	
 //		url:"http://localhost:3000/c",//本地模拟
-		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+d,//代理到哲哥电脑
-//		url:"http://192.168.10.61:40007/webapi/ipaloma/topic/jingxiaobao/activity/"+d,//
+//		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+d,//代理到哲哥电脑
+		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m,//
+//		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
+		data:{
+			"activityid": a, // 对应的活动id
+   			"retailerids": b// 对应的门店id，以逗号分割
+		},
 		async:true,
 			beforeSend:function(){
 				loadingStart();
 			},		
-		success:function(data){
+		success:function(data){			
 			if(data==""||data==[]){
 				layer.alert("数据为空，请重试", {icon: 5});
 				return;
@@ -93,6 +116,7 @@ function Cajax(d){
 				layer.alert('数据为空', {icon: 5});
 				return;
 			}
+			console.log(data);
 			linshi=data;//存储所有活动，所有活动都在data.content[i]
 			allActivity=data;
 			ajaxSucFn(data.content[0]);//先显示第一个活动，			
@@ -117,6 +141,7 @@ function Cajax(d){
 
 
 function ajaxSucFn(info){//ajax成功回调里调用
+//	debugger;
 	if(info.match){//处理不规范的后台数据,
 		info.matched=info.match;		
 	}	
@@ -196,7 +221,7 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	//门店
 	if(info.subsidydescription.retailer){
 		for(m=0;m<info.subsidydescription.retailer.length;m++){
-			var dd=info.subsidydescription.retailer[i];
+			var dd=info.subsidydescription.retailer[m];
 			var text1="";
 			for(i in dd){					
 				if(typeof(dd[i])!="object"){						
@@ -213,9 +238,9 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	//消费者
 	if(info.subsidydescription.consumer){
 		for(m=0;m<info.subsidydescription.consumer.length;m++){
-			var dd=info.subsidydescription.consumer[i];
+			var dd=info.subsidydescription.consumer[m];
 			var text1="";
-			for(i in dd){					
+			for(var i in dd){					
 				if(typeof(dd[i])!="object"){						
 					text1+=dd[i]+" ";
 				}else{
@@ -266,3 +291,7 @@ function isReceivedID(){
 	}
 }
 //alert(8)
+/*调试用代码*/
+$("body").on("mouseenter",".footerCkxq",function(){
+	console.log('OnShowDetailClick',topicactivity_id);
+})

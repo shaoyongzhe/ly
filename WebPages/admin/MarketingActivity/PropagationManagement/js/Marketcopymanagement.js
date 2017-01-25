@@ -885,7 +885,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj["area"].length; i++) {
                 var areaobj1 = areaobj["area"][i];
                 // console.log(areaobj1.name);
-                if (areaobj1.name == 'fullcountry') {
+                if (areaobj1.name == '全国') {
                     areaobj1.name = '全国';
                 }
             }
@@ -898,7 +898,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj.area.length; i++) {
                 // debugger
                 var area = areaobj.area[i];
-                if (area.name == 'fullcountry') {
+                if (area.name == '全国') {
                     area.name = '全国';
                 }
                 // debugger

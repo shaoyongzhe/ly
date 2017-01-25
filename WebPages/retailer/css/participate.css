@@ -132,7 +132,7 @@
 		margin-left: 2%;
 		line-height: 1.2rem;
 	}
-	.Activitytoppic{
+	/* .Activitytoppic{
 		width: 100%;
 		background: url(../image/3-1.png) no-repeat center 0.2rem;
 		background-size: 100%;
@@ -197,7 +197,79 @@
 	}
 	.enjoy span{
 		color: #ffff36;
-		/* font-size: 0.65rem; */
+		font-size: 0.65rem;
+		font-weight: bold;
+	} */
+	.Activitytoppic{
+		width: 100%;
+		background: url(../image/3-1.png) no-repeat 1.6rem 0.2rem;
+		background-size: 90%;
+		padding-top:3.5rem;
+		height: 6.5rem;
+	}
+	.subsidies{
+		font-size: 0.55rem;
+		color: #fff;
+		display: block;
+		text-align: center;
+		line-height: 0.2rem;
+	}
+	.yellow_money{
+		color: #ffff36;
+		font-family: "Arial";
+		font-weight: bold;
+		font-size: 0.85rem;
+		text-align: center;
+		margin-top:0.2rem;
+		display: block;
+
+	}
+	.issued{
+		/*width: 42%;*/
+		width: 100%;
+		height: 0.9rem;
+		display: block;
+		/*margin-left: 3.95rem;*/
+		text-align: center;
+		margin-top: 0.4rem;
+		text-align: center;
+	}
+	.issued a:nth-child(1){
+		color: #fff;
+		font-family: 'regular';
+		font-size: 0.5rem;
+		display: inline-block;
+		transform: rotate(7deg);
+		-webkit-transform: rotate(7deg);
+		margin-top: 0.1rem;
+		vertical-align: middle;
+	}
+	.issued a:nth-child(2){
+		color: #fff;
+		font-family: 'regular';
+		font-size: 0.8rem;
+		display: inline-block;
+		font-weight: bold;
+		margin-top: 0.3rem;
+		transform: rotate(-4deg);
+		-webkit-transform: rotate(-4deg);
+		vertical-align: middle;
+	}
+	.enjoy{
+		display: block;
+		margin-top: 1.8rem;
+		margin-left: 2.2rem;
+		color: #fff;
+		font-size: 0.5rem;
+		background: #fd806f;
+		width: 9.625rem;
+	    height: 1rem;
+	    line-height: 1rem;
+	    text-align: center;
+	    border-radius: 20px;
+	}
+	.enjoy span{
+		color: #ffff36;
 		font-weight: bold;
 	}
 	.tablecont{
@@ -218,6 +290,17 @@
 		background: #ffd9d9;
 	}
 	.xps_q a{
+		line-height: 0.9rem;
+		font-size: 0.45rem;
+		color: #333;
+		font-weight: bold;
+		margin-left: 0.3rem;
+	}
+	.variety{
+		width: 100%;
+		background: #ffd9d9;
+	}
+	.variety a{
 		line-height: 0.9rem;
 		font-size: 0.45rem;
 		color: #333;
@@ -296,6 +379,7 @@
 		color: #fff;
 		text-align: center;
 		font-size: 0.5rem;
+		line-height: 0.7rem;
 	}
 	.Bu_time{
 		width: 100%;
@@ -308,7 +392,9 @@
 	.Bu_time p span{
 		color: #fd806f;
 	}
-	
+	.Bu_time p a span{
+		color:#333;
+	}
 	.qualification{
 		width: 93.75%;
 		margin:0.4rem auto 0;

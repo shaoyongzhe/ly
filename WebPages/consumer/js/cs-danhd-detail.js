@@ -98,8 +98,21 @@ function shareactivities() {
                         + '<td class="tbl_td_right"> <p>已节省' + item.sparevalue + '元</p></td> </tr>'
                         + ' <tr > <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥' + item.originalprice + '</td></tr> </table>'
                     }
-                    html += ' </div> <div class="img_tag"> </div> <div class="clear"></div></div><div class="whiteblock"></div>'
-                    + '  <ul class="div-down "> <li>' + (item.itemtotalnum == null ? '0' : item.itemtotalnum) + ' <p>投放</p></li>'
+                    html += ' </div> <div class="img_tag"> </div> <div class="clear"></div></div>'
+                    if (item.topiclist != undefined && item.topiclist.length > 0) {
+                        var topicid = ""
+                        $.each(item.topiclist, function (index, items, array) {
+                            if (index < 20)
+                                topicid += "," + items.topicid
+                        });
+
+                        html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
+                        html += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
+                    } else {
+                        html += '<div class="whiteblock"></div>'
+                    }
+
+                    html += '  <ul class="div-down "> <li>' + (item.itemtotalnum == null ? '0' : item.itemtotalnum) + ' <p>投放</p></li>'
                     + ' <li style="border-right:none">' + (item.totalverifynum == null ? '0' : item.totalverifynum) + ' <p>已用</p></li>'
                     + '<li style="min-height:40px;border-right:none"></li>'
                     + ' <li style="width:40%;border-right:none"><div style="margin-top:9px" class="btn_css ' + (item.verifylimit > 0 ? 'btn_css1' : ' btn_css2') + '" onclick="useticket(\'' + item.guid + '\',' + item.verifylimit + ')">'
@@ -108,18 +121,7 @@ function shareactivities() {
                     //if (item.returnticket_id != null && item.returnticket_id != '') {
                     //    html += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
                     //}
-                    if (item.topiclist != undefined && item.topiclist.length > 0) {
-
-                        var topicid = ""
-                        $.each(item.topiclist, function (index, items, array) {
-                            if (index <= 20)
-                                topicid += "," + items.topicid
-                        });
-
-                        html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
-                        // html += " <nobr>" + item.topiclist[0].topictitle + (item.topiclist.length > 1 ? '等活动' : '') + "</nobr> </div> <div class=\"asset_right\"><small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
-                        html += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
-                    }
+                   
                     html += '  <hr />  </div>'
                 }
                 html += '<div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; "><div class="more-md" style="border:none">'
