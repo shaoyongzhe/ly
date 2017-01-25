@@ -4,7 +4,7 @@
  */
 
 ;(function($){
-    'use strict';
+    // 'use strict';
     var win = $("table.notify table");
     var doc = $("table.notify tbody");
     var $win = $(win);
