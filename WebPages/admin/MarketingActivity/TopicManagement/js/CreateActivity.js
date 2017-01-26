@@ -9,56 +9,7 @@ var addsub4HTML="";
 var addsub5HTML="";
 
 
-$(function(){
 
-	/*$('section').slimscroll({
-		height: '270',
-		// width: '530'
-	});*/
-
-	/*$(".pic-area").slide({ 
-		mainCell: ".pic-list",
-		effect: "leftLoop",
-		vis: 6,
-		// autoPlay: true
-	});*/
-
-});
-
-
-/*document.onkeypress = showKeyPress;
-function showKeyPress(evt) { 
-    evt = (evt) ? evt : window.event 
-    // document.title = evt.keyCode;
-    // if (evt.charCode) { 
-    //     document.title = evt.charCode 
-    // }
-    if(evt.keyCode == 43){
-    	$('.btn.next').click();
-    }
-    if(evt.keyCode == 45){
-    	$('.btn.prev').click();
-    }
-
-    // if(evt.keyCode == 49){
-    // 	$('nav span:eq(0)').click();
-    // }
-    // if(evt.keyCode == 50){
-    // 	$('nav span:eq(1)').click();
-    // }
-    // if(evt.keyCode == 51){
-    // 	$('nav span:eq(2)').click();
-    // }
-    // if(evt.keyCode == 52){
-    // 	$('nav span:eq(3)').click();
-    // }
-
-    // return false;
-}*/
-// init();
-
-//图片上传
-// var pic_url = "";
 function previewImage(file) {
 	// 齐枭飞修改
   var form = new FormData($('form')[0]);

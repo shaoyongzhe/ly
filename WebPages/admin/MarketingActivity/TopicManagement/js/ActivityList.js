@@ -1,6 +1,8 @@
 var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
+var pageindex=1;
+var pagesize=3;
 var statusData="";//储存statusAjax()返回的数据。
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
@@ -29,13 +31,14 @@ var dataStart = {
 //min: laydate.now(), //设定最小日期为当前日期
   max: '2099-06-16', //最大日期
   istime: true,
-  istoday: false,//是否显示今天这个按钮
   start: laydate.now(),  //开始日期
   choose: function(datas){
      dataEnd.min = datas; //开始日选好后，重置结束日的最小日期
      dataEnd.start = datas //将结束日的初始值设定为开始日
   }
+
 };
+
 var dataEnd = {
   elem: '#dataEnd',
   format: 'YYYY-MM-DD',
@@ -51,10 +54,29 @@ var dataEnd = {
 laydate(dataStart);
 laydate(dataEnd);
 
-/*查询按钮*/
-var condition={}
-$(".queryConditionButton .query").click(function(){
-	/*判断是否输入了查询条件*/
+/*创建日期函数*/
+myDate();
+function myDate(){
+    var d = new Date();
+    var year = d.getFullYear();
+    var year1=d.getFullYear()+1;
+    var month = d.getMonth() + 1; // 当前月是要+1
+    month = month < 10 ? ("0" + month) : month;
+    var dt = d.getDate();
+    dt = dt < 10 ? ("0" + dt) : dt;
+//                var today = year + "-" + month + "-" + dt;
+//                alert(today);
+    today = year + "-" + month + "-" + dt;
+    today1 = year1 + "-" + month + "-" + dt;
+    
+}
+
+ $("#dataStart").val(today);
+ $("#dataEnd").val(today1)
+
+
+function basicQuery(){
+    /*判断是否输入了查询条件*/
 	if($(".qC_aitivityTopic input").val()==""&&$(".qC_number input").val()==""&&$(".qC_principal .selectLedL").text()=="请选择"&&$(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()==""&&$(".qC_subsidyReleased input:eq(0)").val()==""&&$(".qC_subsidyReleased input:eq(1)").val()==""&&$(".qC_joinVipNumber input:eq(0)").val()==""&&$(".qC_joinVipNumber input:eq(1)").val()==""&&$("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"&&$(".qC_activityBudget input:eq(0)").val()==""&&$(".qC_activityBudget input:eq(1)").val()==""&&$(".qC_status .selectLedL").text()=="请选择"){
 		layer.alert('请输入查询条件', {icon: 5});
 		return;
@@ -131,7 +153,10 @@ $(".queryConditionButton .query").click(function(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-
+	var jsonData = {
+                "pagesize": pagesize,
+                "pageindex":pageindex
+         };
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -141,6 +166,7 @@ $(".queryConditionButton .query").click(function(){
 		membercount:membercount,
 		districthash:districthash,
 		state:state,
+		paging:JSON.stringify(jsonData)
 	}
     $.each(condition, function(key, value){
     if (value === "" || value === null){
@@ -218,6 +244,12 @@ $(".queryConditionButton .query").click(function(){
 
 		}
 	});
+}
+
+/*查询按钮*/
+var condition={}
+$(".queryConditionButton .query").click(function(){
+	 basicQuery();
 });
   		
 function ConstructRecord(contentBody, statusData)
@@ -391,6 +423,7 @@ var DictFunction =
                     if (data.error)
                         layer.alert("出错了^_^");
                     layer.alert(op + " 成功");
+                    basicQuery();
                 },
                 error: function (xhr, textStatus) {
                     layer.alert("出错了^_^");
@@ -398,27 +431,72 @@ var DictFunction =
                 }
 
             });
+             
+
         },
         "删除": function (op, currenttype)
         {
-            $.ajax({
-                type: "delete",
-                url: "/webapi/ipaloma/topic/" + $('#guid').val(),
-                async: true,
-                data: null,
-                success: function (data) {
-                    if (data.error)
-                        layer.alert("出错了^_^");
-                    layer.alert("删除成功");
-                },
-                error: function (xhr, textStatus) {
-                    layer.alert("出错了^_^");
-                    console.log(textStatus);
-                }
 
-            });
+        	layer.confirm('确定要删除？', {
+		        title: '删除',
+		        btn: ['确定', '取消']
+		    }, function() {
+		        layer.msg('正在删除，请稍等', {
+		            time: 2000
+		        });
+		        // 此处只是演示，并没有真正的删除数据，如果有api的话 直接传个guid，后台就给删除数据了，然后再传给getlist，走ajax刷新页面
+		        // parentTr.remove();
+		        // window.localStorage.clear();
+		        // layer.msg('删除成功');
+		        // return;
+		        $.ajax({
+	                type: "delete",
+	                url: "/webapi/ipaloma/topic/" + $('#guid').val(),
+	                async: true,
+	                data: null,
+	                success: function (data) {
+	                    if (data.error)
+	                        layer.alert("出错了^_^");
+	                    layer.alert("删除成功");
+	                    basicQuery();
+	                },
+	                error: function (xhr, textStatus) {
+	                    layer.alert("出错了^_^");
+	                    console.log(textStatus);
+	                }
+
+            	});
+		    })
         }
     };
+
+// layer.confirm('确定要删除？', {
+//         title: '删除',
+//         btn: ['确定', '取消']
+//     }, function() {
+//         layer.msg('正在删除，请稍等', {
+//             time: 2000
+//         });
+//         // 此处只是演示，并没有真正的删除数据，如果有api的话 直接传个guid，后台就给删除数据了，然后再传给getlist，走ajax刷新页面
+//         // parentTr.remove();
+//         // window.localStorage.clear();
+//         // layer.msg('删除成功');
+//         // return;
+//         _ajax("delete", '/webapi/ipaloma/propagation/' + guid + '', null, '删除失败', function() {
+//             var cur = $('.laypage_curr').text();
+//             if (cur) {
+//                 if ($('table.notify tbody tr').length == 1) {
+//                     cur -= 1;
+//                     if (cur <= 0) {
+//                         cur = 1;
+//                     }
+//                 }
+//             }
+//             getList(cur, 'del', getSearch());
+//         })
+//     })
+
+
 
 
 
