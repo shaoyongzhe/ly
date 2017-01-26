@@ -703,6 +703,7 @@ input,select{
     color: #fff;
     cursor: pointer;
     border-radius: 2px;
+    margin-left: 5px;
     display: block;
     float: left;
 }

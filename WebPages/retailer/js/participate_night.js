@@ -85,7 +85,7 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										
+										//allSubsidy()+
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -103,12 +103,17 @@ $(function(){
 											'<div class="qualification_top">'+
 												'<h2>'+'参与资格'+'</h2>'+
 											'</div>'+
-											'<div class="xsp_x">'+
-												'<div class="xsp_x_left">'+
-													'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
+											'<div class="qua_box">'+
+												'<div class="variety">'+
+													'<a href="javascript:;">'+'活动商'+'</a>'+
 												'</div>'+
-												'<div class="xsp_x_right">'+
-													'<a href="javascript:;">'+'110'+'</a>'+
+												'<div class="xsp_x">'+
+													'<div class="xsp_x_left">'+
+														'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
+													'</div>'+
+													'<div class="xsp_x_right">'+
+														'<a href="javascript:;">'+'110'+'</a>'+
+													'</div>'+
 												'</div>'+
 											'</div>'+
 										'</section>'+
@@ -125,7 +130,7 @@ $(function(){
 											'本次活动最终解释权归凌云科技所有'
 										'</p>'+
 									'</footer>'+
-								'<article>'+
+								'</article>'+
 							'</div>'
 							 
 					$('.swiper2>.swiper-wrapper').append(str_sum);
@@ -211,7 +216,7 @@ $(function(){
 					}
 
 
-				allSubsidy();
+				//allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
@@ -230,28 +235,34 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-					for(key in subsidy){
-						str+='<div class="tablecont_one">'+
-								'<div class="xps_q">'+
-									'<a href="javascript:;">'+keyg(key) +'</a>'+
-								'</div>'+
-								'<div class="Focus_box">'+
-									'<div class="Focus_box_left">'+
-										'<ul>'+
-											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
-											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
-											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
-										'</ul>'+
+				 	/*if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
+				 		return str='';
+				 		
+				 	}else{*/
+						for(key in subsidy){
+							str+='<div class="tablecont_one">'+
+									'<div class="xps_q">'+
+										'<a href="javascript:;">'+keyg(key) +'</a>'+
 									'</div>'+
-									'<div class="Focus_box_right">'+
-										'<div class="swiper-container swiper1">'+
-											'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+									'<div class="Focus_box">'+
+										'<div class="Focus_box_left">'+
+											'<ul>'+
+												'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+												'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+												'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+											'</ul>'+
+										'</div>'+
+										'<div class="Focus_box_right">'+
+											'<div class="swiper-container swiper1">'+
+												'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+											'</div>'+
 										'</div>'+
 									'</div>'+
-								'</div>'+
-							 '</div>'			
-					}
-					$('.tablecont').html(str);
+								 '</div>'	
+								 $('.tablecont:last').html(str)		
+						}
+					// }
+					//$('.tablecont').html(str);
 					// console.log(str);
 					// function composeSubsidyDescription(subsidycontent)
 					// {
@@ -270,7 +281,7 @@ $(function(){
 						{
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
 								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidyparameter[i].subsidymethod + '</a>'
-								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:<br/>';
+								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+keyg(key) +'在一个超惠卷主题活动中:'+'<br/>';
 								
 								var textson = subsidyparameter[i].ruledescription;
 								for( var y = 0; y < textson.length; y++ ){
@@ -297,12 +308,10 @@ $(function(){
 
 
 
-				/*//服务电话
-					var servicephone=data.servicephone;
-					$('.T_time p a span').html(servicephone);*/
+			
 
 				//参与资格（条件）
-			Participationqualification()
+			/*Participationqualification()
 			function Participationqualification(){
 
 				var conditions=data.condition;
@@ -340,7 +349,71 @@ $(function(){
 					$('.consum').html(strs2);
 				}
 				//console.log(conditions.retailer.length)
+			}*/
+
+			//参与资格
+			Participationqualification();
+			function Participationqualification(){
+					var conditions = data.condition;
+					var str='';
+					var key = '';
+				 	function keyname(key){
+					 if(key=='distributor'){
+					 		key='分销商'
+					 	}else if(key=='retailer'){
+					 		key='门店'
+					 	}else if(key=='consumer'){
+					 		key='消费者'
+					 	}else if(key=='distributor_employee'){
+					 		key='分銷商店员'
+					 	}else if(key=='retailer_employee'){
+							key='门店店员'
+					 	}
+					 	return key;
+				 	}
+				 	jQuery.each(conditions, function(key, value) {  
+                         	str+='<div class="variety">'+
+								'<a href="javascript:;">'+keyname(key)+'</a>'+
+							'</div>';
+
+							if(conditions==undefined){
+								$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+							}else if(conditions.length==0){
+								$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+							}else{
+								for (var i = 0; i <value.length; i++) {
+								str+= '<div class="xsp_x">'+
+										'<div class="xsp_x_left">'+
+											'<a href="javascript:;">'+value[i].localtype+'</a>'+
+										'</div>'+
+										'<div class="xsp_x_right">'+
+											'<a href="javascript:;">'+value[i].description+'</a>'+
+										'</div>'+
+									'</div>';
+								}
+							};
+                    });  
+					
+					$('.qua_box').html(str);
 			}
+
+
+			//参与资格（条件）
+					/*var conditions=data.condition;
+					if(conditions==undefined){
+						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					}else if(conditions.length==0){
+						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					}else{
+						for(var i=0;i<conditions.length;i++){
+							var description=conditions[i].description;
+							var localtype = conditions[i].localtype;
+						}
+						$('.xsp_x_left a').html(localtype);
+						$('.xsp_x_right a').html(description);
+
+					}*/
+					//console.log(conditions.length)
 
 				//调整度数
 				if($('.issued a:nth-child(2)').text().length < 4){

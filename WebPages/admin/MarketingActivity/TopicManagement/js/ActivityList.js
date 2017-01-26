@@ -1,4 +1,3 @@
-
 var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
@@ -147,17 +146,19 @@ $(".queryConditionButton .query").click(function(){
 		async:true,
 		data:condition,
 		success:function(data){
+			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
 			console.log('success')
 			linshi=data;
 
+
 			var activityListThead='';//表格Thead
 			var activityListTbody='';//表格Tbody
 			//表格Thead
 			activityListThead+='<tr>'
-			+'<th><p class="checkBox"></p></th>'
+			// +'<th><p class="checkBox"></p></th>'
 			+'<th>活动编号</th>'
 			+'<th>活动主题</th>'
 			+'<th>活动时间</th>'
@@ -182,26 +183,41 @@ $(".queryConditionButton .query").click(function(){
 			//隐藏所有按钮详情
 			$(".edit .menu").hide();
 			//点击按钮，显示
+
+			$('.activityList td:not(".last")').on("mouseover",function(){
+				$(this).attr("title",$(this).html())
+			})
+
+			$('.activityList .activityAreaAndCharge').on("click",function(){
+				$(this).toggleClass('ac_tip');
+				console.log(2);
+			})
 			
+		},
+		beforeSend:function(){
+			$(".loaded").fadeIn();
+
 		},
 		error:function(data){
 			linshi=data;
 			layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
-		},
+			$(".loaded").fadeOut();
+
+		}
 	});
 });
-
+  		
 function ConstructRecord(contentBody, statusData)
 {
     var stateHtmlArray = $.Enumerable.From(contentBody).Select(function(x) 
     {
         var stateHtml = ConstructOpStatus(statusData, x.state);
         return '<tr guid='+x.guid+'>'
-				+'<td><p class="checkBox"></p></td>'
+				// +'<td><p class="checkBox"></p></td>'
 				+'<td class="activityCode">'+x.activitycode+'</td>' 
 				+ '<td class="activitytitle">' + x.activitytitle + '</td>'
-				+ '<td class="activityTime">' + x.begintime + '-' + x.endtime + '</td>'
-				+ '<td class="activityAreaAndCharge">' + JointDistrict(x.district) + '</td>'
+				+ '<td class="activityTime">' + x.begintime + ' -- ' + x.endtime + '</td>'
+				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) + '</td>'
 				+ '<td class="estimateJoinVipQuantity">' + x.membercount + '</td>'
 				+ '<td class="JoinedVipQuantity">' + x.alreadyinmembercount + '</td>'
 //				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
@@ -229,6 +245,13 @@ function ConstructOpStatus(statusData, state)
     var statehtml = statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
     return statehtml;
 }
+
+// $(".activityAreaAndCharge").hover(function(){
+	
+// })
+
+
+
 
 /*负责人*/
 chargeAjax()
@@ -406,7 +429,6 @@ $('table.activityList').on('click',".handle",function(){
     
 	layer.alert("出错了^_^");
 	    
-   
-   
 	
 });
+

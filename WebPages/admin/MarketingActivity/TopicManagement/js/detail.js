@@ -513,11 +513,11 @@ var detailData = {
 
 // debugger
 var topicId = parent.$('#guid').val();
-// if(topicId == undefined) {
+if(topicId == undefined) {
 // 	// alert(0);
-// 	render(detailData);
+	render(detailData);
 
-// } else if(topicId != ""){
+} else if(topicId != ""){
 	$.ajax({
 	    type: "get",
 	    url: '/webapi/ipaloma/topic/detail/' + topicId,
@@ -527,14 +527,14 @@ var topicId = parent.$('#guid').val();
 	    success: function (detailData){ console.log(JSON.stringify(detailData, null, 4));render(detailData) },
 	    error: function (){ console.warn("详情 error") }
 	});
-// }
+}
 
 
 
 function render(detailData){
 
-	debugger
-	// alert(1)
+	// debugger;
+	// alert(1);
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;

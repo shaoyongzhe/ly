@@ -1,11 +1,10 @@
 /**
  * scroll
- 齐枭飞（qq:528576474)
- * 2017/10/13
+ * 2017/11/13
  */
 
 ;(function($){
-    'use strict';
+    // 'use strict';
     var win = $("table.notify table");
     var doc = $("table.notify tbody");
     var $win = $(win);
@@ -34,8 +33,7 @@
         var me = this;
         me.opts = $.extend(true, {}, {
             gundong : me.$element,                                            
-        
-            domDown : {                                                          // 下方DOM
+            domDown : {                                                          // 下方
                 domClass   : 'dropload-down',
                 domRefresh : '<div class="dropload-refresh">下拉加载</div>',
                 domLoad    : '<div class="dropload-load"><span class="loading"></span>正在加载</div>',
@@ -44,7 +42,7 @@
             autoLoad : true,                                                     // 自动
             distance : 60,                                                       // 拉动
             threshold : '',                                                      // 提前加载距离
-            // loadUpFn : '',  s                                                     // 上
+            // loadUpFn : '',                                                     // 上
             loadDownFn : ''                                                      // 下
         }, options);
         // 如果加载下方，事先在下方插入DOM
