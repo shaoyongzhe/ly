@@ -2,7 +2,7 @@ var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
 var pageindex=1;
-var pagesize=3;
+var pagesize=15;
 var statusData="";//储存statusAjax()返回的数据。
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
@@ -74,7 +74,11 @@ function myDate(){
  $("#dataStart").val(today);
  $("#dataEnd").val(today1)
 
-
+	var pagingJson = {
+                "pagesize": pagesize,
+                "pageindex":pageindex,
+                "sort": [{"oid": "desc"}]
+         };
 function basicQuery(){
     /*判断是否输入了查询条件*/
 	if($(".qC_aitivityTopic input").val()==""&&$(".qC_number input").val()==""&&$(".qC_principal .selectLedL").text()=="请选择"&&$(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()==""&&$(".qC_subsidyReleased input:eq(0)").val()==""&&$(".qC_subsidyReleased input:eq(1)").val()==""&&$(".qC_joinVipNumber input:eq(0)").val()==""&&$(".qC_joinVipNumber input:eq(1)").val()==""&&$("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"&&$(".qC_activityBudget input:eq(0)").val()==""&&$(".qC_activityBudget input:eq(1)").val()==""&&$(".qC_status .selectLedL").text()=="请选择"){
@@ -153,10 +157,7 @@ function basicQuery(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-	var jsonData = {
-                "pagesize": pagesize,
-                "pageindex":pageindex
-         };
+
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -166,7 +167,7 @@ function basicQuery(){
 		membercount:membercount,
 		districthash:districthash,
 		state:state,
-		paging:JSON.stringify(jsonData)
+		paging:JSON.stringify(pagingJson)
 	}
     $.each(condition, function(key, value){
     if (value === "" || value === null){
@@ -229,9 +230,9 @@ function basicQuery(){
 
 			$('.activityList .activityAreaAndCharge').on("click",function(){
 				$(this).toggleClass('ac_tip');
-				console.log(2);
 			})
-			
+			pagingJson = data["paging"];
+
 		},
 		beforeSend:function(){
 			$(".loaded").fadeIn();
@@ -406,6 +407,11 @@ var DictFunction =
                 maxmin: true,
                 area: ['90%', '90%'],
                 content: 'detail.html',
+                calcel: function(index)
+                {
+                	layer.close(index);
+                	return false;
+                }
             });
         },
         "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },

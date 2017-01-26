@@ -900,9 +900,61 @@ function render(detailData){
 		area.find('.propagation').text(propagation[i].propagation);
 		area.find('.posterurl').attr("src",propagation[i].poster_url);
 	}
-
+AddButon(detailData);
 }
 
-$('.xiugai').click(function(){
+var buttonDictionary = 
+{
+	"上架,正在进行中,待活动开始": '<span class="btn close">关闭</span><span class="btn warn xiajia">下架</span>',
+	"草稿,审核中,审核失败,待发布": '<span class="btn close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"已过期,已结束,已下架":'<span class="btn btn-close">关闭</span>' 
+};
+function AddButon(detailData)
+{
+	var currentState = detailData.activity.state;
+	var appendKey = $.Enumerable.From(Object.keys(buttonDictionary)).First(function (x) {
+	    return x.match(currentState) != null;
+	})
+	if (null != appendKey)
+	{
+		$(".footer.btn-group").append(buttonDictionary[appendKey]);
+	}
+	
+}
+
+
+
+$(document).on('click','.xiugai',
+	function(){
 	parent.window.location.href = "activityModify.html?guid=" + topicId;
+});
+
+$(document).on('click','.close',
+	function(){
+    var index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);
+});
+
+$(document).on('click','.xiajia',
+	function(){
+	$.ajax({
+                type: "put",
+                url: "/webapi/ipaloma/topic/operation/" + $('#guid').val(),
+                async: true,
+                data: {
+                    ["currentstate"]: currentstate,
+                    ["optype"]: "下架"
+                },
+                success: function (data) {
+                    if (data.error)
+                        layer.alert("出错了^_^");
+                    layer.alert("下架成功");
+                    basicQuery();
+                },
+                error: function (xhr, textStatus) {
+                    layer.alert("出错了^_^");
+                    console.log(textStatus);
+                }
+
+            });;
 });
