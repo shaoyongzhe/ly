@@ -635,8 +635,8 @@ color:#666;background:#f5f5f5;
 .orderlistbox .descbox i span{ padding:0px; display:inline-block;}
 .orderlistbox .descbox .pricstyle{ color:#ff0000;}
 
-.orderlistbox .descbox .il{width:56%; padding-left: 12px;}
-.orderlistbox .descbox .ir{float:right; text-align:right;width:36%;padding-right: 0.5rem;}
+.orderlistbox .descbox .il{width:48%; padding-left: 12px;}
+.orderlistbox .descbox .ir{float:right; text-align:right;width:40%;padding-right: 0.5rem;}
 
 .orderlistbox .image2box{width:70%; float:left; background:#fff; }
 .orderlistbox .image2box a{ display:inline-block; margin-right:5px;}
