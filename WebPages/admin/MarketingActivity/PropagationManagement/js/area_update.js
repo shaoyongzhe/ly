@@ -11,10 +11,12 @@ $('.region-wrap').on('click', '.x', function() {
 		return;
 	}
 
+	
+		$(this).parent().remove();
 	// $(this).parent().addClass('on');
-	_this.parent().fadeOut(300, function() {
-		_this.remove();
-	});
+	// _this.parent().fadeOut(300, function() {
+	// 	_this.remove();
+	// });
 
 });
 
@@ -50,7 +52,7 @@ $('.area_Update').on('click', function() {
 	/*$('.Select_the_province').on('click', '.ui-selected', function() {
 		$(this).addClass('on').siblings().removeClass('on');
 	});*/
-
+//全省
 	$('.provice .shengName').each(function(){
 		// debugger
 		var shengName = $(this).text();
@@ -61,10 +63,22 @@ $('.area_Update').on('click', function() {
 			}
 		});
 	});
+//全国
+$('.provice .shengName').each(function(){
+		// debugger
+		var quanguo = $(this).text();
+		$('.Select_the_province .qt').each(function(){
+			if($(this).text() == quanguo){
+				// $(this).closest('.diqushezhi').click();
+				$(this).find('input').prop("checked",true);
+			}else{
+				$(this).find('input').prop("checked",false);
+			}
+		});
+	});
 
-
-	// $('.Select_province1').empty();
-	// $('.Select_province2').empty();
+	$('.Select_province1').empty();
+	$('.Select_province2').empty();
 
 
 	$('.quanbusheng').prop("checked",false);
@@ -75,7 +89,7 @@ $('.area_Update').on('click', function() {
 
 function dataLoad() {
 	// debugger;
-	var area_key_list = ['北京市', '北京市 ', '海淀区'];
+	var area_key_list = ['北京市', '北京市', '海淀区'];
 	var area_json = $.area_json['中国'];
 	var area_selected = new Array(); //区域选中级别
 	var area_selected_3 = new Array(); //区域选中级别
@@ -203,7 +217,7 @@ function dataLoad() {
 			// alert(1);
 			$('.area-list :checked').not(this).prop('checked',false);
 			$('.area-list li.on').removeClass('on');
-			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em>全国</em><i class="x">×</i></span></div></div></div>');
+			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em class="shengName">全国</em><i class="x">×</i></span></div></div></div>');
 			$('.Select_province1').empty();
 			$('.Select_province2').empty();
 		} else {
@@ -353,7 +367,11 @@ function dataLoad() {
 			$('.quanbusheng').prop('checked',false);
 			// console.log($(this).closest('li').find('span').text());
 			var this_city = $(this).closest('li').find('span').text();
-			$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			if($("span:contains("+ this_city +")").length==3){
+				$("span:contains("+ this_city +"):eq(2)").closest('li').find(":checkbox").click();
+			}else{
+				$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			}
 
 			return;
 		}

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-19 19:58:32
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-09 14:01:03
+* @Last Modified time: 2017-01-20 18:37:39
 */
 .page-container1{
 	background-color: #F2F2F2;
@@ -41,13 +41,13 @@
 	float: left;
 }
 .textarea_size{
-	width: 85%;
-	height: 50px;
-	max-width: 1067px;
-	max-height: 70px;
-	border-radius: 5px;
-	margin-left: 10%;
-	margin-top: -23%;
+    max-height: 70px;
+    max-width: 946px;
+    width: 84%;
+    height: 46px;
+    border-color: black;
+    border-radius: 2px;
+    margin-left: 41px;
 }
 
 .objective{
@@ -72,6 +72,39 @@
 	/* background-color: #A01212; */
 }
 
+
+.examine1_preview{
+	background-color: #27B56B;
+}
+.examine1_preview:hover{
+	background-color: #309E65;
+}
+.examine1_Preservation{
+	background-color: #27B56B;
+}
+.examine1_Preservation:hover{
+	background-color: #309E65;
+}
+.examine1{
+	background-color: #FF5F31;
+}
+.examine1:hover{
+	background-color: #D86544;
+}
+.examine1_Newly_added{
+	background-color: #FF5F31;
+}
+.examine1_Newly_added:hover{
+	background-color: #D86544;
+}
+
+.examine1_close{
+	background-color: #aaa;
+}
+
+.examine1_close:hover{
+	background-color: #787878;
+}
 .area button{
 	margin-left: 50px;
 	width: 60px;
@@ -79,6 +112,7 @@
 	border:1px solid #4778C7;
 	color: #4778C7;
 	background: none;
+	border-radius: 3px;
 }
 
 .area button:hover{
@@ -135,7 +169,7 @@
 .cover_photo .upload_img{
 	/* background-color: #792D20; */
 	display: inline-block;
-	width:80%;
+	width:88%;
 	height:240px;
 	margin-left:25px;
 }
@@ -208,7 +242,10 @@
 }
 
 .Graphic_message input{
-	margin-left:38px;
+	width: 111px;
+	height: 24px;
+	cursor: pointer;
+	margin-left: 5px;
 }
 .Graphic_message .custom{
 	color:red;
@@ -230,7 +267,7 @@ label, .placeholder{
 	width: 16%;
 	height: 31px;
 	/* margin-left: 15px; */
-	background-color:red;
+	/* background-color:red; */
 	color:#FFFFFF;
 	border: none;
 	cursor: pointer;
@@ -265,8 +302,8 @@ label, .placeholder{
 }
 .Copy_Title .wordwrap{
 	position: absolute;
-	right: 23%;
-	top: 55px;
+	    right: 23%;
+	    top: 55px;
 	float: right;
 }
 .wordwrap .word{
@@ -285,7 +322,7 @@ label, .placeholder{
 
 
 
-#preview{width:40%;height: 120%;border:1px solid #000;overflow:hidden;}
+#preview{width:36%;height: 100%;border:1px solid #000;overflow:hidden;}
 #imghead {
 	height: 100%;
 

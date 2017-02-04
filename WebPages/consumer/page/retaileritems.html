@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -13,7 +13,7 @@
     <link type="text/css" href="/consumer/css/qrcode.css" rel="stylesheet" />
     <link href="/consumer/css/suppercouponitems.css" rel="stylesheet" />
     <link href="/consumer/css/menustyle.css" rel="stylesheet" />
-    <script type="text/javascript">var jspath = window.location.pathname.replace(".html", ".js");document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk" + jspath + "\">");document.writeln("<\/script>");</script>
+    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
     <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
@@ -211,7 +211,6 @@
             <div id="ad_2" class="div_ad">
                 即领即用，先用先得，用完为止，路过不要错过
             </div>
-
             <div ms-repeat="vm.ticket" ms-class="div-list {{el.activitykind=='降价'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'?'maizeng':'taocan'}}" style="margin:15px 0 0 0">
                 <div class="div-top" style="padding-bottom:20px">
                     <div class="li-img">
@@ -277,7 +276,19 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                <div class="whiteblock"></div>
+                <div class="assetinfo" ms-if="el.topiclist.length>0">
+                    <a href="javascript:;" class="assetcontent" ms-click="topicClick(el)">
+                        <div class="asset_left">
+                            <div class="topictitle"><nobr>{{el.topiclist[0].topictitle}}</nobr></div>
+                            <div class="topictitle_1"><small>{{el.topiclist.length>1?'等活动':''}}</small></div>
+                        </div>
+                        <div class="asset_right">
+                            <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="whiteblock" ms-if="el.topiclist==null"></div>
+
                 <ul class="div-down tfsl" style="border-bottom:none">
                     <li>
                         {{el.itemtotalnum==null?'0':el.itemtotalnum}}
@@ -308,17 +319,7 @@
                     </li>
                     <div class="clear"></div>
                 </ul>
-                <div class="assetinfo" ms-if="el.topiclist.length>0">
-                    <a href="javascript:;" class="assetcontent"  ms-click="topicClick(el)">
-                        <div class="asset_left">
-                            <div class="topictitle"><nobr>{{el.topiclist[0].topictitle}}</nobr></div>
-                            <div class="topictitle_1"><small>{{el.topiclist.length>1?'等活动':''}}</small></div>
-                        </div>
-                        <div class="asset_right">
-                            <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>
-                        </div>
-                    </a>
-                </div>
+           
                 <hr />
             </div>
 
