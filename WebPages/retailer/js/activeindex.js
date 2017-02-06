@@ -101,7 +101,7 @@ function fnclick() {
 	}
 	var accordion = new Accordion($('#cgl-menu'), false);
 }
-
+//菜单点击事件
 function fnmenuclick() {
 	var thetext = "";
 	fnhqactive();
@@ -277,6 +277,8 @@ function fnhqactive() {
 				dataid = {
 					distributorid: fnurl().distributor_id,
 					itemid: data[k1]["itemid"],
+					activityitemid:data[k1]["activityitem_id"],
+					remark: data[k1]["ruledesc"],
 					itemquality: data[k1]["itemquality"],
 					itemprice: Number(data[k1]["discountprice"]).toFixed(1),
 					isyucun: 0
@@ -328,7 +330,7 @@ function fnhqactive() {
 					}
 					oli += "</div></div></div></div>" +
 						"<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + data[k1]["packagetypename"] + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + data[k1]["giftitemobj"]["packagetypename"];
-					data[k1]["itemquality"] == 1 ? oli += "(临期)" : oli += "";
+					data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
 					oli += "</p></div>" +
 						"<p class='cgl-beizhu'>备注：" + data[k1]["ruledesc"] + "</p>" +
 						"</li>";
