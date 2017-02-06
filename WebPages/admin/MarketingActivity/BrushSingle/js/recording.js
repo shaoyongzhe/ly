@@ -569,7 +569,6 @@ function fncaozuo() {
 		var putdata = {
 			"dealtstate": "解除违规",
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
-
 		};
 		jiechuwg_add(putdata);
 	}).on("click", ".tiaoz", function() {
@@ -657,14 +656,16 @@ function article_add(that) {
 			}
 			for(var i = 0; i <data.length; i++) {
 				oli += "<li>" +
-					"<span>" + data[i]["issuetime"] + "</span>" +
-					"<span>" + data[i]["issueby_name"] + "</span>"+
-				/*if(data[i]["dealtstate"] == "确认违规") {
-					oli += "<div>" + data[i]["dealtstate"] + "；</div>";
-				} else {
-					oli += "<div>" + data[i]["dealtstate"] + "：<span>" + data[i]["description"] + "</span></div>";
-				}*/
-					"<div>" + data[i]["dealtstate"] + "：<span>" + data[i]["description"] + "</span></div>"+
+					"<span>" + data[i]["issuetime"] + "</span> " +
+					" <span style='padding-left:6px'> 操作人员：" + data[i]["issueby_name"] + "</span>"+
+					"<div>" + data[i]["dealtstate"] + "；</div>"+
+					"<div class='cgl-beizhu'>";
+					if(data[i]["dealtstate"]=="申诉中"){
+						oli+="登记内容";
+					}else{
+						oli+="备注";
+					}
+					oli+="：" + data[i]["description"] + "</div>"
 				"</li>";
 			}
 			$(".cgl-czjl").html(oli);
@@ -885,7 +886,8 @@ function tiaoz_add(dangq, guid) {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
-			//$(".cgl-jzz").html("加载中，请稍后···").show();
+			$('.layui-layer-close').click();
+			$(".cgl-jzz").html("加载中，请稍后···").show();
 			$.ajax({
 				type: "put",
 				url: "/webapi/earlywarningmanage/anticheating/levelchanged",
@@ -894,7 +896,6 @@ function tiaoz_add(dangq, guid) {
 					$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				},
 				success: function(data) {
-					$(".cgl-jzz").hide();
 					//console.log(data);
 					if(data.error) {
 						$(".layui-layer-shade").remove();
@@ -902,6 +903,7 @@ function tiaoz_add(dangq, guid) {
 						alert(data.error);
 					}
 					if(data.succeed) {
+						$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
 						var guidarr = guid.split(",");
 						for(var i = 0; i < guidarr.length; i++) {
 							$("tr").each(function(n) {
@@ -1045,7 +1047,7 @@ function fnanniu() {
 function fnwgjlzt(putdata) {
 	//console.log(putdata)
 	$('.layui-layer-close').click();
-	//$(".cgl-jzz").html("加载中，请稍后···").show();
+	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
 		type: "put",
 		url: "/webapi/earlywarningmanage/anticheating/dealtstatechange",
@@ -1057,7 +1059,7 @@ function fnwgjlzt(putdata) {
 			$(".cgl-jzz").hide();
 			if(data.error) {
 				$('.layui-layer-close').click();
-				$(".cgl-jzz").html("操作失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
 			}
 			if(data.succeed) {
 				var guidarr = putdata.anticheatingids.split(",");
@@ -1087,7 +1089,7 @@ function fnwgjlzt(putdata) {
 								});
 				*/
 				fnshijian(state);
-				$(".cgl-jzz").html("操作成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
 			}
 		}
 	});
