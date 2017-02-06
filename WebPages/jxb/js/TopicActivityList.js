@@ -1,4 +1,4 @@
-//20170122
+//20170123
 //	alert(4);
 //loadingStart();
 //$(".contentCont").empty();
@@ -309,9 +309,9 @@ console.log("非经销宝内部环境，网络出错刷新，会报错Cannot rea
 			obj.find(".ccCo:last").text(info.content[i].content);
 			obj.find(".ccTi:last").find(".ccTis1").text(info.content[i].earliestjointime.substr(0,16)+"-"+info.content[i].latestjointime.substr(0,16));//0122将begintime换成earliestjointime，endtime换成latestjointime，
 			obj.find(".ccTi:last").find(".ccTis2").eq(0).prev("img").attr("src",src[info.content[i].condition.area_matched]);
-			obj.find(".ccTi:last").find(".ccTis2").eq(2).prev("img").attr("src",src[info.content[i].condition.condition_matched]);//超惠
-			obj.find(".ccTi:last").find(".ccTis2").eq(3).prev("img").attr("src",src[info.content[i].condition.activity_matched]);//资格
-			endtimeArr.push(info.content[i].endtime);
+			obj.find(".ccTi:last").find(".ccTis2").eq(2).prev("img").attr("src",src[info.content[i].condition.activity_matched]);//超惠activity_matched
+			obj.find(".ccTi:last").find(".ccTis2").eq(3).prev("img").attr("src",src[info.content[i].condition.condition_matched]);//资格
+			endtimeArr.push(info.content[i].latestjointime);
 			//多行溢出隐藏//因为只需要支持谷歌浏览器，所以换成css来实现多行溢出
 //			zhanShou(obj.find('.ccCo:last'));		
 			//封装区别,不需要判断，建议封装		
@@ -322,6 +322,8 @@ console.log("非经销宝内部环境，网络出错刷新，会报错Cannot rea
 				//处理是否能参与活动
 				if(info.content[i].cannotaccess=="0"){
 					$(".Ano").find(".ccNo:last").addClass("hi");
+					$(".Ano").find(".cCHeadP:last").removeClass("hi")//仅剩多少席
+					$(".Ano").find(".cCHeadP:last .cCHeadPs2").text(info.content[i].left_count)//仅剩多少席
 //					$(".Ano").find(".ccfoot2:last").text("马上参与");
 				}else{//超惠不符合-活动详情，地区不符合-随便看看，参与会员资格不符合-查看原因。
 //					debugger;
@@ -330,9 +332,9 @@ console.log("非经销宝内部环境，网络出错刷新，会报错Cannot rea
 				$(".Ano").find(".ccfoot2:last").text("活动详情");
 				if(info.content[i].condition.area_matched==0){//优先级从高到底，随便看看，查看原因，活动详情
 					$(".Ano").find(".ccfoot2:last").text("随便看看");
-				}else if(info.content[i].condition.activity_matched==0){
-					$(".Ano").find(".ccfoot2:last").text("查看原因");
 				}else if(info.content[i].condition.condition_matched==0){
+					$(".Ano").find(".ccfoot2:last").text("查看原因");
+				}else if(info.content[i].condition.activity_matched==0){
 					$(".Ano").find(".ccfoot2:last").text("活动详情");
 				}
 //				$(".Ano").find(".ccfoot2:last").text("活动详情");//去掉马上参与显示，一律为活动详情
@@ -368,7 +370,8 @@ console.log("非经销宝内部环境，网络出错刷新，会报错Cannot rea
 				$(".thisDistrict").hide();
 			}
 			if($(".elseDistrictList").length==0&&$(".thisDistrictList").length==0){
-				layer.alert('UI图稍后奉上', {icon: 5});
+//				layer.alert('UI图稍后奉上', {icon: 5});
+				console.log('UI图稍后奉上');
 			}					
 		}
 		/*djs();
@@ -510,10 +513,11 @@ $("body").on("mouseenter",".ccfoot2",function(){
 });
 */
 /*调试用，查看是否接受到经销商id*/
-ldslgh();
+/*ldslgh();
 function ldslgh(){
 	setTimeout(function(){
 		console.log(OnDistributorIDRefreshParameter0);
 		ldslgh()
 	},500)		
 }
+*/

@@ -142,6 +142,7 @@
                     success: function (data) {
                         parent.$("#refresh").click();
                         parent.$('.layui-layer-close').click();
+                        parent.$('#opType').val("");
                     },
                     error: function () {
                         layer.msg("编辑失败!");

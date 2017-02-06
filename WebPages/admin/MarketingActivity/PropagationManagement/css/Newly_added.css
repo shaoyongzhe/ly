@@ -10,12 +10,12 @@
 	
 }
 .bread-crumb{
-	height: 8px;
-	width: 100%;
-	font-size: 14px;
-	margin-left: 20px;
-	line-height: 45px;
+    height: 0px;
+    width: 100%;
+    margin-left: 20px;
+    line-height: 30px;
 }
+
 .content{
 	font-size: 12px;
 	width: 97%;
@@ -33,7 +33,7 @@
 }
 
 .activice,.activice1{
-	font-size: 14px;
+	font-size: 12px;
 	color:#A6A6A6;
 }
 
@@ -146,9 +146,12 @@
 }
 .cover_photo span{
 	float:left;
-	padding-top:10px;
+	/* height: 26px; */
+	
+    padding-top: 10px;
 }
-
+.cover_photo span:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
+.cover_photo span{zoom:1} 
 
 .cover_photo .upload_img{
 	/* background-color: #792D20; */
@@ -161,11 +164,13 @@
 .upload_img .right_size{
 	float:right;
 	color:#999;
+	width: 258px;
+    height: 272px;
 }
 
 
 .upload_img .file{
-	width: 62px;
+	width: 65px;
 	height: 25px;
 	background-color: #FF6032;
 	display: inline-block;
