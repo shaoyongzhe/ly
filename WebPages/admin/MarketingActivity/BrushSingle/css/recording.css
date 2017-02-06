@@ -136,7 +136,7 @@ i,em,span,label{
 .cgl-wgui>ul>li>ul{
     display: none;
     position: absolute;
-    left: 129px;
+    left: 136px;
     top: -1px;
     width: 124px;
     height: auto;
@@ -150,7 +150,7 @@ i,em,span,label{
 }
 .cgl-wgui>ul>li>ul>li{
     border-bottom: 1px solid #ddd;
-    padding:5px 0 5px 17px;
+    padding:3px 0 4px 17px;
 }
 .cgl-wgui>ul>li>ul>li:last-child{
     border: 0;
@@ -393,10 +393,7 @@ select::-ms-expand { display: none; }
 .cgl-li5>ul>li{border-bottom: 1px solid #e4e4e4;}
 .cgl-li5>ul>li:last-of-type{border: 0;}
 .cgl-czjl>li>div{line-height: 15px;padding-top: 1px;}
-.cgl-li5>ul::-webkit-scrollbar{
-    width:0;
-    height:0;
-}
+
 
 .cgl-antc{text-align: center;padding-bottom: 44px;}
 .cgl-antc>span{
