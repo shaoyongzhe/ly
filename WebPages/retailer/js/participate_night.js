@@ -112,14 +112,14 @@ $(function(){
 														'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
 													'</div>'+
 													'<div class="xsp_x_right">'+
-														'<a href="javascript:;">'+'110'+'</a>'+
+														'<a href="javascript:;">'+'无'+'</a>'+
 													'</div>'+
 												'</div>'+
 											'</div>'+
 										'</section>'+
 										'<div class="T_time">'+
 											'<p>'+
-												'<img src="../image/4.png" alt="">'+
+												'<img src="../image/4-1.png" alt="">'+
 												'<a href="javascript:void(0)">'+
 													'服务电话&nbsp;&nbsp;&nbsp;'+
 													'<span>'+data.servicephone+'</span>'+
@@ -394,7 +394,7 @@ $(function(){
 							};
                     });  
 					
-					$('.qua_box').html(str);
+					$('.qua_box:last').html(str);
 			}
 
 

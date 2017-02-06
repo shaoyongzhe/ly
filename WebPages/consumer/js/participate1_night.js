@@ -108,13 +108,13 @@ $(function(){
 													'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
 												'</div>'+
 												'<div class="xsp_x_right">'+
-													'<a href="javascript:;">'+description+'</a>'+
+													'<a href="javascript:;">'+'无'+'</a>'+
 												'</div>'+
 											'</div>'+
 										'</section>'+
 										'<div class="T_time">'+
 											'<p>'+
-												'<img src="../image/4.png" alt="">'+
+												'<img src="../image/4-1.png" alt="">'+
 												'<a href="javascript:void(0)">'+
 													'服务电话&nbsp;&nbsp;&nbsp;'+
 													'<span>'+data.servicephone+'</span>'+
@@ -318,18 +318,66 @@ $(function(){
 					$('.T_time p a span').html(servicephone);*/
 
 				//参与资格（条件）
-					var conditions=data.condition.consumer;
-					if(conditions==undefined){
-						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
-					}else if(conditions.length==0){
-						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
-					}else{
-						for(var i=0;i<conditions.length;i++){
-							var description=conditions[i].description;
-						}
-						/*$('.xsp_x_right a').html(description);*/
+					// var conditions=data.condition.consumer;
+					// if(conditions==undefined){
+					// 	$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					// }else if(conditions.length==0){
+					// 	$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					// }else{
+					// 	for(var i=0;i<conditions.length;i++){
+					// 		var description=conditions[i].description;
+					// 	}
+					// 	/*$('.xsp_x_right a').html(description);*/
+					// }
+					// //console.log(conditions.length)
+					
+					
+					 //参与资格
+					Participationqualification();
+					function Participationqualification(){
+							var conditions = data.condition;
+							var str='';
+							var key = '';
+						 	function keyname(key){
+							 if(key=='distributor'){
+							 		key='分销商'
+							 	}else if(key=='retailer'){
+							 		key='门店'
+							 	}else if(key=='consumer'){
+							 		key='消费者'
+							 	}else if(key=='distributor_employee'){
+							 		key='分銷商店员'
+							 	}else if(key=='retailer_employee'){
+									key='门店店员'
+							 	}
+							 	return key;
+						 	}
+						 	jQuery.each(conditions, function(key, value) {  
+		                         	str+='<div class="variety">'+
+										'<a href="javascript:;">'+keyname(key)+'</a>'+
+									'</div>';
+
+									if(conditions==undefined){
+										$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+									}else if(conditions.length==0){
+										$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+									}else{
+										for (var i = 0; i <value.length; i++) {
+										str+= '<div class="xsp_x">'+
+												'<div class="xsp_x_left">'+
+													'<a href="javascript:;">'+value[i].localtype+'</a>'+
+												'</div>'+
+												'<div class="xsp_x_right">'+
+													'<a href="javascript:;">'+value[i].description+'</a>'+
+												'</div>'+
+											'</div>';
+										}
+									};
+		                    });  
+							
+							$('.qua_box:last').html(str);
 					}
-					//console.log(conditions.length)
+					
 					
 					//调整度数
 					if($('.issued a:nth-child(2)').text().length < 4){
