@@ -30,7 +30,7 @@ html{_background-image:url(about:blank); _background-attachment:fixed;}
 .laydate_body .laydate_ym{position:relative; float:left; height:24px; cursor:pointer;}
 .laydate_body .laydate_ym input{float:left; height:24px; line-height:24px; text-align:center; border:none; cursor:pointer;}
 .laydate_body .laydate_ym .laydate_yms{position:absolute; left: -1px; top: 24px; height:181px;}
-.laydate_body .laydate_y{width:121px; margin-right:6px;}
+.laydate_body .laydate_y{width:121px; margin-right:5px;}
 .laydate_body .laydate_y input{width:64px; margin-right:15px;}
 .laydate_body .laydate_y .laydate_yms{width:121px; text-align:center;}
 .laydate_body .laydate_y .laydate_yms a{position:relative; display:block; height:20px;}
@@ -38,7 +38,7 @@ html{_background-image:url(about:blank); _background-attachment:fixed;}
 .laydate_body .laydate_y .laydate_yms ul li{float:left; width:60px; height:20px; line-height: 20px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;}
 .laydate_body .laydate_m{width:99px;}
 .laydate_body .laydate_m .laydate_yms{width:99px; padding:0;}
-.laydate_body .laydate_m input{width:42px; margin-right:15px;}
+.laydate_body .laydate_m input{width:42px; margin-right:14px;}
 .laydate_body .laydate_m .laydate_yms span{display:block; float:left; width:42px; margin: 5px 0 0 5px; line-height:24px; text-align:center; _display:inline;}
 .laydate_body .laydate_choose{display:block; float:left; position:relative; width:20px; height:24px;}
 .laydate_body .laydate_choose cite, .laydate_body .laydate_tab cite{left:50%; top:50%;}
