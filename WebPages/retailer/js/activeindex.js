@@ -33,8 +33,7 @@ function fnxrym() {
 		$(".dealer-header>i").html(url1.distributorname);
 		$(".proTitleBoxl>img").attr("src", url1.distributorimg);
 		$("#contactperson").html(url1.contactperson);
-		$("#cutgift").html("￥" + url1.cutgift + "元");
-		$(".ammount").html(url1.itemcount);
+		
 		$(".num").html($(".ammount").html());
 		$(".proDetailBox").html(url1.active);
 		$(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
@@ -42,6 +41,28 @@ function fnxrym() {
 		$(".footerl>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id);
 		$(".footerr>a").attr("href", "commit.html?distributor_id=" + url1.distributor_id)
 	}
+}
+//获取购物车总金额和总数量
+function fnpricenum () {
+	$.ajax({
+		type: "get",
+		url: "/webapi/distributor/" + fnurl().shopid + "/shoppingcart/" + fnurl().distributor_id + "/count",
+		//url: "../../data/menu.json",
+		data: "",
+		timeout: "9000",
+		dataType: "json",
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			if(textStatus == "timeout") {
+				console.log("请求超时")
+				XMLHttpRequest.abort();
+			}
+		},
+		success: function(data) {
+			console.log(data)
+			//$("#cutgift").html("￥" + url1.cutgift + "元");
+			//$(".ammount").html(url1.itemcount);
+		}
+	})
 }
 //打电话滚动隐藏与显示
 function fnscroll() {
@@ -331,7 +352,7 @@ function fncuxiao(data) {
 				" </div><del>￥" + Number(data[k1]["originalprice"]).toFixed(1) + "0</del></div>" +
 				"</div> " +
 				"<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> " +
-				"<p class='cgl-beizhu'>备注：" + data[k1]["ruledesc"] + "</p>" +
+				"<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"]==null?"":data[k1]["ruledesc"]) + "</p>" +
 				"</li>";
 		} else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
 			dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
@@ -357,7 +378,7 @@ function fncuxiao(data) {
 				"<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + data[k1]["packagetypename"] + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + data[k1]["giftitemobj"]["packagetypename"];
 			data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
 			oli += "</p></div>" +
-				"<p class='cgl-beizhu'>备注：" + data[k1]["ruledesc"] + "</p>" +
+				"<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"]==null?"":data[k1]["ruledesc"])+ "</p>" +
 				"</li>";
 		}
 	}
@@ -384,7 +405,6 @@ function fnlist(odata) {
 			}else{
 				fnyibanlist(data)
 			}
-			
 		}
 	});
 }
@@ -636,6 +656,7 @@ function fnserach() {
 $(function() {
 	fnpinpai(); //品牌下拉点击事件
 	fnurl(); //获取地址栏参数
+	fnpricenum();
 	fnxrym(); //通过参数渲染页面
 	fnscroll(); //打电话显示与隐藏
 	fnmenuhei(); //动态设置菜单右侧高度
