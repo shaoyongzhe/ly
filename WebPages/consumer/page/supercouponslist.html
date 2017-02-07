@@ -196,13 +196,13 @@
                     <div class="assetinfo" ms-if="el.topiclist.length>0">
                         <a href="javascript:;" class="assetcontent" ms-click="topicClick(el)">
                             <div class="asset_left">
-                                <div class="topictitle"><nobr>{{el.topiclist[0].topictitle}}</nobr></div>
+                                <div class="topictitle"><nobr style="font-size:1.1rem;">{{el.topiclist[0].topictitle}}</nobr></div>
                                 <div class="topictitle_1"><small>{{el.topiclist.length>1?'等活动':''}}</small></div>
                             </div>
                             <div class="asset_right">
                                 <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>
                             </div>
-                </a>
+                        </a>
                     </div>
                     <div class="whiteblock"  ms-if="el.topiclist == null"></div>
                 </a>
@@ -231,7 +231,7 @@
                     <div class="clear"></div>
                 </ul>
                 <hr ms-if="el.topiclist==undefined ||el.topiclist.length==0" style="height:1px;border-top:none" />
-                <div class="assetinfo" ms-if="el.topiclist.length>0">
+                <!-- <div class="assetinfo" ms-if="el.topiclist.length>0">
                     <a href="javascript:;" class="assetcontent" ms-click="topicClick(el)">
                         <div class="asset_left">
                             <div class="topictitle"><nobr style="font-size:1.1rem;">{{el.topiclist[0].topictitle}}</nobr></div>
@@ -241,7 +241,7 @@
                             <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>
                         </div>
                     </a>
-                </div>
+                </div> -->
                 <ul class="div-down bordershadow">
                     <li class="div_address" style="">
                         {{el.retailername}}（{{el.address}}）

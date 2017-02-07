@@ -567,10 +567,8 @@ function fncaozuo() {
 		vipshensu_add($(this).parents("tr"));
 	}).on("click", ".jiechuwg", function() {
 		var putdata = {
-			"description": "",
 			"dealtstate": "解除违规",
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
-
 		};
 		jiechuwg_add(putdata);
 	}).on("click", ".tiaoz", function() {
@@ -650,23 +648,25 @@ function article_add(that) {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		},
 		success: function(data) {
-			//console.log(data)
+			console.log(data)
 			$(".cgl-jzz").hide();
 			var oli = "";
 			if(data.error) {
 				oli += "<li>暂无记录</li>";
 			}
-			for(var i = data.length - 1; i >= 0; i--) {
+			for(var i = 0; i <data.length; i++) {
 				oli += "<li>" +
-					"<span>" + data[i]["issuetime"] + "</span>" +
-					"<span>" + data[i]["issueby_name"] + "</span>";
-				if(data[i]["dealtstate"] == "确认违规") {
-					oli += "<div>" + data[i]["dealtstate"] + "；</div>";
-				} else {
-					oli += "<div>" + data[i]["dealtstate"] + "：<span>" + data[i]["description"] + "</span></div>";
-				}
-
-				oli += "</li>";
+					"<span>" + data[i]["issuetime"] + "</span> " +
+					" <span style='padding-left:6px'> 操作人员：" + data[i]["issueby_name"] + "</span>"+
+					"<div>" + data[i]["dealtstate"] + "；</div>"+
+					"<div class='cgl-beizhu'>";
+					if(data[i]["dealtstate"]=="申诉中"){
+						oli+="登记内容";
+					}else{
+						oli+="备注";
+					}
+					oli+="：" + data[i]["description"] + "</div>"
+				"</li>";
 			}
 			$(".cgl-czjl").html(oli);
 		}
@@ -688,7 +688,6 @@ function article_add(that) {
 		}
 		if($(this).text() == "确认违规") {
 			var putdata = {
-				"description": "",
 				"dealtstate": "确认违规",
 				"weiguidengji": $(".cgl-td6", parents).text().replace(/[^0-9]/ig, ""),
 				"anticheatingids": guid
@@ -697,7 +696,6 @@ function article_add(that) {
 		}
 		if($(this).text() == "解除违规") {
 			var putdata = {
-				"description": "",
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
 
@@ -861,12 +859,10 @@ function tiaoz_add(dangq, guid) {
 		"<p class='cgl-dqdj'>" + dangq + "</p>" +
 		"<div class='cgl-tiaoz'>调整违规等级" +
 		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +
-
 		"<div id='cgl-tjbz'>" +
 		"<h4>备注</h4>" +
 		"<textarea></textarea>" +
 		"</div>" +
-
 		"<div class='cgl-antz'><span class='cgl-close cgl-ciyao'>关闭</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>" +
 		"</div>";
 
@@ -890,6 +886,7 @@ function tiaoz_add(dangq, guid) {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
+			$('.layui-layer-close').click();
 			$(".cgl-jzz").html("加载中，请稍后···").show();
 			$.ajax({
 				type: "put",
@@ -899,7 +896,6 @@ function tiaoz_add(dangq, guid) {
 					$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				},
 				success: function(data) {
-					$(".cgl-jzz").hide();
 					//console.log(data);
 					if(data.error) {
 						$(".layui-layer-shade").remove();
@@ -907,8 +903,7 @@ function tiaoz_add(dangq, guid) {
 						alert(data.error);
 					}
 					if(data.succeed) {
-						$(".layui-layer-shade").remove();
-						$(".layui-layer").remove();
+						$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
 						var guidarr = guid.split(",");
 						for(var i = 0; i < guidarr.length; i++) {
 							$("tr").each(function(n) {
@@ -998,7 +993,6 @@ function fnanniu() {
 		} else {
 			var guid = fnguid();
 			var putdata = {
-				"description": "",
 				"dealtstate": "确认违规",
 				"anticheatingids": guid
 			};
@@ -1017,10 +1011,8 @@ function fnanniu() {
 		} else {
 			var guid = fnguid();
 			var putdata = {
-				"description": "",
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
-
 			};
 			jiechuwg_add(putdata);
 		}
@@ -1054,6 +1046,7 @@ function fnanniu() {
 //改变违规记录状态
 function fnwgjlzt(putdata) {
 	//console.log(putdata)
+	$('.layui-layer-close').click();
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
 		type: "put",
@@ -1066,10 +1059,9 @@ function fnwgjlzt(putdata) {
 			$(".cgl-jzz").hide();
 			if(data.error) {
 				$('.layui-layer-close').click();
-				$(".cgl-jzz").html("操作失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
 			}
 			if(data.succeed) {
-				$('.layui-layer-close').click();
 				var guidarr = putdata.anticheatingids.split(",");
 				for(var i = 0; i < guidarr.length; i++) {
 					$("tr").each(function(n) {
@@ -1097,6 +1089,7 @@ function fnwgjlzt(putdata) {
 								});
 				*/
 				fnshijian(state);
+				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
 			}
 		}
 	});
