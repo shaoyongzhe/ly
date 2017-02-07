@@ -1,4 +1,4 @@
-html { font-size:62.5%;}
+html { font-size:0.6rem;}
 body{color:#666; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin:0; -webkit-text-size-adjust:none; padding:0; line-height:1.6em;}  
 div,dl,dd,dt,ul,li,ol,caption,table,tbody,thead,tfoot,th,td,tr,form,button,input,select,textarea,legend,a,p,big,small,span,strong,sub,sup,b,em,i,h1,h2,h3,h4,h5,h6,cite,q,samp,pre,code,tt,br,hr,address,img,area,map,object,del,s,header,footer{ border:none; padding:0; margin:0; list-style:none;font-style:normal;-webkit-text-size-adjust:none; vertical-align: baseline;/* chrome */ }
 img,fieldset,table,input,textarea,button{border:none;}
@@ -63,7 +63,7 @@ img,fieldset,table,input,textarea,button{border:none;}
 	font-size: 1.6rem;color:#ff0000
 }
 .disc{
-	padding-left:15%
+	padding-left:15%;padding-top:3px;padding-bottom: 3px;
 }
 section li{
 	clear:both
@@ -72,25 +72,31 @@ section li{
 	font-size: 1.4rem;
 }
 .giveTo{
-	padding-left: 3rem;font-size: 1.4rem;
+	padding-left: 15%;font-size: 1.4rem;
 }
 .giveTo b{
 	width:10%;font-weight: normal;display: block;float: left;
 }
 .giveTo div{
-	float:left;width:85%
+	width:85%
 }
 .giveTo span:nth-child(2){
 	height:auto;display: block;width:88%
 }
-#disc span:nth-child(1){
+.disc span:nth-child(1){
 	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;
 }
-#disc span:nth-child(2){
-	color:#a3d3cf;font-size: 1.4rem;
+.disc span:nth-child(2){
+	color:#009f96;font-size: 1.4rem;
+}
+.disc b{
+	font-weight: normal;
 }
 .yuu .intail{
 	height:1.2rem;width:20%;float:left;padding:0
+}
+.yuu .pl{
+	height: 19px;
 }
 .intail span:nth-child(1){
 	display: block;
