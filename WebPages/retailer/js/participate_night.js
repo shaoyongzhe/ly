@@ -216,7 +216,7 @@ $(function(){
 					}
 
 
-				//allSubsidy();
+				allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
