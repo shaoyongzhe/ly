@@ -231,37 +231,53 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-				 	/*if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
-				 		return str='';
-				 	}else{*/
-						for(key in subsidy){
-							str+='<div class="tablecont_one">'+
-									'<div class="xps_q">'+
-										'<a href="javascript:;">'+keyg(key) +'</a>'+
+				 	
+					/*for(key in subsidy){
+						str+='<div class="tablecont_one">'+
+								'<div class="xps_q">'+
+									'<a href="javascript:;">'+keyg(key) +'</a>'+
+								'</div>'+
+								'<div class="Focus_box">'+
+									'<div class="Focus_box_left">'+
+										'<ul>'+
+											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+										'</ul>'+
 									'</div>'+
-									'<div class="Focus_box">'+
-										'<div class="Focus_box_left">'+
-											'<ul>'+
-												'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
-												'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
-												'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
-											'</ul>'+
+									'<div class="Focus_box_right">'+
+										'<div class="swiper-container swiper1">'+
+											'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
 										'</div>'+
-										'<div class="Focus_box_right">'+
-											'<div class="swiper-container swiper1">'+
-												'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+									'</div>'+
+								'</div>'+
+							 '</div>'		
+							$('.tablecont:last').html(str);	
+					}*/
+					for(key in subsidy){
+						str+='<div class="tablecont_one">'+
+								'<div class="xps_q">'+
+									'<a href="javascript:;">'+keyg(key) +'</a>'+
+								'</div>'+
+								'<div class="Focus_box">'+
+									'<div class="Focus_box_left">'+
+										'<ul>'+
+											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+										'</ul>'+
+									'</div>'+
+									'<div class="Focus_box_right">'+
+										'<div class="swiper-container swiper1">'+
+											'<div class="swiper-wrapper">'+
+												'<ul class="swiper-slide FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
 											'</div>'+
 										'</div>'+
 									'</div>'+
-								 '</div>'		
-								$('.tablecont:last').html(str);	
-						}
-					// };
-					 //$('.tablecont').html(str);
-					//console.log(str);
-
-					
-
+								'</div>'+
+							 '</div>'	
+							 $('.tablecont:last').html(str);	
+					}
 
 					/*jQuery.each(str, function(i, val) {  
 
