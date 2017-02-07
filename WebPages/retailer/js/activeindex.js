@@ -1,6 +1,7 @@
 /**
  * Created by Administrator on 2017/1/3.
  */
+//品牌商品搜索下拉事件
 function fnpinpai() {
 	$(".titlestyle").on("click", "span", function() {
 		$(this).next().toggle().show;
@@ -117,11 +118,12 @@ function fnmenuclick() {
 			console.log($(this).parents("li"))
 			var ckid = $(this).parents("li").attr("id");
 			if($("#cgl-contlist").find(">ul>li." + ckid).length > 0) {
-				
+
 			} else {
 				var odata = {
 					"filter": "",
 					"filtertype": 0,
+					"supplierid": ckid,
 					"lastcount": 0,
 					"pagecount": 15
 				}
@@ -197,6 +199,11 @@ function fnmenu() {
 function fnyucun() {
 	$("#cgl-contlist").find("ul").html("");
 	$("#loading").show();
+	/*if(sessionStorage.getItem("yucunhuo")) {
+		fnychxr(JSON.parse(sessionStorage.getItem("yucunhuo")));
+	} else {
+
+	}*/
 	$.ajax({
 		type: "get",
 		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/prepayinventorys",
@@ -212,46 +219,57 @@ function fnyucun() {
 			}
 		},
 		success: function(data) {
-			console.log(data)
-			$("#loading").hide();
-			var oli = "",
-				dataid = null;
-			for(var k1 in data) {
-				dataid = {
-					distributorid: fnurl().distributor_id,
-					itemid: data[k1]["itemid"],
-					itemquality: data[k1]["itemquality"],
-					itemprice: 0,
-					isyucun: 1
-				}
-				oli += "<li>" +
-					"<div class='cgl-top hori'> " +
-					"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
-					"<div class='the-xiangxi'> " +
-					"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
-					"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-					"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥0</span>";
-				oli += "<div class='right'>";
-				if(data[k1]["itemcount"] <= 0) {
-					oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-				} else {
-					oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-				}
-				oli += "</div>" +
-					" </div>" +
-					"<span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
-					"<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>件</div>";
-				oli += "</div>" +
-					"</div> " +
-					"</li>";
-			}
-			$("#cgl-contlist").find("ul").html(oli);
-			$("#cgl-contlist").find("ul>li:lt(4)").remove();
+			fnychxr(data);
+			//sessionStorage.setItem("yucunhuo", JSON.stringify(data));
 		}
 	});
 }
+//预存货列表渲染
+function fnychxr(data) {
+	console.log(data)
+	$("#loading").hide();
+	var oli = "",
+		dataid = null;
+	for(var k1 in data) {
+		dataid = {
+			distributorid: fnurl().distributor_id,
+			itemid: data[k1]["itemid"],
+			itemquality: data[k1]["itemquality"],
+			itemprice: 0,
+			isyucun: 1
+		}
+		oli += "<li>" +
+			"<div class='cgl-top hori'> " +
+			"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
+			"<div class='the-xiangxi'> " +
+			"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
+			"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
+			"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥0</span>";
+		oli += "<div class='right'>";
+		if(data[k1]["itemcount"] <= 0) {
+			oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+		} else {
+			oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+		}
+		oli += "</div>" +
+			" </div>" +
+			"<span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
+			"<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>件</div>";
+		oli += "</div>" +
+			"</div> " +
+			"</li>";
+	}
+	$("#cgl-contlist").find("ul").html(oli);
+	$("#cgl-contlist").find("ul>li:lt(4)").remove();
+}
 //获取促销活动列表
 function fnhqactive() {
+	/*	if(sessionStorage.getItem("cuxiao")) {
+			fncuxiao(JSON.parse(sessionStorage.getItem("cuxiao")));
+		} else {
+
+		}
+	*/
 	$.ajax({
 		type: "get",
 		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/activity",
@@ -271,81 +289,85 @@ function fnhqactive() {
 		success: function(data) {
 			//console.log(JSON.stringify(data))
 			console.log(data)
-			var oli = "",
-				dataid = null;
-			for(var k1 in data) {
-				dataid = {
-					distributorid: fnurl().distributor_id,
-					itemid: data[k1]["itemid"],
-					activityitemid:data[k1]["activityitem_id"],
-					remark: data[k1]["ruledesc"],
-					itemquality: data[k1]["itemquality"],
-					itemprice: Number(data[k1]["discountprice"]).toFixed(1),
-					isyucun: 0
-				}
-				if(data[k1]["itemkind"] == "折扣" || data[k1]["itemkind"] == "降价") {
-					oli += "<li>" +
-						"<div class='cgl-top hori'> " +
-						"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
-						"<div class='the-xiangxi'> " +
-						"<h3>";
-					if(data[k1]["itemquality"] == 0) {
-						oli += "<span class='cgl-linqi'></span>";
-					}
-					oli += data[k1]["itemname"] + "</h3>" +
-						"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-						"<span>￥" + Number(data[k1]["discountprice"]).toFixed(1) + "0</span>" +
-						"<div class='right'>";
-					if(data[k1]["itemcount"] <= 0) {
-						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-					} else {
-						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-					}
-					oli += "</div>" +
-						" </div><del>￥" + Number(data[k1]["originalprice"]).toFixed(1) + "0</del></div>" +
-						"</div> " +
-						"<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> " +
-						"<p class='cgl-beizhu'>备注：" + data[k1]["ruledesc"] + "</p>" +
-						"</li>";
-				} else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
-					dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
-					oli += "<li>" +
-						"<div class='cgl-top hori'> " +
-						"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
-						"<div class='the-xiangxi'> " +
-						"<h3>";
-					if(data[k1]["itemquality"] == 0) {
-						oli += "<span class='cgl-linqi'></span>";
-					}
-					oli += data[k1]["itemname"] + "</h3>" +
-						"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-						"<span>￥" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1) + "0</span>" +
-						"<div class='right'>";
-					if(data[k1]["itemcount"] <= 0) {
-						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-					} else {
-						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-					}
-					oli += "</div></div></div></div>" +
-						"<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + data[k1]["packagetypename"] + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + data[k1]["giftitemobj"]["packagetypename"];
-					data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
-					oli += "</p></div>" +
-						"<p class='cgl-beizhu'>备注：" + data[k1]["ruledesc"] + "</p>" +
-						"</li>";
-				}
-			}
-			$("#cgl-contlist").find("ul").html(oli);
+			fncuxiao(data)
+				//sessionStorage.setItem("cuxiao", JSON.stringify(data));
 		}
 	});
+}
+//促销活动列表渲染
+function fncuxiao(data) {
+	var oli = "",
+		dataid = null;
+	for(var k1 in data) {
+		dataid = {
+			distributorid: fnurl().distributor_id,
+			itemid: data[k1]["itemid"],
+			activityitemid: data[k1]["activityitem_id"],
+			remark: data[k1]["ruledesc"],
+			itemquality: data[k1]["itemquality"],
+			itemprice: Number(data[k1]["discountprice"]).toFixed(1),
+			isyucun: 0
+		}
+		if(data[k1]["itemkind"] == "折扣" || data[k1]["itemkind"] == "降价") {
+			oli += "<li>" +
+				"<div class='cgl-top hori'> " +
+				"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
+				"<div class='the-xiangxi'> " +
+				"<h3>";
+			if(data[k1]["itemquality"] == 0) {
+				oli += "<span class='cgl-linqi'></span>";
+			}
+			oli += data[k1]["itemname"] + "</h3>" +
+				"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
+				"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
+				"<span>￥" + Number(data[k1]["discountprice"]).toFixed(1) + "0</span>" +
+				"<div class='right'>";
+			if(data[k1]["itemcount"] <= 0) {
+				oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+			} else {
+				oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+			}
+			oli += "</div>" +
+				" </div><del>￥" + Number(data[k1]["originalprice"]).toFixed(1) + "0</del></div>" +
+				"</div> " +
+				"<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> " +
+				"<p class='cgl-beizhu'>备注：" + data[k1]["ruledesc"] + "</p>" +
+				"</li>";
+		} else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
+			dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
+			oli += "<li>" +
+				"<div class='cgl-top hori'> " +
+				"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
+				"<div class='the-xiangxi'> " +
+				"<h3>";
+			if(data[k1]["itemquality"] == 0) {
+				oli += "<span class='cgl-linqi'></span>";
+			}
+			oli += data[k1]["itemname"] + "</h3>" +
+				"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
+				"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
+				"<span>￥" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1) + "0</span>" +
+				"<div class='right'>";
+			if(data[k1]["itemcount"] <= 0) {
+				oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+			} else {
+				oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+			}
+			oli += "</div></div></div></div>" +
+				"<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + data[k1]["packagetypename"] + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + data[k1]["giftitemobj"]["packagetypename"];
+			data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
+			oli += "</p></div>" +
+				"<p class='cgl-beizhu'>备注：" + data[k1]["ruledesc"] + "</p>" +
+				"</li>";
+		}
+	}
+	$("#cgl-contlist").find("ul").html(oli);
 }
 //一般列表
 function fnlist(odata) {
 	$.ajax({
 		type: "get",
 		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/items",
-		//url: "../../data/activeindex.json",
 		data: odata,
 		timeout: "9000",
 		dataType: "json",
@@ -357,79 +379,64 @@ function fnlist(odata) {
 		},
 		success: function(data) {
 			console.log(data)
-			var oli = "",
-				dataid = null;
-			for(var k1 in data) {
-				if(data[k1].itemslist) {
-					if(data[k1].itemslist.length > 1) {
-						oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "'>";
-						for(var k2 in data[k1]["itemslist"]) {
-							dataid = {
-								distributorid: fnurl().distributor_id,
-								itemquality: data[k1]["itemquality"],
-								itemid: data[k1]["itemslist"][k2]["guid"],
-								itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
-								isyucun: 0
-							}
-							oli += "<div class='cgl-top hori'> " +
-								"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
-								"<div class='the-xiangxi'> " +
-								"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
-								"<div class='ggdiv'><p class='ggborder'>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + " > </p></div>" +
-								"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + data[k1]["itemslist"][k2]["price"] + "</span>" +
-								"<div class='right'>";
-							if(data[k1]["itemcount"] <= 0) {
-								oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-							} else {
-								oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-							}
-							oli += "</div></div></div>" +
-								"</div>";
-						}
-
-					} else {
-						for(var k2 in data[k1]["itemslist"]) {
-							dataid = {
-								distributorid: fnurl().distributor_id,
-								itemquality: data[k1]["itemquality"],
-								itemid: data[k1]["itemslist"][k2]["guid"],
-								itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
-								isyucun: 0
-							}
-							oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "'>" +
-								"<div class='cgl-top hori'> " +
-								"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
-								"<div class='the-xiangxi'> " +
-								"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
-								"<p>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + "</p>" +
-								"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + data[k1]["itemslist"][k2]["price"] + "</span>" +
-								"<div class='right'>";
-							if(data[k1]["itemcount"] <= 0) {
-								oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-							} else {
-								oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-							}
-							oli += "</div></div></div></div></li>";
-						}
-
-					}
-
-				} else {
+			if(data.result==false){
+				console.log(data.error)
+			}else{
+				fnyibanlist(data)
+			}
+			
+		}
+	});
+}
+//一般列表渲染
+function fnyibanlist(data) {
+	var oli = "",
+		dataid = null;
+	for(var k1 in data) {
+		if(data[k1].itemslist) {
+			if(data[k1].itemslist.length > 1) {
+				oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "'>";
+				for(var k2 in data[k1]["itemslist"]) {
 					dataid = {
 						distributorid: fnurl().distributor_id,
 						itemquality: data[k1]["itemquality"],
-						itemid: data[k1]["itemid"],
-						itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
+						itemid: data[k1]["itemslist"][k2]["guid"],
+						itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
+						isyucun: 0
+					}
+					oli += "<div class='cgl-top hori'> " +
+						"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
+						"<div class='the-xiangxi'> " +
+						"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
+						"<div class='ggdiv'><p class='ggborder'>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + " > </p></div>" +
+						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + data[k1]["itemslist"][k2]["price"] + "</span>" +
+						"<div class='right'>";
+					if(data[k1]["itemcount"] <= 0) {
+						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+					} else {
+						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+					}
+					oli += "</div></div></div>" +
+						"</div>";
+				}
+
+			} else {
+				for(var k2 in data[k1]["itemslist"]) {
+					dataid = {
+						distributorid: fnurl().distributor_id,
+						itemquality: data[k1]["itemquality"],
+						itemid: data[k1]["itemslist"][k2]["guid"],
+						itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
 						isyucun: 0
 					}
 					oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "'>" +
 						"<div class='cgl-top hori'> " +
-						"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
+						"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
 						"<div class='the-xiangxi'> " +
-						"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
-						"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</span>";
-					oli += "<div class='right'>";
+						"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
+						"<p>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + "</p>" +
+						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + data[k1]["itemslist"][k2]["price"] + "</span>" +
+						"<div class='right'>";
 					if(data[k1]["itemcount"] <= 0) {
 						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
 					} else {
@@ -437,11 +444,35 @@ function fnlist(odata) {
 					}
 					oli += "</div></div></div></div></li>";
 				}
+
 			}
-			$("#cgl-contlist").find("ul").html(oli);
-			fncontscroll();
+
+		} else {
+			dataid = {
+				distributorid: fnurl().distributor_id,
+				itemquality: data[k1]["itemquality"],
+				itemid: data[k1]["itemid"],
+				itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
+				isyucun: 0
+			}
+			oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "'>" +
+				"<div class='cgl-top hori'> " +
+				"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
+				"<div class='the-xiangxi'> " +
+				"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
+				"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
+				"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</span>";
+			oli += "<div class='right'>";
+			if(data[k1]["itemcount"] <= 0) {
+				oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+			} else {
+				oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+			}
+			oli += "</div></div></div></div></li>";
 		}
-	});
+	}
+	$("#cgl-contlist").find("ul").html(oli);
+	//fncontscroll();
 }
 //商品规格点击切换
 function fnggmore() {
