@@ -250,6 +250,16 @@ section .remarks{
 .shul{
 	width:80%;display: inline-block;text-align: right;
 }
+.shop-con-bd .pi{
+	position: relative;height:1.9rem;padding:0;
+}
+.pi:after{    content: "";
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background: #999;}
 .same{
 	width:100%;height:25px;display: flex;padding:10px 0;border-bottom: 1px solid #f1f2f6;line-height: 25px;
 }
