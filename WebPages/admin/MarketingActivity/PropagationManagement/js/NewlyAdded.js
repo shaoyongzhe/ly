@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-13 18:40:21
+ * @Last Modified time: 2017-01-23 20:40:42
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -87,7 +87,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             areastring = "";
             var provinces = JSON.parse($('.area_val').val()).area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "fullcountry") {
+            if (provinces.length == 1 && provinces[0].name == "fullcountry" || provinces[0].name =='全国') {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -98,7 +98,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                     }
                     var temp = provinces[j].name + ':' + provincecharge + '<br />';
                     areastring += temp;
-                    if (provinces[j].city.length > 0) {
+                    if (provinces[j].city) {
                         for (var k = 0; k < provinces[j].city.length; k++) {
                             //process city
                             var citycharge = "";
@@ -107,7 +107,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                             }
                             var citytemp = provinces[j].city[k].name + ':' + citycharge + '<br />';
                             areastring += citytemp;
-                            if (provinces[j].city[k].country.length > 0) {
+                            if (provinces[j].city[k].country) {
                                 //process country
                                 areastring += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
@@ -141,8 +141,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         }
 
         if (form_value.textarea_value == "") {
-            layer.msg('请输入文案标题');
-            layer.tips('请输入文案标题','#wordCount', {
+            layer.msg('请输入标题');
+            layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -160,8 +160,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         
         if (form_value.push_distributor == '' && form_value.push_consumer== '' && form_value.push_retailer== '') {
-            layer.msg('请选择发送对象');
-            layer.tips('请选择发送对象','.send_object', {
+            layer.msg('请选择对象');
+            layer.tips('请选择对象','.send_object dir', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -170,7 +170,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.mode1 == undefined) {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择发送方式','.mode1', {
+            layer.tips('请选择方式','.mode1', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -179,7 +179,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.post_url == "") {
             // layer.msg('请选择封面图片');
-            layer.tips('请选择封面图片','.cover_photo', {
+            layer.tips('请上传图片','.cover_photo', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -188,7 +188,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.send_text == "") {
             // layer.msg('请填写发送内容');
-            layer.tips('请填写发送内容','.mode', {
+            layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -198,7 +198,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         var radio_val = $('input[name="Fruit"]:checked').val();
            if(radio_val==undefined){
             // layer.msg('请选择图文发送方式');
-             layer.tips('请选择图文发送方式','.Graphic_message', {
+             layer.tips('请选择方式','.Graphic_message', {
                   tips: [3, '#F22525'],
                   time: 4000
                 });
@@ -285,8 +285,6 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
     // 保存Preservation 提交审核
     $('.examine').click(function() {
-            
-
                        // var audit = $('.examine').find('input').val();
         if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var a = 1;
@@ -318,8 +316,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         // var area_text = JSON.stringify(JSON.parse($('.area_val').text().area);
         if($('.area_val').val()==''){
             if($('.word').text()==0){
-                  layer.msg('请输入文案标题');
-                  layer.tips('请输入文案标题','#wordCount', {
+                  layer.msg('请输入标题');
+                  layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -335,8 +333,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             }
         }
         if($('.word').text()==0){
-                  layer.msg('请输入文案标题');
-                  layer.tips('请输入文案标题','#wordCount', {
+                  layer.msg('请输入标题');
+                  layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -373,8 +371,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         // console.log(typeof(form_value.area[0]));
         //form_value.area = JSON.stringify(form_value.area);
         if (form_value.service == "") {
-            layer.msg('请输入文案标题');
-            layer.tips('请输入文案标题','#wordCount', {
+            layer.msg('请输入标题');
+            layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -391,8 +389,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         }
 
         if (form_value.push_distributor == 0 && form_value.push_consumer== 0 && form_value.push_retailer== 0) {
-            layer.msg('请选择发送对象');
-            layer.tips('请选择发送对象','.send_object', {
+            layer.msg('请选择对象');
+            layer.tips('请选择对象','.send_object', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -401,7 +399,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择发送方式','.mode1', {
+            layer.tips('请选择方式','.mode1', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -410,7 +408,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.poster_url == undefined || form_value.poster_url =='') {
             // layer.msg('请选择封面图片');
-            layer.tips('请选择封面图片','.cover_photo', {
+            layer.tips('请上传图片','.cover_photo', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -419,7 +417,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.copywriting.length == 2) {
             // layer.msg('请填写发送内容');
-            layer.tips('请填写发送内容','.mode', {
+            layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -429,7 +427,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         var radio_val = $('input[name="Fruit"]:checked').val();
            if(radio_val==undefined){
             // layer.msg('请选择图文发送方式');
-            layer.tips('请选择图文发送方式','.Graphic_message', {
+            layer.tips('请选择方式','.Graphic_message', {
                   tips: [3, '#F22525'],
                   time: 4000
                 });
@@ -483,9 +481,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
 
 
-            //首先判断有没有保存，如果有保存的话那么就判断有没有保存后的guid
-        
-
+//首先判断有没有保存，如果有保存的话那么就判断有没有保存后的guid
 var guid_val = '';
     // 保存并继续新增
     $(".Newly_added").click(function() {
@@ -518,8 +514,8 @@ var guid_val = '';
         
          if($('.area_val').val()==''){
             if($('.word').text()==0){
-                  layer.msg('请输入文案标题');
-                  layer.tips('请输入文案标题','#wordCount', {
+                  layer.msg('请输入标题');
+                  layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -535,8 +531,8 @@ var guid_val = '';
             }
         }
          if($('.word').text()==0){
-                  layer.msg('请输入文案标题');
-                  layer.tips('请输入文案标题','#wordCount', {
+                  layer.msg('请输入标题');
+                  layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -576,8 +572,8 @@ var guid_val = '';
         // console.log(typeof(form_value.area[0]));
         // form_value.area = JSON.stringify(form_value.area);
         if (form_value.service == "") {
-            layer.msg('请输入文案标题');
-            layer.tips('请输入文案标题','#wordCount', {
+            layer.msg('请输入标题');
+            layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -593,8 +589,8 @@ var guid_val = '';
             return;
         }
         if (form_value.push_distributor == 0 && form_value.push_consumer== 0 && form_value.push_retailer== 0) {
-            layer.msg('请选择发送对象');
-            layer.tips('请选择发送对象','.send_object', {
+            layer.msg('请选择对象');
+            layer.tips('请选择对象','.send_object', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -603,7 +599,7 @@ var guid_val = '';
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择发送方式','.mode1', {
+            layer.tips('请选择方式','.mode1', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -612,7 +608,7 @@ var guid_val = '';
 
         if (form_value.poster_url == undefined || form_value.poster_url =='') {
             // layer.msg('请选择封面图片');
-            layer.tips('请选择封面图片','.cover_photo', {
+            layer.tips('请上传图片','.cover_photo', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -622,7 +618,7 @@ var guid_val = '';
 
         if (form_value.copywriting.length==2) {
             // layer.msg('请填写发送内容');
-            layer.tips('请填写发送内容','.mode', {
+            layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -632,7 +628,7 @@ var guid_val = '';
         var radio_val = $('input[name="Fruit"]:checked').val();
            if(radio_val==undefined){
             // layer.msg('请选择图文发送方式');
-             layer.tips('请选择图文发送方式','.Graphic_message', {
+             layer.tips('请选择方式','.Graphic_message', {
                   tips: [3, '#F22525'],
                   time: 4000
                 });
@@ -716,8 +712,8 @@ var guid_val = '';
         
          if($('.area_val').val()==''){
             if($('.word').text()==0){
-                  layer.msg('请输入文案标题');
-                  layer.tips('请输入文案标题','#wordCount', {
+                  layer.msg('请输入标题');
+                  layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -735,8 +731,8 @@ var guid_val = '';
             }
         }
         if($('.word').text()==0){
-                  layer.msg('请输入文案标题');
-                  layer.tips('请输入文案标题','#wordCount', {
+                  layer.msg('请输入标题');
+                  layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -776,8 +772,8 @@ var guid_val = '';
         // console.log(typeof(form_value.area[0]));
         // form_value.area = JSON.stringify(form_value.area);
         if (form_value.service == "") {
-            layer.msg('请输入文案标题');
-            layer.tips('请输入文案标题','#wordCount', {
+            layer.msg('请输入标题');
+            layer.tips('请输入标题','#wordCount', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -793,8 +789,8 @@ var guid_val = '';
             return;
         }
         if (form_value.push_distributor == 0 && form_value.push_consumer== 0 && form_value.push_retailer== 0) {
-            layer.msg('请选择发送对象');
-            layer.tips('请选择发送对象','.send_object', {
+            layer.msg('请选择对象');
+            layer.tips('请选择对象','.send_object', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -803,7 +799,7 @@ var guid_val = '';
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择发送方式','.mode1', {
+            layer.tips('请选择方式','.mode1', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -812,7 +808,7 @@ var guid_val = '';
 
         if (form_value.poster_url == undefined || form_value.poster_url =='') {
             // layer.msg('请选择封面图片');
-            layer.tips('请选择封面图片','.cover_photo', {
+            layer.tips('请上传图片','.cover_photo', {
                   tips: [4, '#F22525'],
                   time: 4000
                 });
@@ -822,7 +818,7 @@ var guid_val = '';
 
         if (form_value.copywriting.length==2) {
             // layer.msg('请填写发送内容');
-            layer.tips('请填写发送内容','.mode', {
+            layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -832,7 +828,7 @@ var guid_val = '';
         var radio_val = $('input[name="Fruit"]:checked').val();
            if(radio_val==undefined){
             // layer.msg('请选择图文发送方式');
-             layer.tips('请选择图文发送方式','.Graphic_message', {
+             layer.tips('请选择方式','.Graphic_message', {
                   tips: [3, '#F22525'],
                   time: 4000
                 });
@@ -1005,6 +1001,5 @@ function clacImgZoomParam(maxWidth, maxHeight, width, height) {
     param.top = Math.round((maxHeight - param.height) / 2);
     return param;
 }
-
 
 

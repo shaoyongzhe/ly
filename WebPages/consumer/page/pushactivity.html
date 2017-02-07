@@ -230,7 +230,18 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="whiteblock"></div>
+                        <div class="assetinfo" ms-if="item.topiclist.length>0">
+                            <a href="javascript:;" class="assetcontent" ms-click="topicClick(item)">
+                                <div class="asset_left">
+                                    <div class="topictitle"><nobr>{{item.topiclist[0].topictitle}}</nobr></div>
+                                    <div class="topictitle_1"><small>{{item.topiclist.length>1?'等活动':''}}</small></div>
+                                </div>
+                                <div class="asset_right">
+                                    <small>已参加</small>{{item.topiclist[0].headcount}}<small>人</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="whiteblock" ms-if="item.topiclist==null"></div>
                         <ul class="div-down  ">
                             <li>
                                 {{item.itemtotalnum==null?'0':item.itemtotalnum}}
@@ -252,17 +263,7 @@
                             </li>
                             <div class="clear"></div>
                         </ul>
-                        <div class="assetinfo" ms-if="item.topiclist.length>0">
-                            <a href="javascript:;" class="assetcontent" ms-click="topicClick(item)">
-                                <div class="asset_left">
-                                    <div class="topictitle"><nobr>{{item.topiclist[0].topictitle}}</nobr></div>
-                                    <div class="topictitle_1"><small>{{item.topiclist.length>1?'等活动':''}}</small></div>
-                                </div>
-                                <div class="asset_right">
-                                    <small>已参加</small>{{item.topiclist[0].headcount}}<small>人</small>
-                                </div>
-                            </a>
-                        </div>
+                      
                         <hr />
                     </div>
                     <div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; ">
@@ -301,7 +302,8 @@
         <div id="bottom-nav"></div>
     </footer>
     <div id="activityrule"></div>
-    <script type="text/javascript">var jspath = window.location.pathname.replace(".html", ".js");document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk" + jspath + "\">");document.writeln("<\/script>");</script>
+    <script type="text/javascript" src="/js/wx/md5.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
@@ -640,7 +642,8 @@
             topicClick: function (el) {
                 var topicid = "";
                 $.each(el.topiclist, function (index, item, array) {
-                    topicid += "," + item.topicid
+                    if (index < 20)
+                        topicid += "," + item.topicid
                 });
 
                 location.href = "../page/participate1.html?topicid=" + topicid.substring(1)

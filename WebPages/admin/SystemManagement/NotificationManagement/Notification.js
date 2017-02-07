@@ -45,49 +45,61 @@ function getList(curr, handle, searchForm) {
         $("table.notify tbody").empty();
 
         var isSet = "<span class='btn setDefault'>设为默认</span><span class='btn del' title='删除'>删除</span>",
-		autoW = "210",//75
+        autoW = "210",//75
         tr = "",
-		td = data.content;
+        td = data.content;
         for (var i = 0; i < td.length; i++) {
             var isHtml;
             var contentFormat = td[i].content;
-            //try {
-            //    var obj = JSON.parse(td[i].content);
-            //    contentFormat = JSON.stringify(obj, null, 4);
-            //} catch (e) {
-            //    contentFormat = td[i].content;
-            //}
+            var content = {};
+            try {
+                if (typeof (contentFormat) == "object") {
+                    content = JSON.stringify(td[i].content);//content = JSON.stringify(td[i].content, null, 4);
+                    // console.log(1)
+                } else {
+                    content = JSON.parse('"' + td[i].content + '"');//注意存入localstorage的时候，也要处理。
+                    // console.log(2)
+                };
+            } catch (e) {
+                content = "";
+            }
+            // try{
+            //          content = JSON.parse(contentFormat);
+            //      }catch(e){
+            //          content= contentFormat;
+            //      }
             tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
-			+ "</span></td><td>" + td[i].subcategory
+            + "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
             + "</td><td>" + td[i].groupname
             + "</td><td>" + td[i].area
+            + "</td><td>" + td[i].description
             + "</td><td class='templateid'>" + td[i].gateway_templateid
-			+ "</td><td title='" + contentFormat + "'><span class='content'>" + contentFormat
-			+ "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
-			+ "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
-			+ " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+            + "</td><td title='" + content + "'><span class='content'>" + content
+            + "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
+            + "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
+            + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
         }
 
         $("table.notify tbody").append(tr);
         // $(tr).appendTo($("table.notify tbody")).show(600);
 
         /*$(tr).appendTo($("table.notify tbody"));
-		// alert($(tr).length);
-		var len = $(tr).length;
-		var index = 0;
-		var interval = setInterval(next, 100);
+        // alert($(tr).length);
+        var len = $(tr).length;
+        var index = 0;
+        var interval = setInterval(next, 100);
 
-		function next() {
-			$('.notify tbody tr').eq(index).show(300);
-			index++;
-			if(index > len){
-				clearInterval(interval);
-				console.log(interval);
-				// return;
-				$('.pager-wrap').fadeIn(1000);
-			}
-		}*/
+        function next() {
+            $('.notify tbody tr').eq(index).show(300);
+            index++;
+            if(index > len){
+                clearInterval(interval);
+                console.log(interval);
+                // return;
+                $('.pager-wrap').fadeIn(1000);
+            }
+        }*/
 
         $('td span.content').each(function () {
             $(this).text($(this).html())
@@ -109,19 +121,19 @@ function getList(curr, handle, searchForm) {
                         return;
                     }
                     /*// alert($(tr).length);
-					var len = $('.notify tbody tr').length + 1;
-					var index = len;
-					var interval = setInterval(prev, 100);
-					layer.msg('正在查询...');
-					function prev() {
-						$('.notify tbody tr').eq(index).hide(600);
-						index--;
-					}*/
+                    var len = $('.notify tbody tr').length + 1;
+                    var index = len;
+                    var interval = setInterval(prev, 100);
+                    layer.msg('正在查询...');
+                    function prev() {
+                        $('.notify tbody tr').eq(index).hide(600);
+                        index--;
+                    }*/
                     getList(obj.curr, 'page');
                     /*if(handle=='open'){
-						layer.msg('正在查询...',{time:0});
-						getList(obj.curr, 'search');
-					}*/
+                        layer.msg('正在查询...',{time:0});
+                        getList(obj.curr, 'search');
+                    }*/
                 }
             }
         });
@@ -137,17 +149,17 @@ function getList(curr, handle, searchForm) {
                 return;
             }
             /*if(handle=='edit'){
-				layer.msg("修改成功");
-			}*/
+                layer.msg("修改成功");
+            }*/
             /*if(handle=='search'){
-				layer.msg("查询成功");
-			}*/
+                layer.msg("查询成功");
+            }*/
             if (handle == 'setDefault') {
                 layer.msg("设置默认模板成功");
             }
             /*if(handle=='open'){
-				layer.msg("已开启为当前使用模板");
-			}*/
+                layer.msg("已开启为当前使用模板");
+            }*/
             if (handle == 'page') {
                 layer.msg("加载成功");
                 return;
@@ -265,8 +277,8 @@ function getOptionsValue() {
     });
     //新增区域
     $('.secondtype').change(function () {
-        var firstType = $('.addForm .firsttype').find("option:selected").text();
-        var secondType = $(this).find('option:selected').attr('data-key');
+        var firstType = "";//$('.addForm .firsttype').find("option:selected").text();
+        var secondType = ""; //$(this).find('option:selected').attr('data-key');
         $('.fourthtype').children(":not('option:first')").remove();
         if (secondType != "") {
             var jsonData = {
@@ -324,9 +336,18 @@ $(".add").click(function () {
     $('.addForm').show();
     //获取所有发送途径
     _ajax("get", '/webapi/operation/notification/dict/allchannel', null, "发送途径", function (data) {
-        $('.thirdAllType').children(":not('option:first')").remove();
+        $('.addForm .template_sendway').children().remove();
+
         for (var key in data) {
-            $('.thirdAllType').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
+            //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+            $('.addForm .template_sendway').append("<li class='option'>" + data[key] + "</li>");
+        }
+    });
+    _ajax("get", '/webapi/operation/notification/dict/category?parameters={"category":""}', null, "发送途径", function (data) {
+        $('.addForm .template_category').children().remove();
+        for (var key in data) {
+            //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+            $('.addForm .template_category').append("<li class='option'>" + data[key] + "</li>");
         }
     });
     layer.open({
@@ -338,17 +359,23 @@ $(".add").click(function () {
         content: $('.addForm'),
     });
 });
+
+
 // 新增提交
 $('.add-btn').click(function () {
+
+
+
+
     var addForm = {
         gateway_templateid: $('.addForm .gateway_templateid').val(),//外部模板编号
-        category: $('.addForm .firsttype').find("option:selected").text(),//场景
-        subcategory: $('.addForm .secondtype').find("option:selected").text(),
-        channel: $('.addForm .thirdAllType').find("option:selected").text().trim(),
-        groupname: $('.addForm .fourthtypeInput').val().trim() == "" ? $('.addForm .fourthtype').find("option:selected").text() : $('.addForm .fourthtypeInput').val().trim(),
+        category: $('.addForm .category_input').val(),//场景
+        subcategory: $('.addForm .event_input').val(),
+        channel: $('.addForm .sendway_input').val().trim(),
+        groupname: $('.addForm .group_input').val(),
         content: $('.addForm .content').val(),
         description: $('.addForm .description').val(),
-        area: getDistrict($("#loc_province").find("option:selected").text(), $("#loc_city").find("option:selected").text(), $("#loc_county").find("option:selected").text()),
+        area: getDistrict($('#province span em').text(), $('#city span em').text(), $('#area span em').text()),
         isdefault: parseInt($('.addForm .isDefault').val())
     }
     if (addForm.category == "-- 请选择 --") {
@@ -397,9 +424,9 @@ $('.add-btn').click(function () {
 
 function getDistrict(province, city, county) {
     if (province == "省份") return ",,";
-    if (city == "地级市") return ",," + province;
-    if (county == "市、县、区") return "," + city + "," + province;
-    return county + "," + city + "," + province;
+    if (city == "城市") return ",," + province;
+    if (county == "区县") return "," + city + "," + province;
+    return province + "," + city + "," + county;
 }
 //设置默认分组
 $(".setDefaultGroup").click(function () {
@@ -445,7 +472,7 @@ $('table.notify')
                          btn: ['确定', '取消']
                      }, function () {
                          layer.msg('设置中...', { time: 0 });
-                         _ajax("put",  "/webapi/operation/notification/template/" + guid + "/defaultflag", null, '设置默认模板', function () {
+                         _ajax("put", "/webapi/operation/notification/template/" + guid + "/defaultflag", null, '设置默认模板', function () {
                              var cur = $('.laypage_curr').text();
                              getList(cur, 'setDefault');
                          });
@@ -454,6 +481,12 @@ $('table.notify')
                  .on('click', '.modify', function () {
                      var tr = $(this).parents('tr');
                      var trIndex = $(this).parents('tr').index();
+                     var con1;
+                     try {
+                         con1 = JSON.parse($(this).parents("tr").find("td").eq(7).text());
+                     } catch (e) {
+                         con1 = $(this).parents("tr").find("td").eq(7).text();
+                     }
                      $('#trIndex').val(trIndex);
                      var data = {
                          guid: tr.find('td:eq(0) .guid').val(),
@@ -462,19 +495,16 @@ $('table.notify')
                          channel: tr.find('td:eq(2)').text(),
                          groupname: tr.find('td:eq(3)').text(),
                          area: tr.find('td:eq(4)').text(),
-                         gateway_templateid: tr.find('td:eq(5)').text(),
-                         content: tr.find('td:eq(6)').text(),
-                         state: tr.find('td:eq(7)').text(),
-                         isdefault: tr.find('td:eq(8)').text().trim() == "默认" ? 1 : 0
+                         description: tr.find('td:eq(5)').text(),
+                         gateway_templateid: tr.find('td:eq(6)').text(),
+                         content: con1,
+                         state: tr.find('td:eq(8)').text(),
+                         isdefault: tr.find('td:eq(9)').text().trim() == "默认" ? 1 : 0
                      };
-                     //try {
-                     //    var contentObj = JSON.parse(data.content);
-                     //    data.content = contentObj;
-                     //} catch (e) {
-                     //    console.log(e);
-                     //    //alert("测试使用" + data.content);
-                     //}
-                     var jsonStr = JSON.stringify(data, null, 4);
+                     var jsonStr = JSON.stringify(data);
+                     // var template = jsonStr.replace("\"","");
+                     // localStorage.template=JSON.stringify(data);    
+                     // localStorage.ajaxType='modify';//纪录当前模式为修改。
                      $('#add').val(jsonStr);
                      $('#opType').val("notify");
                      //防止被修改
@@ -486,7 +516,7 @@ $('table.notify')
                          maxmin: true,
                          content: 'json/index.html',
                      });
-                 });// 单行修改	弹出插件本身
+                 });// 单行修改 弹出插件本身
 $('table.modulePeople')
                  .on('click', '.modify', function () {
                      var tr = $(this).parents('tr');
@@ -501,7 +531,7 @@ $('table.modulePeople')
                          maxmin: true,
                          content: 'json/index.html',
                      });
-                 });// 单行修改	弹出插件本身
+                 });// 单行修改 弹出插件本身
 
 // 批量删除
 /*$('.batchDel').click(function(){
@@ -532,7 +562,7 @@ $('table').on('click', '.open', function () {
     var guid = thisTr.find('.guid').val();
     var state = thisTr.find('.state');
     // state.text("已启用");return
-    _ajax('PUT',  '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
+    _ajax('PUT', '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
         if (data.error == "") {
             /*state.text("已启用");
             state.parents("tr").find('.handle-btns-wrap').innerWidth(75).html("<div class='handle-btns'><span class='arrow-right'></span><span class='btn modify'>修改</span></div>");
@@ -583,3 +613,49 @@ var _ajax = function (type, url, data, tip, success) {
         }
     });
 }
+
+
+$('body').on("click", ".select-wrap", function (e) {
+    // $('.select-wrap').click(function(e){
+    // debugger;
+    e.stopPropagation();
+    $(this).find('.select').toggle();
+    $(".select-wrap").not(this).find('.select').hide();
+});
+
+var staticcategory = "";
+$('.select').on('click', '.option', function (e) {
+    e.stopPropagation();
+    $(this).parent().hide().prev().val($(this).text());
+    if ($(this).parent().hasClass('template_category')) {
+        var category = $(this).parent().prev().val();
+        staticcategory = category;
+        var jsonData = {
+            "category": category
+        };
+        _ajax("get", '/webapi/operation/notification/dict/subcategory', jsonData, "发送途径", function (data) {
+            $('.addForm .template_event').children().remove();
+            for (var key in data) {
+                //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+                $('.addForm .template_event').append("<li class='option'>" + data[key] + "</li>");
+            }
+        });
+    } else if ($(this).parent().hasClass('template_event')) {
+        var subcategory = $(this).parent().prev().val();
+        var jsonData = {
+            "category": staticcategory,
+            "subcategory": subcategory
+        }
+        _ajax("get", '/webapi/operation/notification/dict/groupname', jsonData, "发送途径", function (data) {
+            $('.addForm .template_group').children().remove();
+            for (var key in data) {
+                //$('.addForm .template_sendway').append("<li>sms</li>");  //"<li data-key=" + data[key] + ">" + data[key] + "</li>"
+                $('.addForm .template_group').append("<li class='option'>" + data[key] + "</li>");
+            }
+        });
+    }
+});
+
+$(document).click(function () {
+    $('.select').hide();
+});

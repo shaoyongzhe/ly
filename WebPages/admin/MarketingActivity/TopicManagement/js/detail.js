@@ -511,10 +511,10 @@ var detailData = {
 // var topicId = '4b108a2261284dbb930f481b29426cff';
 
 
-debugger
+// debugger
 var topicId = parent.$('#guid').val();
 if(topicId == undefined) {
-	// alert(0);
+// 	// alert(0);
 	render(detailData);
 
 } else if(topicId != ""){
@@ -533,7 +533,8 @@ if(topicId == undefined) {
 
 function render(detailData){
 
-	// alert(1)
+	// debugger;
+	// alert(1);
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
@@ -662,23 +663,23 @@ function render(detailData){
 		}
 
 		// debugger
-		if(type.ticket_verify){
-			condType(type.ticket_verify, "核销次数");
+		if(type.核销次数){
+			condType(type.核销次数, "核销次数");
 		}
-		if(type.verify_person_count){
-			condType(type.verify_person_count, '核销人数');
+		if(type.核销人数){
+			condType(type.核销人数, '核销人数');
 		}
-		if(type.fans_range){
-			condType(type.fans_range, '惠粉数');
+		if(type.惠粉数){
+			condType(type.惠粉数, '惠粉数');
 		}
-		if(type.activityfanspercentage){
-			condType(type.activityfanspercentage, '粉丝留存率');
+		if(type.粉丝留存率){
+			condType(type.粉丝留存率, '粉丝留存率');
 		}
-		if(type.member_time){
-			condType(type.member_time, '会员时长');
+		if(type.会员时长){
+			condType(type.会员时长, '会员时长');
 		}
-		if(type.level){
-			condType(type.level, '会员等级');
+		if(type.会员等级){
+			condType(type.会员等级, '会员等级');
 		}
 	}
 
@@ -697,9 +698,10 @@ function render(detailData){
 			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
 		}
 
-		// debugger
+		// debugger;
 		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ ctype.timeunit +"</i>"+ str +" 次</p>");
 		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ prevDays +" "+ str +" 次</p>");
+		
 	}
 
 
