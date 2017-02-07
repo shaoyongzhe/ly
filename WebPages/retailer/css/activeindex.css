@@ -31,16 +31,17 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .proDetailBox>p{line-height: 0.75rem;padding: 0.13rem 0.13rem 0.13rem 1.1rem;background: url("../image/shop/icon_zhuan.png") no-repeat left 0.15rem;background-size: 0.75rem;}
 .proDetailBox>p:nth-of-type(2){background-image:url("../image/shop/icon_jian.png");}
 /**************搜索***************/
-.proSearch{margin: 0.5rem;padding: 0.3rem; border: 1px solid #c6c6c6;border-radius:0.125rem; }
+.proSearch{margin: 0.5rem;padding: 0.3rem; border: 1px solid #c6c6c6;border-radius:0.125rem;position: relative;}
 .titlestyle{width:2rem;height: 0.85rem; background: url("../image/shop/arrow_right.png") no-repeat right center;background-size:50%;padding-right: 0.3rem;position: relative;}
 .titlestyle>ul{display: none;border: 1px solid #c6c6c6;position: absolute;top: 1.25rem;left: -0.3rem;width: 100%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;box-shadow: 0 0 5px #aaa;}
 .titlestyle>ul>li{margin: 0 0.3rem;border-bottom:1px solid #C6C6C6 ;}
 .titlestyle>ul>li:last-of-type{border: 0;}
-.inputbox{-webkit-box-flex: 1;}
+.inputbox{-webkit-box-flex: 1;position: relative;}
 .inputbox>input{border: 0;width: 100%;height: 100%;font-size: 0.6rem;line-height: 0.8rem;}
 .searchbtn{display: block;width: 1.2rem;height: 0.85rem;background: url("../image/shop/icon_zoom.png") no-repeat right center; background-size:0.85rem;border-left: 1px solid #c6c6c6;}
+.clear{position: absolute;top: 0;right: 5px;width:0.8rem ;height:0.8rem ;background: url(../image/shop/icon_delete.png) no-repeat center;background-size: 0.8rem;}
 /**************中间主要内容***************/
-#cgl-cont{border-top: 1px solid #ddd;min-height:18.6rem;overflow: scroll;}
+#cgl-cont{border-top: 1px solid #ddd;min-height:18.6rem;overflow-y: scroll;overflow-x: hidden;}
 .cgl-menu{width: 3.875rem;min-height: 18.6rem; background: #f5f5f5;}
 .cgl-menu>li{line-height: 1.95rem;text-indent: 0.4rem; border-bottom: 1px solid #ddd;font-size: 0.6rem;color: #666;position: relative;}
 .cgl-menu>li.clion{background: #fff;}
@@ -57,11 +58,12 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 #loading>div{text-align: center;}
 
 
-.cgl-contlist{overflow-y:scroll;width: 73.5%;height: 100%;}
-.sanji{display: none;width: 75.5%;height: 1.95rem;text-align: center;line-height: 1.95rem;border-top: 1px solid #ddd;float: left;}
+.cgl-contlist{overflow-y:auto;width: 73.5%;height: 100%;padding-right: 10px;margin-right: -10px;}
+.cgl-contlist::-webkit-scrollbar{width:0;}
+.sanji{display: none;width: 81.1%;height: 1.95rem;text-align: center;line-height: 1.95rem;position: absolute;top: 2.05rem;right: -0.55rem;}
 .sanji>h4{font-weight: 100;height: 1.925rem;background: #fff;border-bottom: 1px solid #ddd;overflow: hidden;}
 .sanji>h4>i{font-style: normal;font-family: serif;transform: rotateZ(90deg);display: inline-block;position: relative;left: 8px;}
-.sanji-zi{display: none; background: rgba(0,0,0,0.2);height: 16rem;}
+.sanji-zi{display: none; background: rgba(0,0,0,0.2);height: 16.6rem;margin-top: -1px;}
 .sanji-zi>ul{background: #f5f5f5;margin-top: 1px;overflow: hidden;padding: 0.65rem 0.3rem;}
 .sanji-zi>ul>li{float: left;width: 3.5rem;height: 1.2rem; line-height: 1.2rem; border:1px solid #C6C6C6;border-radius: 3px;color: #999; background: #fff;margin-left: 0.2rem;}
 
@@ -76,9 +78,9 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .the-xiangxi>h3{font-weight: 100;color: #333;font-size: 0.65rem;}
 .the-xiangxi>p{color: #999;font-size: 0.5rem;}
 .c-price>span{color: red;font-size: 0.7rem;}
-.c-price>div{padding-right: 0.5rem;}
+.c-price>div{padding-right: 0.5rem;margin-top: -0.2rem;}
 .c-price>div>span{float: left;}
-.jian,.add{display: inline-block; width: 1.375rem;height: 1.375rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.37rem;}
+.jian,.add{display: inline-block; width: 1.32rem;height: 1.32rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.32rem;}
 .add{background-image: url("../image/shop/add.png");}
 .price-z{display: inline-block;height: 1.375rem;padding: 0 0.15rem;line-height: 1.375rem;}
 .the-xiangxi>del,.del{color: #bbb;font-size: 0.5rem;}
@@ -100,7 +102,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 footer{height: 50px;background: #333;color: #fff;}
 .footerl{-webkit-box-flex: 1;position: relative;}
 .cart{width: 43px;height: 43px;border-radius: 50%;position: absolute;top: -9px;left: 11px;background:#000 url("../image/shop/buycar2.png") no-repeat center;background-size: 50%;}
-.ammount{width: 32px;height: 32px;background: red;color: #fff; text-align: center;line-height: 32px;border: 2px solid #fff;border-radius: 50%;position: absolute;top:-10px;right: -14px;font-size: 16px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;transform:scale(0.5);}
+.ammount{width: 30px;height: 30px;background: red;color: #fff; text-align: center;line-height: 32px;border: 1px solid #fff;border-radius: 50%;position: absolute;top:-10px;right: -14px;font-size: 16px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;transform:scale(0.5);}
 .price{padding-left: 59px;line-height: 50px;font-size: 13px;}
-.footerr>a{display:block;color: #fff; width: 79px;background: #009f96;text-align: center;line-height: 50px;font-size: 14px;}
-.footerr>span{font-size: 12px;}
+.footerr>a{display:block;color: #fff; width: 79px;background: #009f96;text-align: center;line-height: 50px;font-size: 14px;padding: 0 9px;}
+.footerr>span{display: block;background: #54504f;text-align: center;line-height: 50px;padding: 0 9px;font-size: 14px;}
