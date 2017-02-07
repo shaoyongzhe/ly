@@ -33,7 +33,7 @@ function fnxrym() {
 		$(".dealer-header>i").html(url1.distributorname);
 		$(".proTitleBoxl>img").attr("src", url1.distributorimg);
 		$("#contactperson").html(url1.contactperson);
-		
+		$("#cutgift").html("￥" + url1.cutgift + "元");
 		$(".num").html($(".ammount").html());
 		$(".proDetailBox").html(url1.active);
 		$(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
@@ -59,8 +59,10 @@ function fnpricenum () {
 		},
 		success: function(data) {
 			console.log(data)
-			//$("#cutgift").html("￥" + url1.cutgift + "元");
-			//$(".ammount").html(url1.itemcount);
+			
+			$(".ammount").html(data.itemcount);
+			$(".num").html(data.itemcount);
+			$(".price>i").html(data.moneycount);
 		}
 	})
 }
@@ -265,7 +267,7 @@ function fnychxr(data) {
 			"<div class='the-xiangxi'> " +
 			"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
 			"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-			"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥0</span>";
+			"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>0</i></span>";
 		oli += "<div class='right'>";
 		if(data[k1]["itemcount"] <= 0) {
 			oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -341,7 +343,7 @@ function fncuxiao(data) {
 			oli += data[k1]["itemname"] + "</h3>" +
 				"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
 				"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-				"<span>￥" + Number(data[k1]["discountprice"]).toFixed(1) + "0</span>" +
+				"<span>￥<i>" + Number(data[k1]["discountprice"]).toFixed(1) + "0</i></span>" +
 				"<div class='right'>";
 			if(data[k1]["itemcount"] <= 0) {
 				oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -367,7 +369,7 @@ function fncuxiao(data) {
 			oli += data[k1]["itemname"] + "</h3>" +
 				"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
 				"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-				"<span>￥" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1) + "0</span>" +
+				"<span>￥<i>" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1) + "0</i></span>" +
 				"<div class='right'>";
 			if(data[k1]["itemcount"] <= 0) {
 				oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -429,7 +431,7 @@ function fnyibanlist(data) {
 						"<div class='the-xiangxi'> " +
 						"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
 						"<div class='ggdiv'><p class='ggborder'>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + " > </p></div>" +
-						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + data[k1]["itemslist"][k2]["price"] + "</span>" +
+						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
 						"<div class='right'>";
 					if(data[k1]["itemcount"] <= 0) {
 						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -455,7 +457,7 @@ function fnyibanlist(data) {
 						"<div class='the-xiangxi'> " +
 						"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
 						"<p>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + "</p>" +
-						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + data[k1]["itemslist"][k2]["price"] + "</span>" +
+						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
 						"<div class='right'>";
 					if(data[k1]["itemcount"] <= 0) {
 						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -481,7 +483,7 @@ function fnyibanlist(data) {
 				"<div class='the-xiangxi'> " +
 				"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
 				"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-				"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</span>";
+				"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</i></span>";
 			oli += "<div class='right'>";
 			if(data[k1]["itemcount"] <= 0) {
 				oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -530,12 +532,17 @@ function fncarnum() {
 			$(".num").html($(".ammount").html());
 		}
 		fnaddcar(this, $(this).next().html() - 0);
+		
 	}).on("click", ".add", function() {
 		var num = Number($(this).prev().html());
 		$(this).prev().html(num + 1).show().prev().show();
 		$(".ammount").html(Number($(".ammount").html()) + 1);
 		$(".num").html($(".ammount").html());
 		fnaddcar(this, $(this).prev().html() - 0);
+		
+		
+		console.log($(this).parent().prev().find("i").html())
+		$(".price>i").html($(".price>i").html()+$(this).parent().prev().find("i").html())
 	});
 }
 //添加购物车
