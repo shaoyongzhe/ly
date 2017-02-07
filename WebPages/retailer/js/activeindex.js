@@ -532,17 +532,14 @@ function fncarnum() {
 			$(".num").html($(".ammount").html());
 		}
 		fnaddcar(this, $(this).next().html() - 0);
-		
+		$(".price>i").html(Number($(".price>i").html())-Number($(this).parent().prev().find("i").html()))
 	}).on("click", ".add", function() {
 		var num = Number($(this).prev().html());
 		$(this).prev().html(num + 1).show().prev().show();
 		$(".ammount").html(Number($(".ammount").html()) + 1);
 		$(".num").html($(".ammount").html());
 		fnaddcar(this, $(this).prev().html() - 0);
-		
-		
-		console.log($(this).parent().prev().find("i").html())
-		$(".price>i").html($(".price>i").html()+$(this).parent().prev().find("i").html())
+		$(".price>i").html(Number($(".price>i").html())+Number($(this).parent().prev().find("i").html()))
 	});
 }
 //添加购物车
