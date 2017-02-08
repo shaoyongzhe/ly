@@ -422,8 +422,8 @@ var DictFunction =
                 url: "/webapi/ipaloma/topic/operation/" + $('#guid').val(),
                 async: true,
                 data: {
-                    ["currentstate"]: currentstate,
-                    ["optype"]: op
+                    "currentstate": currentstate,
+                    "optype": op
                 },
                 success: function (data) {
                     if (data.error)
