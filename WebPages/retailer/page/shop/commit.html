@@ -98,7 +98,7 @@
 				}else if(_data[i]["specification"]!=null && _data[i]["packagetypename"]==null){
 					_intr=_data[i]["specification"]
 				}else{
-					_intr=_data[i]["packagetypename"]+_data[i]["specification"]
+					_intr=_data[i]["specification"]+_data[i]["packagetypename"]
 				}
 	       		if(_data[i]["itemslist"]){
 	       			_name=_data[i]["itemslist"][_data[i]["selectedindex"]]["itemname"]
@@ -113,14 +113,13 @@
 		       		}	       			
 	       		}
 
-	       		if(_data[i]["isyucun"]==0){
+	       		if(_data[i]["isyucun"]===0){
 	       			if(!_data[i]["itemslist"]){
 		       			if(_data[i]["activityitem_id"]==""){
 		       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 		       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemslist"][_data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"]+"</div><div class="+"\"number\""+
-			       		"><div>"+_ltr+"</div><div>×"+_data[i]["itemcount"]+"</div></div><span class="+"\"pi\""+">￥"+_data[i]["itemunitcost"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
-							">预</span></span><p style="+"\"padding-left:82px\""+">可提"+_data[i]["prepaycount"]+_data[i]["packagetypename"]+"</p></div></div></li>"
+			       		"><div>"+_ltr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div></li>"
 			       		}else if(_data[i]["itemkind"]=="降价"){
 			       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 			       			_discount+=(_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]
@@ -157,7 +156,7 @@
 		       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemslist"][_data[i]["selectedindex"]]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"]+"</div><div class="+"\"number\""+
 			       		"><div>"+_ltr+"</div><div>×"+_data[i]["itemcount"]+"</div></div><span class="+"\"pi\""+">￥"+_data[i]["itemslist"][_data[i]["selectedindex"]]["price"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
-							">预</span></span><p style="+"\"padding-left:82px\""+">可提"+_data[i]["prepaycount"]+_data[i]["packagetypename"]+"</p></div></div></li>"
+							">预</span></span><p>可提"+_data[i]["prepaycount"]+_data[i]["packagetypename"]+"</p></div></div></li>"
 			       		}else if(_data[i]["itemkind"]=="降价"){
 			       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 			       			_discount+=(_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]
@@ -194,7 +193,8 @@
 	       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 	       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 		       		">"+_name+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"]+"</div><div class="+"\"number\""+
-		       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div></li>"
+		       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div><span class="+"\"pi\""+">￥"+_data[i]["itemunitcost"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
+							">预</span></span><p>可提"+_data[i]["prepaycount"]+_data[i]["packagetypename"]+"</p></div></div></li>"
 		       		}else if(_data[i]["itemkind"]=="降价"){
 		       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 		       			_discount+=(_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]

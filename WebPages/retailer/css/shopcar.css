@@ -127,6 +127,9 @@ section li{
 .change{
 	width:40%;height:20px;float:right
 }
+.ab span:nth-child(2){
+	position: absolute;
+}
 .change span{
 	float:right;
 }

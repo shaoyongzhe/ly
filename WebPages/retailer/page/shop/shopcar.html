@@ -214,7 +214,7 @@
 			change(data1);
 			deLete(data1)
 			console.log(_discount)
-			$(".ab span").text(_discount.toFixed(2))
+			$(".ab span:nth-child(2)").text(_discount.toFixed(2))
 			
 		}
 			function deLete(data1){
@@ -586,7 +586,7 @@
                             <div class="totalsum">
                             	<span class="all"><i flag="1" class="gg"  style="width:1.4rem;height:1.4rem;border:1px solid #3a3635;border-radius: 1.4rem;"></i><span>全选</span></span>
                                           <p class="amountBig" style="margin-left: 0;float:left"> 合计：￥<span>50</span>元</p> 
-                                            <p style="margin-left: 0;" class="ab">已优惠金额：￥<span>139.00</span>  </p> 
+                                            <p style="margin-left: 0;" class="ab"><span>已优惠金额：￥</span><span>139.00</span>  </p> 
                                             <div class="commit">去提交<span>(20)</span></div>
                                             <div class="yj" style="display:none;position:fixed;right:0;bottom:0;width:24%;height:62px;background:#aaa;opacity: 0.78;"></div>
                                       </div>
