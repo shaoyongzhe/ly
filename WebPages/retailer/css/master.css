@@ -142,14 +142,20 @@ section .remarks{
 .saleTm-tit{
 	width:30%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
 }
+.saleTm-tit span:nth-child(1){
+	white-space:nowrap; overflow:hidden; text-overflow:ellipsis;max-width: 80%;
+}
 .saleTm-con{
-	flex:1;height:100%;text-align: right;line-height: 45px;
+	height:100%;text-align: right;line-height: 45px;
 }
 .saleTm-con img{
 	width:auto;height:45px;float:right
 }
-.saleTm-con span{
-	display: inline-block;padding-right: 5px;font-size: 16px;
+.saleTm-con span:nth-child(1){
+	display: inline-block;padding-right: 5px;font-size: 16px;    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 #sp1{
 	color:#009f96
@@ -161,13 +167,13 @@ section .remarks{
 	width:100%;height:40px;background:#f8f8f8;display: flex;line-height: 40px;
 }
 .introd .saleTm-tit{
-	width:50%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
+	width:80%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
 }
 .introd .saleTm-con{
-	flex:1;height:100%;text-align: right;line-height: 40px;font-size: 16px;padding-right: 8px;
+	height:100%;text-align: right;line-height: 40px;font-size: 16px;padding-right: 8px;
 }
 .introd .saleTm-con span{
-	display: inline-block;padding:0
+	padding:0;float:left
 }
 .shoplist{
 	width:100%;height:auto
@@ -176,10 +182,10 @@ section .remarks{
 	padding:12px 12px 12px 12px;border-bottom: 1px solid #e8e8e8;
 }
 .shoplist li img{
-	width:55px;height:55px
+	width:70px;height:70px
 }
 .shop-tit{
-	width:60%;float:left;
+	width:60%;float:left;font-size: 1.6rem;
 }
 .shop-tit img{
 	float:left
@@ -187,8 +193,11 @@ section .remarks{
 .shop-con{
 	width:100%;display:flex;
 }
+.shop-con img{
+	border-radius: 5px;
+}
 .shop-body{
-	float:right
+	float:right;font-size: 1.6rem;
 }
 .shop-con-bd{
 	flex: 1;font-size:1.5rem;padding-left:10px;color: #000;
@@ -200,10 +209,10 @@ section .remarks{
 	width:100%;clear:both;font-size: 1.4rem;padding:3px 0;display: flex;
 }
 .number div:nth-child(1){
-	width:60%;color:#b6b6b6
+	width:60%;color:#d0d0d0
 }
 .number div:nth-child(2){
-	flex:1;text-align: right;color:#666
+	flex:1;text-align: right;color:#d0d0d0
 }
 .discount{
 	width:100%;padding: 5px 0;
@@ -211,8 +220,11 @@ section .remarks{
 .discount-tit{
 	border-radius: 15%;border:1px solid #009f96;width:2.6rem;font-size: 1.2rem;text-align: center;color:#009f96;display: inline-block;
 }
+.shoplist li .img2{
+	width:1.4rem;height:1.4rem;margin-right: 1px;
+}
 .discount-con{
-	display: inline-block;font-size: 1.3rem;line-height:24px;color:#009f96;padding-left:5px
+	font-size: 1.3rem;line-height:24px;color:#009f96;padding-left:5px
 }
 .give{
 	width:100%;font-size: 1.4rem;height:2.8rem
@@ -239,10 +251,16 @@ section .remarks{
 	width:100%;
 }
 .gift{
-	float:right;margin-left:5px;width:88%
+	float:right;margin-left:5px;width:88%;color:#828487
+}
+.gift div{
+	padding-bottom: 3px;
+}
+.gif{
+	
 }
 .gifto{
-	width:10%;float:left
+	width:10%;float:left;color:#494a4a
 }
 .gifty{
 	float:right
@@ -251,7 +269,7 @@ section .remarks{
 	width:80%;display: inline-block;text-align: right;
 }
 .shop-con-bd .pi{
-	position: relative;height:1.9rem;padding:0;
+	position: relative;height:1.9rem;padding:0;font-size: 1.3rem;color:#ccc
 }
 .pi:after{    content: "";
     width: 100%;
@@ -260,6 +278,9 @@ section .remarks{
     top: 50%;
     left: 0;
     background: #999;}
+.shop-con-bd p{
+	font-size: 1.4rem;color:#b6b6b6 	
+}
 .same{
 	width:100%;height:25px;display: flex;padding:10px 0;border-bottom: 1px solid #f1f2f6;line-height: 25px;
 }
@@ -632,10 +653,10 @@ color:#666;background:#f5f5f5;
 .orderlistbox dt{width:100%; height:30px; line-height:30px; font-size:24px; vertical-align:middle;padding:15px 0px; text-indent:10px; background:url(../image/shop/icon_title.png) no-repeat left center;border-bottom:1px #ddd solid; }
 
 .orderlistbox dd{width:100%;clear:both; }
-.orderlistbox .imagebox{width:20%; float:left; background:#fff; }
+.orderlistbox .imagebox{float:left; background:#fff; }
 .orderlistbox .iconbox{width:1.4rem; float:left; padding-left:0.4rem; background:#fff; padding-top:0.2rem}
 .orderlistbox .iconbox img{width:100%; height:100%; }
-.orderlistbox .imagebox img{width:100%; height:100%; padding:0; margin:0; }
+.orderlistbox .imagebox img{width:55px;height:55px;padding:0; margin:0; }
 .orderlistbox .dectitlebox{width:71%; color:#333; float:right; padding:0px 0px; margin:0px; font-size:18px; background:#fff; }
 .orderlistbox .dectitlebox a{padding:0px 0px 1.2rem 0; margin:0px;font-size: 1.6rem;}
 .orderlistbox .dectitlebox i{ float:right; padding-right:5px; color:#999; font-size:1.6rem;background:url(../image/shop/arrow_right2.png) right center no-repeat; padding-right:1.4rem; }
@@ -645,8 +666,8 @@ color:#666;background:#f5f5f5;
 .orderlistbox .descbox i span{ padding:0px; display:inline-block;}
 .orderlistbox .descbox .pricstyle{ color:#ff0000;}
 
-.orderlistbox .descbox .il{width:48%; padding-left: 12px;}
-.orderlistbox .descbox .ir{float:right; text-align:right;width:40%;padding-right: 0.5rem;}
+.orderlistbox .descbox .il{width:auto; padding-left: 12px;}
+.orderlistbox .descbox .ir{float:right; text-align:right;width:auto;padding-right: 0.5rem;}
 
 .orderlistbox .image2box{width:70%; float:left; background:#fff; }
 .orderlistbox .image2box a{ display:inline-block; margin-right:5px;}

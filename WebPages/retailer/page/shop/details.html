@@ -10,6 +10,8 @@
 <script type="text/jscript" src="../../js/retailerid.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		console.log($("section").css("height"))
+
 		var pg=location.search.split("&")[0].replace("?","");
 		var data1=JSON.parse(localStorage.data);
 		var _id=JSON.parse(localStorage.data)[pg]["distributor_id"];
@@ -38,8 +40,7 @@
 					//alert(data["content"][7]["details"].length)
 					for(var i=0;i<data["content"][commodity]["details"].length;i++){
 						if(data["content"][commodity]["details"][i]["billid_class"]=="tblbillpofromcustomer"){
-							_list+="<li><div class="+"\"shop-con\""+"><img src="+"\"../../image/shop/p7.png\""+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><img src="+"\"../../image/icon05.png\""+
-							" /><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
+							_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
 							"</div><div class="+"\"number\""+"><div style="+"\"width:auto;padding-right:5px\">"+data1[pg]["itemkind"]+"</div><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+
 							data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["qualitycount"]+
 							"</div></div></div></div><div class="+
@@ -50,7 +51,7 @@
 							_flag++;
 							console.log(_flag)
 							if(_flag==1){
-								_give+="<li><div class="+"\"gg\""+">赠品</div><div class="+"\"gifto\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</div><div class="+"\"shul\""+">×15</div></li>"
+								_give+="<li><div class="+"\"gg\""+">赠品</div><div class="+"\"gif\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"<span>×15</span></div></li>"
 							}else{
 								_give+="<li><div class="+"\"gift\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</div><div class="+"\"shul\""+">×"+data["content"][commodity]["details"][i]["qualitycount"]+"</div></li>"
 							}
@@ -75,6 +76,9 @@
 						$("#same-ss div:nth-child(3)").text("￥0.0")
 					}
 					$(".amountBig span").text(Number($("#dd div:nth-child(2)").text().replace("￥",""))-Number($("#ff div:nth-child(2)").text().replace("￥",""))-Number($("#same-ss div:nth-child(3)").text().replace("￥","")))
+			if($("section").css("height").replace("px","")<=$("body").css("height").replace("px","")){
+				$("body").css({overflow:"hidden"})
+			}
 	})
 </script>
 </head>
