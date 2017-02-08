@@ -43,7 +43,7 @@ function fnxrym() {
 	}
 }
 //获取购物车总金额和总数量
-function fnpricenum () {
+function fnpricenum() {
 	$.ajax({
 		type: "get",
 		url: "/webapi/distributor/" + fnurl().shopid + "/shoppingcart/" + fnurl().distributor_id + "/count",
@@ -59,10 +59,10 @@ function fnpricenum () {
 		},
 		success: function(data) {
 			console.log(data)
-			
+
 			$(".ammount").html(data.itemcount);
 			$(".num").html(data.itemcount);
-			$(".price>i").html(data.moneycount);
+			$(".price>i").html(data.moneycount.toFixed(2));
 		}
 	})
 }
@@ -277,7 +277,7 @@ function fnychxr(data) {
 		oli += "</div>" +
 			" </div>" +
 			"<span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
-			"<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>件</div>";
+			"<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
 		oli += "</div>" +
 			"</div> " +
 			"</li>";
@@ -354,7 +354,7 @@ function fncuxiao(data) {
 				" </div><del>￥" + Number(data[k1]["originalprice"]).toFixed(1) + "0</del></div>" +
 				"</div> " +
 				"<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> " +
-				"<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"]==null?"":data[k1]["ruledesc"]) + "</p>" +
+				"<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>" +
 				"</li>";
 		} else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
 			dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
@@ -380,7 +380,7 @@ function fncuxiao(data) {
 				"<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + data[k1]["packagetypename"] + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + data[k1]["giftitemobj"]["packagetypename"];
 			data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
 			oli += "</p></div>" +
-				"<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"]==null?"":data[k1]["ruledesc"])+ "</p>" +
+				"<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>" +
 				"</li>";
 		}
 	}
@@ -402,9 +402,9 @@ function fnlist(odata) {
 		},
 		success: function(data) {
 			console.log(data)
-			if(data.result==false){
+			if(data.result == false) {
 				console.log(data.error)
-			}else{
+			} else {
 				fnyibanlist(data)
 			}
 		}
@@ -532,14 +532,21 @@ function fncarnum() {
 			$(".num").html($(".ammount").html());
 		}
 		fnaddcar(this, $(this).next().html() - 0);
-		$(".price>i").html(Number($(".price>i").html())-Number($(this).parent().prev().find("i").html()))
+		$(".price>i").html((Number($(".price>i").html()) - Number($(this).parent().prev().find("i").html())).toFixed(1));
 	}).on("click", ".add", function() {
 		var num = Number($(this).prev().html());
-		$(this).prev().html(num + 1).show().prev().show();
-		$(".ammount").html(Number($(".ammount").html()) + 1);
-		$(".num").html($(".ammount").html());
-		fnaddcar(this, $(this).prev().html() - 0);
-		$(".price>i").html(Number($(".price>i").html())+Number($(this).parent().prev().find("i").html()))
+		var xian=$(this).parents(".the-xiangxi").find(".cgl-syu>span").html();
+		if(xian && xian <= num) {
+			console.log(1)
+			$("body").append("<div>购买已到上限</div>");
+		} else {
+			$(this).prev().html(num + 1).show().prev().show();
+			$(".ammount").html(Number($(".ammount").html()) + 1);
+			$(".num").html($(".ammount").html());
+			fnaddcar(this, $(this).prev().html() - 0);
+			$(".price>i").html((Number($(".price>i").html()) + Number($(this).parent().prev().find("i").html())).toFixed(1));
+		}
+
 	});
 }
 //添加购物车
@@ -660,7 +667,7 @@ function fnserach() {
 $(function() {
 	fnpinpai(); //品牌下拉点击事件
 	fnurl(); //获取地址栏参数
-	fnpricenum();
+	fnpricenum(); //获取购物车总金额和总数量
 	fnxrym(); //通过参数渲染页面
 	fnscroll(); //打电话显示与隐藏
 	fnmenuhei(); //动态设置菜单右侧高度
