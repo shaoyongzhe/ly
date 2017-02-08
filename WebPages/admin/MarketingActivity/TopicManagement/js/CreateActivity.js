@@ -2267,7 +2267,7 @@ $('.saveToDb, .shenhe').click(function(){
 		if(acPrev == "活动开始前"){
 			// 判断时间--单位  天、月
 			if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text() == "天"){
-				begintimeInput = $('.begintime').val().substring(0,10);
+				begintimeInput = $('.begintime').val();
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
 				begintime = new Date(new Date().setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
@@ -2277,7 +2277,7 @@ $('.saveToDb, .shenhe').click(function(){
 		}else if(acPrev == "活动开始时"){
 			// 判断时间--单位  天、月
 			//if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text() == "天"){
-				begintimeInput = $('.begintime').val().substring(0,10);
+				begintimeInput = $('.begintime').val();
 				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
 //			} else {
 //				begintime = new Date(new Date().setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
