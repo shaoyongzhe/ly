@@ -112,14 +112,14 @@ $(function(){
 														'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
 													'</div>'+
 													'<div class="xsp_x_right">'+
-														'<a href="javascript:;">'+'110'+'</a>'+
+														'<a href="javascript:;">'+'无'+'</a>'+
 													'</div>'+
 												'</div>'+
 											'</div>'+
 										'</section>'+
 										'<div class="T_time">'+
 											'<p>'+
-												'<img src="../image/4.png" alt="">'+
+												'<img src="../image/4-1.png" alt="">'+
 												'<a href="javascript:void(0)">'+
 													'服务电话&nbsp;&nbsp;&nbsp;'+
 													'<span>'+data.servicephone+'</span>'+
@@ -216,7 +216,7 @@ $(function(){
 					}
 
 
-				//allSubsidy();
+				allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
@@ -235,34 +235,101 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-				 	/*if(subsidy.distributor == undefined && subsidy.retailer == undefined && subsidy.consumer == undefined &&subsidy.distributor_employee == undefined &&subsidy.retailer_employee == undefined ){
-				 		return str='';
-				 		
-				 	}else{*/
-						for(key in subsidy){
-							str+='<div class="tablecont_one">'+
-									'<div class="xps_q">'+
-										'<a href="javascript:;">'+keyg(key) +'</a>'+
+				 	
+					/*for(key in subsidy){
+						str+='<div class="tablecont_one">'+
+								'<div class="xps_q">'+
+									'<a href="javascript:;">'+keyg(key) +'</a>'+
+								'</div>'+
+								'<div class="Focus_box">'+
+									'<div class="Focus_box_left">'+
+										'<ul>'+
+											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+										'</ul>'+
 									'</div>'+
-									'<div class="Focus_box">'+
-										'<div class="Focus_box_left">'+
-											'<ul>'+
-												'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
-												'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
-												'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
-											'</ul>'+
+									'<div class="Focus_box_right">'+
+										'<div class="swiper-container swiper1">'+
+											'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
 										'</div>'+
-										'<div class="Focus_box_right">'+
-											'<div class="swiper-container swiper1">'+
-												'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+									'</div>'+
+								'</div>'+
+							 '</div>'	
+							 $('.tablecont:last').html(str)		
+					}*/
+
+
+					for(key in subsidy){
+						str+='<div class="tablecont_one">'+
+								'<div class="xps_q">'+
+									'<a href="javascript:;">'+keyg(key) +'</a>'+
+								'</div>'+
+								'<div class="Focus_box">'+
+									'<div class="Focus_box_left">'+
+										'<ul>'+
+											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+										'</ul>'+
+									'</div>'+
+									'<div class="Focus_box_right">'+
+										'<div class="swiper-container swiper1">'+
+											'<div class="swiper-wrapper">'+
+												'<ul class="swiper-slide FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
 											'</div>'+
 										'</div>'+
 									'</div>'+
-								 '</div>'	
-								 $('.tablecont:last').html(str)		
-						}
-					// }
-					//$('.tablecont').html(str);
+								'</div>'+
+							 '</div>'	
+							 $('.tablecont:last').html(str);	
+					}
+					
+
+
+					/*for(key in subsidy){
+						str+='<div class="tablecont_one">'+
+								'<div class="xps_q">'+
+									'<a href="javascript:;">'+keyg(key) +'</a>'+
+								'</div>'+
+								'<div class="Focus_box">'+
+									'<div class="Focus_box_left">'+
+										'<ul>'+
+											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+										'</ul>'+
+									'</div>'+
+									'<div class="Focus_box_right">'+
+										'<div class="swiper-container swiper1">'+
+										'<div class="swiper-wrapper">'+
+											'<ul class="FenX swiper-slide" style="background:green;float:left;opacity:0.5;height100px;overflow:hidden;">'+ 
+												'<li>'+
+													'<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background:#fff2f2;">' + '你好你好你好你好你好你好' + '</a>'
+													+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background:#ffe5e5;">' + '你好5你好5你好66' + '</a>'
+													+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display:block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+'在一个超惠卷主题活动中:'+'<br/>'
+												+'</li>'
+											+'</ul>'+
+										
+											'<ul class=" FenX swiper-slide" style="background:red;float:left;">'+ 
+												'<li>'+
+													'<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background:#fff2f2;">' + '你好你好你好你好你好你好' + '</a>'
+													+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background:#ffe5e5;">' + '你好5你好5你好66' + '</a>'
+													+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display:block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+'在一个超惠卷主题活动中:'+'<br/>'
+												+'</li>'
+											+'</ul>'+
+										'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							 '</div>'	
+							 console.log(str);
+							 $('.tablecont:last').html(str)		
+					}
+*/
+
+
+
 					// console.log(str);
 					// function composeSubsidyDescription(subsidycontent)
 					// {
@@ -304,6 +371,7 @@ $(function(){
 				var Swiper1 = new Swiper ('.swiper1', { 
 				    speed:1200,
 					slidesPerView :2,
+					
 				});
 
 
@@ -394,7 +462,7 @@ $(function(){
 							};
                     });  
 					
-					$('.qua_box').html(str);
+					$('.qua_box:last').html(str);
 			}
 
 

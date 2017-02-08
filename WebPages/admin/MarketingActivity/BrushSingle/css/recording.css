@@ -47,9 +47,11 @@ i,em,span,label{
 .option{
     background-color: #fff;
     margin: 0 20px;
+ 
 }
 .optionl{
-    width: 228px;
+    /*width: 228px;*/
+   width: 20%;
     padding: 20px 0 20px 28px;
     margin-bottom: 8px;
 }
@@ -134,7 +136,7 @@ i,em,span,label{
 .cgl-wgui>ul>li>ul{
     display: none;
     position: absolute;
-    left: 129px;
+    left: 136px;
     top: -1px;
     width: 124px;
     height: auto;
@@ -148,7 +150,7 @@ i,em,span,label{
 }
 .cgl-wgui>ul>li>ul>li{
     border-bottom: 1px solid #ddd;
-    padding:5px 0 5px 17px;
+    padding:3px 0 4px 17px;
 }
 .cgl-wgui>ul>li>ul>li:last-child{
     border: 0;
@@ -167,7 +169,7 @@ i,em,span,label{
     font-size: 14px;
 }
 .optionm{
-    padding:14px 28px 0 20px;
+    padding:14px 28px 0 20px;width: 34%;
 }
 .optionm input{width: 218px;}
 .optionm>li{margin-bottom: 9px;}
@@ -216,14 +218,14 @@ select::-ms-expand { display: none; }
     right: 141px;
 }
 .opm3>span{margin-right: 14px;line-height: 25px;}
-.opm3>div{border:1px solid #ccc;  border-radius: 3px;overflow: hidden;}
+.opm3>div{border:1px solid #ccc;  border-radius: 3px;overflow: hidden;width: 274px;}
 .diqu{
     height: 22px;
     border: 1px solid #ccc;
     border-radius: 3px;
     margin: 0 0 0 10px;
 }
-.optionr{padding-top: 14px;}
+.optionr{padding-top: 14px;width: 20%;}
 .optionr input{width: 138px;}
 .optionr>.opm2>select,.fsdiqu>select{width: 140px;height: 27px; border: 1px solid #ddd;margin-left: 10px;border-radius: 3px; background: url("../img/select.png") no-repeat scroll right center transparent;appearance:none;  -moz-appearance:none;-webkit-appearance:none;}
 .fsdiqu>select{width: 72px;margin-left: -10px;color: #aaa;padding-right: 23px;overflow: hidden;}
@@ -387,14 +389,10 @@ select::-ms-expand { display: none; }
 .cgl-xxcfzq>span{margin-right: 15px;}
 .cgl-li5{border-top: 1px solid #ddd;}
 .cgl-li5>h4{padding: 16px 0;}
-.cgl-li5>ul{float: right;line-height: 30px;width: 666px; margin-top: 10px; height: 128px;overflow-y: scroll;}
-.cgl-li5>ul>li{border-bottom: 1px solid #e4e4e4;}
+.cgl-li5>ul{float: right;line-height: 30px;width: 666px; margin-top: 6px; height: 128px;overflow-y: scroll;}
+.cgl-li5>ul>li{border-bottom: 1px solid #e4e4e4;line-height: 30px;}
 .cgl-li5>ul>li:last-of-type{border: 0;}
-.cgl-czjl>li>div{line-height: 15px;padding-top: 1px;}
-.cgl-li5>ul::-webkit-scrollbar{
-    width:0;
-    height:0;
-}
+.cgl-beizhu{padding-bottom: 6px;}
 
 .cgl-antc{text-align: center;padding-bottom: 44px;}
 .cgl-antc>span{
@@ -411,26 +409,40 @@ select::-ms-expand { display: none; }
 .cgl-antc>span:nth-of-type(2):hover{background: #22a05e;}
 /*****************发送通知弹窗********************/
 .cgl-anfs{text-align: center;padding-bottom: 44px;}
-.cgl-anfs>span{  display: inline-block;  background: #ff6032;  color: #fff;  padding: 7px 40px;  margin-right: 17px;  cursor: pointer; }
+.cgl-anfs>span{  display: inline-block;  background: #ff6032;  color: #fff;  padding: 7px 60px;  margin-right: 9px;  cursor: pointer; font-size: 16px;}
 .cgl-anfs>span:first-child{background: #aaa;}
 .layui-layer-content>.layui-layer-setwin{top:-27px;}
 /*****************申请描述********************/
-#cgl-miaoshu{overflow: hidden;padding: 26px 66px 14px;}
-#cgl-miaoshu>h4{float: left;width: 116px;font-weight: 100;}
-#cgl-miaoshu>textarea{float: left;width: 645px;height: 225px;text-indent: 5px;line-height: 14px;resize: none;}
-#cgl-kuaijie{overflow: hidden;padding: 10px 66px 90px;}
-#cgl-kuaijie>h4{float: left;width: 116px;font-weight: 100;}
+#cgl-miaoshu{overflow: hidden;padding: 6px 0 14px 90px;}
+#cgl-miaoshu>h4{float: left;width: 132px;font-weight: 100;position: relative;}
+#cgl-miaoshu>h4::before{content: "*";color: red;position: absolute;top: 0;left: -8px;font-size: 15px;}
+#cgl-miaoshu>textarea{float: left;width: 648px;height: 226px;outline: none; line-height: 14px;resize: none;border-color: #e4e4e4;}
+#cgl-kuaijie{overflow: hidden;padding: 10px 0 90px 90px;}
+#cgl-kuaijie>h4{float: left;width: 129px;font-weight: 100;}
 #cgl-kuaijie label{margin-right: 5px;color: red;}
 #cgl-kuaijie label>input{float: left;}
 /*****************调整等级********************/
+.layui-layer-content>div{padding-top: 26px;}
 .cgl-antz{text-align: center;padding-bottom: 38px;font-size: 16px;}
-.cgl-antz>span{display: inline-block;  background: #ff6032; color: #fff;  padding: 7px 40px;  margin-right: 17px; cursor: pointer; }
+.cgl-antz>span{display: inline-block;  background: #ff6032; color: #fff;  padding: 6px 50px;  margin-right: 8px; cursor: pointer; }
 .cgl-antz>.cgl-import:hover{background: #e65b33;}
 .cgl-antz>span:first-child{background: #aaa;}
-.cgl-dqdj{text-align: center;color: #ccc; padding: 60px 0 10px;font-size: 14px;}
-.cgl-tiaoz{text-align: center;padding: 0 0 57px;font-size: 16px;}
-.qrentext,.jctext{padding-top: 70px;}
-.cgl-tiaoz select{width: 108px;height: 22px;padding-left: 30px;margin-left: 10px; border: 1px solid #ddd;border-radius: 3px;text-align: center;  appearance:none;  -moz-appearance:none;-webkit-appearance:none; background: url("../img/select.png") no-repeat scroll right center transparent; }
+.cgl-antz>.cgl-qrwgqx:hover{background: #999;}
+.cgl-dqdj{color: #aaa; font-size: 14px;padding: 0 0 0 62px;line-height: 1.7;}
+.cgl-dqdj>span{margin-left: 100px;}
+.cgl-tiaoz{padding: 6px 0 0 62px;font-size: 14px;}
+.cgl-jibie{font-size: 14px;padding: 0 0 14px 90px;}
+.cgl-jibie>span{margin-right: 64px;}
+
+#cgl-tjbz{overflow: hidden;padding: 14px 0 60px 121px;}
+#cgl-tjbz>h4{float: left;width: 87px;font-weight: 100;position: relative;}
+#cgl-tjbz>h4::before{content: "*";color: red;position: absolute;top: 0;left: -8px;font-size: 15px;}
+#cgl-tjbz>textarea{float: left;width: 646px;height: 295px;outline: none; line-height: 14px;resize: none;border-color: #e4e4e4;}
+
+.qrentext{overflow: hidden;text-align: center;padding: 6px 0 45px 115px;}
+.jctext{padding: 6px 0 45px;font-size: 16px;text-align: center;}
+.qrentext textarea{width: 646px; height: 358px;margin-left: 65px;border-color: #e4e4e4;resize: none;outline: none;}
+.cgl-tiaoz select{width: 108px;height: 22px;padding-left: 30px;margin-left: 62px; border: 1px solid #ddd;border-radius: 3px;text-align: center;  appearance:none;  -moz-appearance:none;-webkit-appearance:none; background: url("../img/select.png") no-repeat scroll right center transparent; }
 .cgl-antz>.layui-layer-close{position: relative;}
 
 
