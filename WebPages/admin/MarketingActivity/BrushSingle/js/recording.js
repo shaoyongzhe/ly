@@ -21,8 +21,8 @@ var state = {
 	pagecount: "50" //要查询的数据条数
 };;
 
-if(localStorage.state) {
-	state = JSON.parse(localStorage.state);
+if(sessionStorage.state) {
+	state = JSON.parse(sessionStorage.state);
 } else {
 	state = {
 		state: "未处理", //状态
@@ -173,7 +173,6 @@ function fnshijian(state) {
 			//console.log(data)
 			$(".cgl-jzz").hide();
 			if(data.allcount == 0) {
-				console.log(data)
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
@@ -286,7 +285,7 @@ function fnxze1() {
 		state["state"] = $(".ztai>.cgl-wgui:visible .cgl-con1:eq(0)>strong").html();
 		state["lastindex"] = 0;
 		fnshijian(state);
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 	});
 }
 
@@ -299,7 +298,7 @@ function fnxiala() {
 		state["lastindex"] = 0;
 		state["state"] = $(".cgl-wgui>.cgl-con>strong", ".ztai").html();
 		fnshijian(state);
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 	});
 	$(document).click(function(e) {
 		if(!$(e.target).closest(".cgl-wgui").length) {
@@ -336,7 +335,7 @@ function fndate() {
 					state["queryenddate"] = $('#cgl-cxdata1').val();
 					state["lastindex"] = 0;
 					fnshijian(state);
-					localStorage.setItem("state", JSON.stringify(state));
+					sessionStorage.setItem("state", JSON.stringify(state));
 				}
 			}
 		});
@@ -367,7 +366,7 @@ function fnfsdiqu() {
 			state["province"] = sheng;
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
 	$("#city>ul").on("click", "li", function() {
@@ -388,7 +387,7 @@ function fnfsdiqu() {
 			state["city"] = shi;
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
 	$("#area>ul").on("click", "li", function() {
@@ -409,7 +408,7 @@ function fnfsdiqu() {
 			state["county"] = qu;
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
 
@@ -418,7 +417,7 @@ function fnfsdiqu() {
 function fnweignum() {
 	$("#cgl-xzf").change(function() {
 		state["compare"] = $(this).find("option:selected").text();
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 		if($("#cgl-wgcs").val() != "") {
 			state["brcount"] = Number($("#cgl-wgcs").val());
 			state["lastindex"] = 0;
@@ -432,7 +431,7 @@ function fnweignum() {
 			state["brcount"] = $(this).val();
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		} else {
 			if($(this).val() - 0 === state["brcount"]) {
 				$(this).val($(this).val() - 0);
@@ -442,7 +441,7 @@ function fnweignum() {
 				state["lastindex"] = 0;
 				fnshijian(state);
 				//console.log(state)
-				localStorage.setItem("state", JSON.stringify(state));
+				sessionStorage.setItem("state", JSON.stringify(state));
 			}
 
 		}
@@ -460,7 +459,7 @@ function fnvipname() {
 			state["membertype"] = $("#cgl-md").find("option:selected").val();
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}, 1000);
 	});
 }
@@ -496,7 +495,7 @@ function fnwgjb() {
 		state["level"] = level;
 		state["lastindex"] = 0;
 		fnshijian(state);
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 	});
 }
 //重置按钮
@@ -524,7 +523,7 @@ function fnreset() {
 		} else {
 			state = state1;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 		$("#province>span>em").html("省");
 		$("#city>span>em").html("市");
