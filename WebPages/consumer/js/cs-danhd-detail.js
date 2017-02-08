@@ -106,8 +106,18 @@ function shareactivities() {
                                 topicid += "," + items.topicid
                         });
 
-                        html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
-                        html += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div>"
+                        //html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
+                        //html += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div></div></div>"
+
+                        html += "<div class=\"assetinfo\">"
+                        html += "<a href=\"javascript:;\" class=\"assetcontent\"  onclick=\"topicClick('" + topicid + "')\">"
+                        html += "<div class=\"asset_left\">"
+                        html += "<div class=\"topictitle\"><nobr >" + item.topiclist[0].topictitle + "</nobr></div>"
+                        html += "<div class=\"topictitle_1\"><small>" + (item.topiclist.length > 1 ? '等活动' : '') + "</small></div>  </div>"
+                        html += " <div class=\"asset_right\">"
+                        html += "   <small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small>"
+                        html += " </div> </a> </div> "
+
                     } else {
                         html += '<div class="whiteblock"></div>'
                     }
@@ -122,7 +132,7 @@ function shareactivities() {
                     //    html += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
                     //}
                    
-                    html += '  <hr />  </div>'
+                    html += '  <hr />  </div></div>'
                 }
                 html += '<div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; "><div class="more-md" style="border:none">'
                 + '<div class="text"> 共有<span>' + obj.retailer_count + '</span>家门店可以用以上超惠券<br>找找你身边的门店吧!</div>'
