@@ -50,8 +50,8 @@
 			<div class="input-contorl">
 				<label for="">活动时间</label>
 				<span class="edit-area">
-					<input type="text" class="time actBegin begintime" readonly> - 
-					<input type="text" class="time actEnd endtime" readonly>
+					<input type="text" id="actBegin" class="time actBegin begintime" readonly> - 
+					<input type="text" id="actEnd" class="time actEnd endtime" readonly>
 					<em class='tip forTime'> * 活动账户余额不足时活动会自动停止</em>
 				</span>
 			</div>
@@ -59,8 +59,8 @@
 			<div class="input-contorl">
 				<label for="">会员参与时间</label>
 				<span class="edit-area">
-					<input type="text" class="time involBegin earliestjointime" readonly> - 
-					<input type="text" class="time involEnd latestjointime" readonly>
+					<input type="text" id="joinBegin" class="time involBegin earliestjointime" readonly> - 
+					<input type="text" id="joinEnd" class="time involEnd latestjointime" readonly>
 				</span>
 			</div>
 
@@ -2121,6 +2121,97 @@
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
 <script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
 
+<script type="text/javascript">
+    $(".basic-msg").find(".time").each(function(){
+    	
+    	$(this).blur(function(){
+    		
+    		//获取活动时间与会员参与时间
+	        //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
+	        var basic = $('.basic-msg');
+	        var begintime = basic.find('.begintime').val().replace(new RegExp("-", "gm"), "/");
+	        var endtime = basic.find('.endtime').val().replace(new RegExp("-", "gm"), "/");
+	        var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-", "gm"), "/");
+	        var latestjointime = basic.find('.latestjointime').val().replace(new RegExp("-", "gm"), "/");
+	
+	        var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+	        var activeEnd = (new Date(endtime)).getTime();
+	        var joinBegin = (new Date(earliestjointime)).getTime();
+	        var joinEnd = (new Date(latestjointime)).getTime();
+	
+	        if (activeBegin > activeEnd) {
+//	        	alert(1)
+	            $("nav span").eq(0).click();
+	            layer.tips('请先检查活动结束时间', $('.endtime'));
+	            $('.endtime').focus();
+	            return;
+	        }
+	        if (joinBegin > joinEnd) {
+	            $("nav span").eq(0).click();
+	            layer.tips('请先检查会员参与结束时间', $('.latestjointime'));
+	            $('.endtime').focus();
+	            return;
+	        }
+    	})
+        
+    })
+           
+			var start = {
+				elem: '#actBegin',
+				format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+				min: laydate.now(), //设定最小日期为当前日期
+				max: '2099-06-16 23:59:59', //最大日期
+				istime: true,
+				istoday: false,
+				choose: function(datas) {
+					end.min = datas; //开始日选好后，重置结束日的最小日期
+					end.start = datas //将结束日的初始值设定为开始日
+					//layer.msg(datas);
+				}
+			};
+			var end = {
+				elem: '#actEnd',
+				format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+				min: laydate.now(),
+				max: '2099-06-16 23:59:59',
+				istime: true,
+				istoday: false,
+				choose: function(datas) {
+					start.max = datas; //结束日选好后，重置开始日的最大日期
+					//layer.msg(datas);
+				}
+			};
+			laydate(start);
+			laydate(end);
+
+			var startJ = {
+			    elem: '#joinBegin',
+			    format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+			    min: laydate.now(), //设定最小日期为当前日期
+			    max: '2099-06-16 23:59:59', //最大日期
+			    istime: true,
+			    istoday: false,
+			    choose: function (datass) {
+			        endJ.min = datass; //开始日选好后，重置结束日的最小日期
+			        endJ.start = datass //将结束日的初始值设定为开始日
+			       // layer.msg(datas);
+			    }
+			};
+			var endJ = {
+			    elem: '#joinEnd',
+			    format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+			    min: laydate.now(),
+			    max: '2099-06-16 23:59:59',
+			    istime: true,
+			    istoday: false,
+			    choose: function (datass) {
+			        startJ.max = datass; //结束日选好后，重置开始日的最大日期
+			      //  layer.msg(datas);
+			    }
+			};
+			laydate(startJ);
+			laydate(endJ);
+</script>
 
 <script type="text/javascript" src="js/CreateActivity.js"></script>
 <script type="text/javascript" src="js/area.js"></script>
