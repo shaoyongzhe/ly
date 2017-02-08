@@ -82,13 +82,13 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .c-price>div>span{float: left;}
 .jian,.add{display: inline-block; width: 1.32rem;height: 1.32rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.32rem;}
 .add{background-image: url("../image/shop/add.png");}
-.price-z{display: inline-block;height: 1.375rem;padding: 0 0.15rem;line-height: 1.375rem;}
+.price-z{display: inline-block;height: 1.32rem;padding: 0 0.15rem;line-height: 1.32rem;}
 .the-xiangxi>del,.del{color: #bbb;font-size: 0.5rem;}
 .del{position: relative;}
 .del>i{display: inline-block;width: 0.7rem;height: 0.7rem;background: url("../image/shop/yucun.png") no-repeat center;background-size: 0.7rem;margin:0 2px -0.1rem 2px;}
 .del:after{content: "";width: 100%;height: 1px;position: absolute;top: 50%;left: 0; background: #999;}
 .cgl-syu{color: #bbb;font-size: 0.6rem;}
-.cgl-active{color: #009f96;margin-bottom: 0.2rem;}
+.cgl-active{color: #009f96;margin: 0.1rem 0 0.2rem;}
 .cgl-active>span{display: inline-block;padding: 0.1rem; border: 1px solid #009f96;border-radius: 0.15rem;line-height: 1;margin-right: 0.15rem;}
 .youligift{margin: -0.85rem 0.5rem 0 1.75rem;}
 .cgl-beizhu{color: #999;}

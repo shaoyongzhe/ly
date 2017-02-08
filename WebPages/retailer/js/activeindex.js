@@ -62,7 +62,7 @@ function fnpricenum() {
 			$(".ammount").html(data.itemcount);
 			$(".num").html(data.itemcount);
 			$(".price>i").html(data.moneycount.toFixed(1));
-			fnqisong ();
+			fnqisong();
 		}
 	})
 }
@@ -614,10 +614,10 @@ function formaty() {
 }
 //起送价
 function fnqisong () {
-	$(".footerr>span>i").html(fnurl().cutgift-$(".price>i").html());
+	$(".footerr>span>i").html(Number(fnurl().cutgift-$(".price>i").html()).toFixed(1));
 	if($(".price>i").html()>=fnurl().cutgift){
-		$(".footerr>a").show();
 		$(".footerr>span").hide();
+		$(".footerr>a").show();
 	}else{
 		$(".footerr>a").hide();
 		$(".footerr>span").show();
