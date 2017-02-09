@@ -82,13 +82,13 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .c-price>div>span{float: left;}
 .jian,.add{display: inline-block; width: 1.32rem;height: 1.32rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.32rem;}
 .add{background-image: url("../image/shop/add.png");}
-.price-z{display: inline-block;height: 1.375rem;padding: 0 0.15rem;line-height: 1.375rem;}
+.price-z{display: inline-block;height: 1.32rem;padding: 0 0.15rem;line-height: 1.32rem;}
 .the-xiangxi>del,.del{color: #bbb;font-size: 0.5rem;}
 .del{position: relative;}
 .del>i{display: inline-block;width: 0.7rem;height: 0.7rem;background: url("../image/shop/yucun.png") no-repeat center;background-size: 0.7rem;margin:0 2px -0.1rem 2px;}
 .del:after{content: "";width: 100%;height: 1px;position: absolute;top: 50%;left: 0; background: #999;}
 .cgl-syu{color: #bbb;font-size: 0.6rem;}
-.cgl-active{color: #009f96;margin-bottom: 0.2rem;}
+.cgl-active{color: #009f96;margin: 0.1rem 0 0.2rem;}
 .cgl-active>span{display: inline-block;padding: 0.1rem; border: 1px solid #009f96;border-radius: 0.15rem;line-height: 1;margin-right: 0.15rem;}
 .youligift{margin: -0.85rem 0.5rem 0 1.75rem;}
 .cgl-beizhu{color: #999;}
@@ -102,8 +102,8 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 footer{height: 50px;background: #333;color: #fff;}
 .footerl{-webkit-box-flex: 1;position: relative;}
 .cart{width: 43px;height: 43px;border-radius: 50%;position: absolute;top: -9px;left: 11px;background:#000 url("../image/shop/buycar2.png") no-repeat center;background-size: 50%;}
-.ammount{width: 30px;height: 30px;background: red;color: #fff; text-align: center;line-height: 32px;border: 1px solid #fff;border-radius: 50%;position: absolute;top:-10px;right: -14px;font-size: 16px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;transform:scale(0.5);}
+.ammount{width: 30px;height: 30px;background: red;color: #fff; text-align: center;line-height: 32px;border: 1px solid #fff;border-radius: 50%;position: absolute;top:-10px;right: -10px;font-size: 16px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;transform:scale(0.5);}
 .price{padding-left: 59px;line-height: 50px;font-size: 13px;}
-.price>i,.c-price i{font-style: normal;}
+.price>i,.c-price i,.footerr>span>i{font-style: normal;}
 .footerr>a{display:block;color: #fff; width: 79px;background: #009f96;text-align: center;line-height: 50px;font-size: 14px;padding: 0 9px;}
 .footerr>span{display: block;background: #54504f;text-align: center;line-height: 50px;padding: 0 9px;font-size: 14px;}
