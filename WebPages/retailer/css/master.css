@@ -146,7 +146,7 @@ section .remarks{
 	white-space:nowrap; overflow:hidden; text-overflow:ellipsis;max-width: 80%;
 }
 .saleTm-con{
-	height:100%;text-align: right;line-height: 45px;
+	height:100%;text-align: right;line-height: 45px;flex: 1;
 }
 .saleTm-con img{
 	width:auto;height:45px;float:right
@@ -206,7 +206,7 @@ section .remarks{
 	width:1.5rem;height:1.5rem
 }
 .number{
-	width:100%;clear:both;font-size: 1.4rem;padding:3px 0;display: flex;
+	width:100%;clear:both;font-size: 1.4rem;padding:3px 0;display: flex;padding-top: 7px;
 }
 .number div:nth-child(1){
 	width:60%;color:#d0d0d0
@@ -247,6 +247,9 @@ section .remarks{
 .kind{
 	display: inline-block;width:100%
 }
+.loads{
+	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff
+}
 .kind li{
 	width:100%;
 }
@@ -257,7 +260,10 @@ section .remarks{
 	padding-bottom: 3px;
 }
 .gif{
-	
+	padding-left:5px
+}
+.gif span:nth-child(2){
+	float:right
 }
 .gifto{
 	width:10%;float:left;color:#494a4a

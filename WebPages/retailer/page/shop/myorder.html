@@ -43,6 +43,7 @@
 	        type:"get",
 	        error:function(){alert("网络出错")},
 	        success:function(data1){
+	        		localStorage.data=JSON.stringify(data1)
 	        		_data1=data1;
 	        		console.log(_data1)
 		  		 	  for(var i=0;i<_data1.length;i++){
@@ -57,7 +58,7 @@
 
 
 					   		$("#select li").click(function(){
-					   			  
+					   			  _id=$(this).attr("id")
 								 		$("#select li").removeClass("selected")
 								 		$(this).attr("class","selected");
 								 		that=$(this);
@@ -131,9 +132,9 @@ function shopList(pg){
 		  		_bookTm = (new Date(_bookTm)).getTime();
 		  			_price=_price.toFixed(2)
 				   	if(data["content"][j]["openflag"]=="0"){
-				   			_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+				   			_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}else{
-								_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+								_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}
 				 		_imgs=""
 					 			}else if(data["content"][j]["details"].length>0 && data["content"][j]["details"].length<=1){
@@ -145,10 +146,10 @@ function shopList(pg){
 					   				}
 						 			}
 					 				if(data["content"][j]["openflag"]=="0"){
-					 						_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
+					 						_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
 					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 					 				}else{
-					 						_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+j+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
+					 						_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
 					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 					 				}
 					 				
@@ -177,10 +178,8 @@ function shopList(pg){
 
 	function toShop(data,pg){
 		$(".orderlistbox dd").click(function(){
-				localStorage.data=JSON.stringify(_data1);
-				localStorage.data1=JSON.stringify(data)
-				localStorage.data2=JSON.stringify(_data2)
-				location.href="details.html?"+pg+"&"+$(this).attr("id");
+				localStorage.pg=$(this).attr("idd")
+				location.href="details.html?pg="+pg+"&index="+$(this).attr("index");
 		})
 	}
 		
@@ -245,9 +244,9 @@ function shopList(pg){
 			  		_bookTm = (new Date(_bookTm)).getTime();
 			  		_price=_price.toFixed(2)
 					   	if(data2["content"][r]["openflag"]=="0"){
-					   			_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+					   			_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";
 					 		}else{
-									_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+									_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 					 		}
 					 		_img="";
 						 			}else if(data2["content"][r]["details"].length>0 && data2["content"][r]["details"].length<=1){
@@ -260,10 +259,10 @@ function shopList(pg){
 						 			}
 						 			
 						 				if(data2["content"][r]["openflag"]=="0"){
-						 						_historyList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
+						 						_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
 						 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 						 				}else{
-						 						_shopList+="<dd style="+"\"padding-top:20px;\""+" id="+"\"shop"+(parseInt(r)+15)+"\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
+						 						_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
 						 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 						 				}
 						 				

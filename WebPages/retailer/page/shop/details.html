@@ -10,82 +10,94 @@
 <script type="text/jscript" src="../../js/retailerid.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		console.log($("section").css("height"))
+		
 
-		var pg=location.search.split("&")[0].replace("?","");
-		var data1=JSON.parse(localStorage.data);
-		var _id=JSON.parse(localStorage.data)[pg]["distributor_id"];
-		var _paging=1;
-		var commodity=location.search.split("&")[1].replace("shop","");
-		if(commodity>=15){
-			commodity-=15;
-			_paging=2;
+		var _page=localStorage.pg;
+		if(JSON.parse(_page)["pageindex"]==1){
+			_page=""
 		}
-		var data=_paging==1?JSON.parse(localStorage.data1):JSON.parse(localStorage.data2);
+		var commodity=location.search.split("&")[1].replace("index=","")
+		var pg=location.search.split("&")[0].replace("?pg=","")
 		var _list="";
 		var _kind="";
 		var _give="";
 		var _flag=0;
 		var _price=0;
 		var _amount=0;
-
-
-					console.log(data)
-					$(".emp li:nth-child(1)").text("订单号："+data["content"][commodity]["serialnumber"])
-					$(".emp li:nth-child(2)").text("下单时间："+data["content"][commodity]["issuetime"])
-					$(".emp li:nth-child(3)").text("期望配送时间："+data["content"][commodity]["billexpecteddelivertime"])
-					$(".emp li:nth-child(4)").text("订单备注："+(data["content"][commodity]["description"]==null?"":data["content"][commodity]["description"]))
-					$(".emp li:nth-child(5)").text("分销商名称："+data1[pg]["distributorname"])
-					$(".emp li:nth-child(6)").text("联系方式："+data1[pg]["mobilephone"])
-					//alert(data["content"][7]["details"].length)
-					for(var i=0;i<data["content"][commodity]["details"].length;i++){
-						if(data["content"][commodity]["details"][i]["billid_class"]=="tblbillpofromcustomer"){
-							_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
-							"</div><div class="+"\"number\""+"><div style="+"\"width:auto;padding-right:5px\">"+data1[pg]["itemkind"]+"</div><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+
-							data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["qualitycount"]+
-							"</div></div></div></div><div class="+
-							"\"discount\""+"></li>";
-							_amount+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"])
-						}else{
-							_price+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]
-							_flag++;
-							console.log(_flag)
-							if(_flag==1){
-								_give+="<li><div class="+"\"gg\""+">赠品</div><div class="+"\"gif\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"<span>×15</span></div></li>"
+		var _data1=JSON.parse(localStorage.data)
+		console.log(pg)
+		console.log(_data1[pg]["distributor_id"])
+		console.log(_data1)
+		$.ajax({
+			type:"get",
+			url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging="+_page,
+			async:true,
+			success:function(data){
+										console.log(data)
+						$(".emp li:nth-child(1)").text("订单号："+data["content"][commodity]["serialnumber"])
+						$(".emp li:nth-child(2)").text("下单时间："+data["content"][commodity]["issuetime"])
+						$(".emp li:nth-child(3)").text("期望配送时间："+data["content"][commodity]["billexpecteddelivertime"])
+						$(".emp li:nth-child(4)").text("订单备注："+(data["content"][commodity]["description"]==null?"":data["content"][commodity]["description"]))
+						$(".emp li:nth-child(5)").text("分销商名称："+_data1[pg]["distributorname"])
+						$(".emp li:nth-child(6)").text("联系方式："+_data1[pg]["mobilephone"])
+						//alert(data["content"][7]["details"].length)
+						for(var i=0;i<data["content"][commodity]["details"].length;i++){
+							if(data["content"][commodity]["details"][i]["billid_class"]=="tblbillpofromcustomer"){
+								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
+								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
+								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["qualitycount"]+
+								"</div></div></div></div><div class="+
+								"\"discount\""+"></li>";
+								_amount+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"])
 							}else{
-								_give+="<li><div class="+"\"gift\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</div><div class="+"\"shul\""+">×"+data["content"][commodity]["details"][i]["qualitycount"]+"</div></li>"
+								_price+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]
+								_flag++;
+								console.log(_flag)
+								if(_flag==1){
+									_give+="<li><div class="+"\"gg\""+">赠品</div><span class="+"\"gif\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"<span>×15</span></span></li>"
+								}else{
+									_give+="<li><span class="+"\"gift\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"<span>×"+data["content"][commodity]["details"][i]["qualitycount"]+"</span></span></li>"
+								}
+								
 							}
-							
+							console.log(i)
 						}
-						console.log(i)
-					}
-					$(".shoplist").html(_list)
-					//alert(_give)
-					if(_give!=""){
-						$(".kind").html(_give)
-					}else{
-						$(".giveto").remove()
-					}
-					$("#ss div:nth-child(2)").text("￥"+_price)
-					$("#dd div:nth-child(2)").text("￥"+_amount.toFixed(1))
-					if(_amount>=100 && _amount<500){
-						$("#same-ss div:nth-child(3)").text("￥10.0")
-					}else if(_amount>=500){
-						$("#same-ss div:nth-child(3)").text("￥50.0")
-					}else if(_amount<100){
-						$("#same-ss div:nth-child(3)").text("￥0.0")
-					}
-					$(".amountBig span").text(Number($("#dd div:nth-child(2)").text().replace("￥",""))-Number($("#ff div:nth-child(2)").text().replace("￥",""))-Number($("#same-ss div:nth-child(3)").text().replace("￥","")))
-			if($("section").css("height").replace("px","")<=$("body").css("height").replace("px","")){
-				$("body").css({overflow:"hidden"})
+						$(".shoplist").html(_list)
+						//alert(_give)
+						if(_give!=""){
+							$(".kind").html(_give)
+						}else{
+							$(".giveto").remove()
+						}
+						$("#ss div:nth-child(2)").text("￥"+_price)
+						$("#dd div:nth-child(2)").text("￥"+_amount.toFixed(1))
+						if(_amount>=100 && _amount<500){
+							$("#same-ss div:nth-child(3)").text("￥10.0")
+						}else if(_amount>=500){
+							$("#same-ss div:nth-child(3)").text("￥50.0")
+						}else if(_amount<100){
+							$("#same-ss div:nth-child(3)").text("￥0.0")
+						}
+						$(".amountBig span").text(Number($("#dd div:nth-child(2)").text().replace("￥",""))-Number($("#ff div:nth-child(2)").text().replace("￥",""))-Number($("#same-ss div:nth-child(3)").text().replace("￥","")))
+				console.log($("section").css("height"))
+				console.log($("body").css("height"))
+				if(Number($("section").css("height").replace("px",""))<=Number($("body").css("height").replace("px",""))){
+					alert(1)
+					$("body").css({overflow:"hidden"})
+				}
+				$(".loads").css({display:"none"})
 			}
+		});
+
 	})
 </script>
 </head>
 
 <body style="overflow-x: hidden;padding-bottom:60px;">
+	<div class="loads"><img src="../../image/shop/loading.gif" style="width:15%;margin: 70% 0 0 44%"/></div>
 	<section>
 	<div class="ad">
+		<img src="../../image/shop/border.jpg" style="width:100%" /> 
 		<ul class="emp">
 			<li></li>
 			<li></li>
@@ -94,6 +106,7 @@
 			<li></li>
 			<li></li>
 		</ul>
+		<img src="../../image/shop/border.jpg" style="width:100%" /> 
 	</div>
 <ul class="shoplist">
 

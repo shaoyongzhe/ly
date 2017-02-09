@@ -267,7 +267,7 @@
        	console.log(_discount)
        	$("#cc div:nth-child(2)").text("￥"+_discount)
 		$("#kk div:nth-child(2)").text("￥"+_price)
-		$(".amountBig span").text(_price)
+		$(".amountBig span").text(_price.toFixed(1))
 		
 		if(_price>=100 && _price<500){
 			$("#same-ss div:nth-child(3)").text("￥10")
@@ -281,7 +281,7 @@
 
 		
 		
-		$(".ab span").text(_discount.toFixed(2))
+		$(".ab span").text(_discount.toFixed(1))
        	$(".shoplist").html(_list)
        	$("#sp3").text(data.length)
        	$(".submit span").text("("+data.length+")")
@@ -290,6 +290,7 @@
 	   });  //ajax结束
 	   
    	$(".submit").click(function(){
+   		console.log(_Id)
    		$.ajax({
    			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
    			type:"post",
@@ -302,7 +303,7 @@
    			error:function(){},
    			success:function(data){
    				console.log(data)
-   				window.location="myorder.html"
+   				//window.location="myorder.html"
    			}
    		})
    	})
@@ -435,7 +436,7 @@
                             <div class="totalsum">
                                           <p class="amountBig"> 合计：￥<span>50</span>元</p> 
                                             <p class="ab">已优惠金额：￥<span>139.00</span>  </p> 
-                                            <div class="submit">去提交<span>(20)</span></div>
+                                            <div class="submit">提交订单</div>
                                       </div>
                             
                           

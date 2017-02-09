@@ -84,7 +84,7 @@ section li{
 	margin-left:5px
 }
 .disc span:nth-child(1){
-	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;padding:0 2px;font-size: 1.2rem;
+	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;padding:0 2px;font-size: 1.2rem;float: left;margin-right: 5px;
 }
 .disc span:nth-child(2){
 	font-size: 1.4rem;
