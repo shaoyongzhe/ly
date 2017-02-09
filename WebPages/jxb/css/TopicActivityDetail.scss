@@ -209,7 +209,6 @@ header img:nth-of-type(2){
     font-size:14px;
     line-height: 22px;
     color:#888888;
-    word-break: break-all;
 }
 .BtuwenWenS1,.BtuwenWenS2{
     font-family: arial;
@@ -542,8 +541,7 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
     color:#333;
     line-height: 24px;//目测    
     min-height:144px;//不设高度
-//  padding:3px 15px 4px 15px;//后期加上
-    padding: 3px 9px 4px 8px;//0206修改
+    padding:3px 15px 4px 15px;//后期加上
 //  background:red;
 }
 //整体的下面****************************************
@@ -704,33 +702,18 @@ $widhtBwrapDown:1000px;
     margin-top:10px;
     margin-bottom: 15px;
 }
-//会员参与资格下img(对勾和叉)
-.BDcyhdQualified .BDQFdsImg{
+//会员参与资格下img
+.BDcyhdQualified img{
     margin-right:5px;
     vertical-align: middle;
 }
-//会员参与资格下span//粉丝留存率:活动开始前1天,不低于70%
-.BDcyhdQualified .BDQFdsSpan{
+.BDcyhdQualified span{
     display: inline-block;
     font-family: "微软雅黑";
     font-size: 14px;
     color:#333;
     line-height: 24px;
     height:24px;
-}
-//会员参与资格下 门店最下面红字内容（如您的投放门店不在平台）
-.BDQFd2_span1{
-    font-size: 14px;
-    color: red;
-    display: inline-block;
-    width: 10px;
-    margin-top: 4px;
-    vertical-align: top;
-    line-height: 19px;
-}
-.BDQFd2_span2{
-    @extend .BDQFd2_span1;  
-    width: 308px;    
 }
 img.BDcyhdQualifiedXFZimg{
     width:123px;//来自图片尺寸
