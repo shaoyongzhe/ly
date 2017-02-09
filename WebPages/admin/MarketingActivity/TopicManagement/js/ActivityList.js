@@ -23,7 +23,6 @@ $(document).click(function(){
 	$('.selectL').hide();
 });
 
-
 /*起始时间laydate控件*/
 var dataStart = {
   elem: '#dataStart',
@@ -201,7 +200,8 @@ function basicQuery(){
 		url:"/webapi/ipaloma/topic/list/query",
 		async:true,
 		data:condition,
-		success:function(data){
+		success: function (data) {
+		    console.log(data);
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
@@ -279,7 +279,7 @@ function ConstructRecord(contentBody, statusData)
 				+'<td class="activityCode">'+x.activitycode+'</td>' 
 				+ '<td class="activitytitle">' + x.activitytitle + '</td>'
 				+ '<td class="activityTime">' + x.begintime + ' -- ' + x.endtime + '</td>'
-				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) + '</td>'
+				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) +'</td>'
 				+ '<td class="estimateJoinVipQuantity">' + x.membercount + '</td>'
 				+ '<td class="JoinedVipQuantity">' + x.alreadyinmembercount + '</td>'
 //				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
@@ -365,10 +365,19 @@ function statusAjax(){
 }
 
 /*区域信息拼接*/
+// districts -----> x.district
 function JointDistrict(districts)
 {
     var queryResult = $.Enumerable.From(districts)
-    .Select(function (x) { return x["name"] })
+    .Select(function (x) { 
+    	if(x["charge"]){
+    		var chrage_y = x["charge"];
+    		return x["name"] +"</br>"+ chrage_y["name"];
+    	}else{
+    		return x["name"];
+    	}
+    	
+    })
     .ToArray();
     return queryResult.join(" - ");
     

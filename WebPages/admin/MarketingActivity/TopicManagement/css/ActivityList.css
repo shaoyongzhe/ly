@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 /*通用样式*/
 .displayNone {
   display: none; }
@@ -301,6 +301,7 @@ button {
 }
 
 .activityList {
+  background: #f3f1f1;
   width: 97.1%; 
   margin: 0 auto;
 }
@@ -344,6 +345,7 @@ button {
 
 
 .activityList tbody{
+  width: 100%;
   background: #ffffff;
   /*overflow-y:scroll;*/
   height: 500px;
