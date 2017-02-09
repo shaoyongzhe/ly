@@ -1,0 +1,507 @@
+@charset "utf-8";
+html,
+body,
+div,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+h1,h2,h3,h4,h5,h6,
+form,
+fieldset,
+table,
+tr,
+td,
+p,
+input,
+img
+{
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft yahei";
+    font-size: 14px;
+}
+
+img{
+    border:none;
+}
+
+li{
+    list-style:none;
+}
+
+i,
+em{
+    display: inline-block;
+    font-style: normal;
+}
+
+a{
+    text-decoration:none;
+    color: #000;
+}
+
+a:hover,
+a:active,
+a:visited,
+a:focus{
+    /*text-decoration:none;	*/
+    outline: transparent;
+}
+
+input,select,textarea{
+    outline:none;
+    border:none;
+    background:none;
+}
+
+
+
+
+
+
+
+
+/**********************充值&提现****************************/
+.cz_dialog{
+    width: 1038px;
+    height: 716px;
+    border: 1px solid #cccccc;
+    margin: 0 auto;
+
+}
+.tx_dialog{
+    width: 1038px;
+    height: 716px;
+    border: 1px solid #cccccc;
+    margin: 0 auto;
+}
+
+.cz_dialog_top,.tx_dialog_top{
+    width: 100%;
+    height: 48px;
+
+}
+.cz_dialog_top p,.tx_dialog_top p{
+    height: 48px;
+    line-height: 48px;
+    margin-left: 22px;
+    margin-right: 22px;
+    border-bottom: 1px solid #cccccc;
+    font-size: 16px;
+    color: #4778c7;
+
+}
+.cz_dialog_mid{
+    margin: 10px 0 0 22px;
+    width: 994px;
+    height: 288px;
+    background: #fbbfac;
+}
+.tx_dialog_mid{
+    margin: 10px 0 0 22px;
+    width: 994px;
+    height: 288px;
+    background: #b4f5d3;
+}
+
+
+.pay,.tx_pay{
+    float: left;
+    width: 500px;
+
+}
+.xian{
+    float: left;
+    width: 1px;
+    height: 267px;
+    border-left: 1px solid #ff6032;
+    margin-top:11px ;
+}
+.collection,.tx_collection{
+    width: 492px;
+    height: 288px;
+    float: left;
+}
+.lolo{
+    width: 100px;
+    height: 100px;
+    background: #457181;
+    border-radius: 50%;
+    margin: 24px auto;
+
+}
+.font_co{
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #457181;
+}
+
+
+/*/!*pay*!/*/
+.pay_top,.tx_dialog_top{
+    width: 100%;
+}
+.collection_top,.tx_collection_top{
+    width: 100%;
+}
+.pay .pay_top li,.collection .collection_top li{
+    width: 94px;
+    height: 40px;
+    border-bottom-right-radius:7px;
+    border-bottom-left-radius:7px;
+    margin-left: 24px;
+    line-height: 40px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 20px;
+}
+.pay_left{
+    width: 115px;
+    height: 248px;
+    float: left;
+}
+.pay_left li{
+    width: 88px;
+    padding-left: 24px;
+    text-align: left;
+    height: 24px;
+}
+.cz_dialog i,.tx_dialog i{
+    color: #ff0000;
+    line-height: 24px;
+    padding: 0 4px;
+}
+.pay_left_1{
+    margin-top: 34px;
+}
+
+.pay_left_2{
+    margin-top:24px;
+    height: 17px;
+    display: none;
+}
+.pay_left_3{
+    margin-top:24px;
+}
+
+.pay_right{
+    width: 385px;
+    height: 248px;
+    float: right;
+    position: relative;
+}
+.pay_right_1{
+    margin-top: 34px;
+    text-indent: 6px;
+    height: 24px;
+    width: 351px;
+    position: relative;
+}
+.zh_mold{
+    position: absolute;
+    top: 24px;
+    left: -1px;
+    width: 99.6%;
+    background: #ffffff;
+    z-index: 999;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    display: none;
+    cursor: pointer;
+
+}
+.zh_mold li{
+    height:24px;
+    line-height: 24px;
+    border-bottom: 1px solid #cccccc;
+}
+.zh_mold li:hover{
+    background: #3f6cb3;
+}
+.pay_right_1 span{
+    float: left;
+    width: 351px;
+    height: 24px;
+    box-sizing: border-box;
+    margin-right: 9px;
+    border: 1px solid #BFBFBF;
+    position: relative;
+    background: #ffffff;
+}
+
+.pay_right_1 input{
+    width: 100%;
+    line-height: 24px;
+    text-indent: 4px;
+    background: url("../images/2.png") no-repeat 325px 4px;
+    float: left;
+    cursor: pointer;
+}
+.pay_right_2{
+    margin-top:24px ;
+    height: 24px;
+    width: 351px;
+    position: relative;
+    display: none;
+}
+.zh_bank{
+    position: absolute;
+    top: 23px;
+    left: 0;
+    width: 325px;
+    background: #ffffff;
+    z-index: 999;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    display: none;
+}
+.zh_bank li{
+    height:24px;
+    line-height: 24px;
+    border-bottom: 1px solid #cccccc;
+}
+.zh_bank li:hover{
+    background: #3f6cb3;
+}
+.pay_right_1 span{
+    float: left;
+    width: 351px;
+    height: 24px;
+    box-sizing: border-box;
+    margin-right: 9px;
+    border: 1px solid #BFBFBF;
+    position: relative;
+    background: #ffffff;
+}
+
+.pay_right_2 span{
+    float: left;
+    width: 351px;
+    height: 24px;
+    box-sizing: border-box;
+    margin-right: 9px;
+    border: 1px solid #BFBFBF;
+    position: relative;
+    background: #ffffff;
+}
+.pay_right_2 input{
+    width: 100%;
+    height: 100%;
+    text-indent: 4px;
+    background: url("../images/2.png") no-repeat 325px 4px;
+    float: left;
+    cursor: pointer;
+}
+.pay_right_3{
+    margin-top:24px ;
+    height: 24px;
+    width: 351px;
+    position: relative;
+
+}
+.pay_right_3 span{
+    height: 24px;
+    width: 100%;
+    float: left;
+    text-indent: 4px;
+    background: #ffffff;
+    border: 1px solid #BFBFBF;
+    box-sizing: border-box;
+}
+.pay_right_3 input{
+    width: 100%;
+    height: 100%;
+    text-indent: 4px;
+    line-height: 22px;
+    background: url("../images/2.png") no-repeat 325px 4px;
+    float: left;
+    cursor: pointer;
+}
+
+
+
+/*/!*collection*!/*/
+
+
+
+.cz_dialog_bom{
+    width: 994px;
+    height: 270px;
+    margin-left:22px;
+    float: left;
+}
+.cz_dialog_bom .bom_1{
+    width: 92px;
+    height: 270px;
+    float: left;
+}
+.cz_dialog_bom .bom_1 li{
+    width: 100%;
+    height: 24px;
+    margin-top:25px;
+    margin-left: 24px;
+}
+.cz_dialog_bom .bom_1 li:last-child{
+    text-indent: 14px;
+}
+.bom_2 {
+    width: 340px;
+    height: 270px;
+    float: left;
+    margin-left: 43px;
+
+}
+.bom_2 li{
+    width: 330px;
+    height: 24px;
+    border: 1px solid #BFBFBF;
+    box-sizing: border-box;
+    margin-top: 25px;
+}
+.bom_2 li input{
+    width: 90%;
+    height: 24px;
+    float: left;
+    line-height: 24px;
+}
+.bom_2 li:nth-child(2) span{
+    padding: 0 2%;
+    text-align: center;
+    line-height: 24px;
+}
+
+.bom_2 li:nth-child(3) img{
+    margin: 4px 5px;
+}
+.bom_2 li:last-child{
+    width: 330px;
+    height: 70px;
+    border: none;
+    position: relative;
+}
+.bom_2 li:last-child .ares{
+    width: 98%;
+    height: 100%;
+    border: 1px solid #bfbfbf;
+}
+.bom_2 li:last-child p{
+    width: 60px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: right;
+    padding-right: 5px;
+}
+.bom_3{
+    width: 430px;
+    height: 202px;
+    float: right;
+    padding-top: 70px;
+    padding-left: 60px;
+    position: relative;
+}
+/*上传图片*/
+#warp img{
+    float: left;
+}
+#warp li span{
+    position: absolute;
+    top: 100px;
+    left: 330px;
+}
+#warp a{
+    display: inline-block;
+    width: 130px;
+    height: 30px;
+    border-radius: 3px;
+    margin-left:20px;
+    margin-top: 70px;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    background: #ff6032;
+    text-align: center;
+    color: #ffffff;
+    line-height: 30px;
+}
+
+#warp a input{
+    /*float: right;*/
+    width: 130px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter:alpha(opacity=0);
+}
+
+
+.cz_dialog_Btn{
+    margin-left:24px;
+    width: 994px;
+    height: 103px;
+    float: left;
+}
+.cz_dialog_Btn .cancel{
+    margin-left: 330px;
+    width: 134px;
+    height: 50px;
+    background: #aaaaaa;
+    text-align: center;
+    line-height: 50px;
+    color: #cccccc;
+    border-radius: 3px;
+    font-size: 15px;
+    /*display: none;*/
+}
+.cz_dialog_Btn .confirm{
+    width: 200px;
+    height: 50px;
+    margin-left: 10px;
+    background: #27b56b;
+    text-align: center;
+    line-height: 50px;
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: 15px;
+    /*display: none;*/
+}
+.revise{
+    width: 200px;
+    height: 50px;
+    margin: 0 400px;
+    background: #ff6032;
+    text-align: center;
+    line-height: 50px;
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: none;
+;
+}
+
+
+.ze{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00E8D7;
+    filter:alpha(opacity=0);
+    -moz-opacity:0;
+    opacity:0;
+    z-index: 200;
+    display: none;
+
+}
