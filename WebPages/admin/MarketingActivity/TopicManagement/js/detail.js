@@ -389,6 +389,7 @@ render(detailData);*/
 var detailData = {
     "activity": {
         "guid": "02e80f58cd594eb2a24cb413424e53c5",
+        "activitycode": "11111111",
         "description": "11111111111111111111111111",
         "state": "上架",
         "begintime": "2017-01-10 00:00:00",
@@ -543,7 +544,7 @@ function render(detailData, a){
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	first.find('.guid').text(activity.guid);
+	first.find('.guid').text(activity.activitycode);
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
