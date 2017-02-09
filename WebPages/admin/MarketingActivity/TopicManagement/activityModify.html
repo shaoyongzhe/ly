@@ -67,7 +67,7 @@
 
 			<div class="input-contorl">
 				<label for="">活动主题</label>
-				<span class="edit-area re">
+				<span class="edit-area re hdzt bor pb10">
 					<textarea name="" id="" maxlength='30' class="activityTitle"></textarea>
 					<span class='tip ab'><em>0</em>/30</span>
 				</span>
@@ -84,24 +84,24 @@
 			<div class="input-contorl">
 				<label for="">活动时间</label>
 				<span class="edit-area">
-					<input type="text" class="time actBegin begintime" readonly> - 
-					<input type="text" class="time actEnd endtime" readonly>
-					<em class='tip forTime'> * 活动账户余额不足时活动会自动停止</em>
+					<input type="text" id="actBegin" class="time actBegin begintime" readonly> - 
+					<input type="text" id="actEnd" class="time actEnd endtime" readonly>
+					<em class='tip forTime'> <i class='pre'>*</i> 活动账户余额不足时活动会自动停止</em>
 				</span>
 			</div>
 
 			<div class="input-contorl">
 				<label for="">会员参与时间</label>
 				<span class="edit-area">
-					<input type="text" class="time involBegin earliestjointime" readonly> - 
-					<input type="text" class="time involEnd latestjointime" readonly>
+					<input type="text" id="joinBegin" class="time involBegin earliestjointime" readonly> - 
+					<input type="text" id="joinEnd" class="time involEnd latestjointime" readonly>
 				</span>
 			</div>
 
 			<div class="input-contorl">
 				<label for="">申报说明</label>
-				<em class='tip'> * 该段文字仅供凌云人员可见，用于活动申报说明</em>
-				<span class="edit-area re shenbao">
+				<em class='tip'> <i class='pre'>*</i> 该段文字仅供凌云人员可见，用于活动申报说明</em>
+				<span class="edit-area re shenbao bor pb10">
 					<textarea name="" id="shenbao" maxlength='500' class="description"></textarea>
 					<span class="tip ab"><em>0</em>/500</span>
 				</span>
@@ -116,7 +116,7 @@
 					<i><i></i></i>否
 				</span> -->
 				<span class="radio">是</span>
-				<span class="radio">否</span>
+				<span class="radio on">否</span>
 			</div>
 
 			<div class="input-contorl fuzeren">
@@ -351,21 +351,21 @@
 								<div class="selectWrap1 -hi">
 
 									<span>
-										<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span>
+										<input class="bor acMeI1" type="text" value="10" maxlength="5" /><span class="acMeS1">家</span>
 									</span><span class='to'></span><span>
-										<input class="bor acMeI2" type="text"  value="" />
+										<input class="bor acMeI2" type="text" value="30" maxlength="5" />
 										<span class="acMeS2">家</span>
 									</span>
 
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<!-- <div class="selectWrap1 hi">
 									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span >-</span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
@@ -440,7 +440,7 @@
 										</div>							
 									</div>
 									<!--类型2开始时，内容同类型1-->
-									 <div class="acZige3a hi acZige2tab">
+									 <div class="acZige3a hi acZige2tab" style="visibility: hidden;">
 										<input type="text" class="date" />
 										<div class="select-wrap  acSe7 dib">
 											<i></i>
@@ -453,7 +453,7 @@
 									</div> 
 									<!--类型3至今-->
 									<div class="acZige3b hi acZige2tab">
-										<input type="text" class="dib" value="不限" disabled/>		
+										<input type="text" class="time time_y dib" id="time_y" value="不限" />
 										<p class="dib">- 至今</p>
 									</div>			
 								</div>
@@ -531,7 +531,7 @@
 					<!--等待更改下面的类名acTy-->
 					<div class="dib hdc2 ver re">
 						<!-- <p class="p68 deleP">补贴条件</p>				 -->
-						<div class="select-wrap  acSe10 ba">
+						<div class="select-wrap acSe10 ba butieCond">
 							<i></i>
 							<em class="selected"></em>
 
@@ -1929,7 +1929,7 @@
 						<span class="tip warn">* 宣传文案、参与活动条件、活动补贴规则、将在会员pc端活动详情页、公众号超惠活动以及微信图文信息中显示</span>
 						<div class="detail">
 							
-							<div class="wenan-text re">
+							<div class="wenan-text re bor">
 								<textarea maxlength='500' placeholder='建议填写宣传性文字' class="xcwa"></textarea>
 								<span class="tip ab"><em>0</em>/500</span>
 							</div>

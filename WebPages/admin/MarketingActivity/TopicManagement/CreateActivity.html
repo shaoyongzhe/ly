@@ -33,7 +33,7 @@
 
 			<div class="input-contorl">
 				<label for="">活动主题</label>
-				<span class="edit-area re">
+				<span class="edit-area re hdzt bor pb10">
 					<textarea name="" id="" maxlength='30' class="activityTitle"></textarea>
 					<span class='tip ab'><em>0</em>/30</span>
 				</span>
@@ -52,7 +52,7 @@
 				<span class="edit-area">
 					<input type="text" id="actBegin" class="time actBegin begintime" readonly> - 
 					<input type="text" id="actEnd" class="time actEnd endtime" readonly>
-					<em class='tip forTime'> * 活动账户余额不足时活动会自动停止</em>
+					<em class='tip forTime'> <i class='pre'>*</i> 活动账户余额不足时活动会自动停止</em>
 				</span>
 			</div>
 
@@ -66,8 +66,8 @@
 
 			<div class="input-contorl">
 				<label for="">申报说明</label>
-				<em class='tip'> * 该段文字仅供凌云人员可见，用于活动申报说明</em>
-				<span class="edit-area re shenbao">
+				<em class='tip'> <i class='pre'>*</i> 该段文字仅供凌云人员可见，用于活动申报说明</em>
+				<span class="edit-area re shenbao bor pb10">
 					<textarea name="" id="shenbao" maxlength='500' class="description"></textarea>
 					<span class="tip ab"><em>0</em>/500</span>
 				</span>
@@ -171,7 +171,7 @@
 			<div class="input-contorl">
 				<label for="">商品类目</label>
 				<span class="setBtn disabled">设置</span>
-				<span class="tip warn">* 暂不支持</span>
+				<span class="tip warn">  <i class='pre'>*</i> 暂不支持</span>
 			</div>
 
 			<div class="input-contorl">
@@ -300,7 +300,7 @@
 					</div>
 					<!--控件2参与会员,含控件3参与资格-->
 					<div class="addSub2 created_l">
-						<div class="member">
+						<div class="member clr">
 							<!--会员类型acLy-->
 							<div class="dib acLy ver">
 								<!-- <p class="p68 deleP deleP1">会员类型</p>	 -->
@@ -316,28 +316,28 @@
 									</ul>
 								</div>				
 							</div>
-							<div class="dib red">*主办方</div>
+							<div class="dib red"><i class='pre'>*</i> 主办方</div>
 							<!--参加名额acMe-->
 							<div class="dib acMe">
 								<!-- <p class="p68 deleP deleP1">参加g名额</p> -->
 								<div class="selectWrap1 -hi">
 
 									<span>
-										<input class="bor acMeI1" type="text" value="10"/><span class="acMeS1">家</span>
+										<input class="bor acMeI1" type="text" value="10" maxlength="5" /><span class="acMeS1">家</span>
 									</span><span class='to'></span><span>
-										<input class="bor acMeI2" type="text"  value="30" />
+										<input class="bor acMeI2" type="text" value="30" maxlength="5" />
 										<span class="acMeS2">家</span>
 									</span>
 
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<!-- <div class="selectWrap1 hi">
 									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span >-</span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
@@ -347,9 +347,9 @@
 								</div>
 									
 							</div>
-							<div class="dib acMeD1 dib">不输入代表不限，未达到最低名额，活动不予开始</div>
-							<div class="dib acMeD2 dib">设置参与资格</div>
-							<div class="dib acMeD3 dib">不设置代表不限</div>
+							<div class="dib acMeD1">不输入代表不限，未达到最低名额，活动不予开始</div>
+							<div class="dib acMeD2">设置参与资格</div>
+							<div class="dib acMeD3">不设置代表不限</div>
 							<!--添加删除按钮-->
 
 							<div class="acAdB dib">
@@ -410,7 +410,7 @@
 											</ul>
 										</div>							
 									</div>
-									<div class="acZige3a hi acZige2tab">
+									<div class="acZige3a hi acZige2tab" style="visibility: hidden;">
 										<input type="text" class="date" />
 										<div class="select-wrap  acSe7 dib">
 											<i></i>
@@ -422,7 +422,7 @@
 										</div>
 									</div>
 									<div class="acZige3b hi acZige2tab">
-										<input type="text" class="dib" value="不限" disabled/>		
+										<input type="text" class="time time_y dib" id="time_y" value="不限" />		
 										<p class="dib">- 至今</p>
 									</div>
 								</div>
@@ -629,7 +629,7 @@
 			<div class="layer yao re hide">
 
 				<div class="yaoWrap">
-					<span class='tip'>* 摇一摇概率相加等于100%</span>
+					<span class='tip'><i class='pre'>*</i> 摇一摇概率相加等于100%</span>
 					<div class="addSub5P68">
 						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><p class="p68 deleP dib">申报预算</p>				
 					</div>
@@ -939,7 +939,7 @@
 
                 <div class="value_curve">
 	                <div class="dollor">
-	                    <span>金额概率<dev>*概率值总和应为100%</dev></span>
+	                    <span>金额概率<dev><i class='pre'>*</i>概率值总和应为100%</dev></span>
 	                </div>
 	                <div class="coordinate">
 	                    <div class="coordinate_images">
@@ -1186,7 +1186,7 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class='warn tip'>* 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
+						<span class='warn tip'><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
 
 
 						<div class="detail">
@@ -1348,7 +1348,7 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class='warn tip'>* 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
+						<span class='warn tip'><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
 						<div class="detail">
 						
 							<div class="wenan-text propagation"></div>
@@ -1569,7 +1569,7 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class='warn tip'>* 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
+						<span class='warn tip'><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
 						<div class="detail">
 						
 							<div class="wenan-text propagation"></div>
@@ -1790,7 +1790,7 @@
 					<div class="item">
 						<label for="">活动标语</label>
 						<span class="edit-area re">
-							<span class='tip warn mb2'>* 将显示在会员PC端活动列表、活动详情页、超惠券列表以及公众号超惠券主题活动、超惠券上</span><br>
+							<span class='tip warn mb2'><i class='pre'>*</i> 将显示在会员PC端活动列表、活动详情页、超惠券列表以及公众号超惠券主题活动、超惠券上</span><br>
 							<!-- <input type="text"  maxlength="15"> -->
 							<textarea name="" id="hdBiaoyu" maxlength="15"></textarea>
 							<span class="tip ab biaoyu"><em>0</em>/15</span>
@@ -1800,7 +1800,7 @@
 					<div class="item">
 						<label for="">微信图文消息标题</label>
 						<span class="edit-area re">
-							<span class='tip warn mb2 wx'>* 用于微信图文消息标题</span><br>
+							<span class='tip warn mb2 wx'><i class='pre'>*</i> 用于微信图文消息标题</span><br>
 							<textarea name="" class="wxtw" maxlength="64"></textarea>
 							<span class="tip ab wx"><em>0</em>/64</span>
 						</span>
@@ -1883,10 +1883,10 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class="tip warn">* 宣传文案、参与活动条件、活动补贴规则、将在会员pc端活动详情页、公众号超惠活动以及微信图文信息中显示</span>
+						<span class="tip warn"><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员pc端活动详情页、公众号超惠活动以及微信图文信息中显示</span>
 						<div class="detail">
 							
-							<div class="wenan-text re">
+							<div class="wenan-text re bor">
 								<textarea maxlength='500' placeholder='建议填写宣传性文字' class="xcwa"></textarea>
 								<span class="tip ab"><em>0</em>/500</span>
 							</div>
@@ -2120,100 +2120,8 @@
 <!-- <script type="text/javascript" src="js/plugin/slimscroll.js"></script> -->
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
 <script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
-
-<script type="text/javascript">
-    $(".basic-msg").find(".time").each(function(){
-    	
-    	$(this).blur(function(){
-    		
-    		//获取活动时间与会员参与时间
-	        //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
-	        var basic = $('.basic-msg');
-	        var begintime = basic.find('.begintime').val().replace(new RegExp("-", "gm"), "/");
-	        var endtime = basic.find('.endtime').val().replace(new RegExp("-", "gm"), "/");
-	        var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-", "gm"), "/");
-	        var latestjointime = basic.find('.latestjointime').val().replace(new RegExp("-", "gm"), "/");
-	
-	        var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
-	        var activeEnd = (new Date(endtime)).getTime();
-	        var joinBegin = (new Date(earliestjointime)).getTime();
-	        var joinEnd = (new Date(latestjointime)).getTime();
-	
-	        if (activeBegin > activeEnd) {
-//	        	alert(1)
-	            $("nav span").eq(0).click();
-	            layer.tips('请先检查活动结束时间', $('.endtime'));
-	            $('.endtime').focus();
-	            return;
-	        }
-	        if (joinBegin > joinEnd) {
-	            $("nav span").eq(0).click();
-	            layer.tips('请先检查会员参与结束时间', $('.latestjointime'));
-	            $('.endtime').focus();
-	            return;
-	        }
-    	})
-        
-    })
-           
-			var start = {
-				elem: '#actBegin',
-				format: 'YYYY-MM-DD hh:mm:ss', //日期格式
-				min: laydate.now(), //设定最小日期为当前日期
-				max: '2099-06-16 23:59:59', //最大日期
-				istime: true,
-				istoday: false,
-				choose: function(datas) {
-					end.min = datas; //开始日选好后，重置结束日的最小日期
-					end.start = datas //将结束日的初始值设定为开始日
-					//layer.msg(datas);
-				}
-			};
-			var end = {
-				elem: '#actEnd',
-				format: 'YYYY-MM-DD hh:mm:ss', //日期格式
-				min: laydate.now(),
-				max: '2099-06-16 23:59:59',
-				istime: true,
-				istoday: false,
-				choose: function(datas) {
-					start.max = datas; //结束日选好后，重置开始日的最大日期
-					//layer.msg(datas);
-				}
-			};
-			laydate(start);
-			laydate(end);
-
-			var startJ = {
-			    elem: '#joinBegin',
-			    format: 'YYYY-MM-DD hh:mm:ss', //日期格式
-			    min: laydate.now(), //设定最小日期为当前日期
-			    max: '2099-06-16 23:59:59', //最大日期
-			    istime: true,
-			    istoday: false,
-			    choose: function (datass) {
-			        endJ.min = datass; //开始日选好后，重置结束日的最小日期
-			        endJ.start = datass //将结束日的初始值设定为开始日
-			       // layer.msg(datas);
-			    }
-			};
-			var endJ = {
-			    elem: '#joinEnd',
-			    format: 'YYYY-MM-DD hh:mm:ss', //日期格式
-			    min: laydate.now(),
-			    max: '2099-06-16 23:59:59',
-			    istime: true,
-			    istoday: false,
-			    choose: function (datass) {
-			        startJ.max = datass; //结束日选好后，重置开始日的最大日期
-			      //  layer.msg(datas);
-			    }
-			};
-			laydate(startJ);
-			laydate(endJ);
-</script>
-
 <script type="text/javascript" src="js/CreateActivity.js"></script>
 <script type="text/javascript" src="js/area.js"></script>
 <!-- <script type="text/javascript" src="js/add.js"></script> -->
 <script type="text/javascript" src="js/add.js"></script>
+
