@@ -1,5 +1,5 @@
-//20170117
-//loadingStart();
+//20170122
+//marginShade();//空白遮罩
 console.log(8288);
 //$(".BDcyhdCityD").empty();
 //$(".BDcyhdRequireD").empty();
@@ -19,38 +19,51 @@ var zksq3q5s=0;//存储，如果没有6，那存跳过6之后的那个值
 var isReceivedDistributorID=false;//判断是否接收到指令经销商id。
 var isReceivedTopicActivityID=false;//判断是否接收到指令活动列表id。
 	
-	
+var OnDisID_ActIDRefreshParameter0=OnDisID_ActIDRefreshParameter1="";//0120添加用于网络出错刷新	
 
 //情形1.等待经销宝传令刷新页面
 engine.on('OnDisID_ActIDRefresh', OnDisID_ActIDRefresh, this);//主题活动id///***对接经销宝后解除注释####
-//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","a486c6fdfd0b4e339014b16bc6b685d6");//***对接经销宝后注释掉***链接活动详情页面后注释掉
+//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","a486c6fdfd0b4e339014b16bc6b685d6");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***链接活动详情页面后注释掉
 function OnDisID_ActIDRefresh(){
 	isReceivedDistributorID=true;//可能需要改变
 	isReceivedTopicActivityID=true;//可能需要改变
 	if(arguments.length<1){
-		layer.alert('缺少参数', {icon: 5});
+//		layer.alert('缺少参数', {icon: 5});
+		console.log("缺少参数");
 		return;
 	}	
 	localStorage.fromTopicActivityList_DistributorID="";//防止情形1和情形2同时发生
 	localStorage.fromTopicActivityList_ActivityID="";
-	var parameter0=JSON.parse(arguments[0]);
-	var parameter1=JSON.parse(arguments[1]);
-	ajaxActivityDetails(parameter0.data[0],parameter1.data[0]);
+//	var parameter0=JSON.parse(arguments[0]);
+//	var parameter1=JSON.parse(arguments[1]);
+	var OnDisID_ActIDRefreshParameter0=JSON.parse(arguments[0]);
+	var OnDisID_ActIDRefreshParameter1=JSON.parse(arguments[1]);
+	ajaxActivityDetails(OnDisID_ActIDRefreshParameter0.data[0],OnDisID_ActIDRefreshParameter1.data[0]);
 	//0114添加用于调试开始
 	if(arguments[0]){
-		console.log(arguments[0],"id是",parameter0.data[0]);		
+		console.log(arguments[0],"id是",OnDisID_ActIDRefreshParameter0.data[0]);		
 	}
 	if(arguments[1]){
-		console.log(arguments[1],parameter1.data[0]);		
+		console.log(arguments[1],OnDisID_ActIDRefreshParameter1.data[0]);		
 	}	
 	//0114添加用于调试结束
+	//0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
+	$(".returnChaohuiquanList").removeClass("hi");
+	$(".returnTopicList").addClass("hi");
 }
 
 //情形2.由活动列表跳转至此
-if(localStorage.fromTopicActivityList_DistributorID!=undefined&&localStorage.fromTopicActivityList_ActivityID!=undefined&&localStorage.fromTopicActivityList_DistributorID!=""&&localStorage.fromTopicActivityList_ActivityID!=""){//不要把undefined错写成""	
-	isReceivedDistributorID=true;//可能需要改变
-	isReceivedTopicActivityID=true;//可能需要改变	
-	ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);//***对接经销宝后解除注释####
+if(location.href.indexOf('fromList')!=-1){
+	console.log("来自列表页");
+	if(localStorage.fromTopicActivityList_DistributorID!=undefined&&localStorage.fromTopicActivityList_ActivityID!=undefined&&localStorage.fromTopicActivityList_DistributorID!=""&&localStorage.fromTopicActivityList_ActivityID!=""){//不要把undefined错写成""	
+		isReceivedDistributorID=true;//可能需要改变
+		isReceivedTopicActivityID=true;//可能需要改变	
+		ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);//***对接经销宝后解除注释####
+	}
+	//0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
+	$(".returnChaohuiquanList").addClass("hi");
+	$(".returnTopicList").removeClass("hi");
+	
 }
 
 //ajaxActivityDetails();
@@ -63,15 +76,32 @@ function ajaxActivityDetails(a,b){
 		async:true,
 		beforeSend:function(){
 			loadingStart();
+			$(".marginShade").remove();
 		},
 		success:function(data){		
 			linshi=data;
 			if(data==""||data==[]){
-				layer.alert("数据为空，请重试", {icon: 5});
+//				layer.alert("数据为空，请重试", {icon: 5});
+				console.log("数据为空，请重试");
+				popupsFn(function(){		
+					if(location.href.indexOf('fromList')!=-1){
+						ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);
+					}else{
+						ajaxActivityDetails(OnDisID_ActIDRefreshParameter0.data[0],OnDisID_ActIDRefreshParameter1.data[0]);						
+					}
+				})
 				return;
 			}
 			if(data.topicid==undefined){
-				layer.alert('数据为空', {icon: 5});
+//				layer.alert('数据为空', {icon: 5});
+				console.log("数据为空，请重试");
+				popupsFn(function(){		
+					if(location.href.indexOf('fromList')!=-1){
+						ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);
+					}else{
+						ajaxActivityDetails(OnDisID_ActIDRefreshParameter0.data[0],OnDisID_ActIDRefreshParameter1.data[0]);						
+					}
+				})			
 				return;
 			}
 			console.log(data);
@@ -81,6 +111,7 @@ function ajaxActivityDetails(a,b){
 			var Barrzige=["img/b5.png","img/b6.png"];
 			var welcomeArr=["哎呦，您差一点点就可以赚补贴哦！","哇哦，您完全符合活动条件！赚补贴不要手软哦！"];
 			var colorArr=["#ff0000","#3fbe00"];
+//			data.matched=1;//调试用
 			if(data.matched==true){
 				data.matched=1;
 			}else if(data.matched==false){
@@ -93,6 +124,7 @@ function ajaxActivityDetails(a,b){
 				data.activitytitle=data.poster;
 			}
 			$(".BsmallTitle").text(data.activitytitle);
+			$(".BbigTitle span").text("已参与分销商数:"+data.joinedcount+"人");
 			$(".BtuwenWenP1").text(data.content);
 			//展开收起
 //			debugger;
@@ -113,13 +145,21 @@ function ajaxActivityDetails(a,b){
 			if(data.budget.obtained==undefined){
 				data.budget.obtained=0;
 			}			
-			$(".BsubsidyAP1S1").text(data.budget.subisdytotal+"元");
-			$(".BsubsidyAP2S1").text(data.budget.subsidyreleased+"元");
+			//最高补贴
+			$(".BsubsidyAP1S1").text(data.budget.subisdytotal+"元");//情形1			
+			$(".BsubsidyBP1").text(data.budget.subisdytotal);//情形2
+			//已发放
+			$(".BsubsidyAP2S1").text(data.budget.subsidyreleased+"元");//情形1	
+			$(".BsubsidyBP2").text(data.budget.subsidyreleased);//情形2
+			//已享受补贴时间
 			$(".BsubsidyAP3").text(data.budget.days);
+			//已获得多少元
 			$(".BsubsidyAP4").text(data.budget.obtained);
 			//活动补贴说明开始
 			//0103添加会员参与时间//有结束时间则是范围，没有结束时间则是开始时间
 			$(".BbtsmRright12 span").text(data.latestjointime?data.earliestjointime+'-'+data.latestjointime:data.earliestjointime);			
+			/*倒计时*/
+			countDownCirculation($(".BsubsidyB span"),data.endtime);
 			//判断有几个btsm
 			$(".btsm").addClass("hi");
 			var num=0;
@@ -314,7 +354,7 @@ function ajaxActivityDetails(a,b){
 			$(".BDQFd3").empty();
 			if(data.consumer.length){
 				for(i=0;i<data.consumer.length;i++){
-					data.retailer[i].localtype=data.retailer[i].type;
+					data.consumer[i].localtype=data.consumer[i].type;
 					$(".BDQFd3").append('<p><img class="vis" src="'
 					+BDcyhdRequireDarr[data.consumer[i].matched]
 					+'"/><span>'
@@ -333,9 +373,38 @@ function ajaxActivityDetails(a,b){
 //			console.log(8888666)
 //			loadintEnd();
 			$(".initialHi").removeClass("initialHi");//因为展开收起插件与显示隐藏冲突，所以，本页面dom中将initialHi变成了-initialHi
+			
+			/*if(data.matched){//0121左晓雪告诉我，因为现在文案是必填项，所以标题大小标题以及是否显示文案已经统一了，无论是否满足要求，都是stateYes方案。所以这里注释掉。但是文案后续可能变成非必填项，所以还是要考虑的。
+				$(".stateNo").addClass("hi")
+			}else{
+				$(".stateYes").addClass("hi");
+			}*/
+			if(data.content!=undefined&&data.content.length>0){//文案是必填项的处理，即后台传来数据一定有文案
+				$(".stateNo.BtitleB").hide();//现在的标题不存在位置差别，都在图片上面，因为文案是一定有的
+				if(data.matched){
+					$(".stateNo.BsubsidyB").hide();
+				}else{
+					$(".stateYes.BsubsidyA").hide();
+				}				
+				
+			}else{//文案是非必填项的处理，即后台传来，匹配则有文案，不匹配则无文案
+				if(data.matched){
+					$(".stateNo").hide();
+				}else{
+					$(".stateYes").hide();
+				}
+			}
 		},//success结束
 		error:function(data){			
-			layer.alert('通讯异常:错误'+data.status, {icon: 5});
+//			layer.alert('通讯异常:错误'+data.status, {icon: 5});
+			console.log('通讯异常:错误'+data.status);
+			popupsFn(function(){		
+				if(location.href.indexOf('fromList')!=-1){
+					ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);
+				}else{
+					ajaxActivityDetails(OnDisID_ActIDRefreshParameter0.data[0],OnDisID_ActIDRefreshParameter1.data[0]);						
+				}
+			})		
 //			loadintEnd();
 			linshi1=data;
 			console.log(linshi);
@@ -345,7 +414,7 @@ function ajaxActivityDetails(a,b){
 			linshi2=data;
 			loadintEnd();
 		}
-	});
+	});//ajax结束
 }
 
 
@@ -539,7 +608,7 @@ function isReceivedID(){
 //$(document).scrollTop(0); 
 	isReceivedIDNum++;
 	isReceivedIDTime=setTimeout(isReceivedID,500);
-	console.log(isReceivedIDNum);
+	console.log(isReceivedIDNum);	
 	if(isReceivedIDNum>=10){
 		if(isReceivedDistributorID==false){
 	//		layer.alert('缺少经销商id，请重试', {icon: 5});
@@ -553,4 +622,5 @@ function isReceivedID(){
 	}
 
 }
+
 

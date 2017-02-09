@@ -296,6 +296,17 @@
 		font-weight: bold;
 		margin-left: 0.3rem;
 	}
+	.variety{
+		width: 100%;
+		background: #ffd9d9;
+	}
+	.variety a{
+		line-height: 0.9rem;
+		font-size: 0.45rem;
+		color: #333;
+		font-weight: bold;
+		margin-left: 0.3rem;
+	}
 	
 
 
@@ -368,6 +379,7 @@
 		color: #fff;
 		text-align: center;
 		font-size: 0.5rem;
+		line-height: 0.7rem;
 	}
 	.Bu_time{
 		width: 100%;
@@ -380,7 +392,9 @@
 	.Bu_time p span{
 		color: #fd806f;
 	}
-	
+	.Bu_time p a span{
+		color:#333;
+	}
 	.qualification{
 		width: 93.75%;
 		margin:0.4rem auto 0;

@@ -18,6 +18,7 @@ $(function(){
 		 // _ajax_paly(new_arr[0]);
 		 for (var index = 0; index <new_arr.length; index++) {
 		 	 _ajax_paly(new_arr[index]);
+		 	 console.log(new_arr[index])
 		 }
 	}
 	/* function GetQueryString(name)
@@ -84,7 +85,7 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										
+										//allSubsidy() +
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -107,13 +108,13 @@ $(function(){
 													'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
 												'</div>'+
 												'<div class="xsp_x_right">'+
-													'<a href="javascript:;">'+description+'</a>'+
+													'<a href="javascript:;">'+'无'+'</a>'+
 												'</div>'+
 											'</div>'+
 										'</section>'+
 										'<div class="T_time">'+
 											'<p>'+
-												'<img src="../image/4.png" alt="">'+
+												'<img src="../image/4-1.png" alt="">'+
 												'<a href="javascript:void(0)">'+
 													'服务电话&nbsp;&nbsp;&nbsp;'+
 													'<span>'+data.servicephone+'</span>'+
@@ -124,7 +125,7 @@ $(function(){
 											'本次活动最终解释权归凌云科技所有'
 										'</p>'+
 									'</footer>'+
-								'<article>'+
+								'</article>'+
 							'</div>'
 							 
 					$('.swiper2>.swiper-wrapper').append(str_sum);
@@ -214,6 +215,7 @@ $(function(){
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
+					// console.log(str);
 					var keyy = '';
 				 	function keyg(keyy){
 					 if(keyy=='distributor'){
@@ -229,7 +231,8 @@ $(function(){
 					 	}
 					 	return keyy;
 				 	}
-					for(key in subsidy){
+				 	
+					/*for(key in subsidy){
 						str+='<div class="tablecont_one">'+
 								'<div class="xps_q">'+
 									'<a href="javascript:;">'+keyg(key) +'</a>'+
@@ -248,9 +251,38 @@ $(function(){
 										'</div>'+
 									'</div>'+
 								'</div>'+
-							 '</div>'			
+							 '</div>'		
+							$('.tablecont:last').html(str);	
+					}*/
+					for(key in subsidy){
+						str+='<div class="tablecont_one">'+
+								'<div class="xps_q">'+
+									'<a href="javascript:;">'+keyg(key) +'</a>'+
+								'</div>'+
+								'<div class="Focus_box">'+
+									'<div class="Focus_box_left">'+
+										'<ul>'+
+											'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
+											'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
+											'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
+										'</ul>'+
+									'</div>'+
+									'<div class="Focus_box_right">'+
+										'<div class="swiper-container swiper1">'+
+											'<div class="swiper-wrapper">'+
+												'<ul class="swiper-slide FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
+											'</div>'+
+										'</div>'+
+									'</div>'+
+								'</div>'+
+							 '</div>'	
+							 $('.tablecont:last').html(str);	
 					}
-					$('.tablecont').html(str);
+
+					/*jQuery.each(str, function(i, val) {  
+
+					    $('.tablecont').html(str[i]);
+					}); */ 
 					// console.log(str);
 					// function composeSubsidyDescription(subsidycontent)
 					// {
@@ -266,10 +298,11 @@ $(function(){
 						var li = "";
 						li += '<li style="text-indent: 0.3rem;border-left: 1px solid #ffcccc;" class="swiper-slide">';
 						for (var i = 0; i <= subsidyparameter.length - 1; i++) 
-						{
+						{	
+							
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
 								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidyparameter[i].subsidymethod + '</a>'
-								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:<br/>';
+								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+keyg(key) +'在一个超惠卷主题活动中:'+'<br/>';
 								
 								var textson = subsidyparameter[i].ruledescription;
 								for( var y = 0; y < textson.length; y++ ){
@@ -301,18 +334,66 @@ $(function(){
 					$('.T_time p a span').html(servicephone);*/
 
 				//参与资格（条件）
-					var conditions=data.condition.consumer;
-					if(conditions==undefined){
-						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
-					}else if(conditions.length==0){
-						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
-					}else{
-						for(var i=0;i<conditions.length;i++){
-							var description=conditions[i].description;
-						}
-						/*$('.xsp_x_right a').html(description);*/
+					// var conditions=data.condition.consumer;
+					// if(conditions==undefined){
+					// 	$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					// }else if(conditions.length==0){
+					// 	$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+					// }else{
+					// 	for(var i=0;i<conditions.length;i++){
+					// 		var description=conditions[i].description;
+					// 	}
+					// 	/*$('.xsp_x_right a').html(description);*/
+					// }
+					// //console.log(conditions.length)
+					
+					
+					 //参与资格
+					Participationqualification();
+					function Participationqualification(){
+							var conditions = data.condition;
+							var str='';
+							var key = '';
+						 	function keyname(key){
+							 if(key=='distributor'){
+							 		key='分销商'
+							 	}else if(key=='retailer'){
+							 		key='门店'
+							 	}else if(key=='consumer'){
+							 		key='消费者'
+							 	}else if(key=='distributor_employee'){
+							 		key='分銷商店员'
+							 	}else if(key=='retailer_employee'){
+									key='门店店员'
+							 	}
+							 	return key;
+						 	}
+						 	jQuery.each(conditions, function(key, value) {  
+		                         	str+='<div class="variety">'+
+										'<a href="javascript:;">'+keyname(key)+'</a>'+
+									'</div>';
+
+									if(conditions==undefined){
+										$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+									}else if(conditions.length==0){
+										$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+									}else{
+										for (var i = 0; i <value.length; i++) {
+										str+= '<div class="xsp_x">'+
+												'<div class="xsp_x_left">'+
+													'<a href="javascript:;">'+value[i].localtype+'</a>'+
+												'</div>'+
+												'<div class="xsp_x_right">'+
+													'<a href="javascript:;">'+value[i].description+'</a>'+
+												'</div>'+
+											'</div>';
+										}
+									};
+		                    });  
+							
+							$('.qua_box:last').html(str);
 					}
-					//console.log(conditions.length)
+					
 					
 					//调整度数
 					if($('.issued a:nth-child(2)').text().length < 4){
