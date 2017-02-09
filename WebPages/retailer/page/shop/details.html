@@ -1,5 +1,5 @@
 <!doctype html>
-<html style="height:100%">
+<html style="height:100%;overflow: hidden;">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -21,13 +21,14 @@
 		var _list="";
 		var _kind="";
 		var _give="";
-		var _flag=0;
+		var _flag=1;
 		var _price=0;
 		var _amount=0;
 		var _data1=JSON.parse(localStorage.data)
+		var _pp="";
 		console.log(pg)
 		console.log(_data1[pg]["distributor_id"])
-		console.log(_data1)
+		console.log(commodity)
 		$.ajax({
 			type:"get",
 			url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging="+_page,
@@ -42,7 +43,7 @@
 						$(".emp li:nth-child(6)").text("联系方式："+_data1[pg]["mobilephone"])
 						//alert(data["content"][7]["details"].length)
 						for(var i=0;i<data["content"][commodity]["details"].length;i++){
-							if(data["content"][commodity]["details"][i]["billid_class"]=="tblbillpofromcustomer"){
+							if(data["content"][commodity]["details"][i]["billid_class"]==="tblbillpofromcustomer"){
 								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
 								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
 								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["qualitycount"]+
@@ -51,17 +52,34 @@
 								_amount+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"])
 							}else{
 								_price+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]
-								_flag++;
-								console.log(_flag)
-								if(_flag==1){
-									_give+="<li><div class="+"\"gg\""+">赠品</div><span class="+"\"gif\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"<span>×15</span></span></li>"
-								}else{
-									_give+="<li><span class="+"\"gift\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"<span>×"+data["content"][commodity]["details"][i]["qualitycount"]+"</span></span></li>"
-								}
+								var _ll="";
+								var _kk=0;
+								console.log(_price)
+
+								
+								
+								console.log(_give)
+
 								
 							}
 							console.log(i)
 						}
+								for(var b=0;b<_data1[pg]["promotionactivity"]["details"].length;b++){
+									if(_amount>=_data1[pg]["promotionactivity"]["details"][b]["moneysum"]){
+										console.log(1)
+										for(var c=0;c<_data1[pg]["promotionactivity"]["details"][b]["giftitems"].length;c++){
+											_ll=_data1[pg]["promotionactivity"]["details"][b]["giftitems"][c]["itemname"];
+											_kk=Number(_data1[pg]["promotionactivity"]["details"][b]["giftitems"][c]["count"])
+											if(_flag==1){
+												_give+="<li><div class="+"\"gg\""+">满赠</div><span class="+"\"gif\""+">"+_ll+"<span>×"+_kk+"</span></span></li>"
+												_flag++
+											}else{
+												_give+="<li><div class="+"\"gift\""+">"+_ll+"<span>×"+_kk+"</span></div></li>"
+											}											
+										}
+
+									}
+								}
 						$(".shoplist").html(_list)
 						//alert(_give)
 						if(_give!=""){
@@ -82,19 +100,20 @@
 				console.log($("section").css("height"))
 				console.log($("body").css("height"))
 				if(Number($("section").css("height").replace("px",""))<=Number($("body").css("height").replace("px",""))){
-					alert(1)
-					$("body").css({overflow:"hidden"})
+					$("html").css({overflow:"hidden"})
+				}else{
+					$("html").css({overflow:"scroll"})
 				}
 				$(".loads").css({display:"none"})
+				
 			}
 		});
 
 	})
 </script>
 </head>
-
-<body style="overflow-x: hidden;padding-bottom:60px;">
-	<div class="loads"><img src="../../image/shop/loading.gif" style="width:15%;margin: 70% 0 0 44%"/></div>
+<body style="overflow-x: hidden;">
+	<div class="loads"><img src="../../image/shop/loading.gif" style="width:15%;margin: 70% 0 0 44%;z-index: 100000;"/></div>
 	<section>
 	<div class="ad">
 		<img src="../../image/shop/border.jpg" style="width:100%" /> 

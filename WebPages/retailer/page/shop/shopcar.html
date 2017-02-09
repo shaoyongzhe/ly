@@ -315,7 +315,7 @@
 					$(".amountBig span").text(_price.toFixed(1))
 					if(_count==0){
 						$(".yj").css({display:"block"})
-					}					
+					}
 				}else{
 					if($(this).parent()){
 						if($(this).parent().next().find("span:nth-child(1)").text()=="降价"){
@@ -335,6 +335,7 @@
 					if(_count>0){
 						$(".yj").css({display:"none"})
 					}
+					
 				}
 
 				if(_count==_save){
@@ -345,6 +346,7 @@
 					$(".gg").css({"background":"none",borderColor:"#fff"});
 				}
 				$(".commit span").text("("+_count+")")
+				fg()
 			});
 			$(".all").on('click','.gg',function(){
 				if($(this).attr("flag")==1){
@@ -395,6 +397,7 @@
 					}
 					console.log(_Id)
 				}
+				fg()
 			});
 		}
 		function change(data1){
@@ -543,6 +546,8 @@
 						console.log(_nm)
 						if(_active==""){
 							$(".intr").css({display:"none"})
+						}else{
+							$(".intr").css({display:"flex"})
 						}
 						$(".intr div:nth-child(1)").text(_nm)
 						$(".intr div:nth-child(2) span:nth-child(1)").text(_jies)

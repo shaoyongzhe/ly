@@ -254,15 +254,15 @@ section .remarks{
 	width:100%;
 }
 .gift{
-	float:right;margin-left:5px;width:88%;color:#828487
+	float:right;margin-left:5px;width:89%;color:#828487;padding-left: 10%;
 }
-.gift div{
-	padding-bottom: 3px;
+.gift span{
+	float:right
 }
 .gif{
-	padding-left:5px
+	padding-left:4px
 }
-.gif span:nth-child(2){
+.gif span{
 	float:right
 }
 .gifto{

@@ -37,6 +37,7 @@
   		var _distrgive="";
   		var _reduce=0;
   		var _discount=0;
+  		var _mz="";
   		$("#beginTime").val(_year+"-"+_month+"-"+_day)
 		var _index=[];
 //		if(location.search.replace("?","").split("/")){
@@ -64,12 +65,12 @@
 		console.log(_Id)
    $.get("/webapi/account/login/test-2-135-1",{},function(data){},false);
       $.ajax({
-      url:"/webapi/distributor/"+getRetailerid()+"/orderform/items?distributor_id=5ce1d14e07534139ae7774d8983f04f3"+_sub,
+      url:"/webapi/distributor/"+getRetailerid()+"/orderform/items?distributor_id="+localStorage.disId+_sub,
       async:true,
       cache:false,
       dataType:"json",
       type:"get",
-      error:function(){alert("网络错误")},
+      error:function(){},
       success:function(data)
        {
        	//checkChange(data)
@@ -80,7 +81,6 @@
 //     			_data.push(data[x])
 //     		}
 //     	}
-       	console.log(_data)
 //     	_data.push
        	var _list="";
        	var _name="";
@@ -238,9 +238,16 @@
 		    	cache:false,
 		        dataType:"json",
 		        type:"get",
-		        error:function(){alert("网络出错")},
+		        error:function(){},
 		        success:function(data){
 		        	console.log(data)
+		        	console.log(_price)
+		        	for(var t=0;t<data[0]["promotionactivity"]["details"].length;t++){
+			        	if(_price>=Number(data[0]["promotionactivity"]["details"][t]["moneysum"])){
+			        		_mz=JSON.stringify(data[0]["promotionactivity"]["details"][t]["giftitems"])
+			        	}					
+		        	}
+					console.log(_mz)
 		        	if(data[0]["specialprice"]){
 		        		$("#vv").css({display:"flex"})
 		        		_discount+=Number(data[0]["specialprice"])
@@ -258,7 +265,7 @@
 		        	}
 		        	if(_distrgive!=""){
 						$(".giveto").css({display:"block"})
-						$(".gift").html(_distrgive)
+						$(".gt").html(_distrgive)
 					}
 		        	$("#ss div:nth-child(2)").text("￥"+_zengprice)
 		        	$(".loads").css({display:"none"})
@@ -291,6 +298,7 @@
 	   
    	$(".submit").click(function(){
    		console.log(_Id)
+   		localStorage.Id="";
    		$.ajax({
    			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
    			type:"post",
@@ -298,12 +306,13 @@
    				distributor_id:"5ce1d14e07534139ae7774d8983f04f3",
 				remark:"", 
 				deliverdate:$("#beginTime").val(),
-				submitids:_Id
+				submitids:_Id,
+				manzen:_mz
    			},
    			error:function(){},
    			success:function(data){
    				console.log(data)
-   				//window.location="myorder.html"
+   				window.location="myorder.html"
    			}
    		})
    	})
@@ -394,7 +403,7 @@
 		<div class="giveto" style="display: none;">
 			<ul class="kind">
 				<div class="gifto">赠品 </div>
-				<div class="gift">
+				<div class="gt">
 				</div>
 			</ul>
 		</div>
