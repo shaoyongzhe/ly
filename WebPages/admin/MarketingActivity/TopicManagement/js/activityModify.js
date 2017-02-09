@@ -763,13 +763,16 @@ if(!$.isEmptyObject(GetUrlParam())){
         dataType: "json",
         beforeSend: function (){ $('.loading').fadeIn() },
         complete: function (){ $('.loading').fadeOut();addAjax(); },
-        success: function (resdata){ console.log(JSON.stringify(resdata, null, 4)); render(resdata);addSubJoint(resdata) },
+        success: function (resdata){
+            console.log(JSON.stringify(resdata, null, 4));
+            render(resdata);addSubJoint(resdata)
+        },
         error: function (){ console.warn("修改详情 error") }
     });
 
 } else {
-    // layer.alert("跳转到修改失败了");
-    render(resdata)
+    layer.alert("跳转到修改失败了");
+    // render(resdataFix);
 }
 
 function render(resdata){
@@ -1054,17 +1057,17 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	if(!$.isEmptyObject(_resdata_.distributor_condition)&&_resdata_.distributor_condition!=undefined){
 	    var activityManger_addSub2Data_distributor=_resdata_.distributor_condition;
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家");
-	    console.log('分销商')
+	    // console.log('分销商')
 	}
 	if(!$.isEmptyObject(_resdata_.retailer_condition)&&_resdata_.retailer_condition!=undefined){
 	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condition;  
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家");
-	    console.log('门店')
+	    // console.log('门店')
 	}
 	if(!$.isEmptyObject(_resdata_.consumer_condition)&&_resdata_.consumer_condition!=undefined){
 	    var activityManger_addSub2Data_consumer=_resdata_.consumer_condition;
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_consumer,"消费者","人");
-	    console.log('消费者')
+	    // console.log('消费者')
 	}
 	function activityManger_addSub2HtmlFn(obj, participants,unit){// participants为参与者，其值为分销商，门店，消费者等    
 	    /*开始拼js生成的addSub2Mange*/
@@ -1327,7 +1330,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        }
 	        function activityManger_addSub3HtmlFn(a){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
-	            console.log(key)
+	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
@@ -1353,11 +1356,11 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                obj[key].guid="7097e5b33e0f4944897240d008bb2f81";*/
 	                /*0123添加假数据结束*/
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//活动开始前     
-	                console.log(_resdata_.activity.begintime,obj[key].begintime)
+	                // console.log(_resdata_.activity.begintime,obj[key].begintime)
 	//              debugger
 	                var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
 	                var bgt2_ = new Date(obj[key].begintime) * 1;
-	                console.log(bgt1_,bgt2_)
+	                // console.log(bgt1_,bgt2_)
 	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
 	                var preMonths_=parseInt(preDays_/30);               
 	                if(obj[key].begintime!=""){
@@ -1423,7 +1426,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '</div>'
 	        +           '<!--等待更改下面的类名acTy-->'
 	        +           '<div class="dib hdc2 ver re">'
-	        +               '<div class="select-wrap  acSe10 ba mangeStyle">'
+	        +               '<div class="select-wrap  acSe10 ba butieCond mangeStyle">'
 	        +                   '<i></i>'
 	        +                   '<em class="selected"></em>'
 	        +                   '<ul class="select"></ul>'

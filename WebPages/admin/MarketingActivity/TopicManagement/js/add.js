@@ -438,12 +438,12 @@ function addAjax(){
 			//参加名额
 			$(".addSub2.created_l .acMe").empty();
 			hm = '';
-			$(".addSub2.created_l .acMe").append('<p class="p68 deleP deleP1"></p><div class="selectWrap1 -hi"><span><input class="bor acMeI1" type="text" value="10"/><span class="acMeS1"></span></span><span class="to"></span><span><input class="bor acMeI2" type="text"  value="30" /><span class="acMeS2"></span></span></div>');
+			$(".addSub2.created_l .acMe").append('<p class="p68 deleP deleP1"></p><div class="selectWrap1 -hi"><span><input class="bor acMeI1" type="text" value="10" maxlength="5"/><span class="acMeS1"></span></span><span class="to"></span><span><input class="bor acMeI2" type="text"  value="30" maxlength="5"/><span class="acMeS2"></span></span></div>');
 			for (i = 0; i < dsm_1.length; i++) {
 				if (dsm_1[i].localtype == "消费者") {
-					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value=""/><span class="acMeS1">人</span><span class="to"></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">人</span></div>'
+					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">人</span><span class="to"></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">人</span></div>'
 				} else {
-					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class="to"></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span></div>'
+					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class="to"></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span></div>'
 				}
 			}
 			$(".addSub2 .acMe").append(hm);
