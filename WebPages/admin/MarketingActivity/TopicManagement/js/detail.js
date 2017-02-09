@@ -527,7 +527,7 @@ if(topicId == undefined) {
 	    complete: function (){ $('.loading').fadeOut() },
 	    success: function (detailData){
 	    	console.log(JSON.stringify(detailData, null, 4));
-	    	render(detailData, 'jiekou');
+	    	render(detailData);
 	    },
 	    error: function (){ console.warn("详情 error") }
 	});
@@ -536,9 +536,6 @@ if(topicId == undefined) {
 
 
 function render(detailData, a){
-
-	alert(a)
-
 	// debugger;
 	// alert(1);
 	// 1.活动基础信息
