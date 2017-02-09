@@ -432,6 +432,21 @@
 		font-weight: bold;
 		margin-left: 0.3rem;
 	}
+	.variety{
+		width: 100%;
+		background: #ffd9d9;
+		margin-top: 0.3rem;
+	}
+	.variety:nth-child(1){
+		margin-top:0;
+	}
+	.variety a{
+		line-height: 0.9rem;
+		font-size: 0.45rem;
+		color: #333;
+		font-weight: bold;
+		margin-left: 0.3rem;
+	}
 	
 	/* 11.30 e */
 
