@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
@@ -80,11 +80,11 @@
             .assetinfobj .assetimg {
                 width: 85px;
                 height: 60px;
-            position: absolute;
+                position: absolute;
                 background: url(/consumer/image/asset_bt.png) no-repeat;
                 background-size: auto 60px;
                 z-index: 3;
-        }
+            }
 
                 .assetinfobj .assetimg p {
                     width: 45px;
@@ -143,10 +143,49 @@
             text-align: center;
             background: rgba(0,0,0,0.6);
         }
+
+        .stateBj {
+            background: rgba(51,51,51,.9) !important;
+        }
     </style>
     <div id="bd" style="margin-bottom: 82px !important;">
         <div class="pic-list" id="dropload">
-            <ul id="list"></ul>
+            <ul id="list">
+                <li v-for="item in array" style='margin-bottom:5px !important'>
+                    <a v-bind:href="'suppercouponitems.html?activity_id='+item.activity_id">
+                        <div class='con'>
+                            <div class='pic'>
+                                <img style='height:80%' class='lazy' v-bind:src='item.posterpic' alt='' />
+                                <span v-bind:class="[item.activitystate != '已生效' ? 'stateBj' : '']">{{item.activitystate}}</span>
+                            </div>
+                            <div class='txtNew' style='text-align:left;vertical-align:bottom;'>
+                                <div style='overflow:hidden;max-height: 45px;width: 100%;'>
+                                    <h3 class='h3Style'>{{item.activitytitle}}</h3>
+                                </div>
+                                <div style='line-height: 2em;position: relative;bottom: -6px;'>
+                                    <div class='userNew'>{{item.fansinhistorycount}}</div>
+                                    <div class='timeNew'>{{item.begintimeandendtime}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='li-down' v-bind:class="{ blx: item.topicdata==null }">
+                            <span>商</span>
+                            <p style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;'>{{item.distributorname}}</p>
+                        </div>
+                    </a>
+                    <div class="assetinfobj" v-if="item.topicdata!=undefined">
+                        <a class="assetcontent" v-on:click="topicClick(item.topicdata)">
+                            <div class="assetimg">  <p>{{item.topicdata.budget.subsidytotal}}</p> </div>
+                            <div class="asset_left" style="width:calc(100% - 110px)">
+                                <p style="max-width:calc(100% - 65px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.2rem;margin-left:0.4rem;_display:inline-block;font-weight:bold;">
+                                    {{item.topicdata.topiclist[0].topic.activitytitle}}
+                                </p>
+                                <span v-if="item.topicdata.topiclist.length>1" style="width:50px;display:inline-block;font-size:0.8rem;font-weight:normal;">等活动</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
         <div class="sharestyle " style="font-size:16px;">
             <a href="javascript:void(0);" style="color:#fff">
@@ -164,6 +203,7 @@
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script src="//cdn.bootcss.com/vue/2.1.10/vue.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
@@ -172,43 +212,182 @@
     <script src="/retailer/js/lib/common.js"></script>
     <script src="/js/jquery/dropload.min.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
+
     <script type="text/javascript">
         var pageIndex = 1;
         var isInit = true;
-        var tem =
+        //var tem =
+        //        "  <li style='margin-bottom:5px !important'>	" +
+        //        "<a href='suppercouponitems.html?activity_id=activityid'>	" +
+        //        "    <div class='con'>	" +
+        //        "      <div class='pic'>	" +
+        //        "        <img style='height:80%' class='lazy' data-original='posterpic' alt='' />	" +
+        //        "        <span style='spanbackground'>activitystate</span></div>	" +
+        //        "      <div class='txtNew' style='text-align:left;vertical-align:bottom;'>	" +
+        //        "       <div style='overflow:hidden;max-height: 45px;width: 100%;'>   " +
+        //        "         <h3 class='h3Style'>activitytitle</h3>	" +
+        //        "       </div>  " +
+        //        "       <div style='line-height: 2em;position: relative;bottom: -6px;'>  " +
+        //        "           <div class='userNew'>fansinhistorycount</div>	" +
+        //        "           <div class='timeNew'>begintimeandendtime</div></div>	" +
+        //        "       </div>  " +
+        //        "    </div>	" +
+        //        "    <div class='li-down blx'>	" +
+        //        "      <span>商</span>	" +
+        //        "      <p style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;'>distributorname</p></div>	 </a>" +
+        //        " <div class=\"assetinfobj\" style='display:none'>" +
+        //        " <a href=\"hrefs\" class=\"assetcontent\">" +
+        //        " <div class=\"assetimg\">  <p>subsidytotal</p> </div>" +
+        //        "<div class=\"asset_left\" style=\"width:calc(100% - 110px)\"> " +
+        //            "<p style=\"max-width:calc(100% - 65px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.2rem;margin-left:0.4rem;_display:inline-block;font-weight:bold;\">topictitle</p>" +
+        //            "<span style=\"width:50px;display:inline-block;font-size:0.8rem;font-weight:normal;\">等活动</span>" +
+        //        "</div>" +
+        //        "</a>" +
+        //        "  </div>" +
+        //        "  </li>	"
 
-                "  <li style='margin-bottom:5px !important'>	" +
-                "<a href='suppercouponitems.html?activity_id=activityid'>	" +
-                "    <div class='con'>	" +
-                "      <div class='pic'>	" +
-                "        <img style='height:80%' class='lazy' data-original='posterpic' alt='' />	" +
-                "        <span style='spanbackground'>activitystate</span></div>	" +
-                "      <div class='txtNew' style='text-align:left;vertical-align:bottom;'>	" +
-                "       <div style='overflow:hidden;max-height: 45px;width: 100%;'>   " +
-                "         <h3 class='h3Style'>activitytitle</h3>	" +
-                "       </div>  " +
-                "       <div style='line-height: 2em;position: relative;bottom: -6px;'>  " +
-                "           <div class='userNew'>fansinhistorycount</div>	" +
-                "           <div class='timeNew'>begintimeandendtime</div></div>	" +
-                "       </div>  " +
-                "    </div>	" +
-                "    <div class='li-down blx'>	" +
-                "      <span>商</span>	" +
-                "      <p style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:90%;'>distributorname</p></div>	 </a>" +
-                " <div class=\"assetinfobj\" style='display:none'>" +
-                " <a href=\"hrefs\" class=\"assetcontent\">" +
-                " <div class=\"assetimg\">  <p>subsidytotal</p> </div>" +
-                "<div class=\"asset_left\" style=\"width:calc(100% - 110px)\"> "+
-                    "<p style=\"max-width:calc(100% - 65px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1rem;margin-left:0.4rem;_display:inline-block;\">topictitle</p>"+
-                    "<span style=\"width:50px;display:inline-block;font-size:0.7em;font-weight:normal;\">等活动</span>"+
-                "</div>"+
-                /*" <div class=\"asset_left\"> <nobr>topictitle</nobr> </div>" +
-                "<div class=\"asset_right\"> <small>已参加</small>headcount<small>人</small> </div>"*/
-                "</a>" +
-                "  </div>" +
-                "  </li>	"
+        //function loaddata(dropme) {
+        //    var listitem = ""
+        //    var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "ticket", pageindex: pageIndex };
+        //    // alert(wxjsconfig.sharekey)
+        //    if (wxjsconfig.sharekey != null)
+        //        ajaxdata[wxjsconfig.sharekey] = "_";
+        //    $.ajax({
+        //        type: 'GET',
+        //        dataType: 'json',
+        //        data: ajaxdata,
+        //        url: '/webapi/retailer/weixin/activities',
+        //        beforeSend: function () { if (pageIndex == 1) { common.loading.show(); } },
+        //        complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
+        //        success: function (json) {
+        //            common.loading.hide();
+        //            json = json || {};   /* 统一加这句话 */
+        //            if (jQuery.isEmptyObject(json)) {
+        //                dealdropme(dropme);
+        //                return;
+        //            }
+        //            if (json.error) {
+        //                toasterextend.showtips(json.error, "error");
+        //                dealdropme(dropme);
+        //                return;
+        //            }
+        //            if (json.user_notification != undefined) {
+        //                if (pageIndex == 1) {
+        //                    $('#list').html("<div class=\"nohd\" style='margin-top:35%;'><img style='height:80%' src=\"/retailer/image/超惠券.png\" /><br/></div>");
+        //                }
+        //                toasterextend.showtips(json.user_notification, "info");
+        //                dealdropme(dropme);
+        //                return;
+        //            }
+        //            $.each(json.data, function (i, value) {
+        //                listitem += tem;
+        //                if (typeof (value.activity_id) !== 'undefined')
+        //                    listitem = listitem.replace("activityid", value.activity_id);
+        //                if (typeof (value.activitytitle) !== 'undefined')
+        //                    listitem = listitem.replace("activitytitle", value.activitytitle);
+        //                if (typeof (value.distributorname) !== 'undefined')
+        //                    listitem = listitem.replace("distributorname", value.distributorname);
+        //                if (value.begintime !== 'undefined' && value.begintime !== "" && value.endtime !== 'undefined' && value.endtime !== "")
+        //                    listitem = listitem.replace("begintimeandendtime", value.begintime + "至" + value.endtime);
+        //                if (typeof (value.posterpic) !== 'undefined')
+        //                    listitem = listitem.replace("posterpic", value.posterpic);
+        //                if (typeof (value.fansinhistorycount) !== 'undefined')
+        //                    listitem = listitem.replace("fansinhistorycount", value.fansinhistorycount);
+        //                if (typeof (value.activitystate) !== 'undefined')
+        //                    listitem = listitem.replace("activitystate", value.activitystate);
+        //                if (typeof (value.topicdata) !== 'undefined' && value.topicdata != null) {
+        //                    var item = value.topicdata;
+        //                    var topicid=""
+        //                    $.each(item.topiclist, function (index, items, array) {
+        //                        if (index<=20) {
+        //                            topicid += "," + items.topic.guid
+        //                        }
+        //                    });
+        //                    listitem = listitem.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
+        //                    listitem = listitem.replace("blx", "");
+        //                    if(item.topiclist.length>1)
+        //                        listitem = listitem.replace("none", "block");
+        //                    listitem = listitem.replace("topictitle", item.topiclist[0].topic.activitytitle);
+        //                    listitem = listitem.replace("headcount", item.budget.subsidytotal);
+        //                    listitem = listitem.replace("subsidytotal", item.budget.subsidytotal);
+        //                }
+        //                if (typeof (value.activitystate) !== 'undefined' && value.activitystate != '已生效') {
+        //                    listitem = listitem.replace("spanbackground", "background:rgba(51,51,51,.9)");
+        //                }
+        //                else {
+        //                    listitem = listitem.replace("spanbackground", "");
+        //                }
+        //            });
+        //            if (pageIndex == 1)
+        //                $('#list').html(listitem);
+        //            else
+        //                $('#list').append(listitem);
+        //            if (pageIndex == 1 && isInit && !json.error && !json.user_notification) {
+        //                isInit = false;
+        //                if ($.isFunction(wxjsshare)) {
+        //                    wxjsshare(json.share || {});
+        //                }
+        //                $('#dropload').dropload({
+        //                    scrollArea: window,
+        //                    domDown: {
+        //                        domClass: 'dropload-down',
+        //                        domRefresh: '<div class="dropload-refresh">↑加载更多</div>',
+        //                        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+        //                        domNoData: '<div class="dropload-noData">暂无数据</div>'
+        //                    },
+        //                    loadDownFn: function (me) {
+        //                        pageIndex++;
+        //                        loaddata(me);
+        //                    }
+        //                });
+        //            }
+        //            $("img.lazy").lazyload();
+        //            if (dropme != null)
+        //                dropme.resetload();
+        //        },
+        //        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //            var errormsg = "访问异常";
+        //            if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+        //                var json = JSON.parse(XMLHttpRequest.responseText);
+        //                errormsg = JSON.parse(json.Message).error;
+        //                if (errormsg == undefined || errormsg == '')
+        //                    errormsg = "Http error: " + XMLHttpRequest.statusText;
+        //            }
+        //            toasterextend.showtips(errormsg, "error");
+        //            dealdropme(dropme);
+        //        }
+        //    });
+        //}
+        $(function () {
+            $('.sharestyle').click(function (event) {
+                $('.overlay').fadeIn(200);
+            });
+            $('.overlay').click(function (event) {
+                /* Act on the event */
+                $(this).fadeOut(200);
+            });
+            loaddata(null);
+        });
+    </script>
 
-
+    <script>
+        var vm = new Vue({
+            el: '#bd',
+            data: {
+                array: []
+            },
+            methods: {
+                topicClick: function (items) {
+                    var topicid = ""
+                    $.each(items.topiclist, function (index, item) {
+                        if (index < 20) {
+                            topicid += "," + item.topic.guid
+                        }
+                    });
+                    location.href = "/retailer/page/participate.html?topicid=" + topicid.substring(1)
+                }
+            }
+        })
 
         function loaddata(dropme) {
             var listitem = ""
@@ -243,63 +422,10 @@
                         dealdropme(dropme);
                         return;
                     }
-
-                    $.each(json.data, function (i, value) {
-                        var temphtml = tem
-
-                        if (typeof (value.activity_id) !== 'undefined')
-                            temphtml = temphtml.replace("activityid", value.activity_id);
-
-                        if (typeof (value.activitytitle) !== 'undefined')
-                            temphtml = temphtml.replace("activitytitle", value.activitytitle);
-
-                        if (typeof (value.distributorname) !== 'undefined')
-                            temphtml = temphtml.replace("distributorname", value.distributorname);
-
-                        if (value.begintime !== 'undefined' && value.begintime !== "" && value.endtime !== 'undefined' && value.endtime !== "")
-                            temphtml = temphtml.replace("begintimeandendtime", value.begintime + "至" + value.endtime);
-
-                        if (typeof (value.posterpic) !== 'undefined')
-                            temphtml = temphtml.replace("posterpic", value.posterpic);
-
-                        if (typeof (value.fansinhistorycount) !== 'undefined')
-                            temphtml = temphtml.replace("fansinhistorycount", value.fansinhistorycount);
-
-                        if (typeof (value.activitystate) !== 'undefined')
-                            temphtml = temphtml = temphtml.replace("activitystate", value.activitystate);
-                        if (typeof (value.topicdata) !== 'undefined' && value.topicdata != null) {
-                            var item = value.topicdata;
-                            var topicid = ""
-                            $.each(item.topiclist, function (index, items, array) {
-                                if (index <= 20) {
-                                    topicid += "," + items.topic.guid
-                                }
-                            });
-                            listitem = listitem.replace("hrefs", "../page/participate.html?topicid=" + topicid.substring(1));
-                            listitem = listitem.replace("blx", "");
-                            if(item.topiclist.length>1)
-                            listitem = listitem.replace("none", "block");
-                            listitem = listitem.replace("topictitle", item.topiclist[0].topic.activitytitle);
-                            listitem = listitem.replace("headcount", item.budget.subsidytotal);
-                            listitem = listitem.replace("subsidytotal", item.budget.subsidytotal);
-                        }
-
-                        if (typeof (value.activitystate) !== 'undefined' && value.activitystate != '已生效') {
-                            temphtml = temphtml.replace("spanbackground", "background:rgba(51,51,51,.9)");
-                        }
-                        else {
-                            temphtml = temphtml.replace("spanbackground", "");
-                        }
-
-                        listitem += temphtml;
-                    });
-
-
-
                     if (pageIndex == 1)
-                        $('#list').html(listitem);
+                        vm.$data.array = json.data
                     else
-                        $('#list').append(listitem);
+                        vm.$data.array.push(json.data)
 
                     if (pageIndex == 1 && isInit && !json.error && !json.user_notification) {
                         isInit = false;
@@ -321,10 +447,8 @@
                         });
                     }
                     $("img.lazy").lazyload();
-
                     if (dropme != null)
                         dropme.resetload();
-
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -343,16 +467,8 @@
                 }
             });
         }
-        $(function () {
-            $('.sharestyle').click(function (event) {
-                $('.overlay').fadeIn(200);
-            });
-            $('.overlay').click(function (event) {
-                /* Act on the event */
-                $(this).fadeOut(200);
-            });
-            loaddata(null);
-        });
+
+     
     </script>
 </body>
 </html>

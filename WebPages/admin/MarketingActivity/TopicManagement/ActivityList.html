@@ -13,14 +13,14 @@
 	<body>		
 		<div class="wrap">
 			<div class="Title_Index">
-                <a href="">营销活动></a>
+                <a href="">市场营销></a>
                 <!-- <i>></i> -->
                 <a href="javascript:;">活动管理</a>
             </div>
 
 			<!--查询条件区域-->
 			<div class="queryCondition">
-				<div class="queryCondition_son">
+				<!-- <div class="queryCondition_son"> -->
 					<div class="queryConditionLeft">
 						<div class="qC_aitivityTopic"><span>活动主题</span><input type="text" /></div>
 						<div class="qC_number"><span>活动编号</span><input type="text" /></div>
@@ -30,11 +30,6 @@
 								<i></i>
 								<em class="selectLedL">请选择</em>
 								<ul class="selectL">
-									<!--<li class="optionL">谢谢参与</li>
-									<li class="optionL">微信手气红包</li>
-									<li class="optionL">随机金额返现券</li>
-									<li class="optionL">固定积分</li>
-									<li class="optionL">特定超惠券</li>-->
 								</ul>
 							</div>
 						</div>					
@@ -48,46 +43,20 @@
 						<div class="qC_activityArea">
 							<span class="title">活动区域</span>
 							<div class="activityAreaSelect">							
-								<!--
-								<div class="selectLWrapL gf-select">
-									<i></i>
-									<em class="selectLedL">省</em>
-									<ul class="selectL">
-										<li class="optionL">黑龙江省</li>
-										<li class="optionL">麻辣省</li>	
-									</ul>
-								</div>							
-								<div class="selectLWrapL gf-select">
-									<i></i>
-									<em class="selectLedL">市</em>
-									<ul class="selectL">
-										<li class="optionL">谢谢参与1</li>
-										<li class="optionL">谢谢参与2</li>
-									</ul>
-								</div>							
-								<div class="selectLWrapL gf-select">
-									<i></i>
-									<em class="selectLedL">区</em>
-									<ul class="selectL">
-										<li class="optionL">谢谢参与4</li>
-										<li class="optionL">微信手气红包5</li>				
-									</ul>
-								</div>
-								-->
-								<div class="gf-select" id="gf-province">
-									<span><em class="gl-selectLedL">省</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+								<div class="gf-select" id="province">
+									<span><em class="gl-selectLedL">省份</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
 									<ul>
-										<li data-value="">s省份</li>
+										<li data-value="">省份</li>
 									</ul>
 								</div>
-								<div class="gf-select" id="gf-city">
-									<span><em class="gl-selectLedL">市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+								<div class="gf-select" id="city">
+									<span><em class="gl-selectLedL">城市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
 									<ul>
 										<li data-value="">城市</li>
 									</ul>
 								</div>	
-								<div class="gf-select" id="gf-area">
-									<span><em class="gl-selectLedL">区</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+								<div class="gf-select" id="area">
+									<span><em class="gl-selectLedL">区县</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
 									<ul>
 										<li data-value="">区县</li>
 									</ul>
@@ -101,21 +70,16 @@
 								<i></i>
 								<em class="selectLedL">请选择</em>
 								<ul class="selectL">
-									<!--<li class="optionL">谢谢参与</li>
-									<li class="optionL">微信手气红包</li>
-									<li class="optionL">随机金额返现券</li>
-									<li class="optionL">固定积分</li>
-									<li class="optionL">特定超惠券</li>-->
 								</ul>
 							</div>
 						</div>					
-					</div>	
+					<!-- </div>	 -->
 				</div>
-				
-
 				<div class="queryConditionButton">
 					<button class="query">查 询</button>
-				</div>				
+				</div>
+				
+				
 			</div>
 			<!--功能按钮区functionButtons-->
 			<div class="functionButtons">
@@ -145,30 +109,6 @@
 					<input type="hidden" name="" id='guid'>
 					
 					<tbody>
-						<!-- <tr>
-											<td><p class="checkBox"></p></td>
-											<td class="activityCode"></td>
-											<td class="activitytitle">activitytitle</td>
-											<td class="activityTime">activityTime</td>
-											<td class="activityAreaAndCharge"></td>
-											<td class="estimateJoinVipQuantity">Data</td>
-											<td class="JoinedVipQuantity">Data</td>
-											<td class="declareBudget"></td>
-											<td><p class="approvalBudget">1</p><p class="status">2</p>Data</td>
-											<td class="provideSubsidy">Data</td>
-											<td class="state">Data</td>
-											<td class="edit">
-												<img src="img/iconss1.png" alt="" />
-												<div class="menu visibilityHidden">
-													<div class="menuArrow"></div>
-													<div class="menuContent">
-														<span class="menuElement">内容</span><span class="menuElement">经商</span><span class="menuElement">内容</span>
-													
-															<p class="menuElement"><i class="Hui-iconfont">&#xe684;</i><span>内容1</span></p><p class="menuElement"><i class="Hui-iconfont">&#xe684;</i><span>内容2</span></p>
-													</div>								
-												</div>
-											</td>
-										</tr>	 -->	
 								
 					</tbody>
 
@@ -190,6 +130,6 @@
 		$(function(){
 			comSelect();
 			selectCity();
-		});		
+		});	
 	</script>
 </html>
