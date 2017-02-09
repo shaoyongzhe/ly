@@ -176,7 +176,7 @@ nav > span.on i{
 }
 
 .input-contorl .edit-area textarea{
-	width: 380px;
+	width: 382px;
 	height: 46px;
 	border-color: #e4e4e4;
 	border-radius: 2px;
@@ -208,7 +208,7 @@ input.quhao{
 }
 
 input.tel{
-	width: 284px;
+	width: 288px;
 }
 
 input.time{
@@ -218,8 +218,18 @@ input.time{
     cursor: pointer;
 }
 
+.shenbao.bor{
+	height: 145px;
+}
+
 #shenbao{
 	height: 124px;
+	border:none;
+}
+
+.shenbao.bor .tip.ab{
+	right: 8px;
+    bottom: 5px;
 }
 
 
@@ -358,7 +368,7 @@ input.time{
 .condition .input-contorl .edit-area{
 	display: inline-block;
     width: 960px;
-	padding: 10px 8px;
+	padding: 10px 0;
 	border: 1px solid #e4e4e4;
 	border-radius: 2px;
 }
@@ -405,7 +415,7 @@ input.time{
 
 .tip.ab{
 	bottom: 10px;
-    right: 20px;
+    right: 8px;
     color: #999;
 }
 
@@ -804,7 +814,7 @@ span.tip.warn{
 }
 
 .area .item > span{
-    max-width: 660px;
+    /*max-width: 660px;*/
     vertical-align: middle;
 }
 
@@ -884,9 +894,11 @@ span.tip.warn{
 
 
 .wenan-text{
-	padding-bottom: 20px;
-    /*border-bottom: 1px solid #e4e4e4;*/
+    padding-bottom: 24px;
+    /* border-bottom: 1px solid #e4e4e4; */
     word-break: break-all;
+    /* background-color: #eee; */
+    /* border: 1px solid; */
 }
 
 /*.xuanchuan.edit{display: none;}*/
@@ -917,15 +929,15 @@ span.tip.warn{
     width: 100%;
     height: 180px;
     padding-bottom: 20px;
-    border: 1px solid #e4e4e4;
+    border: none;
     /* margin: 10px 10px 0 10px; */
-    border-radius: 2px;
+    /*border-radius: 2px;*/
 }
 
 
 .wenan-text span.tip{
-	bottom: 30px;
-    right: 20px;
+	bottom: 3px;
+    right: 8px;
 }
 
 
@@ -968,7 +980,7 @@ label.condition{
 
 .region-view .province-item .city{
 	width: 310px;
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;*/
 	margin-top: 5px;
 }
 
@@ -1109,7 +1121,7 @@ label.condition{
 .tip.wx,
 .tip.biaoyu{
 	bottom: 9px;
-	right: -70px;
+	right: 8px;
 }
 
 textarea.wxtw{
@@ -1381,3 +1393,39 @@ textarea{
 	cursor: default;
 }
 
+#time_y{
+	background: #fff;
+}
+
+.pre{
+	vertical-align: -3px;
+}
+
+.edit-area.condition{
+	border: none!important;
+	margin-left: -20px;
+}
+
+
+
+.hdzt textarea{
+	border: none;
+}
+
+.pb10{
+	padding-bottom: 10px;
+}
+
+.hdzt .tip.ab{
+	top: 36px;
+    right: 8px;
+}
+
+.wechattitle{
+	width: 740px;
+}
+
+
+/* .addSub2 .member > div{
+	float: left;
+} */

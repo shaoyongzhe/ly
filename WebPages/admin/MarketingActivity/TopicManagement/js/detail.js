@@ -515,7 +515,7 @@ var detailData = {
 var topicId = parent.$('#guid').val();
 if(topicId == undefined) {
 // 	// alert(0);
-	render(detailData);
+	render(detailData, 'jia');
 
 } else if(topicId != ""){
 	$.ajax({
@@ -524,14 +524,19 @@ if(topicId == undefined) {
 	    dataType: "json",
 	    beforeSend: function (){ $('.loading').fadeIn() },
 	    complete: function (){ $('.loading').fadeOut() },
-	    success: function (detailData){ console.log(JSON.stringify(detailData, null, 4));render(detailData) },
+	    success: function (detailData){
+	    	console.log(JSON.stringify(detailData, null, 4));
+	    	render(detailData, 'jiekou');
+	    },
 	    error: function (){ console.warn("详情 error") }
 	});
 }
 
 
 
-function render(detailData){
+function render(detailData, a){
+
+	alert(a)
 
 	// debugger;
 	// alert(1);
@@ -553,10 +558,15 @@ function render(detailData){
 	var second = $('.item.second');
 	var area = detailData.area_condition;  // 活动地区
 	for(var i=0; i<area.length; i++){
-		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><span class='region-info'><span shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</span><br><span class='city'></span></span></div>");
+		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><div class='region-info'><div shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</div><div class='city'></div><div class='district-wrap'></div></div></div>");
 
 		for(var j=0; j<area[i].city.length; j++){
 			$('.city').last().append("<i shifzr='"+ JSON.stringify(area[i].city[j].charge, null, 4) +"'>"+ area[i].city[j].name +"</i>");
+
+			for(var k=0; k<area[i].city[j].country.length; k++){
+				// console.log(area[i].city[j].country[k].name);
+				$('.district-wrap:last').append("<i quxian='"+ JSON.stringify(area[i].city[j].country[k], null, 4) +"'>"+ area[i].city[j].country[k].name +"</i>");
+			}
 		}
 	}
 
@@ -718,7 +728,7 @@ function render(detailData){
 				btduixiang = '分销商'
 				break;
 
-			case "distributoremployee":
+			case "distributor_employee":
 				btduixiang = '分销商业务员'
 				break;
 
@@ -900,7 +910,7 @@ function render(detailData){
 		area.find('.propagation').text(propagation[i].propagation);
 		area.find('.posterurl').attr("src",propagation[i].poster_url);
 	}
-AddButon(detailData);
+	AddButon(detailData);
 }
 
 var buttonDictionary = 

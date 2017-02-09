@@ -81,10 +81,26 @@ function myDate(){
          };
 function basicQuery(){
     /*判断是否输入了查询条件*/
-	if($(".qC_aitivityTopic input").val()==""&&$(".qC_number input").val()==""&&$(".qC_principal .selectLedL").text()=="请选择"&&$(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()==""&&$(".qC_subsidyReleased input:eq(0)").val()==""&&$(".qC_subsidyReleased input:eq(1)").val()==""&&$(".qC_joinVipNumber input:eq(0)").val()==""&&$(".qC_joinVipNumber input:eq(1)").val()==""&&$("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"&&$(".qC_activityBudget input:eq(0)").val()==""&&$(".qC_activityBudget input:eq(1)").val()==""&&$(".qC_status .selectLedL").text()=="请选择"){
+	if( $(".qC_aitivityTopic input").val()==""&&
+		$(".qC_number input").val()==""&&
+		$(".qC_principal .selectLedL").text()=="请选择"&&
+		$(".qC_activityTime input:eq(0)").val()==""&&
+		$(".qC_activityTime input:eq(1)").val()==""&&
+		$(".qC_subsidyReleased input:eq(0)").val()==""&&
+		$(".qC_subsidyReleased input:eq(1)").val()==""&&
+		$(".qC_joinVipNumber input:eq(0)").val()==""&&
+		$(".qC_joinVipNumber input:eq(1)").val()==""&&
+		$("#gf-province em").text()=="省"&&
+		$("#gf-city em").text()=="市"&&
+		$("#gf-area em").text()=="区"&&
+		$(".qC_activityBudget input:eq(0)").val()==""&&
+		$(".qC_activityBudget input:eq(1)").val()==""&&
+		$(".qC_status .selectLedL").text()=="请选择"){
+
 		layer.alert('请输入查询条件', {icon: 5});
 		return;
 	}
+	
 	/*判断查询条件是否成对*/
 	//活动时间
 	if(($(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()!="")||($(".qC_activityTime input:eq(0)").val()!=""&&$(".qC_activityTime input:eq(1)").val()=="")){
