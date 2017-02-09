@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>主题活动预算管理</title>
 	<link rel="stylesheet" type="text/css" href="css/Activityoperation.css">
+	<link rel="stylesheet" type="text/css" href="css/dropload.css">
 </head>
 <body style="background:#F2F2F2">
 	<div class="wrap">
@@ -49,9 +50,9 @@
 							<!-- <a class="show_font" href="javascript:;">--请选择--</a> -->
 							<img src="images/2.png" height="16" width="16" alt="">
 							<ul class="Person_box_son">
-								<li><a href="javascript:;">负责人1</a></li>
+								<!-- <li><a href="javascript:;">负责人1</a></li>
 								<li><a href="javascript:;">负责人2</a></li>
-								<li><a href="javascript:;">负责人3</a></li>
+								<li><a href="javascript:;">负责人3</a></li> -->
 							</ul>
 						</div>
 					</div>
@@ -79,12 +80,12 @@
 					<div class="regin_box1">
 						<a href="javascript:;">预算事由</a>
 						<div class="regin_box1_son">
-							<input disabled="disabled" class="regin_box_ipt" type="text" value="--请选择--">
+							<input title="" disabled="disabled" class="regin_box_ipt" type="text" value="--请选择--">
 							<img src="images/2.png" height="16" width="16" alt="">
 							<ul class="regin_box_sonul">
-								<li><a href="javascript:;">负责人1</a></li>
+								<!-- <li><a href="javascript:;">负责人1</a></li>
 								<li><a href="javascript:;">负责人2</a></li>
-								<li><a href="javascript:;">负责人3</a></li>
+								<li><a href="javascript:;">负责人3</a></li> -->
 							</ul>
 						</div>
 						
@@ -138,13 +139,13 @@
 							<input disabled="disabled" class="Person2_ipt" type="text" value="--请选择--">
 							<img src="images/2.png" height="16" width="16" alt="">
 							<ul class="Person2_sonul">
-								<li><a href="javascript:;">负责人1</a></li>
+								<!-- <li><a href="javascript:;">负责人1</a></li>
 								<li><a href="javascript:;">负责人2</a></li>
-								<li><a href="javascript:;">负责人3</a></li>
+								<li><a href="javascript:;">负责人3</a></li> -->
 							</ul>
 						</div>
 					</div>
-					<div class="declare declare2">
+					<!-- <div class="declare declare2">
 						<a href="javascript:;">已发放</a>
 						<div class="declare_box declare1_box">
 							<label>
@@ -161,7 +162,7 @@
 								</div>
 							</label>
 						</div>
-					</div>
+					</div> -->
 
 				</div>
 			</div>
@@ -189,7 +190,7 @@
 						<th>操作</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class='content_drop notify '>
 					
 				</tbody>
 			</table>
@@ -207,7 +208,7 @@
 	<!-- 预算编号 -->
 	<div class="Budget_number">
 		<p id="asd" class="Budget_numson">预算编号</p>
-		<a class="Bud_number" href="javascript:;">1234</a>
+		<a class="Bud_number" href="javascript:;"></a>
 	</div>
 	<!-- 预算事由 -->
 	<div class="Budgetary_reasons">
@@ -220,7 +221,29 @@
 				<div class="operation_left">
 					<a href="javascript:;">活动地区</a>
 				</div>
-				<div class="operation_right"></div>
+				<div class="operation_right">
+
+					<div class="areaallson">
+						
+						<!-- <div class="provice">
+							<span class="provice_left">江苏省</span>
+							<span class="provice_right">负责人</span>
+						</div>
+						<div class="city">
+							<span class="city_left">晋中市</span>
+							<span class="city_right">负责人</span>
+						</div>
+						<div class="area">
+							<i>XX县</i>
+							<i>XX县</i>
+							<i>XX县</i>
+							<i>XX县</i>
+							<i>XX县</i>
+							<i>XX县</i>
+						</div> -->
+					</div>
+
+				</div>
 			</div>
 			<div class="Three_arrea">
 				
@@ -233,7 +256,7 @@
 			<p>预算峰值</p>
 		</div>
 		<div class="Budget_peak_right">
-			
+			暂无预算峰值
 		</div>
 	</div>
 	<div style="margin-top: 15px" class="firts_bix"><p class="information">预算申报及审批详情</p><hr style="width: 740px;"></div>
@@ -375,6 +398,16 @@
 	</div>
 </div>
 <!-- 追加缩减弹窗 e-->
+<!-- loading s-->
+<div style="display:none" class="main">
+	<div class="loadEffect">
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+		<div><span></span></div>
+	</div>
+</div>
+<!-- loading e-->
 
 <script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
@@ -383,8 +416,8 @@
 <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>	 -->
 <script src="javascript/cityLink.js"></script>
 <script type="text/javascript" src="javascript/jquery.mockjax.js"></script>
-<script type="text/javascript" src="javascript/jquery.autocomplete.js"></script>
 <script type="text/javascript" src="javascript/Activityoperation_nig.js"></script>
+<script type="text/javascript" src="javascript/dropload.js"></script>
 
 </body>
 </html>
