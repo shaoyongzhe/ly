@@ -1,6 +1,8 @@
 var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
+var pageindex=1;
+var pagesize=15;
 var statusData="";//储存statusAjax()返回的数据。
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
@@ -29,13 +31,14 @@ var dataStart = {
 //min: laydate.now(), //设定最小日期为当前日期
   max: '2099-06-16', //最大日期
   istime: true,
-  istoday: false,//是否显示今天这个按钮
   start: laydate.now(),  //开始日期
   choose: function(datas){
      dataEnd.min = datas; //开始日选好后，重置结束日的最小日期
      dataEnd.start = datas //将结束日的初始值设定为开始日
   }
+
 };
+
 var dataEnd = {
   elem: '#dataEnd',
   format: 'YYYY-MM-DD',
@@ -51,14 +54,53 @@ var dataEnd = {
 laydate(dataStart);
 laydate(dataEnd);
 
-/*查询按钮*/
-var condition={}
-$(".queryConditionButton .query").click(function(){
-	/*判断是否输入了查询条件*/
-	if($(".qC_aitivityTopic input").val()==""&&$(".qC_number input").val()==""&&$(".qC_principal .selectLedL").text()=="请选择"&&$(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()==""&&$(".qC_subsidyReleased input:eq(0)").val()==""&&$(".qC_subsidyReleased input:eq(1)").val()==""&&$(".qC_joinVipNumber input:eq(0)").val()==""&&$(".qC_joinVipNumber input:eq(1)").val()==""&&$("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"&&$(".qC_activityBudget input:eq(0)").val()==""&&$(".qC_activityBudget input:eq(1)").val()==""&&$(".qC_status .selectLedL").text()=="请选择"){
+/*创建日期函数*/
+myDate();
+function myDate(){
+    var d = new Date();
+    var year = d.getFullYear();
+    var year1=d.getFullYear()+1;
+    var month = d.getMonth() + 1; // 当前月是要+1
+    month = month < 10 ? ("0" + month) : month;
+    var dt = d.getDate();
+    dt = dt < 10 ? ("0" + dt) : dt;
+//                var today = year + "-" + month + "-" + dt;
+//                alert(today);
+    today = year + "-" + month + "-" + dt;
+    today1 = year1 + "-" + month + "-" + dt;
+    
+}
+
+ $("#dataStart").val(today);
+ $("#dataEnd").val(today1)
+
+	var pagingJson = {
+                "pagesize": pagesize,
+                "pageindex":pageindex,
+                "sort": [{"oid": "desc"}]
+         };
+function basicQuery(){
+    /*判断是否输入了查询条件*/
+	if( $(".qC_aitivityTopic input").val()==""&&
+		$(".qC_number input").val()==""&&
+		$(".qC_principal .selectLedL").text()=="请选择"&&
+		$(".qC_activityTime input:eq(0)").val()==""&&
+		$(".qC_activityTime input:eq(1)").val()==""&&
+		$(".qC_subsidyReleased input:eq(0)").val()==""&&
+		$(".qC_subsidyReleased input:eq(1)").val()==""&&
+		$(".qC_joinVipNumber input:eq(0)").val()==""&&
+		$(".qC_joinVipNumber input:eq(1)").val()==""&&
+		$("#gf-province em").text()=="省"&&
+		$("#gf-city em").text()=="市"&&
+		$("#gf-area em").text()=="区"&&
+		$(".qC_activityBudget input:eq(0)").val()==""&&
+		$(".qC_activityBudget input:eq(1)").val()==""&&
+		$(".qC_status .selectLedL").text()=="请选择"){
+
 		layer.alert('请输入查询条件', {icon: 5});
 		return;
 	}
+	
 	/*判断查询条件是否成对*/
 	//活动时间
 	if(($(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()!="")||($(".qC_activityTime input:eq(0)").val()!=""&&$(".qC_activityTime input:eq(1)").val()=="")){
@@ -109,12 +151,21 @@ $(".queryConditionButton .query").click(function(){
 		membercount=$(".qC_joinVipNumber input:eq(0)").val()+','+$(".qC_joinVipNumber input:eq(1)").val();
 	}
 	//活动区域
-	var districthash='';
-	if($("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"){
-		districthash='';
-	}else{
-		districthash=$("#gf-province em").text()+","+$("#gf-city em").text()+","+$("#gf-area em").text();
-	}	
+
+	var areaProvince = $("#province em").text();
+	var areaCity = $("#city em").text();
+	var areaCountry = $("#area em").text();
+	var districthash= areaProvince == "省份" ? "" : areaProvince;
+	if (areaCity != "城市")
+	{
+		districthash += "," + areaCity;
+		if (areaCountry != "区县")
+		{
+			districthash += "," + areaCountry;
+		}
+	}
+	
+	
 	//状态
 	var state="";
 	if($(".qC_status .selectLedL").text()=="请选择"){
@@ -122,9 +173,7 @@ $(".queryConditionButton .query").click(function(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-	//活动预算
-	//暂时不需要
-	console.log("点击查询了，现在可以在控制台查询变量condition")
+
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -134,7 +183,18 @@ $(".queryConditionButton .query").click(function(){
 		membercount:membercount,
 		districthash:districthash,
 		state:state,
+		paging: JSON.stringify({
+		    "pagesize": pagesize,
+		    "pageindex": pageindex,
+		    "sort": [{ "oid": "desc" }]
+		})
 	}
+    $.each(condition, function(key, value){
+    if (value === "" || value === null){
+        delete condition[key];
+    }
+    });
+
 	if(statusData==""){
 		layer.alert('数据加载中，请稍后重试', {icon: 1});
 		return;
@@ -190,9 +250,9 @@ $(".queryConditionButton .query").click(function(){
 
 			$('.activityList .activityAreaAndCharge').on("click",function(){
 				$(this).toggleClass('ac_tip');
-				console.log(2);
 			})
-			
+			pagingJson = data["paging"];
+
 		},
 		beforeSend:function(){
 			$(".loaded").fadeIn();
@@ -205,6 +265,12 @@ $(".queryConditionButton .query").click(function(){
 
 		}
 	});
+}
+
+/*查询按钮*/
+var condition={}
+$(".queryConditionButton .query").click(function(){
+	 basicQuery();
 });
   		
 function ConstructRecord(contentBody, statusData)
@@ -225,7 +291,7 @@ function ConstructRecord(contentBody, statusData)
 //				+='<td class="provideSubsidy">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
 				+ '<td class="state">' + x.state + '</td>'
 				//具体的操作内容见
-				+'<td class="edit last"><img src="img/iconss1.png" alt="" /><div class="menu"><div class="menuArrow"></div><div class="menuContent">'+stateHtml+'</div></div></td>'
+				+'<td class="edit last"><img src="img/iconss1.png" alt="" />'+stateHtml+'</td>'
 				+ '<td style="display:none;">' + x.guid + '</td>'
 				+'</tr>';
     }).ToArray();
@@ -234,16 +300,17 @@ function ConstructRecord(contentBody, statusData)
 
 function ConstructOpStatus(statusData, state)
 {
-    var opArray = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] }).First();
+    var findedState = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] });
+    var opArray = findedState.Count() > 0 ? findedState.First() : [];
     if (opArray.length == 0)
-        return '<p class="menuElement">' + "<span>" + "" + "</span>" + "</p>";
+        return "";
     var statehtmlArray =$.Enumerable.From(opArray.slice(0, opArray.length - 1)).Select(function(x) 
     {
         return '<p class="menuElement">' + "<span class='handle "+ x + "'>"+x+"</span>" + "</p>";
     }).ToArray();
 
-    var statehtml = statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
-    return statehtml;
+    var statehtml =  statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
+    return '<div class="menu"><div class="menuArrow"></div><div class="menuContent">' +  statehtml + '</div></div>';
 }
 
 // $(".activityAreaAndCharge").hover(function(){
@@ -265,7 +332,7 @@ function chargeAjax(){
 //			var chargeHtml='<li guid="" class="optionL">请选择</li>';//用于拼接
 			var chargeHtml='';//用于拼接
 			for(i=0;i<data.content.length;i++){
-				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].name+'</li>'
+				chargeHtml+='<li guid="'+data.content[i].guid+'" class="optionL">'+data.content[i].nickname+'</li>'
 			}
 			$(".qC_principal .selectL").empty().append(chargeHtml);
 			
@@ -360,23 +427,29 @@ var DictFunction =
                 maxmin: true,
                 area: ['90%', '90%'],
                 content: 'detail.html',
+                calcel: function(index)
+                {
+                	layer.close(index);
+                	return false;
+                }
             });
         },
         "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
-        "'提交审核', '审核通过', '立即发布','下架', '上架'": function (op, currentstate)
+        "'提交审核', '审核通过', '立即发布','下架', '上架','驳回'": function (op, currentstate)
         {
             $.ajax({
                 type: "put",
                 url: "/webapi/ipaloma/topic/operation/" + $('#guid').val(),
                 async: true,
                 data: {
-                    ["currentstate"]: currentstate,
-                    ["optype"]: op
+                    "currentstate": currentstate,
+                    "optype": op
                 },
                 success: function (data) {
                     if (data.error)
                         layer.alert("出错了^_^");
                     layer.alert(op + " 成功");
+                    basicQuery();
                 },
                 error: function (xhr, textStatus) {
                     layer.alert("出错了^_^");
@@ -384,27 +457,72 @@ var DictFunction =
                 }
 
             });
+             
+
         },
         "删除": function (op, currenttype)
         {
-            $.ajax({
-                type: "delete",
-                url: "/webapi/ipaloma/topic/" + $('#guid').val(),
-                async: true,
-                data: null,
-                success: function (data) {
-                    if (data.error)
-                        layer.alert("出错了^_^");
-                    layer.alert("删除成功");
-                },
-                error: function (xhr, textStatus) {
-                    layer.alert("出错了^_^");
-                    console.log(textStatus);
-                }
 
-            });
+        	layer.confirm('确定要删除？', {
+		        title: '删除',
+		        btn: ['确定', '取消']
+		    }, function() {
+		        layer.msg('正在删除，请稍等', {
+		            time: 2000
+		        });
+		        // 此处只是演示，并没有真正的删除数据，如果有api的话 直接传个guid，后台就给删除数据了，然后再传给getlist，走ajax刷新页面
+		        // parentTr.remove();
+		        // window.localStorage.clear();
+		        // layer.msg('删除成功');
+		        // return;
+		        $.ajax({
+	                type: "delete",
+	                url: "/webapi/ipaloma/topic/" + $('#guid').val(),
+	                async: true,
+	                data: null,
+	                success: function (data) {
+	                    if (data.error)
+	                        layer.alert("出错了^_^");
+	                    layer.alert("删除成功");
+	                    basicQuery();
+	                },
+	                error: function (xhr, textStatus) {
+	                    layer.alert("出错了^_^");
+	                    console.log(textStatus);
+	                }
+
+            	});
+		    })
         }
     };
+
+// layer.confirm('确定要删除？', {
+//         title: '删除',
+//         btn: ['确定', '取消']
+//     }, function() {
+//         layer.msg('正在删除，请稍等', {
+//             time: 2000
+//         });
+//         // 此处只是演示，并没有真正的删除数据，如果有api的话 直接传个guid，后台就给删除数据了，然后再传给getlist，走ajax刷新页面
+//         // parentTr.remove();
+//         // window.localStorage.clear();
+//         // layer.msg('删除成功');
+//         // return;
+//         _ajax("delete", '/webapi/ipaloma/propagation/' + guid + '', null, '删除失败', function() {
+//             var cur = $('.laypage_curr').text();
+//             if (cur) {
+//                 if ($('table.notify tbody tr').length == 1) {
+//                     cur -= 1;
+//                     if (cur <= 0) {
+//                         cur = 1;
+//                     }
+//                 }
+//             }
+//             getList(cur, 'del', getSearch());
+//         })
+//     })
+
+
 
 
 

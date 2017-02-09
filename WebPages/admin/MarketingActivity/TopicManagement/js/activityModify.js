@@ -763,13 +763,16 @@ if(!$.isEmptyObject(GetUrlParam())){
         dataType: "json",
         beforeSend: function (){ $('.loading').fadeIn() },
         complete: function (){ $('.loading').fadeOut();addAjax(); },
-        success: function (resdata){ console.log(JSON.stringify(resdata, null, 4)); render(resdata);addSubJoint(resdata) },
+        success: function (resdata){
+            console.log(JSON.stringify(resdata, null, 4));
+            render(resdata);addSubJoint(resdata)
+        },
         error: function (){ console.warn("修改详情 error") }
     });
 
 } else {
-    // layer.alert("跳转到修改失败了");
-    render(resdata)
+    layer.alert("跳转到修改失败了");
+    // render(resdataFix);
 }
 
 function render(resdata){
@@ -791,6 +794,11 @@ function render(resdata){
 //  debugger;
     basic.find('.fzr1 .selected').text(activity.responsible_id.nickname);
     basic.find('.fzr2 .selected').text(activity.responsible2nd_id.nickname);
+    
+    basic.find('.fzr1 .selected').attr("oid",activity.responsible_id.oid);
+    basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
+    
+    
     
     if(activity.singleselection == 1){
         $('.radio:contains(是)').addClass('on');
@@ -827,7 +835,7 @@ function render(resdata){
                 state = "status";
             }
 
-            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>负责人 "+ area.city[j].charge.name +"</em><i class='x'>&times;</i></div><div class='district-wrap'></div></div></div>");
+            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>"+ area.city[j].charge.name +"</em><i class='x'>&times;</i></div><div class='district-wrap'></div></div></div>");
 
 
             for(var k=0; k<area.city[j].country.length; k++){
@@ -1049,17 +1057,17 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	if(!$.isEmptyObject(_resdata_.distributor_condition)&&_resdata_.distributor_condition!=undefined){
 	    var activityManger_addSub2Data_distributor=_resdata_.distributor_condition;
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家");
-	    console.log('分销商')
+	    // console.log('分销商')
 	}
-	if(!$.isEmptyObject(_resdata_.retailer_condtion)&&_resdata_.retailer_condtion!=undefined){
-	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condtion;  
+	if(!$.isEmptyObject(_resdata_.retailer_condition)&&_resdata_.retailer_condition!=undefined){
+	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condition;  
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家");
-	    console.log('门店')
+	    // console.log('门店')
 	}
 	if(!$.isEmptyObject(_resdata_.consumer_condition)&&_resdata_.consumer_condition!=undefined){
 	    var activityManger_addSub2Data_consumer=_resdata_.consumer_condition;
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_consumer,"消费者","人");
-	    console.log('消费者')
+	    // console.log('消费者')
 	}
 	function activityManger_addSub2HtmlFn(obj, participants,unit){// participants为参与者，其值为分销商，门店，消费者等    
 	    /*开始拼js生成的addSub2Mange*/
@@ -1201,6 +1209,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $('.addSub2:last').before(activityManger_addSub2Html);
 //	  debugger;
 	    $('.addSub2Mange:last').find(".acSe4 .selected").text(participants);
+	    if(participants!="分销商"){
+	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");	 
+	    	$('.addSub2Mange:last').find(".acMeI2").attr("disabled","disabled");	    	
+	    }
 	    $('.addSub2Mange:last').find(".acMeS1").text(unit);
 	    $('.addSub2Mange:last').find(".acMeS2").text(unit);
 	    if(obj.number_range){
@@ -1318,7 +1330,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        }
 	        function activityManger_addSub3HtmlFn(a){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
-	            console.log(key)
+	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
@@ -1344,14 +1356,16 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                obj[key].guid="7097e5b33e0f4944897240d008bb2f81";*/
 	                /*0123添加假数据结束*/
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//活动开始前     
-	                console.log(_resdata_.activity.begintime,obj[key].begintime)
+	                // console.log(_resdata_.activity.begintime,obj[key].begintime)
 	//              debugger
 	                var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
 	                var bgt2_ = new Date(obj[key].begintime) * 1;
-	                console.log(bgt1_,bgt2_)
+	                // console.log(bgt1_,bgt2_)
 	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
 	                var preMonths_=parseInt(preDays_/30);               
-	                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字
+	                if(obj[key].begintime!=""){
+		                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
+	                }
 	                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
 	            }else{
 	                $('.addSub3Mange:last .acZige3b').removeClass("hi");        
@@ -1412,7 +1426,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '</div>'
 	        +           '<!--等待更改下面的类名acTy-->'
 	        +           '<div class="dib hdc2 ver re">'
-	        +               '<div class="select-wrap  acSe10 ba mangeStyle">'
+	        +               '<div class="select-wrap  acSe10 ba butieCond mangeStyle">'
 	        +                   '<i></i>'
 	        +                   '<em class="selected"></em>'
 	        +                   '<ul class="select"></ul>'
@@ -1937,7 +1951,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	$(".addSub2Mange input").removeAttr("disabled");
 //	$(".addSub1Mange input").removeAttr("disabled");
 	/*只保留有数据的控件，加号再其后*/
-	if(location.href.indexOf("activityModify.html")>0){         
+	if(location.href.indexOf("activityModify.html")!=-1){         
 	    //控件1
 	    if($(".addSub1Mange").length>0){
 		    $(".addSub1.created_l").remove();//去除页面初始的addSub1	    	
@@ -1968,7 +1982,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	    $(".addSub5Mange:last").find(".acAd1").css("visibility","hidden");//最后一个控件减号隐藏
 	    $(".addSub5Mange:last").find(".acAd2").removeClass("hi");//最后一个控件加号显示       
 	}
-
+butiefz();
+$('.butieSec .sbys').keyup();
 }
 
 
