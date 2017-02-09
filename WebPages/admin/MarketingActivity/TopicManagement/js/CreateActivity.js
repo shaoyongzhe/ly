@@ -9,56 +9,7 @@ var addsub4HTML="";
 var addsub5HTML="";
 
 
-$(function(){
 
-	/*$('section').slimscroll({
-		height: '270',
-		// width: '530'
-	});*/
-
-	/*$(".pic-area").slide({ 
-		mainCell: ".pic-list",
-		effect: "leftLoop",
-		vis: 6,
-		// autoPlay: true
-	});*/
-
-});
-
-
-/*document.onkeypress = showKeyPress;
-function showKeyPress(evt) { 
-    evt = (evt) ? evt : window.event 
-    // document.title = evt.keyCode;
-    // if (evt.charCode) { 
-    //     document.title = evt.charCode 
-    // }
-    if(evt.keyCode == 43){
-    	$('.btn.next').click();
-    }
-    if(evt.keyCode == 45){
-    	$('.btn.prev').click();
-    }
-
-    // if(evt.keyCode == 49){
-    // 	$('nav span:eq(0)').click();
-    // }
-    // if(evt.keyCode == 50){
-    // 	$('nav span:eq(1)').click();
-    // }
-    // if(evt.keyCode == 51){
-    // 	$('nav span:eq(2)').click();
-    // }
-    // if(evt.keyCode == 52){
-    // 	$('nav span:eq(3)').click();
-    // }
-
-    // return false;
-}*/
-// init();
-
-//图片上传
-// var pic_url = "";
 function previewImage(file) {
 	// 齐枭飞修改
   var form = new FormData($('form')[0]);
@@ -1728,6 +1679,20 @@ $('.saveToDb, .shenhe').click(function(){
 	// debugger
 	if($(this).text() ==  "提交审核"){
 
+	    //获取活动时间与会员参与时间
+	    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
+	    var basic = $('.basic-msg');
+	    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
+	    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
+	    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
+	    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
+
+	    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+	    var activeEnd = (new Date(endtime)).getTime(); 
+	    var joinBegin = (new Date(earliestjointime)).getTime(); 
+	    var joinEnd = (new Date(latestjointime)).getTime(); 
+        //var  activeBegin = basic.find('.begintime').val()
+
 		var finished = true;
 
 		if($('.section1 .activityTitle').val() == ""){
@@ -1772,6 +1737,28 @@ $('.saveToDb, .shenhe').click(function(){
 			$('.latestjointime').focus();
 			return;
 		}
+
+	    //验证活动时间与会员参与时间
+	    if (activeBegin > activeEnd) {
+//	        	alert(1)
+	            $("nav span").eq(0).click();
+	            layer.tips('请先检查活动结束时间', $('.endtime'));
+	            $('.endtime').focus();
+	            return;
+	        }
+	        if (joinBegin > joinEnd) {
+	            $("nav span").eq(0).click();
+	            layer.tips('请先检查会员参与结束时间', $('.latestjointime'));
+	            $('.endtime').focus();
+	            return;
+	        }
+		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
+		    $("nav span").eq(0).click();
+		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
+		    $('.earliestjointime').focus();
+		    return;
+		}
+
 		if($('.section1 #shenbao').val() == ""){
 			$("nav span").eq(0).click();
 			layer.tips('请先填写申报说明', $('#shenbao'));
@@ -2196,7 +2183,7 @@ $('.saveToDb, .shenhe').click(function(){
 	    "area_condition": [],
 	    "sponsor": $('.edit-area.condition .radio.on').attr("name")
 	}
-	if(location.href.indexOf("activityModify.html")>0){
+	if(location.href.indexOf("activityModify.html")!=-1){
 		data.guid=basic.find('.activityTitle').attr("guid");//0124添加
 	}	
 
@@ -2294,7 +2281,7 @@ $('.saveToDb, .shenhe').click(function(){
 			"statisticrange": statisticrange,
 			"timeunit": timeunit
 		}
-		if(location.href.indexOf("activityModify.html")>0){
+		if(location.href.indexOf("activityModify.html")!=-1){
 			data[memberType][conditionType].guid=_self.parents('.addSub3').find('.acZige1 .acSe5 em').attr("guid");//0124添加
 		}			
 	}
@@ -2336,7 +2323,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        "discount":{"min":min, "operator": operator, "max" : max}
 	        // "state":""
 	    }
-		if(location.href.indexOf("activityModify.html")>0){
+		if(location.href.indexOf("activityModify.html")!=-1){
 			item.guid=_this.closest('.addSub1').find('.acTy .acSe1 .selected').attr("guid");//0124添加
 		}	
 	    // if(max == undefined){
@@ -2393,7 +2380,7 @@ $('.saveToDb, .shenhe').click(function(){
             "ceiling": addSub4.find('.hdc5 input').val(),
             "applycount": addSub4.find('.hdc6-1 input').val()
         }
-		if(location.href.indexOf("activityModify.html")>0){
+		if(location.href.indexOf("activityModify.html")!=-1){
 			subsidyItem.guid=addSub4.find('.acSe9 .selected').attr("guid");//0124添加
 		}	
 
@@ -2467,10 +2454,10 @@ $('.saveToDb, .shenhe').click(function(){
 
 	console.log(JSON.stringify(data, null, 4));
 
-    
+    var updateFlag = location.href.indexOf("activityModify.html")!=-1;
 	if ($('nav span:last').hasClass('on')) {
 	    $.ajax({
-	        type: "post",
+	        type:updateFlag ? "put" : "post",
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),

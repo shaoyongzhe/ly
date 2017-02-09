@@ -19,10 +19,10 @@ var state = {
 	level: "", //违规级别
 	lastindex: "0", //上次返回结果的最后一条数据索引
 	pagecount: "50" //要查询的数据条数
-};;
+};
 
-if(localStorage.state) {
-	state = JSON.parse(localStorage.state);
+if(sessionStorage.state) {
+	state = JSON.parse(sessionStorage.state);
 } else {
 	state = {
 		state: "未处理", //状态
@@ -155,7 +155,6 @@ function fndengji(data) {
 	$("#cgl-chufaz").html("<strong>处罚中</strong>（<i>" + odata["chufazhong"] + "</i>）条");
 	$("#cgl-yijies").html("<strong>已结束</strong>（<i>" + odata["yijieshu"] + "</i>）条");
 	$("#cgl-jiechuwg").html("<strong>解除违规</strong>（<i>" + odata["jiechuweigui"] + "</i>）条");
-	//$(".cgl-wgui>.cgl-con", ".ztai").html("<strong>未处理</strong>（<i>" + odata["weichuli"] + "</i>）条");
 	fnjilu();
 }
 //查询条件改变事件
@@ -286,7 +285,7 @@ function fnxze1() {
 		state["state"] = $(".ztai>.cgl-wgui:visible .cgl-con1:eq(0)>strong").html();
 		state["lastindex"] = 0;
 		fnshijian(state);
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 	});
 }
 
@@ -299,7 +298,7 @@ function fnxiala() {
 		state["lastindex"] = 0;
 		state["state"] = $(".cgl-wgui>.cgl-con>strong", ".ztai").html();
 		fnshijian(state);
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 	});
 	$(document).click(function(e) {
 		if(!$(e.target).closest(".cgl-wgui").length) {
@@ -336,7 +335,7 @@ function fndate() {
 					state["queryenddate"] = $('#cgl-cxdata1').val();
 					state["lastindex"] = 0;
 					fnshijian(state);
-					localStorage.setItem("state", JSON.stringify(state));
+					sessionStorage.setItem("state", JSON.stringify(state));
 				}
 			}
 		});
@@ -367,7 +366,7 @@ function fnfsdiqu() {
 			state["province"] = sheng;
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
 	$("#city>ul").on("click", "li", function() {
@@ -388,7 +387,7 @@ function fnfsdiqu() {
 			state["city"] = shi;
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
 	$("#area>ul").on("click", "li", function() {
@@ -409,7 +408,7 @@ function fnfsdiqu() {
 			state["county"] = qu;
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
 
@@ -418,7 +417,7 @@ function fnfsdiqu() {
 function fnweignum() {
 	$("#cgl-xzf").change(function() {
 		state["compare"] = $(this).find("option:selected").text();
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 		if($("#cgl-wgcs").val() != "") {
 			state["brcount"] = Number($("#cgl-wgcs").val());
 			state["lastindex"] = 0;
@@ -432,7 +431,7 @@ function fnweignum() {
 			state["brcount"] = $(this).val();
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		} else {
 			if($(this).val() - 0 === state["brcount"]) {
 				$(this).val($(this).val() - 0);
@@ -442,7 +441,7 @@ function fnweignum() {
 				state["lastindex"] = 0;
 				fnshijian(state);
 				//console.log(state)
-				localStorage.setItem("state", JSON.stringify(state));
+				sessionStorage.setItem("state", JSON.stringify(state));
 			}
 
 		}
@@ -460,7 +459,7 @@ function fnvipname() {
 			state["membertype"] = $("#cgl-md").find("option:selected").val();
 			state["lastindex"] = 0;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}, 1000);
 	});
 }
@@ -496,7 +495,7 @@ function fnwgjb() {
 		state["level"] = level;
 		state["lastindex"] = 0;
 		fnshijian(state);
-		localStorage.setItem("state", JSON.stringify(state));
+		sessionStorage.setItem("state", JSON.stringify(state));
 	});
 }
 //重置按钮
@@ -518,13 +517,13 @@ function fnreset() {
 			lastindex: "0", //上次返回结果的最后一条数据索引
 			pagecount: "50" //要查询的数据条数
 		};
-		if(JSON.stringify(state1) == JSON.stringify(state) && $("#cgl-cxdata").val()==state1.querybegindate&&
-	$("#cgl-cxdata1").val()==state1.queryenddate) {
+		if(JSON.stringify(state1) == JSON.stringify(state) && $("#cgl-cxdata").val() == state1.querybegindate &&
+			$("#cgl-cxdata1").val() == state1.queryenddate) {
 			$(".cgl-jzz").html("已经是最初始状态").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else {
 			state = state1;
 			fnshijian(state);
-			localStorage.setItem("state", JSON.stringify(state));
+			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 		$("#province>span>em").html("省");
 		$("#city>span>em").html("市");
@@ -644,8 +643,8 @@ function article_add(that) {
 		type: "get",
 		url: "/webapi/earlywarningmanage/anticheating/stateopdetail/" + guid,
 		data: "",
-		error: function() {
-			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+		error: function(data) {
+			$(".cgl-czjl").html("<li>暂无记录</li>");;
 		},
 		success: function(data) {
 			console.log(data)
@@ -654,19 +653,19 @@ function article_add(that) {
 			if(data.error) {
 				oli += "<li>暂无记录</li>";
 			}
-			for(var i = 0; i <data.length; i++) {
+			for(var i = 0; i < data.length; i++) {
 				oli += "<li>" +
 					"<span>" + data[i]["issuetime"] + "</span> " +
-					" <span style='padding-left:6px'> 操作人员：" + data[i]["issueby_name"] + "</span>"+
-					"<div>" + data[i]["dealtstate"] + "；</div>"+
-					"<div class='cgl-beizhu'>";
-					if(data[i]["dealtstate"]=="申诉中"){
-						oli+="登记内容";
-					}else{
-						oli+="备注";
-					}
-					oli+="：" + data[i]["description"] + "</div>"
-				"</li>";
+					" <span style='padding-left:6px'> 操作人员：" + data[i]["issueby_name"] + "</span>" +
+					"<div>" + data[i]["dealtstate"] + "；</div>";
+				if(data[i]["dealtstate"] == "申诉中") {
+					oli += "<div class='cgl-beizhu'><span>登记内容：</span><p>"+ data[i]["description"] + "</p></div>";
+				}else if(data[i]["dealtstate"]=="发送通知"){
+					oli += "<div class='cgl-beizhu'><span>通知内容：</span><p>" + data[i]["description"] + "</p></div>";
+				}else if(data[i]["description"]!=""){
+					oli += "<div class='cgl-beizhu'><span>备注：</span><p>" + data[i]["description"] + "</p></div>";
+				}
+				oli+="</li>";
 			}
 			$(".cgl-czjl").html(oli);
 		}
@@ -764,7 +763,7 @@ function vipshensu_add(parents) {
 				    "</div>" +
 		*/
 		"</div>" +
-		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>关闭</span><span class='cgl-import quedss'>确定</span></div>" +
+		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>取消</span><span class='cgl-import quedss'>确定</span></div>" +
 		"</div>";
 
 	var index = layer.open({
@@ -810,7 +809,7 @@ function jiechuwg_add(putdata) {
 		    "<label><input name='shensu' type='checkbox'>描述4</label>" +
 		"</div>" +*/
 		"</div>" +
-		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>关闭</span><span id='qrjcweig' class='cgl-import'>确定</span></div>" +
+		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>取消</span><span id='qrjcweig' class='cgl-import'>确定</span></div>" +
 		"</div>";
 
 	var index = layer.open({
@@ -863,7 +862,7 @@ function tiaoz_add(dangq, guid) {
 		"<h4>备注</h4>" +
 		"<textarea></textarea>" +
 		"</div>" +
-		"<div class='cgl-antz'><span class='cgl-close cgl-ciyao'>关闭</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>" +
+		"<div class='cgl-antz'><span class='cgl-close cgl-ciyao'>取消</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>" +
 		"</div>";
 
 	var index = layer.open({
@@ -942,12 +941,7 @@ function querenwg_add(putdata) {
 	$(".cgl-qrwgqr").on("click", function() {
 		putdata.description = $(".qrentext").find("textarea").val();
 		//console.log(putdata)
-		if(putdata.description == "") {
-			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-			return false;
-		} else {
-			fnwgjlzt(putdata);
-		}
+		fnwgjlzt(putdata);
 	});
 
 }
