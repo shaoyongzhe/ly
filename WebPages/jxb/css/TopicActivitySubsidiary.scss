@@ -169,6 +169,21 @@ padding:0;
     -webkit-transform-origin:left;
 //  transform: rotate(-15deg);//稍后补充
 }
+.CcButieLeft{
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/c9.png);
+    position: absolute;
+    top: 118px;
+    left: 13px;
+    cursor: pointer;
+}
+.CcButieRight{
+    @extend .CcButieLeft;
+    background-image: url(../img/c10.png);
+    top: 118px;
+    left:217px ;
+}
 //参与活动条件
 .CcconditionImg{
     background-image: url(../img/c4.png);
