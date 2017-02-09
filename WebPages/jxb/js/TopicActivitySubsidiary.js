@@ -1,99 +1,119 @@
-//20170208
+//20170122
 //loadingStart();
+//如果想查看静态页面，请注释掉Cajax()
 var linshi='';
 var linshi2="";
-
+var tiaoshi0119="";//过了0119就删除；
 var allActivity='';//储存ajax收到的所有的活动
 var topicactivity_id='';//存储的当前显示主题活动的id
 var CbdDimgArr=["img/c7.png","img/c8.png"];//笑脸图标数组
 var CimgArr2=["img/a4.png","img/a3.png"];//对勾数组
+var isReceivedDistributorID=false;//判断是否接收到指令经销商id。
+var isReceivedTopicActivityID=false;//判断是否接收到指令活动列表id。
 
-var isReceivedUpdateMatchedTopics=false;//0207,判断是否接收到经销宝数据
-var UpdateMatchedTopicsBol=true;//0207,只接收一次指令
-
-/*url截取*/
-var UrlKeyValueData=getUrlKeyValue();
-main();
-function main(){
-	/*url检测*/
-    if($.isEmptyObject(UrlKeyValueData)){//如果是空对象，返回	    	
-    	return;
-    }
-    /*是否有经销商id*/
-    //在此只检测distributor_id，activity_idsArr需要在后面检测
-	if(UrlKeyValueData.distributor_id==undefined||UrlKeyValueData.distributor_id==""||UrlKeyValueData.distributor_id==" "||UrlKeyValueData.distributor_id==null){//如果经销商不合法，返回
+var DistributorIDRefreshBol=true;//只接收一次指令
+var TopicActivityIDRefreshBol=true;//只接收一次指令
+	
+InitailCallBack();//***对接经销宝后解除注释####
+function InitailCallBack(){   
+//	layer.alert("我来证明我动了，但是engine.on动了吗，请期待，调试好，请删除我	", {icon: 5});
+    engine.on('OnDistributorIDRefresh', OnDistributorIDRefresh, this);//经销商id//	  
+    engine.on('OnTopicActivityIDRefresh', OnTopicActivityIDRefresh, this);//主题活动id/
+}
+//Cajax("5ce1d14e07534139ae7774d8983f04f3?ticketid=e6eebb40b33443edb4aed35215ce75e8");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3","607fce8dee184586b276d6f9d2fa8e87","f4ca401c0dce42e8bb8d99d5a1cde0aa");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
+//Cajax("5ce1d14e07534139ae7774d8983f04f3","607fce8dee184586b276d6f9d2fa8e87","");console.log("调试代码没有注释掉");	//***对接经销宝后注释掉***
+function OnDistributorIDRefresh(){
+	isReceivedDistributorID=true;	
+    if(arguments.length<1){
+		layer.alert('缺少参数', {icon: 5});
 		return;
 	}
-	UrlDistributorIDRefresh();	
+    if(DistributorIDRefreshBol){
+		var parameter0=JSON.parse(arguments[0])
+		Cajax(parameter0.data[0]);	
+		//0114添加用于调试开始
+		if(arguments[0]){
+			console.log(arguments[0],parameter0.data[0]);		
+		}
+		if(arguments[1]){
+			console.log(arguments[1],parameter0.data[0]);		
+		}	
+		//0114添加用于调试结束	    
+		DistributorIDRefreshBol=false;
+    }
 }
-function UrlDistributorIDRefresh(){
-	Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);	//如果UrlKeyValueData.activity_id为undefined也用此。已总结。
-}
-
-engine.on('UpdateMatchedTopics', UpdateMatchedTopics, this)
-function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是重新给allActivity赋值的过程。
-	isReceivedUpdateMatchedTopics=true;
-    if(arguments.length<1){
-		console.log('缺少参数');
-		return;
-	}	
-	if(UpdateMatchedTopicsBol){
-		allActivity=JSON.parse(arguments[0]);	
-		console.log("UpdateMatchedTopics出现",allActivity);
-		if(allActivity==undefined||allActivity==null||allActivity==''||allActivity==[]||allActivity.content==[]||allActivity.content==undefined||allActivity.content.length==0){
+function OnTopicActivityIDRefresh(){
+//	debugger;
+	var parameter0=JSON.parse(arguments[0])
+	console.log("活动id出现",parameter0);
+	isReceivedTopicActivityID=true;
+//	layer.alert(arguments[0], {icon: 5});
+	if(TopicActivityIDRefreshBol){		
+		if(arguments.length<1){
+	    	console.log('缺少参数', {icon: 5});
+	    	return;
+	    }
+		if(parameter0==undefined){
+			console.log('参数未定义', {icon: 5});
+			return;
+		};
+		if(allActivity==undefined||allActivity==null||allActivity==''){
 			console.log('活动列表为空，无法展示指定活动', {icon: 5});
 			return;
-		}		
-		ajaxSucFn(allActivity.content[0]);
-		topicactivity_id=allActivity.content[0].guid;
-		$(".CcButieRight").hide();
-		UpdateMatchedTopicsBol=false;		
+		}
+		for(i=0;i<allActivity.content.length;i++){	
+//			console.log(i,allActivity.content[i].guid,parameter0.data[0]);
+			if(allActivity.content[i].guid==parameter0.data[0]){
+//				console.log(i);
+				ajaxSucFn(allActivity.content[i]);//刷新活动。
+				tiaoshi0119=allActivity;
+//				console.log(i);
+				topicactivity_id=allActivity.content[i].guid;
+//				console.log(i);
+				console.log(topicactivity_id)
+				break;
+			}
+		}	
+		//0114添加用于调试开始
+		if(arguments[0]){
+			console.log(arguments[0],parameter0.data[0]);		
+		}
+		if(arguments[1]){
+			console.log(arguments[1],parameter0.data[0]);		
+		}	
+		//0114添加用于调试结束	
+		TopicActivityIDRefreshBol=false;
 	}
-
 }
-
 function Cajax(m,a,b){
 	console.log("ajax开始")
 	$.ajax({
-		type:"get",//0121更新为post
+		type:"post",//0121更新为post
 		dataType:'json',	
-		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m+"/",//
+//		url:"http://localhost:3000/c",//本地模拟
+//		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+d,//代理到哲哥电脑
+		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m,//
 //		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
 		data:{
 			"activityid": a, // 对应的活动id
    			"retailerids": b// 对应的门店id，以逗号分割
 		},
 		async:true,
-		beforeSend:function(){
-			loadingStart();
-			$(".marginShade").hide();
-		},		
-		success:function(data){					
+			beforeSend:function(){
+				loadingStart();
+			},		
+		success:function(data){			
 			if(data==""||data==[]){
-//				layer.alert("数据为空，请重试", {icon: 5});
-				popupsFn(function(){					
-					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
+				layer.alert("数据为空，请重试", {icon: 5});
 				return;
 			}
 			if(data.content==undefined){
-//				layer.alert('数据结构变化，请通知管理员', {icon: 5});
-				popupsFn(function(){					
-					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
-				return;
-			}
-			if(data.content==[]){
-				popupsFn(function(){					
-					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
+				layer.alert('数据结构变化，请通知管理员', {icon: 5});
 				return;
 			}
 			if(data.content.length==0){
-//				layer.alert('数据为空', {icon: 5});
-				popupsFn(function(){					
-					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
+				layer.alert('数据为空', {icon: 5});
 				return;
 			}
 			console.log(data);
@@ -101,17 +121,15 @@ function Cajax(m,a,b){
 			allActivity=data;
 			ajaxSucFn(data.content[0]);//先显示第一个活动，			
 			topicactivity_id=data.content[0].guid;//先存储第一个活动id
-			$(".CcButieRight").hide();
 			console.log(topicactivity_id);
+//			loadintEnd();
 			$(".initialHi").removeClass("initialHi");
 		},
 		error:function(data){
 			console.log("error");
 			linshi2=data;
-//			layer.alert('通讯异常:错误'+data.status, {icon: 5});
-			popupsFn(function(){					
-				Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-			})
+			layer.alert('通讯异常:错误'+data.status, {icon: 5});
+//			loadintEnd();
 		},
 		complete:function(data){
 			linshi2=data;
@@ -129,7 +147,6 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	}	
 	$(".CbdD .CbdD1 img").attr("src",CbdDimgArr[info.matched]);//看看哲哥用的是matched还是match
 //	console.log(info.matched);
-	
 	if(info.matched){
 		$(".CbdD2P1").text("您已达到活动条件");
 		$(".CbdD2P2").text("马上可以赚补贴喽！");
@@ -137,7 +154,6 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	}else{
 		$(".CbdD2P1").text("您差一点点");
 		$(".CbdD2P2").text("就可以赚补贴喽");
-		$(".Cccondition").show();
 	}
 	$(".CcBigTitle").text(info.post);
 	$(".CcSmallTitle").text(info.activitytitle);
@@ -153,29 +169,26 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	//参与活动条件具体内容
 	$(".CcconditionContent").empty();	
 	if(info.condition==undefined||info.budget==null){//后台可能不给我condition,若数据规范该if可以删除	
-//		info.condition=[{
-//			localtype:"ajax请求成功",
-//			description:"后台没有给我传该条件",
-//			matched:"0",
-//		}]
-//		$(".CcconditionContent").append('<p class="'
-//			+info.condition[0].localtype
-//			+'"><img src="'
-//			+CimgArr2[info.condition[0].matched]
-//			+'" alt="" /><i><span>'
-//			+info.condition[0].localtype
-//			+':</span><span class="Cccspan dib">'
-//			+info.condition[0].description
-//			+'</span></i></p>')
-//		return;
-		console.log("条件为空,已经匹配,故无需条件");
+		info.condition=[{
+			localtype:"ajax请求成功",
+			description:"后台没有给我传该条件",
+			matched:"0",
+		}]
+		$(".CcconditionContent").append('<p class="'
+			+info.condition[0].localtype
+			+'"><img src="'
+			+CimgArr2[info.condition[0].matched]
+			+'" alt="" /><i><span>'
+			+info.condition[0].localtype
+			+':</span><span class="Cccspan dib">'
+			+info.condition[0].description
+			+'</span></i></p>')
 	}else{
-		for(i=0;i<info.condition.length;i++){	
-//			debugger;
+		for(i=0;i<info.condition.length;i++){		
 			if(info.condition[i].localtype==undefined){
-				info.condition[i].localtype="";
+				info.condition[i].localtype="找后台要";
 			}
-			var conditionHtml='<p class="'
+			$(".CcconditionContent").append('<p class="'
 			+info.condition[i].localtype
 			+'"><img src="'
 			+CimgArr2[info.condition[i].matched]
@@ -183,20 +196,16 @@ function ajaxSucFn(info){//ajax成功回调里调用
 			+info.condition[i].localtype
 			+':</span><span class="Cccspan dib">'
 			+info.condition[i].description
-			+'</span></i></p>';
-			
-			$(".CcconditionContent").append(conditionHtml);
+			+'</span></i></p>')
 		}		
 	}	
 	//活动补贴说明具体内容
 	$(".CccDescriptionCon").empty();
-	var typeCounts=0
 	//分销商
 	if(info.subsidydescription.distributor){
-		typeCounts++;
-		var text1="";
 		for(m=0;m<info.subsidydescription.distributor.length;m++){
 			var dd=info.subsidydescription.distributor[m];
+			var text1="";
 			for(i in dd){					
 				if(typeof(dd[i])!="object"){						
 					text1+=dd[i]+" ";
@@ -206,15 +215,14 @@ function ajaxSucFn(info){//ajax成功回调里调用
 					}
 				}	
 			}
+			$(".CccDescriptionCon").append('<p><strong>1、分销商 : </strong><span>'+text1+'</span></p>');				
 		}
-		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、分销商 : </strong><span>'+text1+'</span></p>');				
 	}
 	//门店
 	if(info.subsidydescription.retailer){
-		typeCounts++;
-		var text1="";
 		for(m=0;m<info.subsidydescription.retailer.length;m++){
 			var dd=info.subsidydescription.retailer[m];
+			var text1="";
 			for(i in dd){					
 				if(typeof(dd[i])!="object"){						
 					text1+=dd[i]+" ";
@@ -224,17 +232,15 @@ function ajaxSucFn(info){//ajax成功回调里调用
 					}
 				}	
 			}
+			$(".CccDescriptionCon").append('<p><strong>2、门店 : </strong><span>'+text1+'</span></p>');
 		}
-		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、门店 : </strong><span>'+text1+'</span></p>');
 	}
 	//消费者
 	if(info.subsidydescription.consumer){
-//		debugger;
-		typeCounts++;
-		var text1="";
 		for(m=0;m<info.subsidydescription.consumer.length;m++){
-			var dd=info.subsidydescription.consumer[m];			
-			for(i in dd){					
+			var dd=info.subsidydescription.consumer[m];
+			var text1="";
+			for(var i in dd){					
 				if(typeof(dd[i])!="object"){						
 					text1+=dd[i]+" ";
 				}else{
@@ -243,28 +249,18 @@ function ajaxSucFn(info){//ajax成功回调里调用
 					}
 				}	
 			}
+			$(".CccDescriptionCon").append('<p><strong/3、消费者 : </strong><span>'+text1+'</span></p>');
 		}
-		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、消费者 : </strong><span>'+text1+'</span></p>');
 	}
 }
 $(".footerCkxq").click(function(){
 	console.log('OnShowDetailClick',topicactivity_id);
 	engine.call('OnShowDetailClick', topicactivity_id);//第一个参数不改，第二参数传当前显示主题活动id;
-	
 })
 $(".footerCkgd").click(function(){
 	console.log('ShowMoreTopicActivityClick');
 	engine.call('ShowMoreTopicActivityClick', "");//第一个参数不改，第二参数传空;
 })
-
-$(document)[0].oncontextmenu=function(event){
-	var event=event||window.event;
-	window.event.returnValue=false;
-	event.preventDefault();
-	console.log(8888);
-	return false;
-}
-
 
 //测试函数
 //dsj()
@@ -274,7 +270,7 @@ $(document)[0].oncontextmenu=function(event){
 //}
 
 
-/*//判断是否接收到经销商id，活动id	
+//判断是否接收到经销商id，活动id	
 isReceivedID();
 var isReceivedIDNum=0;
 var isReceivedIDTime='';
@@ -283,59 +279,19 @@ function isReceivedID(){
 	isReceivedIDTime=setTimeout(isReceivedID,500);
 	console.log(isReceivedIDNum);
 	if(isReceivedIDNum>=10){
-//		if(isReceivedDistributorID==false){
-//	//		layer.alert('缺少经销商id，请重试', {icon: 5});
-//			console.log('缺少经销商id');			
-//		}
-//		if(isReceivedTopicActivityID==false){
-//	//		layer.alert('缺少活动id，请重试', {icon: 5});
-//			console.log('缺少活动id');			
-//		}
-		if(isReceivedUpdateMatchedTopics==false){
-			console.log('缺少经销宝传来数据');	
+		if(isReceivedDistributorID==false){
+	//		layer.alert('缺少经销商id，请重试', {icon: 5});
+			console.log('缺少经销商id');			
+		}
+		if(isReceivedTopicActivityID==false){
+	//		layer.alert('缺少活动id，请重试', {icon: 5});
+			console.log('缺少活动id');			
 		}
 		clearTimeout(isReceivedIDTime);
 	}
-}*/
+}
 //alert(8)
 /*调试用代码*/
-//$("body").on("mouseenter",".footerCkxq",function(){
-//	console.log('OnShowDetailClick',topicactivity_id);
-//})
-
-/*左右箭头*/
-//0208添加
-var allActivityNum=0;
-$(".CcButieLeft").click(function(){	
-	if(allActivityNum<allActivity.content.length-1){
-		allActivityNum++;
-		ajaxSucFn(allActivity.content[allActivityNum]);
-		topicactivity_id=allActivity.content[allActivityNum].guid;
-//	}else{
-//		$(".CcButieLeft").hide();
-	}	
-	if(allActivityNum>=allActivity.content.length-1){
-		$(".CcButieLeft").hide();
-	}
-	if(allActivityNum>0){
-		$(".CcButieRight").show();
-	}
-	console.log(topicactivity_id,allActivityNum);
-})
-
-$(".CcButieRight").click(function(){	
-	if(allActivityNum>0){
-		allActivityNum--;
-		ajaxSucFn(allActivity.content[allActivityNum]);
-		topicactivity_id=allActivity.content[allActivityNum].guid;
-//	}else{
-//		$(".CcButieRight").hide();
-	}	
-	if(allActivityNum<=0){//注意不能写在上面的eles中
-		$(".CcButieRight").hide();
-	}
-	if(allActivityNum<allActivity.content.length-1){
-		$(".CcButieLeft").show();
-	}
-	console.log(topicactivity_id,allActivityNum);
+$("body").on("mouseenter",".footerCkxq",function(){
+	console.log('OnShowDetailClick',topicactivity_id);
 })
