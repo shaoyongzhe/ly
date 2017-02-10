@@ -79,7 +79,10 @@ function myDate(){
                 "pageindex":pageindex,
                 "sort": [{"oid": "desc"}]
          };
+
 function basicQuery(){
+
+
     /*判断是否输入了查询条件*/
 	if( $(".qC_aitivityTopic input").val()==""&&
 		$(".qC_number input").val()==""&&
@@ -183,7 +186,11 @@ function basicQuery(){
 		membercount:membercount,
 		districthash:districthash,
 		state:state,
-		paging:JSON.stringify(pagingJson)
+		paging: JSON.stringify({
+		    "pagesize": pagesize,
+		    "pageindex": pageindex,
+		    "sort": [{ "oid": "desc" }]
+		})
 	}
     $.each(condition, function(key, value){
     if (value === "" || value === null){
@@ -408,6 +415,7 @@ $(document).on("click",".edit",function(){
 	$(".edit").not(this).find(".menu").hide();
 	return false;
 })
+
 $(document).click(function(){
 	$(".edit .menu").hide();
 })
@@ -431,7 +439,7 @@ var DictFunction =
             });
         },
         "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
-        "'提交审核', '审核通过', '立即发布','下架', '上架'": function (op, currentstate)
+        "'提交审核', '审核通过', '立即发布','下架', '上架','驳回'": function (op, currentstate)
         {
             $.ajax({
                 type: "put",

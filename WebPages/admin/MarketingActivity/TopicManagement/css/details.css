@@ -195,3 +195,12 @@ body.details section{
 }
 
 
+.details .wechattitle{
+	width: 660px;
+}
+
+.details .edit-area.description{
+	width: 830px;
+    margin: -20px 0 0 125px;
+    vertical-align: top;
+}
