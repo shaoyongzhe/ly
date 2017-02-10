@@ -1,7 +1,7 @@
 var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
-var pageindex=1;
+var pageindex=0;
 var pagesize=15;
 var statusData="";//储存statusAjax()返回的数据。
 /*模拟下拉*/
@@ -76,8 +76,21 @@ function myDate(){
 	var pagingJson = {
                 "pagesize": pagesize,
                 "pageindex":pageindex,
-                "sort": [{"oid": "desc"}]
+                "sort": [{"oid": "asc"}]
          };
+         
+         
+/*
+ * 分页  下拉刷新
+ */
+$(".activityList tbody").scroll(function() {
+	if($(this).scrollTop() >= ($(this).prop("scrollHeight") - 500) && $(this).prop("scrollHeight") > 500) {
+		basicQuery();
+//		console.log(condition)
+	}
+});
+
+
 function basicQuery(){
     /*判断是否输入了查询条件*/
 	if( $(".qC_aitivityTopic input").val()==""&&
@@ -172,7 +185,7 @@ function basicQuery(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-
+	pagingJson.pageindex++;
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -184,6 +197,7 @@ function basicQuery(){
 		state:state,
 		paging:JSON.stringify(pagingJson)
 	}
+//	console.log(condition)
     $.each(condition, function(key, value){
     if (value === "" || value === null){
         delete condition[key];
@@ -201,12 +215,16 @@ function basicQuery(){
 		async:true,
 		data:condition,
 		success: function (data) {
-		    console.log(data);
+//		    console.log(data.content.length);
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
 			console.log('success')
+			if(data.content.length < 2){
+				layer.alert('没有加载到数据，请重新查询', {icon: 1});
+				return;
+			}
 			linshi=data;
 
 
@@ -233,7 +251,7 @@ function basicQuery(){
 		    //表格Tbody
 			var contentBody = data.content;
 			activityListTbody = ConstructRecord(contentBody, statusData);
-			$(".activityList tbody").empty();
+//			$(".activityList tbody").empty();
 			$(".activityList tbody").append(activityListTbody+'</tr>');
 			/*拼接完毕，开始事件*/
 			//隐藏所有按钮详情
