@@ -526,6 +526,7 @@
 			return _year+"-"+_month+"-"+_day+" "+_hour+":"+_minute+":"+_second+"."+_msecond
 		}
 		function aa(){
+			console.log(_Id)
 			$(".commit").click(function(){
 				localStorage.Id=_Id.join(",").replace(/\,+$/g,"").replace(/^\,+/,"")
 				location.href="commit.html"
@@ -540,13 +541,13 @@
 		        	  		if(_price>=_tt[0]["promotionactivity"]["details"][p]["moneysum"] && _tt[0]["itemkind"]=="满赠"){
 		        	  			for(var c=0;c<_tt[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
 		        	  				_distrgive+="<div>"+_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span class="+"\"gifty\""+">x"+_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"
-		        	  				_active+=_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"、"
+		        	  				_active=_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]
 		        	  				_nm="满赠"
 		        	  				_jies="您已满"+_tt[0]["promotionactivity"]["details"][p]["moneysum"]+"元，获赠"
 		        	  			}
 		        			}else if(_price>=_tt[0]["promotionactivity"]["details"][p]["moneysum"] && data[0]["itemkind"]=="满减"){
 		        				for(var c=0;c<_tt[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
-		        	  				_active+="<span>"+data[0]["promotionactivity"]["details"][p]["moneysum"]+"</span>"+"、"
+		        	  				_active="<span>"+data[0]["promotionactivity"]["details"][p]["moneysum"]+"</span>"
 		        	  				_nm="满减"
 		        	  				_jies="您已满"+_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"]+"元，已减"
 		        	  			}
@@ -560,7 +561,7 @@
 						}
 						$(".intr div:nth-child(1)").text(_nm)
 						$(".intr div:nth-child(2) span:nth-child(1)").text(_jies)
-						$(".intr div:nth-child(2) span:nth-child(2)").text(_active.replace(/\、$/,""))	
+						$(".intr div:nth-child(2) span:nth-child(2)").text(_active)	
 						_nm="";
 						 _jies="";
 						 _active=""

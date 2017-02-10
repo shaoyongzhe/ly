@@ -58,39 +58,39 @@
 		       			//_price+=data[i]["price"]*data[i]["itemcount"];
 		       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]/*+_image*/+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemobj"]["price"]+"</div><div class="+"\"number\""+
-			       		"><div>"+_ltr+"</div><div>×"+data[i]["itemcount"]+"</div></div><span class="+"\"pi\""+">￥"+data[i]["itemslist"][data[i]["selectedindex"]]["price"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
+			       		"><div>"+_ltr+"</div><div>×"+data[i]["itemcount"]+"</div></div><span class="+"\"pi\""+">￥"+data["content"][commodity]["details"][i]["price"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
 							">预</span></span><p>可提"+data[i]["prepaycount"]+data[i]["packagetypename"]+"</p></div></div></li>"
-			       		}else if(data[i]["itemkind"]=="降价"){
+			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="降价"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
 			       			//_discount+=(data[i]["originalprice"]-data[i]["price"])*data[i]["itemcount"]
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
-			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
-			       		"><div>"+_intr+"</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><span class="+"\"discount-con\""+
-			       		">"+data[i]["discount"]+"</span></div>"+_remark+"</li>"
-			       		}else if(data[i]["itemkind"]=="买赠"){
+			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+/*_image+*/"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["price"]+"</div><div class="+"\"number\""+
+			       		"><div>"+_intr+"</div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><span class="+"\"discount-con\""+
+			       		">"+data["content"][commodity]["details"][i]["discount"]+"</span></div>"+_remark+"</li>"
+			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="买赠"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
-			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
-			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
-			       		"><div>"+_intr+"</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
-			       		">买"+data[i]["specification"]+data[i]["giftitemobj"]["packagetypename"]+"赠"+data[i]["giftitemobj"]["specification"]+data[i]["giftitemobj"]["packagetypename"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
-			       		}else if(data[i]["itemkind"]=="有礼"){
+			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+/*_image+*/"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["price"]+"</div><div class="+"\"number\""+
+			       		"><div>"+_intr+"</div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
+			       		">买"+data["content"][commodity]["details"][i]["specification"]+data["content"][commodity]["details"][i]["giftitemobj"]["packagetypename"]+"赠"+data[i]["giftitemobj"]["specification"]+data["content"][commodity]["details"][i]["giftitemobj"]["packagetypename"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="有礼"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
 			       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">有礼</div><span class="+"\"discount-con\""+
-			       		">购买"+data[i]["salecount"]+data[i]["packagetypename"]+data[i]["itemname"]+"赠送"+
-								data[i]["giftcount"]+data[i]["giftitemobj"]["packagetypename"]+data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["itemname"]+"</div></div>"+_remark+"</li>"
-			       		}else if(data[i]["itemkind"]=="折扣"){
+			       		">购买"+data["content"][commodity]["details"][i]["salecount"]+data[i]["packagetypename"]+data[i]["itemname"]+"赠送"+
+								data["content"][commodity]["details"][i]["giftcount"]+data[i]["giftitemobj"]["packagetypename"]+data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="折扣"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
 			       			//_discount+=(data[i]["originalprice"]-data[i]["price"])*data[i]["itemcount"]
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"]+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">折扣</div><span class="+"\"discount-con\""+
-			       		">"+data[i]["discount"]+"</span></div>"+_remark+"</li>"   			
+			       		">"+data["content"][commodity]["details"][i]["discount"]+"</span></div>"+_remark+"</li>"   			
 			       		}	 
 								//_amount+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"])
 							}else{
-								_list2+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+_image+"<div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
+								_list2+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+/*_image+*/"<div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
 								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
 								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["qualitycount"]+
 								"</div></div></div></div><div class="+

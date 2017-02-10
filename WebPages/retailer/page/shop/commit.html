@@ -38,6 +38,7 @@
   		var _reduce=0;
   		var _discount=0;
   		var _mz="";
+  		var _dx={};
   		$("#beginTime").val(_year+"-"+_month+"-"+_day)
 		var _index=[];
 //		if(location.search.replace("?","").split("/")){
@@ -242,23 +243,30 @@
 		        success:function(data){
 		        	console.log(data)
 		        	console.log(_Id)
+		        	$("#phoneto").attr("href","tel:"+data[0]["mobilephone"])
+		        	if(data[0]["activityitem_id"]){
+		        	_dx["activityitem_id"]=data[0]["activityitem_id"]
 		        	for(var t=0;t<data[0]["promotionactivity"]["details"].length;t++){
-			        	if(_price>=Number(data[0]["distributor_id"]+data[0]["promotionactivity"]["details"][t]["moneysum"])){
-			        		_mz=JSON.stringify(data[0]["promotionactivity"]["details"][t]["giftitems"])
-			        	}			
+			        	if(_price>=Number(data[0]["promotionactivity"]["details"][t]["moneysum"])){
+			        		//data[0]["promotionactivity"]["details"]
+			        		
+			        			_mz=JSON.stringify(data[0]["promotionactivity"]["details"][t]["giftitems"])
+			        		
+			        	}
 		        	}
-					console.log(_mz)
+		        	_dx["giftitems"]=_mz
+					console.log(_dx)
 		        	if(data[0]["specialprice"]){
 		        		$("#vv").css({display:"flex"})
 		        		_discount+=Number(data[0]["specialprice"])
 		        	}
-		        	$("#phoneto").attr("href","tel:"+data[0]["mobilephone"])
+		        	
 		        	if(data[0]["promotionactivity"] && data[0]["promotionactivity"]["details"].length>0){
 		        	  	for(var p=0;p<data[0]["promotionactivity"]["details"].length;p++){
 		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"]){
 		        	  			for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
 		        	  				_zengprice+=Number(data[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"])
-		        	  				_distrgive+="<div style="+"\"padding-left:10%\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"		        	  					
+		        	  				_distrgive="<div style="+"\"padding-left:10%\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"		        	  					
 		        	  			}
 		        			}
 						}
@@ -267,6 +275,7 @@
 						$(".giveto").css({display:"block"})
 						$(".gt").html(_distrgive)
 					}
+		        	}
 		        	$("#ss div:nth-child(2)").text("￥"+_zengprice)
 		        	$(".loads").css({display:"none"})
 		        }
@@ -297,7 +306,6 @@
 	   });  //ajax结束
 	   
    	$(".submit").click(function(){
-   		console.log(_Id)
    		localStorage.Id="";
    		$.ajax({
    			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
@@ -307,7 +315,7 @@
 				remark:"", 
 				deliverdate:$("#beginTime").val(),
 				submitids:_Id,
-				manzeng:_mz
+				manzeng:JSON.stringify(_dx)
    			},
    			error:function(){},
    			success:function(data){
