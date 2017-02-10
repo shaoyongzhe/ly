@@ -458,7 +458,7 @@ var DictFunction =
             });
         },
         "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
-        "'提交审核', '审核通过', '立即发布','下架', '上架'": function (op, currentstate)
+        "'提交审核', '审核通过', '立即发布','下架', '上架','驳回'": function (op, currentstate)
         {
             $.ajax({
                 type: "put",

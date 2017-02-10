@@ -97,7 +97,7 @@ header img:nth-of-type(2){
     font-size:16px;////////////rem(16);//;
     color:#333;
     cursor:pointer;
-    width:138px;////////////rem(138);//;
+    width:158px;////////////rem(138);//;
     text-align: center;
 }
 .yeNo .yeNoL1{
@@ -137,6 +137,18 @@ header img:nth-of-type(2){
     border:2px solid #4e9fee;
     margin-bottom:10px;
 //  float:left;
+}
+/*刷新按钮*/
+.refresh{
+    width: 22px;
+    height: 22px;
+    background: url(../img/a11.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 1127px;
+    top: 15px;
+    cursor:pointer;
 }
 /*亲这里没有活动*/
 .contentNull{
@@ -506,7 +518,7 @@ vertical-align: middle;
     line-height: 44px;//
     font-size: 14px;//
     color: #333;
-    width: 138px; }
+    width: 158px; }
 
   .yeNo .yeNoL1 {
     border-bottom: 4px solid #2580e6; }

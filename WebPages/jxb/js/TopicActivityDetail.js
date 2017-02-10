@@ -1039,13 +1039,13 @@ returnToList()
 //返回超慧券列表
 function returnToList(){
 	$(".BreList .returnTopicList").click(function(){
-		engine.call('ClosePage');
+		engine.call('ClosePage',"");
 	})
 	$(".BreList .returnChaohuiquanList").click(function(){
-		engine.call('ClosePage');
+		engine.call('ClosePage',"");
 	})	
 	$("header").click(function(){			
-		engine.call('ClosePage');
+		engine.call('ClosePage',"");
 //		alert("header触发")
 	})
 }

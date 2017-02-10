@@ -1,6 +1,7 @@
-//20170208
+//20170209
 //loadingStart();
 //$(".contentCont").empty();
+//alert(8)
 //console.log("非经销宝内部环境，网络出错刷新，会报错Cannot read property '0' of undefined属于正常情况，无需处理");
 //如果想查看静态页面，请注释掉$(".contentCont").empty();	ajaxAlready();ajaxNo()，当前函数是28 29 30
 var linshi1='';
@@ -47,7 +48,7 @@ function UrlDistributorIDRefresh(){//新对接方式，暂保留之前命名方�
 	}
     ajaxAlready(DistributorIDRefresh);   	
 }
-//2.根据主题活动id，决定显示隐藏哪些活动
+//2.根据主题活动id，决定显示隐藏哪些活动[即从超慧券页面过来]
 function UrlTopicActivityIDRefresh(){//新对接方式，暂保留之前命名方式
 	if(UrlKeyValueData.activity_ids==undefined||UrlKeyValueData.activity_ids==""||UrlKeyValueData.activity_ids==" "||UrlKeyValueData.activity_ids==null){
 		return;
@@ -202,7 +203,12 @@ function sucessFn(obj,info){
 //	if(obj.hasClass("Aalready")){//用于让参与活动无数据，而未参与活动有数据
 //		info.content=[];
 //	}
-	console.log(info,'sucessFn');
+	if(obj.hasClass("Ano")){
+		console.log(info,'sucessFn-Ano');
+	}else if(obj.hasClass("Aalready")){
+		console.log(info,'sucessFn-Aalready');
+	}
+	
 //		console.log(info)
 	if(info==""||info.length==0){
 //			layer.alert("数据为空，请重试", {icon: 5});			
@@ -245,15 +251,20 @@ function sucessFn(obj,info){
 			ajaxNo(DistributorIDRefresh);  
 		})
 	}*/
+
 	/*ajax传来数据为空的时候显示$(".contentNull")*/
 	if(info.content.length==0&&obj.hasClass("Aalready")){
 		console.log("已匹配列表为空");
-		$(".contentNull").removeClass("hi");
+		$(".Aalready .contentNull").removeClass("hi");
+		$(".yeNoL1").text("已参与的活动（"+info.content.length+"）");//活动条数显示位置1
 		return;
 	}
 	if(info.content.length==0&&obj.hasClass("Ano")){
 		console.log("未匹配列表为空");
-		$(".contentNull p").addClass("hi");
+		$(".Ano .contentNull").removeClass("hi");
+		$(".Ano .contentNull p").addClass("hi");
+		$(".Aalready .contentNull p").addClass("hi");
+		$(".yeNoL2").text("未参与的活动（"+info.content.length+"）");//活动条数显示位置1
 		return;
 	}
 	
@@ -282,14 +293,13 @@ function sucessFn(obj,info){
 				obj.find(".contentCont").append(initialDom);
 			}*/			
 		obj.find(".contentCont").append(initialDom);
-		//新存入guid开始****
-		obj.find(".con:last").append('<i style="display:none" class="Aguid">'+info.content[i].guid+'</i>');//id名可能变化为topid、**id
-		//新存入guid结束****
-		//20170109添加已参与数量开始***
+		/*guid*/
+		obj.find(".con:last").append('<i style="display:none" class="Aguid">'+info.content[i].guid+'</i>');//id名可能变化为topid、**id		
+		/*已参与数量开始*/
 		if(info.content[i].participate_count!=undefined){
 			obj.find(".cCHeadSp2:last").removeClass("hi").text("已参与分销商数："+info.content[i].participate_count);				
 		}
-		//20170109添加已参与数量结束***			
+		/*budget*/
 		if(info.content[i].budget==undefined){
 			info.content[i].budget={};
 		}
@@ -328,7 +338,8 @@ function sucessFn(obj,info){
 		endtimeArr.push(info.content[i].latestjointime);
 		//多行溢出隐藏//因为只需要支持谷歌浏览器，所以换成css来实现多行溢出
 //			zhanShou(obj.find('.ccCo:last'));		
-		//封装区别,不需要判断，建议封装		
+		//封装区别,不需要判断，建议封装
+		/*无法参与图*/
 		if(obj.hasClass("Aalready")){			
 			$(".Aalready").find(".ccNo:last").addClass("hi");
 			$(".Aalready").find(".ccfoot2:last").text("活动详情");			
@@ -392,26 +403,46 @@ function sucessFn(obj,info){
 			console.log('UI图稍后奉上');
 		}					
 	}
+
 	/*djs();
 	function djs(){//倒计时递归
 		countDown(obj,endtimeArr);	
 		setTimeout(djs,500);
 	}*/
-	if(obj.hasClass("Ano")){//有空去除，因为溢出省略方式变化。
+/*	if(obj.hasClass("Ano")){//有空去除，因为溢出省略方式变化。
 		//处理溢出省略
 		$(".Ano").addClass("hi");		
+	}*/
+	/*活动条数*///0209
+	if(obj.hasClass("Aalready")){//活动条数位置2，位置1见上面
+		$(".yeNoL1").text("已参与的活动（"+info.content.length+"）")		
+	}else if(obj.hasClass("Ano")){
+		$(".yeNoL2").text("未参与的活动（"+info.content.length+"）")
+	}		
+	if(info.content.length>999&&info.content.length<=9999){
+		$(".yeNo li").width("168px");
+	}else if(info.content.length>9999&&info.content.length<=99999){
+		$(".yeNo li").width("178px");
 	}
+}
+
+/*活动条数*/
+function listNumFn(){
 	
 }
-	
 returnToList();
 //返回超慧券列表
 function returnToList(){
+	if(UrlKeyValueData.switchfrom=="ticketlist"){
+		$(".returnToList").removeClass("hi")
+	}else{
+		$(".returnToList").addClass("hi")
+	}
 	$(".returnToList .p2").click(function(){
-		engine.call('ClosePage');
+		engine.call('ClosePage',"");
 	})
 	$("header").click(function(){			
-		engine.call('ClosePage');
+		engine.call('ClosePage',"");
 	})
 }
 
@@ -492,4 +523,8 @@ function ldslgh(){
 //0208添加
 $(".contentNull div p").click(function(){
 	$(".yeNo li:eq(1)").click();
+})
+/*刷新按钮*/
+$(".refresh").click(function(){
+	history.go(0);
 })

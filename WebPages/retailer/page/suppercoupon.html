@@ -147,8 +147,12 @@
         .stateBj {
             background: rgba(51,51,51,.9) !important;
         }
+
+        [v-cloak] {
+            display: none;
+        }
     </style>
-    <div id="bd" style="margin-bottom: 82px !important;">
+    <div id="bd" style="margin-bottom: 82px !important;" v-cloak>
         <div class="pic-list" id="dropload">
             <ul id="list">
                 <li v-for="item in array" style='margin-bottom:5px !important'>
@@ -468,7 +472,7 @@
             });
         }
 
-     
+
     </script>
 </body>
 </html>

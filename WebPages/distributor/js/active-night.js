@@ -85,7 +85,6 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										//allSubsidy()+
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -143,33 +142,13 @@ $(function(){
 						// 		 '<div class="Popup">'+
 						// 		 '</div>'
 
-
-	 				
-
-					
-
-					
-
 				//钱袋
-					var Platform_subsidies=data.budget.subsidytotal; //平台最高补贴
-					var issued=data.budget.subsidyreleased; //已发放
-					/*var enjoys=data.budget.days; //已经补贴
-					$('.enjoy a').html(enjoys); //已经补贴输出到页面*/
 					var getmoneys=data.budget.obtained; //获取获得
 					var str_small='';
 					for(var p=0;p<getmoneys.length;p++){
 						str_small+=getmoneys[p]
 					}
-					
-
-				//三位数加上小数点	
-					/*function init1(){
-						$('.yellow_money span').html(formatCash1(Platform_subsidies)); //平台最高补贴输出页面
-						console.log(formatCash1(Platform_subsidies))
-						$('.issued a:eq(1)').html(formatCash1(issued)) //已发放输出页面
-						//$('.enjoy span span').html(formatCash1(getmoneys)); //获得输出到页面
-					}
-					init1()*/
+				
 					function formatCash1( cash ){
 						var str_cash = cash + "";
 						var ret_cash = "";
@@ -201,38 +180,13 @@ $(function(){
 					 	}else if(keyy=='consumer'){
 					 		keyy='消费者'
 					 	}else if(keyy=='distributor_employee'){
-					 		keyy='分銷商店员'
+					 		keyy='分销商店员'
 					 	}else if(keyy=='retailer_employee'){
 							keyy='门店店员'
 					 	}
 					 	return keyy;
 				 		}
-				 	
-						// for(key in subsidy){
-						// 	str+='<div class="tablecont_one">'+
-						// 			'<div class="xps_q">'+
-						// 				'<a href="javascript:;">'+keyg(key) +'</a>'+
-						// 			'</div>'+
-						// 			'<div class="Focus_box">'+
-						// 				'<div class="Focus_box_left">'+
-						// 					'<ul>'+
-						// 						'<li style="background: #fff2f2; "><a href="javascript:;">补贴条件(次)</a></li>'+
-						// 						'<li style="background: #ffe5e5;"><a href="javascript:;">补贴形式</a></li>'+
-						// 						'<li style="background: #fff2f2;"><a href="javascript:;">补贴规则</a></li>'+
-						// 					'</ul>'+
-						// 				'</div>'+
-						// 				'<div class="Focus_box_right">'+
-						// 					'<div class="swiper-container swiper1">'+
-						// 						'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
-						// 					'</div>'+
-						// 				'</div>'+
-						// 			'</div>'+
-						// 		 '</div>'	
-						// 		 //return str;
-								 
-						// $('.tablecont:last').html(str);
-						// };
-						
+					
 						for(key in subsidy){
 						str+='<div class="tablecont_one">'+
 								'<div class="xps_q">'+
@@ -257,12 +211,7 @@ $(function(){
 							 '</div>'	
 							 $('.tablecont:last').html(str);	
 						};
-					
-						
-						
-						
 
-					
 					// function composeSubsidyDescription(subsidycontent)
 					// {
 					// 	var subsidyevent = subsidycontent["subsidyevent"];
@@ -315,9 +264,27 @@ $(function(){
 				}
 
 				//活动编号
-				$('.active1font').html(function(index){
-					return "活动" + (index+1);
-				});
+					activityNumber();
+					function activityNumber(i){
+						var topid=window.location.search;
+						var topids=topid.split('=')[1].split(',');
+						for (var i = 0; i <topids.length ; i++) {
+							if(i==0){
+								$('.activesmallpic').attr({
+									src:""
+								});
+								$('.active1font').html()
+							}else{
+								$('.activesmallpic').attr({
+									src:"../image/5-1.png"
+								});
+								$('.active1font').html(function(index){
+									return "活动" + (index+1);
+								})
+							}
+						}
+						
+					}
 
 
 				},

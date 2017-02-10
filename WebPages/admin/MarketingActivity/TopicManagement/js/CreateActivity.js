@@ -183,9 +183,26 @@ $('body').on("click",".setRules",function(e){
 
 	// debugger
 	$('.select-wrap.xzfw').find('ul').empty();
-	$('.member-type .selected').each(function(){
+	/*$('.member-type .selected').each(function(){
 		$('.select-wrap.xzfw').find('ul').append("<li class='option'>"+ $(this).text() +"</li>");
-	});
+	});*/
+
+	var butieDx = $(this).closest('.addSub4').find('.selected:first').text();
+	var xzfw = $('.select-wrap.xzfw ul');
+	if(butieDx == '消费者'){
+		xzfw.append("<li class='option'>按平台活动</li><li class='option'>按分销商</li><li class='option'>按超惠券主题</li><li class='option'>按超惠券</li><li class='option'>按门店</li>");
+	}
+
+	if(butieDx == '门店' || butieDx == '门店店员' ){
+		xzfw.append("<li class='option'>按平台活动</li><li class='option'>按分销商</li><li class='option'>按超惠券主题</li>");
+	}
+
+	if(butieDx == '分销商' || butieDx == '分销商业务员'  || butieDx == '分销商人员' ){
+		xzfw.append("<li class='option'>按平台活动</li><li class='option'>按超惠券主题</li><li class='option'>按超惠券</li>");
+	}
+
+
+
 
 	// debugger
 	index = $(this).closest('.addSub4').index();
@@ -331,6 +348,12 @@ $('body').on("click",".set",function(e){
 	//return
 
 	var type = addSub4.find('.hdc3 .selected').text();
+
+	if(addSub4.find('.hdc5 input').val() == ""){
+		layer.tips('请先填写发放上限次数', addSub4.find('.hdc5 input'));
+		return;
+	}
+
 	if( type == '摇一摇'){
 
 		y1yindex = addSub4.index();
@@ -409,6 +432,16 @@ $('body').on("click",".set",function(e){
 			}
 
 		}
+
+		$('.yaoWrap').on('input',".Yyy3 input", function(){
+			// console.log(typeof Number($(this).val()));
+			var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
+			var y1ygailvInput = Number($(this).val());
+			
+			$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
+
+		});
+
 
 	} else if( type == '轮盘抽奖'){
 		$(this).next('.lp').remove();
@@ -642,7 +675,7 @@ $('.section3').on('click','.setgailv.on',function(){
 	var btfz = _this.closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
 	$('.value_curve .number_doller em').text(btfz);
 	
-	console.log(fwmax,fwmin)
+	// console.log(fwmax,fwmin)
 	
 	var each = (fwmax - fwmin)/count;
 	for (var i=0; i<count+1; i++) {
@@ -718,8 +751,11 @@ $('.gailvok').click(function(){
 
 	
 
+var time = new Date();
+var tomorrow = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + (time.getDate() + 1);
+// var timer_tommory=time.getFullYear()+ 1 +"/"+(time.getMonth()+1)+"/"+time.getDate();
 
-var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
+// var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
 $('.earliestjointime').val(tomorrow + " 00:00:00");
@@ -1060,7 +1096,38 @@ $(document).on('click','.check, .radio',function(){
 	}
 
 
-	// alert(1)
+	if($(this).parent().hasClass('condition')){
+
+		var _this = $(this);
+
+		$('.addSub2:first .select-wrap:first li').each(function(){
+			var self = $(this);
+			var addSub2 = self.closest('.addSub2');
+			if(self.text() == _this.text()){
+				self.click();
+			}
+
+			if(_this.text() == "厂商"){
+				$('.addSub2:first .selected:first').text("");
+				$('.addSub2:first input.acMeI1, .addSub2:first input.acMeI2').val("");
+			}
+
+			if(_this.text() == "无"){
+				$('.addSub2:first .select-wrap:first li[type=consumer]').click();
+			}
+			
+			addSub2.find('.acZige .selected').text("");
+			addSub2.find('.acZige input').val("");
+			addSub2.find('.addSub3:not(:last) .minus-o').click();
+			// addSub2.find('.acZige').addClass('hi');
+
+			$('.addSub2:not(:first) .minus').click();
+
+		});
+
+	}
+
+
 	$(this).addClass('on').siblings().removeClass('on');
 
 
@@ -2703,7 +2770,7 @@ $('.saveToDb, .shenhe').click(function(){
     var updateFlag = location.href.indexOf("activityModify.html")!=-1;
 	if ($('nav span:last').hasClass('on')) {
 	    $.ajax({
-	        type:updateFlag ? "put" : "post",
+	        type: updateFlag ? "put" : "post",
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),
