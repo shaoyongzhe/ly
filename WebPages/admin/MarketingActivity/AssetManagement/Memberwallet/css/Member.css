@@ -604,7 +604,7 @@ span.name { display: block;text-align: right; line-height: 30px;}
     float: right;
     position: relative;
 }
-.M_W_find input{
+.M_W_find button{
     width: 124px;
     height: 33px;
     background: #4c83db;
@@ -784,6 +784,16 @@ span.name { display: block;text-align: right; line-height: 30px;}
     margin: 0 auto;
     position: relative;
 }
+.noData{
+    position: absolute;
+    width: 100%;
+    line-height: 200px;
+    text-align: center;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
 .table1{
     margin: 0 auto;
     font-size: 14px;

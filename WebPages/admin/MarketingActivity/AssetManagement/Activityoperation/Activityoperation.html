@@ -202,69 +202,25 @@
 </div>
 
     <script src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
-    <script src="../Memberwallet/layui-v1.0.7/layui/layui.js"></script>
+    <script src="../../../lib/layui/layui.js"></script>
 
 
     <script>
         $(function(){
 
            /* 交互部分*/
-            /*计算前几天函数封装--beforetime*/
-            function getBeforeDate(n){
-                var n = n;
-                var d = new Date();
-                var year = d.getFullYear();
-                var mon=d.getMonth()+1;
-                var day=d.getDate();
-                if(day <= n){
-                    if(mon>1) {
-                        mon=mon-1;
-                    }
-                    else {
-                        year = year-1;
-                        mon = 12;
-                    }
-                }
-                d.setDate(d.getDate()-n);
-                year = d.getFullYear();
-                mon=d.getMonth()+1;
-                day=d.getDate();
-                s = year+"-"+(mon<10?('0'+mon):mon)+"-"+(day<10?('0'+day):day);
-                return s;
-            }
-            /*获取当前时间封装函数*/
-            /*格式xxxx-xx-xx*/
-            function myDate(){
-                var d = new Date();
-                var year = d.getFullYear();
-                var month = d.getMonth() + 1; // 当前月是要+1
-                month = month < 10 ? ("0" + month) : month;
-                var dt = d.getDate();
-                dt = dt < 10 ? ("0" + dt) : dt;
-//                var today = year + "-" + month + "-" + dt;
-//                alert(today);
-                return today = year + "-" + month + "-" + dt;
-            }
-
+           
             /*ajax交互封装*/
-            function timeAjax (){
-//                var myDate=new Date();
-                myDate();
-                var times={
-                    bengintime:s,
-                    endtime:today
-                }
-                console.log(s)
-                console.log(today)
-
+            function timeAjax (matchDay){
+ 
                 $.ajax({
-               url:"http://127.0.0.1:40010/webapi/asset/ipaloma/forecast",
+               url:"http://127.0.0.1:40010/webapi/asset/ipaloma/forecast?parameters=" + JSON.stringify(matchDay),
 //                    url:"http://127.0.0.1:40010/webapi/asset/member/dict/member_class",
-                    url:"javascript/summary.json",
+                    // url:"javascript/summary.json",
                     dataType:"json",
-                    data:times,
+        
                     success:function(data){
-                        console.log(data.content.account_1.asset_balance)
+                        // console.log(data.content.account_1.asset_balance)
                         var str1="";
                         var str2="";
                         var str3="";
@@ -277,16 +233,16 @@
 
             /*预测时间段点击事件*/
             $(".three").click(function(){
-                getBeforeDate(2);
-                timeAjax();
+        
+                timeAjax(3);
             })
             $(".seven").click(function(){
-                getBeforeDate(6);
-                timeAjax();
+            
+                timeAjax(7);
             })
             $(".thrty").click(function(){
-                getBeforeDate(29);
-                timeAjax();
+            
+                timeAjax(30);
             })
 
 
@@ -339,10 +295,9 @@
                             $(this).parents(".tians").css("color","#4778c7")
                             $(this).parents(".tians").html("近" + $(this).val() + "天");
                             //自定义时间的ajax搜索
-                            var self=$(this).val()-1;
+                            var self=$(this).val();
 //                            console.log(self);
-                            getBeforeDate(self);
-                            timeAjax();
+                            timeAjax(self);
                         }
                     }
                 });

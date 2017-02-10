@@ -5,7 +5,7 @@
 $(function(){
 
     /*流水编号自动匹配*/
-    serialNumber();
+    // serialNumber();
     function serialNumber(){
         $.ajax({
             type:"GET",
@@ -45,16 +45,7 @@ $(function(){
         })
     }
 
-    /*创建日期函数*/
-    function myDate(){
-        var d = new Date();
-        var year = d.getFullYear();
-        var month = d.getMonth() + 1; // 当前月是要+1
-        month = month < 10 ? ("0" + month) : month;
-        var dt = d.getDate();
-        dt = dt < 10 ? ("0" + dt) : dt;
-        return today = year + "-" + month + "-" + dt;
-    }
+    
     /*重置按钮*/
     $(".reset_b").click(function(){
 //                $(".membertype").val("");
@@ -186,8 +177,8 @@ $(function(){
     registrant();
      function  registrant () {
          $.ajax({
-             //url:"http://127.0.0.1:40010/webapi/asset/member/dict/ipacasher",
-             url:"javascript/json/ipacasher.json",
+             url:"http://127.0.0.1:40010/webapi/asset/member/dict/ipacasher",
+             // url:"javascript/json/ipacasher.json",
              dataType:"json",
              success:function(data) {
                  console.log(data.ipacasher);
@@ -220,324 +211,9 @@ $(function(){
      }
 
 
-//            /*省市区三级ajax联动*/
-//            /*province 省*/
-//            $("#province").click(function(){
-//                var province={
-//                    "area_province": "area_province"
-//                }
-//
-//                $.ajax({
-//                    url:"http://127.0.0.1:40010/webapi/asset/member/dict/area_province",
-//                    type: "get",
-//                    data:province,
-//                    dataType: "json",
-//                    success: function (data) {
-//                        var str = "";
-////                        $(data).each(function (i) {
-////                            for (i = 0; i++; i < this.area_province.length) {
-////                                str += '<li>' + this.area_province[i] + '</li>'
-////                            }
-////                        })
-//                        for(key in data.area_province){
-//                            str+='<li>'+ key +'</li>'
-//                        }
-//                        $("#province ul").html(str)
-//                        /*省*/
-//                        $('#province').on('click', function () {
-//                            $('#province ul').stop().slideToggle(300);
-//                        })
-//                        $('#province ul li').on('click', function () {
-////                        $('#province span').attr('value',$(this).text());
-//                            $('#province span').html($(this).html());
-//
-//                        })
-//                    }
-//                })
-//            })
-//            /*city 市*/
-//             $("#city").click(function(){
-//                 var city={
-//                     "_city":$('#city span')
-//                 }
-//                 $.ajax({
-//                         url:"../../area_city",
-//                         data:city,
-//                         type:"get",
-//                         dataType:"json",
-//                         success:function(){
-//                             var str="";
-//                             $(data).each(function(){
-//                                 str+='<li>'+ this.area_city[i] +'</li>'
-//                             })
-//                             $("#city ul").html(str)
-//                             /*省*/
-//                             $('#city').on('click',function(){
-//                                 $('#city ul').stop().slideToggle(300);
-//                             })
-//                             $('#city ul li').on('click',function(){
-////                        $('#province span').attr('value',$(this).text());
-//                                 $('#city span').html($(this).html());
-//                             })
-//
-//                         }
-//
-//                  })
-//
-//            })
-//
-//             /*district 区*/
-//             $("#district").click(function(){
-//                 var district={
-//                     "_district": $("#district span").html()
-//                 }
-//                 $.ajax({
-//                     url:"../../area_district",
-//                     data:district,
-//                     type:"get",
-//                     dataType:"json",
-//                     success:function() {
-//                         var str = "";
-//                         $(data).each(function () {
-//                             str += '<li>' + this.area_city[i] + '</li>'
-//                         })
-//                         $("#district ul").html(str)
-//                         /*省*/
-//                         $('#district').on('click', function () {
-//                             $('#district ul').stop().slideToggle(300);
-//                         })
-//                         $('#district ul li').on('click', function () {
-//                             //                        $('#province span').attr('value',$(this).text());
-//                             $('#district span').html($(this).html());
-//                         })
-//                     }
-//                 })
-//            })
-
-
-//            listPage(i);
-//            var gPageSize = 10;
-//            var i = 1; //设置当前页数，全局变量
-//            function listPage (pagenumber){
-////                i++; //页码自动增加，保证下次调用时为新的一页。
-//                var dd={
-////                    "pagesize":gPageSize,
-//                    "pagenumber":pagenumber,
-//                    "pageindex":i++
-//                }
-//                console.log($(dd)[0].pageindex);
-////                $.get("javascript/list.json", dd, function (data) {
-////                    if (data.length > 0) {
-////                        //var jsonObj = JSON.parse(data);
-////                        tablelist(dd);
-////                    }
-////                });
-//                $.ajax({
-////                    url:"http://127.0.0.1:40010/webapi/asset/member/trading/list",
-//                    url:"javascript/finding.json",
-//                    data:dd,
-//                    type:"get",
-//                    dataType:"json",
-//                    success:function(data){
-////                        if($("#start").val()=="" || $("#end").val()==""){
-////                            alert("请填写正确的时间");
-////                            return false;
-////                        }
-////                        alert("ok");
-//                        $(".loading_2").hide();
-//                        if(data.content.length>0){
-////                            console.log(data.content)
-//                            tablelist(data);
-//                            $('.table1 tbody tr').on("click",function(){
-//                                $(this).addClass("td_tip").siblings().removeClass("td_tip");
-//                            })
-//                        }
-//                    },
-//                    beforeSend: function () {
-//                        $(".loading_2").show();
-////                        alert(1)
-//                    },
-//                    error: function() {
-//                        $(".loading_2").hide();
-//                    }
-//                })
-//            }
-
-//            function tablelist(data){
-//                var str="";
-////                        console.log(data.content[0].member_class)
-//                $(data.content).each(function(i){
-//                    str+='<tr><td>'+ this.member_name
-//                            + '</td><td>'+ this.member_class
-//                            +  '</td><td>'+ this.area
-//                            + '</td><td>'+ this.serialnumber
-//                            + '</td><td>'+ this.purpose_class
-//                            + '</td><td>'+ this.count
-//                            + '</td><td>'+ this.register_time
-//                            + '</td><td class="ac_tip">'+ this.descriptioin
-//                            + '</td><td>'+ this.ipacasher_name
-//                            +'<br/>'+ this.register_time + '</td></tr>'
-//                })
-//                $(".table1 tbody").append(str);
-//            }
-
-
-    //var i = 1; //设置当前页数
-    //var pageSize = 10;
-    /*check 登记复选框判定*/
     $('.check').click(function() {
         $(this).toggleClass('checked');
     });
-
-
-    /****
-     * 滚动分页代码
-     * */
-
-//    function MyScroll (currAjax) {
-//
-//        var winH = $(".table1 tbody").height(); //页面可视区域高度
-//        var scrollHandler = function () {
-//            var pageH = $(".table1 tbody").prop("scrollHeight");
-//            var scrollT = $(".table1 tbody").scrollTop(); //滚动条top
-//            var aa = pageH - winH - scrollT;
-//            if (aa < -9) {
-//                currAjax(i);
-//            }
-//        }
-//        //定义鼠标滚动事件
-//        $(".table1 tbody").scroll(scrollHandler);
-//        /*点击查询--条件查询 termAjax*/
-//        currAjax(i);
-//    }
-//
-//    function termAjax (i){
-//        var str2=$(".membertype").val();
-//        var memberTap2;
-//        switch (str2){
-//            case "厂商": memberTap2="tblretailer"; break;
-//            case "分销商":memberTap2="tbldistributor";break;
-//            case "门店":memberTap2="tblsupplier";break;
-//            case "凌云代理商":memberTap2="tblipalomaagent";break;
-//        }
-////                console.log($(".membertype").val())
-//        var find={
-////                    "member_id":$(".membertype").attr("id"),
-//            "member_class":memberTap2,
-////                    "area_province":$("#province em").html(),
-////                    "area_city":$("#city em").html(),
-////                    "area_district":$("#area em").html(),
-////                    "serialnumber":$(".serialnumber").val(),
-//            "transfertype":$(".expenses_son").val(),
-////                    "purpose_id":$(".resonDown").attr("id"),
-//            "purpose_class":$(".resonDown").val(),
-//            "asset_min":$(".de_ipt1 input").val(),
-//            "asset_max":$(".de_ipt2 input").val(),
-//            "trading_begintime":$("#start").val(),
-//            "trading_endtime":$("#end").val(),
-//            //"pagenumber":pagenumber,
-//            "pageindex":i++,
-//            "pageSize":pageSize
-//        }
-//        $.ajax({
-////                    url:"http://127.0.0.1:40010/webapi/asset/member/trading/list",
-//            url:"javascript/json/finding.json",
-//            data:find,
-//            dataType:"json",
-//            success:function(data){
-//                console.log("term");
-////                        alert("ok");
-//                var str="";
-////                        console.log(data.content[0].member_class)
-//                console.log(data)
-////                        console.log(data.content[0].member_class)
-//                $(".loading_2").hide();
-//                if(data.content.length>0){
-////                            console.log(data.content)
-//                    $(data.content).each(function(i){
-//                        str+='<tr><td>'+ this.member_name
-//                            + '</td><td>'+ this.member_class
-//                            + '</td><td>'+ this.area
-//                            + '</td><td>'+ this.serialnumber
-//                            + '</td><td>'+ this.purpose_class
-//                            + '</td><td>'+ this.count
-//                            + '</td><td>'+ this.register_time
-//                            + '</td><td class="ac_tip">'+ this.descriptioin
-//                            + '</td><td>'+ this.ipacasher_name
-//                            +'<br/>'+ this.register_time + '</td></tr>'
-//                    })
-//                    $(".table1 tbody").append(str);
-//                    $('.table1 tr td').on("mouseover",function(){
-//                        $(this).attr("title",$(this).text())
-//                    })
-//                    $('.table1 tr td:nth-child(8)').on("click",function(){
-//                        $(this).toggleClass('ac_tip');
-//                    })
-//                    $('.table1 tbody tr').on("click",function(){
-//                        $(this).addClass("td_tip").siblings().removeClass("td_tip");
-//                    })
-//                    $('.table1 tbody tr').on("click",function(){
-//                        $(this).addClass("td_tip").siblings().removeClass("td_tip");
-//                    })
-//                }
-//            },
-//            beforeSend: function () {
-//                $(".loading_2").show();
-//                $(".find_b").val("查 询")
-////                        alert(1)
-////                        if($("#start").val()=="" || $("#end").val()==""){
-////                            alert("请填写正确的时间");
-////                            return false;
-////                        }
-//            },
-//            error: function() {
-//                $(".loading_2").hide();
-//            }
-//        })
-//    }
-//
-//    function checkAjax (i) {
-//        checkData={
-//            "ipa_casher_id":$("#ipacasher").val(),
-//            "register_time":$("#register_time").val(),
-//            //"pagenumber":pagenumber,
-//            "pageindex":i++,
-//            "pageSize":pageSize
-//        }
-//        $.ajax({
-////                    url:"http://127.0.0.1:40010/webapi/asset/member/trading/list",
-//            url:"javascript/json/list.json",
-//            data:checkData,
-//            dataType:"json",
-//            success:function(data){
-//                console.log("check");
-//                var str='';
-//                $(data.content).each(function(i){
-//                    str+='<tr><td>'+ this.member_name
-//                        + '</td><td>'+ this.member_class
-//                        + '</td><td>'+ this.area
-//                        + '</td><td>'+ this.serialnumber
-//                        + '</td><td>'+ this.purpose_class
-//                        + '</td><td>'+ this.count
-//                        + '</td><td>'+ this.register_time
-//                        + '</td><td class="ac_tip">'+ this.descriptioin
-//                        + '</td><td>'+ this.ipacasher_name
-//                        +'<br/>'+ this.register_time + '</td></tr>'
-//                })
-//                $(".table1 tbody").append(str);
-//                $('.table1 tr td').on("mouseover",function(){
-//                    $(this).attr("title",$(this).text())
-//                })
-//                $('.table1 tr td:nth-child(8)').on("click",function(){
-//                    $(this).toggleClass('ac_tip');
-//                })
-//                $('.table1 tbody tr').on("click",function(){
-//                    $(this).addClass("td_tip").siblings().removeClass("td_tip");
-//                })
-//            }
-//        })
-//    }
-//
 
 
 
@@ -579,14 +255,15 @@ $(function(){
             case "凌云代理商":memberTap="tblaccount";break;
         }
         members={
-            "member_search_text":"凌云测试分销商雇员 No.40-1",
+            // member_search_text:$("#search_text").val(),
 //                    "member_id":
-            "member_class":memberTap
+            member_class:memberTap
 //                    "area_province":$("#province em").html(),
 //                    "area_city":$("#city em").html(),
 //                    "area_district":$("#area em").html(),
         }
 //                    console.log(value)
+
         if($("#search_text").val()){
             $(".table2").fadeIn(300);
             $(".tab_header li:nth-child(3)").css("visibility","visible")
@@ -605,7 +282,7 @@ $(function(){
         $.ajax({
             type:"GET",
             // url:"javascript/json/autoplate.json",
-            url:"http://127.0.0.1:40010/webapi/asset/member/summary",
+            url:"http://127.0.0.1:40010/webapi/asset/member/summary?parameters=" + $("#search_text").val(),
             data:members,
             dataType:"json",
             success:function(data) {
@@ -626,6 +303,9 @@ $(function(){
                     $(this).addClass("allmember1").siblings().removeClass("allmember1")
                     $("#search_text").val($(".allmember1").find(".lei").text());
                 })
+            },
+            error:function(){
+                
             }
         })
     }
@@ -751,14 +431,14 @@ $(function(){
             end.elem = this
             laydate(end);
         }
-//                var Ntime=laydate.now();
-//                $("#start").val(Ntime + " 00:00:00")
-//                $("#end").val(Ntime + " 23:59:59")
-//                $("#laydate_bottom #laydate_clear").click(function(){
-//                    var Ntime=laydate.now();
-//                    $("#start").val(Ntime + " 00:00:00")
-//                    $("#end").val(Ntime + " 23:59:59")
-//                })
+               // var Ntime=laydate.now();
+               // $("#start").val(Ntime + " 00:00:00")
+               // $("#end").val(Ntime + " 23:59:59")
+               // $("#laydate_bottom #laydate_clear").click(function(){
+               //     var Ntime=laydate.now();
+               //     $("#start").val(Ntime + " 00:00:00")
+               //     $("#end").val(Ntime + " 23:59:59")
+               // })
     });
 
 

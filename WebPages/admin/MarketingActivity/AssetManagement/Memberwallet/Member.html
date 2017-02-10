@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>会员钱包</title>
     <link rel="stylesheet" href="css/Member.css"/>
-    <link rel="stylesheet" href="layui-v1.0.7/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="css/dropload.css"/>
 </head>
 <body>
@@ -53,19 +53,19 @@
                                 <div class="regin">
                                     <!-- 城市三级联动 -->
                                     <div class="gf-select" id="province">
-                                        <span><em></em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+                                        <span><em>省</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
                                         <ul>
                                             <li data-value="">省份</li>
                                         </ul>
                                     </div>
                                     <div class="gf-select gf-select_1" id="city">
-                                        <span><em></em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+                                        <span><em>市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
                                         <ul>
                                             <li data-value="">城市</li>
                                         </ul>
                                     </div>
                                     <div class="gf-select gf-select_m0" id="area">
-                                        <span><em></em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+                                        <span><em>区</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
                                         <ul>
                                             <li data-value="">区县</li>
                                         </ul>
@@ -123,8 +123,8 @@
                 </div>
                 <!--find and reset 右侧查询重置按钮-->
                 <div class="M_W_find">
-                    <input class="find_b" type="submit" value="查 询"/>
-                    <input class="reset_b" type="submit" value="重 置"/>
+                    <button class="find_b">查 询</button>
+                    <button class="reset_b">重 置</button>
                 </div>
             </div>
             <!--body 主题部分-->
@@ -182,6 +182,9 @@
                         <!--</tr>-->
                         </tbody>
                     </table>
+                    <div class="noData">
+                        无数据，请重新加载...
+                    </div>
                     <!--<ul class="loading_2">-->
                         <!--<li>1</li>-->
                         <!--<li>2</li>-->
@@ -339,8 +342,8 @@
 
     </div>
     <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../lib/layui/layui.js"></script> 
     <script src="javascript/selectivizr.js"></script>
-    <script src="layui-v1.0.7/layui/layui.js"></script>
     <script src="javascript/cityLink.js"></script>
     <script src="javascript/autocomplate/jquery.autocomplete.js"></script>
     <script src="javascript/autocomplate/jquery.mockjax.js"></script>
@@ -351,13 +354,14 @@
 
 
         $(".find_b").click(function(){
+            $(".noData").css("display","none");
             //console.log(flag);
             $(".table1 tbody").html("");
             if($(".check").hasClass("checked")){
-                if($("#register_time").val()==""){
-                    alert("请填写登记日期");
-                    return false;
-                }
+                // if($("#register_time").val()==""){
+                //     alert("请填写登记日期");
+                //     return false;
+                // }
                 getList(1,getCheck());
             }else{
                 if($("#start").val()=="" || $("#end").val()==""){
@@ -405,12 +409,13 @@
                         // url: "javascript/json/list.json?parameters=" + JSON.stringify(df),
                         dataType: "json",
                         beforeSend: function() {
-                            $(".find_b").val("查 询")
+                            $(".find_b").html("查询中")
 //                          alert(1)
                         },
                         success: function(data) {
+                            $(".noData").css("display","none");
                             console.log("term");
-                            $(".find_b").val("查询中")
+                            $(".find_b").html("查询")
 //                        alert("ok");
                             var str="";
 //                        console.log(data.content[0].member_class)
@@ -450,21 +455,33 @@
                                 // 锁定
                                 me.lock();
                                 // 无数据
+                                $(".noData").css("display","block");
                                 me.noData(true);
                             }
                         },
                         complete: function() {
-                            $(".find_b").val("查 询")
+                            $(".find_b").html("查 询")
                         },
                         error: function () {
                             $('.loading').remove();
-                            $('.dropload-load').html('没有加载到数据，请重新查询');
+                            // $('.dropload-load').html('没有加载到数据，请重新查询');
                         }
 
                     });
                 }
             });
         };
+
+        /*创建日期函数*/
+        function myDate(){
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = d.getMonth() + 1; // 当前月是要+1
+            month = month < 10 ? ("0" + month) : month;
+            var dt = d.getDate();
+            dt = dt < 10 ? ("0" + dt) : dt;
+            return today = year + "-" + month + "-" + dt;
+        }
 
         function getSearch (){
             var str2=$(".membertype").val();
@@ -478,25 +495,75 @@
 
             var searchForm = {
 //                    "member_id":$(".membertype").attr("id"),
-            "member_class":memberTap2,
+            member_class:memberTap2,
 //                    "area_province":$("#province em").html(),
 //                    "area_city":$("#city em").html(),
 //                    "area_district":$("#area em").html(),
 //                    "serialnumber":$(".serialnumber").val(),
-            "transfertype":$(".expenses_son").val(),
+            transfertype:$(".expenses_son").val(),
 //                    "purpose_id":$(".resonDown").attr("id"),
-            "purpose_class":$(".resonDown").val(),
-            "asset_min":$(".de_ipt1 input").val(),
-            "asset_max":$(".de_ipt2 input").val(),
-            "trading_begintime":$("#start").val(),
-            "trading_endtime":$("#end").val()
+            purpose_class:$(".resonDown").val(),
+            asset_min:$(".de_ipt1 input").val(),
+            asset_max:$(".de_ipt2 input").val(),
+            trading_begintime:$("#start").val(),
+            trading_endtime:$("#end").val(),
+            "area_province":$("#province em").html(),
+            "area_city":$("#city em").html(),
+            "area_district":$("#area em").html(),
+            };
+
+            
+
+            if (searchForm.member_class == "") {
+                delete member_class;
+            };
+            if (searchForm.transfertype == "") {
+                delete searchForm.transfertype;
+            };
+            if (searchForm.member_class == "") {
+                delete searchForm.member_class;
+            };
+            if (searchForm.purpose_class == "") {
+                delete searchForm.purpose_class;
+            };
+            if (searchForm.asset_min == "") {
+                delete searchForm.asset_min;
+            };
+            if (searchForm.asset_max == "") {
+                delete searchForm.asset_max;
+            };
+            if (searchForm.area_province == "" || searchForm.area_province == "省份" || searchForm.area_province == "省") {
+                delete searchForm.area_province;
+            };
+            if (searchForm.area_city == "" || searchForm.area_city == "城市" || searchForm.area_city == "市") {
+                delete searchForm.area_city;
+            };
+            if (searchForm.area_district == "" || searchForm.area_district == "区县"  || searchForm.area_district == "区") {
+                delete searchForm.area_district;
+            };
+
+
+
+            if (searchForm.trading_begintime == "") {
+                myDate(); 
+                searchForm.trading_begintime=today + " 00:00:00";
+            };
+            if (searchForm.trading_endtime == "") {
+                myDate();
+                searchForm.trading_endtime=today + " 23:59:59";
             };
             return searchForm;
         }
         function getCheck (){
             var searchForm = {
-                "ipa_casher_id":$("#ipacasher").val(),
-                "register_time":$("#register_time").val()
+                ipa_casher_id:$("#ipacasher").val(),
+                register_time:$("#register_time").val()
+            };
+            if (searchForm.ipa_casher_id == "") {
+                delete searchForm.ipa_casher_id;
+            };
+            if (searchForm.register_time == "") {
+                delete searchForm.register_time;
             };
             return searchForm;
         }
