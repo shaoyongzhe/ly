@@ -1,7 +1,7 @@
 var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
-var pageindex=1;
+var pageindex=0;
 var pagesize=15;
 var statusData="";//储存statusAjax()返回的数据。
 /*模拟下拉*/
@@ -22,7 +22,6 @@ $('.selectL').on("click",".optionL",function(e){
 $(document).click(function(){
 	$('.selectL').hide();
 });
-
 
 /*起始时间laydate控件*/
 var dataStart = {
@@ -77,12 +76,22 @@ function myDate(){
 	var pagingJson = {
                 "pagesize": pagesize,
                 "pageindex":pageindex,
-                "sort": [{"oid": "desc"}]
+                "sort": [{"oid": "asc"}]
          };
+         
+         
+/*
+ * 分页  下拉刷新
+ */
+$(".activityList tbody").scroll(function() {
+	if($(this).scrollTop() >= ($(this).prop("scrollHeight") - 500) && $(this).prop("scrollHeight") > 500) {
+		basicQuery();
+//		console.log(condition)
+	}
+});
+
 
 function basicQuery(){
-
-
     /*判断是否输入了查询条件*/
 	if( $(".qC_aitivityTopic input").val()==""&&
 		$(".qC_number input").val()==""&&
@@ -176,7 +185,7 @@ function basicQuery(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-
+	pagingJson.pageindex++;
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -186,12 +195,9 @@ function basicQuery(){
 		membercount:membercount,
 		districthash:districthash,
 		state:state,
-		paging: JSON.stringify({
-		    "pagesize": pagesize,
-		    "pageindex": pageindex,
-		    "sort": [{ "oid": "desc" }]
-		})
+		paging:JSON.stringify(pagingJson)
 	}
+//	console.log(condition)
     $.each(condition, function(key, value){
     if (value === "" || value === null){
         delete condition[key];
@@ -208,12 +214,17 @@ function basicQuery(){
 		url:"/webapi/ipaloma/topic/list/query",
 		async:true,
 		data:condition,
-		success:function(data){
+		success: function (data) {
+//		    console.log(data.content.length);
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
 			console.log('success')
+			if(data.content.length < 2){
+				layer.alert('没有加载到数据，请重新查询', {icon: 1});
+				return;
+			}
 			linshi=data;
 
 
@@ -240,7 +251,7 @@ function basicQuery(){
 		    //表格Tbody
 			var contentBody = data.content;
 			activityListTbody = ConstructRecord(contentBody, statusData);
-			$(".activityList tbody").empty();
+//			$(".activityList tbody").empty();
 			$(".activityList tbody").append(activityListTbody+'</tr>');
 			/*拼接完毕，开始事件*/
 			//隐藏所有按钮详情
@@ -286,7 +297,7 @@ function ConstructRecord(contentBody, statusData)
 				+'<td class="activityCode">'+x.activitycode+'</td>' 
 				+ '<td class="activitytitle">' + x.activitytitle + '</td>'
 				+ '<td class="activityTime">' + x.begintime + ' -- ' + x.endtime + '</td>'
-				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) + '</td>'
+				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) +'</td>'
 				+ '<td class="estimateJoinVipQuantity">' + x.membercount + '</td>'
 				+ '<td class="JoinedVipQuantity">' + x.alreadyinmembercount + '</td>'
 //				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
@@ -372,10 +383,19 @@ function statusAjax(){
 }
 
 /*区域信息拼接*/
+// districts -----> x.district
 function JointDistrict(districts)
 {
     var queryResult = $.Enumerable.From(districts)
-    .Select(function (x) { return x["name"] })
+    .Select(function (x) { 
+    	if(x["charge"]){
+    		var chrage_y = x["charge"];
+    		return x["name"] +"</br>"+ chrage_y["name"];
+    	}else{
+    		return x["name"];
+    	}
+    	
+    })
     .ToArray();
     return queryResult.join(" - ");
     
@@ -415,7 +435,6 @@ $(document).on("click",".edit",function(){
 	$(".edit").not(this).find(".menu").hide();
 	return false;
 })
-
 $(document).click(function(){
 	$(".edit .menu").hide();
 })
