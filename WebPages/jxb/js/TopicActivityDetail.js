@@ -690,13 +690,6 @@ function ajaxActivityDetails(a,b){
 			}
 			
 			//省	
-			if(area_match){//对勾
-				$(".BDcyhdCityDsSheng img").attr("src","img/a3.png");
-			}else{//叉叉
-				$(".BDcyhdCityDsSheng img").attr("src","img/a4.png");
-			}
-			
-			//省	
 			for(i=0;i<data.district_condition.length;i++){				
 				$(".BDcyhdCityD").append(hmSheng);
 				$(".BDcyhdCityDsSheng:last").find(".BDcyhdCityDsP").text(data.district_condition[i].name);
