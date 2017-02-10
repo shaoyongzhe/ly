@@ -392,7 +392,9 @@ select::-ms-expand { display: none; }
 .cgl-li5>ul{float: right;line-height: 30px;width: 666px; margin-top: 10px; height: 128px;overflow-y: auto;}
 .cgl-li5>ul>li{border-bottom: 1px solid #e4e4e4;line-height: 30px;}
 .cgl-li5>ul>li:last-of-type{border: 0;}
-.cgl-beizhu{padding-bottom: 6px;}
+.cgl-beizhu{padding-bottom: 6px;overflow: hidden;display: -webkit-box;}
+.cgl-beizhu>span,.cgl-beizhu>p{display:block; }
+.cgl-beizhu>p{-webkit-box-flex: 1;}
 
 .cgl-antc{text-align: center;padding-bottom: 44px;}
 .cgl-antc>span{
