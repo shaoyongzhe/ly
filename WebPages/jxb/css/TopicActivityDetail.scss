@@ -1,4 +1,5 @@
-//通用样式
+//20170210.9
+//ͨ����ʽ
 html,body{
     width:100%;
     height:100%;
@@ -38,7 +39,15 @@ padding:0;
 .vis{
     visibility:hidden
 }
+.iScrollIndicator{
+    background:rgba(255, 173, 51, 0.1)!important;
+}
 //非通用样式
+//��ͨ����ʽ
+.iScrollIndicator{
+    background:rgba(255, 173, 51, 0.1)!important;
+}
+//��ͨ����ʽ
 header{
     background: #4e9fee;
     width: 900px;   
@@ -81,7 +90,7 @@ header img:nth-of-type(2){
 //  height:2999px;
 }
 
-//整体的上面****************************************
+//整体的上�?***************************************
 .BwrapUp{
     box-sizing: border-box;
     width:1280px;
@@ -89,10 +98,10 @@ header img:nth-of-type(2){
 //  background:greenyellow;
 }
 .Bzige_List{
-    //暂时不清理浮动，稍后注意。
+    //暂时不清理浮动，稍后注意�?
 //  background:red;
-    margin-bottom: 17px;//为了调整为26px;
-    height:42px;//设置此高度，一方面是为了清浮动，一方面是为了左侧不影响下文的布局，右侧又可以进入下文一部分。
+    margin-bottom: 17px;//为了调整�?6px;
+    height:42px;//设置此高度，一方面是为了清浮动，一方面是为了左侧不影响下文的布局，右侧又可以进入下文一部分�?
 }
 //资格审查结果
 .Bzige img{
@@ -150,8 +159,8 @@ header img:nth-of-type(2){
     margin-bottom:10px;
 //  float:left;
 }
-//大标题
-//备注：因为符合资格和不符合资格的，大小标题位置不同，所以把其放入一个标签，在html里同时写在2个位置，通过显示隐藏来实现。
+//大标�?
+//备注：因为符合资格和不符合资格的，大小标题位置不同，所以把其放入一个标签，在html里同时写�?个位置，通过显示隐藏来实现�?
 .BbigTitle p{
     color:#333333;
     font-family: "微软雅黑";
@@ -203,7 +212,7 @@ header img:nth-of-type(2){
     height:182px;
 }
 .BtuwenWenP1{
-    //谷歌相差8像素，火狐相差5像素，为啥。
+    //谷歌相差8像素，火狐相�?像素，为啥�?
     width:660px;//1280-140*2-10=1000-10-322=668px;
     font-family:"微软雅黑";
     font-size:14px;
@@ -235,11 +244,11 @@ header img:nth-of-type(2){
     color:#3fbe00;
 }
 .BtuwenWenP2{
-    margin-top:20px;//要求是25，考虑到上门的行高，所以这里目测20合适。
+    margin-top:20px;//要求�?5，考虑到上门的行高，所以这里目�?0合适�?
     margin-bottom:10px ;
 }
 .BtuwenWenP3{
-    //无
+    //�?
 }
 //补贴类型A
 .BsubsidyA{
@@ -249,8 +258,8 @@ header img:nth-of-type(2){
     margin-top:-30px;
 }
 .BsubsidyA img{
-    width:1000px;//来自最上面.BwrapUp的1280-140*2
-    height:148px;//来自等比例缩放   
+    width:1000px;//来自最上面.BwrapUp�?280-140*2
+    height:148px;//来自等比例缩�?  
 }
 .BsubsidyA p{
     position:absolute;
@@ -285,8 +294,8 @@ header img:nth-of-type(2){
 }
 //补贴类型B
 .BsubsidyB{
-    width:1000px;//来自最上面.BwrapUp的1280-140*2
-    height:100px;//来自等比例缩放
+    width:1000px;//来自最上面.BwrapUp�?280-140*2
+    height:100px;//来自等比例缩�?
     position:relative;
     margin-top: 20px;
 }
@@ -365,11 +374,13 @@ header img:nth-of-type(2){
     top: 48px;
 }
 //活动补贴说明
-$heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展开收起对应不同高度。所以，这里后期会是auto。或者由js控制的高度。
+$heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展开收起对应不同高度。所以，这里后期会是auto。或者由js控制的高度�?
 .Bbtsm{//活动补贴说明整体
     box-sizing: border-box;
     width:1000px;
+//  height:$heightbt;//0210格外注意
     height:$heightbt;
+//  height:$heightbt;//0210����ע��
 //  min-height: 222px;
     border:1px solid transparent;
 //  background:green;
@@ -383,26 +394,37 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 //  height:222px;
     width:66px;
 //  background: blue;
-    margin-top:3%;//$heightbt/8;百分比依据.Bbtsm
+    margin-top:3%;//$heightbt/8;百分比依�?Bbtsm
+    display: table-cell;
+    margin-top:3%;//$heightbt/8;�ٷֱ�����.Bbtsm
+    margin-top:3%;//$heightbt/8;�ٷֱ�����.Bbtsm
+    display: table-cell;
 }
 .BbtsmL img{
-    width:63px;//直接看图的尺寸
-    height:66px;//直接看图的尺寸
+    width:63px;//直接看图的尺�?
+    height:66px;//直接看图的尺�?
 }
 //活动补贴说明
     //右边
 .BbtsmR{
     width:923px;
-    height:100%;//不改变量，因为100%比变量好用！好用在，如果js中高度变化了，这里就不用变，而用变量，js中还需设置此高度。
+//  height:100%;//不改变量，因�?00%比变量好用！好用在，如果js中高度变化了，这里就不用变，而用变量，js中还需设置此高度�?/0210格外注意
+    height:100%;//���ı�������Ϊ100%�ȱ������ã������ڣ����js�и߶ȱ仯�ˣ�����Ͳ��ñ䣬���ñ�����js�л������ô˸߶ȡ�
+//  height:100%;//���ı�������Ϊ100%�ȱ������ã������ڣ����js�и߶ȱ仯�ˣ�����Ͳ��ñ䣬���ñ�����js�л������ô˸߶ȡ�//0210����ע��
 //  background:yellow;
     border-radius: 5px;
 //  box-sizing: border-box;
 //  border:1px solid #FFAD33;
+    display: table-cell;
 }
-.BbtsmRleft{//活动补贴说明6个字
+.BbtsmRleft{//左边"活动补贴说明字样"
+.BbtsmRleft{//�����˵��6����
+.BbtsmRleft{//���"�����˵������"
     box-sizing: border-box;
 //  padding-top:5%;
-    height:100%;//不改变量，原因同上。
+    height:100%;//不改变量，原因同上�?/0210格外注意
+    height:100%;//���ı�����ԭ��ͬ�ϡ�
+    height:100%;//���ı�����ԭ��ͬ�ϡ�//0210����ע��
     width:37px;
     background:#FFAD33;
     font-family: "微软雅黑";
@@ -427,7 +449,7 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     position: absolute;
     top:50%;
     left:50%;
-     transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%);
     -ms-transform:translate(-50%,-50%);
     -moz-transform:translate(-50%,-50%);
     -webkit-transform:translate(-50%,-50%);
@@ -437,24 +459,34 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     margin-left: -8px;//消除换行解析
     padding:0px 10px;
     box-sizing: border-box;
-    height:100%;////不改变量，原因同上。
+//  height:100%;////不改变量，原因同上�?
+    height:100%;////���ı�����ԭ��ͬ�ϡ�
+//  height:100%;////���ı�����ԭ��ͬ�ϡ�
     width:886px;//924-37px;
 //  background:deepskyblue;
 //  overflow: hidden;
-    border:1px solid #FFAD33;//后加，所以导致
+    border:1px solid #FFAD33;//后加，所以导�?
 }
 //
 .BbtsmRright12{
     width:801px;
 //  height:100%;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
+    display: table-cell;
+//  height:100%;//Ϊ����BbtsmRright12�ĸ߶�������Ԫ�سſ�����������ע�͵�
+//  height:100%;//Ϊ����BbtsmRright12�ĸ߶�������Ԫ�سſ�����������ע�͵�
+    display: table-cell;
 }
 .BbtsmRright1{//会员参与时间
 //  background:red;
     height:30px;
     width:801px;
 }
-.BbtsmRright1 p{
+.BbtsmRright1 p{//会员参与时间:
     font-family: "微软雅黑";
+.BbtsmRright1 p{
+    font-family: "΢���ź�";
+.BbtsmRright1 p{//��Ա����ʱ��:
+    font-family: "΢���ź�";
     font-weight:bold;
     font-size: 14px;
     color:#ffad33;
@@ -477,27 +509,33 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 //  height:$heightbt;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
 }
 .BbtsmRright2Content{
-    width:867-66px;
+    width:867-66px;    
+    overflow: hidden;
 //  background: red;
 //  height:100%;
 }
+.maxHeight180{
+    max-height: 180px;
+}
+
 .BbtsmRright3{  
     margin-left:-8px;//处理换行解析
-    width:62px;//因为BbtsmRright加border导致这里变66为64
+    width:62px;//因为BbtsmRright加border导致这里�?6�?4
     box-sizing: border-box;
     padding-left:10px;
     padding-right:10px;
     height:100%;//其实就是222px
 //  background: brown;
-//  line-height: $heightbt+10*2px;//注意其是怪异盒模型，所以这里是如此设
+//  line-height: $heightbt+10*2px;//注意其是怪异盒模型，所以这里是如此�?
 //  vertical-align: middle;
     position:relative;
+    display: table-cell;
 }
 .BbtsmRright3 img{
     width:46px;
     cursor:pointer;
     position: absolute;
-    left:57%;//因为BbtsmRright加border导致这里变50为57
+    left:57%;//因为BbtsmRright加border导致这里�?0�?7
     top:50%;
      transform:translate(-50%,-50%);
     -ms-transform:translate(-50%,-50%);
@@ -505,22 +543,22 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     -webkit-transform:translate(-50%,-50%);
     -o-transform:translate(-50%,-50%); 
 }
-//图中量的做margin为13px,因为之前已经设置了是10px，所以懒得改了，回头给ui说一声。
+//图中量的做margin�?3px,因为之前已经设置了是10px，所以懒得改了，回头给ui说一声�?
 
-$width:(801px-10*2)/3;//一行3个的尺寸是，
-//$width:(801px-10*1)/2;//一行2个的尺寸是，
-//$width:(801px-10*0)/1;//一行1个的尺寸是，
-//不同的格数加不同的类名
+$width:(801px-10*2)/3;//一�?个的尺寸是，
+//$width:(801px-10*1)/2;//一�?个的尺寸是，
+//$width:(801px-10*0)/1;//一�?个的尺寸是，
+//不同的格数加不同的类�?
 .btsm{
     width:$width;
     box-sizing: border-box;
     border:1px solid #ffad33;
     border-radius:0 30px 0 0;
-    max-height: 180px;
+//  max-height: 180px;
 //  height:180px;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
     margin-bottom: 10px;
 //  background:darkkhaki;
-    margin-left:10-8px;//考虑换行解析的8像素
+    margin-left:10-8px;//考虑换行解析�?像素
 }
 .btsm1{
     margin-left:0px;//第一个不需要左margin
@@ -535,18 +573,41 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
     text-align: center;
     background:#ffad33;     
 }
+.btsmD1IscrollCon{
+    height:144px;//不设高度
+    width:100%;
+    overflow: hidden;
+    position:relative;    
+}
+.btsmD1IscrollCon{
+    height:144px;//����߶�
+    width:100%;
+    overflow: hidden;
+    position:relative;    
+}
 .btsmD1{
+    width:100%;
 //  line-height: ;
     font-family: "微软雅黑";
     font-size:14px;
     color:#333;
     line-height: 24px;//目测    
-    min-height:144px;//不设高度
+//  height:144px;//不设高度
 //  padding:3px 15px 4px 15px;//后期加上
     padding: 3px 9px 4px 8px;//0206修改
+    word-break: break-all;
+    line-height: 24px;//Ŀ��    
+    min-height:144px;//����߶�
+//  padding:3px 15px 4px 15px;//���ڼ���
+    padding: 3px 9px 4px 8px;//0206�޸�
+    line-height: 24px;//Ŀ��    
+//  height:144px;//����߶�
+//  padding:3px 15px 4px 15px;//���ڼ���
+    padding: 3px 9px 4px 8px;//0206�޸�
+    word-break: break-all;
 //  background:red;
 }
-//整体的下面****************************************
+//整体的下�?***************************************
 $widhtBwrapDown:1000px;
 .BwrapDown{//参与活动条件&nbsp:&nbsp
     box-sizing: content-box;
@@ -571,13 +632,13 @@ $widhtBwrapDown:1000px;
 .BDcyhdCity{//活动地区
     //样式看子标签   
 //  padding-top:100px;
-//  background: purple;//去
+//  background: purple;//�?
     width:100%;
-    position:relative;//因为没有需要横向对齐的元素，所以这里就直接设置相对定位也不会影响别人的布局。//用于展开收起的定位
+    position:relative;//因为没有需要横向对齐的元素，所以这里就直接设置相对定位也不会影响别人的布局�?/用于展开收起的定�?
 }
 .BDcyhdCityXianzhi{
 //  padding-top:100px;
-//  background:cyan;//去
+//  background:cyan;//�?
     width: 798px;
     overflow:hidden;
     max-height: 144px;    
@@ -596,7 +657,7 @@ $widhtBwrapDown:1000px;
 //.BDcyhdCityD{
 //  max-height: 140px;
 //}
-//超惠活动要求，会员参与资格的最外层标签距上面20像素
+//超惠活动要求，会员参与资格的最外层标签距上�?0像素
 .BDcyhdRequire,.BDcyhdQualified{
     margin-top: 20px;
 }
@@ -604,18 +665,18 @@ $widhtBwrapDown:1000px;
     width:$widhtBwrapDown*0.018;//18px;//来自图片尺寸
     height: 18px; 
     vertical-align:middle;
-    margin-right:5px;//暂时全部设置为5
+    margin-right:5px;//暂时全部设置�?
 //  background: darkgoldenrod;
 }
 .BDcyhdCityDs{
-//  position:relative;//用于展开收起的定位
+//  position:relative;//用于展开收起的定�?
 //  background:red;
 }
 //.BDcyhdCityDsSheng{
 //  vertical-align: middle;
 //}
-.BDcyhdCityDsSheng .BDcyhdCityDsP,.BDcyhdCityDsShi .BDcyhdCityDsP{//同时有2个类名的标签,省市区
-    margin-left: -8+5px;//img本身有5像素的右margin
+.BDcyhdCityDsSheng .BDcyhdCityDsP,.BDcyhdCityDsShi .BDcyhdCityDsP{//同时�?个类名的标签,省市�?
+    margin-left: -8+5px;//img本身�?像素的右margin
     font-family: "微软雅黑";
     font-size: 14px;
     color:#333;
@@ -623,10 +684,10 @@ $widhtBwrapDown:1000px;
 //  vertical-align: middle;
 //  height:24px;
 //  background: darkgoldenrod;
-    width:770px;//来自于不影响整体布局的测试
+    width:770px;//来自于不影响整体布局的测�?
 }
 .BDcyhdCityDsqv .BDcyhdCityDsP{
-    margin-left: -8+5px;//img本身有5像素的右margin
+    margin-left: -8+5px;//img本身�?像素的右margin
     font-family: "微软雅黑";
     font-size: 14px;
     color:#333;
@@ -634,7 +695,7 @@ $widhtBwrapDown:1000px;
 //  vertical-align: middle;
 //  height:24px;
 //  background: red;
-    width:730px;//来自于不影响整体布局的测试 
+    width:730px;//来自于不影响整体布局的测�?
 }
 .BDcyhdCityDsqv.BDcyhdCityDsP{
 //  text-indent: 72px;
@@ -645,7 +706,7 @@ $widhtBwrapDown:1000px;
     margin-left: 68px;
 //  background:blue;
 }
-.BDcyhdCityDsMore{//偏移量待定
+.BDcyhdCityDsMore{//偏移量待�?
     width:77px;
     position: absolute;
     bottom: 0;
@@ -671,7 +732,7 @@ $widhtBwrapDown:1000px;
     width:$widhtBwrapDown*0.018;//18px;//来自图片尺寸
     height: 18px; 
     vertical-align:middle;
-    margin-right:5px;//暂时全部设置为5
+    margin-right:5px;//暂时全部设置�?
 //  background: greenyellow;    
 }
 .BDcyhdRequireDP span{
@@ -709,7 +770,7 @@ $widhtBwrapDown:1000px;
     margin-right:5px;
     vertical-align: middle;
 }
-//会员参与资格下span//粉丝留存率:活动开始前1天,不低于70%
+//会员参与资格下span//粉丝留存�?活动开始前1�?不低�?0%
 .BDcyhdQualified .BDQFdsSpan{
     display: inline-block;
     font-family: "微软雅黑";
@@ -718,7 +779,7 @@ $widhtBwrapDown:1000px;
     line-height: 24px;
     height:24px;
 }
-//会员参与资格下 门店最下面红字内容（如您的投放门店不在平台）
+//会员参与资格�?门店最下面红字内容（如您的投放门店不在平台�?
 .BDQFd2_span1{
     font-size: 14px;
     color: red;
@@ -1027,7 +1088,7 @@ a.less {
 
   .Bbtsm {
     width: 1000px;
-    height: 222px;
+//  height: 222px;
     margin-top: 10px;
 //  background:gold;
   }
@@ -1059,9 +1120,9 @@ a.less {
   }
 
   .BbtsmRright {
-    margin-left: -8px;
+//  margin-left: -8px;
     padding: 0px 7px;
-    height: 100%;
+//  height: 100%;
     width: 732px;
     border: 1px solid #FFAD33;
 //  background:red;
@@ -1122,7 +1183,7 @@ a.less {
     width: (667px-10*2)/3;;
     border: 1px solid #ffad33;
     border-radius: 0 30px 0 0;
-    max-height: 180px;
+//  max-height: 180px;
     margin-bottom: 10px;
     margin-left: 2px;
 //  background:red;
@@ -1142,7 +1203,7 @@ a.less {
   .btsmD1 {
     font-size: 14px;
     line-height: 24px;
-    min-height: 144px;
+//  height: 144px;
     padding: 3px 15px 4px 15px;
   }
 
@@ -1160,7 +1221,7 @@ a.less {
   }
 
   .BDcyhdCityXianzhi {
-    width: 698px;//谷歌需要698，火狐需要700
+    width: 698px;//谷歌需�?98，火狐需�?00
     max-height: 144px;
   }
 
@@ -1280,3 +1341,13 @@ a.less {
   }
 }
 
+//0210将活动补贴说明从超过6行展开说起，变化超�?行出现滚动条。展开收起作用的箭头按钮，也从有超�?行的显示其，而变为btsm超过3个显示其。其不再控制6行，而控制btsm的个�?
+//具体操作�?
+//css中把.btsmD1的min-height换成固定行高height,btsm的最大高度去�?
+//html中，btsm1，btsm2，btsm3不再固定为分销商，门店。消费者，而全部由js生成�?
+//js中，直接清空BbtsmRright2Content，所有的btsm都由js生成，并且加上控制宽度的类名�?
+//0210�������˵���ӳ���6��չ��˵�𣬱仯����6�г��ֹ�������չ���������õļ�ͷ��ť��Ҳ���г���6�е���ʾ�䣬����Ϊbtsm����3����ʾ�䡣�䲻�ٿ���6�У�������btsm�ĸ���
+//���������
+//css�а�.btsmD1��min-height���ɹ̶��и�height,btsm�����߶�ȥ��
+//html�У�btsm1��btsm2��btsm3���ٹ̶�Ϊ�����̣��ŵꡣ�����ߣ���ȫ����js���ɡ�
+//js�У�ֱ�����BbtsmRright2Content�����е�btsm����js���ɣ����Ҽ��Ͽ��ƿ��ȵ�������
