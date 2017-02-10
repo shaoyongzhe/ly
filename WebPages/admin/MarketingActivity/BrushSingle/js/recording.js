@@ -19,7 +19,7 @@ var state = {
 	level: "", //违规级别
 	lastindex: "0", //上次返回结果的最后一条数据索引
 	pagecount: "50" //要查询的数据条数
-};;
+};
 
 if(sessionStorage.state) {
 	state = JSON.parse(sessionStorage.state);
@@ -657,15 +657,15 @@ function article_add(that) {
 				oli += "<li>" +
 					"<span>" + data[i]["issuetime"] + "</span> " +
 					" <span style='padding-left:6px'> 操作人员：" + data[i]["issueby_name"] + "</span>" +
-					"<div>" + data[i]["dealtstate"] + "；</div>" +
-					"<div class='cgl-beizhu'>";
+					"<div>" + data[i]["dealtstate"] + "；</div>";
 				if(data[i]["dealtstate"] == "申诉中") {
-					oli += "登记内容";
-				} else {
-					oli += "备注";
+					oli += "<div class='cgl-beizhu'><span>登记内容：</span><p>"+ data[i]["description"] + "</p></div>";
+				}else if(data[i]["dealtstate"]=="发送通知"){
+					oli += "<div class='cgl-beizhu'><span>通知内容：</span><p>" + data[i]["description"] + "</p></div>";
+				}else if(data[i]["description"]!=""){
+					oli += "<div class='cgl-beizhu'><span>备注：</span><p>" + data[i]["description"] + "</p></div>";
 				}
-				oli += "：" + data[i]["description"] + "</div>"
-				"</li>";
+				oli+="</li>";
 			}
 			$(".cgl-czjl").html(oli);
 		}
@@ -941,12 +941,7 @@ function querenwg_add(putdata) {
 	$(".cgl-qrwgqr").on("click", function() {
 		putdata.description = $(".qrentext").find("textarea").val();
 		//console.log(putdata)
-		if(putdata.description == "") {
-			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-			return false;
-		} else {
-			fnwgjlzt(putdata);
-		}
+		fnwgjlzt(putdata);
 	});
 
 }

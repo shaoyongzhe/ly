@@ -24,7 +24,7 @@ function render(detailData){
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	first.find('.guid').text(activity.guid);
+	first.find('.guid').text(activity.activitycode);
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
