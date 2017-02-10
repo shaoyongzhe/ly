@@ -81,11 +81,16 @@ ul{
     border-bottom: 2px solid #ccc;
     transform: rotate(45deg);
     display: inline-block;
+    margin: 0 0 7px 8px;
+}
+
+.section3 .select-wrap i:before{
     margin: 0 0 7px 10px;
 }
 
-.select-wrap ul{
-    display: none; 			
+
+/* .select-wrap ul{
+    display: none;             
     width: 100%;
     padding: 0 10px;
     background-color: #efefef;
@@ -94,9 +99,9 @@ ul{
     text-align: center; 
     box-sizing: border-box; 
     position: absolute;
-    top: 25px;/*调整*/
+    top: 25px;调整
     z-index: 1;
-}
+} */
 
 .select-wrap ul li + li{
 	border-top: 1px solid #ddd;
@@ -414,6 +419,7 @@ div.acZige:before{
     transform: rotate(45deg);
     display: inline-block;
     margin: 0 0 7px 10px;*/
+        margin-left: 13px;
 }
 
 .acSe7.select-wrap ul{
@@ -538,9 +544,9 @@ div.acZige:before{
 }
 
 .addSub4 .select-wrap ul{
-    padding: 0 1px;
-    top: 39px;/*调整*/
-    left:0px;
+    /* padding: 0 1px; */
+    top: 39px;
+    /* left: 0px; */
     line-height: 28px;
 }
 .addSub4 .select-wrap em{
