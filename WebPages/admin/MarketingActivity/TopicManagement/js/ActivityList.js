@@ -79,7 +79,10 @@ function myDate(){
                 "pageindex":pageindex,
                 "sort": [{"oid": "desc"}]
          };
+
 function basicQuery(){
+
+
     /*判断是否输入了查询条件*/
 	if( $(".qC_aitivityTopic input").val()==""&&
 		$(".qC_number input").val()==""&&
@@ -408,6 +411,7 @@ $(document).on("click",".edit",function(){
 	$(".edit").not(this).find(".menu").hide();
 	return false;
 })
+
 $(document).click(function(){
 	$(".edit .menu").hide();
 })

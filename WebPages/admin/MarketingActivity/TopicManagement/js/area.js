@@ -1175,7 +1175,7 @@ $('.btn.clear').click(function(){
 	$('.area-list :checkbox').prop('checked',false);
 	$('.area-list li.on').removeClass('on');
 	$('.area-list .Select_province2').empty();
-	$('.region-wrap').empty();
+	$('.region-item').remove();
 });
 	
 
