@@ -20,7 +20,7 @@ input,select{outline:none;/*background: white;*/}
 }
 .bor{
 	border:1px solid #e4e4e4;
-	border-radius: 3px;
+	border-radius: 2px;
 }
 .ver{
 	vertical-align: bottom;
@@ -81,11 +81,16 @@ ul{
     border-bottom: 2px solid #ccc;
     transform: rotate(45deg);
     display: inline-block;
+    margin: 0 0 7px 8px;
+}
+
+.section3 .select-wrap i:before{
     margin: 0 0 7px 10px;
 }
 
-.select-wrap ul{
-    display: none; 			
+
+/* .select-wrap ul{
+    display: none;             
     width: 100%;
     padding: 0 10px;
     background-color: #efefef;
@@ -94,9 +99,9 @@ ul{
     text-align: center; 
     box-sizing: border-box; 
     position: absolute;
-    top: 25px;/*调整*/
+    top: 25px;调整
     z-index: 1;
-}
+} */
 
 .select-wrap ul li + li{
 	border-top: 1px solid #ddd;
@@ -197,7 +202,7 @@ ul{
 /*控件1会员活动条件*/
 	/*投放门店数acPu*/
 .acPu{
-	margin-right:18px;
+	margin-right:33px;
 }
 .acPu input.acPuI1{
 	width:86px;
@@ -286,6 +291,7 @@ div.acMeD3{
 	width:100px;
 	text-align: center;
 	color: #999;
+    margin-right: 20px;
 }
 
 .addSub2Mange div.acMeD3{
@@ -413,6 +419,7 @@ div.acZige:before{
     transform: rotate(45deg);
     display: inline-block;
     margin: 0 0 7px 10px;*/
+        margin-left: 13px;
 }
 
 .acSe7.select-wrap ul{
@@ -537,9 +544,9 @@ div.acZige:before{
 }
 
 .addSub4 .select-wrap ul{
-    padding: 0 1px;
-    top: 39px;/*调整*/
-    left:0px;
+    /* padding: 0 1px; */
+    top: 39px;
+    /* left: 0px; */
     line-height: 28px;
 }
 .addSub4 .select-wrap em{
@@ -1072,7 +1079,7 @@ div.acZige:before{
 .addSub2P68{
 	width:960px;
 	/*background:blue;*/
-	margin-bottom: -12px;/*查看样式插在哪里，为啥需要此来弥补*/
+	margin-bottom: -4px;/*查看样式插在哪里，为啥需要此来弥补*/
 }
 .addSub2P68 p:nth-of-type(1){
 	width: 178px;   			
@@ -1157,7 +1164,6 @@ div.acZige:before{
 
 
 
-
 .addSub4:after{
     content: "";
     display: table;
@@ -1175,3 +1181,4 @@ div.acZige:before{
 .addSub4 > div ~ div{
     margin-left: 4px;
 }
+

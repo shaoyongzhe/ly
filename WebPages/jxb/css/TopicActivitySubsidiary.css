@@ -136,6 +136,20 @@ html, body {
   transform-origin: left;
   -webkit-transform-origin: left; }
 
+.CcButieLeft, .CcButieRight {
+  width: 30px;
+  height: 30px;
+  background-image: url(../img/c9.png);
+  position: absolute;
+  top: 118px;
+  left: 13px;
+  cursor: pointer; }
+
+.CcButieRight {
+  background-image: url(../img/c10.png);
+  top: 118px;
+  left: 217px; }
+
 .CcconditionImg {
   background-image: url(../img/c4.png);
   background-size: 100% 100%;
