@@ -177,7 +177,8 @@ header img:nth-of-type(2) {
   font-family: "微软雅黑";
   font-size: 14px;
   line-height: 22px;
-  color: #888888; }
+  color: #888888;
+  word-break: break-all; }
 
 .BtuwenWenS1, .BtuwenWenS2 {
   font-family: arial;
@@ -457,7 +458,7 @@ header img:nth-of-type(2) {
   color: #333;
   line-height: 24px;
   min-height: 144px;
-  padding: 3px 15px 4px 15px; }
+  padding: 3px 9px 4px 8px; }
 
 .BwrapDown {
   box-sizing: content-box;
@@ -573,17 +574,29 @@ header img:nth-of-type(2) {
   margin-top: 10px;
   margin-bottom: 15px; }
 
-.BDcyhdQualified img {
+.BDcyhdQualified .BDQFdsImg {
   margin-right: 5px;
   vertical-align: middle; }
 
-.BDcyhdQualified span {
+.BDcyhdQualified .BDQFdsSpan {
   display: inline-block;
   font-family: "微软雅黑";
   font-size: 14px;
   color: #333;
   line-height: 24px;
   height: 24px; }
+
+.BDQFd2_span1, .BDQFd2_span2 {
+  font-size: 14px;
+  color: red;
+  display: inline-block;
+  width: 10px;
+  margin-top: 4px;
+  vertical-align: top;
+  line-height: 19px; }
+
+.BDQFd2_span2 {
+  width: 308px; }
 
 img.BDcyhdQualifiedXFZimg {
   width: 123px;
