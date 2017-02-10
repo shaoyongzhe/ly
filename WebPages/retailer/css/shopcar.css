@@ -87,10 +87,10 @@ section li{
 	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;padding:0 2px;font-size: 1.2rem;float: left;margin-right: 5px;
 }
 .disc span:nth-child(2){
-	font-size: 1.4rem;
+	font-size: 1.4rem;line-height: 1.9rem;
 }
 .disc b{
-	font-weight: normal;
+	font-weight: normal;color:#999
 }
 .yuu .intail{
 	height:1.4rem;width:20%;float:left;padding:0
@@ -118,10 +118,10 @@ section li{
 	width:20%;display:block;height:100%;float:left;font-size: 1.6rem;color: #fff;text-align: center;line-height: 5rem;margin-right: 5%;
 }
 .gg{
-	background:url(../image/shop/crect.jpg) no-repeat center center;background-size: 1.4rem 1.4rem;display:inline-block;
+	background:url(../image/shop/crect.jpg) no-repeat center center;background-size: 1.4rem 1.4rem;display:inline-block;position: relative;top:4px
 }
 .all span{
-	line-height: 5rem;float:right;
+	line-height: 5rem;margin-left: 6px;
 }
 
 .change{

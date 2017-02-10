@@ -30,6 +30,7 @@
 		var _sv=[];
 		var _dis=0
 		var _pp=0;
+		var _ct=0;
 		_disId=location.search.replace("distributor_id=","").replace("?","");
 		localStorage.disId=_disId
 		console.log(_disId)
@@ -188,6 +189,7 @@
 			_save=_count;
 			_dis=_discount
 			_pp=_price
+			_ct=_count
 			for(var z=0;z<_Id.length;z++){
 				_sv[z]=_Id[z]
 			}
@@ -346,10 +348,14 @@
 					$(".gg").css({"background":"none",borderColor:"#fff"});
 				}
 				$(".commit span").text("("+_count+")")
+				$(".summ").text("("+_count+")")
 				fg()
 			});
 			$(".all").on('click','.gg',function(){
 				if($(this).attr("flag")==1){
+					_count=0;
+					$(".commit span").text("("+_count+")")
+					$(".summ").text("("+_count+")")
 					$(this).attr("flag","0")
 					$(this).css({"background":"none",borderColor:"#fff"});
 					for(var k=0;k<$(".list i").length;k++){
@@ -362,7 +368,7 @@
 										
 					}
 					_count=0
-					$(".amountBig span").text("0")
+					$(".amountBig span").text("0.0")
 					_price=0
 					_discount=0
 					$(".amountBig").next().find("span:nth-child(2)").text("0.0")
@@ -376,6 +382,9 @@
 				}else{
 					_price=_pp
 					_discount=_dis
+					_count=_ct
+					$(".commit span").text("("+_count+")")
+					$(".summ").text("("+_count+")")
 					$(this).attr("flag","1")
 					$(this).css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
 						for(var j=0;j<$(".list i").length;j++){
@@ -531,13 +540,13 @@
 		        	  		if(_price>=_tt[0]["promotionactivity"]["details"][p]["moneysum"] && _tt[0]["itemkind"]=="满赠"){
 		        	  			for(var c=0;c<_tt[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
 		        	  				_distrgive+="<div>"+_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span class="+"\"gifty\""+">x"+_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"
-		        	  				_active+=_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]
+		        	  				_active+=_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"、"
 		        	  				_nm="满赠"
 		        	  				_jies="您已满"+_tt[0]["promotionactivity"]["details"][p]["moneysum"]+"元，获赠"
 		        	  			}
 		        			}else if(_price>=_tt[0]["promotionactivity"]["details"][p]["moneysum"] && data[0]["itemkind"]=="满减"){
 		        				for(var c=0;c<_tt[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
-		        	  				_active+="<span>"+data[0]["promotionactivity"]["details"][p]["moneysum"]+"</span>"
+		        	  				_active+="<span>"+data[0]["promotionactivity"]["details"][p]["moneysum"]+"</span>"+"、"
 		        	  				_nm="满减"
 		        	  				_jies="您已满"+_tt[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"]+"元，已减"
 		        	  			}
@@ -551,7 +560,7 @@
 						}
 						$(".intr div:nth-child(1)").text(_nm)
 						$(".intr div:nth-child(2) span:nth-child(1)").text(_jies)
-						$(".intr div:nth-child(2) span:nth-child(2)").text(_active)	
+						$(".intr div:nth-child(2) span:nth-child(2)").text(_active.replace(/\、$/,""))	
 						_nm="";
 						 _jies="";
 						 _active=""

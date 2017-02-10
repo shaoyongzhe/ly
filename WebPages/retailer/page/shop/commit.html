@@ -33,7 +33,7 @@
   		var _flag=0;
   		var _year=new Date().getFullYear()
   		var _month=(new Date().getMonth()+1)>10?new Date().getMonth()+1:("0"+(new Date().getMonth()+1))
-  		var _day=new Date().getDate()>10?new Date().getDate():"0"+new Date().getDate()
+  		var _day=new Date().getDate()>=10?new Date().getDate():"0"+new Date().getDate()
   		var _distrgive="";
   		var _reduce=0;
   		var _discount=0;
@@ -241,11 +241,11 @@
 		        error:function(){},
 		        success:function(data){
 		        	console.log(data)
-		        	console.log(_price)
+		        	console.log(_Id)
 		        	for(var t=0;t<data[0]["promotionactivity"]["details"].length;t++){
-			        	if(_price>=Number(data[0]["promotionactivity"]["details"][t]["moneysum"])){
+			        	if(_price>=Number(data[0]["distributor_id"]+data[0]["promotionactivity"]["details"][t]["moneysum"])){
 			        		_mz=JSON.stringify(data[0]["promotionactivity"]["details"][t]["giftitems"])
-			        	}					
+			        	}			
 		        	}
 					console.log(_mz)
 		        	if(data[0]["specialprice"]){
@@ -258,7 +258,7 @@
 		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"]){
 		        	  			for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
 		        	  				_zengprice+=Number(data[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"])
-		        	  				_distrgive+="<div>"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"
+		        	  				_distrgive+="<div style="+"\"padding-left:10%\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"		        	  					
 		        	  			}
 		        			}
 						}
@@ -307,7 +307,7 @@
 				remark:"", 
 				deliverdate:$("#beginTime").val(),
 				submitids:_Id,
-				manzen:_mz
+				manzeng:_mz
    			},
    			error:function(){},
    			success:function(data){
@@ -402,7 +402,7 @@
 		</ul>
 		<div class="giveto" style="display: none;">
 			<ul class="kind">
-				<div class="gifto">赠品 </div>
+				<div class="gifto">满赠 </div>
 				<div class="gt">
 				</div>
 			</ul>
