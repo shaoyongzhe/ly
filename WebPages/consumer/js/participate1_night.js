@@ -195,9 +195,7 @@ $(function(){
 									'</div>'+
 									'<div class="Focus_box_right">'+
 										'<div class="swiper-container swiper1">'+
-											'<div class="swiper-wrapper">'+
-												'<ul class="swiper-slide FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
-											'</div>'+
+											'<ul class="swiper-wrapper FenX">'+ composeSubsidyObject(subsidy[key]) +'</ul>'+
 										'</div>'+
 									'</div>'+
 								'</div>'+
@@ -220,10 +218,10 @@ $(function(){
 					function composeSubsidyObject(subsidyparameter)
 					{
 						var li = "";
-						li += '<li style="text-indent: 0.3rem;border-left: 1px solid #ffcccc;" class="swiper-slide">';
+						
 						for (var i = 0; i <= subsidyparameter.length - 1; i++) 
 						{	
-							
+							li += '<li style="text-indent: 0.3rem;border-left: 1px solid #ffcccc;" class="swiper-slide">';
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
 								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidyparameter[i].subsidymethod + '</a>'
 								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+keyg(key) +'在一个超惠卷主题活动中:'+'<br/>';
