@@ -27,6 +27,9 @@
 		var _active="";
 		var _dll=0;
 		var _disId="";
+		var _sv=[];
+		var _dis=0
+		var _pp=0;
 		_disId=location.search.replace("distributor_id=","").replace("?","");
 		localStorage.disId=_disId
 		console.log(_disId)
@@ -165,7 +168,7 @@
 					}else if(data1[i]["salestop"]==1){
 						_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
-						"\"position:absolute;left:0;top:0;width:100%;height:100%;background:#ddd;opacity:0.5\""+"></div><img src="+"\"../../image/shop/shopcart_down.png\""+" style="+"\"position:absolute;width:4rem;right:0;top:0\""+"></li>"
+						"\"position:absolute;left:0;top:0;width:100%;height:95px;background:#ddd;opacity:0.5\""+"></div><img src="+"\"../../image/shop/shopcart_down.png\""+" style="+"\"position:absolute;width:4rem;right:0;top:0\""+"></li>"
 					}					
 				}else{
 					_index=data1[i]["selectedindex"];
@@ -183,6 +186,11 @@
 					}
 				}
 			_save=_count;
+			_dis=_discount
+			_pp=_price
+			for(var z=0;z<_Id.length;z++){
+				_sv[z]=_Id[z]
+			}
 			}
 			//_Id=_Id.join(",").replace(/\,$/,"")
 			$.ajax({
@@ -194,6 +202,7 @@
 		        error:function(){},
 		        success:function(data){
 		        	console.log(data)
+		        	localStorage.data=data
 		        	_tt=data
 					fg()
 
@@ -214,7 +223,7 @@
 			change(data1);
 			deLete(data1)
 			console.log(_discount)
-			$(".ab span").text(_discount.toFixed(2))
+			$(".ab span:nth-child(2)").text(_discount.toFixed(1))
 			
 		}
 			function deLete(data1){
@@ -300,18 +309,18 @@
 					if($(this).parent()){
 						if($(this).parent().next().find("span:nth-child(1)").text()=="降价"){
 							_discount-=(Number($(this).next().children().find(".intail").find("span").text().replace("￥",""))-Number($(this).next().children().find(".pp1").text().replace("￥","")))*Number($(this).next().find(".change").find(".amount").text())
-							$(".amountBig").next().find("span").text(_discount.toFixed(2))
+							$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 						}
 					}
 					$(".amountBig span").text(_price.toFixed(1))
 					if(_count==0){
 						$(".yj").css({display:"block"})
-					}					
+					}
 				}else{
 					if($(this).parent()){
 						if($(this).parent().next().find("span:nth-child(1)").text()=="降价"){
 							_discount+=(Number($(this).next().children().find(".intail").find("span").text().replace("￥",""))-Number($(this).next().children().find(".pp1").text().replace("￥","")))*Number($(this).next().find(".change").find(".amount").text())
-							$(".amountBig").next().find("span").text(_discount.toFixed(2))
+							$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 						}
 					}
 					_Id.splice($(this).parent().parent().attr("ip"),1,$(this).parent().parent().attr("guid"))
@@ -326,6 +335,7 @@
 					if(_count>0){
 						$(".yj").css({display:"none"})
 					}
+					
 				}
 
 				if(_count==_save){
@@ -336,6 +346,7 @@
 					$(".gg").css({"background":"none",borderColor:"#fff"});
 				}
 				$(".commit span").text("("+_count+")")
+				fg()
 			});
 			$(".all").on('click','.gg',function(){
 				if($(this).attr("flag")==1){
@@ -352,11 +363,19 @@
 					}
 					_count=0
 					$(".amountBig span").text("0")
-					$(".amountBig").next().find("span").text("0.0")
+					_price=0
+					_discount=0
+					$(".amountBig").next().find("span:nth-child(2)").text("0.0")
 					if(_count==0){
 						$(".yj").css({display:"block"})
 					}
+					for(var c=0;c<_Id.length;c++){
+						_Id[c]=""
+					}
+					console.log(_Id)
 				}else{
+					_price=_pp
+					_discount=_dis
 					$(this).attr("flag","1")
 					$(this).css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
 						for(var j=0;j<$(".list i").length;j++){
@@ -368,11 +387,17 @@
 					}
 					_count=_save
 					$(".amountBig span").text(_price.toFixed(1))
-					$(".amountBig").next().find("span").text(_discount.toFixed(1))
+					$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
 					if(_count>0){
 						$(".yj").css({display:"none"})
 					}
+					console.log(_sv)
+					for(var f=0;f<_sv.length;f++){
+						_Id[f]=_sv[f]
+					}
+					console.log(_Id)
 				}
+				fg()
 			});
 		}
 		function change(data1){
@@ -406,7 +431,7 @@
 							}
 							if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" && $(tht).parent().parent().parent().prev().attr("flag")==1){
 								_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-								$(".amountBig").next().find("span").text(_discount.toFixed(2))
+								$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
 							}
 							fg()
 						}
@@ -453,7 +478,7 @@
 						console.log($(th).parent().parent().parent().parent().next().find("span:nth-child(1)"))
 						if($(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" && $(th).parent().parent().parent().prev().attr("flag")==1){
 							_discount+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
-							$(".amountBig").next().find("span").text(_discount.toFixed(2))
+							$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
 						}
 						fg()
 					}
@@ -521,6 +546,8 @@
 						console.log(_nm)
 						if(_active==""){
 							$(".intr").css({display:"none"})
+						}else{
+							$(".intr").css({display:"flex"})
 						}
 						$(".intr div:nth-child(1)").text(_nm)
 						$(".intr div:nth-child(2) span:nth-child(1)").text(_jies)
@@ -586,7 +613,7 @@
                             <div class="totalsum">
                             	<span class="all"><i flag="1" class="gg"  style="width:1.4rem;height:1.4rem;border:1px solid #3a3635;border-radius: 1.4rem;"></i><span>全选</span></span>
                                           <p class="amountBig" style="margin-left: 0;float:left"> 合计：￥<span>50</span>元</p> 
-                                            <p style="margin-left: 0;" class="ab">已优惠金额：￥<span>139.00</span>  </p> 
+                                            <p style="margin-left: 0;" class="ab"><span>已优惠金额：￥</span><span>139.00</span>  </p> 
                                             <div class="commit">去提交<span>(20)</span></div>
                                             <div class="yj" style="display:none;position:fixed;right:0;bottom:0;width:24%;height:62px;background:#aaa;opacity: 0.78;"></div>
                                       </div>
