@@ -900,16 +900,6 @@ function tiaoz_add(dangq, guid) {
 					if(data.succeed) {
 						fnshijian(state);
 						$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-						/*$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
-						var guidarr = guid.split(",");
-						for(var i = 0; i < guidarr.length; i++) {
-							$("tr").each(function(n) {
-								if($(this).attr("gu-id") == guidarr[i]) {
-									$(this).find(".cgl-td6").html(djjson.level);
-									$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-								}
-							});
-						}*/
 					}
 				}
 			});
