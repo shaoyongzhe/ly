@@ -271,11 +271,13 @@ $(function(){
 								$('.activesmallpic').attr({
 									src:""
 								});
-								$('.active1font').html()
+								$('.active1font').html();
+								$('.more_active').hide();
 							}else{
 								$('.activesmallpic').attr({
 									src:"../image/5-1.png"
 								});
+								$('.more_active').show();
 								$('.active1font').html(function(index){
 									return "活动" + (index+1);
 								})
