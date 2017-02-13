@@ -3,8 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>主题活动预算管理</title>
-	<link rel="stylesheet" type="text/css" href="css/Activityoperation.css">
-	<link rel="stylesheet" type="text/css" href="css/dropload.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/Activityoperation.css"> -->
+	<link rel="stylesheet" type="text/css" href="/admin/MarketingActivity/AssetManagement/css/Activityoperation.css" />
+	<link rel="stylesheet" href="/admin/MarketingActivity/AssetManagement/css/dropload.css">
+	<!-- <link rel="stylesheet" type="text/css" href="css/dropload.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="../../static/h-ui/css/H-ui.min.css"> -->
 </head>
 <body style="background:#F2F2F2">
 	<div class="wrap">
@@ -175,7 +178,7 @@
 		<!-- 表格里面的内容 -->
 		<!-- 上面固定的table -->
 		<div class="tab_wrap">
-			<table class="table1" width="96%" height="600px" cellspacing="0" cellpadding="0">
+			<table class="table1  " width="96%" height="600px" cellspacing="0" cellpadding="0">
 				<thead>
 					<tr>
 						<th>预算编号</th>
@@ -190,7 +193,8 @@
 						<th>操作</th>
 					</tr>
 				</thead>
-				<tbody class='content_drop notify '>
+				<!-- notify 删掉的tbody的类名-->
+				<tbody class="content_drop pagesTbodyLong">
 					
 				</tbody>
 			</table>
@@ -256,7 +260,9 @@
 			<p>预算峰值</p>
 		</div>
 		<div class="Budget_peak_right">
-			暂无预算峰值
+			<p style="line-height: 20px;" class="Straight_cash">直发现金:<a class="Straight_cash_number" href="javascript:;"></a>元</p>
+			<!-- <p style="line-height: 20px;">返现卷<a class="volume_num" href="javascript:;"></a>张,价值 <a class="worth" href="javascript:;"></a> 元</p>
+			<p style="line-height: 20px;">积分 <a href="javascript:;"></a>分</p> -->
 		</div>
 	</div>
 	<div style="margin-top: 15px" class="firts_bix"><p class="information">预算申报及审批详情</p><hr style="width: 740px;"></div>
@@ -409,16 +415,24 @@
 </div>
 <!-- loading e-->
 
-<script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
-<script type="text/javascript" src="laydate/laydate.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script>-->
+<!-- <script type="text/javascript" src="laydate/laydate.js"></script> -->
+<script type="text/javascript" src="/admin/lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="/admin/lib/laydate/laydate.js"></script>
 <!--<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>	 -->
-<script src="javascript/cityLink.js"></script>
-<script type="text/javascript" src="javascript/jquery.mockjax.js"></script>
-<script type="text/javascript" src="javascript/Activityoperation_nig.js"></script>
-<script type="text/javascript" src="javascript/dropload.js"></script>
+<!-- <script src="javascript/cityLink.js"></script> -->
+<script type="text/javascript" src="/admin/lib/district/js/cityLink.js"></script>
+<!-- <script type="text/javascript" src="javascript/jquery.mockjax.js"></script> -->
+<!-- <script type="text/javascript" src="javascript/Activityoperation_nig.js"></script> -->
+<script src="/admin/MarketingActivity/AssetManagement/javascript/Activityoperation_nig.js"></script>
+<!-- <script type="text/javascript" src="javascript/dropload.js"></script> -->
+<script src="/admin/MarketingActivity/AssetManagement/javascript/dropload.js"></script>
 
 </body>
 </html>
+
+
+
 

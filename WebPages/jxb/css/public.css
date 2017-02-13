@@ -5,7 +5,7 @@
   height: 100%;
   background: white;
   position: fixed;
-  z-index: 2;
+  z-index: 99992;
   top: 0;
   left: 0; }
 
@@ -29,7 +29,7 @@
   background: white;
   z-index: 99999; }
 
-/*弹窗提示*/
+/*弹窗提示popups,见public.js*/
 * {
   margin: 0px;
   padding: 0px; }

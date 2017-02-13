@@ -3,10 +3,10 @@
  * 2017/11/13
  */
 
-;(function($){
-    'use strict';
-    var win = $('.table1');
-    var doc = $(".notify");
+(function($){
+    // 'use strict';
+    var win = $("table.table1");
+    var doc = $("tbody.content_drop.pagesTbodyLong");
     var $win = $(win);
     var $doc = $(doc);
     $.fn.Drop_down_loading = function(options){

@@ -73,7 +73,7 @@ $(function(){
 
 	 })
 	
-	//负责人
+	//负责人http://membership.ipaloma.com/webapi/budget/ipaloma/dict/responsible
 	_ajax('get','http://127.0.0.1:40010/webapi/budget/ipaloma/dict/responsible',{},'负责人获取错误',function(data){
 		//xampp接口
 		//_ajax('get','data/fuzeren.json',{},'出错了',function(data){
@@ -218,11 +218,43 @@ $(function(){
 
 
 
-// *************************************************************
-		//查询按钮
-		$('.query_iptn').on('click',function(){
 
-			var queryState={
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// *************************************************************
+// 
+		// var pagesize = 15;
+		// var pageindex = 1;
+		// var pagingJson = {
+  //               "pagesize": pagesize,
+  //               "pageindex":pageindex,
+  //               "sort": [{"oid": "asc"}]
+  //        };
+		//查询按钮
+		// $('.query_iptn').on('click',function(){
+		function getSearch(){
+
+			var searchForm = {
 				purpose_id :regin_purpose_id,//预算事由13
 	            purpose_class:"tblipalomaactivity",//
 	            area_province:$('#province span em').text(),//省
@@ -236,199 +268,274 @@ $(function(){
 	            applycount_min :$('.de_ipt1').val(),//申报min
 	            applycount_max:$('.de_ipt2').val(),//申报max
 	            budget_min:$('.de1_ipt1').val(),//审批min
-	            budget_max:$('.de1_ipt2').val()//审批max
+	            budget_max:$('.de1_ipt2').val(),//审批max
+	            // paging:JSON.stringify(pagingJson),
 			};
-
-			if(queryState.purpose_id=='--请选择--'||queryState.purpose_id==null){
-				delete queryState.purpose_id
+			if(searchForm.purpose_id=='--请选择--'||searchForm.purpose_id==null){
+				delete searchForm.purpose_id
 			}
-			if(queryState.serailnumber==''){
-				delete queryState.serailnumber
+			if(searchForm.serailnumber==''){
+				delete searchForm.serailnumber
 			}
-			if(queryState.area_province=='省'||queryState.area_province=='省份'){
-				delete queryState.area_province
+			if(searchForm.area_province=='省'||searchForm.area_province=='省份'){
+				delete searchForm.area_province
 			}
-			if(queryState.area_city=='市'||queryState.area_city=='城市'){
-				delete queryState.area_city
+			if(searchForm.area_city=='市'||searchForm.area_city=='城市'){
+				delete searchForm.area_city
 			}
-			if(queryState.area_district=='区'||queryState.area_district=='区县'){
-				delete queryState.area_district
+			if(searchForm.area_district=='区'||searchForm.area_district=='区县'){
+				delete searchForm.area_district
 			}
-			if(queryState.responsible_id=='--请选择--'){
-				delete queryState.responsible_id
+			if(searchForm.responsible_id=='--请选择--'||null){
+				delete searchForm.responsible_id
 			}
-			if(queryState.begintime==''){
-				delete queryState.begintime
+			if(searchForm.begintime==''){
+				delete searchForm.begintime
 			}
-			if(queryState.endtime==''){
-				delete queryState.endtime
+			if(searchForm.endtime==''){
+				delete searchForm.endtime
 			}
-			if(queryState.auditstatus=='--请选择--'){
-				delete queryState.auditstatus
+			if(searchForm.auditstatus=='--请选择--'){
+				delete searchForm.auditstatus
 			}
-			if(queryState.applycount_min==''){
-				delete queryState.applycount_min
+			if(searchForm.applycount_min==''){
+				delete searchForm.applycount_min
 			}
-			if(queryState.applycount_max==''){
-				delete queryState.applycount_max
+			if(searchForm.applycount_max==''){
+				delete searchForm.applycount_max
 			}
-			if(queryState.budget_min==''){
-				delete queryState.budget_min
+			if(searchForm.budget_min==''){
+				delete searchForm.budget_min
 			}
-			if(queryState.budget_max==''){
-				delete queryState.budget_max
+			if(searchForm.budget_max==''){
+				delete searchForm.budget_max
 			}
 
 			if($('#start').val()=='' || $('#end').val()==''){
-				alert('请填写预算时间');
+				alert('请填写使用预算时间');
 				return false;
 			}
-			// return queryState;
+			return searchForm;
+		}
+		var ascid=1;
+		var tisfvio=""
+		// 下拉加载
+		function getList(curr,handle, searchForm) {
+		    // $(".table1 tbody").empty(); //yin
+		    // $('.layui-layer-close').click();
+		    // console.log(searchForm)
+		    if (curr == undefined || curr == "") {
+		        curr = 1;
+		    }
+		    var df = {};
+		    // if(searchForm){
+		    // if (handle == 'search') {
+		    df = searchForm;
+		    // 页数
+		    var pageindex = 0;
+		    // 每页展示5个
+		    // var pagesize =15;
+		    //$('.content_drop .dropload-down').siblings().remove()  
+		    // 每次刷新的时候清空上一次的记录（加载记录）
+		    // $('.content_drop .dropload-down').remove();  //yin
+		    // dropload
+		    $('.content_drop').Drop_down_loading({
+		        gundong: $('.table1 tbody'),
 
 
-			// 下拉加载
-			// function getList(curr, handle, queryState) {
-			//     $("table.notify tbody").empty();
-			//     $('.layui-layer-close').click();
-			//     // console.log(searchForm)
-			//     if (curr == undefined || curr == "") {
-			//         curr = 1;
-			//     }
-			//     var df = {};
-			//     // if(searchForm){
-			//     // if (handle == 'search') {
-			//     df = queryState;
-			//     // 页数
-			//     var pageindex = 0;
-			//     // 每页展示5个
-			//     var pagesize = 15;
-			//     // $('.content_drop .dropload-down').siblings().remove()
-			//     // 每次刷新的时候清空上一次的记录（加载记录）
-			//     $('.content_drop .dropload-down').remove();
-			//     // dropload
-			//     $('.content_drop').Drop_down_loading({
+		        loadDownFn: function(me) {
+		        	// alert(pageindex)
+		            pageindex++;
+		            // 拼接HTML
+		            var df = {};
+		            df = searchForm;
+		            df.pageindex = pageindex;
+		            // df.pagesize = pagesize;	
+		            var ciod=1
+		            var iod=""
+					if(ciod!=1){
+						iod="paging="+tisfvio
+					}
+					ciod++;
+					$.ajax({
+						type:"get",
+						// url:"http://membership.ipaloma.com/webapi/budget/purpose/summary",
+						url:"http://membership.ipaloma.com/webapi/budget/purpose/summary?parameters=" + JSON.stringify(df)+iod,
+						dataType:"json",
+						// data:searchForm,
+						beforeSend: function() {  //请求前的操作
+				           $('.main').show();
+				           $('.query_iptn').attr('value','查询中');
+				           $('.dropload-down').fadeIn(100);//中间消失
+				        },
+						complete: function(xhr, textStatus) {
+   						   // console.log(xhr.status);
+				           $('.query_iptn').attr('value','查询');
+				           $('.main').hide();
 
-			//         gundong: $('.notify'),
-			//         loadDownFn: function(me) {
-			//             pageindex++;
-			//             // 拼接HTML
-			//             var df = {};
-			//             df = queryState;
-			//             df.pageindex = pageindex;
-			//             df.pagesize = pagesize;
+				        },
+						success: function(data){
 
-
-						$.ajax({
-							type:"get",
-							// url:"http://127.0.0.1:40010/webapi/budget/purpose/summary?parameter=",
-							url:"http://membership.ipaloma.com/webapi/budget/purpose/summary",
-							dataType:"json",
-							data:queryState,
-							beforeSend: function() {  //请求前的操作
-					           $('.main').show();
-					           $('.query_iptn').attr('value','查询中');
-					        },
-					        complete: function() {
-					           $('.query_iptn').attr('value','查询');
-					           $('.main').hide();
-					        },
-							success:function(data){
-								console.log(data);
-								var Budgetary_reasons=data.content;
-				        		var str="";
-				        		var str1="";
-				        		var str2="";
-				        		var str3="";
-				        		var str4="";
-				        		var str5="";
-				        		for(var i = 0;i < Budgetary_reasons.length;i++){     		
-					        		str+='<tr>'
-					        				//预算编号
-					        				str+="<td>"
-					        				if(Budgetary_reasons[i].serialnumber!==null){
-					        					str+=Budgetary_reasons[i].serialnumber
-						        				
-					        				}else{
-					        					str+='';
-					        				}
-					        				str+="</td>"
-					        				//活动地区
-					        				if( Budgetary_reasons[i].arealist!==null){
-					        					str+="<td>";
-					        					//省
-						        				for(var y=0;y<Budgetary_reasons[i].arealist.length;y++){
-						        					str+=Budgetary_reasons[i].arealist[y].name+'-'
-						        					//市
-													for(var k=0;k<Budgetary_reasons[i].arealist[y].city.length;k++){
-						        					 	str+=Budgetary_reasons[i].arealist[y].city[k].name+'-'
-						        					 	//区
-						        					 	for(var q=0;q<Budgetary_reasons[i].arealist[y].city[k].country.length;q++){
-						        					 		str+=Budgetary_reasons[i].arealist[y].city[k].country[q].name+','
-						        					 	}
-						        					}
-						        					
-						        				}
-						        				str+= "</td>";
-					        				}else{
-					        					str+="<td>"+''+"</td>";
-					        				}
+							tisfvio=data.paging
+							tisfvio["pageindex"]=ascid++;
+							JSON.stringify(tisfvio)
+							
+							$('.dropload-load').css('display', 'none');
+							if (data.error) {
+		                        layer.msg('暂无数据');
+		                         // $('.search-btn').css('background', '#009DD9');
+		                         // $('.search-btn').attr('disabled', false);
+		                         // $('.search-btn2').attr('disabled', false);
+		                         // $('.search-btn').val('查询');
+		                        return;
+		                    }
+							console.log(data);
+							var Budgetary_reasons=data.content;
+			        		var str="";
+			        		var str1="";
+			        		var str2="";
+			        		var str3="";
+			        		var str4="";
+			        		var str5="";
+			        		if(Budgetary_reasons.length>0){
+			        			for(var i = 0;i < Budgetary_reasons.length;i++){     		
+				        			str+='<tr>'
+				        				//预算编号
+				        				str+="<td>"
+				        				if(Budgetary_reasons[i].serialnumber!==null){
+				        					str+=Budgetary_reasons[i].serialnumber
 					        				
-					        				//预算事由
-					        				str+= "<td>"+
-					        					Budgetary_reasons[i].purpose_name+
-					        					'<input type="hidden" value="'+Budgetary_reasons[i].purpose_id+'">'+
-					        					// '<input type="hidden" value="'+Budgetary_reasons[i].purpose_class+'">'+
-					        				"</td>"
-					        				//负责人
-					        				str+="<td>";
-					        				for(var q=0;q<Budgetary_reasons[i].responsible.length;q++){
-					        					str+=Budgetary_reasons[i].responsible[q].responsible_name+
-					        						'<input type="hidden" value="'+Budgetary_reasons[i].responsible[q].responsible_id+'">'
+				        				}else{
+				        					str+='';
+				        				}
+				        				str+="</td>"
+				        				//活动地区
+				        				if( Budgetary_reasons[i].arealist!==null){
+				        					str+="<td>";
+				        					//省
+					        				for(var y=0;y<Budgetary_reasons[i].arealist.length;y++){
+					        					str+=Budgetary_reasons[i].arealist[y].name
+					        					//市
+												for(var k=0;k<Budgetary_reasons[i].arealist[y].city.length;k++){
+					        					 	str+='-'+Budgetary_reasons[i].arealist[y].city[k].name
+					        					 	//区
+					        					 	for(var q=0;q<Budgetary_reasons[i].arealist[y].city[k].country.length;q++){
+					        					 		str+='-'+Budgetary_reasons[i].arealist[y].city[k].country[q].name+','
+					        					 	}
+					        					}
+					        					
 					        				}
-					        				str+="</td>";
-					        				//活动地区
-					        				// for(var k = 0; k < Budgetary_reasons[i].arealist.length; k++){
-					        				// 	str3+=Budgetary_reasons[i].arealist[k].districthash+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ '负责人:'+
-					        				// 		  Budgetary_reasons[i].arealist[k].chargename+'<input type="hidden" value="'+Budgetary_reasons[i].arealist[k].chargeid+'">'+'<br />';      
-					        				// }
-					        				
-					        				// /使用预算时间
-					        				str+="<td>"+
-					        					Budgetary_reasons[i].begintime+'至'+'<br />'+Budgetary_reasons[i].endtime+
-					        					"</td>"
-					        				//预算状态
-					        				str+="<td>"+
-					        					Budgetary_reasons[i].auditstatus+
-					        					"</td>"
-					        				//图片
-					        				str+="<td>"+
-					        						'<img src="images/icon5.png" uuid="'+Budgetary_reasons[i].purpose_id+'" />'+
-					        					"</td>"	
-					        			"</tr>";
-					        	}
-				        		        	
-					        	$('.table1 tbody').html(str);
-							},
-							error:function(){
-								$('.main').hide();
-								alert('查询出错');
-							}
-						});
+					        				str+= "</td>";
+				        				}else{
+				        					str+="<td>"+''+"</td>";
+				        				}
+				        				
+				        				//预算事由
+				        				str+= "<td>"+
+				        					Budgetary_reasons[i].purpose_name+
+				        					'<input type="hidden" value="'+Budgetary_reasons[i].purpose_id+'">'+
+				        					// '<input type="hidden" value="'+Budgetary_reasons[i].purpose_class+'">'+
+				        				"</td>"
+				        				//负责人
+				        				str+="<td>";
+				        				for(var q=0;q<Budgetary_reasons[i].responsible.length;q++){
+				        					str+=Budgetary_reasons[i].responsible[q].responsible_name+
+				        						'<input type="hidden" value="'+Budgetary_reasons[i].responsible[q].responsible_id+'">'
+				        				}
+				        				str+="</td>";
+				        				//活动地区
+				        				// for(var k = 0; k < Budgetary_reasons[i].arealist.length; k++){
+				        				// 	str3+=Budgetary_reasons[i].arealist[k].districthash+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+ '负责人:'+
+				        				// 		  Budgetary_reasons[i].arealist[k].chargename+'<input type="hidden" value="'+Budgetary_reasons[i].arealist[k].chargeid+'">'+'<br />';      
+				        				// }
+				        				
+				        				// /使用预算时间
+				        				str+="<td>"+
+				        					Budgetary_reasons[i].begintime+'至'+'<br />'+Budgetary_reasons[i].endtime+
+				        					"</td>"
+				        				//预算状态
+				        				str+="<td>"+
+				        					Budgetary_reasons[i].auditstatus+
+				        					"</td>"
+				        				//图片
+				        				str+="<td>"+
+				        						'<img src="images/icon5.png" uuid="'+Budgetary_reasons[i].purpose_id+'" />'+
+				        					"</td>"	
+				        			"</tr>";
+				        		}
+				        		// setTimeout(function(){
+		                        // 加载 插入到原有 DOM 之后
+		                        $('.table1 tbody').append(str);
+		                        $('.dropload-down').fadeOut(4000);
+		                        // 每次数据加载完，必须重置
+		                        me.resetload();
+		                    // },1000);       	
+				        	 // $('.table1 tbody').html(str);
+			        		}else{
+		        			    me.lock();
+		                        // 无数据
+		                        me.noData();
+						    }
+			        		
+			        		
+
+						},
+						error:function(){
+							alert('查询出错');
+							$('.dropload-load').html('没有加载到数据，请重新查询');
+							// me.resetload();
+						}
+					});
 
 
-			// 		}
+				}
 
-			// 	})
+			})
 
-			// }
+		}
 		
+		// })
+
+		//下拉加载
+		$(document).on('click', '.query_iptn', function() {
+		    getList(1,'search', getSearch());
 		})
 
-			//下拉加载
-			// getList();
-			// $(document).on('click', '.search-btn', function() {
-			//     getList(1, 'search', getSearch());
-			// })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -481,8 +588,6 @@ $(function(){
 				type: "get",
 		        // url: "http://127.0.0.1:40010/webapi/budget/purpose/"+this_uuid+"/operation",
 		        url:'http://membership.ipaloma.com/webapi/budget/purpose/summary?purpose_id='+this_uuid,
-		        //xampp接口
-		        //url:"data/table.json",
 		        dataType: "json",
 		        data:{},
 		        // beforeSend: function() {  //请求前的操作
@@ -533,7 +638,6 @@ $(function(){
 									 	Areamodule+='<i>'+Budgetary_reasons[i].arealist[y].city[k].country[q].name+'</i>'	 
 									}
 									Areamodule+='</div>';	
-
 							}
 							Areamodule+='</div>'
 						}
@@ -607,7 +711,7 @@ $(function(){
 	        			return keys;
 	        		}
 	        			
-
+	        		
 			        for(var i = 0;i < Budgetary_reasons.length;i++){
 			        		if(Budgetary_reasons[i].serialnumber!==null){
 	        					str1+=Budgetary_reasons[i].serialnumber
@@ -619,7 +723,7 @@ $(function(){
 			        		str2+=Budgetary_reasons[i].purpose_name+
 		    					  '<input type="hidden" value="'+Budgetary_reasons[i].purpose_id+'">'+
 		    					  '<input type="hidden" value="'+Budgetary_reasons[i].purpose_class+'">';
-
+                            var sum =0;
 		    				//分销商 门店 消费者  门店店员 分销商店员
 		    				for(key in Budgetary_reasons[i].benefit){
 							//console.log(key)
@@ -637,21 +741,34 @@ $(function(){
 									}
 									return money
 								}
+
 		    					if(keyall[key]["min"]&&keyall[key]["max"]!==undefined){
 									str4+='<p>'+keyg(key)+'</p>'+
 										  '<p>'+
 										 	  judgeEvent(keyall[key]["event"])+judgeEvent1(keyall[key]["refund_content"])+keyall[key]["min"]+ '-' + keyall[key]["max"]+judgeMoney(judgeEvent1(keyall[key]["refund_content"]))+'/次,'+'一个'+keyg(key)+'在一个超惠卷主题活动中总补贴金额上限'+keyall[key]["ceiling"]+'元'+'<input type="hidden" value="'+keyall[key]["guid"]+'">'+
 										  '</p>'
+									//求出直发现金(有min和max)
+									var single=Number(keyall[key]["ceiling"])*Number(keyall[key]["max"]);
+									sum+=single;
 								}else{
 									str4+='<p>'+keyg(key)+'</p>'+
 											'<p>'+
 											   judgeEvent(keyall[key]["event"])+judgeEvent1(keyall[key]["refund_content"])+keyall[key]["min"] +judgeMoney(judgeEvent1(keyall[key]["refund_content"]))+'/次,'+'一个'+keyg(key)+'在一个超惠卷主题活动中总补贴金额上限'+keyall[key]["ceiling"]+'元'+'<input type="hidden" value="'+keyall[key]["guid"]+'">'+
 											'</p>'
+									//求出直发现金(只有min)
+									var double=Number(keyall[key]["ceiling"])*Number(keyall[key]["min"]);
+									sum+=double;
 								}
+								// console.log(Straight_cash_number_single+Straight_cash_number_double)
 							}
-		    				//预算状态：
+							
+						//预算峰值
+							
+
+		    			//预算状态：
 		    			str5+=Budgetary_reasons[i].auditstatus
 		    		}
+		    		$('.Straight_cash_number').html(sum);//直发现金
 		    		$('.Bud_number').html(str1); //详情-预算编号
 		        	$('.purpose').html(str2); //详情-活动名称
 		        	// $('.operation_right').html(str3); //详情-活动地区
@@ -772,7 +889,6 @@ $(function(){
 
 }) //jq结束标签
 
-
 	// 封装ajax
 	var _ajax = function(type, url, data, tip, success) {
 	    $.ajax({
@@ -801,6 +917,49 @@ $(function(){
 
 
          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

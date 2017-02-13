@@ -19,7 +19,7 @@ var state = {
 	level: "", //违规级别
 	lastindex: "0", //上次返回结果的最后一条数据索引
 	pagecount: "50" //要查询的数据条数
-};;
+};
 
 if(sessionStorage.state) {
 	state = JSON.parse(sessionStorage.state);
@@ -203,9 +203,9 @@ function Fndate() {
 	if(d.getMonth() == 0) {
 		this.strold = d.getFullYear() - 1 + "-" + 12 + "-" + d.getDate();
 	} else {
-		this.strold = d.getFullYear() + "-" + (d.getMonth().length > 1 ? d.getMonth() : "0" + d.getMonth()) + "-" + (d.getDate().length > 1 ? d.getDate() : "0" + d.getDate());
+		this.strold = d.getFullYear() + "-" + (d.getMonth().length > 1 ? d.getMonth() : "0" + d.getMonth()) + "-" + (d.getDate()>9 ? d.getDate() : "0" + d.getDate());
 	}
-	this.strnew = d.getFullYear() + "-" + ((d.getMonth() + 1).length > 1 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + (d.getDate().length > 1 ? d.getDate() : "0" + d.getDate());
+	this.strnew = d.getFullYear() + "-" + ((d.getMonth() + 1).length > 1 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + (d.getDate()>9 ? d.getDate() : "0" + d.getDate());
 }
 
 //记录状态
@@ -342,10 +342,6 @@ function fndate() {
 	});
 
 }
-$('#cgl-cxdata').change(function() {
-	alert('123');
-});
-
 //发生地区
 function fnfsdiqu() {
 	$("#province>ul").on("click", "li", function() {
@@ -657,15 +653,15 @@ function article_add(that) {
 				oli += "<li>" +
 					"<span>" + data[i]["issuetime"] + "</span> " +
 					" <span style='padding-left:6px'> 操作人员：" + data[i]["issueby_name"] + "</span>" +
-					"<div>" + data[i]["dealtstate"] + "；</div>" +
-					"<div class='cgl-beizhu'>";
+					"<div>" + data[i]["dealtstate"] + "；</div>";
 				if(data[i]["dealtstate"] == "申诉中") {
-					oli += "登记内容";
-				} else {
-					oli += "备注";
+					oli += "<div class='cgl-beizhu'><span>登记内容：</span><p>"+ data[i]["description"] + "</p></div>";
+				}else if(data[i]["dealtstate"]=="发送通知"){
+					oli += "<div class='cgl-beizhu'><span>通知内容：</span><p>" + data[i]["description"] + "</p></div>";
+				}else if(data[i]["description"]!=""){
+					oli += "<div class='cgl-beizhu'><span>备注：</span><p>" + data[i]["description"] + "</p></div>";
 				}
-				oli += "：" + data[i]["description"] + "</div>"
-				"</li>";
+				oli+="</li>";
 			}
 			$(".cgl-czjl").html(oli);
 		}
@@ -902,16 +898,8 @@ function tiaoz_add(dangq, guid) {
 						alert(data.error);
 					}
 					if(data.succeed) {
-						$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
-						var guidarr = guid.split(",");
-						for(var i = 0; i < guidarr.length; i++) {
-							$("tr").each(function(n) {
-								if($(this).attr("gu-id") == guidarr[i]) {
-									$(this).find(".cgl-td6").html(djjson.level);
-									$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-								}
-							});
-						}
+						fnshijian(state);
+						$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 					}
 				}
 			});
@@ -941,12 +929,7 @@ function querenwg_add(putdata) {
 	$(".cgl-qrwgqr").on("click", function() {
 		putdata.description = $(".qrentext").find("textarea").val();
 		//console.log(putdata)
-		if(putdata.description == "") {
-			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-			return false;
-		} else {
-			fnwgjlzt(putdata);
-		}
+		fnwgjlzt(putdata);
 	});
 
 }
@@ -1072,22 +1055,6 @@ function fnwgjlzt(putdata) {
 
 				}
 				state["lastindex"] = 0;
-				//console.log(state)
-				/*				$.ajax({
-									type: "get",
-									url: "/webapi/earlywarningmanage/anticheating/getlist",
-									data: state,
-									error: function() {
-										$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-									},
-									success: function(data) {
-										fndengji(data.statecount);
-										//fnxuanran(data);
-										$("#cgl-table").find("#checall").prop("checked", false);
-									}
-								});
-				*/
-				fnshijian(state);
 				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
 			}
 		}
