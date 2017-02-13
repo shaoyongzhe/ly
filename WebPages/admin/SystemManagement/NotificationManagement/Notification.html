@@ -186,6 +186,10 @@
         #area ul {
             z-index: 999;
         }
+
+        .select_template {
+            white-space: pre-wrap !important;
+        }
     </style>
 </head>
 <body>
@@ -323,7 +327,7 @@
                 <i></i>
                 <!--<em class="selected">shaoyongzhe</em>-->
                 <input type="text" name="name" value="" class="category_input" />
-                <ul class="select template_category"></ul>
+                <ul class="select template_category select_template"></ul>
             </div>
         </div>
 
@@ -338,7 +342,7 @@
                 <i></i>
                 <!--<em class="selected">shaoyongzhe</em>-->
                 <input type="text" name="name" value="" class="event_input" />
-                <ul class="select template_event"></ul>
+                <ul class="select template_event select_template"></ul>
             </div>
         </div>
 
@@ -352,7 +356,7 @@
             <div class="select-wrap">
                 <i></i>
                 <input type="text" name="name" value="" class="sendway_input" />
-                <ul class="select template_sendway"></ul>
+                <ul class="select template_sendway select_template"></ul>
             </div>
 
         </div>
@@ -452,7 +456,6 @@
         comSelect();
         selectCity();
     });
-
 
 </script>
 <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> -->
