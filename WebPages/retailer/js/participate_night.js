@@ -49,6 +49,7 @@ $(function(){
 									'<input class="guid_ipt" type="hidden" value="'+data.guid+'">'+
 									// '<img class="closepage" src="../image/1-1-1.png" alt="">'+
 									'<img class="activesmallpic" src="../image/5-1.png" alt="">'+
+									//'<img class="activesmallpic" src='+data.poster_url+' alt="">'+
 									'<a class="active1font" href="javascript:;">'+'</a>'+
 								'</header>'+
 								'<article class="hidden_page_b">'+
@@ -321,11 +322,13 @@ $(function(){
 								$('.activesmallpic').attr({
 									src:""
 								});
-								$('.active1font').html()
+								$('.active1font').html();
+								$('.more_active').hide();
 							}else{
 								$('.activesmallpic').attr({
 									src:"../image/5-1.png"
 								});
+								$('.more_active').show();
 								$('.active1font').html(function(index){
 									return "活动" + (index+1);
 								})
