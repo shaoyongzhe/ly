@@ -260,6 +260,9 @@
 		        	if(data[0]["specialprice"]){
 		        		$("#vv").css({display:"flex"})
 		        		_discount+=Number(data[0]["specialprice"])
+		        		$("#vv span").text(data[0]["specialprice"])
+		        	}else{
+		        		$("#vv").css({display:"none"})
 		        	}
 		        	
 		        	if(data[0]["promotionactivity"] && data[0]["promotionactivity"]["details"].length>0){
@@ -309,26 +312,29 @@
       	$(".loads").css({display:"none"})
       }
   //ajax结束
-	   
-   	$(".submit").click(function(){
-   		localStorage.Id="";
-   		$.ajax({
-   			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
-   			type:"post",
-   			data:{
-   				distributor_id:"5ce1d14e07534139ae7774d8983f04f3",
-				remark:"", 
-				deliverdate:$("#beginTime").val(),
-				submitids:_Id,
-				manzeng:JSON.stringify(_dx)
-   			},
-   			error:function(){},
-   			success:function(data){
-   				console.log(data)
-   				window.location="myorder.html"
-   			}
-   		})
-   	})
+	if(localStorage.Id!=""){
+	   	$(".submit").click(function(){
+	   		localStorage.Id="";
+	   		$(".submit").text("提交中...")
+	   		$.ajax({
+	   			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
+	   			type:"post",
+	   			data:{
+	   				distributor_id:"5ce1d14e07534139ae7774d8983f04f3",
+					remark:"", 
+					deliverdate:$("#beginTime").val(),
+					submitids:_Id,
+					manzeng:JSON.stringify(_dx)
+	   			},
+	   			error:function(){},
+	   			success:function(data){
+	   				console.log(data)
+	   				window.location="myorder.html"
+	   			}
+	   		})
+	   	})		
+	}
+
    
 	$("#sp1").click(function(){
 		$(".canlendar").css({display:"block"})
