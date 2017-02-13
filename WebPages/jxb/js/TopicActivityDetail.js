@@ -1,4 +1,4 @@
-//20170210.9
+//20170213.0957
 //$(".BDcyhdCityD").empty();
 //$(".BDcyhdRequireD").empty();
 //$(".BDQFd1").empty();
@@ -683,11 +683,7 @@ function ajaxActivityDetails(a,b){
 			var hmShi=$(".BDcyhdCityDsShi").get(0).outerHTML;
 			var hmQv=$(".BDcyhdCityDsqv").get(0).outerHTML;
 			$(".BDcyhdCityD").empty();
-			if(data.area_match){//对勾
-				$(".BDcyhdCityDsSheng img").attr("src","img/a3.png");
-			}else{//叉叉
-				$(".BDcyhdCityDsSheng img").attr("src","img/a4.png");
-			}
+
 			
 			//省	
 			for(i=0;i<data.district_condition.length;i++){				
@@ -749,7 +745,13 @@ function ajaxActivityDetails(a,b){
 			//为了哲哥说的只让第一个显示图，其他的都不显示了。
 			$(".BDcyhdCityD").find("img").addClass("vis");
 			$(".BDcyhdCityD").find("img").eq(0).removeClass("vis");		
-//				
+			
+			if(data.area_matched==1){//对勾//0213添加，用于显示地区叉叉钩钩
+				$(".BDcyhdCityDsSheng img").attr("src","img/a3.png");
+			}else{//叉叉
+				$(".BDcyhdCityDsSheng img").attr("src","img/a4.png");
+			}
+			
 			$(".BDcyhdCityDsMore").text("展开更多>>").css({
 				color:'red',
 				left:mmm()
