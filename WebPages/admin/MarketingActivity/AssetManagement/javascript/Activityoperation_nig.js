@@ -216,30 +216,10 @@ $(function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	//下拉加载
+		$(document).on('click', '.query_iptn', function() {
+		    getList(1,'search', getSearch());
+		})
 
 // *************************************************************
 // 
@@ -253,7 +233,7 @@ $(function(){
 		//查询按钮
 		// $('.query_iptn').on('click',function(){
 		function getSearch(){
-
+			// pagingJson.pageindex++;
 			var searchForm = {
 				purpose_id :regin_purpose_id,//预算事由13
 	            purpose_class:"tblipalomaactivity",//
@@ -269,7 +249,7 @@ $(function(){
 	            applycount_max:$('.de_ipt2').val(),//申报max
 	            budget_min:$('.de1_ipt1').val(),//审批min
 	            budget_max:$('.de1_ipt2').val(),//审批max
-	            // paging:JSON.stringify(pagingJson),
+	            paging:pagingJson,
 			};
 			if(searchForm.purpose_id=='--请选择--'||searchForm.purpose_id==null){
 				delete searchForm.purpose_id
@@ -317,50 +297,50 @@ $(function(){
 			}
 			return searchForm;
 		}
-		var ascid=1;
-		var tisfvio=""
+		// var ascid=0;
+		// var tisfvio=""
+		var pagingJson={
+			"pagesize":10,
+			"pageindex":0
+			// "sort":[{"oid":"asc"}]
+		}
 		// 下拉加载
 		function getList(curr,handle, searchForm) {
-		    // $(".table1 tbody").empty(); //yin
-		    // $('.layui-layer-close').click();
-		    // console.log(searchForm)
+			$(".table1 tbody").empty();
+			$('.layui-layer-close').click();
 		    if (curr == undefined || curr == "") {
 		        curr = 1;
 		    }
 		    var df = {};
-		    // if(searchForm){
-		    // if (handle == 'search') {
 		    df = searchForm;
 		    // 页数
-		    var pageindex = 0;
+		    // var pageindex = 0;
 		    // 每页展示5个
 		    // var pagesize =15;
-		    //$('.content_drop .dropload-down').siblings().remove()  
-		    // 每次刷新的时候清空上一次的记录（加载记录）
-		    // $('.content_drop .dropload-down').remove();  //yin
-		    // dropload
+		    $('.content_drop .dropload-down').remove();
+
 		    $('.content_drop').Drop_down_loading({
 		        gundong: $('.table1 tbody'),
 
 
 		        loadDownFn: function(me) {
-		        	// alert(pageindex)
-		            pageindex++;
+		            // pageindex++;
+		            pagingJson.pageindex++;
 		            // 拼接HTML
 		            var df = {};
 		            df = searchForm;
-		            df.pageindex = pageindex;
+		            // df.pageindex = pageindex;
 		            // df.pagesize = pagesize;	
-		            var ciod=1
-		            var iod=""
-					if(ciod!=1){
-						iod="paging="+tisfvio
-					}
-					ciod++;
+		   //          var ciod=1
+		   //          var iod=""
+					// if(ciod!=1){
+					// 	iod="paging="+tisfvio
+					// }
+					// ciod++;
 					$.ajax({
 						type:"get",
 						// url:"http://membership.ipaloma.com/webapi/budget/purpose/summary",
-						url:"http://membership.ipaloma.com/webapi/budget/purpose/summary?parameters=" + JSON.stringify(df)+iod,
+						url:"http://membership.ipaloma.com/webapi/budget/purpose/summary?parameters=" + JSON.stringify(df),
 						dataType:"json",
 						// data:searchForm,
 						beforeSend: function() {  //请求前的操作
@@ -372,13 +352,12 @@ $(function(){
    						   // console.log(xhr.status);
 				           $('.query_iptn').attr('value','查询');
 				           $('.main').hide();
-
 				        },
 						success: function(data){
 
-							tisfvio=data.paging
-							tisfvio["pageindex"]=ascid++;
-							JSON.stringify(tisfvio)
+							// tisfvio=data.paging
+							// tisfvio["pageindex"]=ascid++;
+							// JSON.stringify(tisfvio);
 							
 							$('.dropload-load').css('display', 'none');
 							if (data.error) {
@@ -472,6 +451,8 @@ $(function(){
 		                    // },1000);       	
 				        	 // $('.table1 tbody').html(str);
 			        		}else{
+			        			//s锁定
+			  
 		        			    me.lock();
 		                        // 无数据
 		                        me.noData();
@@ -496,10 +477,7 @@ $(function(){
 		
 		// })
 
-		//下拉加载
-		$(document).on('click', '.query_iptn', function() {
-		    getList(1,'search', getSearch());
-		})
+	
 
 
 
