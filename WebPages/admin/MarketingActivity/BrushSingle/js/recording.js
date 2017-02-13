@@ -203,9 +203,9 @@ function Fndate() {
 	if(d.getMonth() == 0) {
 		this.strold = d.getFullYear() - 1 + "-" + 12 + "-" + d.getDate();
 	} else {
-		this.strold = d.getFullYear() + "-" + (d.getMonth().length > 1 ? d.getMonth() : "0" + d.getMonth()) + "-" + (d.getDate().length > 1 ? d.getDate() : "0" + d.getDate());
+		this.strold = d.getFullYear() + "-" + (d.getMonth().length > 1 ? d.getMonth() : "0" + d.getMonth()) + "-" + (d.getDate()>9 ? d.getDate() : "0" + d.getDate());
 	}
-	this.strnew = d.getFullYear() + "-" + ((d.getMonth() + 1).length > 1 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + (d.getDate().length > 1 ? d.getDate() : "0" + d.getDate());
+	this.strnew = d.getFullYear() + "-" + ((d.getMonth() + 1).length > 1 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + (d.getDate()>9 ? d.getDate() : "0" + d.getDate());
 }
 
 //记录状态
@@ -342,10 +342,6 @@ function fndate() {
 	});
 
 }
-$('#cgl-cxdata').change(function() {
-	alert('123');
-});
-
 //发生地区
 function fnfsdiqu() {
 	$("#province>ul").on("click", "li", function() {
@@ -902,16 +898,8 @@ function tiaoz_add(dangq, guid) {
 						alert(data.error);
 					}
 					if(data.succeed) {
-						$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
-						var guidarr = guid.split(",");
-						for(var i = 0; i < guidarr.length; i++) {
-							$("tr").each(function(n) {
-								if($(this).attr("gu-id") == guidarr[i]) {
-									$(this).find(".cgl-td6").html(djjson.level);
-									$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-								}
-							});
-						}
+						fnshijian(state);
+						$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 					}
 				}
 			});
@@ -1067,22 +1055,6 @@ function fnwgjlzt(putdata) {
 
 				}
 				state["lastindex"] = 0;
-				//console.log(state)
-				/*				$.ajax({
-									type: "get",
-									url: "/webapi/earlywarningmanage/anticheating/getlist",
-									data: state,
-									error: function() {
-										$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
-									},
-									success: function(data) {
-										fndengji(data.statecount);
-										//fnxuanran(data);
-										$("#cgl-table").find("#checall").prop("checked", false);
-									}
-								});
-				*/
-				fnshijian(state);
 				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
 			}
 		}
