@@ -49,6 +49,7 @@ $(function(){
 									'<input class="guid_ipt" type="hidden" value="'+data.guid+'">'+
 									// '<img class="closepage" src="../image/1-1-1.png" alt="">'+
 									'<img class="activesmallpic" src="../image/5-1.png" alt="">'+
+									//'<img class="activesmallpic" src='+data.poster_url+' alt="">'+
 									'<a class="active1font" href="javascript:;">'+'</a>'+
 								'</header>'+
 								'<article class="hidden_page_b">'+
