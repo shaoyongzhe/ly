@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">		
-		<title>附属</title>
+		<title>附属0210.9</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> 
 		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="css/public.css"/>
@@ -21,6 +21,11 @@
 
 	</head>
 	<body>
+		<script type="text/javascript">
+			var marginShade=document.createElement("div");			
+			marginShade.className="marginShade";
+			document.getElementsByTagName("body")[0].appendChild(marginShade);	
+		</script>			
 		<div class="Cwrap initialHi">
 			<!--背景图，固定定位-->
 			<div class="Cbd">
@@ -46,6 +51,9 @@
 					<p class="CcButieMax"></p>
 					<!--已发放-->
 					<p class="CcButieAlready"></p>
+					<!--0208添加左右按钮-->
+					<p class="CcButieLeft"></p>
+					<p class="CcButieRight"></p>
 				</div>
 				<!--参与活动条件-->
 				<div class="Cccondition">
@@ -81,6 +89,7 @@
 			</div>
 			<div class="footer">
 				<div class="footerCkxq dib">查看详情</div><div class="footerCkgd dib">查看更多</div>
+				
 			</div>
 		</div>			
 	</body>

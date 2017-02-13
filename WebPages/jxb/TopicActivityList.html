@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>列表</title>
+		<title>列表20170210.9</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/reset.css"/>			
 		<link rel="stylesheet" type="text/css" href="css/public.css"/>
@@ -12,18 +12,33 @@
 		</style>	
 	</head>
 	<body>
+		<script type="text/javascript">
+			var marginShade=document.createElement("div");			
+			marginShade.className="marginShade";
+			document.getElementsByTagName("body")[0].appendChild(marginShade);	
+		</script>		
 		<header><img src="img/a8.png" alt="" /><span>亲爱的会员，下午好!</span><img src="img/a9.png" alt="" /></header>
 		<div class="Awrap initialHi">		
 			<div class="returnToList">	
 				<p class="p1 hi">返回主题活动列表</p>
 				<p class="p2">返回超惠券列表</p>
-			</div>	
+			</div>
+			<div class="refresh">					
+			</div>
 			<ul class="yeNo">
 				<li class="yeNoL1">已参与的活动</li>
 				<li class="yeNoL2">未参与的活动</li>
 			</ul>
 			<!--已参与的活动-->
 			<div class="content -hi Aalready">
+				<!--数据为空的时候-->
+				<div class="contentNull hi">
+					<div class="" >
+						<img class="dib" src="img/a10.png" alt="" />
+						<span class="dib" >亲!这里居然木有活动!</span>
+						<p class="dib" >查看其它活动</p>
+					</div>					
+				</div>
 				<!--地区,已经参与的活动没有地区选项-->
 				<div class="contentDq hi">
 					<img src="img/a7.png" alt="" /><span>本地区</span>				
@@ -67,7 +82,15 @@
 				</div>		
 			</div>
 			<!--未参与的活动-->
-			<div class="content -hi Ano">
+			<div class="content hi Ano">
+				<!--数据为空的时候-->
+				<div class="contentNull hi">
+					<div class="" >
+						<img class="dib" src="img/a10.png" alt="" />
+						<span class="dib" >亲!这里居然木有活动!</span>
+						<p class="dib" >查看其它活动</p>
+					</div>					
+				</div>				
 				<div class="contentDq hi"><!--方案改变，2个地区不用切换所以这里注释掉，如果有一天需要地区切换，那就找20170117以及之前的版本-->
 					<img src="img/a7.png" alt="" /><span>本地区</span>				
 				</div>

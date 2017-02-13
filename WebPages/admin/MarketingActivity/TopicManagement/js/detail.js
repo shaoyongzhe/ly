@@ -1,524 +1,6 @@
-/*var detailData = {
-	"activity": {
-		"guid": "4b108a2261284dbb930f481b29426cff",
-		"description": "申报说明申报说明申报说明申报说明申报说明申报说明申报说明申报说明申报说明申报说明申报说明申报说明",
-		"state": "上架",
-		"begintime": "2016-12-04 09:00:00",
-		"endtime": "2017-04-03 23:59:59",
-		"earliestjointime": "2016-09-15 02:00:00",
-		"latestjointime": "2016-12-30 00:00:00",
-		"activitytitle": "活动主题111111111111111111111111111",
-		"servicephone": "13423232333",
-		"singleselection": 1
-	},
-	"area_condition": [
-        {
-            "charge": {
-                "state": "unactivated",
-                "name": "shaoyongzhe",
-                "guid": "4654269886BC4FD7B5914ED324208FB0",
-                "oid": "2800992"
-            },
-            "name": "河北省",
-            "city": [
-                {
-                    "charge": {
-                        "state": "active",
-                        "name": "shaoyongzhe",
-                        "guid": "4654269886BC4FD7B5914ED324208FB0",
-                        "oid": "2800992"
-                    },
-                    "name": "秦皇岛市",
-                    "country": []
-                },
-                {
-                    "charge": {
-                        "state": "unactivated",
-                        "name": "shaoyongzhe",
-                        "guid": "4654269886BC4FD7B5914ED324208FB0",
-                        "oid": "2800992"
-                    },
-                    "name": "邯郸市",
-                    "country": []
-                }
-            ]
-        },
-        {
-            "charge": {
-                "state": "active",
-                "name": "shaoyongzhe",
-                "guid": "4654269886BC4FD7B5914ED324208FB0",
-                "oid": "2800992"
-            },
-            "name": "山西省",
-            "city": [
-                {
-                    "charge": {
-                        "state": "unactivated",
-                        "name": "shaoyongzhe",
-                        "guid": "4654269886BC4FD7B5914ED324208FB0",
-                        "oid": "2800992"
-                    },
-                    "name": "长治市",
-                    "country": []
-                },
-                {
-                    "charge": {
-                        "state": "active",
-                        "name": "shaoyongzhe",
-                        "guid": "4654269886BC4FD7B5914ED324208FB0",
-                        "oid": "2800992"
-                    },
-                    "name": "晋城市",
-                    "country": []
-                }
-            ]
-        }
-    ],
-	"supplier_condition": {},
-
-	"distributor_condition": {
-		"number_range": {
-			"min": 0,
-			"max": 124,
-			"state": "active"
-		},
-		"member_time": {
-			"min": 0,
-			"operator": "between",
-			"max": 1234,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始时",
-			"timeunit": "月",
-			"state": "active",
-			"guid": "14cc1bc4023f4d1e86ffe2d47a56d6b7"
-		},
-		"fans_range": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始前",
-			"timeunit": "天",
-			"state": "active",
-			"guid": "7692256ecd5948469f117b4c5fb00376"
-		},
-		"activityfanspercentage": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始前",
-			"timeunit": "月",
-			"state": "active",
-			"guid": "be105de5e855448dbd5fe4eeb2737a43"
-		},
-		"ticket_verify": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始前",
-			"timeunit": "天",
-			"state": "active",
-			"guid": "14d42b12c9634fcea62038a67f74d5ad"
-		},
-		"verify_person_count": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始前",
-			"timeunit": "天",
-			"state": "active",
-			"guid": "a7437f9893a14a9b99fa065eaaeb8328"
-		},
-		"singleselection": 0
-	},
-	"consumer_condition": {},
-	"retailer_condition": {
-		"number_range": {
-			"min": 0,
-			"max": 124,
-			"state": "active"
-		},
-		"member_time": {
-			"min": 0,
-			"operator": "between",
-			"max": 1234,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始时",
-			"timeunit": "天",
-			"state": "active",
-			"guid": "38259d5c03a54208a71570d9bf872e7f"
-		},
-		"fans_range": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始时",
-			"timeunit": "月",
-			"state": "active",
-			"guid": "61082b5e112746f4a899ba8036317952"
-		},
-		"activityfanspercentage": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始前",
-			"timeunit": "天",
-			"state": "active",
-			"guid": "eb8a34efaf9f4f30807cda0dfd8ae0d8"
-		},
-		"ticket_verify": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始前",
-			"timeunit": "天",
-			"state": "active",
-			"guid": "266f9ccbc49c42f28b64f20a69da392f"
-		},
-		"verify_person_count": {
-			"min": 0,
-			"operator": ">=",
-			"max": 0,
-			"begintime": "2016-09-12",
-			"statisticrange" : "活动开始前",
-			"timeunit": "天",
-			"state": "active",
-			"guid": "fc3408903c254feb88847da78b0a3f50"
-		},
-		"singleselection": 0
-	},
-
-	"activity_condition": [
-		{
-			"state": "active",
-			"guid": "40895d6629af4d11b2853b25d824ddae",
-			"activitytype": "buycount",
-			"retailer_count": {
-				"min": 0,
-				"max": 25
-			},
-			"discount": {
-				"min": 0,
-				"operator": "between",
-				"max": 25
-			},
-		},
-		{
-	        "state": "active",
-			"guid": "40895d6629af4d11b2853b25d824ddae",
-	        "activitytype": "discount",
-	        "retailer_count": {
-	            "min": "6",
-	            "max": "8"
-	        },
-	        "discount": {
-	            "min": "8",
-	            "operator": ">"
-	        }
-	    }
-    ],
-	"event_handler_list": [
-		{
-			"state": "active",
-			"refund_to": "consumer",
-			"event": "verify",
-			"refund_content": "randommoney",
-			"min": 12,
-			"max": 25,
-			"ceiling": 1544,
-			"applycount": 12233,
-			"limit": {
-				"count_on": "ticket",
-				"perday": {
-					"sum": 1222,
-					"time": 122
-				},
-				"totalbudget": {
-					"sum": 122,
-					"time": 12
-				}
-			},
-			"probability": {
-				"range": "fda",
-				"time_curve": [{
-					"value": 0,
-					"percentage": 12
-				}],
-				"value_curve": [{
-					"value": 0,
-					"percentage": 12
-				}]
-			},
-			"guid": "51a9f00bba63496c8eb30a4b020fd4f6"
-		},
-		{
-			"state": "active",
-			"refund_to": "retailer",
-			"event": "shareticket",
-			"refund_content": "fixedpoints",
-			"min": 33,
-			// "max": 22,
-			"ceiling": 16,
-			"applycount": 321,
-			"limit": {
-				"count_on": "ticket",
-				"perday": {
-					"sum": 1222,
-					"time": 122
-				},
-				"totalbudget": {
-					"sum": 122,
-					"time": 12
-				}
-			},
-			"probability": {
-				"range": "fda",
-				"time_curve": [{
-					"value": 0,
-					"percentage": 12
-				}],
-				"value_curve": [{
-					"value": 0,
-					"percentage": 12
-				}]
-			},
-			"guid": "51a9f00bba63496c8eb30a4b020fwqf6"
-		},
-		{
-			"state": "active",
-			"refund_to": "distributoremployee",
-			"event": "shareretailer",
-			"refund_content": "fixedmoney",
-			"min": 11,
-			// "max": 22,
-			"ceiling": 156,
-			"applycount": 123,
-			"limit": {
-				"count_on": "ticket",
-				"perday": {
-					"sum": 1222,
-					"time": 122
-				},
-				"totalbudget": {
-					"sum": 122,
-					"time": 12
-				}
-			},
-			"probability": {
-				"range": "fda",
-				"time_curve": [{
-					"value": 0,
-					"percentage": 12
-				}],
-				"value_curve": [{
-					"value": 0,
-					"percentage": 12
-				}]
-			},
-			"guid": "51a9f00bba63496c8eb30a4b020fw4f6"
-		},
-		{
-			"state": "active",
-			"refund_to": "retaileremployee",
-			"event": "verify_normal",
-			"refund_content": "randompoints",
-			"min": 36,
-			"max": 22,
-			"ceiling": 26,
-			"applycount": 381,
-			"limit": {
-				"count_on": "ticket",
-				"perday": {
-					"sum": 1222,
-					"time": 122
-				},
-				"totalbudget": {
-					"sum": 122,
-					"time": 12
-				}
-			},
-			"probability": {
-				"range": "fda",
-				"time_curve": [{
-					"value": 0,
-					"percentage": 12
-				}],
-				"value_curve": [{
-					"value": 0,
-					"percentage": 12
-				}]
-			},
-			"guid": "51a9f00bba63496c8eb30a4b020fwqf6"
-		}
-	],
-
-	"sponsor": "distributor",
-	"propagation": [
-		{
-			"activitytitle": "活动标语distributor",
-			"wechattitle": "微信图文消息标题distributor",
-			"propagation": "宣传文案distributor宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案",
-			"poster_url": "http://ipa-oss-hz-01.oss-cn-hangzhou.aliyuncs.com/images/membership/2016duanwuhaibao3.png",
-			"object": "distributor"
-		},
-		{
-			"activitytitle": "活动标语retailer",
-			"wechattitle": "微信图文消息标题retailer",
-			"propagation": "宣传文案retailer宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案",
-			"poster_url": "http://ipa-oss-hz-01.oss-cn-hangzhou.aliyuncs.com/images/membership/2016duanwuhaibao2.png",
-			"object": "retailer"
-		},
-		{
-			"activitytitle": "活动标语consumer",
-			"wechattitle": "微信图文消息标题consumer",
-			"propagation": "宣传文案consumer宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案宣传文案",
-			"poster_url": "http://ipa-oss-hz-01.oss-cn-hangzhou.aliyuncs.com/images/membership/2016duanwuhaibao1.png",
-			"object": "consumer"
-		}
-	]
-}
-render(detailData);*/
-
-var detailData = {
-    "activity": {
-        "guid": "02e80f58cd594eb2a24cb413424e53c5",
-        "activitycode": "11111111",
-        "description": "11111111111111111111111111",
-        "state": "上架",
-        "begintime": "2017-01-10 00:00:00",
-        "endtime": "2017-01-11 23:59:59",
-        "earliestjointime": "2017-01-11 00:00:00",
-        "latestjointime": null,
-        "activitytitle": "shaoyongzhe: 测试6",
-        "servicephone": "111-1111111",
-        "singleselection": 0
-    },
-    "area_condition": {
-        "topicid": "02e80f58cd594eb2a24cb413424e53c5",
-        "districts": [
-            {
-                "name": "北京市",
-                "state": "active",
-                "charge": {
-                    "name": "shaoyongzhe",
-                    "guid": "4654269886BC4FD7B5914ED324208FB0",
-                    "oid": 2800992
-                },
-                "city": [
-                    {
-                        "name": "北京市",
-                        "state": "active",
-                        "charge": {
-                            "name": "shaoyongzhe",
-                            "guid": "4654269886BC4FD7B5914ED324208FB0",
-                            "oid": 2800992
-                        },
-                        "country": []
-                    }
-                ]
-            }
-        ]
-    },
-    "supplier_condition": {},
-    "distributor_condition": {
-        "state": "active",
-        "number_range": {
-            "min": "1",
-            "max": "11"
-        },
-        "ticket_verify": {
-            "state": "active",
-            "min": "111",
-            "operator": ">=",
-            "max": "",
-            "begintime": "2017-1-9",
-            "guid": "767f81af8bcb48d485071c1ad1a29874"
-        }
-    },
-    "consumer_condition": {},
-    "retailer_condition": {},
-    "activity_condition": [
-        {
-            "state": "active",
-            "activitytype": "package",
-            "retailer_count": {
-                "min": "1",
-                "max": "20"
-            },
-            "discount": {
-                "min": "1",
-                "operator": ">="
-            },
-            "guid": "af741cca16644d1ab84cc4ec987ca707"
-        }
-    ],
-    "event_handler_list": [
-        {
-            "state": "active",
-            "refund_to": "distributor",
-            "event": "verify_first",
-            "refund_content": "fixedmoney",
-            "min": "1",
-            "ceiling": "1111",
-            "applycount": "11111",
-            "limit": {
-                "perday": {
-                    "sum": "1",
-                    "time": "1"
-                },
-                "totalbudget": {
-                    "sum": "11",
-                    "time": "11"
-                }
-            },
-            "guid": "5ee9fd80764944569f50bf6fdede688e"
-        }
-    ],
-    "sponsor": "distributor",
-    "propagation": [
-        {
-            "activitytitle": "11",
-            "wechattitle": "11",
-            "propagation": "11",
-            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
-            "object": "distributor"
-        },
-        {
-            "activitytitle": "22",
-            "wechattitle": "22",
-            "propagation": "111",
-            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
-            "object": "retailer"
-        },
-        {
-            "activitytitle": "33",
-            "wechattitle": "33",
-            "propagation": "33",
-            "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
-            "object": "consumer"
-        }
-    ]
-}
-// render(detailData);
-
-
-// var topicId = '4b108a2261284dbb930f481b29426cff';
-
-
 // debugger
 var topicId = parent.$('#guid').val();
-if(topicId == undefined) {
-// 	// alert(0);
-	render(detailData, 'jia');
-
-} else if(topicId != ""){
+if(topicId != ""){
 	$.ajax({
 	    type: "get",
 	    url: '/webapi/ipaloma/topic/detail/' + topicId,
@@ -529,24 +11,27 @@ if(topicId == undefined) {
 	    	console.log(JSON.stringify(detailData, null, 4));
 	    	render(detailData);
 	    },
-	    error: function (){ console.warn("详情 error") }
+	    error: function (xhr) {
+	    	parent.layer.alert('获取详情数据失败: 错误'+ xhr.status, {icon: 5});
+	    }
 	});
+
 }
 
 
+function render(detailData){
 
-function render(detailData, a){
-	// debugger;
-	// alert(1);
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	first.find('.guid').text(activity.activitycode);
+	// first.find('.guid').text(activity.activitycode);   ?
+	first.find('.guid').text(activity.guid);
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
 	first.find('.earliestjointime').text(activity.earliestjointime);
 	first.find('.latestjointime').text(activity.latestjointime);
+	first.find('.state').text(activity.state);
 	first.find('.activitytitle').text(activity.activitytitle);
 	first.find('.servicephone').text(activity.servicephone);
 	first.find('.choice').text(activity.singleselection == 1 ? "是" : "否");
@@ -908,61 +393,73 @@ function render(detailData, a){
 		area.find('.propagation').text(propagation[i].propagation);
 		area.find('.posterurl').attr("src",propagation[i].poster_url);
 	}
+
 	AddButon(detailData);
+
 }
 
-var buttonDictionary = 
-{
+var buttonDictionary = {
 	"上架,正在进行中,待活动开始": '<span class="btn close">关闭</span><span class="btn warn xiajia">下架</span>',
 	"草稿,审核中,审核失败,待发布": '<span class="btn close">关闭</span><span class="btn warn xiugai">修改</span>',
-	"已过期,已结束,已下架":'<span class="btn btn-close">关闭</span>' 
+	"已过期,已结束,已下架": '<span class="btn close">关闭</span>' 
 };
-function AddButon(detailData)
-{
-	var currentState = detailData.activity.state;
+
+
+function AddButon(detailData){
+
+	var currentState = detailData.activity.state; $('.currentState').val(currentState);
 	var appendKey = $.Enumerable.From(Object.keys(buttonDictionary)).First(function (x) {
 	    return x.match(currentState) != null;
-	})
-	if (null != appendKey)
-	{
+	});
+
+	if (null != appendKey){
 		$(".footer.btn-group").append(buttonDictionary[appendKey]);
 	}
 	
 }
 
-
-
-$(document).on('click','.xiugai',
-	function(){
-	parent.window.location.href = "activityModify.html?guid=" + topicId;
-});
-
-$(document).on('click','.close',
-	function(){
-    var index = parent.layer.getFrameIndex(window.name);
+function closeLayer(){
+	var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
-});
+}
 
-$(document).on('click','.xiajia',
-	function(){
+$(document).on('click','.xiugai',function(){
+	parent.window.location.href = "activityModify.html?guid=" + topicId;
+
+}).on('click','.close',function(){
+    closeLayer();
+
+}).on('click','.xiajia',function(){
+
 	$.ajax({
-                type: "put",
-                url: "/webapi/ipaloma/topic/operation/" + $('#guid').val(),
-                async: true,
-                data: {
-                    ["currentstate"]: currentstate,
-                    ["optype"]: "下架"
-                },
-                success: function (data) {
-                    if (data.error)
-                        layer.alert("出错了^_^");
-                    layer.alert("下架成功");
-                    basicQuery();
-                },
-                error: function (xhr, textStatus) {
-                    layer.alert("出错了^_^");
-                    console.log(textStatus);
-                }
 
-            });;
+        type: "put",
+        url: "/webapi/ipaloma/topic/operation/" + topicId,
+        async: true,
+        data: {
+            ["currentstate"]: $('.currentState').val(),
+            ["optype"]: "下架"
+        },
+
+        success: function (data) {
+
+            if (data.error){
+                parent.layer.alert("出错了^_^");
+            }
+
+            // console.log(parent.$('.query'));
+            parent.$('.query').click();
+            parent.layer.alert("下架成功");
+            closeLayer();
+            // debugger
+
+        },
+
+        error: function (xhr, textStatus) {
+            parent.layer.alert("出错了^_^");
+            console.log(textStatus);
+        }
+
+    });
+
 });

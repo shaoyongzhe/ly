@@ -244,7 +244,7 @@
                     </div> -->
                     <div class="asset_left">
                         <p style="max-width:calc(100% - 55px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1em;">{{el.topiclist[0].topictitle}}</p>
-                        <span style="width:50px;display:inline-block;font-size:0.7em;font-weight:normal">等活动</span>
+                        <span ms-if="el.topiclist.length>1" style="width:50px;display:inline-block;font-size:0.7em;font-weight:normal">等活动</span>
                     </div>
                     <div class="asset_right">
                         <small>已参加</small>{{el.topiclist[0].headcount}}<small>人</small>

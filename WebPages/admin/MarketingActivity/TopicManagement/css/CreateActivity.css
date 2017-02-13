@@ -557,18 +557,19 @@ td a.chq_a{
 }
 
 .select-wrap ul{
-    display: none; 
-
+    display: none;
     width: 100%;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     background-color: #efefef;
-    border: 1px solid #ccc;
+    border: 1px solid #e4e4e4;
     border-top: 0;
-    text-align: center; 
-    box-sizing: border-box; 
+    text-align: center;
+    /* box-sizing: border-box; */
     position: absolute;
-    top: 17px;
-    z-index: 1
+    top: 25px;
+    left: -0.5px;
+    z-index: 1;
+    line-height: 28px;
 }
 
 
@@ -1290,7 +1291,7 @@ textarea{
 
 
 .layer.yao{
-	width: 800px;
+	width: 740px;
 }
 
 .yaook{
@@ -1387,6 +1388,7 @@ textarea{
 }
 
 
+.yaook.disabled,
 .gailvok.disabled,
 .shenhe.disabled{
 	background-color: #ccc;
