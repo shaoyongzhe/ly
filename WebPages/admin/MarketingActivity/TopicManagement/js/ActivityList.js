@@ -1,7 +1,7 @@
 var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
-var pageindex=1;
+var pageindex=0;
 var pagesize=15;
 var statusData="";//储存statusAjax()返回的数据。
 /*模拟下拉*/
@@ -22,7 +22,6 @@ $('.selectL').on("click",".optionL",function(e){
 $(document).click(function(){
 	$('.selectL').hide();
 });
-
 
 /*起始时间laydate控件*/
 var dataStart = {
@@ -77,14 +76,43 @@ function myDate(){
 	var pagingJson = {
                 "pagesize": pagesize,
                 "pageindex":pageindex,
-                "sort": [{"oid": "desc"}]
+                "sort": [{"oid": "asc"}]
          };
+         
+         
+/*
+ * 分页  下拉刷新
+ */
+$(".activityList tbody").scroll(function() {
+	if($(this).scrollTop() >= ($(this).prop("scrollHeight") - 500) && $(this).prop("scrollHeight") > 500) {
+		basicQuery();
+//		console.log(condition)
+	}
+});
+
+
 function basicQuery(){
     /*判断是否输入了查询条件*/
-	if($(".qC_aitivityTopic input").val()==""&&$(".qC_number input").val()==""&&$(".qC_principal .selectLedL").text()=="请选择"&&$(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()==""&&$(".qC_subsidyReleased input:eq(0)").val()==""&&$(".qC_subsidyReleased input:eq(1)").val()==""&&$(".qC_joinVipNumber input:eq(0)").val()==""&&$(".qC_joinVipNumber input:eq(1)").val()==""&&$("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"&&$(".qC_activityBudget input:eq(0)").val()==""&&$(".qC_activityBudget input:eq(1)").val()==""&&$(".qC_status .selectLedL").text()=="请选择"){
+	if( $(".qC_aitivityTopic input").val()==""&&
+		$(".qC_number input").val()==""&&
+		$(".qC_principal .selectLedL").text()=="请选择"&&
+		$(".qC_activityTime input:eq(0)").val()==""&&
+		$(".qC_activityTime input:eq(1)").val()==""&&
+		$(".qC_subsidyReleased input:eq(0)").val()==""&&
+		$(".qC_subsidyReleased input:eq(1)").val()==""&&
+		$(".qC_joinVipNumber input:eq(0)").val()==""&&
+		$(".qC_joinVipNumber input:eq(1)").val()==""&&
+		$("#gf-province em").text()=="省"&&
+		$("#gf-city em").text()=="市"&&
+		$("#gf-area em").text()=="区"&&
+		$(".qC_activityBudget input:eq(0)").val()==""&&
+		$(".qC_activityBudget input:eq(1)").val()==""&&
+		$(".qC_status .selectLedL").text()=="请选择"){
+
 		layer.alert('请输入查询条件', {icon: 5});
 		return;
 	}
+	
 	/*判断查询条件是否成对*/
 	//活动时间
 	if(($(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()!="")||($(".qC_activityTime input:eq(0)").val()!=""&&$(".qC_activityTime input:eq(1)").val()=="")){
@@ -157,7 +185,7 @@ function basicQuery(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-
+	pagingJson.pageindex++;
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -169,6 +197,7 @@ function basicQuery(){
 		state:state,
 		paging:JSON.stringify(pagingJson)
 	}
+//	console.log(condition)
     $.each(condition, function(key, value){
     if (value === "" || value === null){
         delete condition[key];
@@ -185,12 +214,17 @@ function basicQuery(){
 		url:"/webapi/ipaloma/topic/list/query",
 		async:true,
 		data:condition,
-		success:function(data){
+		success: function (data) {
+//		    console.log(data.content.length);
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
 			console.log('success')
+			if(data.content.length < 2){
+				layer.alert('没有加载到数据，请重新查询', {icon: 1});
+				return;
+			}
 			linshi=data;
 
 
@@ -217,7 +251,7 @@ function basicQuery(){
 		    //表格Tbody
 			var contentBody = data.content;
 			activityListTbody = ConstructRecord(contentBody, statusData);
-			$(".activityList tbody").empty();
+//			$(".activityList tbody").empty();
 			$(".activityList tbody").append(activityListTbody+'</tr>');
 			/*拼接完毕，开始事件*/
 			//隐藏所有按钮详情
@@ -263,7 +297,7 @@ function ConstructRecord(contentBody, statusData)
 				+'<td class="activityCode">'+x.activitycode+'</td>' 
 				+ '<td class="activitytitle">' + x.activitytitle + '</td>'
 				+ '<td class="activityTime">' + x.begintime + ' -- ' + x.endtime + '</td>'
-				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) + '</td>'
+				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) +'</td>'
 				+ '<td class="estimateJoinVipQuantity">' + x.membercount + '</td>'
 				+ '<td class="JoinedVipQuantity">' + x.alreadyinmembercount + '</td>'
 //				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
@@ -349,10 +383,19 @@ function statusAjax(){
 }
 
 /*区域信息拼接*/
+// districts -----> x.district
 function JointDistrict(districts)
 {
     var queryResult = $.Enumerable.From(districts)
-    .Select(function (x) { return x["name"] })
+    .Select(function (x) { 
+    	if(x["charge"]){
+    		var chrage_y = x["charge"];
+    		return x["name"] +"</br>"+ chrage_y["name"];
+    	}else{
+    		return x["name"];
+    	}
+    	
+    })
     .ToArray();
     return queryResult.join(" - ");
     
@@ -415,7 +458,7 @@ var DictFunction =
             });
         },
         "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
-        "'提交审核', '审核通过', '立即发布','下架', '上架'": function (op, currentstate)
+        "'提交审核', '审核通过', '立即发布','下架', '上架','驳回'": function (op, currentstate)
         {
             $.ajax({
                 type: "put",
