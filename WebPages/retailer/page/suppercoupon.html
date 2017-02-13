@@ -428,8 +428,12 @@
                     }
                     if (pageIndex == 1)
                         vm.$data.array = json.data
-                    else
-                        vm.$data.array.push(json.data)
+                    else {
+                        $.each(json.data, function (i, v) {
+                            vm.$data.array.push(v);
+                        });
+                    }
+                    // vm.$data.array.push(json.data)
 
                     if (pageIndex == 1 && isInit && !json.error && !json.user_notification) {
                         isInit = false;
