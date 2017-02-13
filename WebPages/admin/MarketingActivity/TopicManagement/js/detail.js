@@ -24,12 +24,14 @@ function render(detailData){
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	first.find('.guid').text(activity.activitycode);
+    first.find('.guid').text(activity.activitycode);
+	//first.find('.guid').text(activity.guid);
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
 	first.find('.earliestjointime').text(activity.earliestjointime);
 	first.find('.latestjointime').text(activity.latestjointime);
+	first.find('.state').text(activity.state);
 	first.find('.activitytitle').text(activity.activitytitle);
 	first.find('.servicephone').text(activity.servicephone);
 	first.find('.choice').text(activity.singleselection == 1 ? "是" : "否");
@@ -391,13 +393,15 @@ function render(detailData){
 		area.find('.propagation').text(propagation[i].propagation);
 		area.find('.posterurl').attr("src",propagation[i].poster_url);
 	}
+
 	AddButon(detailData);
+
 }
 
 var buttonDictionary = {
-	"上架,正在进行中,待活动开始": '<span class="btn btn-close close">关闭</span><span class="btn warn xiajia">下架</span>',
-	"草稿,审核中,审核失败,待发布": '<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
-	"已过期,已结束,已下架":'<span class="btn btn-close close">关闭</span>' 
+	"上架,正在进行中,待活动开始": '<span class="btn close">关闭</span><span class="btn warn xiajia">下架</span>',
+	"草稿,审核中,审核失败,待发布": '<span class="btn close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"已过期,已结束,已下架": '<span class="btn close">关闭</span>' 
 };
 
 
@@ -414,24 +418,21 @@ function AddButon(detailData){
 	
 }
 
-
-
-$(document).on('click','.xiugai',function(){
-	parent.window.location.href = "activityModify.html?guid=" + topicId;
-});
-
-$(document).on('click','.close',function(){
-    closeLayer();
-});
-
 function closeLayer(){
 	var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
 }
 
-$(document).on('click','.xiajia',function(){
+$(document).on('click','.xiugai',function(){
+	parent.window.location.href = "activityModify.html?guid=" + topicId;
+
+}).on('click','.close',function(){
+    closeLayer();
+
+}).on('click','.xiajia',function(){
 
 	$.ajax({
+
         type: "put",
         url: "/webapi/ipaloma/topic/operation/" + topicId,
         async: true,
@@ -446,13 +447,11 @@ $(document).on('click','.xiajia',function(){
                 parent.layer.alert("出错了^_^");
             }
 
-
             // console.log(parent.$('.query'));
             parent.$('.query').click();
             parent.layer.alert("下架成功");
             closeLayer();
             // debugger
-
 
         },
 
