@@ -184,12 +184,14 @@ function fnmclick1(theid,idd) {
 			n1.eq(i).hide();
 		}
 	}
+	$("#cgl-contlist").scrollTop(0);
 }
 //品牌下二级分类筛选
 function fnmclick2 () {
 	$(".sanji-zi").on("click","ul>li",function () {
 		var id3=$(this).attr("id");
 		fnmclick1(id3,"itemsubcategory");
+		
 	});
 }
 //动态设置cgl-cont的高度
@@ -312,7 +314,9 @@ function fnychxr(data) {
 }
 //获取促销活动列表
 function fnhqactive() {
+	$("#cgl-contlist").find("ul").html("");
 	$("#zhezao").show();
+	$("#loading").show();
 	$.ajax({
 		type: "get",
 		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/activity",
@@ -331,6 +335,7 @@ function fnhqactive() {
 		success: function(data) {
 			//console.log(JSON.stringify(data))
 			console.log(data)
+			$("#loading").hide();
 			$("#zhezao").hide();
 			fncuxiao(data)
 		}
@@ -413,6 +418,8 @@ function fncuxiao(data) {
 }
 //一般列表
 function fnlist(odata) {
+	$("#cgl-contlist").find("ul").html("");
+	$("#loading").show();
 	$("#zhezao").show();
 	$.ajax({
 		type: "get",
@@ -428,6 +435,7 @@ function fnlist(odata) {
 		},
 		success: function(data) {
 			console.log(data)
+			$("#loading").hide();
 			$("#zhezao").hide();
 			if(data.result == false) {
 				console.log(data.error)
@@ -463,10 +471,10 @@ function fnyibanlist(data) {
 						"<div class='ggdiv'><p class='ggborder'>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + " > </p></div>" +
 						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
 						"<div class='right'>";
-					if(data[k1]["itemcount"] <= 0) {
-						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+					if(data[k1]["itemslist"][k2]["itemcount"] <= 0) {
+						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
 					} else {
-						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
 					}
 					oli += "</div></div></div>" +
 						"</div>";
