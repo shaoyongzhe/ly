@@ -1,3 +1,4 @@
+//20170210.9
 //通用样式
 html,body{
     width:100%;
@@ -37,6 +38,9 @@ padding:0;
 }
 .vis{
     visibility:hidden
+}
+.iScrollIndicator{
+    background:rgba(255, 173, 51, 0.1)!important;
 }
 //非通用样式
 header{
@@ -209,6 +213,7 @@ header img:nth-of-type(2){
     font-size:14px;
     line-height: 22px;
     color:#888888;
+    word-break: break-all;
 }
 .BtuwenWenS1,.BtuwenWenS2{
     font-family: arial;
@@ -368,7 +373,7 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 .Bbtsm{//活动补贴说明整体
     box-sizing: border-box;
     width:1000px;
-    height:$heightbt;
+//  height:$heightbt;//0210格外注意
 //  min-height: 222px;
     border:1px solid transparent;
 //  background:green;
@@ -383,6 +388,7 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     width:66px;
 //  background: blue;
     margin-top:3%;//$heightbt/8;百分比依据.Bbtsm
+    display: table-cell;
 }
 .BbtsmL img{
     width:63px;//直接看图的尺寸
@@ -392,16 +398,17 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     //右边
 .BbtsmR{
     width:923px;
-    height:100%;//不改变量，因为100%比变量好用！好用在，如果js中高度变化了，这里就不用变，而用变量，js中还需设置此高度。
+//  height:100%;//不改变量，因为100%比变量好用！好用在，如果js中高度变化了，这里就不用变，而用变量，js中还需设置此高度。//0210格外注意
 //  background:yellow;
     border-radius: 5px;
 //  box-sizing: border-box;
 //  border:1px solid #FFAD33;
+    display: table-cell;
 }
-.BbtsmRleft{//活动补贴说明6个字
+.BbtsmRleft{//左边"活动补贴说明字样"
     box-sizing: border-box;
 //  padding-top:5%;
-    height:100%;//不改变量，原因同上。
+    height:100%;//不改变量，原因同上。//0210格外注意
     width:37px;
     background:#FFAD33;
     font-family: "微软雅黑";
@@ -426,7 +433,7 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     position: absolute;
     top:50%;
     left:50%;
-     transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%);
     -ms-transform:translate(-50%,-50%);
     -moz-transform:translate(-50%,-50%);
     -webkit-transform:translate(-50%,-50%);
@@ -436,7 +443,7 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     margin-left: -8px;//消除换行解析
     padding:0px 10px;
     box-sizing: border-box;
-    height:100%;////不改变量，原因同上。
+//  height:100%;////不改变量，原因同上。
     width:886px;//924-37px;
 //  background:deepskyblue;
 //  overflow: hidden;
@@ -446,13 +453,14 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 .BbtsmRright12{
     width:801px;
 //  height:100%;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
+    display: table-cell;
 }
 .BbtsmRright1{//会员参与时间
 //  background:red;
     height:30px;
     width:801px;
 }
-.BbtsmRright1 p{
+.BbtsmRright1 p{//会员参与时间:
     font-family: "微软雅黑";
     font-weight:bold;
     font-size: 14px;
@@ -476,10 +484,15 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 //  height:$heightbt;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
 }
 .BbtsmRright2Content{
-    width:867-66px;
+    width:867-66px;    
+    overflow: hidden;
 //  background: red;
 //  height:100%;
 }
+.maxHeight180{
+    max-height: 180px;
+}
+
 .BbtsmRright3{  
     margin-left:-8px;//处理换行解析
     width:62px;//因为BbtsmRright加border导致这里变66为64
@@ -491,6 +504,7 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 //  line-height: $heightbt+10*2px;//注意其是怪异盒模型，所以这里是如此设
 //  vertical-align: middle;
     position:relative;
+    display: table-cell;
 }
 .BbtsmRright3 img{
     width:46px;
@@ -515,7 +529,7 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
     box-sizing: border-box;
     border:1px solid #ffad33;
     border-radius:0 30px 0 0;
-    max-height: 180px;
+//  max-height: 180px;
 //  height:180px;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
     margin-bottom: 10px;
 //  background:darkkhaki;
@@ -534,14 +548,23 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
     text-align: center;
     background:#ffad33;     
 }
+.btsmD1IscrollCon{
+    height:144px;//不设高度
+    width:100%;
+    overflow: hidden;
+    position:relative;    
+}
 .btsmD1{
+    width:100%;
 //  line-height: ;
     font-family: "微软雅黑";
     font-size:14px;
     color:#333;
     line-height: 24px;//目测    
-    min-height:144px;//不设高度
-    padding:3px 15px 4px 15px;//后期加上
+//  height:144px;//不设高度
+//  padding:3px 15px 4px 15px;//后期加上
+    padding: 3px 9px 4px 8px;//0206修改
+    word-break: break-all;
 //  background:red;
 }
 //整体的下面****************************************
@@ -702,18 +725,33 @@ $widhtBwrapDown:1000px;
     margin-top:10px;
     margin-bottom: 15px;
 }
-//会员参与资格下img
-.BDcyhdQualified img{
+//会员参与资格下img(对勾和叉)
+.BDcyhdQualified .BDQFdsImg{
     margin-right:5px;
     vertical-align: middle;
 }
-.BDcyhdQualified span{
+//会员参与资格下span//粉丝留存率:活动开始前1天,不低于70%
+.BDcyhdQualified .BDQFdsSpan{
     display: inline-block;
     font-family: "微软雅黑";
     font-size: 14px;
     color:#333;
     line-height: 24px;
     height:24px;
+}
+//会员参与资格下 门店最下面红字内容（如您的投放门店不在平台）
+.BDQFd2_span1{
+    font-size: 14px;
+    color: red;
+    display: inline-block;
+    width: 10px;
+    margin-top: 4px;
+    vertical-align: top;
+    line-height: 19px;
+}
+.BDQFd2_span2{
+    @extend .BDQFd2_span1;  
+    width: 308px;    
 }
 img.BDcyhdQualifiedXFZimg{
     width:123px;//来自图片尺寸
@@ -1010,7 +1048,7 @@ a.less {
 
   .Bbtsm {
     width: 1000px;
-    height: 222px;
+//  height: 222px;
     margin-top: 10px;
 //  background:gold;
   }
@@ -1042,9 +1080,9 @@ a.less {
   }
 
   .BbtsmRright {
-    margin-left: -8px;
+//  margin-left: -8px;
     padding: 0px 7px;
-    height: 100%;
+//  height: 100%;
     width: 732px;
     border: 1px solid #FFAD33;
 //  background:red;
@@ -1105,7 +1143,7 @@ a.less {
     width: (667px-10*2)/3;;
     border: 1px solid #ffad33;
     border-radius: 0 30px 0 0;
-    max-height: 180px;
+//  max-height: 180px;
     margin-bottom: 10px;
     margin-left: 2px;
 //  background:red;
@@ -1125,7 +1163,7 @@ a.less {
   .btsmD1 {
     font-size: 14px;
     line-height: 24px;
-    min-height: 144px;
+//  height: 144px;
     padding: 3px 15px 4px 15px;
   }
 
@@ -1263,3 +1301,8 @@ a.less {
   }
 }
 
+//0210将活动补贴说明从超过6行展开说起，变化超过6行出现滚动条。展开收起作用的箭头按钮，也从有超过6行的显示其，而变为btsm超过3个显示其。其不再控制6行，而控制btsm的个数
+//具体操作，
+//css中把.btsmD1的min-height换成固定行高height,btsm的最大高度去掉
+//html中，btsm1，btsm2，btsm3不再固定为分销商，门店。消费者，而全部由js生成。
+//js中，直接清空BbtsmRright2Content，所有的btsm都由js生成，并且加上控制宽度的类名。

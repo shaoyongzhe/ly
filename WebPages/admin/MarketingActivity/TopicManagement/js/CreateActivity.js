@@ -183,9 +183,26 @@ $('body').on("click",".setRules",function(e){
 
 	// debugger
 	$('.select-wrap.xzfw').find('ul').empty();
-	$('.member-type .selected').each(function(){
+	/*$('.member-type .selected').each(function(){
 		$('.select-wrap.xzfw').find('ul').append("<li class='option'>"+ $(this).text() +"</li>");
-	});
+	});*/
+
+	var butieDx = $(this).closest('.addSub4').find('.selected:first').text();
+	var xzfw = $('.select-wrap.xzfw ul');
+	if(butieDx == '消费者'){
+		xzfw.append("<li class='option'>按平台活动</li><li class='option'>按分销商</li><li class='option'>按超惠券主题</li><li class='option'>按超惠券</li><li class='option'>按门店</li>");
+	}
+
+	if(butieDx == '门店' || butieDx == '门店店员' ){
+		xzfw.append("<li class='option'>按平台活动</li><li class='option'>按分销商</li><li class='option'>按超惠券主题</li>");
+	}
+
+	if(butieDx == '分销商' || butieDx == '分销商业务员'  || butieDx == '分销商人员' ){
+		xzfw.append("<li class='option'>按平台活动</li><li class='option'>按超惠券主题</li><li class='option'>按超惠券</li>");
+	}
+
+
+
 
 	// debugger
 	index = $(this).closest('.addSub4').index();
@@ -331,6 +348,12 @@ $('body').on("click",".set",function(e){
 	//return
 
 	var type = addSub4.find('.hdc3 .selected').text();
+
+	if(addSub4.find('.hdc5 input').val() == ""){
+		layer.tips('请先填写发放上限次数', addSub4.find('.hdc5 input'));
+		return;
+	}
+
 	if( type == '摇一摇'){
 
 		y1yindex = addSub4.index();
@@ -410,6 +433,52 @@ $('body').on("click",".set",function(e){
 
 		}
 
+
+
+		$('.yaoWrap').on('input',".Yyy3 input", function(){
+			// console.log(typeof Number($(this).val()));
+
+
+			
+			var percentNum = 0;
+			$('.yaoWrap .Yyy3 input').each(function(){
+				percentNum += Number($(this).val());
+			});
+
+			if(percentNum > 100){
+				layer.msg('摇一摇概率相加大于了100%');
+				$('.yaook').addClass('disabled');
+				return;
+			} else {
+				$('.yaook').removeClass('disabled');
+			}
+
+
+			/*var cishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
+			var cishuNum = 0;
+			$('.yaoWrap .Yyy4 input').each(function(){
+				cishuNum += Number($(this).val());
+			});
+
+			if(cishuNum != cishu){
+				layer.msg('奖品次数与发放上限次数不一样');
+				$('.yaook').addClass('disabled');
+				return;
+			} else {
+				$('.yaook').removeClass('disabled');
+			}*/
+
+
+			var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
+			var y1ygailvInput = Number($(this).val());
+			
+			$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
+
+		});
+
+
+
+
 	} else if( type == '轮盘抽奖'){
 		$(this).next('.lp').remove();
 		$(this).after('<input type="hidden" class="lp lpHidden'+ index +'">');
@@ -438,6 +507,10 @@ $('body').on("click",".set",function(e){
 
 // 设置摇一摇 确定按钮
 $('.yaook').click(function(){
+	if($(this).hasClass('.disabled')){
+		layer.msg('灰的哈')
+		return;
+	}
 	// alert(index);
 	var y1yArr = [];
 	var y1yObj = {};
@@ -642,7 +715,7 @@ $('.section3').on('click','.setgailv.on',function(){
 	var btfz = _this.closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
 	$('.value_curve .number_doller em').text(btfz);
 	
-	console.log(fwmax,fwmin)
+	// console.log(fwmax,fwmin)
 	
 	var each = (fwmax - fwmin)/count;
 	for (var i=0; i<count+1; i++) {
@@ -718,8 +791,11 @@ $('.gailvok').click(function(){
 
 	
 
+var time = new Date();
+var tomorrow = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + (time.getDate() + 1);
+// var timer_tommory=time.getFullYear()+ 1 +"/"+(time.getMonth()+1)+"/"+time.getDate();
 
-var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
+// var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
 $('.earliestjointime').val(tomorrow + " 00:00:00");
@@ -804,7 +880,7 @@ laydate(endJ);
 var d = new Date();
 var dates = d.toLocaleDateString().replace(/\//g, '-');
 var time_y = {		
-  elem: '#time_y',
+  elem: '.time_y',
   format: 'YYYY/MM/DD',
   istime: false,
   istoday: false,
@@ -1060,7 +1136,38 @@ $(document).on('click','.check, .radio',function(){
 	}
 
 
-	// alert(1)
+	if($(this).parent().hasClass('condition')){
+
+		var _this = $(this);
+
+		$('.addSub2:first .select-wrap:first li').each(function(){
+			var self = $(this);
+			var addSub2 = self.closest('.addSub2');
+			if(self.text() == _this.text()){
+				self.click();
+			}
+
+			if(_this.text() == "厂商"){
+				$('.addSub2:first .selected:first').text("");
+				$('.addSub2:first input.acMeI1, .addSub2:first input.acMeI2').val("");
+			}
+
+			if(_this.text() == "无"){
+				$('.addSub2:first .select-wrap:first li[type=consumer]').click();
+			}
+			
+			addSub2.find('.acZige .selected').text("");
+			addSub2.find('.acZige input').val("");
+			addSub2.find('.addSub3:not(:last) .minus-o').click();
+			// addSub2.find('.acZige').addClass('hi');
+
+			$('.addSub2:not(:first) .minus').click();
+
+		});
+
+	}
+
+
 	$(this).addClass('on').siblings().removeClass('on');
 
 
@@ -1225,7 +1332,7 @@ $("body").on("click","li.option",function(e){
 			$(ul).find('li:contains(粉丝留存率)').show();
 		}*/
 
-		var arr=$(this).attr("conditiontype").split(',');			
+		var arr=$(this).attr("conditiontype").split(',');
 		var li = _this.closest('.addSub2').find('.acZige1 .option');
 		$(li).each(function(){
 			// console.log($(this).text());		
@@ -1270,6 +1377,10 @@ $("body").on("click","li.option",function(e){
 				_this.closest('.addSub2').find('.selectWrap1.-hi input').attr('disabled',false);
 			}
 
+		}
+
+		if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
+			$('div.acMeD1').css('marginLeft', '3px');
 		}
 
 		return;
@@ -1827,7 +1938,11 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 });
 
 if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
-	$('div.acMeD1').css('marginLeft','26px')
+	$('div.acMeD1').css('marginLeft', '26px');
+	// $('.addSub2 .selectWrap1 > *').css('float', 'left');
+	// $('.addSub2 span.acMeS2').css('margin-left', '3px 0 0-24px');
+	// $('.addSub2 span.to').css('margin', '0px 5px 0 30px');
+	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('')
 }
 
 
@@ -2158,23 +2273,24 @@ $('.saveToDb, .shenhe').click(function(){
 					}
 
 				} else {
+
 					if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
 						// debugger
-						$("nav span").eq(2).click();
-						
 						if(_this.find('.select-wrap.acSe11 .selected').text() == "摇一摇"){
 							isShake = true;
 						}
 
-						if(!isShake){
+						if(isShake == false){
+							$("nav span").eq(2).click();
 							layer.tips('请先填写值', _this.find('.hdc4d1.-hi input.hdc4In1'));
 							// _this.find('.selected').focus();
 							finished = false;
 						}
+
 						
-//						return false;
 						
 					}
+
 				}
 
 				if(_this.find('.hdc5 input').val() == ""){
@@ -2185,7 +2301,8 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}
-				if(!isShake){
+
+				if(isShake == false){
 					if(_this.find('.sbys').val() == ""){
 						// debugger
 						$("nav span").eq(2).click();
@@ -2196,21 +2313,6 @@ $('.saveToDb, .shenhe').click(function(){
 					}
 				}
 				
-
-				// debugger
-				// alert(_this.find('.setgailv.on input').val())
-				// alert(_this.find('.setgailv.on input').length)
-				// if(_this.find('.setgailv.on input').val() != undefined || _this.find('.setgailv.on input').length != 0){
-				// 	// debugger
-				// 	if(_this.find('.setgailv.on input').val() != ""){
-				// 		$("nav span").eq(2).click();
-				// 		layer.tips('请先设置概率', _this.find('.setgailv.on'));
-				// 		// _this.find('.selected').focus();
-				// 		finished = false;
-				// 		return false;
-				// 	}
-				// }
-
 				if(_this.find('.setgailv').hasClass('on')){
 					if(_this.find('.setgailv.on input').length == 0){
 
@@ -2230,39 +2332,15 @@ $('.saveToDb, .shenhe').click(function(){
 
 				}
 
-				// 	// debugger
-				// if(_this.find('.acZige').attr('class').indexOf('hi') != -1){
-				// 	// alert(1)
-				// 	finished = false;
-				// 	return false;
-				// }
+			});
 
-				// if(_this.find('.addSub3 .condition-type .selected').text() == ""){
-				// 	$("nav span").eq(2).click();
-				// 	layer.tips('请先完善条件类型', _this.find('.addSub3 .condition-type .selected'));
-				// 	// _this.find('.selected').focus();
-				// 	finished = false;
-				// 	return false;
-				// }
-
-				// if(_this.find('.acSe6 .selected').text() == ""){
-				// 	// debugger
-				// 	$("nav span").eq(2).click();
-				// 	layer.tips('请先完善统计范围', _this.find('.acSe6 .selected'));
-				// 	// _this.find('.selected').focus();
-				// 	finished = false;
-				// 	return false;
-				// }
-
-			})
 		} else {
 			return
 		}
 		
 		// 宣传图文资料
-		// debugger
-		if(finished == true)
-		{
+		if(finished == true){
+
 			$('.section4 .area').each(function(i){
 				// debugger
 				if(i == 3){return false;}
@@ -2463,9 +2541,7 @@ $('.saveToDb, .shenhe').click(function(){
 		var curDate = _self.parents('.addSub3').find('.acZige3 input.date').val();
 
 		// 统计开始时间
-		var begintime = "";
-
-		var begintimeInput = "";
+		var begintime = "", begintimeInput = "";
 
 		var timeunit = "";
 
@@ -2487,16 +2563,17 @@ $('.saveToDb, .shenhe').click(function(){
 
 			// 判断时间--单位  天、月
 			begintimeInput = $('.begintime').val().substring(0,10);
-			begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');			
+			begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');		
 
 		} else {
 
 			// 判断时间--单位  天、月
-			begintimeInput = $('#time_y').val();
-			if(begintimeInput != ''){
+			begintimeInput = _self.parents('.addSub3').find('.time_y').val();
+
+			if(begintimeInput != '不限'){
 				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
-			}else{
-				begintime = '';
+			} else {
+				begintime = '不限';
 			}
 
 		}
@@ -2703,7 +2780,7 @@ $('.saveToDb, .shenhe').click(function(){
     var updateFlag = location.href.indexOf("activityModify.html")!=-1;
 	if ($('nav span:last').hasClass('on')) {
 	    $.ajax({
-	        type:updateFlag ? "put" : "post",
+	        type: updateFlag ? "put" : "post",
 	        url: '/webapi/ipaloma/topic',
 	        dataType: "json",
 	        data: JSON.stringify(data),

@@ -608,8 +608,8 @@
 					<dfn class='fl'>活动预算峰值：</dfn>
 					<ul class='fl'>
 						<li>直发现金<span class='cash'>0</span><i class='dw'>元</i></li>
-						<li>返现券<span class='quan'>0</span><i class='dw'>张</i>，价值<span>0</span><i class='dw yuan'>元</i></li>
-						<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
+						<!-- <li>返现券<span class='quan'>0</span><i class='dw'>张</i>，价值<span>0</span><i class='dw yuan'>元</i></li> -->
+						<!-- <li>积分<span class='score'>0</span><i class='dw'>分</i></li> -->
 					</ul>
 				</div>
 
@@ -631,7 +631,7 @@
 				<div class="yaoWrap">
 					<span class='tip'><i class='pre'>*</i> 摇一摇概率相加等于100%</span>
 					<div class="addSub5P68">
-						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><p class="p68 deleP dib">申报预算</p>				
+						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><!-- <p class="p68 deleP dib">申报预算</p> -->				
 					</div>
 					<div class="yaoyiyao addSub5 created_l"><!--合并的时候，请修改此名-->
 
@@ -678,7 +678,7 @@
 						<div class="dib Yyy4 ver re">
 							<!-- <p class="p68 deleP">奖品次数</p>				 -->
 							<div class="dib Yyy4d1 ver">
-								<input type="text" />
+								<input type="text" disabled />
 								<span>次</span>
 							</div>
 						</div>
@@ -686,7 +686,7 @@
 						<div class="dib Yyy5 ver re">
 							<!-- <p class="p68 deleP">补贴峰值</p>				 -->
 							<div class="dib -hi Yyy5d1 ver fz">
-								<input type="text" value="" class="dib"/>						
+								<input type="text" value="" class="dib" readonly />						
 								<span class="dib ba"></span>
 							</div>
 							<div class="dib hi Yyy5d2">	
@@ -694,16 +694,16 @@
 							</div>
 						</div>
 
-						<div class="dib Yyy5-1 ver re">
-							<!-- <p class="p68 deleP">申报预算</p>				 -->
-							<div class="dib -hi Yyy5d1 ver">
-								<input type="text" value="" class="dib"/>						
-								<span class="dib ba">元</span>
-							</div>
-							<div class="dib hi Yyy5d2">	
-								
-							</div>
-						</div>	
+						<!-- <div class="dib Yyy5-1 ver re">
+								<p class="p68 deleP">申报预算</p>
+								<div class="dib -hi Yyy5d1 ver">
+									<input type="text" value="" class="dib"/>						
+									<span class="dib ba">元</span>
+								</div>
+								<div class="dib hi Yyy5d2">	
+									
+								</div>
+							</div> -->	
 
 						<div class="dib Yyy6 setgailv">设置概率</div>
 						<!--添加删除按钮-->
@@ -722,7 +722,7 @@
 						<ul class="fl">
 							<li>现金<span class='cash'>0</span><i class='dw'>元</i></li>
 							<!-- <li>返现券<span class='quan'>10</span><i class='dw'>张</i>，价值<span class='yuan'>20</span><i class='dw'>元</i></li> -->
-							<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
+							<!-- <li>积分<span class='score'>0</span><i class='dw'>分</i></li> -->
 						</ul>
 					</div>
 
@@ -927,12 +927,9 @@
                     <span>概率适用范围</span>
                     <div class="select-wrap">
                         <i></i>
-                        <em class="selected">平台活动1</em>
+                        <em class="selected">按平台活动</em>
                         <ul class="select" style="display: block;">
-                            <li class="option">平台活动1</li>
-                            <li class="option">平台活动2</li>
-                            <li class="option">平台活动3</li>
-                            <li class="option">平台活动4</li>
+                            <li class="option">按平台活动</li>
                         </ul>
                     </div>
                 </div>
