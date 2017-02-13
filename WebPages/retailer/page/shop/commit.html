@@ -65,6 +65,7 @@
 		}
 		console.log(_Id)
    $.get("/webapi/account/login/test-2-135-1",{},function(data){},false);
+      if(_Id!=""){
       $.ajax({
       url:"/webapi/distributor/"+getRetailerid()+"/orderform/items?distributor_id="+localStorage.disId+_sub,
       async:true,
@@ -303,7 +304,11 @@
        	$(".submit span").text("("+data.length+")")
        }//ajax的success方法结束
 		
-	   });  //ajax结束
+	   });      	
+      }else{
+      	$(".loads").css({display:"none"})
+      }
+  //ajax结束
 	   
    	$(".submit").click(function(){
    		localStorage.Id="";
@@ -417,24 +422,24 @@
 		</div>
 		<div class="same" id="cc">
 			<div>商品促销优惠金额</div>
-			<div>￥15.5</div>
+			<div>￥0.0</div>
 		</div>
 		<div class="same" id="ss">
 			<div>赠品金额</div>
-			<div>￥15.5</div>
+			<div>￥0.0</div>
 		</div>
 		<div class="same" id="kk">
 			<div>商品应付金额</div>
-			<div>￥15.5</div>
+			<div>￥0.0</div>
 		</div>
 		<div class="same" id="vv" style="display: none;">
 			<div>微信下单专享</div>
-			<div>￥<span>5</span></div>
+			<div>￥<span>0.0</span></div>
 		</div>
-		<div id="same-ss">
+		<div id="same-ss" style="display:none">
 			<div>满减</div>
 			<div>(满100元减10元；满500元减50元)</div>
-			<div>￥15.5</div>
+			<div>￥0.0</div>
 		</div>
 	</section>
             
@@ -451,8 +456,8 @@
                           <!-- orderlayout 3 description -->
                           
                             <div class="totalsum">
-                                          <p class="amountBig"> 合计：￥<span>50</span>元</p> 
-                                            <p class="ab">已优惠金额：￥<span>139.00</span>  </p> 
+                                          <p class="amountBig"> 合计：￥<span>0</span>元</p> 
+                                            <p class="ab">已优惠金额：￥<span>0.0</span>  </p> 
                                             <div class="submit">提交订单</div>
                                       </div>
                             

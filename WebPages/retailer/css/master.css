@@ -170,7 +170,7 @@ section .remarks{
 	width:80%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
 }
 .introd .saleTm-con{
-	height:100%;text-align: right;line-height: 40px;font-size: 16px;padding-right: 8px;
+	height:100%;text-align: right;line-height: 40px;font-size: 16px;
 }
 .introd .saleTm-con span{
 	padding:0;float:left
@@ -194,7 +194,7 @@ section .remarks{
 	width:70px;height:70px
 }
 .shop-tit{
-	width:60%;float:left;font-size: 1.6rem;
+	width:auto;float:left;font-size: 1.6rem;
 }
 .shop-tit img{
 	float:left

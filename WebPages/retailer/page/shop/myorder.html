@@ -140,7 +140,6 @@ function shopList(pg){
 					 			}else if(data["content"][j]["details"].length>0 && data["content"][j]["details"].length<=1){
 						 			if(data["content"][j]["details"][0]["itemobj"]["itemtype"]){
 							 			if(data["content"][j]["details"][0]["itembobj"]["itemtype"]==0){
-							 				alert(1)
 					   					_icn="<img src="+"\"../../image/shop/temp.jpg\""+">"
 					   					console.log(_icn)
 					   				}
@@ -168,8 +167,6 @@ function shopList(pg){
 						$("#container").scrollTop("0")
 						toShop(data,pg)
 						onScroll(data,pg)
-						}else{
-							alert(data["error"])
 						}
 				 }//ajax的success方法结束
 		 });
@@ -252,7 +249,6 @@ function shopList(pg){
 						 			}else if(data2["content"][r]["details"].length>0 && data2["content"][r]["details"].length<=1){
 						 			if(data2["content"][r]["details"][0]["itemobj"]["itemtype"]){
 							 			if(data2["content"][r]["details"][0]["itembobj"]["itemtype"]=="0"){
-							 				alert(1)
 					   					_icn="<img src="+"\"../../image/shop/temp.jpg\""+">"
 					   					console.log(_icn)
 					   				}
@@ -278,8 +274,6 @@ function shopList(pg){
 							_historyList="";
 							_shopList="";
 							toShop(data,pg)
-							}else{
-								alert(data["error"])
 							}
 							
 										_ty=1		
