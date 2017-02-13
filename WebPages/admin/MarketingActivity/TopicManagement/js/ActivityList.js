@@ -91,7 +91,7 @@ $(".activityList tbody").scroll(function() {
 });
 
 
-function basicQuery(){
+function basicQuery(resetQueryCondition){
     /*判断是否输入了查询条件*/
 	if( $(".qC_aitivityTopic input").val()==""&&
 		$(".qC_number input").val()==""&&
@@ -197,6 +197,13 @@ function basicQuery(){
 		state:state,
 		paging:JSON.stringify(pagingJson)
 	}
+	if (resetQueryCondition) {
+	    condition.paging = {
+	        "pagesize": pagesize,
+	        "pageindex": pageindex,
+	        "sort": [{ "oid": "asc" }]
+	    };
+	}
 //	console.log(condition)
     $.each(condition, function(key, value){
     if (value === "" || value === null){
@@ -222,7 +229,7 @@ function basicQuery(){
 
 			console.log('success')
 			if(data.content.length < 2){
-				layer.alert('没有加载到数据，请重新查询', {icon: 1});
+				//layer.alert('没有加载到数据，请重新查询', {icon: 1});
 				return;
 			}
 			linshi=data;
@@ -251,7 +258,6 @@ function basicQuery(){
 		    //表格Tbody
 			var contentBody = data.content;
 			activityListTbody = ConstructRecord(contentBody, statusData);
-//			$(".activityList tbody").empty();
 			$(".activityList tbody").append(activityListTbody+'</tr>');
 			/*拼接完毕，开始事件*/
 			//隐藏所有按钮详情
@@ -282,8 +288,10 @@ function basicQuery(){
 
 /*查询按钮*/
 var condition={}
-$(".queryConditionButton .query").click(function(){
-	 basicQuery();
+$(".queryConditionButton .query").click(function () {
+    $(".activityList tbody").empty();
+    basicQuery(true);
+
 });
   		
 function ConstructRecord(contentBody, statusData)
