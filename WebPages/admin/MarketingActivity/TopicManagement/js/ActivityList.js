@@ -270,7 +270,6 @@ function basicQuery(){
 		},
 		beforeSend:function(){
 			$(".loaded").fadeIn();
-
 		},
 		error:function(data){
 			linshi=data;
