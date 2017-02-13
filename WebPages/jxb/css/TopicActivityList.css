@@ -84,7 +84,7 @@ header img:nth-of-type(2) {
 
 .yeNo {
   border-bottom: 4px solid #ccc;
-  width: 994px;
+  width: 1020px;
   height: 50px; }
 
 .yeNo li {
@@ -479,15 +479,20 @@ header img:nth-of-type(2) {
   .returnToList {
     width: 145px;
     height: 80px;
-    left: 744px;
+    left: 739px;
     top: 9px; }
 
   .returnToList p {
-    width: 128px;
+    width: 126px;
     height: 26px;
     line-height: 26px;
     font-size: 14px;
     margin-bottom: 10px; }
+
+  /*刷新按钮*/
+  .refresh {
+    left: 879px;
+    top: 12px; }
 
   .contentCont {
     padding-top: 20px; }
