@@ -39,7 +39,7 @@ function fnxrym() {
 		$(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
 		$(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);
 		$(".footerl>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id);
-		$(".footerr>a").attr("href", "commit.html?distributor_id=" + url1.distributor_id)
+		$(".footerr>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id)
 	}
 }
 //获取购物车总金额和总数量
@@ -357,7 +357,7 @@ function fncuxiao(data) {
 			}
 			//折扣和降价活动时
 		if(data[k1]["itemkind"] == "折扣" || data[k1]["itemkind"] == "降价") {
-			oli += "<li>" +
+			oli += "<li id=\""+k1+"\">" +
 				"<div class='cgl-top hori'> " +
 				"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
 				"<div class='the-xiangxi'> " +
@@ -386,7 +386,7 @@ function fncuxiao(data) {
 		} else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
 			//有礼和买赠活动时
 			dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
-			oli += "<li>" +
+			oli += "<li id=\""+k1+"\">" +
 				"<div class='cgl-top hori'> " +
 				"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
 				"<div class='the-xiangxi'> " +
@@ -415,6 +415,7 @@ function fncuxiao(data) {
 		}
 	}
 	$("#cgl-contlist").find("ul").html(oli);
+	fncarnum(data);
 }
 //一般列表
 function fnlist(odata) {
@@ -559,9 +560,12 @@ function fnggmore() {
 	});
 }
 //商品数量加减
-function fncarnum() {
+function fncarnum(data) {
 	$("#cgl-cont").on("click", ".jian", function() {
 		var num = Number($(this).next().html());
+		if(num==Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])){
+			num=0
+		}
 		if(num <= 1) {
 			$(this).hide().next().hide().html(0);
 			$(".ammount").html($(".ammount").html() - 1);
@@ -576,6 +580,12 @@ function fncarnum() {
 	}).on("click", ".add", function() {
 		var num = Number($(this).prev().html());
 		var xian = $(this).parents(".the-xiangxi").find(".cgl-syu>span").html();
+		if(num==0){
+			console.log($(this).parent().parent().parent().parent().parent().attr("id"))
+			if(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
+				num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])-1
+			}
+		}
 		if(xian && xian <= num) {
 			console.log("购买已到上限")
 		} else {
@@ -730,7 +740,7 @@ $(function() {
 	fnmenu(); //获取菜单列表
 	fnerji(); //遮罩点击
 	fnggmore(); //商品规格点击切换
-	fncarnum(); //商品数量加减
+	 //商品数量加减
 	fnserach(); //搜索
 	fnmclick2 ();
 });

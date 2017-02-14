@@ -36,7 +36,7 @@
 			 var _data1="";
 			$.get("/webapi/account/login/test-2-135-1",{},function(){},false); 
 			if(localStorage.retalerdata && JSON.parse(localStorage.retalerdata).data.result!=false){
-							data1=JSON.parse(localStorage.retalerdata);
+							data1=JSON.parse(localStorage.retalerdata).data;
 	        		_data1=data1;
 	        		console.log(_data1)
 		  		 	  for(var i=0;i<_data1.length;i++){
@@ -88,7 +88,7 @@ function shopList(pg){
 			  cache:false,
 			  dataType:"json",
 			  type:"get",
-			  error:function(){alert("网络出错")},
+			  error:function(){},
 			  success:function(data)
 				 {	
 				 	var _imgs="";

@@ -272,10 +272,10 @@ section .remarks{
 	float:right
 }
 .gif{
-	padding-left:4px
+	padding-left:4px;color:red
 }
 .gif span{
-	float:right
+	float:right;color:#666
 }
 .gifto{
 	width:10%;float:left;color:#494a4a

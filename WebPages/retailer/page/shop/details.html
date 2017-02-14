@@ -25,14 +25,15 @@
 		var _flag=1;
 		var _price=0;
 		var _amount=0;
-		var _data1=JSON.parse(localStorage.data)
+		var _data1=JSON.parse(localStorage.retalerdata).data
 		var _pp="";
 		var _image="";
 		var _img="";
 		var _discount=0
 		var _zeng=0;
 		var _get=0;
-		var _list3=""
+		var _list3="";
+		var _indd=localStorage.index
 		console.log(pg)
 		console.log(_data1[pg]["distributor_id"])
 		console.log(commodity)
@@ -86,21 +87,24 @@
 			       			_discount+=(data["content"][commodity]["details"][i]["itemoriginalcost"]-data["content"][commodity]["details"][i]["itemunitcost"])*data["content"][commodity]["details"][i]["itemcount"]
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
-			       		"><div></div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><span class="+"\"discount-con\""+
+			       		"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
+								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><span class="+"\"discount-con\""+
 			       		">"+data["content"][commodity]["details"][i]["discount"]+" 折</span></div>"+_remark+"</li>"
 			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="买赠"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
 			       			_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
-			       		"><div></div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
-			       		">买"+data["content"][commodity]["details"][i]["itemcount"]+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"赠"+data["content"][commodity]["details"][i]["giftcount"]+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
+								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
+			       		">买"+data["content"][commodity]["details"][i]["salecount"]+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"赠"+data["content"][commodity]["details"][i]["giftcount"]+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
 			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="有礼"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
 			       			_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 			       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
-			       		"><div></div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">有礼</div><span class="+"\"discount-con\""+
+			       		"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
+								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">有礼</div><span class="+"\"discount-con\""+
 			       		">购买"+data["content"][commodity]["details"][i]["salecount"]+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"赠送"+
 								data["content"][commodity]["details"][i]["giftcount"]+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
 			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="折扣"){
@@ -121,7 +125,7 @@
 								"\"discount\""+"></li>";			       			
 			       		}
 								//_amount+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"])
-							}else{
+							}else if(data["content"][commodity]["details"][i]["promotionno"]!="mz"){
 								_zeng+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"])
 								if(data["content"][commodity]["details"][i]["itemgifttype"]!=3){
 									_list2+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+/*_image+*/"<div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]).toFixed(1)+
@@ -161,10 +165,10 @@
 							}
 						}
 						$("#pp span").text(_discount.toFixed(1))
-						if(JSON.parse(localStorage.data)[0]["specialprice"]!==0){
+						if(_data1[_indd]["specialprice"]!==0){
 		        			$("#vv").css({display:"flex"})
-		        			_discount+=Number(JSON.parse(localStorage.data)[0]["specialprice"])
-		        			$("#vv span").text(JSON.parse(localStorage.data)[0]["specialprice"].toFixed(1))
+		        			_discount+=Number(_data1[_indd]["specialprice"])
+		        			$("#vv span").text(_data1[_indd]["specialprice"].toFixed(1))
 		        		}
 						console.log(_get)
 						
@@ -200,19 +204,25 @@
 						}else{
 							$(".giveto").remove()
 						}
-						if(_get>=100 && _get<500){
-							$("#same-ss div:nth-child(3)").text("￥10.0")
-							_get-=10
-						}else if(_get>=500){
-							$("#same-ss div:nth-child(3)").text("￥50.0")
-							_get-=50
-						}else if(_get<100){
-							$("#same-ss div:nth-child(3)").text("￥0.0")
+						$("#dd span").text(_get.toFixed(1))
+						_get-=Number($("#vv span").text())
+						if(_data1["itemkind"]=="满减"){						
+							if(_get>=100 && _get<500){
+								$("#same-ss div:nth-child(3)").text("￥10.0")
+								_get-=10
+							}else if(_get>=500){
+								$("#same-ss div:nth-child(3)").text("￥50.0")
+								_get-=50
+							}else if(_get<100){
+								$("#same-ss div:nth-child(3)").text("￥0.0")
+								$("#same-ss").css({display:"none"})
+							}
+							_discount+=Number($("#same-ss div:nth-child(3)").text().replace("￥",""))
+						}else{
 							$("#same-ss").css({display:"none"})
 						}
-						_discount+=Number($("#same-ss div:nth-child(3)").text().replace("￥",""))
+						
 						$(".amountBig").next().find("span").text(_discount.toFixed(1))
-						$("#dd span").text(_get.toFixed(1))
 						$(".amountBig span").text(_get.toFixed(1))
 				console.log($("section").css("height"))
 				console.log($("body").css("height"))

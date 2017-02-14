@@ -39,6 +39,7 @@
   		var _discount=0;
   		var _mz="";
   		var _dx={};
+  		var _indd=localStorage.index;
   		$("#beginTime").val(_year+"-"+_month+"-"+_day)
 		var _index=[];
 //		if(location.search.replace("?","").split("/")){
@@ -57,11 +58,12 @@
 //		console.log(_index)
 		var _Id="";
 		var _sub="";
-		if(localStorage.Id){
+       	if(localStorage.Id){
 			_Id=localStorage.Id
 		}else if(location.search==""){
-			location.href="shopcar.html?"+localStorage.disId
-		};
+			location.href="shopcar.html?distributor_id="+localStorage.disId
+		}
+
 		if(_Id!==""){
 			_sub="&submitids="+_Id
 		}
@@ -77,6 +79,15 @@
       error:function(){},
       success:function(data)
        {
+
+//     	else if(localStorage.Id){
+//			for(var k in data){
+//				_Id+=data[k]["guid"]+","
+//			}
+//			_Id=_Id.replace(/\,$/g,"")
+//			console.log(_Id)
+//		}
+
        	//checkChange(data)
        	console.log(data)
 //     	for(var x=0;x<_index.length;x++){
@@ -183,7 +194,7 @@
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
-			       		">买"+_data[i]["specification"]+_data[i]["giftitemobj"]["packagetypename"]+"赠"+_data[i]["giftitemobj"]["specification"]+_data[i]["giftitemobj"]["packagetypename"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		">买"+_data[i]["salecount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["itemname"]+"赠"+_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
 			       		}else if(_data[i]["itemkind"]=="有礼"){
 			       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 			       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
@@ -215,10 +226,10 @@
 		       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">降价</div><span class="+"\"discount-con\""+
 		       		">"+_data[i]["discount"]+"</span></div></li>"
 		       		}else if(_data[i]["itemkind"]=="买赠"){
-		       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
-		       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
-		       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">满赠</div><span class="+"\"discount-con\""+
-		       		">"+_data[i]["discount"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
+			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
+			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
+			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
+			       		">买"+_data[i]["salecount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["itemname"]+"赠"+_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
 		       		}else if(_data[i]["itemkind"]=="有礼"){
 		       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 		       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
@@ -236,43 +247,38 @@
 	
 	       	}
        	}
-       	$.ajax({
-	    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
-		    	async:true,
-		    	cache:false,
-		        dataType:"json",
-		        type:"get",
-		        error:function(){},
-		        success:function(data){
+       	sdd()
+			function sdd(){
+					data=JSON.parse(localStorage.retalerdata).data;
 		        	console.log(data)
 		        	console.log(_Id)
-		        	$("#phoneto").attr("href","tel:"+data[0]["mobilephone"])
-		        	if(data[0]["activityitem_id"]){
-		        	_dx["activityitem_id"]=data[0]["activityitem_id"]
-		        	for(var t=0;t<data[0]["promotionactivity"]["details"].length;t++){
-			        	if(_price>=Number(data[0]["promotionactivity"]["details"][t]["moneysum"])){
+		        	$("#phoneto").attr("href","tel:"+data[_indd]["mobilephone"])
+		        	if(data[_indd]["activityitem_id"]){
+		        	_dx["activityitem_id"]=data[_indd]["activityitem_id"]
+		        	for(var t=0;t<data[_indd]["promotionactivity"]["details"].length;t++){
+			        	if(_price>=Number(data[_indd]["promotionactivity"]["details"][t]["moneysum"])){
 			        		//data[0]["promotionactivity"]["details"]
 			        		
-			        			_mz=JSON.stringify(data[0]["promotionactivity"]["details"][t]["giftitems"])
+			        			_mz=data[_indd]["promotionactivity"]["details"][t]["giftitems"]
 			        		
 			        	}
 		        	}
 		        	_dx["giftitems"]=_mz
 					console.log(_dx)
-		        	if(data[0]["specialprice"]){
+		        	if(data[_indd]["specialprice"]){
 		        		$("#vv").css({display:"flex"})
-		        		_discount+=Number(data[0]["specialprice"])
-		        		$("#vv span").text(data[0]["specialprice"].toFixed(1))
+		        		_discount+=Number(data[_indd]["specialprice"])
+		        		$("#vv span").text(data[_indd]["specialprice"].toFixed(1))
 		        	}else{
 		        		$("#vv").css({display:"none"})
 		        	}
 		        	
-		        	if(data[0]["promotionactivity"] && data[0]["promotionactivity"]["details"].length>0){
-		        	  	for(var p=0;p<data[0]["promotionactivity"]["details"].length;p++){
-		        	  		if(_price>=data[0]["promotionactivity"]["details"][p]["moneysum"]){
-		        	  			for(var c=0;c<data[0]["promotionactivity"]["details"][p]["giftitems"].length;c++){
-		        	  				_zengprice+=Number(data[0]["promotionactivity"]["details"][p]["giftitems"][c]["price"])
-		        	  				_distrgive="<div style="+"\"padding-left:10%\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[0]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"		        	  					
+		        	if(data[_indd]["promotionactivity"] && data[_indd]["promotionactivity"]["details"].length>0){
+		        	  	for(var p=0;p<data[_indd]["promotionactivity"]["details"].length;p++){
+		        	  		if(_price>=data[_indd]["promotionactivity"]["details"][p]["moneysum"]){
+		        	  			for(var c=0;c<data[_indd]["promotionactivity"]["details"][p]["giftitems"].length;c++){
+		        	  				_zengprice+=Number(data[_indd]["promotionactivity"]["details"][p]["giftitems"][c]["price"])
+		        	  				_distrgive="<div style="+"\"padding-left:10%\""+">"+data[_indd]["promotionactivity"]["details"][p]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[_indd]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+data[_indd]["promotionactivity"]["details"][p]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[_indd]["promotionactivity"]["details"][p]["giftitems"][c]["count"]+"</span></div>"		        	  					
 		        	  			}
 		        			}
 						}
@@ -284,23 +290,25 @@
 		        	}
 		        	$("#ss div:nth-child(2)").text("￥"+_zengprice.toFixed(1))
 		        	$(".loads").css({display:"none"})
-		        	$(".amountBig span").text((_price-data[0]["specialprice"]).toFixed(1))
+		        	$(".amountBig span").text((_price-data[_indd]["specialprice"]).toFixed(1))
 		        }
-	    	})
+       	
        	console.log(_discount)
        	$("#cc div:nth-child(2)").text("￥"+_discount.toFixed(1))
 		$("#kk div:nth-child(2)").text("￥"+_price.toFixed(1))
 		
-		
-		if(_price>=100 && _price<500){
-			$("#same-ss div:nth-child(3)").text("￥10.0")
-		}else if(_price>=500){
-			$("#same-ss div:nth-child(3)").text("￥50.0")
-		}else{
-			$("#same-ss div:nth-child(3)").text("￥0.0")
-			$("#same-ss").css({display:"none"})
+		if(JSON.parse(localStorage.retalerdata).data["itemkind"]=="满减"){
+			if(_price>=100 && _price<500){
+				$("#same-ss div:nth-child(3)").text("￥10.0")
+			}else if(_price>=500){
+				$("#same-ss div:nth-child(3)").text("￥50.0")
+			}else{
+				$("#same-ss div:nth-child(3)").text("￥0.0")
+				$("#same-ss").css({display:"none"})
+			}
+			_discount+=Number($("#same-ss div:nth-child(3)").text().replace("￥",""))			
 		}
-		_discount+=Number($("#same-ss div:nth-child(3)").text().replace("￥",""))
+
 
 		
 		
@@ -315,7 +323,7 @@
   //ajax结束
 	if(localStorage.Id!=""){
 	   	$(".submit").click(function(){
-	   		console.log(_Id)
+	   		console.log(localStorage.disId)
 	   		localStorage.removeItem("Id");
 	   		$(".submit").text("提交中...")
 	   		$.ajax({
