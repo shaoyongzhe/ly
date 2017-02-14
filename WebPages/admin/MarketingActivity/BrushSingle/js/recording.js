@@ -60,7 +60,7 @@ function fnxuanran(data) {
 			"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 			"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 			"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "</td>" +
+			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看核销记录</a></td>" +//查看违规原因***********************************************
 			"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 			"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
@@ -203,9 +203,9 @@ function Fndate() {
 	if(d.getMonth() == 0) {
 		this.strold = d.getFullYear() - 1 + "-" + 12 + "-" + d.getDate();
 	} else {
-		this.strold = d.getFullYear() + "-" + (d.getMonth().length > 1 ? d.getMonth() : "0" + d.getMonth()) + "-" + (d.getDate()>9 ? d.getDate() : "0" + d.getDate());
+		this.strold = d.getFullYear() + "-" + (d.getMonth().length > 1 ? d.getMonth() : "0" + d.getMonth()) + "-" + (d.getDate() > 9 ? d.getDate() : "0" + d.getDate());
 	}
-	this.strnew = d.getFullYear() + "-" + ((d.getMonth() + 1).length > 1 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + (d.getDate()>9 ? d.getDate() : "0" + d.getDate());
+	this.strnew = d.getFullYear() + "-" + ((d.getMonth() + 1).length > 1 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate() : "0" + d.getDate());
 }
 
 //记录状态
@@ -655,13 +655,13 @@ function article_add(that) {
 					" <span style='padding-left:6px'> 操作人员：" + data[i]["issueby_name"] + "</span>" +
 					"<div>" + data[i]["dealtstate"] + "；</div>";
 				if(data[i]["dealtstate"] == "申诉中") {
-					oli += "<div class='cgl-beizhu'><span>登记内容：</span><p>"+ data[i]["description"] + "</p></div>";
-				}else if(data[i]["dealtstate"]=="发送通知"){
+					oli += "<div class='cgl-beizhu'><span>登记内容：</span><p>" + data[i]["description"] + "</p></div>";
+				} else if(data[i]["dealtstate"] == "发送通知") {
 					oli += "<div class='cgl-beizhu'><span>通知内容：</span><p>" + data[i]["description"] + "</p></div>";
-				}else if(data[i]["description"]!=""){
+				} else if(data[i]["description"] != "") {
 					oli += "<div class='cgl-beizhu'><span>备注：</span><p>" + data[i]["description"] + "</p></div>";
 				}
-				oli+="</li>";
+				oli += "</li>";
 			}
 			$(".cgl-czjl").html(oli);
 		}
@@ -733,6 +733,7 @@ function fnfstz(fstz) {
 function fnclose(index) {
 	$(".cgl-close").click(function() {
 		layer.close(index)
+		console.log(1)
 	});
 }
 //操作中的发送通知
@@ -832,7 +833,7 @@ function jiechuwg_add(putdata) {
 //确认解除违规
 function fnqrjcwg(putdata) {
 	var cont = "<div>" +
-		"<div class='jctext'>确认解除违规？" +
+		"<div class='jctext'>确定要解除违规吗？解除后将不能再确认或调整违规，请谨慎操作" +
 		"</div>" +
 		"<div class='cgl-antz'><span class='layui-layer-close'>取消</span><span class='cgl-import querenjc'>确定</span></div>" +
 		"</div>";
@@ -1061,16 +1062,101 @@ function fnwgjlzt(putdata) {
 	});
 }
 
+function fnweigyy() {
+	$("#cgl-tbody").on("click",".cgl-td7>a", function() {
+		console.log(1)
+		var cont="<div class='yycont'>"+
+				    "<h2>西直门大超市发</h2>"+
+				    "<h3 class='wgdjc'>违规等级</h3>"+
+				    "<div class='djms'>违规等级</div>"+
+				    "<h3>违规等级</h3>"+
+				    "<table class='table1' border='1'>"+
+				        "<tr>"+
+				            "<th width='11%'>消费者</th>"+
+				            "<th width='13%'>门店</th>"+
+				            "<th>活动名称</th>"+
+				        "</tr>"+
+				        "<tr>"+
+				            "<td>row 1, cell 1</td>"+
+				            "<td>row 1, cell 2</td>"+
+				            "<td>row 1, cell 2</td>"+
+				        "</tr>"+
+				        "<tr>"+
+				            "<td>row 2, cell 1</td>"+
+				            "<td>row 2, cell 2</td>"+
+				            "<td>row 2, cell 2</td>"+
+				        "</tr>"+
+				    "</table>"+
+				    "<h3 class='tianpfx'>天平分析</h3>"+
+				    "<ul class='fxcont'>"+
+				        "<li>"+
+				            "<h4>丰富多彩</h4>"+
+				            "<p>2332132223</p>"+
+				        "</li>"+
+				        "<li>"+
+				            "<h4>丰富多彩</h4>"+
+				            "<p>2332132223</p>"+
+				        "</li>"+
+				        "<li>"+
+				            "<h4>丰富多彩</h4>"+
+				            "<p>2332132223</p>"+
+				        "</li>"+
+				    "</ul>"+
+				    "<div class='hxjl'>"+
+				        "<h3>核销记录</h3>"+
+				        "<span class='onck'>如果特瑞特</span>"+
+				        "<span>说收费水电费</span>"+
+				    "</div>"+
+				    "<table class='table2' border='1'>"+
+				        "<tr>"+
+				            "<th width='82'>消费者</th>"+
+				            "<th width='88'>门店</th>"+
+				            "<th width='99'>活动名称</th>"+
+				            "<th width='67'>超惠券类型</th>"+
+				            "<th width='124'>优惠内容</th>"+
+				            "<th width='60'>核销金额</th>"+
+				            "<th width='78'>核销时间</th>"+
+				            "<th width='83'>双方位置距离</th>"+
+				            "<th width='83'>是否在店核销</th>"+
+				
+				        "</tr>"+
+				        "<tr>"+
+				            "<td>row 1, cell 1</td>"+
+				            "<td>row 1, cell 2</td>"+
+				            "<td>row 1, cell 2</td>"+
+				            "<td>row 1, cell 1</td>"+
+				            "<td>row 1, cell 2</td>"+
+				            "<td>row 1, cell 2</td>"+
+				            "<td>row 1, cell 1</td>"+
+				            "<td>row 1, cell 2</td>"+
+				            "<td>row 1, cell 2</td>"+
+				        "</tr>"+
+				    "</table>"+
+				    "<div class='cgl-yyclose'>"+
+				        "<span class='cgl-close'>关闭</span>"+
+				    "</div>"+
+				"</div>";
+		var index = layer.open({
+			type: 5,
+			title: "违规原因",
+			area: ['962px', 'auto'],
+			content: cont
+		});
+		layer.full(index);
+		fnclose(index);
+	});
+	
+}
 $(function() {
 	fnshijian(state);
-	fnxze1();
+	fnxze1(); //处理与待处理
 	fnxiala(); //下拉菜单
 	fndate(); //发送时间
 	fnfsdiqu(); //发送地区
 	fnweignum(); //违规次数
 	fnvipname(); //会员名称
-	fnwgjb();
-	fnanniu();
+	fnwgjb(); //违规级别
+	fnanniu(); //四个按钮事件
 	$("#cgl-tbody").on("click", "tr", function() {
 		$(this).addClass("ckon").siblings().removeClass("ckon");
 	});
@@ -1078,8 +1164,8 @@ $(function() {
 	fnchec(); //单选复选
 	fnreset(); //重置
 	fnmore(); //点击加载更多
-
-	comSelect();
-	selectCity();
-
+	fnweigyy();
+	comSelect(); // 地区下拉调用
+	selectCity(); //城市调用
+	
 });
