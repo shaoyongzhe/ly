@@ -24,8 +24,8 @@ function render(detailData){
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	// first.find('.guid').text(activity.activitycode);   ?
-	first.find('.guid').text(activity.guid);
+	first.find('.guid').text(activity.activitycode);
+	// first.find('.guid').text(activity.guid);
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
@@ -114,6 +114,10 @@ function render(detailData){
 			zbf.text('门店');
 			break;
 
+		case "retailer":
+			zbf.text('消费者');
+			break;
+
 	}
 
 	/*<ul class="select" style="display: none;">
@@ -127,20 +131,17 @@ function render(detailData){
 	// 参与会员
 	// debugger
 	var distributor = detailData.distributor_condition;
-	if(distributor){
+	if(!$.isEmptyObject(distributor)){
 		canyuHy(distributor, "分销商");
 	}
 
-	// debugger
 	var consumer = detailData.consumer_condition;
-	if(consumer){
-		if(!$.isEmptyObject(consumer)){
-			canyuHy(consumer, "消费者");
-		}
+	if(!$.isEmptyObject(consumer)){
+		canyuHy(consumer, "消费者");
 	}
 
 	var retailer = detailData.retailer_condition;
-	if(retailer){
+	if(!$.isEmptyObject(retailer)){
 		canyuHy(retailer, "门店");
 	}
 
@@ -153,7 +154,8 @@ function render(detailData){
 			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ type.number_range.min +" - "+ type.number_range.max +"</td><td></td></tr>");
 		} else {
 			// alert(1)
-		}
+			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ '' +" - "+ '' +"</td><td></td></tr>");
+		} 
 
 		// debugger
 		if(type.核销次数){
@@ -174,6 +176,9 @@ function render(detailData){
 		if(type.会员等级){
 			condType(type.会员等级, '会员等级');
 		}
+		if(type.分销商类型){
+			condType(type.分销商类型, '分销商类型');
+		}
 	}
 
 	function condType(ctype, typeTxt){
@@ -185,14 +190,22 @@ function render(detailData){
 		var str = "";
 		if(ctype.operator == "between"){
 			ctype.operator = "介于";
-			str = "&nbsp;"+ ctype.operator +" <i>"+ ctype.min +"</i> - <i>"+ ctype.max +"</i>";
+			str = ctype.operator +" <i>"+ ctype.min +"</i> - <i>"+ ctype.max +"</i>";
 		} else if(ctype.operator == ">="){
 			ctype.operator = "不低于";
 			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
+		} 
+		else if(ctype.operator == "=="){
+			ctype.operator = "==";
+			var str = "&nbsp;&nbsp;&nbsp;"+ ctype.operator + " " + ctype.value;
 		}
 		var timeunit = isNaN(prevDays) ? "" : ctype.timeunit;
 		prevDays = isNaN(prevDays) ? "" : prevDays;
 		// debugger;
+		if(typeTxt == "分销商类型"){
+			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
+			return;
+		}
 		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ timeunit +"</i>"+ str +" 次</p>");
 		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ prevDays +" "+ str +" 次</p>");
 		
@@ -447,11 +460,9 @@ $(document).on('click','.xiugai',function(){
                 parent.layer.alert("出错了^_^");
             }
 
-            // console.log(parent.$('.query'));
             parent.$('.query').click();
             parent.layer.alert("下架成功");
             closeLayer();
-            // debugger
 
         },
 

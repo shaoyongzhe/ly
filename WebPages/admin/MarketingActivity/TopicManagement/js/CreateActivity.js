@@ -1180,7 +1180,7 @@ $('.btn.edit').click(function(){
 
 	var _this = $(this);
 	var area = _this.closest('.area');
-	var i = _this.closest('.area').index();$('.area.edit .index').val(i);
+	var i = _this.closest('.area').index(); $('.area.edit .index').val(i);
 	var edit = $('.area.edit');
 	layer.open({
 
@@ -1397,6 +1397,7 @@ $("body").on("click","li.option",function(e){
 			return;
 		}
 
+
 		var b = true;
 		var thisSelected = $(this).closest('.addSub2').find('.acZige .addSub3 .selected.condition');
 		$(thisSelected).each(function(i,item){
@@ -1407,6 +1408,29 @@ $("body").on("click","li.option",function(e){
 			}
 		});
 
+		if(!b){return}
+
+
+		if($(this).text() == "分销商类型"){
+			// 特邀联盟分销商
+			$(this).closest('.addSub3').find('.range-wrap').addClass('vihi');
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').hide();
+			$(this).closest('.addSub3').find('.operator-wrap li:last').show();
+
+			// alert(1)
+		} else {
+			// alert(2)
+			$(this).closest('.addSub3').find('.range-wrap').removeClass('vihi');
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').show();
+			$(this).closest('.addSub3').find('.operator-wrap li:last').hide();
+			$(this).closest('.addSub3').find('.operator-wrap li:first').click();
+		}
+
+		$(this).closest('.addSub3').find('.operator-wrap .selected').text('');
+
+
+		
+
 		if(b == true){
 			_this.parent().hide().prev().text(text);
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
@@ -1415,6 +1439,7 @@ $("body").on("click","li.option",function(e){
 			$(this).closest(".addSub3").find(".acZige1Tab").find("p:last").text(addSub3Arr[index+1])
 			//结束*********************************************************************************************
 		}
+
 		return;
 	}
 
@@ -1431,11 +1456,18 @@ $("body").on("click","li.option",function(e){
 	}
 
 	if($(this).closest('.acZige4')){
-	// $(".acZige4").find(".option").click(function(){			
-			var index=$(this).parents(".acZige4").find(".select-wrap").find(".option").index($(this));	
-			$(this).parents(".acZige4").next().find(".acZige4tab").addClass("hi");
-			$(this).parents(".acZige4").next().find(".acZige4tab").eq(index).removeClass("hi");			
-		// })	
+
+
+		if($(this).closest('.addSub3').find('.range-wrap').hasClass('vihi')){
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').hide();
+		} else {
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').show();
+		}
+
+		var index = $(this).parents(".acZige4").find(".select-wrap").find(".option").index($(this));	
+		$(this).parents(".acZige4").next().find(".acZige4tab").addClass("hi");
+		$(this).parents(".acZige4").next().find(".acZige4tab").eq(index).removeClass("hi");
+
 	}
 
 	// 补贴对象
@@ -1728,7 +1760,17 @@ $("body").on("click","li.option",function(e){
 
 
 
+/*$('.butieCond .selected').click(function(){
+	layer.open({
 
+		type: 1,
+		title: "设置规则-单个<i class='rules-title'>" + $(this).closest('.addSub4').find('.butie-select-wrap .selected').text() + "</i>",
+		area: ['86%',"50%"],
+		maxmin: true,
+		content: $('.layer.setCond')
+
+	});
+});*/
 
 
 
@@ -2399,7 +2441,7 @@ $('.saveToDb, .shenhe').click(function(){
 	var basic = $('.basic-msg'),
 		servicephone = basic.find('.quhao').val() + "-" + basic.find('.tel').val(),
 		singleselection =  basic.find('.radio.on').text();
-		if(singleselection == '以上条件满足其一'){
+		if(singleselection == '是'){
 			singleselection = 1;
 		} else {
 			singleselection = 0;
@@ -2597,16 +2639,29 @@ $('.saveToDb, .shenhe').click(function(){
 		//var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
 		
 		
+		var value = _self.parents('.addSub3').find('.select-wrap.teyao .selected').text();
 		if(conditionType == ""){return}
-		data[memberType][conditionType] = {
-			"state": "active",
-			"min": min,
-			"operator": operator,
-			"max": max,
-			"begintime": begintime,
-			"statisticrange": statisticrange,
-			"timeunit": timeunit
+
+		if(value != ""){
+			data[memberType][conditionType] = {
+				"state": "active",
+				"operator": operator,
+				'value': value
+			}
+
+		} else {
+
+			data[memberType][conditionType] = {
+				"state": "active",
+				"min": min,
+				"operator": operator,
+				"max": max,
+				"begintime": begintime,
+				"statisticrange": statisticrange,
+				"timeunit": timeunit
+			}
 		}
+
 	}
 
 	// 会员活动条件（活动类型）
