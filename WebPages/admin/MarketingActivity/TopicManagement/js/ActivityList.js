@@ -228,7 +228,7 @@ function basicQuery(resetQueryCondition){
 		        layer.alert("出错了^_^");
 
 			console.log('success')
-			if(data.content.length < 2){
+			if(data.content.length < 1){
 				//layer.alert('没有加载到数据，请重新查询', {icon: 1});
 				return;
 			}
