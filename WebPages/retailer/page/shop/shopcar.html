@@ -473,7 +473,15 @@
 									_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
 									$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
 								}
-								fg()
+								
+								fg();
+								
+//								if(_price<_tt[_indd]["cutgift"]){
+//									_qu=1;
+//									alert(1)
+//									$(".commit").css({background:"#ccc",width:"auto"})
+//									$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price)+" 元起送")
+//								}
 							}
 						});
 					}else{
@@ -510,6 +518,7 @@
 									$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
 								}
 								fg()
+								zz()
 							}
 						});						
 					}
@@ -558,6 +567,7 @@
 							$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
 						}
 						fg()
+						zz()
 					}
 				});
 			})
