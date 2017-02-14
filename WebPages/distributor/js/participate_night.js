@@ -233,6 +233,10 @@ $(function(){
 					 		keyy='门店'
 					 	}else if(keyy=='consumer'){
 					 		keyy='消费者'
+					 	}else if(keyy=='distributor_employee'){
+					 		keyy='分销商店员'
+					 	}else if(keyy=='retailer_employee'){
+							keyy='门店店员'
 					 	}
 					 	return keyy;
 				 	}
