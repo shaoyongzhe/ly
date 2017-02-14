@@ -391,7 +391,7 @@
 						<!--设置参与资格默认隐藏acZige-->
 						<div class="acZige hi">
 							<div class="addSub3P68">
-								<p class="p68 deleP dib">条件类型</p><p class="p68 deleP dib">统计范围</p><p class="p68 deleP dib">条件</p>				
+								<p class="p68 deleP dib">条件类型</p><p class="p68 deleP dib">统计范围</p><p class="p68 deleP dib">条件</p>
 							</div>
 							<div class="addSub3 created_l">
 								<!--等待更换类名-->
@@ -410,7 +410,9 @@
 											<li class="option">会员时长</li> -->	
 										</ul>
 									</div>				
-								</div>				
+								</div>
+
+								<div class="range-wrap">				
 								<div class="dib acZige2 ver">
 									<!-- <p class="p68 deleP">统计范围</p>				 -->
 									<div class="select-wrap  acSe6">
@@ -422,12 +424,11 @@
 											<li class="option">至今</li>
 										</ul>
 									</div>
-								</div>				
+								</div>
 								<div class="dib acZige3 ver">
 									<div class="acZige3z -hi acZige2tab">
 										<p></p>
 									</div>
-									<!--类型1开始前，内容同类型2-->
 									<div class="acZige3a hi acZige2tab">
 										<input type="text" class="date" />
 										<div class="select-wrap  acSe7 dib">
@@ -439,46 +440,58 @@
 											</ul>
 										</div>							
 									</div>
-									<!--类型2开始时，内容同类型1-->
-									 <div class="acZige3a hi acZige2tab" style="visibility: hidden;">
+									<div class="acZige3a hi acZige2tab" style="visibility: hidden;">
 										<input type="text" class="date" />
 										<div class="select-wrap  acSe7 dib">
 											<i></i>
 											<span class="selected">天</span>
 											<ul class="select">
 												<li class="option">天</li>
-												<li class="option">月</li>	
+												<li class="option">月</li>
 											</ul>
-										</div>							
-									</div> 
-									<!--类型3至今-->
+										</div>
+									</div>
 									<div class="acZige3b hi acZige2tab">
-										<input type="text" class="time time_y dib" id="time_y" value="不限" />
+										<input type="text" class="time time_y dib" id="time_y" value="不限" />		
 										<p class="dib">- 至今</p>
-									</div>			
+									</div>
 								</div>
+								</div>
+
 								<!--条件-->
 								<div class="dib acZige4 ver">
 									<!-- <p class="p68 deleP">条件</p>				 -->
-									<div class="select-wrap  acSe8">
+									<div class="select-wrap acSe8 operator-wrap">
 										<i></i>
 										<em class="selected"></em>
 										<ul class="select">
 											<li class="option">>=</li>
 											<li class="option">介于</li>
+											<li class="option">==</li>
 										</ul>
-									</div>				
+									</div>
 								</div>
+
 								<div class="dib acZige5 ver">
+
 									<div class="hi acZige5a acZige1Tab acZige4tab">
 										<!--最后一个p标签内容随时变-->
 										<input type="text" class="min dayudengyu" /><p class="dib">次</p>
-									</div>					
+									</div>				
+
 									<div class="-hi acZige5c acZige1Tab acZige4tab">
 										<!--最后一个p标签内容随时变-->
 										<input type="text" class="min jieyu1" value=""/><p>-</p><input type="text" class="jieyu2" value=""/><p class="dib"></p>
 									</div>
-															
+
+									<div class="select-wrap acZige4tab teyao hi">
+										<i></i>
+										<em class="selected"></em>
+										<ul class="select">
+											<li class="option">特邀联盟分销商</li>
+										</ul>
+									</div>
+
 								</div>
 
 								<!--添加删除按钮-->
