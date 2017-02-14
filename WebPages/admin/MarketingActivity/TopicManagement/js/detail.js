@@ -114,7 +114,7 @@ function render(detailData){
 			zbf.text('门店');
 			break;
 
-		case "retailer":
+		case "consumer":
 			zbf.text('消费者');
 			break;
 
