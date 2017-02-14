@@ -451,7 +451,8 @@ $(document).on('click','.xiugai',function(){
 }).on('click','.close',function(){
     closeLayer();
 
-}).on('click','.xiajia',function(){
+})
+//.on('click','.xiajia',function(){
 
 /*
  * 上架

@@ -4,7 +4,7 @@ var linshiStatus="";
 var pageindex=0;
 var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
-autoLoad = true;
+var autoLoad = true;
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
 $('.selectLWrapL').click(function(e){	
@@ -242,9 +242,9 @@ function basicQuery(resetQueryCondition){
 		async:true,
 		data:condition,
 		success: function (data) {
-//			console.log(data)
-//		    console.log(data.content.length);
 			console.log(data)
+//		    console.log(data.content.length);
+//			console.log(data)
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
@@ -308,7 +308,7 @@ function basicQuery(resetQueryCondition){
 			$(".loaded").fadeIn();
 		},
 		error:function(data){
-			console.log(data)
+//			console.log(data)
 			linshi=data;
 			layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
 			$(".loaded").fadeOut();
@@ -328,6 +328,7 @@ function basicQuery(resetQueryCondition){
 /*查询按钮*/
 var condition={}
 $(".queryConditionButton .query").click(function () {
+	autoLoad = true;
     $(".activityList tbody").empty();
     basicQuery(true);
 
@@ -434,7 +435,7 @@ function statusAjax(){
 		url:"/webapi/ipaloma/topic/stateconfig",
 		async:true,
 		success:function(data){
-			console.log(data)
+//			console.log(data)
 			linshiStatus=data;
 			statusData=data;
 //			window.location.href = "/admin/login/signin.html";
@@ -551,7 +552,9 @@ var DictFunction =
                     if (data.error)
                     layer.alert("出错了^_^");
                     layer.alert(op + " 成功");
-                    basicQuery();
+                    autoLoad = true;
+                    $(".activityList tbody").empty();
+    				basicQuery(true);
                 },
                 error: function (xhr, textStatus) {
                     layer.alert("出错了^_^");
@@ -586,7 +589,9 @@ var DictFunction =
 	                    if (data.error)
 	                        layer.alert("出错了^_^");
 	                    layer.alert("删除成功");
-	                    basicQuery();
+	                    autoLoad = true;
+	                    $(".activityList tbody").empty();
+    					basicQuery(true);
 	                },
 	                error: function (xhr, textStatus) {
 	                    layer.alert("出错了^_^");
@@ -638,11 +643,11 @@ $('table.activityList').on('click',".handle",function(){
 //	$(this).parents("td.edit").siblings("td.state").text(oVal)
 //	parent.location.reload()
 //	$(".refresh").load(location.href + " .refresh")
-	console.log(1)
+//	console.log(1)
     $('#guid').val($(this).closest('tr').attr('guid'));
     var currentState = $(this).closest('tr').find('td.state').text();
     var matchKey = $(this).text();
-    console.log(2)
+//  console.log(2)
     if (!$(this).text())
     {
         layer.alert("出错了^_^");
