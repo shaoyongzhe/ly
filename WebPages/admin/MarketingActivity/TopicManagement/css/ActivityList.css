@@ -259,16 +259,20 @@ button {
 
 .queryConditionButton button{
   outline: none;
-  width: 130px;
-  background: #4c83db;
+  width: 130px;  
   height: 34px;
   color: #ffffff;
   border: 0; 
-  position: absolute;
-  bottom:28px;
+  position: absolute;  
   right: -10%;
   border-radius: 2px;
-
+}
+.queryConditionButton button:nth-of-type(1){
+	background: #4c83db;
+	top:12px;
+}
+.queryConditionButton button:nth-of-type(2){
+	bottom:2px;
 }
 
 /*功能按钮区functionButtons新增打印等*/
@@ -457,10 +461,22 @@ button {
 
 
 /*\\------------------------------------*/
+.finished{
+	position: absolute;
+  top: 540px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  width: 200px;
+  height: 20px;
+  display: none;
+  z-index: 99999;
+}
 
 .loaded{
   position: absolute;
-  top: 0;
+  top: 540px;
   left: 0;
   bottom: 0;
   right: 0;
