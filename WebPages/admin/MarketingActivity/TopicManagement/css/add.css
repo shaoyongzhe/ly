@@ -250,27 +250,30 @@ ul{
 	position: relative;
 }
 input.acMeI1,input.acMeI2{
-	width:134px;
+	width:132px;
 	height:24px;
 	/*text-indent: 15px;*/
 }
 span.acMeS1{
 	position: relative;
     left: -24px;
-    top: 2px;
+    top: 3px;
 
     width: 0;
+
+
+
 }
 span.acMeS2{
 	/*position: relative;
     left: -24px;
     top: 2px;*/
-    margin-left: -24px;
+    margin: 3px 0px 0 -23px;
 }
 div.acMeD1{
 	width: 150px;
-    /*position: relative;
-    top: 10px; */
+    position: relative;
+    /*top: 10px; */
     font-size: 13px;
     color: #999;
     vertical-align: middle;
@@ -295,13 +298,13 @@ div.acMeD3{
 }
 
 .addSub2Mange div.acMeD3{
-    margin: 0 4px;
+    margin: 0 22px 0 3px;
 }
 
 .acAdB{
 	position:relative;
 	bottom:-6px;
-	left:5px;
+	left:9px;
 }
 .acAdB img{
 	width:24px;
@@ -323,7 +326,9 @@ div.acZige{
 	margin-top: 15px;
 	border: 1px solid #f8a78f;
 	position: relative;
-	border-radius: 2px; 
+	border-radius: 2px;
+    /* position: fixed;
+    z-index: 1; */
 }
 
 div.acZige:before{
@@ -1182,3 +1187,23 @@ div.acZige:before{
     margin-left: 4px;
 }
 
+
+
+
+.addSub2 .selectWrap1{
+    position: relative;
+    top: 9px;
+}
+
+.addSub2 .selectWrap1 > *{
+    float: left;
+}
+
+
+.addSub2 span.acMeS2{
+    margin-left: 3px 0 0-24px;
+}
+
+.addSub2 span.to{
+    margin-top: 13px;
+}
