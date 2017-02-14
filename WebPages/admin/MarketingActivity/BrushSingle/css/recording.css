@@ -51,19 +51,23 @@ i,em,span,label{
 }
 .optionl{
     /*width: 228px;*/
-   width: 20%;
-    padding: 20px 0 20px 28px;
-    margin-bottom: 8px;
+   width: 28%;
+    
 }
-.optionl>div{
-    border-right: 1px solid #ddd;
-    padding-bottom: 16px;
-}
-.xze1>div{
-    float: left;
+.xze1{width: 86px; padding: 31px 0 0 15px;}
+.xze1>li{
+    width: 66px;height: 24px;border: 1px solid #e2e2e2;background: #f1f1f1;border-radius: 3px;text-align: center;line-height: 24px;margin-bottom: 8px;
     cursor: pointer;
     font-size: 14px;
+    
 }
+.xze1>li>span{display: none;}
+.xzcont{width: 177px;height: 96px;border-right:1px solid #E4E4E4;margin-top: 16px;display:-webkit-box;-webkit-box-align:center;}
+.xzcont>div{display: inline-block;margin-top: -6px;}
+.xzcont .yichuli{display: none;}
+.xzcont>div>div{min-height: 14px; background: url(../img/xuanze.png) no-repeat 0 4px;padding:4px 0 4px 19px;font-size: 13px;color: #000;line-height: 1;cursor: pointer;}
+.xzcont>div>div.stateon{background-position: 0 -18px;}
+.xze1>li.clicon{color: #fff;background: #4778c7;border-color: #1f52a6;}
 .xze1>div:nth-of-type(1){margin-right: 54px;}
 .xze1>div>span {
     width: 14px;
@@ -169,7 +173,7 @@ i,em,span,label{
     font-size: 14px;
 }
 .optionm{
-    padding:14px 28px 0 20px;width: 34%;
+    padding:14px 0 0 8px;width: 34%;
 }
 .optionm input{width: 218px;}
 .optionm>li{margin-bottom: 9px;}
@@ -243,7 +247,7 @@ select::-ms-expand { display: none; }
     margin-top: 42px;
     text-indent: 0;
     border-radius: 3px;
-    margin-left: 36px;
+    margin-left: 17px;
     cursor: pointer;
 }
 #cgl-reset:hover{background: #999;}
@@ -257,14 +261,15 @@ select::-ms-expand { display: none; }
     display: inline-block;
     background: #ff6032;
     color: #fff;
-    padding: 7px 37px;
+    width: 130px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
     border-radius: 3px;
     margin-right: 17px;
     cursor: pointer;
 }
-.cgl-anniu>span:nth-of-type(3),.cgl-anniu>span:nth-of-type(4){
-    background: #aaa;
-}
+
 #cgl-box{margin-right: 17px;position: relative;}
 #cgl-box:after{content: "";width: 18px;height: 100%;background: #f1f1f1;position: absolute;right: -17px;top: 0;border: 1px solid #eee;border-left: 0; border-bottom: 0;}
 #cgl-tablebox{margin-bottom: 10px;overflow-y: scroll;max-height: 500px;}
@@ -345,6 +350,7 @@ select::-ms-expand { display: none; }
 .cgl-td13 .tiaoz{background-image: url("../img/tiaoz.png");}
 .cgl-td13 .queren{background-image: url("../img/querenwgicon.png");}
 .cgl-td13 .jiechuwg{background-image: url("../img/jiechuicon.png");}
+.cgl-td13 .vipbohui{background-image: url("../img/vipbohui.png");}
 .cgl-td13 ul li:last-child{border-right: 0;}
 .copyright{
     width: 100%;
