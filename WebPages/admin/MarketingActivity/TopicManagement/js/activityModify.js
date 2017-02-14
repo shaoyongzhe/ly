@@ -261,6 +261,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	}
 	function activityManger_addSub2HtmlFn(obj, participants,unit){// participants为参与者，其值为分销商，门店，消费者等    
 	    /*开始拼js生成的addSub2Mange*/
+
+        // $('nav span:eq(1)').click();
+        // debugger
 	    var activityManger_addSub2Html="";
 	    activityManger_addSub2Html=''
 	        +           '<div class="addSub2 addSub2Mange">'
@@ -342,7 +345,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '</div>'                            
 	        +                           '</div>'
 	        +                           '<!--类型2开始时，内容同类型1-->'
-	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden;">'
+	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden">'
 	        +                               '<input type="text" class="date" />'
 	        +                               '<div class="select-wrap  acSe7 dib">'
 	        +                                   '<i></i>'
@@ -355,7 +358,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="time time_y dib" id="time_y" value="不限" />'
+	        +                               '<input type="text" class="dib time_y" value="不限"/>'
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
 	        +                       '</div>'
@@ -459,7 +462,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '</div>'                            
 	        +                           '</div>'
 	        +                           '<!--类型2开始时，内容同类型1-->'
-	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden;">'
+	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden">'
 	        +                               '<input type="text" class="date" />'
 	        +                               '<div class="select-wrap  acSe7 dib">'
 	        +                                   '<i></i>'
@@ -472,7 +475,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="time time_y dib" id="time_y" value="不限" />'      
+	        +                               '<input type="text" class="dib time_y" value="不限" />'      
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
 	        +                       '</div>'
@@ -520,6 +523,25 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        }
 	        function activityManger_addSub3HtmlFn(a){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
+                
+                var d = new Date();
+                var dates = d.toLocaleDateString().replace(/\//g, '-');
+                $('.time_y').click(function(e){
+                    // e.stopPropagation();
+                    // var id = $(this).attr('id');
+                    laydate({
+                        // elem: id,
+                        event: 'focus',
+                        format: 'YYYY/MM/DD',
+                        // format: 'YYYY-MM-DD',
+                        // istime: true,
+                        max: dates
+                        /*choose: function(dates){
+                            layer.msg(dates);
+                        },*/
+                    });
+                });
+
 	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
@@ -584,7 +606,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            //启动图标  
 	            if(obj[key].state=="active"){
 	                $(".addSub3Mange:last").find(".activityManger_addsub3State").addClass("on");
-	            }           
+	            }
 	            
 	        }
 	    }   
@@ -1175,3 +1197,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 butiefz();
 $('.butieSec .sbys').keyup();
 }
+
+
+
+
+/*调试用代码*/
+/*
+$("section").removeClass("on");
+$(".section3").addClass("on");
+$(".acZige").removeClass("hi");
+//0123临时注释掉
+*/
