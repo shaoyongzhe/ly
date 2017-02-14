@@ -563,8 +563,10 @@ function fnggmore() {
 function fncarnum(data) {
 	$("#cgl-cont").on("click", ".jian", function() {
 		var num = Number($(this).next().html());
-		if(num==Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])){
-			num=0
+		if($(this).parent().parent().parent().parent().parent().attr("id")){
+			if(num==data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
+				num=0
+			}
 		}
 		if(num <= 1) {
 			$(this).hide().next().hide().html(0);
@@ -580,7 +582,7 @@ function fncarnum(data) {
 	}).on("click", ".add", function() {
 		var num = Number($(this).prev().html());
 		var xian = $(this).parents(".the-xiangxi").find(".cgl-syu>span").html();
-		if(num==0){
+		if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id")){
 			console.log($(this).parent().parent().parent().parent().parent().attr("id"))
 			if(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
 				num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])-1
@@ -590,7 +592,7 @@ function fncarnum(data) {
 			console.log("购买已到上限")
 		} else {
 			$(this).prev().html(num + 1).show().prev().show();
-			$(".ammount").html(Number($(".ammount").html()) + 1);
+			$(".ammount").html(Number($(".ammount").html()) );
 			$(".num").html($(".ammount").html());
 			$(".price>i").html((Number($(".price>i").html()) + Number($(this).parent().prev().find("i").html())).toFixed(1));
 			fnaddcar(this, $(this).prev().html() - 0);

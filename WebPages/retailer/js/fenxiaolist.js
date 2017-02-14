@@ -26,6 +26,7 @@ function fnfooterclick() {
         }
     });
 }
+
 //获取数据
 function fngetlist() {
     $.ajax({
