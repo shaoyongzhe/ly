@@ -341,7 +341,7 @@ var ajQuBtDa='';
 //存储综合查询条件
 var JsonData={};
 //调用分页
-//设定默认查询状态//暂时搬家到一级类型查询内
+//设定默认查询状态//暂时搬家到一级类型查询内*************
 // ajaxQueryBtn(queryPagesNum,queryPagesCount);
 //loding图的宽
 var jsonControlDom="";//用于存储json控件的dom
@@ -749,7 +749,7 @@ function　ajaxQueryBtn(_pageindex,_pagesize,curr){
 		    beginTime:$(".Wdate").eq(0).val(),
 		    endTime:$(".Wdate").eq(1).val(),
 		    pageindex:_pageindex,
-		    pagesize:"100"
+		    pagesize:_pagesize
 		},
 		async:true,
 		dataType:'json',
