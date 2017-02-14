@@ -35,15 +35,8 @@
 			 var _d=new Date().getTime();
 			 var _data1="";
 			$.get("/webapi/account/login/test-2-135-1",{},function(){},false); 
-    	$.ajax({
-    		url:"/webapi/distributor/"+getRetailerid()+"/distributors",
-	    	async:true,
-	    	cache:false,
-	        dataType:"json",
-	        type:"get",
-	        error:function(){alert("网络出错")},
-	        success:function(data1){
-	        		localStorage.data=JSON.stringify(data1)
+			if(localStorage.retalerdata && JSON.parse(localStorage.retalerdata).data.result!=false){
+							data1=JSON.parse(localStorage.retalerdata);
 	        		_data1=data1;
 	        		console.log(_data1)
 		  		 	  for(var i=0;i<_data1.length;i++){
@@ -86,8 +79,7 @@
 					   		
 
 					   	shopList(0)
-	        }
-    	})	
+					}
 function shopList(pg){
 			//alert(pg)
 		 $.ajax({

@@ -30,7 +30,7 @@ function fnfooterclick() {
 function fngetlist() {
     $.ajax({
         type: "get",
-      	url: "/webapi/distributor/"+getid()+"/distributors",
+      	url: "/webapi/distributor/distributors/getall",
       	//url: "../../data/fenxiaolist.json",
         data:"",
         timeout:"9000",
@@ -42,7 +42,11 @@ function fngetlist() {
         	}
         },
         success: function(data){
-            console.log(data)
+            console.log(data);
+            localStorage.retalerdata=JSON.stringify(data)
+            if(data.data.result==false){
+            	return false;
+            }
             var oli="";
             var ceng1=null;
             var ceng2=null;
@@ -141,6 +145,9 @@ $(function () {
         		console.log("请求超时")
         		XMLHttpRequest.abort();
         	}
+        },
+        success: function(data){
+        	console.log(data)
         }
    });
     fnfooterclick();
