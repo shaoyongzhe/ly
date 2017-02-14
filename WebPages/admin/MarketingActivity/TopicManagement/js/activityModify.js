@@ -296,7 +296,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '</div>'
 	        +               '</div>'
 	        +               '<!--设置参与资格默认隐藏acZige-->'
-	        +               '<div class="acZige -hi">'
+	        +               '<div class="acZige hi">'
 	        +                   '<div class="addSub3P68">'
 	        +                       '<p class="p68 deleP dib">条件类型</p><p class="p68 deleP dib">统计范围</p><p class="p68 deleP dib">条件</p>'             
 	        +                   '</div>'
@@ -342,7 +342,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '</div>'                            
 	        +                           '</div>'
 	        +                           '<!--类型2开始时，内容同类型1-->'
-	        +                           '<div class="acZige3a hi acZige2tab n2">'
+	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden;">'
 	        +                               '<input type="text" class="date" />'
 	        +                               '<div class="select-wrap  acSe7 dib">'
 	        +                                   '<i></i>'
@@ -355,7 +355,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib" value="不限" disabled/>'
+	        +                               '<input type="text" class="time time_y dib" id="time_y" value="不限" />'
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
 	        +                       '</div>'
@@ -459,7 +459,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '</div>'                            
 	        +                           '</div>'
 	        +                           '<!--类型2开始时，内容同类型1-->'
-	        +                           '<div class="acZige3a hi acZige2tab n2">'
+	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden;">'
 	        +                               '<input type="text" class="date" />'
 	        +                               '<div class="select-wrap  acSe7 dib">'
 	        +                                   '<i></i>'
@@ -472,7 +472,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib" value="不限" disabled/>'      
+	        +                               '<input type="text" class="time time_y dib" id="time_y" value="不限" />'      
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
 	        +                       '</div>'
@@ -529,11 +529,11 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            //两种类型，至今或者活动开始前
 	            if(obj[key].statisticrange!="至今"){
 	                if(obj[key].statisticrange=="活动开始时"){
-	                    $('.addSub3Mange:last .acZige3a:eq(0)').removeClass("hi");
-	                }else if(obj[key].statisticrange=="活动开始前"){
 	                    $('.addSub3Mange:last .acZige3a:eq(1)').removeClass("hi");
+	                }else if(obj[key].statisticrange=="活动开始前"){
+	                    $('.addSub3Mange:last .acZige3a:eq(0)').removeClass("hi");
 	                }else if(obj[key].statisticrange==""){//先认为空就是活动开始时，稍后继续处理
-	                		$('.addSub3Mange:last .acZige3a:eq(0)').removeClass("hi");
+	                		$('.addSub3Mange:last .acZige3a:eq(1)').removeClass("hi");
 	                }
 	                /*0123添加假数据开始*/	               
 	               /* obj[key].statisticrange="ajax匹词空";
