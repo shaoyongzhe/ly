@@ -573,6 +573,9 @@ td a.chq_a{
 }
 
 
+.select-wrap ul li:hover{
+	background-color: #ccc;
+}
 .select-wrap ul li + li{
 	border-top: 1px solid #ddd;
 }
