@@ -169,7 +169,9 @@ function getList(curr, handle, searchForm) {
         }
     });
 };
-
+$('#refresh').click(function () {
+    getModulePeopleList();
+})
 function getModulePeopleList(curr, handle, searchForm) {
     var url = '/webapi/operation/' + "notification" + '/managers';
     _ajax("get", url, {}, '刷新列表', function (data) {
