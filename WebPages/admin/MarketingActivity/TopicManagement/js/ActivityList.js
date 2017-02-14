@@ -2,7 +2,7 @@ var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
 var pageindex=0;
-var pagesize=15;
+var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
@@ -198,11 +198,12 @@ function basicQuery(resetQueryCondition){
 		paging:JSON.stringify(pagingJson)
 	}
 	if (resetQueryCondition) {
-	    condition.paging = {
-	        "pagesize": pagesize,
-	        "pageindex": pageindex,
-	        "sort": [{ "oid": "asc" }]
-	    };
+	    condition.paging =
+            JSON.stringify({
+                "pagesize": pagesize,
+                "pageindex": pageindex,
+                "sort": [{ "oid": "asc" }]
+            });
 	}
 //	console.log(condition)
     $.each(condition, function(key, value){
