@@ -9,7 +9,6 @@ var addsub4HTML="";
 var addsub5HTML="";
 
 
-
 function previewImage(file) {
   	
   	var form = new FormData($('form')[0]);
@@ -1411,22 +1410,20 @@ $("body").on("click","li.option",function(e){
 		if(!b){return}
 
 
+		var addSub3 = $(this).closest('.addSub3');
 		if($(this).text() == "分销商类型"){
-			// 特邀联盟分销商
-			$(this).closest('.addSub3').find('.range-wrap').addClass('vihi');
-			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').hide();
-			$(this).closest('.addSub3').find('.operator-wrap li:last').show();
+			addSub3.find('.range-wrap').addClass('vihi');
+			addSub3.find('.operator-wrap li:not(:last)').hide();
+			addSub3.find('.operator-wrap li:last').show();
 
-			// alert(1)
 		} else {
-			// alert(2)
-			$(this).closest('.addSub3').find('.range-wrap').removeClass('vihi');
-			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').show();
-			$(this).closest('.addSub3').find('.operator-wrap li:last').hide();
-			$(this).closest('.addSub3').find('.operator-wrap li:first').click();
+			addSub3.find('.range-wrap').removeClass('vihi');
+			addSub3.find('.operator-wrap li:not(:last)').show();
+			addSub3.find('.operator-wrap li:last').hide();
+			addSub3.find('.operator-wrap li:first').click();
 		}
 
-		$(this).closest('.addSub3').find('.operator-wrap .selected').text('');
+		addSub3.find('.operator-wrap .selected').text('');
 
 
 		
@@ -1775,15 +1772,9 @@ $("body").on("click","li.option",function(e){
 
 
 
-// $('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2').on("input",function(){
-$('.butieSec').on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
-	// alert(1)
-	$('.addSub4').find('.acSe13 input').keyup();
-});
 
-// $('.addSub4').find('.acSe13 input').keyup(function(){
 $('.butieSec').on('keyup','.acSe13 input',function(){
-	// debugger;
+
 	var _this = $(this);
 	var thisText = _this.val();
 	if(isNaN(thisText)){
@@ -1813,6 +1804,9 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 	_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(m * thisText).toFixed(2));
 
 	butiefz();
+
+}).on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
+	$('.addSub4').find('.acSe13 input').keyup();
 
 }).on('keyup','.sbys',function(){
 	// alert($(this).val());
@@ -1913,14 +1907,10 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 	// 	_this.keyup();
 	// });
 
-});
-
-
-$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
-});
 
-$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
 });
 
@@ -1984,7 +1974,7 @@ if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 	// $('.addSub2 .selectWrap1 > *').css('float', 'left');
 	// $('.addSub2 span.acMeS2').css('margin-left', '3px 0 0-24px');
 	// $('.addSub2 span.to').css('margin', '0px 5px 0 30px');
-	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('')
+	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('');
 }
 
 
