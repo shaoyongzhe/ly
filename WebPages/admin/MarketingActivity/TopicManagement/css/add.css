@@ -581,7 +581,8 @@ div.acZige:before{
 }
 .hdc2 .select-wrap{
 	width:128px;
-	/*box-sizing: border-box;*//*啦啦啦*/		
+	/*box-sizing: border-box;*//*啦啦啦*/	
+    display: none;	
 }
 .hdc3 .select-wrap{
 	width:124px;
