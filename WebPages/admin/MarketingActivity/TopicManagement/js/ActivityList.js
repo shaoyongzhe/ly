@@ -121,9 +121,13 @@ function basicQuery(resetQueryCondition){
 		$(".qC_subsidyReleased input:eq(1)").val()==""&&
 		$(".qC_joinVipNumber input:eq(0)").val()==""&&
 		$(".qC_joinVipNumber input:eq(1)").val()==""&&
-		$("#gf-province em").text()=="省"&&
-		$("#gf-city em").text()=="市"&&
-		$("#gf-area em").text()=="区"&&
+//		$("#province em").text()=="省"&&
+//		$("#city em").text()=="市"&&
+//		$("#area em").text()=="区"&&
+		$('.gf-select span em:eq(0)').text() == '省份'&&
+		$('.gf-select span em:eq(1)').text() == '城市'&&
+		$('.gf-select span em:eq(2)').text() == '区县'&&
+		
 		$(".qC_activityBudget input:eq(0)").val()==""&&
 		$(".qC_activityBudget input:eq(1)").val()==""&&
 		$(".qC_status .selectLedL").text()=="请选择"){
@@ -348,9 +352,16 @@ $("#reset").click(function(){
 	$(".qC_subsidyReleased input:eq(1)").val("");
 	$(".qC_joinVipNumber input:eq(0)").val("");
 	$(".qC_joinVipNumber input:eq(1)").val("");
-	$("#gf-province em").text("省");
-	$("#gf-city em").text("市");
-	$("#gf-area em").text("区");
+//	$("#province em").val("省");
+//	$("#city em").text("市");
+//	$("#area em").text("区");
+	/*
+	 * 修复--重置省、市、区
+	 */
+	$('.gf-select span em:eq(0)').text('省份');
+    $('.gf-select span em:eq(1)').text('城市');
+    $('.gf-select span em:eq(2)').text('区县');
+    
 	$(".qC_activityBudget input:eq(0)").val("");
 	$(".qC_activityBudget input:eq(1)").val("");
 	$(".qC_status .selectLedL").text("请选择");
