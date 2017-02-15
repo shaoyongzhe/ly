@@ -25,6 +25,7 @@ function fnurl() {
 		return url1;
 	}
 }
+var _flag=1;
 //通过参数渲染页面
 function fnxrym() {
 	var url1 = fnurl();
@@ -415,7 +416,11 @@ function fncuxiao(data) {
 		}
 	}
 	$("#cgl-contlist").find("ul").html(oli);
-	fncarnum(data);
+	if(_flag==1){
+		fncarnum(data);
+		_flag=0
+	}
+	
 }
 //一般列表
 function fnlist(odata) {
@@ -563,38 +568,67 @@ function fnggmore() {
 function fncarnum(data) {
 	$("#cgl-cont").on("click", ".jian", function() {
 		var num = Number($(this).next().html());
-		if($(this).parent().parent().parent().parent().parent().attr("id")){
+		console.log(num)
+		if($(this).parent().parent().parent().parent().parent().attr("id") && num>1){
 			if(num==data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
-				num=0
+					
+					$(".ammount").html($(".ammount").html() - num);
+					$(".num").html($(".ammount").html())
+					num=0
+				$(".price>i").html((Number($(".price>i").html())-(Number($(this).next().html())-num)*Number($(this).parent().prev().find("i").html())).toFixed(1));
+				$(this).hide().next().hide().html(0);
+			}else{
+				$(".price>i").html((Number($(".price>i").html())-Number($(this).parent().prev().find("i").html())).toFixed(1));
+									$(".ammount").html($(".ammount").html() - 1);
+					$(".num").html($(".ammount").html())
+					$(this).next().html(Number($(this).next().html())-1)
 			}
+
+		}else{
+			
+			if(num <= 1) {
+				$(this).hide().next().hide().html(0);
+				$(".ammount").html($(".ammount").html() - 1);
+				$(".num").html($(".ammount").html());
+			} else {
+				$(this).next().html(num - 1);
+				$(".ammount").html($(".ammount").html() - 1);
+				$(".num").html($(".ammount").html());
+			}
+			$(".price>i").html(($(".price>i").html()-$(this).parent().prev().find("i").html()).toFixed(1));
 		}
-		if(num <= 1) {
-			$(this).hide().next().hide().html(0);
-			$(".ammount").html($(".ammount").html() - 1);
-			$(".num").html($(".ammount").html());
-		} else {
-			$(this).next().html(num - 1);
-			$(".ammount").html($(".ammount").html() - 1);
-			$(".num").html($(".ammount").html());
-		}
-		$(".price>i").html((Number($(".price>i").html()) - Number($(this).parent().prev().find("i").html())).toFixed(1));
+//		if(num>=){
+//			$(".price>i").html((Number($(".price>i").html())-(Number($(this).next().html())-num)*Number($(this).parent().prev().find("i").html())).toFixed(1));
+//		}
+
+		
 		fnaddcar(this, $(this).next().html() - 0);
 	}).on("click", ".add", function() {
 		var num = Number($(this).prev().html());
+		console.log(num)
 		var xian = $(this).parents(".the-xiangxi").find(".cgl-syu>span").html();
-		if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id")){
-			console.log($(this).parent().parent().parent().parent().parent().attr("id"))
-			if(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
-				num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])-1
-			}
+		if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id") && data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
+				
+				
+				num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])
+				var _l=(Number($(".price>i").html())+(num-Number($(this).prev().html()))*Number($(this).parent().prev().find("i").html())).toFixed(1)
+				$(".ammount").html(Number($(".ammount").html()) +num);
+				$(this).prev().html(Number($(this).prev().html())+num).show().prev().show();
+				$(".price>i").html(_l);
+			
+		}else{
+			$(".ammount").html(Number($(".ammount").html()) +1);
+			$(this).prev().html(num + 1).show().prev().show();
+			$(".price>i").html((Number($(".price>i").html())+Number($(this).parent().prev().find("i").html())).toFixed(1));
 		}
 		if(xian && xian <= num) {
 			console.log("购买已到上限")
 		} else {
-			$(this).prev().html(num + 1).show().prev().show();
-			$(".ammount").html(Number($(".ammount").html()) );
+			
+			
 			$(".num").html($(".ammount").html());
-			$(".price>i").html((Number($(".price>i").html()) + Number($(this).parent().prev().find("i").html())).toFixed(1));
+			
+			
 			fnaddcar(this, $(this).prev().html() - 0);
 		}
 

@@ -266,10 +266,10 @@ section .remarks{
 	width:100%;
 }
 .gift{
-	float:right;margin-left:5px;width:89%;color:#828487;padding-left: 10%;
+	float:right;margin-left:5px;width:89%;color:#828487;padding-left: 10%;color:red
 }
 .gift span{
-	float:right
+	float:right;color:#666
 }
 .gif{
 	padding-left:4px;color:red

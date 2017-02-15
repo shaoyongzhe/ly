@@ -76,6 +76,7 @@
 //			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemobj"]["itemunitcost"]+"</div><div class="+"\"number\""+
 //			       		"><div></div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div><span class="+"\"pi\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
 //							">预</span></span><p>可提"+data["content"][commodity]["details"][i]["prepaycount"]+data[i]["packagetypename"]+"</p></div></div></li>"
+								_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+/*_image+*/"<div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]).toFixed(1)+
 								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
 								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["itemcount"]+
@@ -151,6 +152,8 @@
 								console.log(_give)
 
 								
+							}else{
+								_zeng+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"])
 							}
 							console.log(i)
 							if(data["content"][commodity]["details"][i]["billid_class"]=="tblbillgift" && data["content"][commodity]["details"][i]["itemkind"]=="满赠"){
@@ -191,7 +194,11 @@
 //									}
 //								}
 						$(".shoplist").html($(".shoplist").html()+_list)
-						$(".gflist").html($(".gflist").html()+_list2)
+						if(_list2!=""){
+							$(".gflist").html($(".gflist").html()+_list2)
+						}else{
+							$(".gflist").css({display:"none"})
+						}
 						if(_list3!==""){
 							$(".yucunList").html($(".yucunList").html()+_list3)
 						}else{
