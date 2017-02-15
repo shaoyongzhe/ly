@@ -342,6 +342,20 @@ var vm = avalon.define({
                                 $('.share_pop1').remove();
                             }
 
+                            var share = {
+                                "consumer_id": "21225a3384a047ab8883441852d75155",
+                                "longitude": "116.34561920166",
+                                "latitude": "39.9402923583984",
+                                "share_desc": "我参加了" + vm.topicdata[0].activitytitle+",获得优惠。小伙伴们也来试试吧！",
+                                "share_imgurl": "http://ipa-oss-hz-01.oss-cn-hangzhou.aliyuncs.com/jxb/clientone/notification/2017-02-14/5fc8282569c8449d86ee2d404bd1b9d2",
+                                "qrtype": "38",
+                                "sharekind": "activitylist",
+                                "activity_id": "",
+                                "supplier_id": "",
+                                "distributor_id": "5ce1d14e07534139ae7774d8983f04f3"
+                            }
+
+
                         }
                     } else {
                         $(".msg,#QRCode").hide()
