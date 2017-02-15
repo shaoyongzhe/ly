@@ -446,6 +446,9 @@ function returnToList(){
 	}else{
 		$(".returnToList").addClass("hi")
 	}
+	$(".returnToList .p1").click(function(){
+		engine.call('ClosePage',"");
+	})
 	$(".returnToList .p2").click(function(){
 		engine.call('ClosePage',"");
 	})

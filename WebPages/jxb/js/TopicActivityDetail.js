@@ -1077,18 +1077,21 @@ function mmm(){
 returnToList()
 //返回超慧券列表
 function returnToList(){
-	$(".BreList .returnTopicList").click(function(){
+	if(UrlKeyValueData.switchfrom=="ticketlist"){
+		$(".returnToList").removeClass("hi")
+	}else{
+		$(".returnToList").addClass("hi")
+	}
+	$(".returnToList .p1").click(function(){
 		engine.call('ClosePage',"");
 	})
-	$(".BreList .returnChaohuiquanList").click(function(){
+	$(".returnToList .p2").click(function(){
 		engine.call('ClosePage',"");
-	})	
+	})
 	$("header").click(function(){			
 		engine.call('ClosePage',"");
-//		alert("header触发")
 	})
 }
-
 
 
 //判断是否接收到经销商id，活动id	
