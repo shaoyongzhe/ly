@@ -581,7 +581,7 @@ function fncaozuo() {
 	}).on("click", ".vipbohui", function() {
 		var putdata = {
 			"dealtstate": "确认违规",
-			"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
+			"description": "",
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
 		fnbohui(putdata);
@@ -709,9 +709,10 @@ function article_add(that) {
 		if($(this).text() == "驳回申诉") {
 			var putdata = {
 				"dealtstate": "确认违规",
-				"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
+				"description": "",
 				"anticheatingids": $(this).parents("tr").attr("gu-id")
 			};
+			console.log(putdata)
 			fnbohui(putdata);
 		}
 	})
@@ -1098,7 +1099,7 @@ function fnwgjlzt(putdata) {
 		}
 	});
 }
-var yydata = {
+var data = {
 		"original_level": "Lv2", //原始等级
 		"arithmetic": { //天平分析
 			"value1": 1.154585,
@@ -1149,94 +1150,115 @@ var yydata = {
 	//违规原因核销记录
 function fnweigyy() {
 	$("#cgl-tbody").on("click", ".cgl-td7>a", function() {
-		console.log(1)
-		var cont = "",
-			cha = null;
-		var oparent = $(this).parents("tr");
-		cont = "<div class='yycont'>" +
-			"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>" +
-			"<h3 class='wgdjc'>违规等级</h3>" +
-			"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + yydata.original_level + "，";
-		cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - yydata.original_level.replace(/[^0-9]/ig, "");
-		if(cha >= 0) {
-			cont += "提升" + cha + "级";
-		} else {
-			cont += "降低" + -cha + "级";
-		}
-		cont += "</div>" +
-			"<h3>违规等级</h3>" +
-			"<table class='table1' border='1'>" +
-			"<tr>" +
-			"<th width='11%'>消费者</th>" +
-			"<th width='13%'>门店</th>" +
-			"<th>活动名称</th>" +
-			"</tr>";
-		for(var k1 in yydata["breakrulesrecord"]) {
-			cont += "<tr><td>" + yydata["breakrulesrecord"][k1]["issuetime"] + "</td><td>" + yydata["breakrulesrecord"][k1]["breakruleslevel"] + "</td><td>" + yydata["breakrulesrecord"][k1]["measures"] + "</td></tr>";
-		}
-		cont += "</table>" +
-			"<h3 class='tianpfx'>天平分析</h3>" +
-			"<ul class='fxcont'>" +
-			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value1"] + "</span><p>苟富贵发的</p></li>" +
-			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value2"] + "</span><p>苟富贵发的</p></li>" +
-			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value3"] + "</span><p>dsfsdf</p></li>" +
-			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value4"] + "</span><p>苟富贵发的</p></li>" +
-			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value5"] + "</span><p>asdada</p></li>" +
-			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value6"] + "</span><p>苟富贵发的</p></li>" +
-			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value7"] + "</span><p>苟富贵发的</p></li>" +
-			"</ul>" +
-			"<div class='hxjl'>" +
-			"<h3>核销记录</h3>" +
-			"</div>" +
-			"<div class='hxjlpx'>" +
-			"<span class='onck'>密集核销</span>" +
-			"<span>消费者集中</span>" +
-			"<span>一人多券</span>" +
-			"</div>" +
-			"<table class='table2' border='1'>" +
-			"<tr>" +
-			"<th width='60'>消费者</th>" +
-			"<th width='90'>门店</th>" +
-			"<th width='99'>活动名称</th>" +
-			"<th width='67'>超惠券类型</th>" +
-			"<th width='86'>优惠内容</th>" +
-			"<th width='77'>门店核销金额</th>" +
-			"<th width='77'>双方位置距离</th>" +
-			"<th width='77'>是否在店核销</th>" +
-			"<th width='72'>核销时间</th>" +
-			"<th width='58'>密集程度</th>" +
+				var cont = "",
+					cha = null;
+				var oparent = $(this).parents("tr");
+		$.ajax({
+			type: "get", 
+			url: "/webapi/earlywarningmanage/anticheating/causedetail/"+oparent.attr("gu-id"),
+			data: "",
+			error: function() {
+				$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+			},
+			success: function(data) {
+				console.log(data)
+				cont = "<div class='yycont'>" +
+					"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>" +
+					"<h3 class='wgdjc'>违规等级</h3>" +
+					"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + data.original_level + "，";
+				cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - data.original_level.replace(/[^0-9]/ig, "");
+				if(cha >= 0) {
+					cont += "提升" + cha + "级";
+				} else {
+					cont += "降低" + -cha + "级";
+				}
+				cont += "</div>" +
+					"<h3>违规等级</h3>" +
+					
+					
+					
+					"<div>"+
+					"<table border='1'>" +
+					"<tr>" +
+					"<th width='182'>消费者</th>" +
+					"<th width='89'>门店</th>" +
+					"<th>活动名称</th>" +
+					"</tr></table></div>"+
+					
+					
+					"<div class='table1'><table border='1'>";
+				for(var k1 in data["breakrulesrecord"]) {
+					cont += "<tr><td class='djtd1'>" + data["breakrulesrecord"][k1]["issuetime"] + "</td><td class='djtd2'>" + data["breakrulesrecord"][k1]["breakruleslevel"] + "</td><td class='djtd3'>" + data["breakrulesrecord"][k1]["measures"] + "</td></tr>";
+				}
+				cont += "</table></div>" +
+					"<h3 class='tianpfx'>天平分析</h3>" +
+					"<ul class='fxcont'>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value2"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value3"] + "</span><p>dsfsdf</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value4"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value5"] + "</span><p>asdada</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value6"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value7"] + "</span><p>苟富贵发的</p></li>" +
+					"</ul>" +
+					"<div class='hxjl'>" +
+					"<h3>核销记录</h3>" +
+					"</div>" +
+					"<div class='hxjlpx'>" +
+					"<span class='onck'>密集核销</span>" +
+					"<span>消费者集中</span>" +
+					"<span>一人多券</span>" +
+					"</div>" +
+					
+					
+					
+					"<div class='table2'><table border='1'>" +
+					"<tr>" +
+					"<th width='60'>消费者</th>" +
+					"<th width='90'>门店</th>" +
+					"<th width='99'>活动名称</th>" +
+					"<th width='67'>超惠券类型</th>" +
+					"<th width='86'>优惠内容</th>" +
+					"<th width='77'>门店核销金额</th>" +
+					"<th width='77'>双方位置距离</th>" +
+					"<th width='77'>是否在店核销</th>" +
+					"<th width='72'>核销时间</th>" +
+					"<th width='58'>密集程度</th>" +
 
-			"</tr>";
-		for(var k2 in yydata["verifylist"]) {
-			
-			cont += "<tr>" +
-				"<td>"+yydata["verifylist"][k2]["consumername"]+"</td>" +
-				"<td>"+yydata["verifylist"][k2]["retailername"]+"</td>" +
-				"<td>"+yydata["verifylist"][k2]["activitytitle"]+"</td>" +
-				"<td>"+yydata["verifylist"][k2]["itemkind"]+"</td>" +
-				"<td>"+yydata["verifylist"][k2]["ruletext"]+"</td>" +
-				"<td>"+yydata["verifylist"][k2]["verifymoney"]+"</td>" +
-				"<td>暂无</td>" +
-				"<td>暂无</td>" +
-				"<td>"+yydata["verifylist"][k2]["issuetime"]+"</td>" +
-				"<td></td>" +
-				"</tr>";
-		}
+					"</tr>";
+				for(var k2 in data["verifylist"]) {
 
-		cont += "</table>" +
-			"<div class='cgl-yyclose'>" +
-			"<span class='cgl-close'>关闭</span>" +
-			"</div>" +
-			"</div>";
+					cont += "<tr>" +
+						"<td class='jltd1'>" + data["verifylist"][k2]["consumername"] + "</td>" +
+						"<td class='jltd2'>" + data["verifylist"][k2]["retailername"] + "</td>" +
+						"<td class='jltd3'>" + data["verifylist"][k2]["activitytitle"] + "</td>" +
+						"<td class='jltd4'>" + data["verifylist"][k2]["itemkind"] + "</td>" +
+						"<td class='jltd5'>" + data["verifylist"][k2]["ruletext"] + "</td>" +
+						"<td class='jltd6'>" + data["verifylist"][k2]["verifymoney"] + "</td>" +
+						"<td class='jltd7'>暂无</td>" +
+						"<td class='jltd8'>暂无</td>" +
+						"<td class='jltd9'>" + data["verifylist"][k2]["issuetime"] + "</td>" +
+						"<td class='jltd10'></td>" +
+						"</tr>";
+				}
 
-		var index = layer.open({
-			type: 5,
-			title: "违规原因",
-			area: ['962px', 'auto'],
-			content: cont
+				cont += "</table></div>" +
+					"<div class='cgl-yyclose'>" +
+					"<span class='cgl-close'>关闭</span>" +
+					"</div>" +
+					"</div>";
+
+				var index = layer.open({
+					type: 5,
+					title: "违规原因",
+					area: ['962px', 'auto'],
+					content: cont
+				});
+				layer.full(index);
+				fnclose(index);
+			}
 		});
-		layer.full(index);
-		fnclose(index);
+
 	});
 
 }
