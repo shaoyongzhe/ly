@@ -1,4 +1,4 @@
-//20170210.9
+//20170213.1545
 //通用样式
 html,body{
     width:100%;
@@ -40,7 +40,10 @@ padding:0;
     visibility:hidden
 }
 .iScrollIndicator{
-    background:rgba(255, 173, 51, 0.1)!important;
+    background:rgba(255, 173, 51, 0.3)!important;
+}
+.iScrollVerticalScrollbar{
+    width:8px!important;
 }
 //非通用样式
 header{
@@ -539,7 +542,7 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
     margin-left:0px;//第一个不需要左margin
 }
 .btsmP1{
-    width:70px;
+    width:90px;
     height:25px;
     color:#fff;
     font-family: "微软雅黑";
@@ -562,9 +565,11 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
     color:#333;
     line-height: 24px;//目测    
 //  height:144px;//不设高度
-//  padding:3px 15px 4px 15px;//后期加上
-    padding: 3px 9px 4px 8px;//0206修改
-    word-break: break-all;
+    padding:3px 15px 4px 15px;//后期加上
+//  padding-left: 3px 9px 4px 8px;//0206修改
+//  padding-top: 9px;
+    box-sizing: border-box;
+//  word-break: break-all;
 //  background:red;
 }
 //整体的下面****************************************
@@ -1154,7 +1159,7 @@ a.less {
   }
 
   .btsmP1 {
-    width: 70px;
+    width: 90px;
     height: 25px;
     font-size: 14px;
     line-height: 25px;
