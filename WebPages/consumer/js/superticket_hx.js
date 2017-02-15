@@ -341,25 +341,11 @@ var vm = avalon.define({
                             } else {
                                 $('.share_pop1').remove();
                             }
-                            if (result.data.share!=undefined) {
+                            if (result.share!=undefined) {
                                 if ($.isFunction(wxjsshare)) {
-                                    wxjsshare(result.data.share || {});
+                                    wxjsshare(result.share || {});
                                 }
                             }
-                            var share = {
-                                "consumer_id": "21225a3384a047ab8883441852d75155",
-                                "longitude": "116.34561920166",
-                                "latitude": "39.9402923583984",
-                                "share_desc": "我参加了" + vm.topicdata[0].activitytitle+",获得优惠。小伙伴们也来试试吧！",
-                                "share_imgurl": "http://ipa-oss-hz-01.oss-cn-hangzhou.aliyuncs.com/jxb/clientone/notification/2017-02-14/5fc8282569c8449d86ee2d404bd1b9d2",
-                                "qrtype": "38",
-                                "sharekind": "activitylist",
-                                "activity_id": "",
-                                "supplier_id": "",
-                                "distributor_id": "5ce1d14e07534139ae7774d8983f04f3"
-                            }
-
-
                         }
                     } else {
                         $(".msg,#QRCode").hide()
@@ -423,10 +409,10 @@ var page2 = avalon.define({
     },
     showUsage: function (type) {
         $("#tab_tishi li").removeClass("acitve")
-
+        var _hxNum=0
         if (type == 1) {//已核销
             $("#tab_msg").css("border-top", "solid 1px #ff6600")
-            vm.hxNum = vm.yhxNum
+            _hxNum = vm.yhxNum
             $("#msg_left").addClass("acitve")
             $(".stamp").hide()
             vm.favorable(vm.jsondata, vm.yhxNum)
@@ -437,7 +423,7 @@ var page2 = avalon.define({
             }
         } else {//未核销
             $("#tab_msg").css("border-top", "solid 1px #adabab")
-            vm.hxNum = vm.whxNum;
+            _hxNum = vm.whxNum;
             $("#msg_right").addClass("acitve")
             $(".stamp").hide()
             vm.favorable(vm.jsondata, vm.whxNum)
@@ -452,7 +438,7 @@ var page2 = avalon.define({
                 $("#tagMsg1").show()//门店不支持
             }
         }
-        if (vm.hxNum == 0) {//没有数据
+        if (_hxNum == 0) {//没有数据
             $(".div-list").hide();
             $("#nodata p").html("您没有" + (type == 1 ? "已" : "未") + "使用成功的超惠券~")
             $("#nodata").show();
