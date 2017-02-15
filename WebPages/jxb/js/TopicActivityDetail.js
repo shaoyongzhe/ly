@@ -1,4 +1,4 @@
-//20170213.0957
+//20170213.1545
 //$(".BDcyhdCityD").empty();
 //$(".BDcyhdRequireD").empty();
 //$(".BDQFd1").empty();
@@ -648,7 +648,8 @@ function ajaxActivityDetails(a,b){
 						//分享超惠券送固定金额返现2元
 //						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+'</p>';	
 						//分享超惠券送固定金额返现2元
-						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+","+data.subsidy_description[key][i].ruledescription.join("，")+'</p>';	
+//						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+","+data.subsidy_description[key][i].ruledescription.join("，")+'</p>';	
+						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:214px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
 					}
 					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
 					console.log(hm)
@@ -1118,9 +1119,13 @@ function btduixiang(a){
 	switch(a){	
 		case "distributor":
 		btduixiang = '分销商'
-		break;
+		break;		
 		
 		case "distributoremployee":
+		btduixiang = '分销商业务员'
+		break;
+		
+		case "distributor_employee":
 		btduixiang = '分销商业务员'
 		break;
 		
@@ -1128,7 +1133,12 @@ function btduixiang(a){
 		btduixiang = '门店'
 		break;
 		
+		
 		case "retaileremployee":
+		btduixiang = '门店店员'
+		break;
+		
+		case "retailer_employee":
 		btduixiang = '门店店员'
 		break;
 		
