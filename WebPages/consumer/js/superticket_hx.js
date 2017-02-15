@@ -341,7 +341,11 @@ var vm = avalon.define({
                             } else {
                                 $('.share_pop1').remove();
                             }
-
+                            if (result.data.share!=undefined) {
+                                if ($.isFunction(wxjsshare)) {
+                                    wxjsshare(result.data.share || {});
+                                }
+                            }
                             var share = {
                                 "consumer_id": "21225a3384a047ab8883441852d75155",
                                 "longitude": "116.34561920166",
