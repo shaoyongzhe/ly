@@ -197,24 +197,24 @@ function fnshijian(state) {
 	});
 }
 //不同状态下四个按钮的显示
-function fnanniu4 () {
+function fnanniu4() {
 	$(".cgl-anniu").find("span").hide();
-	if(state.state=="未处理"){
+	if(state.state == "未处理") {
 		$("#cgl-qrwg1").show();
 		$("#cgl-jcwg1").show();
-	}else if(state.state=="申诉中"){
+	} else if(state.state == "申诉中") {
 		$("#cgl-tzwg1").show();
 		$("#cgl-jcwg1").show();
-	}else if(state.state=="处罚中"){
+	} else if(state.state == "处罚中") {
 		$("#cgl-tzwg1").show();
 		$("#cgl-jcwg1").show();
 		$("#cgl-fstz1").show();
-	}else if(state.state=="已结束"){
-		
-	}else if(state.state=="解除违规"){
+	} else if(state.state == "已结束") {
+
+	} else if(state.state == "解除违规") {
 		$("#cgl-qrwg1").show();
 		$("#cgl-tzwg1").show();
-	} 
+	}
 }
 //时间重置
 function Fndate() {
@@ -288,7 +288,7 @@ function fnxze1() {
 		state["lastindex"] = 0;
 		fnshijian(state);
 		sessionStorage.setItem("state", JSON.stringify(state));
-		fnanniu4 ();
+		fnanniu4();
 	});
 }
 //模拟下拉菜单
@@ -300,7 +300,7 @@ function fnxiala() {
 		console.log(state)
 		fnshijian(state);
 		sessionStorage.setItem("state", JSON.stringify(state));
-		fnanniu4 ();
+		fnanniu4();
 	});
 }
 //选择日期
@@ -621,8 +621,8 @@ function article_add(that) {
 		"<li><h4>违规原因</h4><p>" + $(".cgl-td7", parents).text() + "</p></li>" +
 		"<li><h4>处罚措施</h4><p>" + $(".cgl-td8", parents).text() + "</p></li>" +
 		"<li><h4>处罚周期</h4><p class='cgl-xxcfzq'>" + $(".cgl-td9", parents).html() + "</p></li>" +
-		"<li><h4>刷单金额</h4><p>" + $(".cgl-td10", parents).text() + "</p></li>" +
-		"<li><h4>扣款金额</h4><p>" + $(".cgl-td11", parents).text() + "</p></li>" +
+		"<li><h4>刷单金额</h4><p>￥ " + Number($(".cgl-td10", parents).text()).toFixed(2) + "</p></li>" +
+		"<li><h4>扣款金额</h4><p>￥ " + Number($(".cgl-td11", parents).text()).toFixed(2) + "</p></li>" +
 		"</ul>" +
 		"</li>" +
 		"<li class='cgl-li5'>" +
@@ -691,7 +691,7 @@ function article_add(that) {
 		if($(this).text() == "会员申诉") {
 			vipshensu_add(parents);
 		}
-		if($(this).text() == "确认违规") {
+		if($(this).text() == "调整并确认") {
 			var putdata = {
 				"dealtstate": "确认违规",
 				"weiguidengji": $(".cgl-td6", parents).text().replace(/[^0-9]/ig, ""),
@@ -703,9 +703,16 @@ function article_add(that) {
 			var putdata = {
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
-
 			};
 			jiechuwg_add(putdata);
+		}
+		if($(this).text() == "驳回申诉") {
+			var putdata = {
+				"dealtstate": "确认违规",
+				"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
+				"anticheatingids": $(this).parents("tr").attr("gu-id")
+			};
+			fnbohui(putdata);
 		}
 	})
 }
@@ -801,11 +808,11 @@ function vipshensu_add(parents) {
 	});
 }
 //驳回申诉
-function fnbohui (putdata) {
-	var cont = "<div>"+
-					"<p style='padding:30px 0 72px 0;text-align:center;font-size:18px;'>驳回后，将恢复确认违规，违规等级不变。</P>"+
-					"<div class='cgl-antz'><span class='cgl-qrwgqx'>取消</span><span class='cgl-import cgl-qrwgqr'>确定</span></div>" +
-				"</div>";
+function fnbohui(putdata) {
+	var cont = "<div>" +
+		"<p style='padding:30px 0 72px 0;text-align:center;font-size:18px;'>驳回后，将恢复确认违规，违规等级不变。</P>" +
+		"<div class='cgl-antz'><span class='cgl-qrwgqx'>取消</span><span class='cgl-import cgl-qrwgqr'>确定</span></div>" +
+		"</div>";
 	var index = layer.open({
 		type: 5,
 		title: "驳回申诉",
@@ -856,7 +863,6 @@ function jiechuwg_add(putdata) {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
-
 			fnqrjcwg(putdata);
 		}
 	});
@@ -866,7 +872,7 @@ function fnqrjcwg(putdata) {
 	var cont = "<div>" +
 		"<div class='jctext'>确定要解除违规吗？解除后将不能再确认或调整违规，请谨慎操作" +
 		"</div>" +
-		"<div class='cgl-antz'><span class='layui-layer-close'>取消</span><span class='cgl-import querenjc'>确定</span></div>" +
+		"<div class='cgl-antz'><span class='layui-layer-close cgl-ciyao'>取消</span><span class='cgl-import querenjc'>确定</span></div>" +
 		"</div>";
 	var index = layer.open({
 		type: 5,
@@ -1082,9 +1088,9 @@ function fnwgjlzt(putdata) {
 						if($(this).attr("gu-id") == guidarr[i]) {
 							$(this).find(".cgl-td12").html(putdata.dealtstate);
 							$(this).remove();
+							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
 						}
 					});
-
 				}
 				state["lastindex"] = 0;
 				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
@@ -1092,81 +1098,137 @@ function fnwgjlzt(putdata) {
 		}
 	});
 }
-
+var yydata = {
+		"original_level": "Lv2", //原始等级
+		"arithmetic": { //天平分析
+			"value1": 1.154585,
+			"value2": 1.154585,
+			"value3": 1.154585,
+			"value4": 1.154585,
+			"value5": 1.154585,
+			"value6": 1.154585,
+			"value7": 1.154585,
+		},
+		"verifylist": [ //核销记录
+			{
+				"guid": "4132131",
+				"issuetime": "2017-11-11", //核销时间
+				"verifymoney": "22", //核销金额
+				"verifynum": "556", //核销数量
+				"verifyip": "8785", //核销IP
+				"consumername": "程广亮", //消费者
+				"retailername": "assault", //门店名称
+				"activitytitle": "促销", //活动名称
+				"itemkind": "飒飒的", //超惠卷类型
+				"verifymodename": "撒飒飒", //核销方式
+				"ruletext": "撒的撒", //优惠内容
+			}, {
+				"guid": "4132131",
+				"issuetime": "2017-11-11", //核销时间
+				"verifymoney": "22", //核销金额
+				"verifynum": "556", //核销数量
+				"verifyip": "8785", //核销IP
+				"consumername": "程广亮", //消费者
+				"retailername": "assault", //门店名称
+				"activitytitle": "促销", //活动名称
+				"itemkind": "飒飒的", //超惠卷类型
+				"verifymodename": "撒飒飒", //核销方式
+				"ruletext": "撒的撒", //优惠内容
+			}
+		],
+		"breakrulesrecord": [{
+			"issuetime": "2016", //违规时间
+			"breakruleslevel": "lv2", //违规等级
+			"measures": "的干豆腐干豆腐" //处罚措施
+		}, {
+			"issuetime": "2016",
+			"breakruleslevel": "lv1",
+			"measures": "地方干豆腐干豆腐干"
+		}]
+	}
+	//违规原因核销记录
 function fnweigyy() {
 	$("#cgl-tbody").on("click", ".cgl-td7>a", function() {
 		console.log(1)
-		var cont = "<div class='yycont'>" +
-			"<h2>西直门大超市发</h2>" +
+		var cont = "",
+			cha = null;
+		var oparent = $(this).parents("tr");
+		cont = "<div class='yycont'>" +
+			"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>" +
 			"<h3 class='wgdjc'>违规等级</h3>" +
-			"<div class='djms'>违规等级</div>" +
+			"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + yydata.original_level + "，";
+		cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - yydata.original_level.replace(/[^0-9]/ig, "");
+		if(cha >= 0) {
+			cont += "提升" + cha + "级";
+		} else {
+			cont += "降低" + -cha + "级";
+		}
+		cont += "</div>" +
 			"<h3>违规等级</h3>" +
 			"<table class='table1' border='1'>" +
 			"<tr>" +
 			"<th width='11%'>消费者</th>" +
 			"<th width='13%'>门店</th>" +
 			"<th>活动名称</th>" +
-			"</tr>" +
-			"<tr>" +
-			"<td>row 1, cell 1</td>" +
-			"<td>row 1, cell 2</td>" +
-			"<td>row 1, cell 2</td>" +
-			"</tr>" +
-			"<tr>" +
-			"<td>row 2, cell 1</td>" +
-			"<td>row 2, cell 2</td>" +
-			"<td>row 2, cell 2</td>" +
-			"</tr>" +
-			"</table>" +
+			"</tr>";
+		for(var k1 in yydata["breakrulesrecord"]) {
+			cont += "<tr><td>" + yydata["breakrulesrecord"][k1]["issuetime"] + "</td><td>" + yydata["breakrulesrecord"][k1]["breakruleslevel"] + "</td><td>" + yydata["breakrulesrecord"][k1]["measures"] + "</td></tr>";
+		}
+		cont += "</table>" +
 			"<h3 class='tianpfx'>天平分析</h3>" +
 			"<ul class='fxcont'>" +
-			"<li>" +
-			"<h4>丰富多彩</h4>" +
-			"<p>2332132223</p>" +
-			"</li>" +
-			"<li>" +
-			"<h4>丰富多彩</h4>" +
-			"<p>2332132223</p>" +
-			"</li>" +
-			"<li>" +
-			"<h4>丰富多彩</h4>" +
-			"<p>2332132223</p>" +
-			"</li>" +
+			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value1"] + "</span><p>苟富贵发的</p></li>" +
+			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value2"] + "</span><p>苟富贵发的</p></li>" +
+			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value3"] + "</span><p>dsfsdf</p></li>" +
+			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value4"] + "</span><p>苟富贵发的</p></li>" +
+			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value5"] + "</span><p>asdada</p></li>" +
+			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value6"] + "</span><p>苟富贵发的</p></li>" +
+			"<li><h4>消费者集中</h4><span>" + yydata["arithmetic"]["value7"] + "</span><p>苟富贵发的</p></li>" +
 			"</ul>" +
 			"<div class='hxjl'>" +
 			"<h3>核销记录</h3>" +
-			"<span class='onck'>如果特瑞特</span>" +
-			"<span>说收费水电费</span>" +
+			"</div>" +
+			"<div class='hxjlpx'>" +
+			"<span class='onck'>密集核销</span>" +
+			"<span>消费者集中</span>" +
+			"<span>一人多券</span>" +
 			"</div>" +
 			"<table class='table2' border='1'>" +
 			"<tr>" +
-			"<th width='82'>消费者</th>" +
-			"<th width='88'>门店</th>" +
+			"<th width='60'>消费者</th>" +
+			"<th width='90'>门店</th>" +
 			"<th width='99'>活动名称</th>" +
 			"<th width='67'>超惠券类型</th>" +
-			"<th width='124'>优惠内容</th>" +
-			"<th width='60'>核销金额</th>" +
-			"<th width='78'>核销时间</th>" +
-			"<th width='83'>双方位置距离</th>" +
-			"<th width='83'>是否在店核销</th>" +
+			"<th width='86'>优惠内容</th>" +
+			"<th width='77'>门店核销金额</th>" +
+			"<th width='77'>双方位置距离</th>" +
+			"<th width='77'>是否在店核销</th>" +
+			"<th width='72'>核销时间</th>" +
+			"<th width='58'>密集程度</th>" +
 
-			"</tr>" +
-			"<tr>" +
-			"<td>row 1, cell 1</td>" +
-			"<td>row 1, cell 2</td>" +
-			"<td>row 1, cell 2</td>" +
-			"<td>row 1, cell 1</td>" +
-			"<td>row 1, cell 2</td>" +
-			"<td>row 1, cell 2</td>" +
-			"<td>row 1, cell 1</td>" +
-			"<td>row 1, cell 2</td>" +
-			"<td>row 1, cell 2</td>" +
-			"</tr>" +
-			"</table>" +
+			"</tr>";
+		for(var k2 in yydata["verifylist"]) {
+			
+			cont += "<tr>" +
+				"<td>"+yydata["verifylist"][k2]["consumername"]+"</td>" +
+				"<td>"+yydata["verifylist"][k2]["retailername"]+"</td>" +
+				"<td>"+yydata["verifylist"][k2]["activitytitle"]+"</td>" +
+				"<td>"+yydata["verifylist"][k2]["itemkind"]+"</td>" +
+				"<td>"+yydata["verifylist"][k2]["ruletext"]+"</td>" +
+				"<td>"+yydata["verifylist"][k2]["verifymoney"]+"</td>" +
+				"<td>暂无</td>" +
+				"<td>暂无</td>" +
+				"<td>"+yydata["verifylist"][k2]["issuetime"]+"</td>" +
+				"<td></td>" +
+				"</tr>";
+		}
+
+		cont += "</table>" +
 			"<div class='cgl-yyclose'>" +
 			"<span class='cgl-close'>关闭</span>" +
 			"</div>" +
 			"</div>";
+
 		var index = layer.open({
 			type: 5,
 			title: "违规原因",
@@ -1196,7 +1258,7 @@ $(function() {
 	fnchec(); //单选复选
 	fnreset(); //重置
 	fnmore(); //点击加载更多
-	fnweigyy();
+	fnweigyy(); //违规原因核销记录
 	comSelect(); // 地区下拉调用
 	selectCity(); //城市调用
 

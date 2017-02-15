@@ -64,7 +64,7 @@ i,em,span,label{
 .xze1>li>span{display: none;}
 .xzcont{width: 177px;height: 96px;border-right:1px solid #E4E4E4;margin-top: 16px;display:-webkit-box;-webkit-box-align:center;}
 .xzcont>div{display: inline-block;margin-top: -6px;}
-.xzcont .yichuli{display: none;}
+.xzcont .weichuli,.xzcont .yichuli{display: none;}
 .xzcont>div>div{min-height: 14px; background: url(../img/xuanze.png) no-repeat 0 4px;padding:4px 0 4px 19px;font-size: 13px;color: #000;line-height: 1;cursor: pointer;}
 .xzcont>div>div.stateon{background-position: 0 -18px;}
 .xze1>li.clicon{color: #fff;background: #4778c7;border-color: #1f52a6;}
@@ -408,14 +408,13 @@ select::-ms-expand { display: none; }
     display: inline-block;
     background: #ff6032;
     color: #fff;
+    font-size: 14px;
     padding: 7px 37px;
     border-radius: 3px;
     margin-right: 17px;
     cursor: pointer;
 }
 .cgl-antc>span:nth-of-type(1){background: #aaa;padding: 7px 54px;}
-.cgl-antc>span:nth-of-type(2){background: #27b56b;}
-.cgl-antc>span:nth-of-type(2):hover{background: #22a05e;}
 /*****************发送通知弹窗********************/
 .cgl-anfs{text-align: center;padding-bottom: 44px;}
 .cgl-anfs>span{  display: inline-block;  background: #ff6032;  color: #fff;  padding: 7px 60px;  margin-right: 9px;  cursor: pointer; font-size: 16px;}
@@ -541,15 +540,17 @@ span.name {
 .yycont>table{width: 100%; border-collapse:collapse; border:1px solid #e4e4e4;}
 .yycont>table th{background: #f3f1f1;color: #333;font-weight: normal;padding: 12px 0;}
 .yycont>table td{padding: 20px 4px;}
-.tianpfx{margin:12px 0 0 1px;border-top: 1px solid #e4e4e4;}
+.tianpfx{margin:4px 0 0 1px;}
 .fxcont{overflow: hidden;}
-.fxcont>li{float:left; width: 252px;height: 57px; border:1px solid #e4e4e4;margin-right: 9px;border-radius: 3px;}
-.fxcont>li>h4{text-align: center;padding: 9px 0 4px;font-size: 16px;font-weight: normal;}
-.fxcont>li>p{text-align: center;}
-.hxjl{margin:12px 0 0 1px;border-top: 1px solid #e4e4e4;padding: 7px 0 0 0;overflow: hidden;height: 34px;}
-.hxjl>h3{width: 70px;font-size: 14px;font-weight: normal;float: left;}
-.hxjl>span{float: left; width: 124px;border: 1px solid #e4e4e4;background: #f1f1f1;text-align: center;margin-right: 8px;padding: 5px 0;line-height: 1;cursor: pointer;}
-.hxjl>span.onck{border-color:#1f52a6;background: #4778c7;color: #fff;}
+.fxcont>li{overflow: hidden;border: 1px solid #e4e4e4;line-height: 26px;margin-bottom: 14px;}
+.fxcont>li:last-child{margin: 0;}
+.fxcont>li>h4{float: left;width: 116px;border-right: 1px solid #e4e4e4;background: #f1f1f1;padding-left: 6px;font-weight: normal;}
+.fxcont>li>span{float: left;width: 128px;padding-left: 14px;}
+.fxcont>li>p{float: left;}
+.hxjl>h3{font-size: 14px;font-weight: normal;padding: 19px 0 12px 0;}
+.hxjlpx{overflow: hidden;padding-bottom: 8px;}
+.hxjlpx>span{float: left; width: 100px;border: 1px solid #e4e4e4;background: #f1f1f1;text-align: center;margin-right: 8px;padding: 5px 0;line-height: 1;cursor: pointer;}
+.hxjlpx>span.onck{border-color:#1f52a6;background: #4778c7;color: #fff;}
 .cgl-yyclose{text-align: center;padding: 86px 0 31px 0;}
 .cgl-close{text-align: center;padding: 9px 51px;background: #aaa;color: #fff;line-break: 1;font-size: 14px;cursor: pointer;}
 .cgl-close:hover{background: #999;}
