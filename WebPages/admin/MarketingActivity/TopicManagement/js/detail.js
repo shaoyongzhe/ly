@@ -24,8 +24,8 @@ function render(detailData){
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	// first.find('.guid').text(activity.activitycode);   ?
-	first.find('.guid').text(activity.guid);
+	first.find('.guid').text(activity.activitycode);
+	// first.find('.guid').text(activity.guid);
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
@@ -41,10 +41,12 @@ function render(detailData){
 	var second = $('.item.second');
 	var area = detailData.area_condition;  // 活动地区
 	for(var i=0; i<area.length; i++){
-		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><div class='region-info'><div shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</div><div class='city'></div><div class='district-wrap'></div></div></div>");
+		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><div class='region-info'><div shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</div><div class='province-item'></div></div></div>");
 
 		for(var j=0; j<area[i].city.length; j++){
-			$('.city').last().append("<i shifzr='"+ JSON.stringify(area[i].city[j].charge, null, 4) +"'>"+ area[i].city[j].name +"</i>");
+
+			$('.region-info .province-item:last').append("<div class='city'><i shifzr='"+ JSON.stringify(area[i].city[j].charge, null, 4) +"'>"+ area[i].city[j].name +"</i></div><div class='district-wrap'></div>");
+
 
 			for(var k=0; k<area[i].city[j].country.length; k++){
 				// console.log(area[i].city[j].country[k].name);
@@ -114,6 +116,10 @@ function render(detailData){
 			zbf.text('门店');
 			break;
 
+		case "consumer":
+			zbf.text('消费者');
+			break;
+
 	}
 
 	/*<ul class="select" style="display: none;">
@@ -127,20 +133,17 @@ function render(detailData){
 	// 参与会员
 	// debugger
 	var distributor = detailData.distributor_condition;
-	if(distributor){
+	if(!$.isEmptyObject(distributor)){
 		canyuHy(distributor, "分销商");
 	}
 
-	// debugger
 	var consumer = detailData.consumer_condition;
-	if(consumer){
-		if(!$.isEmptyObject(consumer)){
-			canyuHy(consumer, "消费者");
-		}
+	if(!$.isEmptyObject(consumer)){
+		canyuHy(consumer, "消费者");
 	}
 
 	var retailer = detailData.retailer_condition;
-	if(retailer){
+	if(!$.isEmptyObject(retailer)){
 		canyuHy(retailer, "门店");
 	}
 
@@ -153,7 +156,8 @@ function render(detailData){
 			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ type.number_range.min +" - "+ type.number_range.max +"</td><td></td></tr>");
 		} else {
 			// alert(1)
-		}
+			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ '' +" - "+ '' +"</td><td></td></tr>");
+		} 
 
 		// debugger
 		if(type.核销次数){
@@ -174,6 +178,9 @@ function render(detailData){
 		if(type.会员等级){
 			condType(type.会员等级, '会员等级');
 		}
+		if(type.分销商类型){
+			condType(type.分销商类型, '分销商类型');
+		}
 	}
 
 	function condType(ctype, typeTxt){
@@ -185,14 +192,22 @@ function render(detailData){
 		var str = "";
 		if(ctype.operator == "between"){
 			ctype.operator = "介于";
-			str = "&nbsp;"+ ctype.operator +" <i>"+ ctype.min +"</i> - <i>"+ ctype.max +"</i>";
+			str = ctype.operator +" <i>"+ ctype.min +"</i> - <i>"+ ctype.max +"</i>";
 		} else if(ctype.operator == ">="){
 			ctype.operator = "不低于";
 			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
+		} 
+		else if(ctype.operator == "=="){
+			ctype.operator = "==";
+			var str = "&nbsp;&nbsp;&nbsp;"+ ctype.operator + " " + ctype.value;
 		}
 		var timeunit = isNaN(prevDays) ? "" : ctype.timeunit;
 		prevDays = isNaN(prevDays) ? "" : prevDays;
 		// debugger;
+		if(typeTxt == "分销商类型"){
+			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
+			return;
+		}
 		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ timeunit +"</i>"+ str +" 次</p>");
 		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ prevDays +" "+ str +" 次</p>");
 		
@@ -398,10 +413,19 @@ function render(detailData){
 
 }
 
+//var buttonDictionary = {
+//	"上架,正在进行中,待活动开始": '<span class="btn btn-close close">关闭</span><span class="btn warn xiajia">下架</span>',
+//	"草稿,审核中,审核失败,待发布": '<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
+//	"已过期,已结束,已下架":'<span class="btn btn-close close">关闭</span>'
+//};
 var buttonDictionary = {
-	"上架,正在进行中,待活动开始": '<span class="btn close">关闭</span><span class="btn warn xiajia">下架</span>',
-	"草稿,审核中,审核失败,待发布": '<span class="btn close">关闭</span><span class="btn warn xiugai">修改</span>',
-	"已过期,已结束,已下架": '<span class="btn close">关闭</span>' 
+	"上架,正在进行中,待活动开始": '<span class="btn btn-close close">关闭</span><span class="btn warn xiajia">下架</span>',
+	"审核失败,待发布": '<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"已结束":'<span class="btn btn-close close">关闭</span>',
+	"已过期":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"已下架":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span><span class="btn warn shangjia">上架</span>',
+	"审核中":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span><span class="btn warn btn_y">驳回</span><span class="btn warn btn_y">审核通过</span><span class="btn warn btn_y">立即发布</span>',
+	"草稿":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span><span class="btn warn btn_y">提交审核</span><span class="btn warn btn_y">审核通过</span><span class="btn warn btn_y">立即发布</span>'
 };
 
 
@@ -429,7 +453,69 @@ $(document).on('click','.xiugai',function(){
 }).on('click','.close',function(){
     closeLayer();
 
-}).on('click','.xiajia',function(){
+})
+//.on('click','.xiajia',function(){
+
+/*
+ * 上架
+ */
+        $(document).on('click','.shangjia',function(){
+            $.ajax({
+                type: "put",
+                url: "/webapi/ipaloma/topic/operation/" + topicId,
+                async: true,
+                data: {
+                    "currentstate": $('.currentState').val(),
+                    "optype": '上架'
+                },
+                success: function (data) {
+                    if (data.error)
+                        parent.layer.alert("出错了^_^");
+                    parent.layer.alert("上架成功");
+                    closeLayer();
+//                  parent.basicQuery();
+                },
+                error: function (xhr, textStatus) {
+                    parent.layer.alert("出错了^_^");
+                    console.log(textStatus);
+                }
+
+            });
+             
+
+        });
+/*
+ * “驳回”、“提交审核”、“审核通过”、“立即发布”按钮
+ */
+	$(document).on('click','.btn_y',function(){
+			var op = $(this).text()
+			console.log(op)
+            $.ajax({
+                type: "put",
+                url: "/webapi/ipaloma/topic/operation/" + topicId,
+                async: true,
+                data: {
+                    "currentstate": $('.currentState').val(),
+                    "optype": op
+                },
+                success: function (data) {
+                    if (data.error)
+                        parent.layer.alert("出错了^_^");
+                    parent.layer.alert(op + " 成功");
+                    closeLayer();
+                },
+                error: function (xhr, textStatus) {
+                    parent.layer.alert("出错了^_^");
+                    console.log(textStatus);
+                }
+
+            });
+             
+
+        });
+
+
+$(document).on('click','.xiajia',function(){
 
 	$.ajax({
 
@@ -447,11 +533,9 @@ $(document).on('click','.xiugai',function(){
                 parent.layer.alert("出错了^_^");
             }
 
-            // console.log(parent.$('.query'));
             parent.$('.query').click();
             parent.layer.alert("下架成功");
             closeLayer();
-            // debugger
 
         },
 

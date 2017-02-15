@@ -323,3 +323,35 @@ $(function(){
 		//$("#skin").attr("href",hrefResd);
 	});
 });
+
+
+/*
+ * 操作localStorage
+ */
+	if(!location.hash.match(/\?/g)){
+		localStorage.url=1;
+	}
+	var _data=localStorage.url;
+	
+	var _timer=setInterval(function(){
+		_data=localStorage.url
+		if(_data!=1){
+			clearInterval(_timer)
+			location.href = _data
+		}
+//		console.log(_data)		
+	},100)
+
+
+
+/*
+ * 地址栏变化时，重新渲染
+ */
+	var _kl=location.hash;
+    var _hh=setInterval(function(){
+//  	console.log(1)
+    	if(location.hash!=_kl){
+    		clearInterval(_hh)
+    		location.reload()
+    	}
+    },10)
