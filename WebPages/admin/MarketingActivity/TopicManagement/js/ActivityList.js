@@ -242,14 +242,14 @@ function basicQuery(resetQueryCondition){
 		async:true,
 		data:condition,
 		success: function (data) {
-			console.log(data)
+//			console.log(data)
 //		    console.log(data.content.length);
 //			console.log(data)
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
-			console.log('success')
+//			console.log('success')
 			if(data.content.length < 1){
 //				layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
@@ -291,9 +291,9 @@ function basicQuery(resetQueryCondition){
 				$(this).attr("title",$(this).html())
 			})
 
-			$('.activityList .activityAreaAndCharge').on("click",function(){
-				$(this).toggleClass('ac_tip');
-			})
+//			$('.activityList .activityAreaAndCharge').on("click",function(){
+//				$(this).toggleClass('ac_tip');
+//			})
 			pagingJson = data["paging"];
 			if(autoLoad){
 				if($(".activityList tbody").prop("scrollHeight") > 500){
@@ -355,6 +355,15 @@ $("#reset").click(function(){
 	$(".qC_activityBudget input:eq(1)").val("");
 	$(".qC_status .selectLedL").text("请选择");
 });
+
+
+/*
+ * 内容显隐
+ */
+$('.activityList').on("click", ".activityAreaAndCharge",function(){
+	$(this).toggleClass('ac_tip');
+})
+
 function ConstructRecord(contentBody, statusData)
 {
     var stateHtmlArray = $.Enumerable.From(contentBody).Select(function(x) 
@@ -470,7 +479,14 @@ function JointDistrict(districts)
     .Select(function (x) { 
     	if(x["charge"]){
     		var chrage_y = x["charge"];
-    		return x["name"] +"</br>"+ chrage_y["name"];
+    		/*
+    		 * 负责人显示问题
+    		 */
+    		if(chrage_y["name"]){
+    			return x["name"] +"</br>"+ chrage_y["name"];
+    		}else{
+    			return x["name"];
+    		}
     	}else{
     		return x["name"];
     	}
@@ -480,7 +496,6 @@ function JointDistrict(districts)
     return queryResult.join(" - ");
     
 }
-/**/
 
 /*新增按钮*/
 $(".addButton").click(function(){

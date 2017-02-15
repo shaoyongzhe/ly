@@ -418,7 +418,8 @@ function render(detailData){
 //};
 var buttonDictionary = {
 	"上架,正在进行中,待活动开始": '<span class="btn btn-close close">关闭</span><span class="btn warn xiajia">下架</span>',
-	"审核失败,待发布": '<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"审核失败": '<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"待发布":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span><span class="btn warn btn_y">立即发布</span>',
 	"已结束":'<span class="btn btn-close close">关闭</span>',
 	"已过期":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
 	"已下架":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span><span class="btn warn shangjia">上架</span>',
@@ -469,9 +470,9 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert("上架成功");
                     closeLayer();
-//                  parent.basicQuery();
                 },
                 error: function (xhr, textStatus) {
                     parent.layer.alert("出错了^_^");
@@ -499,6 +500,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert(op + " 成功");
                     closeLayer();
                 },
@@ -512,7 +514,7 @@ $(document).on('click','.xiugai',function(){
 
         });
 
-
+// 下架
 $(document).on('click','.xiajia',function(){
 
 	$.ajax({
@@ -530,7 +532,7 @@ $(document).on('click','.xiajia',function(){
             if (data.error){
                 parent.layer.alert("出错了^_^");
             }
-
+		
             parent.$('.query').click();
             parent.layer.alert("下架成功");
             closeLayer();
