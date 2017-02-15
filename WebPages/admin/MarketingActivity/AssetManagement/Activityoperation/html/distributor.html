@@ -37,17 +37,17 @@
                                 <li>类型
                                     <input type="text"/>
                                     <div class="jydx_type">
-                                        <span>类型1</span>
+                                        <!-- <span>类型1</span>
                                         <span>类型2</span>
-                                        <span>类型3</span>
+                                        <span>类型3</span> -->
                                     </div>
                                 </li>
                                 <li>对象
                                     <input type="text"/>
                                     <div class="jydx_target">
-                                        <span>对象1</span>
+                                       <!--  <span>对象1</span>
                                         <span>对象2</span>
-                                        <span>对象3</span>
+                                        <span>对象3</span> -->
                                     </div>
                                 </li>
                             </ul>
@@ -56,8 +56,8 @@
                             <li class="szlx">
                                 <input type="text" placeholder="收入"/>
                                 <div class="szlx_son">
-                                    <span>支出</span>
-                                    <span>收入</span>
+                                    <!-- <span>支出</span>
+                                    <span>收入</span> -->
                                 </div>
                             </li>
                             <li style="float: right;margin:0 5px 0 0;">收支类型</li>
@@ -70,8 +70,8 @@
                             <li class="szsy">
                                 <input type="text"/>
                                 <div class="szsy_son">
-                                    <span>主题活动</span>
-                                    <span>超慧券</span>
+                                    <!-- <span>主题活动</span>
+                                    <span>超慧券</span> -->
                                 </div>
                             </li>
                         </div>
@@ -98,9 +98,9 @@
                             <li class="djr">
                                 <input type="text"/>
                                 <div class="djr_son">
-                                    <span>登记人啊1</span>
+                                    <!-- <span>登记人啊1</span>
                                     <span>登记人啊2</span>
-                                    <span>登记人啊3</span>
+                                    <span>登记人啊3</span> -->
                                 </div>
                             </li>
                         </div>
@@ -187,12 +187,26 @@
 //             }
 //         })
 
-        $(".find").click(function(){
+
+
+        /**
+         * 查询事件
+         * */
+
+        $('.find').click(function(){
+            findAjax();
+        }) 
+        function findAjax(){
+            inquiry={
+
+
+            }
+
             $.ajax({
-                url:"../javascript/detailedList.json",
-                type:"GET",
+                // url:"http://127.0.0.1:40010/webapi/asset/member/" + member_id + "/asset",
                 dataType:"json",
-                success:function(data){
+                data:inquiry,
+                success:function(){
                     console.log(data.content.flowing[1].serialnumber);
                     var str="";
                     $(data.content.flowing).each(function(i){
@@ -200,105 +214,89 @@
                     })
                     $(".table1 tbody").html(str);
                 }
+
+            
+
             })
-        })
 
+        }
 
-        /**
-         * 分页 懒加载事件
-         * */
-
-
-
-//        var gPageSize = 10;
-//        var i = 1; //设置当前页数，全局变量
-//        function listPage (pagenumber){
-////                i++; //页码自动增加，保证下次调用时为新的一页。
-//            var dd={
-//                "pagesize":gPageSize,
-//                "pagenumber":pagenumber,
-//                "pageindex":i++
-//            }
-//            console.log($(dd)[0].pageindex);
-////                $.get("javascript/list.json", dd, function (data) {
-////                    if (data.length > 0) {
-////                        //var jsonObj = JSON.parse(data);
-////                        tablelist(dd);
-////                    }
-////                });
-//            $.ajax({
-////                    url:"http://127.0.0.1:40010/webapi/asset/member/trading/list",
-//                url:"../javascript/detailedList.json",
-//                data:dd,
-//                type:"get",
-//                dataType:"json",
-//                success:function(data){
-////                        if($("#start").val()=="" || $("#end").val()==""){
-////                            alert("请填写正确的时间");
-////                            return false;
-////                        }
-////                        alert("ok");
-//                    $(".loading_2").hide();
-//                    if(data.content.flowing.length>0){
-////                            console.log(data.content)
-////                        tablelist(data);
-//                        str='';
-//                        $(data.content.flowing).each(function(i){
-//                            str+='<tr><td>' + this.serialnumber + '</td><td>'+ this.shippingto +'</td><td>' + this.purpose + '</td><td>' + this.count + '</td><td>'+ this.trading_time +'</td><td>'+ this.description +'</td><td>' + this.ipa_casher + '<br/>' + this.register_time + '</td></tr>'
-//                        })
-//                        $(".table1 tbody").append(str);
-//                    }
-//                },
-//                beforeSend: function () {
-//                    $(".loading_2").show();
-////                        alert(1)
-//                },
-//                error: function() {
-//                    $(".loading_2").hide();
-//                }
-//            })
-//        }
-//        listPage(i);
-//        var winH = $(".table1 tbody").height(); //页面可视区域高度
-//        var scrollHandler = function () {
-//            var pageH = $(".table1 tbody").prop("scrollHeight");
-//            var scrollT = $(".table1 tbody").scrollTop(); //滚动条top
-//            var aa = pageH - winH - scrollT;
-////                console.log(pageH)
-////                console.log(winH)
-////                console.log(scrollT)
-////                console.log(aa)
-//
-//            if (aa < -9) {
-//                listPage(i);
-//            }
-//        }
-//        //定义鼠标滚动事件
-//        $(".table1 tbody").scroll(scrollHandler);
-
-
+        
 
 
         /********
          *
-         * 模拟下拉框内容
+         * 下拉框内容
          * **********/
+         memberClass();
+         function memberClass () {
+            $.ajax({
+                url:"http://127.0.0.1:40010/webapi/asset/ipaloma/dict/member_class",
+                dataType:'json',
+                success:function (data) {
+                    var str="";
+                    var str_M=data.member_class[0];
+                    for(var key in str_M){
+                        str+='<span>'+ key +'</span>'
+                    }
+                    $(".jydx_type").html(str);
 
-        /*交易对象--类型*/
-        $('.jydx_son li:first-child input').on('click',function(){
-            $('.jydx_type').stop().slideToggle(200);
-            $(".jydx_son li:first-child input").focus(function(){
-                $(".jydx_type").slideUp();
+                    /*交易对象--类型*/
+                    $('.jydx_son li:first-child input').on('click',function(){
+                        $('.jydx_type').stop().slideToggle(200);
+                        $(".jydx_son li:first-child input").focus(function(){
+                            $(".jydx_type").slideUp();
+                        })
+                    })
+                    $(".jydx_son li:first-child input").blur(function(){
+                        $(".jydx_type").slideUp();
+                    })
+                    $('.jydx_type span').on('click',function(){
+                        $('.jydx_son li:first-child input').val($(this).html())
+                    })
+
+                }
             })
-        })
-        $(".jydx_son li:first-child input").blur(function(){
-            $(".jydx_type").slideUp();
-        })
-        $('.jydx_type span').on('click',function(){
-            $('.jydx_son li:first-child input').val($(this).html())
-        })
+        }
+        
+         revenueType();
+         function revenueType () {
+            $.ajax({
+                url:'http://127.0.0.1:40010/webapi/asset/ipaloma/dict/transfertype',
+                dataType:'json',
+                success:function (data) {
+                    var str = "";
+                    $(data.transfertype).each(function(i){
+                       str+='<span>'+ data.transfertype[i] +'</span>'
+                    })
+                    $(".szlx_son").html(str);
+
+                    /*收支类型*/
+                    $('.szlx input').on('click',function(){
+                        $('.szlx_son').stop().slideToggle(200);
+                        $(".szlx input").focus(function(){
+                            $(".szlx_son").slideUp();
+                        })
+                    })
+                    $(".szlx input").blur(function(){
+                        $(".szlx_son").slideUp();
+                    })
+                    $('.szlx_son span').on('click',function(){
+                        $('.szlx input').val($(this).html())
+                    })
+                                
+                }                     
+            })
+        }
+
+        transferType();
+        function transferType () {
 
 
+
+
+        }
+        
         /*交易对象--对象*/
         $('.jydx_son li:last-child input').on('click',function(){
             $('.jydx_target').stop().slideToggle(200);
@@ -311,22 +309,7 @@
         })
         $('.jydx_target span').on('click',function(){
             $('.jydx_son li:last-child input').val($(this).html())
-        })
-
-
-        /*收支类型*/
-        $('.szlx input').on('click',function(){
-            $('.szlx_son').stop().slideToggle(200);
-            $(".szlx input").focus(function(){
-                $(".szlx_son").slideUp();
-            })
-        })
-        $(".szlx input").blur(function(){
-            $(".szlx_son").slideUp();
-        })
-        $('.szlx_son span').on('click',function(){
-            $('.szlx input').val($(this).html())
-        })
+        })  
 
         /*收支事由*/
         $('.szsy input').on('click',function(){
@@ -342,19 +325,44 @@
             $('.szsy input').val($(this).html())
         })
 
-        /*登记人*/
-        $('.djr input').on('click',function(){
-            $('.djr_son').stop().slideToggle(200);
-            $(".djr input").focus(function(){
-                $(".djr_son").slideUp();
+
+        ipacashEr (); 
+        function ipacashEr (){
+            $.ajax({
+                url:"http://127.0.0.1:40010/webapi/asset/ipaloma/dict/ipacasher",
+                dataType:'json',
+                success:function (data) {
+                    var str = "";
+                    console.log(data.ipacasher.ipacasher[0].ipacasher_name)
+                    $(data.ipacasher.ipacasher).each(function(i){
+                        str += '<span>' + data.ipacasher.ipacasher[i].ipacasher_name + '</span>'
+                    })
+                    $(".djr_son").html(str);
+                    /*登记人*/
+                    $('.djr input').on('click',function(){
+                        $('.djr_son').stop().slideToggle(200);
+                        $(".djr input").focus(function(){
+                            $(".djr_son").slideUp();
+                        })
+                    })
+                    $(".djr input").blur(function(){
+                        $(".djr_son").slideUp();
+                    })
+                    $('.djr_son span').on('click',function(){
+                        $('.djr input').val($(this).html())
+                    })
+
+                }
+
             })
-        })
-        $(".djr input").blur(function(){
-            $(".djr_son").slideUp();
-        })
-        $('.djr_son span').on('click',function(){
-            $('.djr input').val($(this).html())
-        })
+
+
+        }
+            
+
+        
+
+        
 
 
 

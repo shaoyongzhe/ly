@@ -799,6 +799,7 @@ span.name { display: block;text-align: right; line-height: 30px;}
     font-size: 14px;
     width: 96.3%;
     height: 543px;
+    background: #e6e6e6;
     /*display: none;*/
     /*overflow-y: scroll;*/
 }
@@ -815,6 +816,7 @@ span.name { display: block;text-align: right; line-height: 30px;}
     line-height: 22px;
     text-align: center;
     font-size: 12px;
+    word-wrap : break-word;
 }
 .table1 tbody tr:hover{
     background: #eeeeee;
@@ -823,6 +825,7 @@ span.name { display: block;text-align: right; line-height: 30px;}
     display:block;
     height:508px;
     overflow-y:scroll;
+    background: #ffffff;
 }
 .table1 thead,.table1 tbody tr {
     display:table;

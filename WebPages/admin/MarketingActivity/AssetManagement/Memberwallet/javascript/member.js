@@ -50,9 +50,9 @@ $(function(){
     $(".reset_b").click(function(){
 //                $(".membertype").val("");
         myDate();
-        $("#city em").html("");
-        $("#province em").html("");
-        $("#area em").html("");
+        $("#city em").html("市");
+        $("#province em").html("省");
+        $("#area em").html("区");
         $("#serialnumber").val("");
         $(".expenses_son").val("");
 //                $(".resonDown").val("");
@@ -181,7 +181,7 @@ $(function(){
              // url:"javascript/json/ipacasher.json",
              dataType:"json",
              success:function(data) {
-                 console.log(data.ipacasher);
+                 // console.log(data.ipacasher);
                  var str = "";
                  $(data.ipacasher).each(function(i){
                      str += '<p>' + data.ipacasher[i].ipacasher_name + '</p>'
@@ -215,32 +215,14 @@ $(function(){
         $(this).toggleClass('checked');
     });
 
+    
 
 
 
 //            /*******搜索全部会员******/
-//            {"member_search_text":"凌云测试分销商雇员 No.40-1","member_class":"tblaccount"}
-    /*监测input值的变化函数方法*/
-    $.fn.watch = function(callback) {
-        return this.each(function() {
-            //缓存以前的值
-            $.data(this, 'originVal', $(this).val());
-            //event
-            $(this).on('keyup paste', function() {
-                var originVal = $(this, 'originVal');
-                var currentVal = $(this).val();
 
-                if (originVal !== currentVal) {
-                    $.data(this, 'originVal', $(this).val());
-                    callback(currentVal);
-                }
-            });
-        });
-    }
-
-    /*调用watch方法*/
-    $("#search_text").watch(function(value){
-        //member_class 是必选参数，设置选择事件
+    $("#search_text").bind("input properychange",function(event){
+        var search=event.target.value;
         if ($(".membertype").val() == "" || $(".membertype").val() == "--请选择--") {
             $("#search_text").val("");
             alert("请选择正确的会员类型");
@@ -255,7 +237,7 @@ $(function(){
             case "凌云代理商":memberTap="tblaccount";break;
         }
         members={
-            // member_search_text:$("#search_text").val(),
+            member_search_text:search,
 //                    "member_id":
             member_class:memberTap
 //                    "area_province":$("#province em").html(),
@@ -264,9 +246,9 @@ $(function(){
         }
 //                    console.log(value)
 
-        if($("#search_text").val()){
+        if($("#search_text").val() && $("#search_text").val()!="全部会员"){
             $(".table2").fadeIn(300);
-            $(".tab_header li:nth-child(3)").css("visibility","visible")
+            $(".tab_header li:nth-child(3)").css("visibility","visible");
             allmemberAjax();
         }
         console.log($("#search_text").val())
@@ -275,28 +257,34 @@ $(function(){
             $(".tab_header li:nth-child(3)").css("visibility","hidden")
             $("#search_text").val("全部会员");
         })
+
+
     })
+
+    
+
 
     //所有会员 Ajax
     function allmemberAjax () {
         $.ajax({
             type:"GET",
             // url:"javascript/json/autoplate.json",
-            url:"http://127.0.0.1:40010/webapi/asset/member/summary?parameters=" + $("#search_text").val(),
+            url:"http://127.0.0.1:40010/webapi/asset/member/summary",
             data:members,
             dataType:"json",
             success:function(data) {
                 var str = "";
-                console.log(data)
+                console.log(data.content);
+                console.log(0);
                 $(data.content).each(function (i) {
-                    if (this.member_name.indexOf($("#search_text").val()) != -1) {
+                    // if (this.member_name.indexOf($("#search_text").val()) != -1) {
 //                                    console.log(333)
                         str += '<tr><td><span class="lei">'
                             + this.member_name
                             + '</span><span>' + this.member_class
                             + '</span><br/><span>余额：' + this.asset[0].count
                             + '元</span><span>' + this.area + '</span></td></tr>'
-                    }
+                    // }
                 })
                 $(".table2 tbody").html(str);
                 $(".table2 tbody tr").on("click",function(){
@@ -305,7 +293,7 @@ $(function(){
                 })
             },
             error:function(){
-                
+                console.log(333);
             }
         })
     }
@@ -314,7 +302,7 @@ $(function(){
 
 
 
-//            /*城市联动*/
+//    /*城市联动*/
     comSelect();
     selectCity();
 

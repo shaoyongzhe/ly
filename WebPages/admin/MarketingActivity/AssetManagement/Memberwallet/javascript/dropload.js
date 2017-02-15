@@ -69,7 +69,8 @@
             me._scrollContentHeight = me.$element[0].scrollHeight;
             me._scrollWindowHeight = me.$element.height();
         }
-        qixiaofeiload(me);
+        // qixiaofeiload(me);
+        loadDown(me);
         // 窗口调整
         $win.on('resize',function(){
             if(me.opts.gundong == win){
@@ -168,7 +169,7 @@
                 // 加载区修改样式
                 me.$domDown.html(me.opts.domDown.domRefresh);
                 fnRecoverContentHeight(me);
-                qixiaofeiload(me);
+                // qixiaofeiload(me);
             }else{
                 // 如果没数据
                 me.$domDown.html(me.opts.domDown.domNoData);
