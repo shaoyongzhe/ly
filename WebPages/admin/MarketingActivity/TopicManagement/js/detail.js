@@ -41,10 +41,12 @@ function render(detailData){
 	var second = $('.item.second');
 	var area = detailData.area_condition;  // 活动地区
 	for(var i=0; i<area.length; i++){
-		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><div class='region-info'><div shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</div><div class='city'></div><div class='district-wrap'></div></div></div>");
+		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><div class='region-info'><div shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</div><div class='province-item'></div></div></div>");
 
 		for(var j=0; j<area[i].city.length; j++){
-			$('.city').last().append("<i shifzr='"+ JSON.stringify(area[i].city[j].charge, null, 4) +"'>"+ area[i].city[j].name +"</i>");
+
+			$('.region-info .province-item:last').append("<div class='city'><i shifzr='"+ JSON.stringify(area[i].city[j].charge, null, 4) +"'>"+ area[i].city[j].name +"</i></div><div class='district-wrap'></div>");
+
 
 			for(var k=0; k<area[i].city[j].country.length; k++){
 				// console.log(area[i].city[j].country[k].name);
