@@ -659,6 +659,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '<em class="selected"></em>'
 	        +                   '<ul class="select"></ul>'
 	        +               '</div>'
+			+				'<div class="dib subsidyCondition link">'
+			+					'<a href="#" class="dib ver btCond">请点击</a>'
+			+					'<input type="hidden" name="" class="btCondHidden">'
+			+				'</div>'	        
 	        +           '</div>'
 	        +           '<!--等待更改下面的类名acTy-->'
 	        +           '<div class="dib hdc3 ver re">'
@@ -734,6 +738,24 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +       '</div>';
 	for(i=0;i<activityManger_addSub4Data.length;i++){
 	    $('.addSub4:last').before(activityManger_addSub4Html);
+	    
+		/*临时数据*/	 
+		//临时数据开始
+//		activityManger_addSub4Data[i].statistic= {
+//              "timetag": "主题活动结束时",
+//              "time": "",
+//              "object": "门店",
+//              "method": "按各分销商分别统计",
+//              "type": "累计核销次数",
+//              "reqesttag": "地区排名",
+//              "requestnumber": "7"
+//          }
+//		activityManger_addSub4Data[i].refund_to="distributor_employee";	
+//		activityManger_addSub4Data[i].event="达到统计指标";	
+		//临时数据结束	    
+	    
+	    
+	    
 	    /*补贴对象补贴条件补贴形式翻译*/
 	    var btduixiang = "";
 	    // debugger;
@@ -863,7 +885,20 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    
 	    /*补贴条件*/
 	//  $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
-	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);
+//	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);//0216去掉
+		$(".addSub4Mange:last").find(".subsidyCondition a").text(btCond);
+	    if(activityManger_addSub4Data[i].statistic){
+	    	var addSub4MangeStatistic=JSON.stringify(activityManger_addSub4Data[i].statistic, null, 4);
+		    $(".addSub4Mange:last").find(".subsidyCondition a").attr("statistic",addSub4MangeStatistic);	    	
+	    }
+	    
+	    //*************************************0216删除此注释掉的内容**************************************
+//	    if(activityManger_addSub4Data[i].probability){//prize_content
+//	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
+//	    		$(".addSub4Mange:last").find(".hdc7 .gl").val(addSub4MangeProbability);   
+//	    }
+//	    $(".addSub4Mange:last").find(".hdc7 .gl").addClass("glHidden"+(i+1));
+	    //***************************************************************************	    
 	
 	    /*补贴形式*/
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);

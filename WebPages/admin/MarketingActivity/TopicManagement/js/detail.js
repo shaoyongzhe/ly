@@ -219,122 +219,49 @@ function render(detailData){
 	var butie = detailData.event_handler_list;
 	for(var i=0; i<butie.length; i++){
 
-		var btduixiang = "";
+		/*var btduixiang = "";
 		switch(butie[i].refund_to){
-
-			case "distributor":
-				btduixiang = '分销商'
-				break;
-
-			case "distributor_employee":
-				btduixiang = '分销商业务员'
-				break;
-
-			case "retailer":
-				btduixiang = '门店'
-				break;
-
-			case "retaileremployee":
-				btduixiang = '门店店员'
-				break;
-
-			case "retailer_employee":
-				btduixiang = '门店店员'
-				break;
-
-			case "consumer":
-				btduixiang = '消费者'
-				break;
-
-		}
+			case "distributor": btduixiang = '分销商'; break;
+			case "distributor_employee": btduixiang = '分销商业务员'; break;
+			case "retailer": btduixiang = '门店'; break;
+			case "retaileremployee": btduixiang = '门店店员'; break;
+			case "retailer_employee": btduixiang = '门店店员'; break;
+			case "consumer": btduixiang = '消费者'; break;
+		}*/
 
 		/*var btCond = "";
 		switch(butie[i].event){
-
-			case "distributorinviteretailer":
-				btCond = '门店签约分销商';
-				break;
-
-			case "register":
-				btCond = '注册';
-				break;
-
-			case "invitefan":
-				btCond = '成功邀请朋友关注';
-				break;
-
-			case "verify":
-				btCond = '首次核销?';
-				break;
-
-			case "verify_first":
-				btCond = '首次核销';
-				break;
-
-			case "verify_normal":
-				btCond = '非首次核销';
-				break;
-
-			case "shareverify":
-				btCond = '分享核销结果';
-				break;
-
-			case "shareticket":
-				btCond = '分享超惠券';
-				break;
-
-			case "shareretailer":
-				btCond = '分享门店';
-				break;
-
-			case "openretailer":
-				btCond = '自主开店';
-				break;
-
-			case "openmemsys":
-				btCond = '开通会员系统';
-				break;
-
+			case "distributorinviteretailer": btCond = '门店签约分销商'; break;
+			case "register": btCond = '注册'; break;
+			case "invitefan": btCond = '成功邀请朋友关注'; break;
+			case "verify": btCond = '首次核销?'; break;
+			case "verify_first": btCond = '首次核销'; break;
+			case "verify_normal": btCond = '非首次核销'; break;
+			case "shareverify": btCond = '分享核销结果'; break;
+			case "shareticket": btCond = '分享超惠券'; break;
+			case "shareretailer": btCond = '分享门店'; break;
+			case "openretailer": btCond = '自主开店'; break;
+			case "openmemsys": btCond = '开通会员系统'; break;
+			default: btCond = butie[i].event;
 		}*/
-	
+
 		/*var btType = "";
 		switch(butie[i].refund_content){
-
-			case "randompoints":
-				btType = '随机积分';
-				break;
-
-			case "fixedpoints":
-				btType = '固定积分';
-				break;
-
-			case "fixedmoney":
-				btType = '固定金额';
-				break;
-
-			case "randommoney":
-				btType = '随机金额';
-				break;
-
-			case "randommoney":
-				btType = '随机金额';
-				break;
-
-			case "randomredpacket":
-				btType = '随机微信红包';
-				break;
-
-			case "fixedredpacket":
-				btType = '固定微信红包';
-				break;
-
-			case "randommoneyticket":
-				btType = '随机金额返现券';
-				break;
-
+			case "randompoints": btType = '随机积分'; break;
+			case "fixedpoints": btType = '固定积分'; break;
+			case "fixedmoney": btType = '固定金额'; break;
+			case "randommoney": btType = '随机金额'; break;
+			case "randommoney": btType = '随机金额'; break;
+			case "randomredpacket": btType = '随机微信红包'; break;
+			case "fixedredpacket": btType = '固定微信红包'; break;
+			case "randommoneyticket": btType = '随机金额返现券'; break;
 		}*/
 
-		console.log(butie[i].event)
+		// console.log(butie[i].event);
+
+		if(butie[i].event == "达到统计指标"){
+			var word = butie[i].statistic
+		}
 
 		// debugger
 		var danwei = "";
@@ -352,7 +279,7 @@ function render(detailData){
 		}
 
 		// debugger;
-		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ butie[i].applycount +"</i><i>"+ danwei +"</i></td></tr>");
+		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ butie[i].applycount +"</i><i>"+ danwei +"</i></td></tr>");
 	}
 
 	// debugger

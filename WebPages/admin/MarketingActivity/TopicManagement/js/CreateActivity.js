@@ -7,7 +7,7 @@ var addsub2HTML="";
 var addsub3HTML="";
 var addsub4HTML="";
 var addsub5HTML="";
-
+//
 
 function previewImage(file) {
   	
@@ -1504,6 +1504,7 @@ $("body").on("click","li.option",function(e){
 			}
 			//结束********************************************************************************************
 		// }
+		$('.subsidyCondition a').show();
 		return;
 	}
 
@@ -1997,11 +1998,14 @@ function selectFn(className,StatisticKey,shuxing){//eg:,StatisticKey为Statistic
 }
 /*项目点击*/
 $(".subsidyConditionContent").on("click",".subsidyConditionItem",function(e){
-	if($(this).text()=="达到统计指标"){
-		$(".addSubSubsidyPolicy").show();
-	}else{
+
+	if($(this).text().indexOf("达到统计指标") != -1){
+		$(".addSubSubsidyPolicy").toggle();
+		// return
+	} else {
 		$(".addSubSubsidyPolicy").hide();
 	}
+
 	$(".subsidyConditionItem").each(function(){
 		$(this).text($(this).text().replace("✔",""));
 		$(this).removeClass("on");
@@ -2020,15 +2024,22 @@ var addSub4_i = 0;
 $('.butieSec').on('click','.subsidyCondition a', function(){
 
 	var _this = $(this);
+	var addSub4 = _this.closest('.addSub4');
 	addSub4_i = _this.closest('.addSub4').index();
-	// $('.addSub4_i').val(_this.closest('.addSub4').index());
+
+	if(addSub4.find('.butie-select-wrap .selected').text() == ""){
+		layer.tips('请先完善补贴条件', addSub4.find('.butie-select-wrap .selected'));
+		return;
+	}
 
 	_this.addClass("btCond" + addSub4_i);
 
+
+	$('.addSubSubsidyPolicy').hide();
 	$('.subsidyConditionContent').empty();
 	var butieCond = _this.parent().prev();
 	butieCond.find('li[class=option]').each(function(){
-		$('.subsidyConditionContent').append("<li class='subsidyConditionItem'>"+ $(this).text() +"</li>")
+		$('.subsidyConditionContent').append("<li class='subsidyConditionItem'>"+ $(this).text() +"</li>");
 	});
 
 
@@ -2103,7 +2114,7 @@ $('.butieSec').on('click','.subsidyCondition a', function(){
 		content.find('.s3 .method').text(savedData.method);
 		content.find('.s4 .type').text(savedData.type);
 		content.find('.s5 .reqesttag').text(savedData.reqesttag);
-		content.find('.s5-1 .requestnumber').text(savedData.requestnumber);
+		content.find('.s5-1 .requestnumber').val(savedData.requestnumber);
 	}
 
 });
@@ -2126,6 +2137,7 @@ $('.subsidyPolicy .ok').click(function(){
 		return;
 	}
 
+
 	var Statistic = {};
 	if($('.addSubSubsidyPolicy').css('display') == "block"){
 
@@ -2141,8 +2153,21 @@ $('.subsidyPolicy .ok').click(function(){
 			"requestnumber": content.find('.requestnumber').val()
 		}
 
+		var distime = "";
+		if(Statistic.time == ""){
+			distime = Statistic.time;
+			if(content.find('.days.s1-1').css('display') == 'block'){
+				layer.tips('请填写天数', content.find('.days.s1-1'));
+				return;
+			}
+
+		} else {
+			distime = Statistic.time + $('.days.s1-1 span').text();
+		}
+
+		var word = Statistic.timetag + distime + Statistic.object + Statistic.method + Statistic.type + Statistic.reqesttag + Statistic.requestnumber + content.find('.unit').text();
 		$('a.btCond' + addSub4_i).text($('.subsidyConditionItem.on').text().replace("✔",""))
-		.attr('Statistic', JSON.stringify(Statistic, null, 4));
+		.attr({ 'Statistic': JSON.stringify(Statistic, null, 4), "title": word });
 
 	} else {
 		$('a.btCond' + addSub4_i).text($('.subsidyConditionItem.on').text().replace("✔",""));
@@ -2155,7 +2180,9 @@ $('.subsidyPolicy .ok').click(function(){
 
 
 
-
+$('.subsidyPolicy .cancel').click(function(){
+	$('.layui-layer-close').click();
+});
 
 $('.butieSec').on('keyup','.acSe13 input',function(){
 
@@ -2653,18 +2680,18 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}
-				if(_this.find('.select-wrap.acSe10 .selected').text() == ""){
+				/*if(_this.find('.select-wrap.acSe10 .selected').text() == ""){
 					// debugger
 					$("nav span").eq(2).click();
 					layer.tips('请先完善补贴条件', _this.find('.select-wrap.acSe10'));
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
-				}
+				}*/
 				if(_this.find('.select-wrap.acSe11 .selected').text() == ""){
 					// debugger
 					$("nav span").eq(2).click();
-					layer.tips('请先完善补贴条件', _this.find('.select-wrap.acSe11'));
+					layer.tips('请先完善补贴形式', _this.find('.select-wrap.acSe11'));
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;

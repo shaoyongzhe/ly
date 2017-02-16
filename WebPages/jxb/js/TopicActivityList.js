@@ -50,6 +50,7 @@ function UrlDistributorIDRefresh(){//新对接方式，暂保留之前命名方�
 }
 //2.根据主题活动id，决定显示隐藏哪些活动[即从超慧券页面过来]
 function UrlTopicActivityIDRefresh(){//新对接方式，暂保留之前命名方式
+	debugger;
 	if(UrlKeyValueData.activity_ids==undefined||UrlKeyValueData.activity_ids==""||UrlKeyValueData.activity_ids==" "||UrlKeyValueData.activity_ids==null){
 		return;
 	}
