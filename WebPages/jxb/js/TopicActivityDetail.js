@@ -4,6 +4,7 @@
 //$(".BDQFd1").empty();
 //$(".BDQFd2").empty();
 //$(".BDQFd3").empty();
+//alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
 var linshi='';
@@ -1084,9 +1085,11 @@ function returnToList(){
 	}
 	$(".returnToList .p1").click(function(){
 		engine.call('ClosePage',"");
+		console.log("返回主题活动列表触发")
 	})
 	$(".returnToList .p2").click(function(){
 		engine.call('ClosePage',"");
+		console.log("返回超惠券列表触发")
 	})
 	$("header").click(function(){			
 		engine.call('ClosePage',"");

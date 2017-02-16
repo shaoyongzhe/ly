@@ -448,9 +448,11 @@ function returnToList(){
 	}
 	$(".returnToList .p1").click(function(){
 		engine.call('ClosePage',"");
+		console.log("返回主题活动列表触发")
 	})
 	$(".returnToList .p2").click(function(){
 		engine.call('ClosePage',"");
+		console.log("返回超惠券列表触发")
 	})
 	$("header").click(function(){			
 		engine.call('ClosePage',"");
