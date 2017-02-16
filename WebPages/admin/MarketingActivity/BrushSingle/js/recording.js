@@ -577,12 +577,13 @@ function fncaozuo() {
 			"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
-		querenwg_add(putdata);
+		//querenwg_add(putdata);
+		tiaozqr("当前违规等级<span>（" + $(this).parents("tr").find(".cgl-td6").html() + "）</span>", $(this).parents("tr").attr("gu-id"));
 	}).on("click", ".vipbohui", function() {
 		var putdata = {
-			"dealtstate": "确认违规",
+			"dealtstate": "驳回申诉",
 			"description": "",
-			"anticheatingids": $(this).parents("tr").attr("gu-id")
+			"anticheatingid": $(this).parents("tr").attr("gu-id")
 		};
 		fnbohui(putdata);
 	});
@@ -686,7 +687,7 @@ function article_add(that) {
 			fnfstz(fstz);
 		}
 		if($(this).text() == "调整违规等级") {
-			tiaoz_add("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid)
+			tiaoz_add("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid);
 		}
 		if($(this).text() == "会员申诉") {
 			vipshensu_add(parents);
@@ -697,7 +698,8 @@ function article_add(that) {
 				"weiguidengji": $(".cgl-td6", parents).text().replace(/[^0-9]/ig, ""),
 				"anticheatingids": guid
 			};
-			querenwg_add(putdata);
+			//querenwg_add(putdata);
+			tiaozqr("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid)
 		}
 		if($(this).text() == "解除违规") {
 			var putdata = {
@@ -708,7 +710,7 @@ function article_add(that) {
 		}
 		if($(this).text() == "驳回申诉") {
 			var putdata = {
-				"dealtstate": "确认违规",
+				"dealtstate": "驳回申诉",
 				"description": "",
 				"anticheatingids": $(this).parents("tr").attr("gu-id")
 			};
@@ -826,9 +828,45 @@ function fnbohui(putdata) {
 	});
 	$(".cgl-qrwgqr").on("click", function() {
 		console.log(putdata)
-		fnwgjlzt(putdata);
+		fnbohuiapi(putdata);
 	});
 }
+//驳回申诉接口
+function fnbohuiapi (putdata) {
+	$('.layui-layer-close').click();
+	$(".cgl-jzz").html("加载中，请稍后···").show();
+	$.ajax({
+		type: "put",
+		url: "/webapi/earlywarningmanage/anticheating/dealtshensu",
+		data: putdata,
+		error: function() {
+			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+		},
+		success: function(data) {
+			$(".cgl-jzz").hide();
+			if(data.error) {
+				$('.layui-layer-close').click();
+				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
+			}
+			if(data.succeed) {
+				var guidarr = [putdata.anticheatingid];
+				
+				for(var i = 0; i < guidarr.length; i++) {
+					$("tr").each(function(n) {
+						if($(this).attr("gu-id") == guidarr[i]) {
+							$(this).find(".cgl-td12").html(putdata.dealtstate);
+							$(this).remove();
+							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
+						}
+					});
+				}
+				state["lastindex"] = 0;
+				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
+			}
+		}
+	});
+}
+
 //解除违规
 function jiechuwg_add(putdata) {
 	var cont = "<div>" +
@@ -972,6 +1010,66 @@ function querenwg_add(putdata) {
 	});
 
 }
+//确认并调整
+function tiaozqr(dangq, guid) {
+	//console.log(dangq,guid);
+	var cont = "<div>" +
+		"<p class='cgl-dqdj'>" + dangq + "</p>" +
+		"<div class='cgl-tiaoz'>调整至" +
+		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +
+		"<div id='cgl-tjbz'>" +
+		"<h4>备注</h4>" +
+		"<textarea></textarea>" +
+		"</div>" +
+		"<div class='cgl-antz'><span class='cgl-close cgl-ciyao'>取消</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>" +
+		"</div>";
+
+	var index = layer.open({
+		type: 5,
+		title: "调整并确认",
+		area: ['960px', 'auto'],
+		content: cont
+	});
+	layer.full(index);
+	fnclose(index);
+	$(".cgl-tiaoz").find("option:first").remove();
+	//等级调整确认事件
+	$("#cgl-qrtz").click(function() {
+		var djjson = {
+			"level": $(".cgl-tiaoz").find("option:selected").html(),
+			"description": $("#cgl-tjbz").find("textarea").val(),
+			"anticheatingids": guid
+		};
+		if(djjson.description == "") {
+			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+			return false;
+		} else{
+			$('.layui-layer-close').click();
+			$(".cgl-jzz").html("加载中，请稍后···").show();
+			$.ajax({
+				type: "put",
+				url: "/webapi/earlywarningmanage/anticheating/levelchanged",
+				data: djjson,
+				error: function() {
+					$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+				},
+				success: function(data) {
+					//console.log(data);
+					if(data.error) {
+						$(".layui-layer-shade").remove();
+						$(".layui-layer").remove();
+						alert(data.error);
+					}
+					if(data.succeed) {
+						fnshijian(state);
+						$(".cgl-jzz").html("操作成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+					}
+				}
+			});
+		}
+
+	});
+}
 //全选单选事件
 function fnchec() {
 	$("#cgl-table").on("click", "#checall", function() {
@@ -1006,7 +1104,7 @@ function fnguid() {
 //四个按钮事件
 function fnanniu() {
 	$("#cgl-qrwg1").click(function() {
-		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
+		/*if($("#cgl-tbody").find(".thechec:checked").length == 0) {
 			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else if($("#cgl-tbody").find(".cgl-td12").html() == "确认违规") {
 			$(".cgl-jzz").html("已经是当前状态").fadeIn(500).delay(1000).fadeOut(100);
@@ -1018,6 +1116,30 @@ function fnanniu() {
 				"anticheatingids": guid
 			};
 			querenwg_add(putdata);
+		}*/
+		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
+			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+		} else {
+			var guid = fnguid();
+			//console.log(guid.split(","));
+			var checlist = $(".thechec:checked");
+			var isduo="";
+			for(var i=1;i<checlist.length;i++){
+				if(checlist.eq(i).find(".cgl-td6").html()!=checlist.eq(0).find(".cgl-td6").html()){
+					isduo="多个等级";
+					return false;
+				}else{
+					isduo="";
+				}
+			}
+			if(guid.split(",").length==1){
+				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
+			}else if(isduo=="多个等级"){
+				tiaozqr("当前违规等级<span>（"+isduo+"）</span>", guid);
+			}else{
+				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
+			}
+			
 		}
 	});
 	$("#cgl-jcwg1").click(function() {
@@ -1099,55 +1221,7 @@ function fnwgjlzt(putdata) {
 		}
 	});
 }
-var data = {
-		"original_level": "Lv2", //原始等级
-		"arithmetic": { //天平分析
-			"value1": 1.154585,
-			"value2": 1.154585,
-			"value3": 1.154585,
-			"value4": 1.154585,
-			"value5": 1.154585,
-			"value6": 1.154585,
-			"value7": 1.154585,
-		},
-		"verifylist": [ //核销记录
-			{
-				"guid": "4132131",
-				"issuetime": "2017-11-11", //核销时间
-				"verifymoney": "22", //核销金额
-				"verifynum": "556", //核销数量
-				"verifyip": "8785", //核销IP
-				"consumername": "程广亮", //消费者
-				"retailername": "assault", //门店名称
-				"activitytitle": "促销", //活动名称
-				"itemkind": "飒飒的", //超惠卷类型
-				"verifymodename": "撒飒飒", //核销方式
-				"ruletext": "撒的撒", //优惠内容
-			}, {
-				"guid": "4132131",
-				"issuetime": "2017-11-11", //核销时间
-				"verifymoney": "22", //核销金额
-				"verifynum": "556", //核销数量
-				"verifyip": "8785", //核销IP
-				"consumername": "程广亮", //消费者
-				"retailername": "assault", //门店名称
-				"activitytitle": "促销", //活动名称
-				"itemkind": "飒飒的", //超惠卷类型
-				"verifymodename": "撒飒飒", //核销方式
-				"ruletext": "撒的撒", //优惠内容
-			}
-		],
-		"breakrulesrecord": [{
-			"issuetime": "2016", //违规时间
-			"breakruleslevel": "lv2", //违规等级
-			"measures": "的干豆腐干豆腐" //处罚措施
-		}, {
-			"issuetime": "2016",
-			"breakruleslevel": "lv1",
-			"measures": "地方干豆腐干豆腐干"
-		}]
-	}
-	//违规原因核销记录
+//违规原因核销记录
 function fnweigyy() {
 	$("#cgl-tbody").on("click", ".cgl-td7>a", function() {
 				var cont = "",
