@@ -546,7 +546,7 @@ span.name {
 .table1 .djtd1{width: 182px;}
 .table1 .djtd2{width: 89px;}
 .table1 .djtd3{text-align: left;text-indent: 20px;}
-.yycont>.table2{height: 288px;overflow: auto;}
+.yycont>.table2{max-height: 288px;overflow: auto;}
 .table2 .jltd1{width: 60px;}
 .table2 .jltd2{width: 90px;}
 .table2 .jltd3{width: 99px;}
