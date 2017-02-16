@@ -581,8 +581,7 @@ div.acZige:before{
 }
 .hdc2 .select-wrap{
 	width:128px;
-	/*box-sizing: border-box;*//*啦啦啦*/	
-    display: none;	
+	/*box-sizing: border-box;*//*啦啦啦*/		
 }
 .hdc3 .select-wrap{
 	width:124px;
@@ -663,38 +662,10 @@ div.acZige:before{
     height: 40px;
     line-height: 40px;
     border: 1px solid #c0c0c0;
-    padding: 2px 7px;
+    /*padding: 2px 7px;*/
     box-sizing: border-box;
     color: #84a6d6;
     border-radius: 2px;
-}
-/*0215新加*/
-.subsidyCondition{
-	width: 165px;
-    height: 40px;
-    border: 1px solid #c0c0c0;
-    line-height: 17px;
-    padding: 2px 7px;
-    box-sizing: border-box;
-    color: #84a6d6;
-    border-radius: 2px;	   
-    font-size: 12px;
-    overflow: hidden;    
-    display: flex;    
-	justify-content: center;
-	align-items:center; 
-	flex-direction:column;    
-}
-.subsidyCondition a{
-/*    width: 165px;
-    height: 40px;
-    border: 1px solid #c0c0c0;
-    line-height: 17px;
-    padding: 2px 7px;
-    box-sizing: border-box;
-    color: #84a6d6;
-    border-radius: 2px;	   
-    font-size: 12px;*/
 }
 
 .hdc5{
