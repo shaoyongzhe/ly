@@ -100,6 +100,7 @@ function fnmore() {
 			$("#cgl-more").find("span").html("没有更多数据")
 		} else {
 			$(".cgl-jzz").html("加载中，请稍后···").show();
+			console.log(state.lastindex)
 			$.ajax({
 				type: "get",
 				url: "/webapi/earlywarningmanage/anticheating/getlist",
@@ -130,7 +131,7 @@ function fnmore() {
 							"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 							"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 							"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
-							"<td class='cgl-td12'>" + odata[k1]["dealtstate"] + "</td>" +
+							"<td class='cgl-td12'>" + $(".stateon>span").text() + "</td>" +
 							"<td class='cgl-td13'></td>" +
 							"</tr>";
 					}
@@ -929,7 +930,7 @@ function tiaoz_add(dangq, guid) {
 	//console.log(dangq,guid);
 	var cont = "<div>" +
 		"<p class='cgl-dqdj'>" + dangq + "</p>" +
-		"<div class='cgl-tiaoz'>调整违规等级" +
+		"<div class='cgl-tiaoz'>调整至" +
 		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +
 		"<div id='cgl-tjbz'>" +
 		"<h4>备注</h4>" +
@@ -956,6 +957,9 @@ function tiaoz_add(dangq, guid) {
 		};
 		if(djjson.description == "") {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+			return false;
+		}else if($(".cgl-dqdj>span").html().replace(/[^0-9]/ig, "")==djjson.level.replace(/[^0-9]/ig, "")){
+			$(".cgl-jzz").html("不可调整至原等级").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
 			$('.layui-layer-close').click();
@@ -1043,7 +1047,7 @@ function tiaozqr(dangq, guid) {
 		if(djjson.description == "") {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
-		} else{
+		} else if($(".cgl-dqdj>span").html().replace(/[^0-9]/ig, "")!=djjson.level.replace(/[^0-9]/ig, "")){
 			$('.layui-layer-close').click();
 			$(".cgl-jzz").html("加载中，请稍后···").show();
 			$.ajax({
@@ -1066,6 +1070,15 @@ function tiaozqr(dangq, guid) {
 					}
 				}
 			});
+		}else{
+			$('.layui-layer-close').click();
+			$(".cgl-jzz").html("加载中，请稍后···").show();
+			var putdata = {
+				"dealtstate": "确认违规",
+				"description": $("#cgl-tjbz").find("textarea").val(),
+				"anticheatingids": guid
+			};
+			fnwgjlzt(putdata);
 		}
 
 	});
@@ -1125,21 +1138,21 @@ function fnanniu() {
 			var checlist = $(".thechec:checked");
 			var isduo="";
 			for(var i=1;i<checlist.length;i++){
-				if(checlist.eq(i).find(".cgl-td6").html()!=checlist.eq(0).find(".cgl-td6").html()){
+				if(checlist.eq(i).parents("tr").find(".cgl-td6").html()!=checlist.eq(0).parents("tr").find(".cgl-td6").html()){
+					
 					isduo="多个等级";
-					return false;
+					break;
 				}else{
 					isduo="";
 				}
 			}
 			if(guid.split(",").length==1){
-				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
+				tiaozqr("当前违规等级<span>（"+checlist.eq(0).parents("tr").find(".cgl-td6").html()+"）</span>", guid);
 			}else if(isduo=="多个等级"){
 				tiaozqr("当前违规等级<span>（"+isduo+"）</span>", guid);
 			}else{
-				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
+				tiaozqr("当前违规等级<span>（"+checlist.eq(0).parents("tr").find(".cgl-td6").html()+"）</span>", guid);
 			}
-			
 		}
 	});
 	$("#cgl-jcwg1").click(function() {
@@ -1166,8 +1179,24 @@ function fnanniu() {
 			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else {
 			var guid = fnguid();
-			//console.log(guid);
-			tiaoz_add("", guid);
+			//console.log(guid.split(","));
+			var checlist = $(".thechec:checked");
+			var isduo="";
+			for(var i=1;i<checlist.length;i++){
+				if(checlist.eq(i).parents("tr").find(".cgl-td6").html()!=checlist.eq(0).parents("tr").find(".cgl-td6").html()){
+					isduo="多个等级";
+					break;
+				}else{
+					isduo="";
+				}
+			}
+			if(guid.split(",").length==1){
+				tiaoz_add("当前违规等级<span>（"+checlist.eq(0).parents("tr").find(".cgl-td6").html()+"）</span>", guid);
+			}else if(isduo=="多个等级"){
+				tiaoz_add("当前违规等级<span>（"+isduo+"）</span>", guid);
+			}else{
+				tiaoz_add("当前违规等级<span>（"+checlist.eq(0).parents("tr").find(".cgl-td6").html()+"）</span>", guid);
+			}
 		}
 
 	});
@@ -1188,7 +1217,7 @@ function fnanniu() {
 }
 //改变违规记录状态
 function fnwgjlzt(putdata) {
-	//console.log(putdata)
+	console.log(putdata)
 	$('.layui-layer-close').click();
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
