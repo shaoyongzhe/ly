@@ -1387,5 +1387,4 @@ $(function() {
 	fnweigyy(); //违规原因核销记录
 	comSelect(); // 地区下拉调用
 	selectCity(); //城市调用
-
 });
