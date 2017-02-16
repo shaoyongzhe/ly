@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-23 21:28:34
+ * @Last Modified time: 2017-02-10 11:35:12
  */
 
 
@@ -336,7 +336,6 @@ function getList(curr, handle, searchForm) {
                             } else {
                                 var c = td[i].push_retailer = ""
                             };
-
                             var areastring = "";
                             var provinces = td[i].area;
                             var array = [];
@@ -366,7 +365,6 @@ function getList(curr, handle, searchForm) {
                             tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td title='" + td[i].copywriting + "'><span class='content'>" + td[i].copywriting + "</span></td><td>" + "<span>" + b + "</span>" + "<span>" + c + "</span>" +
                                 "<span>" + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" + ProcessDate1(td[i].pushtime) + "><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
                         }
-                        
                         // 如果没有数据
                     } else {
                         // 锁定
@@ -476,18 +474,18 @@ function getSearch() {
     var shi_val = "";// + ',';
     var qu_val = "";//;
 
-    if ($('.gf-select span em:eq(0)').text() == '省份') {
+    if ($('.gf-select span em:eq(0)').text() == '省份'||'省') {
         sheng_val = "";
     }else{
         sheng_val = $('.gf-select span em:eq(0)').text();
     }
 
-    if ($('.gf-select span em:eq(1)').text() == '城市') {
+    if ($('.gf-select span em:eq(1)').text() == '城市'||'市') {
         shi_val = "";
     }else{
         shi_val =  ',' + $('.gf-select span em:eq(1)').text();
     }
-    if ($('.gf-select span em:eq(2)').text() == '区县') {
+    if ($('.gf-select span em:eq(2)').text() == '区县'||'县') {
         qu_val = "";
     }else
     {
@@ -885,7 +883,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj["area"].length; i++) {
                 var areaobj1 = areaobj["area"][i];
                 // console.log(areaobj1.name);
-                if (areaobj1.name == '全国') {
+                if (areaobj1.name == 'fullcountry' || areaobj1.name == '全国') {
                     areaobj1.name = '全国';
                 }
             }
@@ -898,7 +896,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj.area.length; i++) {
                 // debugger
                 var area = areaobj.area[i];
-                if (area.name == '全国') {
+                if (area.name == 'fullcountry' || area.name == '全国') {
                     area.name = '全国';
                 }
                 // debugger
@@ -1373,7 +1371,7 @@ $('.examine1_preview').click(function() {
         var index = layer.open({
             type: 1,
             title: '预览',
-            area: ['51.3%', "100%"],
+            area: ['61.3%', "100%"],
             // maxmin: true,
             content: '<div class="Text_Title">' +
                 '<div class="Float_Title">文案标题</div>' +
@@ -1383,7 +1381,6 @@ $('.examine1_preview').click(function() {
                 '<div class="Float_Title">发送地区</div>' +
                 '<div class="Float_text">' + areastring + '</div>' +
                 '</div>' +
-
                 '<div class="Text_Title">' +
                 '<div class="Float_Title">发送对象</div>' +
                 '<div class="Float_text">' + form_value.send_object + '</div>' +
@@ -1905,7 +1902,7 @@ $('table.notify').on('click', '.detailed', function() {
             var index = layer.open({
                 type: 1,
                 title: '详情',
-                area: ['57.3%', "100%"],
+                area: ['68.3%', "100%"],
                 // maxmin: true,
                 content: '<input type="hidden" id="guid_val" value="' + guid + '">' +
                     '<input type="hidden" id="state_val" value="' + state + '">' +
@@ -1920,7 +1917,7 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div style="float:left" class="Float_Title">发送地区</div>' +
-                    '<div class="Float_text">' +
+                    '<div class="Float_text area_text">' +
                     areastring +
                     '</div></div>' +
 
