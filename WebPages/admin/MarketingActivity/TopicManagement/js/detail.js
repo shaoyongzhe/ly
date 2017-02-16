@@ -24,7 +24,7 @@ function render(detailData){
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	first.find('.guid').text(activity.activitycode);
+	first.find('.guid').html(activity.activitycode + "<i style='color:#fff'>"+ activity.guid +"</i>");
 	// first.find('.guid').text(activity.guid);
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
@@ -238,6 +238,10 @@ function render(detailData){
 				btduixiang = '门店店员'
 				break;
 
+			case "retailer_employee":
+				btduixiang = '门店店员'
+				break;
+
 			case "consumer":
 				btduixiang = '消费者'
 				break;
@@ -329,6 +333,8 @@ function render(detailData){
 				break;
 
 		}*/
+
+		console.log(butie[i].event)
 
 		// debugger
 		var danwei = "";

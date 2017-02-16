@@ -8,35 +8,30 @@ var topicactivity_id='';//存储的当前显示主题活动的id
 var CbdDimgArr=["img/c7.png","img/c8.png"];//笑脸图标数组
 var CimgArr2=["img/a4.png","img/a3.png"];//对勾数组
 
-var isReceivedUpdateMatchedTopics=false;//0207,判断是否接收到经销宝数据
-var UpdateMatchedTopicsBol=true;//0207,只接收一次指令
+var isReceivedUpdateMatchedTopics=false;//0207,判断是否接收到经销宝数�?
+var UpdateMatchedTopicsBol=true;//0207,只接收一次指�?
 
 /*url截取*/
 var UrlKeyValueData=getUrlKeyValue();
 main();
 function main(){
-	/*url检测*/
-    if($.isEmptyObject(UrlKeyValueData)){//如果是空对象，返回	    	
+	/*url检�?/
+    if($.isEmptyObject(UrlKeyValueData)){//如果是空对象，返�?    	
     	return;
     }
     /*是否有经销商id*/
-    //在此只检测distributor_id，activity_idsArr需要在后面检测
-	if(UrlKeyValueData.distributor_id==undefined||UrlKeyValueData.distributor_id==""||UrlKeyValueData.distributor_id==" "||UrlKeyValueData.distributor_id==null){//如果经销商不合法，返回
+    //在此只检测distributor_id，activity_idsArr需要在后面检�?
+	if(UrlKeyValueData.distributor_id==undefined||UrlKeyValueData.distributor_id==""||UrlKeyValueData.distributor_id==" "||UrlKeyValueData.distributor_id==null){//如果经销商不合法，返�?
 		return;
 	}
 	UrlDistributorIDRefresh();	
 }
 function UrlDistributorIDRefresh(){
-	if(UrlKeyValueData.activity_id!=undefined){
-		Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);	//如果UrlKeyValueData.activity_id为undefined也用此。已总结。		
-	}
-	else{
-		Cajax(UrlKeyValueData.distributor_id);
-	}
+	Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);	//如果UrlKeyValueData.activity_id为undefined也用此。已总结�?
 }
 
 engine.on('UpdateMatchedTopics', UpdateMatchedTopics, this)
-function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是重新给allActivity赋值的过程。
+function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是重新给allActivity赋值的过程�?
 	isReceivedUpdateMatchedTopics=true;
     if(arguments.length<1){
 		console.log('缺少参数');
@@ -46,7 +41,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		allActivity=JSON.parse(arguments[0]);	
 		console.log("UpdateMatchedTopics出现",allActivity);
 		if(allActivity==undefined||allActivity==null||allActivity==''||allActivity==[]||allActivity.content==[]||allActivity.content==undefined||allActivity.content.length==0){
-			console.log('活动列表为空，无法展示指定活动', {icon: 5});
+			console.log('活动列表为空，无法展示指定活�?, {icon: 5});
 			return;
 		}		
 		ajaxSucFn(allActivity.content[0]);
@@ -58,7 +53,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 }
 
 function Cajax(m,a,b){
-	console.log("ajax开始")
+	console.log("ajax开�?)
 	$.ajax({
 		type:"get",//0121更新为post
 		dataType:'json',	
@@ -82,7 +77,7 @@ function Cajax(m,a,b){
 				return;
 			}
 			if(data.content==undefined){
-//				layer.alert('数据结构变化，请通知管理员', {icon: 5});
+//				layer.alert('数据结构变化，请通知管理�?, {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
 				})
@@ -127,10 +122,8 @@ function Cajax(m,a,b){
 
 
 
-function ajaxSucFn(info){//ajax成功回调里调用
+function ajaxSucFn(info){//ajax成功回调里调�?
 //	debugger;
-	var jjjj=info;
-	console.log(jjjj);
 	if(info.match){//处理不规范的后台数据,
 		info.matched=info.match;		
 	}	
@@ -139,16 +132,16 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	
 	if(info.matched){
 		$(".CbdD2P1").text("您已达到活动条件");
-		$(".CbdD2P2").text("马上可以赚补贴喽！");
+		$(".CbdD2P2").text("马上可以赚补贴喽�?);
 		$(".Cccondition").hide();//1228加入
 	}else{
 		$(".CbdD2P1").text("您差一点点");
-		$(".CbdD2P2").text("就可以赚补贴喽");
+		$(".CbdD2P2").text("就可以赚补贴�?);
 		$(".Cccondition").show();
 	}
 	$(".CcBigTitle").text(info.post);
 	$(".CcSmallTitle").text(info.activitytitle);
-	//*******数据规范后考虑删除开始
+	//*******数据规范后考虑删除开�?
 	if(info.budget==undefined&&info.budget==null){
 		info.budget={};
 	}
@@ -198,8 +191,8 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	//活动补贴说明具体内容
 	$(".CccDescriptionCon").empty();
 	var typeCounts=0
-	//分销商
-	if(info.subsidydescription.distributor!=undefined){
+	//分销�?
+	if(info.subsidydescription.distributor){
 		typeCounts++;
 		var text1="";
 		for(m=0;m<info.subsidydescription.distributor.length;m++){
@@ -214,7 +207,7 @@ function ajaxSucFn(info){//ajax成功回调里调用
 				}	
 			}
 		}
-		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、分销商 : </strong><span>'+text1+'</span></p>');				
+		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、分销�?: </strong><span>'+text1+'</span></p>');				
 	}
 	//门店
 	if(info.subsidydescription.retailer){
@@ -232,9 +225,9 @@ function ajaxSucFn(info){//ajax成功回调里调用
 				}	
 			}
 		}
-		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、门店 : </strong><span>'+text1+'</span></p>');
+		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、门�?: </strong><span>'+text1+'</span></p>');
 	}
-	//消费者
+	//消费�?
 	if(info.subsidydescription.consumer){
 //		debugger;
 		typeCounts++;
@@ -251,7 +244,7 @@ function ajaxSucFn(info){//ajax成功回调里调用
 				}	
 			}
 		}
-		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、消费者 : </strong><span>'+text1+'</span></p>');
+		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、消费�?: </strong><span>'+text1+'</span></p>');
 	}
 }
 $(".footerCkxq").click(function(){
@@ -299,13 +292,13 @@ function isReceivedID(){
 //			console.log('缺少活动id');			
 //		}
 		if(isReceivedUpdateMatchedTopics==false){
-			console.log('缺少经销宝传来数据');	
+			console.log('缺少经销宝传来数�?);	
 		}
 		clearTimeout(isReceivedIDTime);
 	}
 }*/
 //alert(8)
-/*调试用代码*/
+/*调试用代�?/
 //$("body").on("mouseenter",".footerCkxq",function(){
 //	console.log('OnShowDetailClick',topicactivity_id);
 //})
@@ -338,7 +331,7 @@ $(".CcButieRight").click(function(){
 //	}else{
 //		$(".CcButieRight").hide();
 	}	
-	if(allActivityNum<=0){//注意不能写在上面的eles中
+	if(allActivityNum<=0){//注意不能写在上面的eles�?
 		$(".CcButieRight").hide();
 	}
 	if(allActivityNum<allActivity.content.length-1){
