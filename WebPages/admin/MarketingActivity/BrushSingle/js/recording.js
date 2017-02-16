@@ -1071,7 +1071,7 @@ function tiaozqr(dangq, guid) {
 				}
 			});
 		}else{
-			$('.layui-layer-close').click();
+			
 			$(".cgl-jzz").html("加载中，请稍后···").show();
 			var putdata = {
 				"dealtstate": "确认违规",
@@ -1079,6 +1079,7 @@ function tiaozqr(dangq, guid) {
 				"anticheatingids": guid
 			};
 			fnwgjlzt(putdata);
+			$('.layui-layer-close').click();
 		}
 
 	});
