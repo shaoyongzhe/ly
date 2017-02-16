@@ -38,7 +38,10 @@ html, body {
   visibility: hidden; }
 
 .iScrollIndicator {
-  background: rgba(255, 173, 51, 0.1) !important; }
+  background: rgba(255, 173, 51, 0.3) !important; }
+
+.iScrollVerticalScrollbar {
+  width: 8px !important; }
 
 header {
   background: #4e9fee;
@@ -118,11 +121,11 @@ header img:nth-of-type(2) {
   line-height: 30px;
   vertical-align: middle; }
 
-.BreList {
+.returnToList {
   width: 145px;
   cursor: pointer; }
 
-.BreList p {
+.returnToList p {
   vertical-align: middle;
   width: 143px;
   height: 30px;
@@ -450,7 +453,7 @@ header img:nth-of-type(2) {
   margin-left: 0px; }
 
 .btsmP1 {
-  width: 70px;
+  width: 90px;
   height: 25px;
   color: #fff;
   font-family: "微软雅黑";
@@ -471,8 +474,8 @@ header img:nth-of-type(2) {
   font-size: 14px;
   color: #333;
   line-height: 24px;
-  padding: 3px 9px 4px 8px;
-  word-break: break-all; }
+  padding: 3px 15px 4px 15px;
+  box-sizing: border-box; }
 
 .BwrapDown {
   box-sizing: content-box;
@@ -669,12 +672,12 @@ a.less {
     height: 30px;
     line-height: 30px; }
 
-  .BreList {
+  .returnToList {
     width: 145px;
     cursor: pointer;
     display: none; }
 
-  .BreList p {
+  .returnToList p {
     width: 143px;
     height: 30px;
     line-height: 30px;
@@ -901,7 +904,7 @@ a.less {
     margin-left: 0px; }
 
   .btsmP1 {
-    width: 70px;
+    width: 90px;
     height: 25px;
     font-size: 14px;
     line-height: 25px; }

@@ -21,7 +21,7 @@ var state = {
 	pagecount: "50" //要查询的数据条数
 };
 
-if(sessionStorage.state) {
+if(sessionStorage.state && sessionStorage.state.state != "") {
 	state = JSON.parse(sessionStorage.state);
 } else {
 	state = {
@@ -60,12 +60,12 @@ function fnxuanran(data) {
 			"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 			"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 			"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看核销记录</a></td>" +//查看违规原因***********************************************
+			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看核销记录</a></td>" + //查看违规原因***********************************************
 			"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 			"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 			"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
-			"<td class='cgl-td12'>" + odata[k1]["dealtstate"] + "</td>" +
+			"<td class='cgl-td12'>" + $(".stateon>span").text() + "</td>" +
 			"<td class='cgl-td13'></td>" +
 			"</tr>";
 	}
@@ -149,12 +149,11 @@ function fnmore() {
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
-	$("#cgl-weicl").html("<strong>未处理</strong>（<i>" + odata["weichuli"] + "</i>）条");
-	$("#cgl-shensuz").html("<strong>申诉中</strong>（<i>" + odata["shensuzhong"] + "</i>）条");
-	$("#cgl-qrwg").html("<strong>确认违规</strong>（<i>" + odata["querenweigui"] + "</i>）条");
-	$("#cgl-chufaz").html("<strong>处罚中</strong>（<i>" + odata["chufazhong"] + "</i>）条");
-	$("#cgl-yijies").html("<strong>已结束</strong>（<i>" + odata["yijieshu"] + "</i>）条");
-	$("#cgl-jiechuwg").html("<strong>解除违规</strong>（<i>" + odata["jiechuweigui"] + "</i>）条");
+	$(".weiqueren").find("i").text(odata.weichuli);
+	$(".shensuz").find("i").text(odata.shensuzhong);
+	$(".chufaz").find("i").text(odata.chufazhong);
+	$(".yijiesu").find("i").text(odata.yijieshu);
+	$(".jiechu").find("i").text(odata.jiechuweigui);
 	fnjilu();
 }
 //查询条件改变事件
@@ -197,6 +196,26 @@ function fnshijian(state) {
 		}
 	});
 }
+//不同状态下四个按钮的显示
+function fnanniu4() {
+	$(".cgl-anniu").find("span").hide();
+	if(state.state == "未处理") {
+		$("#cgl-qrwg1").show();
+		$("#cgl-jcwg1").show();
+	} else if(state.state == "申诉中") {
+		$("#cgl-tzwg1").show();
+		$("#cgl-jcwg1").show();
+	} else if(state.state == "处罚中") {
+		$("#cgl-tzwg1").show();
+		$("#cgl-jcwg1").show();
+		$("#cgl-fstz1").show();
+	} else if(state.state == "已结束") {
+
+	} else if(state.state == "解除违规") {
+		$("#cgl-qrwg1").show();
+		$("#cgl-tzwg1").show();
+	}
+}
 //时间重置
 function Fndate() {
 	var d = new Date();
@@ -210,38 +229,20 @@ function Fndate() {
 
 //记录状态
 function fnjilu() {
-	if(state.state == "确认违规" || state.state == "解除违规" || state.state == "处罚中" || state.state == "已结束") {
-		$("i", ".xze1>div:eq(0)").removeClass("cgl-on");
-		$("i", ".xze1>div:eq(1)").addClass("cgl-on");
-		$(".ztai>.cgl-wgui:eq(0)").css({
-			"display": "none"
-		});
-		$(".ztai>.cgl-wgui:eq(1)").css({
-			"display": "block"
-		});
-		$(".cgl-con1").each(function() {
-			if($(">strong", this).text() == state.state) {
-				$(".cgl-con").html($(this).html())
-			}
-		})
+	if(state.state == "解除违规" || state.state == "处罚中" || state.state == "已结束") {
+		$(".xze1>li").removeClass("clicon").eq(1).addClass("clicon");
+		$(".xzcont>div").hide().eq(1).show();
 	} else if(state.state == "未处理" || state.state == "申诉中") {
-		$("i", ".xze1>div:eq(1)").removeClass("cgl-on");
-		$("i", ".xze1>div:eq(0)").addClass("cgl-on");
-		$(".ztai>.cgl-wgui:eq(1)").css({
-			"display": "none"
-		});
-		$(".ztai>.cgl-wgui:eq(0)").css({
-			"display": "block"
-		});
-		$(".cgl-con1").each(function() {
-			if($(">strong", this).text() == state.state) {
-				$(".cgl-con").html($(this).html())
-			}
-		})
+		$(".xze1>li").removeClass("clicon").eq(0).addClass("clicon");
+		$(".xzcont>div").hide().eq(0).show();
 	}
+	$(".xzcont>div>div").each(function(i) {
+		if($(this).attr("state") == state.state) {
+			$(this).addClass("stateon").siblings().removeClass("stateon");
+		}
+	});
 	$("#cgl-cxdata").val(state.querybegindate);
 	$("#cgl-cxdata1").val(state.queryenddate);
-
 	state.province == "" ? $("#province>span>em").html("省") : $("#province>span>em").html(state.province);
 	state.city == "" ? $("#city>span>em").html("市") : $("#city>span>em").html(state.city);
 	state.county == "" ? $("#area>span>em").html("区") : $("#area>span>em").html(state.county);
@@ -274,38 +275,33 @@ function fnjilu() {
 }
 //处理与待处理
 function fnxze1() {
-	$(".xze1>div").on("click", function() {
-		$(".xze1 i").removeClass("cgl-on");
-		$("i", this).addClass("cgl-on");
-		$(".ztai>div").css({
-			"display": "none"
-		}).eq($(this).index()).css({
-			"display": "block"
+	$(".xze1>li").on("click", function() {
+		$(this).addClass("clicon").siblings().removeClass("clicon");
+		state["state"] = $("span", this).text();
+		$(".xzcont>div>div").removeClass("stateon");
+		$(".xzcont>div>div").each(function(i) {
+			if($(this).attr("state") == state.state) {
+				$(this).addClass("stateon");
+			}
 		});
-		state["state"] = $(".ztai>.cgl-wgui:visible .cgl-con1:eq(0)>strong").html();
+		$(".xzcont>div").hide().eq($(this).index()).show();
 		state["lastindex"] = 0;
 		fnshijian(state);
 		sessionStorage.setItem("state", JSON.stringify(state));
+		fnanniu4();
 	});
 }
-
 //模拟下拉菜单
 function fnxiala() {
-	$(".ztai").on("click", ".cgl-wgui", function() {
-		$(">ul", this).toggle();
-	}).find("li>.cgl-con1").click(function() {
-		$(".cgl-con").html($(this).html());
+	$(".xzcont").on("click", ">div>div", function() {
+		$(this).addClass("stateon").siblings().removeClass("stateon");
 		state["lastindex"] = 0;
-		state["state"] = $(".cgl-wgui>.cgl-con>strong", ".ztai").html();
+		state["state"] = $(this).attr("state");
+		console.log(state)
 		fnshijian(state);
 		sessionStorage.setItem("state", JSON.stringify(state));
+		fnanniu4();
 	});
-	$(document).click(function(e) {
-		if(!$(e.target).closest(".cgl-wgui").length) {
-			$(".cgl-wgui>ul").hide();
-		}
-	});
-
 }
 //选择日期
 function fndate() {
@@ -539,16 +535,23 @@ function fncaozuo() {
 		$(".cgl-td13").html("");
 		attr = "";
 		attr += "<div><ul>" +
-			"<li class='xiangxi'>详细</li>" +
-			"<li class='fasong'>发送通知</li>" +
-			"<li class='tiaoz'>调整违规等级</li>";
-		if(td12 == "确认违规") {
+			"<li class='xiangxi'>详细</li>";
+		if(td12 == "确认违规处罚中") {
+			attr += "<li class='fasong'>发送通知</li>";
+		}
+		if(td12 == "确认违规处罚中" || td12 == "解除违规" || td12 == "申诉中") {
+			attr += "<li class='tiaoz'>调整违规等级</li>";
+		}
+		if(td12 == "确认违规处罚中") {
 			attr += "<li class='vipshensu'>会员申诉</li>";
 		}
-		if(td12 == "解除违规" || td12 == "未处理" || td12 == "申诉中") {
-			attr += "<li class='queren'>确认违规</li>";
+		if(td12 == "申诉中") {
+			attr += "<li class='vipbohui'>驳回申诉</li>";
 		}
-		if(td12 == "确认违规" || td12 == "申诉中") {
+		if(td12 == "解除违规" || td12 == "未确认") {
+			attr += "<li class='queren'>调整并确认</li>";
+		}
+		if(td12 == "未确认" || td12 == "申诉中" || td12 == "确认违规处罚中") {
 			attr += "<li class='jiechuwg'>解除违规</li>";
 		}
 		attr +=
@@ -574,7 +577,15 @@ function fncaozuo() {
 			"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
-		querenwg_add(putdata);
+		//querenwg_add(putdata);
+		tiaozqr("当前违规等级<span>（" + $(this).parents("tr").find(".cgl-td6").html() + "）</span>", $(this).parents("tr").attr("gu-id"));
+	}).on("click", ".vipbohui", function() {
+		var putdata = {
+			"dealtstate": "驳回申诉",
+			"description": "",
+			"anticheatingid": $(this).parents("tr").attr("gu-id")
+		};
+		fnbohui(putdata);
 	});
 	$(document).click(function(e) {
 		if(!$(e.target).closest(".cgl-td13").length) {
@@ -611,8 +622,8 @@ function article_add(that) {
 		"<li><h4>违规原因</h4><p>" + $(".cgl-td7", parents).text() + "</p></li>" +
 		"<li><h4>处罚措施</h4><p>" + $(".cgl-td8", parents).text() + "</p></li>" +
 		"<li><h4>处罚周期</h4><p class='cgl-xxcfzq'>" + $(".cgl-td9", parents).html() + "</p></li>" +
-		"<li><h4>刷单金额</h4><p>" + $(".cgl-td10", parents).text() + "</p></li>" +
-		"<li><h4>扣款金额</h4><p>" + $(".cgl-td11", parents).text() + "</p></li>" +
+		"<li><h4>刷单金额</h4><p>￥ " + Number($(".cgl-td10", parents).text()).toFixed(2) + "</p></li>" +
+		"<li><h4>扣款金额</h4><p>￥ " + Number($(".cgl-td11", parents).text()).toFixed(2) + "</p></li>" +
 		"</ul>" +
 		"</li>" +
 		"<li class='cgl-li5'>" +
@@ -676,26 +687,35 @@ function article_add(that) {
 			fnfstz(fstz);
 		}
 		if($(this).text() == "调整违规等级") {
-			tiaoz_add("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid)
+			tiaoz_add("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid);
 		}
 		if($(this).text() == "会员申诉") {
 			vipshensu_add(parents);
 		}
-		if($(this).text() == "确认违规") {
+		if($(this).text() == "调整并确认") {
 			var putdata = {
 				"dealtstate": "确认违规",
 				"weiguidengji": $(".cgl-td6", parents).text().replace(/[^0-9]/ig, ""),
 				"anticheatingids": guid
 			};
-			querenwg_add(putdata);
+			//querenwg_add(putdata);
+			tiaozqr("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid)
 		}
 		if($(this).text() == "解除违规") {
 			var putdata = {
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
-
 			};
 			jiechuwg_add(putdata);
+		}
+		if($(this).text() == "驳回申诉") {
+			var putdata = {
+				"dealtstate": "驳回申诉",
+				"description": "",
+				"anticheatingids": $(this).parents("tr").attr("gu-id")
+			};
+			console.log(putdata)
+			fnbohui(putdata);
 		}
 	})
 }
@@ -790,6 +810,63 @@ function vipshensu_add(parents) {
 		}
 	});
 }
+//驳回申诉
+function fnbohui(putdata) {
+	var cont = "<div>" +
+		"<p style='padding:30px 0 72px 0;text-align:center;font-size:18px;'>驳回后，将恢复确认违规，违规等级不变。</P>" +
+		"<div class='cgl-antz'><span class='cgl-qrwgqx'>取消</span><span class='cgl-import cgl-qrwgqr'>确定</span></div>" +
+		"</div>";
+	var index = layer.open({
+		type: 5,
+		title: "驳回申诉",
+		area: ['500px', 'auto'],
+		content: cont
+	});
+	layer.full(index);
+	$(".cgl-qrwgqx").on("click", function() {
+		layer.close(index);
+	});
+	$(".cgl-qrwgqr").on("click", function() {
+		console.log(putdata)
+		fnbohuiapi(putdata);
+	});
+}
+//驳回申诉接口
+function fnbohuiapi (putdata) {
+	$('.layui-layer-close').click();
+	$(".cgl-jzz").html("加载中，请稍后···").show();
+	$.ajax({
+		type: "put",
+		url: "/webapi/earlywarningmanage/anticheating/dealtshensu",
+		data: putdata,
+		error: function() {
+			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+		},
+		success: function(data) {
+			$(".cgl-jzz").hide();
+			if(data.error) {
+				$('.layui-layer-close').click();
+				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
+			}
+			if(data.succeed) {
+				var guidarr = [putdata.anticheatingid];
+				
+				for(var i = 0; i < guidarr.length; i++) {
+					$("tr").each(function(n) {
+						if($(this).attr("gu-id") == guidarr[i]) {
+							$(this).find(".cgl-td12").html(putdata.dealtstate);
+							$(this).remove();
+							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
+						}
+					});
+				}
+				state["lastindex"] = 0;
+				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
+			}
+		}
+	});
+}
+
 //解除违规
 function jiechuwg_add(putdata) {
 	var cont = "<div>" +
@@ -825,7 +902,6 @@ function jiechuwg_add(putdata) {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
-
 			fnqrjcwg(putdata);
 		}
 	});
@@ -835,7 +911,7 @@ function fnqrjcwg(putdata) {
 	var cont = "<div>" +
 		"<div class='jctext'>确定要解除违规吗？解除后将不能再确认或调整违规，请谨慎操作" +
 		"</div>" +
-		"<div class='cgl-antz'><span class='layui-layer-close'>取消</span><span class='cgl-import querenjc'>确定</span></div>" +
+		"<div class='cgl-antz'><span class='layui-layer-close cgl-ciyao'>取消</span><span class='cgl-import querenjc'>确定</span></div>" +
 		"</div>";
 	var index = layer.open({
 		type: 5,
@@ -934,6 +1010,66 @@ function querenwg_add(putdata) {
 	});
 
 }
+//确认并调整
+function tiaozqr(dangq, guid) {
+	//console.log(dangq,guid);
+	var cont = "<div>" +
+		"<p class='cgl-dqdj'>" + dangq + "</p>" +
+		"<div class='cgl-tiaoz'>调整至" +
+		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +
+		"<div id='cgl-tjbz'>" +
+		"<h4>备注</h4>" +
+		"<textarea></textarea>" +
+		"</div>" +
+		"<div class='cgl-antz'><span class='cgl-close cgl-ciyao'>取消</span><span class='cgl-import' id='cgl-qrtz'>确定</span></div>" +
+		"</div>";
+
+	var index = layer.open({
+		type: 5,
+		title: "调整并确认",
+		area: ['960px', 'auto'],
+		content: cont
+	});
+	layer.full(index);
+	fnclose(index);
+	$(".cgl-tiaoz").find("option:first").remove();
+	//等级调整确认事件
+	$("#cgl-qrtz").click(function() {
+		var djjson = {
+			"level": $(".cgl-tiaoz").find("option:selected").html(),
+			"description": $("#cgl-tjbz").find("textarea").val(),
+			"anticheatingids": guid
+		};
+		if(djjson.description == "") {
+			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+			return false;
+		} else{
+			$('.layui-layer-close').click();
+			$(".cgl-jzz").html("加载中，请稍后···").show();
+			$.ajax({
+				type: "put",
+				url: "/webapi/earlywarningmanage/anticheating/levelchanged",
+				data: djjson,
+				error: function() {
+					$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+				},
+				success: function(data) {
+					//console.log(data);
+					if(data.error) {
+						$(".layui-layer-shade").remove();
+						$(".layui-layer").remove();
+						alert(data.error);
+					}
+					if(data.succeed) {
+						fnshijian(state);
+						$(".cgl-jzz").html("操作成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+					}
+				}
+			});
+		}
+
+	});
+}
 //全选单选事件
 function fnchec() {
 	$("#cgl-table").on("click", "#checall", function() {
@@ -968,7 +1104,7 @@ function fnguid() {
 //四个按钮事件
 function fnanniu() {
 	$("#cgl-qrwg1").click(function() {
-		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
+		/*if($("#cgl-tbody").find(".thechec:checked").length == 0) {
 			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else if($("#cgl-tbody").find(".cgl-td12").html() == "确认违规") {
 			$(".cgl-jzz").html("已经是当前状态").fadeIn(500).delay(1000).fadeOut(100);
@@ -980,6 +1116,30 @@ function fnanniu() {
 				"anticheatingids": guid
 			};
 			querenwg_add(putdata);
+		}*/
+		if($("#cgl-tbody").find(".thechec:checked").length == 0) {
+			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+		} else {
+			var guid = fnguid();
+			//console.log(guid.split(","));
+			var checlist = $(".thechec:checked");
+			var isduo="";
+			for(var i=1;i<checlist.length;i++){
+				if(checlist.eq(i).find(".cgl-td6").html()!=checlist.eq(0).find(".cgl-td6").html()){
+					isduo="多个等级";
+					return false;
+				}else{
+					isduo="";
+				}
+			}
+			if(guid.split(",").length==1){
+				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
+			}else if(isduo=="多个等级"){
+				tiaozqr("当前违规等级<span>（"+isduo+"）</span>", guid);
+			}else{
+				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
+			}
+			
 		}
 	});
 	$("#cgl-jcwg1").click(function() {
@@ -1051,9 +1211,9 @@ function fnwgjlzt(putdata) {
 						if($(this).attr("gu-id") == guidarr[i]) {
 							$(this).find(".cgl-td12").html(putdata.dealtstate);
 							$(this).remove();
+							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
 						}
 					});
-
 				}
 				state["lastindex"] = 0;
 				$(".cgl-jzz").html("操作成功").stop(true, true).delay(1000).fadeOut(100);
@@ -1061,94 +1221,124 @@ function fnwgjlzt(putdata) {
 		}
 	});
 }
-
+//违规原因核销记录
 function fnweigyy() {
-	$("#cgl-tbody").on("click",".cgl-td7>a", function() {
-		console.log(1)
-		var cont="<div class='yycont'>"+
-				    "<h2>西直门大超市发</h2>"+
-				    "<h3 class='wgdjc'>违规等级</h3>"+
-				    "<div class='djms'>违规等级</div>"+
-				    "<h3>违规等级</h3>"+
-				    "<table class='table1' border='1'>"+
-				        "<tr>"+
-				            "<th width='11%'>消费者</th>"+
-				            "<th width='13%'>门店</th>"+
-				            "<th>活动名称</th>"+
-				        "</tr>"+
-				        "<tr>"+
-				            "<td>row 1, cell 1</td>"+
-				            "<td>row 1, cell 2</td>"+
-				            "<td>row 1, cell 2</td>"+
-				        "</tr>"+
-				        "<tr>"+
-				            "<td>row 2, cell 1</td>"+
-				            "<td>row 2, cell 2</td>"+
-				            "<td>row 2, cell 2</td>"+
-				        "</tr>"+
-				    "</table>"+
-				    "<h3 class='tianpfx'>天平分析</h3>"+
-				    "<ul class='fxcont'>"+
-				        "<li>"+
-				            "<h4>丰富多彩</h4>"+
-				            "<p>2332132223</p>"+
-				        "</li>"+
-				        "<li>"+
-				            "<h4>丰富多彩</h4>"+
-				            "<p>2332132223</p>"+
-				        "</li>"+
-				        "<li>"+
-				            "<h4>丰富多彩</h4>"+
-				            "<p>2332132223</p>"+
-				        "</li>"+
-				    "</ul>"+
-				    "<div class='hxjl'>"+
-				        "<h3>核销记录</h3>"+
-				        "<span class='onck'>如果特瑞特</span>"+
-				        "<span>说收费水电费</span>"+
-				    "</div>"+
-				    "<table class='table2' border='1'>"+
-				        "<tr>"+
-				            "<th width='82'>消费者</th>"+
-				            "<th width='88'>门店</th>"+
-				            "<th width='99'>活动名称</th>"+
-				            "<th width='67'>超惠券类型</th>"+
-				            "<th width='124'>优惠内容</th>"+
-				            "<th width='60'>核销金额</th>"+
-				            "<th width='78'>核销时间</th>"+
-				            "<th width='83'>双方位置距离</th>"+
-				            "<th width='83'>是否在店核销</th>"+
-				
-				        "</tr>"+
-				        "<tr>"+
-				            "<td>row 1, cell 1</td>"+
-				            "<td>row 1, cell 2</td>"+
-				            "<td>row 1, cell 2</td>"+
-				            "<td>row 1, cell 1</td>"+
-				            "<td>row 1, cell 2</td>"+
-				            "<td>row 1, cell 2</td>"+
-				            "<td>row 1, cell 1</td>"+
-				            "<td>row 1, cell 2</td>"+
-				            "<td>row 1, cell 2</td>"+
-				        "</tr>"+
-				    "</table>"+
-				    "<div class='cgl-yyclose'>"+
-				        "<span class='cgl-close'>关闭</span>"+
-				    "</div>"+
-				"</div>";
-		var index = layer.open({
-			type: 5,
-			title: "违规原因",
-			area: ['962px', 'auto'],
-			content: cont
+	$("#cgl-tbody").on("click", ".cgl-td7>a", function() {
+				var cont = "",
+					cha = null;
+				var oparent = $(this).parents("tr");
+		$.ajax({
+			type: "get", 
+			url: "/webapi/earlywarningmanage/anticheating/causedetail/"+oparent.attr("gu-id"),
+			data: "",
+			error: function() {
+				$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+			},
+			success: function(data) {
+				console.log(data)
+				cont = "<div class='yycont'>" +
+					"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>" +
+					"<h3 class='wgdjc'>违规等级</h3>" +
+					"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + data.original_level + "，";
+				cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - data.original_level.replace(/[^0-9]/ig, "");
+				if(cha >= 0) {
+					cont += "提升" + cha + "级";
+				} else {
+					cont += "降低" + -cha + "级";
+				}
+				cont += "</div>" +
+					"<h3>违规等级</h3>" +
+					
+					
+					
+					"<div>"+
+					"<table border='1'>" +
+					"<tr>" +
+					"<th width='182'>消费者</th>" +
+					"<th width='89'>门店</th>" +
+					"<th>活动名称</th>" +
+					"</tr></table></div>"+
+					
+					
+					"<div class='table1'><table border='1'>";
+				for(var k1 in data["breakrulesrecord"]) {
+					cont += "<tr><td class='djtd1'>" + data["breakrulesrecord"][k1]["issuetime"] + "</td><td class='djtd2'>" + data["breakrulesrecord"][k1]["breakruleslevel"] + "</td><td class='djtd3'>" + data["breakrulesrecord"][k1]["measures"] + "</td></tr>";
+				}
+				cont += "</table></div>" +
+					"<h3 class='tianpfx'>天平分析</h3>" +
+					"<ul class='fxcont'>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value2"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value3"] + "</span><p>dsfsdf</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value4"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value5"] + "</span><p>asdada</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value6"] + "</span><p>苟富贵发的</p></li>" +
+					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value7"] + "</span><p>苟富贵发的</p></li>" +
+					"</ul>" +
+					"<div class='hxjl'>" +
+					"<h3>核销记录</h3>" +
+					"</div>" +
+					"<div class='hxjlpx'>" +
+					"<span class='onck'>密集核销</span>" +
+					"<span>消费者集中</span>" +
+					"<span>一人多券</span>" +
+					"</div>" +
+					
+					
+					"<div><table border='1'>" +
+					"<tr>" +
+					"<th width='60'>消费者</th>" +
+					"<th width='90'>门店</th>" +
+					"<th width='99'>活动名称</th>" +
+					"<th width='67'>超惠券类型</th>" +
+					"<th width='86'>优惠内容</th>" +
+					"<th width='77'>门店核销金额</th>" +
+					"<th width='77'>双方位置距离</th>" +
+					"<th width='77'>是否在店核销</th>" +
+					"<th width='72'>核销时间</th>" +
+					"<th>密集程度</th>" +
+					"</tr></table></div>"+
+					
+					"<div class='table2'><table border='1'>";
+				for(var k2 in data["verifylist"]) {
+
+					cont += "<tr>" +
+						"<td class='jltd1'>" + data["verifylist"][k2]["consumername"] + "</td>" +
+						"<td class='jltd2'>" + data["verifylist"][k2]["retailername"] + "</td>" +
+						"<td class='jltd3'>" + data["verifylist"][k2]["activitytitle"] + "</td>" +
+						"<td class='jltd4'>" + data["verifylist"][k2]["itemkind"] + "</td>" +
+						"<td class='jltd5'>" + data["verifylist"][k2]["ruletext"] + "</td>" +
+						"<td class='jltd6'>" + data["verifylist"][k2]["verifymoney"] + "</td>" +
+						"<td class='jltd7'>暂无</td>" +
+						"<td class='jltd8'>暂无</td>" +
+						"<td class='jltd9'>" + data["verifylist"][k2]["issuetime"] + "</td>" +
+						"<td class='jltd10'></td>" +
+						"</tr>";
+				}
+
+				cont += "</table></div>" +
+					"<div class='cgl-yyclose'>" +
+					"<span class='cgl-close'>关闭</span>" +
+					"</div>" +
+					"</div>";
+
+				var index = layer.open({
+					type: 5,
+					title: "违规原因",
+					area: ['962px', 'auto'],
+					content: cont
+				});
+				layer.full(index);
+				fnclose(index);
+			}
 		});
-		layer.full(index);
-		fnclose(index);
+
 	});
-	
+
 }
 $(function() {
 	fnshijian(state);
+	fnanniu4();
 	fnxze1(); //处理与待处理
 	fnxiala(); //下拉菜单
 	fndate(); //发送时间
@@ -1164,8 +1354,8 @@ $(function() {
 	fnchec(); //单选复选
 	fnreset(); //重置
 	fnmore(); //点击加载更多
-	fnweigyy();
+	fnweigyy(); //违规原因核销记录
 	comSelect(); // 地区下拉调用
 	selectCity(); //城市调用
-	
+
 });
