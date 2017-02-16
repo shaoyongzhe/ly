@@ -575,7 +575,7 @@ function fncaozuo() {
 	}).on("click", ".queren", function() {
 		var putdata = {
 			"dealtstate": "确认违规",
-			"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
+			"description": $("#cgl-tjbz").find("textarea").val(),
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
 		//querenwg_add(putdata);
@@ -696,7 +696,7 @@ function article_add(that) {
 		if($(this).text() == "调整并确认") {
 			var putdata = {
 				"dealtstate": "确认违规",
-				"weiguidengji": $(".cgl-td6", parents).text().replace(/[^0-9]/ig, ""),
+				"description": $("#cgl-tjbz").find("textarea").val(),
 				"anticheatingids": guid
 			};
 			//querenwg_add(putdata);
@@ -1071,14 +1071,15 @@ function tiaozqr(dangq, guid) {
 				}
 			});
 		}else{
-			$('.layui-layer-close').click();
+			
 			$(".cgl-jzz").html("加载中，请稍后···").show();
-			var putdata = {
+			var putdata1 = {
 				"dealtstate": "确认违规",
 				"description": $("#cgl-tjbz").find("textarea").val(),
 				"anticheatingids": guid
 			};
-			fnwgjlzt(putdata);
+			fnwgjlzt(putdata1);
+			$('.layui-layer-close').click();
 		}
 
 	});
@@ -1217,7 +1218,6 @@ function fnanniu() {
 }
 //改变违规记录状态
 function fnwgjlzt(putdata) {
-	console.log(putdata)
 	$('.layui-layer-close').click();
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
@@ -1314,7 +1314,7 @@ function fnweigyy() {
 					"</div>" +
 					
 					
-					"<div><table border='1'>" +
+					"<div><table border='1'><thead>" +
 					"<tr>" +
 					"<th width='60'>消费者</th>" +
 					"<th width='90'>门店</th>" +
@@ -1326,9 +1326,9 @@ function fnweigyy() {
 					"<th width='77'>是否在店核销</th>" +
 					"<th width='72'>核销时间</th>" +
 					"<th>密集程度</th>" +
-					"</tr></table></div>"+
+					"</tr></thead></table></div>"+
 					
-					"<div class='table2'><table border='1'>";
+					"<div class='table2'><table border='1'><tbody>";
 				for(var k2 in data["verifylist"]) {
 
 					cont += "<tr>" +
@@ -1345,7 +1345,8 @@ function fnweigyy() {
 						"</tr>";
 				}
 
-				cont += "</table></div>" +
+
+				cont += "</tbody></table></div>" +
 					"<div class='cgl-yyclose'>" +
 					"<span class='cgl-close'>关闭</span>" +
 					"</div>" +
@@ -1386,5 +1387,4 @@ $(function() {
 	fnweigyy(); //违规原因核销记录
 	comSelect(); // 地区下拉调用
 	selectCity(); //城市调用
-
 });
