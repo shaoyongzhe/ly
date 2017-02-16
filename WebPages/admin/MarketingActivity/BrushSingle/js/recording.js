@@ -1358,40 +1358,57 @@ function fnweigyy() {
 
 }
 
-function fnpaixu(data,order) {
-	var cont = "";
+function fnpaixu(data, order) {
+	var cont = "",cn=null;
+	var colorarr=[
+	"#f00","#ff1111","#fe333c","#f00",
+	"#ff1111","#ff1111","ff1111","#ff1111",
+	"#ff3333","#ff3333","#ff3333","#ff3333",
+	"#ff6666","#ff6666","#ff6666","#ff6666",
+	"#ff9999","#ff9999","#ff9999","#ff9999",
+	"#ffcccc","#ffcccc","#ffcccc","#ffcccc"];
 	for(var i = 0; i < data.length; i++) {
 		for(var j = 0; j < data.length; j++) {
 			if(data[j][order] == i) {
 				cont += "<tr>" +
-					"<td class='jltd1'>" + data[i]["consumername"] + "</td>" +
-					"<td class='jltd2'>" + data[i]["retailername"] + "</td>" +
-					"<td class='jltd3'>" + data[i]["activitytitle"] + "</td>" +
-					"<td class='jltd4'>" + data[i]["itemkind"] + "</td>" +
-					"<td class='jltd5'>" + data[i]["ruletext"] + "</td>" +
-					"<td class='jltd6'>" + data[i]["verifymoney"] + "</td>" +
+					"<td class='jltd1'>" + data[j]["consumername"] + "</td>" +
+					"<td class='jltd2'>" + data[j]["retailername"] + "</td>" +
+					"<td class='jltd3'>" + data[j]["activitytitle"] + "</td>" +
+					"<td class='jltd4'>" + data[j]["itemkind"] + "</td>" +
+					"<td class='jltd5'>" + data[j]["ruletext"] + "</td>" +
+					"<td class='jltd6'>" + data[j]["verifymoney"] + "</td>" +
 					"<td class='jltd7'>暂无</td>" +
 					"<td class='jltd8'>暂无</td>" +
-					"<td class='jltd9'>" + data[i]["issuetime"] + "</td>" +
-					"<td class='jltd10'></td>" +
+					"<td class='jltd9'>" + data[j]["issuetime"] + "</td>" +
+					"<td class='jltd10' ";
+						if(parseInt(data[j]["timespan"+order.replace(/[^0-9]/ig, "")])<0){
+							cont+="style='background:#fff'";
+						}else{
+							cn=parseInt(data[j]["timespan1"]/3600);
+							if(cn>23){
+								cont+="style='background:#fff'";
+							}else{
+								cont+="style='background:"+colorarr[cn]+"'";
+							}
+						}
+					cont+="></td>" +
 					"</tr>";
 			}
 		}
-
 	}
 	$(".table2").find("tbody").html(cont);
 }
 
 function fnshaixuan(data) {
-	console.log(data);
+	fnpaixu(data, "order1");
 	$(".hxjlpx").on("click", "span", function() {
 		$(this).addClass("onck").siblings().removeClass("onck");
 		if($(this).index() == 0) {
-			fnpaixu(data,"order1");
+			fnpaixu(data, "order1");
 		} else if($(this).index() == 1) {
-
+			fnpaixu(data, "order2");
 		} else if($(this).index() == 2) {
-
+			fnpaixu(data, "order3");
 		}
 	});
 }
