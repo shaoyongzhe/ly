@@ -1345,6 +1345,7 @@ function fnweigyy() {
 						"</tr>";
 				}
 
+
 				cont += "</tbody></table></div>" +
 					"<div class='cgl-yyclose'>" +
 					"<span class='cgl-close'>关闭</span>" +
