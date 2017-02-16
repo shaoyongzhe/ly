@@ -93,6 +93,7 @@ function fnclick() {
 		var submenu = this.el.find('.submenu');
 		//品牌下的一级分类点击
 		submenu.on("click", "li", function() {
+			$(this).parent().parent().parent().parent().prev().find("h4").html("某一子类<i> > </i>")
 			submenu.find("li").removeClass("col1");
 			$(this).addClass("col1");
 			if($(this).find(".hide1").length > 0) {
@@ -141,6 +142,7 @@ function fnmenuclick() {
 	var thetext = "";
 	fnhqactive();
 	$("#cgl-menu").on("click", ".link", function() {
+//		$(this).parent().parent().parent().next().find("h4").html("某一子类<i> > </i>")
 		thetext = $(this).text();
 		if(thetext == "我的预存货") {
 			fnyucun();
@@ -173,6 +175,7 @@ function fnerji() {
 		} else {
 			$("h4>i", this).css("transform", "rotateZ(90deg)");
 		}
+		
 	});
 }
 //品牌下一级分类筛选
@@ -192,7 +195,9 @@ function fnmclick2 () {
 	$(".sanji-zi").on("click","ul>li",function () {
 		var id3=$(this).attr("id");
 		fnmclick1(id3,"itemsubcategory");
-		
+		$(this).parent().parent().prev().html($(this).text()+"<i> > </i>")
+		$(this).css({background:"#e7fefd",color:"#009f96"})
+		$(this).siblings().css({background:"#fff",color:"#acadad"})
 	});
 }
 //动态设置cgl-cont的高度
@@ -767,16 +772,55 @@ function fnserach() {
 		$("#cgl-menu").find(">li").removeClass("clion").find(".link>i").show();
 	});
 }
+//	if(localStorage.reload){
+//		var _tt=setInterval(function(){
+//			if(localStorage.reload==1){
+//				localStorage.reload=0;
+//				clearInterval(_tt)
+//				location.reload();
+//			}
+//		},100)		
+//	}
+function guowu(){
+	$(".footerl>a").click({function(){
+		location.href="shopcar.html?distributor_id=" + fnurl().distributor_id
+	}})
+	$(".footerr>a").click({function(){
+		location.href="shopcar.html?distributor_id=" + fnurl().distributor_id
+	}})
+}
 $(function() {
-	fnpinpai(); //品牌下拉点击事件
-	fnurl(); //获取地址栏参数
-	fnpricenum(); //获取购物车总金额和总数量
-	fnxrym(); //通过参数渲染页面
-	fnscroll(); //打电话显示与隐藏
-	fnmenu(); //获取菜单列表
-	fnerji(); //遮罩点击
-	fnggmore(); //商品规格点击切换
-	 //商品数量加减
-	fnserach(); //搜索
-	fnmclick2 ();
+		if(localStorage.reload==1){
+			var _tt=setInterval(function(){
+			localStorage.reload=0;
+				
+			fnpinpai(); //品牌下拉点击事件
+			fnurl(); //获取地址栏参数
+			fnpricenum(); //获取购物车总金额和总数量
+			fnxrym(); //通过参数渲染页面
+			fnscroll(); //打电话显示与隐藏
+			fnmenu(); //获取菜单列表
+			fnerji(); //遮罩点击
+			fnggmore(); //商品规格点击切换
+			 //商品数量加减
+			fnserach(); //搜索
+			fnmclick2 ();
+					//guowu()
+    			clearInterval(_tt);
+			},100)
+		}else{
+			fnpinpai(); //品牌下拉点击事件
+			fnurl(); //获取地址栏参数
+			fnpricenum(); //获取购物车总金额和总数量
+			fnxrym(); //通过参数渲染页面
+			fnscroll(); //打电话显示与隐藏
+			fnmenu(); //获取菜单列表
+			fnerji(); //遮罩点击
+			fnggmore(); //商品规格点击切换
+			 //商品数量加减
+			fnserach(); //搜索
+			fnmclick2 ();
+					//guowu()
+		}
+	
 });

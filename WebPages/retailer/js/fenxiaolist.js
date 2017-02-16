@@ -6,6 +6,7 @@
 
 //获取Id
 
+
 function getid(){
 	return "57839d2ad6424786bd3c319585f2088e";
 }
@@ -136,12 +137,17 @@ function fngetlist() {
             	thissp1.active=$(this).find(".cgl-manj").html();
             	//console.log(thissp)
             	window.location="activeindex.html?"+JSON.stringify(thissp1);
+            	
             });  
             
         }
     });
 }
+
+
+
 $(function () {
+	//location.reload()
 	$.ajax({
         type: "get",
       	url: "/webapi/account/login/test-2-135-1",
@@ -158,6 +164,23 @@ $(function () {
         	console.log(data)
         }
    });
-    fnfooterclick();
-    fngetlist();
+   	
+	
+	if(!localStorage.reload){
+		localStorage.reload=0;
+		    fnfooterclick();
+    		fngetlist();
+	}else if(localStorage.reload==1){
+		var _tt=setInterval(function(){
+			
+				localStorage.reload=0;
+				
+				fnfooterclick();
+    			fngetlist();
+    			clearInterval(_tt);
+			},100)
+		}else{
+							fnfooterclick();
+    			fngetlist();
+		}
 });

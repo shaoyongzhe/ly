@@ -10,8 +10,20 @@
 <script type="text/javascript" src="../../js/jquery.js"></script>
 <script src="../../js/retailerid.js"></script>
 <script>
+
 	$(document).ready(function(){
-		
+		if(localStorage.reload==1){
+			var _tt=setInterval(function(){
+				localStorage.reload=0;
+				asd()
+    			clearInterval(_tt);
+			},100)
+		}else{
+			localStorage.reload=1;
+			asd()
+		}
+	})
+	function asd(){
 		var _list="";
 		var _give="";
 		var _color="";
@@ -94,7 +106,7 @@
 						}else{
 							_dd=data1[i]["itemguid"]
 						}
-				if(data1[i]["itemcount"]==1){
+				if(data1[i]["itemcount"]<=data1[i]["salecount"] || data1[i]["itemcount"]<=1){
 					_color="#dbdfe4"
 				}else{
 					_color="#009f96"
@@ -444,7 +456,8 @@
 				var that=$(this).parent().find(".amount").text()
 				console.log(data1[_ind]["salecount"])
 				if(data1[_ind]["salecount"]){
-					if($(this).parent().find(".amount").text()>data1[_ind]["salecount"]){
+					if(Number($(this).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
+						_ges-=1;
 						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 						that=$(this).parent().find(".amount").text()
 						$.ajax({
@@ -475,7 +488,11 @@
 								}
 								
 								fg();
-								
+								$(".commit span").text("("+_ges+")")
+								$(".summ").text("("+_ges+")")
+								if(Number($(tht).parent().find(".amount").text())==Number(data1[_ind]["salecount"])){
+									$(tht).css({color:"#e3e7ea"})
+								}
 //								if(_price<_tt[_indd]["cutgift"]){
 //									_qu=1;
 //									alert(1)
@@ -484,13 +501,12 @@
 //								}
 							}
 						});
-					}else{
-						$(this).css({color:"#e3e7ea"})
 					}
 				}else{
 					if($(this).parent().find(".amount").text()>1){
 						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 						that=$(this).parent().find(".amount").text()
+						_ges-=1;
 						$.ajax({
 							type:"post",
 							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
@@ -519,6 +535,11 @@
 								}
 								fg()
 								zz()
+								$(".commit span").text("("+_ges+")")
+								$(".summ").text("("+_ges+")")
+								if(Number($(tht).parent().find(".amount").text())<=1){
+									$(tht).css({color:"#e3e7ea"})
+								}
 							}
 						});						
 					}
@@ -530,12 +551,14 @@
 			});
 			$(".change").on('click','.increase',function(){
 				var th=this;
-					$(this).parent().find(".amount").text(parseInt($(this).parent().find(".amount").text())+1)
-				if($(this).parent().find(".amount").text()>1){
-					$(this).parent().find(".reduce").css({color:"#23aca4"})
-				}				
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
+				$(this).parent().find(".amount").text(parseInt($(this).parent().find(".amount").text())+1)
 				var that=$(this).parent().find(".amount").text();
+					
+
+			
+
+				_ges+=1;
 				$.ajax({
 					type:"post",
 					url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
@@ -554,7 +577,6 @@
 					error:function(){},
 					success:function(data){
 						console.log(data);
-						
 						console.log(_price)
 						console.log($(th).parent().parent().parent().prev().attr("flag"))
 						if($(th).parent().parent().parent().prev().attr("flag")==1){
@@ -568,6 +590,17 @@
 						}
 						fg()
 						zz()
+						$(".commit span").text("("+_ges+")")
+						$(".summ").text("("+_ges+")")
+						if(data1[_ind]["salecount"]){
+							if(Number($(th).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
+								$(th).parent().find(".reduce").css({color:"#009f96"})
+							}						
+						}else{
+							if(Number($(th).parent().find(".amount").text())>1){
+								$(th).parent().find(".reduce").css({color:"#009f96"})
+							}
+						}
 					}
 				});
 			})
@@ -641,7 +674,7 @@
 					$("html").css({overflow:"auto"})
 					$(".loads").css({display:"none"})
 		}
-	})
+		}
 </script>
 </head>
 
