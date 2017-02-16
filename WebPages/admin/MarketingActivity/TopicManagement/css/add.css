@@ -579,17 +579,10 @@ div.acZige:before{
 	width:80px;
 	/*height:42px;*/
 }
-
 .hdc2 .select-wrap{
 	width:128px;
-	/*box-sizing: border-box;*//*啦啦啦*/	
-    display: none;    
+	/*box-sizing: border-box;*//*啦啦啦*/		
 }
-
-body.xiugai .hdc2 .select-wrap{
-    display: block;
-}
-
 .hdc3 .select-wrap{
 	width:124px;
 	/*height:42px;*/
@@ -669,38 +662,10 @@ body.xiugai .hdc2 .select-wrap{
     height: 40px;
     line-height: 40px;
     border: 1px solid #c0c0c0;
-    padding: 2px 7px;
+    /*padding: 2px 7px;*/
     box-sizing: border-box;
     color: #84a6d6;
     border-radius: 2px;
-}
-/*0215新加*/
-.subsidyCondition{
-	width: 165px;
-    height: 40px;
-    border: 1px solid #c0c0c0;
-    line-height: 17px;
-    padding: 2px 7px;
-    box-sizing: border-box;
-    color: #84a6d6;
-    border-radius: 2px;	   
-    font-size: 12px;
-    overflow: hidden;    
-    display: flex;    
-	justify-content: center;
-	align-items:center; 
-	flex-direction:column;    
-}
-.subsidyCondition a{
-/*    width: 165px;
-    height: 40px;
-    border: 1px solid #c0c0c0;
-    line-height: 17px;
-    padding: 2px 7px;
-    box-sizing: border-box;
-    color: #84a6d6;
-    border-radius: 2px;	   
-    font-size: 12px;*/
 }
 
 .hdc5{
@@ -1059,23 +1024,22 @@ body.xiugai .hdc2 .select-wrap{
     text-align: left;
     /*background: red;*/
     /*color: #999;*/
-        margin-left: -41px;
 }
 .addSub4P68 p:nth-of-type(1){
-    width: 83px;
+    width: 77px;
     /*margin-left: 12px;*/
 }
 .addSub4P68 p:nth-of-type(2){
 	/*color:green;*/
-	width:168px;			
+	width:135px;			
 }
 .addSub4P68 p:nth-of-type(3){
 	/*color:green;*/
-	width:130px;			
+	width:123px;			
 }
 .addSub4P68 p:nth-of-type(4){
 	/*color:green;*/
-	width:114px;			
+	width:120px;			
 }
 .addSub4P68 p:nth-of-type(5){
 	/*color:green;*/

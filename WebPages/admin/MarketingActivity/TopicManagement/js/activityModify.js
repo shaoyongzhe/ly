@@ -66,9 +66,9 @@ function render(resdata){
     basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
     
     if(activity.singleselection == 1){
-        $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
+        $('.radio:contains(是)').addClass('on');
     } else {
-        $('.radio:contains(否)').addClass('on').siblings().removeClass('on');
+        $('.radio:contains(否)').addClass('on');
     }
 
 
@@ -218,8 +218,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*优惠力度条件*/
 	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
-        else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
-	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
+	    else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
 	//  //买赠类型（略）
