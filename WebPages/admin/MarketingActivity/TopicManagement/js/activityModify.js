@@ -660,7 +660,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '<ul class="select"></ul>'
 	        +               '</div>'
 			+				'<div class="dib subsidyCondition link">'
-			+					'<a href="#" class="dib ver btCond">请点击</a>'
+			+					'<a href="#" class="dib ver btCond">请选择补贴条件</a>'
 			+					'<input type="hidden" name="" class="btCondHidden">'
 			+				'</div>'	        
 	        +           '</div>'
@@ -738,7 +738,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +       '</div>';
 	for(i=0;i<activityManger_addSub4Data.length;i++){
 	    $('.addSub4:last').before(activityManger_addSub4Html);
-	    
+	       // $('.subsidyCondition a.btCond').hide()
 		/*临时数据*/	 
 		//临时数据开始
 //		activityManger_addSub4Data[i].statistic= {

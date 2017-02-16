@@ -704,6 +704,10 @@ div.acZige:before{
     display: none;
 }
 
+body.xiugai .subsidyCondition a{
+    display: block;
+}
+
 .hdc5{
 	/*margin-left:-40px;*/
 	margin-left: 0;	

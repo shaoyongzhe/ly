@@ -1473,9 +1473,11 @@ $("body").on("click","li.option",function(e){
 		// debugger;
 		// alert(_this.attr('name'))
 		if(text == _this.parent().prev().text()){
-			_this.parent().hide().prev().text(text);
-			_this.parent().hide().prev().attr("name",_this.attr('name'));
+			_this.parent().hide().prev().text(text).attr("name",_this.attr('name'));
 			return;
+
+		} else {
+			$(this).closest('.addSub4').find('.subsidyCondition a').text("请选择补贴条件").removeAttr('statistic title');
 		}
 		// var d = true;
 		// var thisSelected = $('.addSub4 .butie-select-wrap .selected');
@@ -1504,7 +1506,9 @@ $("body").on("click","li.option",function(e){
 			}
 			//结束********************************************************************************************
 		// }
-		$('.subsidyCondition a').show();
+		$(this).closest('.addSub4').find('.subsidyCondition a').show();
+
+
 		return;
 	}
 
