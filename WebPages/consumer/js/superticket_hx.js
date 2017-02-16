@@ -341,7 +341,11 @@ var vm = avalon.define({
                             } else {
                                 $('.share_pop1').remove();
                             }
-
+                            if (result.share!=undefined) {
+                                if ($.isFunction(wxjsshare)) {
+                                    wxjsshare(result.share || {});
+                                }
+                            }
                         }
                     } else {
                         $(".msg,#QRCode").hide()
@@ -405,10 +409,10 @@ var page2 = avalon.define({
     },
     showUsage: function (type) {
         $("#tab_tishi li").removeClass("acitve")
-
+        var _hxNum=0
         if (type == 1) {//已核销
             $("#tab_msg").css("border-top", "solid 1px #ff6600")
-            vm.hxNum = vm.yhxNum
+            _hxNum = vm.yhxNum
             $("#msg_left").addClass("acitve")
             $(".stamp").hide()
             vm.favorable(vm.jsondata, vm.yhxNum)
@@ -419,7 +423,7 @@ var page2 = avalon.define({
             }
         } else {//未核销
             $("#tab_msg").css("border-top", "solid 1px #adabab")
-            vm.hxNum = vm.whxNum;
+            _hxNum = vm.whxNum;
             $("#msg_right").addClass("acitve")
             $(".stamp").hide()
             vm.favorable(vm.jsondata, vm.whxNum)
@@ -434,7 +438,7 @@ var page2 = avalon.define({
                 $("#tagMsg1").show()//门店不支持
             }
         }
-        if (vm.hxNum == 0) {//没有数据
+        if (_hxNum == 0) {//没有数据
             $(".div-list").hide();
             $("#nodata p").html("您没有" + (type == 1 ? "已" : "未") + "使用成功的超惠券~")
             $("#nodata").show();
