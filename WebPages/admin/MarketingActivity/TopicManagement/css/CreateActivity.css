@@ -1585,7 +1585,7 @@ textarea{
 	width:838px;
 	position:relative;
 	box-sizing: border-box;
-
+	display: none;
 }
 .addSubSubsidyPolicy:before{
 	content: "";
@@ -1707,6 +1707,9 @@ textarea{
 	width:838px;
 	margin-top: 120px;
 	color: #fff;
+	position: fixed;
+    /* top: 0; */
+    bottom: 40px;
 }
 
 .buttons span{
