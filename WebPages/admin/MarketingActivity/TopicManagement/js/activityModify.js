@@ -535,7 +535,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
                     laydate({
                         // elem: id,
                         event: 'focus',
-                        format: 'YYYY/MM/DD',
+                        format: 'YYYY-MM-DD',
                         // format: 'YYYY-MM-DD',
                         // istime: true,
                         max: dates

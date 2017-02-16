@@ -219,7 +219,7 @@ function render(detailData){
 			prevDays = isNaN(prevDays) ? "" : prevDays;
 		}	
 		
-		console.log(prevDays)
+//		console.log(prevDays)
 		// debugger;
 		if(typeTxt == "分销商类型"){
 			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
