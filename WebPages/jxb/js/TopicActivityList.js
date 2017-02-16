@@ -1,4 +1,4 @@
-//20170209
+//20170210.9
 //loadingStart();
 //$(".contentCont").empty();
 //alert(8)
@@ -372,7 +372,15 @@ function sucessFn(obj,info){
 //					$(".Ano").find(".alist:last").addClass("hi");//之前那种方案
 			}
 		}	
-		countDownCirculation(obj.find(".alist:last").find(".ccfoot1 span"),info.content[i].endtime)
+		countDownCirculation(obj.find(".alist:last").find(".ccfoot1 span"),info.content[i].endtime,function(){
+			return 'if(days<3){obj.css({"background":"#f9d1d1",color:"#e83734",})}'
+//			if(days<3){
+//				obj.css({
+//					background:"#f9d1d1",
+//					color:"#e83734",
+//				})
+//			}
+		})
 	}//for结束
 	
 	/*如果从超慧券列表进入，在根据经销商id显示列表之后，还要根据活动id进行筛选*/
@@ -438,8 +446,13 @@ function returnToList(){
 	}else{
 		$(".returnToList").addClass("hi")
 	}
+	$(".returnToList .p1").click(function(){
+		engine.call('ClosePage',"");
+		console.log("返回主题活动列表触发")
+	})
 	$(".returnToList .p2").click(function(){
 		engine.call('ClosePage',"");
+		console.log("返回超惠券列表触发")
 	})
 	$("header").click(function(){			
 		engine.call('ClosePage',"");

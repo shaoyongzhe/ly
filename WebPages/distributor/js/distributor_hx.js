@@ -26,10 +26,16 @@ var vm = avalon.define({
                 }
                 if (json.error) {
                     toasterextend.showtips(json.error, "error");
+                    if (dropme != null) {
+                        dropme.resetload();
+                    }
                     return;
                 }
                 if (json.user_notification != undefined) {
                     toasterextend.showtips(json.user_notification, "info");
+                    if (dropme != null) {
+                        dropme.resetload();
+                    }
                     return;
                 }
 

@@ -77,6 +77,7 @@
 				</div>
 				<div class="queryConditionButton">
 					<button class="query">查 询</button>
+					<button id="reset">重 置</button>
 				</div>
 				
 				
@@ -84,7 +85,7 @@
 			<!--功能按钮区functionButtons-->
 			<div class="functionButtons">
 				<button class="addButton">新增</button>
-				<button class="printButton displayNone">打印</button>
+				<button class="printButton">打印</button>
 			</div>
 			<!--活动列表-->
 			<div class="table_wrap">
@@ -98,9 +99,9 @@
 							<th>活动区域及负责人</th>
 							<th>预计可参与活动的会员数量</th>
 							<th>已参加会员数量</th>
-							<th>申报预算</th>
+							<!-- <th>申报预算</th>
 							<th>审批预算/状态</th>
-							<th>已发放补贴</th>
+							<th>已发放补贴</th> -->
 							<th>状态</th>
 							<th>操作</th>
 						</tr>					
@@ -108,12 +109,15 @@
 
 					<input type="hidden" name="" id='guid'>
 					
-					<tbody>
+					<tbody class="refresh">
 								
 					</tbody>
 
 				</table>
 				<div class="loaded"><span class='loading'></span> 正在加载...</div>
+				<div class="finished">
+					数据已加载完
+				</div>
 			</div>
 			
 		</div>

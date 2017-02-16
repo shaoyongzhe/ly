@@ -1,9 +1,10 @@
-//20170207
+//20170213.1545
 //$(".BDcyhdCityD").empty();
 //$(".BDcyhdRequireD").empty();
 //$(".BDQFd1").empty();
 //$(".BDQFd2").empty();
 //$(".BDQFd3").empty();
+//alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
 var linshi='';
@@ -131,7 +132,7 @@ function ajaxActivityDetails(a,b){
         "subsidyevent": "分享超惠券",
         "subsidymethod": "送固定金额返现2元",
         "ruledescription": [
-          "总补贴金额上限200"
+          "总补贴金额上限200","wowowowowowo"
         ]
       },
       {
@@ -190,7 +191,42 @@ function ajaxActivityDetails(a,b){
         "subsidymethod": "送固定微信红包8元",
         "ruledescription": []
       }
-    ]
+    ],
+    "我": [
+      {
+        "subsidyevent": "门店签约分销商",
+        "subsidymethod": "送固定微信红包8元",
+        "ruledescription": []
+      }
+    ],
+    "我2": [
+      {
+        "subsidyevent": "门店签约分销商",
+        "subsidymethod": "送固定微信红包8元",
+        "ruledescription": []
+      }
+    ],
+//  "我3": [
+//    {
+//      "subsidyevent": "门店签约分销商",
+//      "subsidymethod": "送固定微信红包8元",
+//      "ruledescription": []
+//    }
+//  ],
+//  "我4": [
+//    {
+//      "subsidyevent": "门店签约分销商",
+//      "subsidymethod": "送固定微信红包8元",
+//      "ruledescription": []
+//    }
+//  ],
+//  "我34": [
+//    {
+//      "subsidyevent": "门店签约分销商",
+//      "subsidymethod": "送固定微信红包8元",
+//      "ruledescription": []
+//    }
+//  ]
   },
   "activity_condition": [
     {
@@ -476,7 +512,7 @@ function ajaxActivityDetails(a,b){
     }
   ]
 };
-*/			
+			linshi=data;*/
 			if(data==""||data==[]){
 //				layer.alert("数据为空，请重试", {icon: 5});
 				console.log("数据为空，请重试");
@@ -560,105 +596,100 @@ function ajaxActivityDetails(a,b){
 			/*倒计时*/
 			countDownCirculation($(".BsubsidyB span"),data.endtime);
 
-			/*给每个btsm填充内容*/
-			var hm="";	
-			var heightXdjsljg=0;
-			if(data.subsidy_description.distributor){
-//				debugger
-				for(i=0;i<data.subsidy_description.distributor.length;i++){
-					hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description.distributor[i].subsidyevent+data.subsidy_description.distributor[i].subsidymethod+'</p>';	
+			/*生成btsm*/
+			$(".BbtsmRright2Content").empty();
+			var btsmHtml=''
+			+'<div class="btsm dib">'
+			+	'<p class="btsmP1">对消费者</p>'								
+			+	'<div class="btsmD1IscrollCon dib">'
+			+		'<div class="btsmD1">'
+			+		'</div>'
+			+	'</div>'										
+			+'</div>'
+			if($.isEmptyObject(data.subsidy_description)==false){//不为空
+				/*有无按钮*///
+				if(Object.keys(data.subsidy_description).length<=3){
+					$(".BbtsmRright3").remove();
 				}
-				$(".btsm1").find(".btsmD1").html(hm);	
-				if(heightXdjsljg<$(".btsm1").find(".btsmD1").height()){
-					heightXdjsljg=$(".btsm1").find(".btsmD1").height();
-				}
-				console.log(heightXdjsljg+"调试高度")
-			}
-			hm="";//懒得重新弄变量了。
-			if(data.subsidy_description.retailer){
-				for(i=0;i<data.subsidy_description.retailer.length;i++){
-					hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description.retailer[i].subsidyevent+data.subsidy_description.retailer[i].subsidymethod+'</p>';
-	//				hm+='<p class="btsmPs">'+(i+1)+data.subsidy_description.retailer[i]+'</p>';	
-				}
-				$(".btsm2").find(".btsmD1").html(hm);		
-				if(heightXdjsljg<$(".btsm2").find(".btsmD1").height()){
-					heightXdjsljg=$(".btsm2").find(".btsmD1").height();
-				}
-				console.log(heightXdjsljg+"调试高度")
-			};
-			hm="";//懒得重新弄变量了。
-			if(data.subsidy_description.consumer){
-				for(i=0;i<data.subsidy_description.consumer.length;i++){
-					hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description.consumer[i].subsidyevent+data.subsidy_description.consumer[i].subsidymethod+'</p>';
-	//				hm+='<p class="btsmPs">'+(i+1)+data.subsidy_description.consumer[i]+'</p>';	
-				}
-				$(".btsm3").find(".btsmD1").html(hm);	
-				if(heightXdjsljg<$(".btsm3").find(".btsmD1").height()){
-					heightXdjsljg=$(".btsm3").find(".btsmD1").height();
-				}
-				console.log(heightXdjsljg+"调试高度")
-			}
-			console.log(heightXdjsljg+"调试高度")
-			
-			/*判断有几个btsm,用于确定btsm宽度*/
-			//有谁显示谁，无则隐藏
-			$(".btsm").addClass("hi");
-			var num=0;
-			if(data.subsidy_description.distributor){
-				num++;
-//				console.log(num)
-				$(".btsm1").removeClass("hi");
-			}
-			if(data.subsidy_description.retailer){
-				num++;
-//				console.log(num)
-				$(".btsm2").removeClass("hi");
-			}
-			if(data.subsidy_description.consumer){
-				num++;
-//				console.log(num)
-				$(".btsm3").removeClass("hi");
-			}
-//			alert($(window).width());
-			//确定有无按钮
-			if(heightXdjsljg>144){
-				$(".BbtsmRright3").remove();
-			}
-			//不同数量，有无按钮，btsm的宽度各不相同
-			var widthNum=0;
-			if($(window).width()>1000){				
-				if(heightXdjsljg>144){
-					widthNum=861
-					$(".BbtsmRright2Content").width(861)
+				//不同数量，有无按钮，btsm的宽度各不相同
+				//1.先确定$(".BbtsmRright2Content")宽度
+				var widthNum=0;//$(".BbtsmRright2Content")宽度
+				if($(window).width()>1000){				
+					if(Object.keys(data.subsidy_description).length<=3){
+						widthNum=861;
+						$(".BbtsmRright2Content").width(861)
+					}else{
+						widthNum=801;
+					}
+/*					console.log(widthNum);
+					$(".btsm").css({					
+						width:(widthNum-10*2)/num
+					})*/
+	//				console.log("if")
 				}else{
-					widthNum=801
+					if(Object.keys(data.subsidy_description).length<=3){
+						widthNum=707;
+						$(".BbtsmRright2Content").width(707)
+					}else{
+						widthNum=667;
+					}
+/*					console.log(widthNum);
+					$(".btsm").css({					
+						width:(widthNum-10*2)/num
+					})*/
+	//				console.log("else")
+				}	
+				//生成btsm	
+				for(var key in data.subsidy_description){				
+					$(".BbtsmRright2Content").append(btsmHtml);//生成btsm	
+					
+					$(".BbtsmRright2Content .btsm:last").find(".btsmP1").text(btduixiang(key));//补贴对象
+					var hm=''
+					for(i=0;i<data.subsidy_description[key].length;i++){
+						//分享超惠券送固定金额返现2元
+//						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+'</p>';	
+						//分享超惠券送固定金额返现2元
+//						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+","+data.subsidy_description[key][i].ruledescription.join("，")+'</p>';	
+						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:214px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
+					}
+					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
+					console.log(hm)
+				}	
+				//2.最后的一行的宽度
+				//给每个btsm设置宽度
+				$(".btsm").width((widthNum-10*2)/3);
+				//最后一行的宽度
+				if(Object.keys(data.subsidy_description).length%3!=0){
+					var n=Object.keys(data.subsidy_description).length%3;
+					$(".btsm").eq(-n).width((widthNum-10*2)/n);		
+					$(".btsm").eq(-n).nextAll(".btsm").width((widthNum-10*2)/n);		
+					//最后一行文本的宽度,-30是左右padding的和，16是序号所在span的宽度，一共2个span，一个是序号一个是文本。
+					$(".btsm").eq(-n).find(".btsmPs").find("span:last").width((widthNum-10*2)/n-30-16)
+					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").width((widthNum-10*2)/n-30-16)
 				}
-				console.log(widthNum);
-				$(".btsm").css({					
-					width:(widthNum-10*2)/num
+				//生成滚动条
+				$(".btsm").each(function(i){
+					$(this).find(".btsmD1IscrollCon").addClass("isoll_"+i);
+						var myScroll = new IScroll('.isoll_'+i, { 
+						mouseWheel: true, 
+						scrollbars: true,//是否显示滚动条
+						scrollX:false,//是否显示横向滚动条
+						interactiveScrollbars:true,//是否可拖动滚动条
+						snap:true,//自动分割容器，用于制作走马灯效果等
+						resizeScrollbars:true,
+						}); 
 				})
-//				console.log("if")
-			}else{
-				if(heightXdjsljg>144){
-					widthNum=707
-					$(".BbtsmRright2Content").width(707)
-				}else{
-					widthNum=667
-				}
-				console.log(widthNum);
-				$(".btsm").css({					
-					width:(widthNum-10*2)/num
-				})
-//				console.log("else")
 			}
 			
-			zksq2();
+//			zksq2();
 			//活动补贴说明结束
 			//地区开始
 			var hmSheng=$(".BDcyhdCityDsSheng").get(0).outerHTML;
 			var hmShi=$(".BDcyhdCityDsShi").get(0).outerHTML;
 			var hmQv=$(".BDcyhdCityDsqv").get(0).outerHTML;
 			$(".BDcyhdCityD").empty();
+
+			
 			//省	
 			for(i=0;i<data.district_condition.length;i++){				
 				$(".BDcyhdCityD").append(hmSheng);
@@ -719,7 +750,13 @@ function ajaxActivityDetails(a,b){
 			//为了哲哥说的只让第一个显示图，其他的都不显示了。
 			$(".BDcyhdCityD").find("img").addClass("vis");
 			$(".BDcyhdCityD").find("img").eq(0).removeClass("vis");		
-//				
+			
+			if(data.area_matched==1){//对勾//0213添加，用于显示地区叉叉钩钩
+				$(".BDcyhdCityDsSheng img").attr("src","img/a3.png");
+			}else{//叉叉
+				$(".BDcyhdCityDsSheng img").attr("src","img/a4.png");
+			}
+			
 			$(".BDcyhdCityDsMore").text("展开更多>>").css({
 				color:'red',
 				left:mmm()
@@ -912,7 +949,10 @@ $(".BbtsmRright3Img").click(function(){
 	}		
 })	
 //展开收起函数封装，用于页面中间的活动补贴说明的按钮
-//活动补贴说明的展开收起
+//活动补贴说明的展开收起//0210改变需求，所有展开收起zksq2()无用
+$(".BbtsmRright3Img").click(function(){
+	$(".BbtsmRright2Content").toggleClass("maxHeight180");
+})
 function zksq2(){//obj可以是jq对象的类名
 //	debugger;
 	/*if($(".btsmD1").height()<140){//修复数据不满而反复清空的bug以及调用dotdotdot的bug//后期加上//0206将其注释掉，以修改bug14632 
@@ -1038,18 +1078,23 @@ function mmm(){
 returnToList()
 //返回超慧券列表
 function returnToList(){
-	$(".BreList .returnTopicList").click(function(){
+	if(UrlKeyValueData.switchfrom=="ticketlist"){
+		$(".returnToList").removeClass("hi")
+	}else{
+		$(".returnToList").addClass("hi")
+	}
+	$(".returnToList .p1").click(function(){
 		engine.call('ClosePage',"");
+		console.log("返回主题活动列表触发")
 	})
-	$(".BreList .returnChaohuiquanList").click(function(){
+	$(".returnToList .p2").click(function(){
 		engine.call('ClosePage',"");
-	})	
+		console.log("返回超惠券列表触发")
+	})
 	$("header").click(function(){			
 		engine.call('ClosePage',"");
-//		alert("header触发")
 	})
 }
-
 
 
 //判断是否接收到经销商id，活动id	
@@ -1078,5 +1123,40 @@ function isReceivedID(){
 	}
 
 }*/
-
-
+function btduixiang(a){
+	var btduixiang = "";
+	switch(a){	
+		case "distributor":
+		btduixiang = '分销商'
+		break;		
+		
+		case "distributoremployee":
+		btduixiang = '分销商业务员'
+		break;
+		
+		case "distributor_employee":
+		btduixiang = '分销商业务员'
+		break;
+		
+		case "retailer":
+		btduixiang = '门店'
+		break;
+		
+		
+		case "retaileremployee":
+		btduixiang = '门店店员'
+		break;
+		
+		case "retailer_employee":
+		btduixiang = '门店店员'
+		break;
+		
+		case "consumer":
+		btduixiang = '消费者'
+		break;
+		
+		default:
+		btduixiang =a;
+	}	
+	return btduixiang;
+}

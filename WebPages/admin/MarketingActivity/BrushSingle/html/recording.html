@@ -7,44 +7,43 @@
 		<link rel="stylesheet" type="text/css" href="../../../lib/Hui-iconfont/1.0.7/iconfont.css" />
 		<link rel="stylesheet" type="text/css" href="../css/recording.css">
 		<link rel="stylesheet" type="text/css" href="../laydate/need/laydate.css">
-		
 		<script src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
 		<script src="../laydate/laydate.js"></script>
 		<script src="../../../lib/layer-v2.4/layer/layer.js"></script>
-				<script>
-		$(function(){
-			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0") {
-				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
-					time: 3000
-				}); //IE 6.0
-				return;
-			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0") {
-				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
-					time: 3000
-				}); //IE 7.0
-				return;
-			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
-				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
-					time: 3000
-				}); //IE 8.0
-				return;
-			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE9.0") {
-				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
-					time: 3000
-				}); //IE 9.0
-				return;
-			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE10.0") {
-				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
-					time: 3000
-				}); //IE 10.0
-				return;
-			} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE11.0") {
-				layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
-					time: 3000
-				}); //IE 10.0
-				return;
-			}
-		})
+		<script>
+			$(function() {
+				if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE6.0") {
+					layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+						time: 3000
+					}); //IE 6.0
+					return;
+				} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE7.0") {
+					layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+						time: 3000
+					}); //IE 7.0
+					return;
+				} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE8.0") {
+					layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+						time: 3000
+					}); //IE 8.0
+					return;
+				} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE9.0") {
+					layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+						time: 3000
+					}); //IE 9.0
+					return;
+				} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE10.0") {
+					layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+						time: 3000
+					}); //IE 10.0
+					return;
+				} else if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.split(";")[1].replace(/[ ]/g, "") == "MSIE11.0") {
+					layer.msg("该网站暂不支持Ie 浏览器，请用其它浏览器打开", {
+						time: 3000
+					}); //IE 10.0
+					return;
+				}
+			})
 		</script>
 
 		<script src="../../../lib/district/js/cityLink.js"></script>
@@ -57,38 +56,28 @@
 			<i> &gt; </i>
 			<span class="this-text">刷单记录</span>
 		</div>
-		
+
 		<div class="option clearfix">
 			<div class="optionl left">
-				<div>
-					<div class="xze1 clearfix">
-						<div><span><i class="cgl-on"></i></span>待处理</div>
-
-						<div><span><i></i></span>已处理</div>
+				<ul class="xze1 left">
+					<li>
+						待处理
+						<span>未处理</span>
+					</li>
+					<li>
+						已处理
+						<span>处罚中</span>
+					</li>
+				</ul>
+				<div class="xzcont left">
+					<div class="weichuli">
+						<div class="weiqueren" state="未处理"><span>未确认</span>（<i></i>条）</div>
+						<div class="shensuz" state="申诉中"><span>申诉中</span>（<i></i>条）</div>
 					</div>
-					<div class="ztai clearfix">
-						<h3 class="left">状态</h3>
-						<div class="cgl-wgui left">
-							<span class="cgl-con"></span><span class="cgl-jian"><i class="Hui-iconfont">&#xe6d5;</i></span>
-							<ul>
-								<li><span class="cgl-con1" id="cgl-weicl"></span></li>
-								<li><span class="cgl-con1" id="cgl-shensuz"></span></li>
-							</ul>
-						</div>
-
-						<div class="cgl-wgui left yincang">
-							<span class="cgl-con"></span><span class="cgl-jian"><i class="Hui-iconfont">&#xe6d5;</i></span>
-							<ul>
-								<li>
-									<span class="cgl-con1" id="cgl-qrwg"></span><span class="jtou"> > </span>
-									<ul>
-										<li><span class="cgl-con1" id="cgl-chufaz"></span></li>
-										<li><span class="cgl-con1" id="cgl-yijies"></span></li>
-									</ul>
-								</li>
-								<li><span class="cgl-con1" id="cgl-jiechuwg">解除违规（<em>0</em>条）</span></li>
-							</ul>
-						</div>
+					<div class="yichuli">
+						<div class="chufaz" state="处罚中"><span>确认违规处罚中</span>（<i></i>条）</div>
+						<div class="yijiesu" state="已结束"><span>确认违规已结束</span>（<i></i>条）</div>
+						<div class="jiechu" state="解除违规"><span>解除违规</span>（<i></i>条）</div>
 					</div>
 				</div>
 			</div>
@@ -148,10 +137,10 @@
 		</div>
 		<div id="cgl-table">
 			<div class="cgl-anniu">
-				<span id="cgl-qrwg1" class="cgl-import">确认违规</span>
+				<span id="cgl-qrwg1" class="cgl-import">调整并确认</span>
+				<span id="cgl-tzwg1" class="cgl-import">调整违规等级</span>
 				<span id="cgl-jcwg1" class="cgl-import">解除违规</span>
-				<span id="cgl-tzwg1" class="cgl-ciyao">调整违规等级</span>
-				<span id="cgl-fstz1" class="cgl-ciyao">发送通知</span>
+				<span id="cgl-fstz1" class="cgl-import">发送通知</span>
 			</div>
 			<div id="cgl-box">
 				<table border="1">
