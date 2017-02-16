@@ -1358,24 +1358,28 @@ function fnweigyy() {
 
 }
 
-function fnpaixu(data) {
+function fnpaixu(data,order) {
+	var cont = "";
 	for(var i = 0; i < data.length; i++) {
-		if(data[i]) {
-
+		for(var j = 0; j < data.length; j++) {
+			if(data[j][order] == i) {
+				cont += "<tr>" +
+					"<td class='jltd1'>" + data[i]["consumername"] + "</td>" +
+					"<td class='jltd2'>" + data[i]["retailername"] + "</td>" +
+					"<td class='jltd3'>" + data[i]["activitytitle"] + "</td>" +
+					"<td class='jltd4'>" + data[i]["itemkind"] + "</td>" +
+					"<td class='jltd5'>" + data[i]["ruletext"] + "</td>" +
+					"<td class='jltd6'>" + data[i]["verifymoney"] + "</td>" +
+					"<td class='jltd7'>暂无</td>" +
+					"<td class='jltd8'>暂无</td>" +
+					"<td class='jltd9'>" + data[i]["issuetime"] + "</td>" +
+					"<td class='jltd10'></td>" +
+					"</tr>";
+			}
 		}
-		cont += "<tr>" +
-			"<td class='jltd1'>" + data["verifylist"][k2]["consumername"] + "</td>" +
-			"<td class='jltd2'>" + data["verifylist"][k2]["retailername"] + "</td>" +
-			"<td class='jltd3'>" + data["verifylist"][k2]["activitytitle"] + "</td>" +
-			"<td class='jltd4'>" + data["verifylist"][k2]["itemkind"] + "</td>" +
-			"<td class='jltd5'>" + data["verifylist"][k2]["ruletext"] + "</td>" +
-			"<td class='jltd6'>" + data["verifylist"][k2]["verifymoney"] + "</td>" +
-			"<td class='jltd7'>暂无</td>" +
-			"<td class='jltd8'>暂无</td>" +
-			"<td class='jltd9'>" + data["verifylist"][k2]["issuetime"] + "</td>" +
-			"<td class='jltd10'></td>" +
-			"</tr>";
+
 	}
+	$(".table2").find("tbody").html(cont);
 }
 
 function fnshaixuan(data) {
@@ -1383,7 +1387,7 @@ function fnshaixuan(data) {
 	$(".hxjlpx").on("click", "span", function() {
 		$(this).addClass("onck").siblings().removeClass("onck");
 		if($(this).index() == 0) {
-			fnpaixu(data);
+			fnpaixu(data,"order1");
 		} else if($(this).index() == 1) {
 
 		} else if($(this).index() == 2) {
