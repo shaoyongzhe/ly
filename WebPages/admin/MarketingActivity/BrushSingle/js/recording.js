@@ -575,7 +575,7 @@ function fncaozuo() {
 	}).on("click", ".queren", function() {
 		var putdata = {
 			"dealtstate": "确认违规",
-			"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
+			"description": $("#cgl-tjbz").find("textarea").val(),
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
 		//querenwg_add(putdata);
@@ -696,7 +696,7 @@ function article_add(that) {
 		if($(this).text() == "调整并确认") {
 			var putdata = {
 				"dealtstate": "确认违规",
-				"weiguidengji": $(".cgl-td6", parents).text().replace(/[^0-9]/ig, ""),
+				"description": $("#cgl-tjbz").find("textarea").val(),
 				"anticheatingids": guid
 			};
 			//querenwg_add(putdata);
