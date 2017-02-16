@@ -1557,7 +1557,7 @@ textarea{
 	clear: both;
 }
 /*补贴项目，如"开头会员系统，拉粉等"*/
-.subsidyConditionItems{
+.subsidyConditionItem{
 	width:202px;
 	height:50px;
 	background:#f1f1f1;
@@ -1568,10 +1568,10 @@ textarea{
 	font-family: "微软雅黑";
 	margin-right: 10px;
 	float: left;
-	border-radius: 5px;
+	border-radius: 3px;
 	margin-bottom: 10px;
 }
-.subsidyConditionItems.on{
+.subsidyConditionItem.on{
 	background:#4778c7;
 	color:white;
 }
@@ -1683,12 +1683,12 @@ textarea{
 	padding-left: 6px;
 }
 .addSubSubsidyPolicy .unitContent input{
-	line-height: 27px;
+	/*line-height: 27px;*/
 	width:22px;
 	text-align: center;
 	outline: none;
 	border: hidden;
-	height: 25px;
+	/*height: 25px;*/
 	background: transparent;
 	/*background: red;*/
 	vertical-align: top;
