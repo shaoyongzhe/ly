@@ -351,7 +351,7 @@ button {
   text-align: center;
   /*background-color: #FFFFFF;*/
   /*display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;*/
-  
+  word-wrap: break-word;
   }
 
 .ac_tip{
