@@ -1211,8 +1211,7 @@ function fnweigyy() {
 					"</div>" +
 					
 					
-					
-					"<div class='table2'><table border='1'>" +
+					"<div><table border='1'>" +
 					"<tr>" +
 					"<th width='60'>消费者</th>" +
 					"<th width='90'>门店</th>" +
@@ -1223,9 +1222,10 @@ function fnweigyy() {
 					"<th width='77'>双方位置距离</th>" +
 					"<th width='77'>是否在店核销</th>" +
 					"<th width='72'>核销时间</th>" +
-					"<th width='58'>密集程度</th>" +
-
-					"</tr>";
+					"<th>密集程度</th>" +
+					"</tr></table></div>"+
+					
+					"<div class='table2'><table border='1'>";
 				for(var k2 in data["verifylist"]) {
 
 					cont += "<tr>" +

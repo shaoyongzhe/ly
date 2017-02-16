@@ -542,12 +542,21 @@ span.name {
 .yycont table{width: 100%; border-collapse:collapse; border:1px solid #e4e4e4;}
 .yycont table th{background: #f3f1f1;color: #333;font-weight: normal;padding: 12px 0;}
 .yycont table td{padding: 20px 0;text-align: center;}
-.yycont>.table1{height: 172px;overflow: auto;margin-top: -1px;}
+.yycont>.table1{max-height: 172px;overflow: auto;margin-top: -1px;}
 .table1 .djtd1{width: 182px;}
 .table1 .djtd2{width: 89px;}
 .table1 .djtd3{text-align: left;text-indent: 20px;}
 .yycont>.table2{height: 288px;overflow: auto;}
-
+.table2 .jltd1{width: 60px;}
+.table2 .jltd2{width: 90px;}
+.table2 .jltd3{width: 99px;}
+.table2 .jltd4{width: 67px;}
+.table2 .jltd5{width: 86px;}
+.table2 .jltd6{width: 77px;}
+.table2 .jltd7{width: 77px;}
+.table2 .jltd8{width: 77px;}
+.table2 .jltd9{width: 72px;}
+.table2 .jltd10{}
 .tianpfx{margin:4px 0 0 1px;}
 .fxcont{overflow: hidden;}
 .fxcont>li{overflow: hidden;border: 1px solid #e4e4e4;line-height: 26px;margin-bottom: 14px;}
