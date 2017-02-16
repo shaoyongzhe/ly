@@ -140,11 +140,11 @@ header img:nth-of-type(2){
 }
 //列表
 //  //返回列表
-.BreList{
+.returnToList{
     width:145px;
     cursor:pointer;
 }
-.BreList p{
+.returnToList p{
     vertical-align: middle;
     width:143px;
     height:30px;
@@ -847,13 +847,13 @@ a.less {
     line-height: 30px;
   }
 
-  .BreList {
+  .returnToList {
     width: 145px;
     cursor: pointer;
     display: none;
   }
 
-  .BreList p {
+  .returnToList p {
     width: 143px;
     height: 30px;
     line-height: 30px;
