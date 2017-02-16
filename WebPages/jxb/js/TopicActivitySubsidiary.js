@@ -27,7 +27,12 @@ function main(){
 	UrlDistributorIDRefresh();	
 }
 function UrlDistributorIDRefresh(){
-	Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);	//如果UrlKeyValueData.activity_id为undefined也用此。已总结。
+	if(UrlKeyValueData.activity_id!=undefined){
+		Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);	//如果UrlKeyValueData.activity_id为undefined也用此。已总结。		
+	}
+	else{
+		Cajax(UrlKeyValueData.distributor_id);
+	}
 }
 
 engine.on('UpdateMatchedTopics', UpdateMatchedTopics, this)
@@ -124,6 +129,8 @@ function Cajax(m,a,b){
 
 function ajaxSucFn(info){//ajax成功回调里调用
 //	debugger;
+	var jjjj=info;
+	console.log(jjjj);
 	if(info.match){//处理不规范的后台数据,
 		info.matched=info.match;		
 	}	
@@ -192,7 +199,7 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	$(".CccDescriptionCon").empty();
 	var typeCounts=0
 	//分销商
-	if(info.subsidydescription.distributor){
+	if(info.subsidydescription.distributor!=undefined){
 		typeCounts++;
 		var text1="";
 		for(m=0;m<info.subsidydescription.distributor.length;m++){
