@@ -523,6 +523,7 @@
 			}
 
 			// 自定义_y
+//			var local_arr = [];			
 			$(document).on("click", ".icoLong2 a", function() {
 				//console.log($(this))
 				//				var arr_y = $(this).attr('_href').toString().split("/")
@@ -531,12 +532,20 @@
 				//				var name_y = str_y.substr(0,str_y.length-5)
 				//				console.log(arr_y[len-1])
 				var arr_y = $(this).attr('_href');
+//				if(local_arr.indexOf(arr_y) == -1){
+//					local_arr.push(arr_y);
+////					localStorage.setItem('my_arr', local_arr);
+//				};
+//				console.log(JSON.stringify(localStorage.getItem("my_arr")))
 				var len = arr_y.length;
-				var href_y = arr_y.substr(0, len - 5)
-					//console.log(href_y)				
-				var name_y = $(this).attr('data-title')
+				var href_y = arr_y.substr(0, len - 5).split("/");
+				href_y = href_y[href_y.length-1];
+//				console.log(href_y)				
+//				var name_y = $(this).attr('data-title')
 					//console.log(name_y)
-				location.hash = href_y + "&" + name_y;
+//				localStorage.url_y = name_y;
+				location.hash = href_y;
+//				location.reload()
 			})
 		</script>
 	</body>
