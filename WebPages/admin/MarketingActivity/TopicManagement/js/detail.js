@@ -84,6 +84,12 @@ function render(detailData){
 			case ">":
 				operator = "高于";
 				break;
+			/*
+			 * 修复修改页面显示 == 的bug
+			 */
+			case "==":
+				operator = "等于";
+				break;
 		}
 
 		var str = "";
@@ -202,14 +208,44 @@ function render(detailData){
 			var str = "&nbsp;&nbsp;&nbsp;"+ ctype.operator + " " + ctype.value;
 		}
 		var timeunit = isNaN(prevDays) ? "" : ctype.timeunit;
-		prevDays = isNaN(prevDays) ? "" : prevDays;
+		
+		/*
+		 * 修复详情页时间--数字显示错误
+		 */
+		if(timeunit == "月"){
+			prevDays = isNaN(prevDays) ? "" : Math.ceil(prevDays/30);
+			prevDays = prevDays + "个";
+		}else{
+			prevDays = isNaN(prevDays) ? "" : prevDays;
+		}	
+		
+//		console.log(prevDays)
 		// debugger;
 		if(typeTxt == "分销商类型"){
 			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
 			return;
 		}
-		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ timeunit +"</i>"+ str +" 次</p>");
+		
+		/*
+		 * 修复活动开始时、至今 详情页显示的bug
+		 * 粉丝留存率在详情页显示问题，正确显示为 %
+		 */		
+		if(ctype.statisticrange == "活动开始时" || ctype.statisticrange == "至今"){
+			if(typeTxt == "粉丝留存率"){
+				$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ " <i>"+ timeunit +"</i>"+ str +" %</p>");
+			}else{
+				$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ " <i>"+ timeunit +"</i>"+ str +" 次</p>");
+			}			
+		}else{
+			if(typeTxt == "粉丝留存率"){
+				$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +"<i>"+ timeunit +"</i>"+ str +" %</p>");
+			}else{
+				$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +"<i>"+ timeunit +"</i>"+ str +" 次</p>");
+			}
+		}	
+		
 		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ prevDays +" "+ str +" 次</p>");
+		
 		
 	}
 
@@ -233,8 +269,10 @@ function render(detailData){
 			case "retailer":
 				btduixiang = '门店'
 				break;
-
-			case "retaileremployee":
+			/*
+			 * 修复“门店店员”在详情页不能显示的问题
+			 */
+			case "retailer_employee":
 				btduixiang = '门店店员'
 				break;
 
@@ -420,7 +458,8 @@ function render(detailData){
 //};
 var buttonDictionary = {
 	"上架,正在进行中,待活动开始": '<span class="btn btn-close close">关闭</span><span class="btn warn xiajia">下架</span>',
-	"审核失败,待发布": '<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"审核失败": '<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
+	"待发布":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span><span class="btn warn btn_y">立即发布</span>',
 	"已结束":'<span class="btn btn-close close">关闭</span>',
 	"已过期":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span>',
 	"已下架":'<span class="btn btn-close close">关闭</span><span class="btn warn xiugai">修改</span><span class="btn warn shangjia">上架</span>',
@@ -471,9 +510,9 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert("上架成功");
                     closeLayer();
-//                  parent.basicQuery();
                 },
                 error: function (xhr, textStatus) {
                     parent.layer.alert("出错了^_^");
@@ -501,6 +540,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert(op + " 成功");
                     closeLayer();
                 },
@@ -514,7 +554,7 @@ $(document).on('click','.xiugai',function(){
 
         });
 
-
+// 下架
 $(document).on('click','.xiajia',function(){
 
 	$.ajax({
@@ -532,7 +572,7 @@ $(document).on('click','.xiajia',function(){
             if (data.error){
                 parent.layer.alert("出错了^_^");
             }
-
+		
             parent.$('.query').click();
             parent.layer.alert("下架成功");
             closeLayer();
