@@ -103,6 +103,26 @@ function acAdB() {
 		$('.red').not(':first').addClass("vihi");
 		$(".addSub2").last().find(".acAd2").removeClass("hi");
 
+
+
+		var d = new Date();
+        var dates = d.toLocaleDateString().replace(/\//g, '-');
+        $('.time_y').click(function(e){
+            // e.stopPropagation();
+            // var id = $(this).attr('id');
+            laydate({
+                // elem: id,
+                event: 'focus',
+                format: 'YYYY-MM-DD',
+                // format: 'YYYY-MM-DD',
+                // istime: true,
+                max: dates
+                /*choose: function(dates){
+                    layer.msg(dates);
+                },*/
+            });
+        });
+
 	});
 
 	$(".addSub3:last .acAd3").css({"visibility": "hidden"});
@@ -133,7 +153,10 @@ function acAdC() {
 		linshiAddJs = $(this).parents(".acZige");
 	});
 
-	$("body").on("click", ".acZige .acAd4", function(e) {//0118修改
+	$("body").on("click", ".acZige .acAd4", function(e) {//0118修改+
+
+		e.stopPropagation();
+
 		$(this).closest(".acZige").append(addsub3HTML);
 		$(this).closest(".addSub2").find('.member-type .option').each(function(){//根据按钮向上找到控件2，然后以此向下找到控件2中的option
 			//下面代码和createActivity1中完全一致
@@ -160,6 +183,27 @@ function acAdC() {
 		$(this).closest(".acZige").find(".yyy").not(':last').remove();
 		$(this).addClass("hi");
 		$(this).closest('.acZige').addClass('on');
+
+		$('.addSub3:last').find('.time_y').addClass('time_y' + $('.addSub3:last').index());
+
+		var d = new Date();
+		var dates = d.toLocaleDateString().replace(/\//g, '-');
+		$('.time_y' + Number($('.addSub3').last().index())).click(function(e){
+			// e.stopPropagation();
+			// var id = $(this).attr('id');
+			laydate({
+				// elem: id,
+				event: 'focus',
+				format: 'YYYY-MM-DD',
+				// format: 'YYYY-MM-DD',
+				// istime: true,
+				max: dates
+				/*choose: function(dates){
+					layer.msg(dates);
+				},*/
+			});
+		});
+
 	});
 
 }
@@ -168,70 +212,18 @@ function acAdC() {
 
 //设置参与资格显示隐藏
 $("body").on("click", ".acMeD2", function(e) {
-	// $(".acMeD2").click(function(){
-	$(this).parents(".addSub2").find(".acZige").toggleClass("hi");
+
+	e.stopPropagation();
+
+	// $(this).parents(".addSub2").find(".acZige").toggleClass("hi");
+
+
+	$(this).closest('.addSub2').find('.acZige').toggle();
+	
 });
 
 
-//***************************第3个页面开始
-//  	hdc1Tab()
-// 	//一二级联动
-// 	function hdc1Tab(){
-// 		$(".hdc1").find(".option").click(function(){
-// 			var lll=$(this).attr("typeL");
-// 			$(this).parents(".addSub4").find(".hdc2 .option").addClass("hi");
-// 			$(this).parents(".addSub4").find(".hdc2 ."+lll).removeClass("hi");
-// 		});
-// 	}
-// 	hdc3Tab();
-// 	//补贴形式，范围值联动
-// 	function hdc3Tab(){
-// 		$(".hdc3").find(".option").click(function(){	
-// 			// alert(1);
-// 			// debugger
-// 			// alert($(this).text().indexOf('随机'));
-// 			if($(this).text().indexOf('随机') != -1){
-// 				// alert(1);
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33);
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 span').show();
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').show();
-// 			} else {
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(112)
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 span').hide();
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').hide();
-// 			}
-// 			// return
-// 			var arr=["分/次","分/次","元/次","元/次","元/次","元/次","元/张","元/张","微信手机红包；随机金额返现","轮盘抽奖，祝你好运","蒙牛酸酸乳，买一赠一"];
-// 			if($(this).text()!="摇一摇"&&$(this).text()!="轮盘抽奖"&&$(this).text()!="特定超慧券  >"){
-// 				$(this).parents(".addSub4").find(".hdc4d1").removeClass('hi');
-// 				$(this).parents(".addSub4").find(".hdc4d2").addClass('hi');					
-// 					var index=$(this).parents(".addSub4").find(".hdc3").find(".option").index($(this));
-// 					$(this).parents(".addSub4").find(".hdc4").find(".hdc4dA").text(arr[index]);		
-// //				$(".hdc4").find(".hdc4dA").text(arr[index]);
 
-// 			} else {
-// 				// debugger
-// 				$(this).parents(".addSub4").find(".hdc4d1").addClass('hi');
-// 				$(this).parents(".addSub4").find(".hdc4d2").removeClass('hi');
-// 				var index=$(this).parents(".addSub4").find(".hdc3").find(".option").index($(this));
-// 				$(this).parents(".addSub4").find(".hdc4").find(".hdc4dB").text(arr[index]);	
-
-// 				// if($(this).text().indexOf(''))	
-// 			}
-
-// 			if($(this).text()=="摇一摇"){
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In1').val("");
-// 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2').val("");
-// 				$(this).closest('.addSub4').find('.hdc5 .acSe13 input').val("");
-// 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
-// 				// return;
-// 			}
-
-// 			$('.addSub4 .acSe13 input').keyup();
-
-// 		});
-
-// 	}
 
 // 控件4的添加删除
 acAdD();
@@ -438,12 +430,12 @@ function addAjax(){
 			//参加名额
 			$(".addSub2.created_l .acMe").empty();
 			hm = '';
-			$(".addSub2.created_l .acMe").append('<p class="p68 deleP deleP1"></p><div class="selectWrap1 -hi"><span><input class="bor acMeI1" type="text" value="10"/><span class="acMeS1"></span></span><span class="to"></span><span><input class="bor acMeI2" type="text"  value="30" /><span class="acMeS2"></span></span></div>');
+			$(".addSub2.created_l .acMe").append('<p class="p68 deleP deleP1"></p><div class="selectWrap1 -hi"><span><input class="bor acMeI1" type="text" value="10" maxlength="5"/><span class="acMeS1"></span></span><span class="to"></span><span><input class="bor acMeI2" type="text"  value="30" maxlength="5"/><span class="acMeS2"></span></span></div>');
 			for (i = 0; i < dsm_1.length; i++) {
 				if (dsm_1[i].localtype == "消费者") {
-					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value=""/><span class="acMeS1">人</span><span class="to"></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">人</span></div>'
+					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">人</span><span class="to"></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">人</span></div>'
 				} else {
-					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class="to"></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span></div>'
+					hm += '<div class="selectWrap1 hi"><input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class="to"></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span></div>'
 				}
 			}
 			$(".addSub2 .acMe").append(hm);

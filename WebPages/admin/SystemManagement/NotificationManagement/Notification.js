@@ -57,7 +57,8 @@ function getList(curr, handle, searchForm) {
                     content = JSON.stringify(td[i].content);//content = JSON.stringify(td[i].content, null, 4);
                     // console.log(1)
                 } else {
-                    content = JSON.parse('"' + td[i].content + '"');//注意存入localstorage的时候，也要处理。
+                    //content = JSON.parse('"' + td[i].content + '"');//注意存入localstorage的时候，也要处理。
+                    content = contentFormat;
                     // console.log(2)
                 };
             } catch (e) {
@@ -168,7 +169,9 @@ function getList(curr, handle, searchForm) {
         }
     });
 };
-
+$('#refresh').click(function () {
+    getModulePeopleList();
+})
 function getModulePeopleList(curr, handle, searchForm) {
     var url = '/webapi/operation/' + "notification" + '/managers';
     _ajax("get", url, {}, '刷新列表', function (data) {

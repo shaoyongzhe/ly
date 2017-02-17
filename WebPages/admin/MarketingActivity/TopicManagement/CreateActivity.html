@@ -33,7 +33,7 @@
 
 			<div class="input-contorl">
 				<label for="">活动主题</label>
-				<span class="edit-area re">
+				<span class="edit-area re hdzt bor pb10">
 					<textarea name="" id="" maxlength='30' class="activityTitle"></textarea>
 					<span class='tip ab'><em>0</em>/30</span>
 				</span>
@@ -50,24 +50,24 @@
 			<div class="input-contorl">
 				<label for="">活动时间</label>
 				<span class="edit-area">
-					<input type="text" class="time actBegin begintime" readonly> - 
-					<input type="text" class="time actEnd endtime" readonly>
-					<em class='tip forTime'> * 活动账户余额不足时活动会自动停止</em>
+					<input type="text" id="actBegin" class="time actBegin begintime" readonly> - 
+					<input type="text" id="actEnd" class="time actEnd endtime" readonly>
+					<em class='tip forTime'> <i class='pre'>*</i> 活动账户余额不足时活动会自动停止</em>
 				</span>
 			</div>
 
 			<div class="input-contorl">
 				<label for="">会员参与时间</label>
 				<span class="edit-area">
-					<input type="text" class="time involBegin earliestjointime" readonly> - 
-					<input type="text" class="time involEnd latestjointime" readonly>
+					<input type="text" id="joinBegin" class="time involBegin earliestjointime" readonly> - 
+					<input type="text" id="joinEnd" class="time involEnd latestjointime" readonly>
 				</span>
 			</div>
 
 			<div class="input-contorl">
 				<label for="">申报说明</label>
-				<em class='tip'> * 该段文字仅供凌云人员可见，用于活动申报说明</em>
-				<span class="edit-area re shenbao">
+				<em class='tip'> <i class='pre'>*</i> 该段文字仅供凌云人员可见，用于活动申报说明</em>
+				<span class="edit-area re shenbao bor pb10">
 					<textarea name="" id="shenbao" maxlength='500' class="description"></textarea>
 					<span class="tip ab"><em>0</em>/500</span>
 				</span>
@@ -171,7 +171,7 @@
 			<div class="input-contorl">
 				<label for="">商品类目</label>
 				<span class="setBtn disabled">设置</span>
-				<span class="tip warn">* 暂不支持</span>
+				<span class="tip warn">  <i class='pre'>*</i> 暂不支持</span>
 			</div>
 
 			<div class="input-contorl">
@@ -300,7 +300,7 @@
 					</div>
 					<!--控件2参与会员,含控件3参与资格-->
 					<div class="addSub2 created_l">
-						<div class="member">
+						<div class="member clr">
 							<!--会员类型acLy-->
 							<div class="dib acLy ver">
 								<!-- <p class="p68 deleP deleP1">会员类型</p>	 -->
@@ -316,28 +316,28 @@
 									</ul>
 								</div>				
 							</div>
-							<div class="dib red">*主办方</div>
+							<div class="dib red"><i class='pre'>*</i> 主办方</div>
 							<!--参加名额acMe-->
 							<div class="dib acMe">
 								<!-- <p class="p68 deleP deleP1">参加g名额</p> -->
 								<div class="selectWrap1 -hi">
 
 									<span>
-										<input class="bor acMeI1" type="text" value="10"/><span class="acMeS1">家</span>
+										<input class="bor acMeI1" type="text" value="10" maxlength="5" /><span class="acMeS1">家</span>
 									</span><span class='to'></span><span>
-										<input class="bor acMeI2" type="text"  value="30" />
+										<input class="bor acMeI2" type="text" value="30" maxlength="5" />
 										<span class="acMeS2">家</span>
 									</span>
 
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<div class="selectWrap1 hi">
-									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
+									<input class="bor acMeI1" type="text" value="" maxlength="5"/><span class="acMeS1">家</span><span class='to'></span><input class="bor acMeI2" type="text"  value="" maxlength="5"/><span class="acMeS2">家</span>
 								</div>
 								<!-- <div class="selectWrap1 hi">
 									<input class="bor acMeI1" type="text" value=""/><span class="acMeS1">家</span><span >-</span><input class="bor acMeI2" type="text"  value=""/><span class="acMeS2">家</span>
@@ -347,9 +347,9 @@
 								</div>
 									
 							</div>
-							<div class="dib acMeD1 dib">不输入代表不限，未达到最低名额，活动不予开始</div>
-							<div class="dib acMeD2 dib">设置参与资格</div>
-							<div class="dib acMeD3 dib">不设置代表不限</div>
+							<div class="dib acMeD1">不输入代表不限，未达到最低名额，活动不予开始</div>
+							<div class="dib acMeD2">设置参与资格</div>
+							<div class="dib acMeD3">不设置代表不限</div>
 							<!--添加删除按钮-->
 
 							<div class="acAdB dib">
@@ -382,7 +382,9 @@
 											<li class="option">会员时长</li> -->	
 										</ul>
 									</div>				
-								</div>				
+								</div>
+
+								<div class="range-wrap">				
 								<div class="dib acZige2 ver">
 									<!-- <p class="p68 deleP">统计范围</p>				 -->
 									<div class="select-wrap  acSe6">
@@ -394,7 +396,7 @@
 											<li class="option">至今</li>
 										</ul>
 									</div>
-								</div>				
+								</div>
 								<div class="dib acZige3 ver">
 									<div class="acZige3z -hi acZige2tab">
 										<p></p>
@@ -410,7 +412,7 @@
 											</ul>
 										</div>							
 									</div>
-									<div class="acZige3a hi acZige2tab">
+									<div class="acZige3a hi acZige2tab" style="visibility: hidden;">
 										<input type="text" class="date" />
 										<div class="select-wrap  acSe7 dib">
 											<i></i>
@@ -422,33 +424,46 @@
 										</div>
 									</div>
 									<div class="acZige3b hi acZige2tab">
-										<input type="text" class="dib" value="不限" disabled/>		
+										<input type="text" class="time time_y dib" id="time_y" value="不限" />		
 										<p class="dib">- 至今</p>
 									</div>
+								</div>
 								</div>
 
 								<!--条件-->
 								<div class="dib acZige4 ver">
 									<!-- <p class="p68 deleP">条件</p>				 -->
-									<div class="select-wrap  acSe8">
+									<div class="select-wrap acSe8 operator-wrap">
 										<i></i>
 										<em class="selected"></em>
 										<ul class="select">
 											<li class="option">>=</li>
 											<li class="option">介于</li>
+											<li class="option">==</li>
 										</ul>
-									</div>				
+									</div>
 								</div>
+
 								<div class="dib acZige5 ver">
+
 									<div class="hi acZige5a acZige1Tab acZige4tab">
 										<!--最后一个p标签内容随时变-->
 										<input type="text" class="min dayudengyu" /><p class="dib">次</p>
-									</div>					
+									</div>				
+
 									<div class="-hi acZige5c acZige1Tab acZige4tab">
 										<!--最后一个p标签内容随时变-->
 										<input type="text" class="min jieyu1" value=""/><p>-</p><input type="text" class="jieyu2" value=""/><p class="dib"></p>
 									</div>
-															
+
+									<div class="select-wrap acZige4tab teyao hi">
+										<i></i>
+										<em class="selected"></em>
+										<ul class="select">
+											<li class="option">特邀联盟/li>
+										</ul>
+									</div>
+
 								</div>
 
 								<!--添加删除按钮-->
@@ -608,8 +623,8 @@
 					<dfn class='fl'>活动预算峰值：</dfn>
 					<ul class='fl'>
 						<li>直发现金<span class='cash'>0</span><i class='dw'>元</i></li>
-						<li>返现券<span class='quan'>0</span><i class='dw'>张</i>，价值<span>0</span><i class='dw yuan'>元</i></li>
-						<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
+						<!-- <li>返现券<span class='quan'>0</span><i class='dw'>张</i>，价值<span>0</span><i class='dw yuan'>元</i></li> -->
+						<!-- <li>积分<span class='score'>0</span><i class='dw'>分</i></li> -->
 					</ul>
 				</div>
 
@@ -629,9 +644,9 @@
 			<div class="layer yao re hide">
 
 				<div class="yaoWrap">
-					<span class='tip'>* 摇一摇概率相加等于100%</span>
+					<span class='tip'><i class='pre'>*</i> 摇一摇概率相加等于100%</span>
 					<div class="addSub5P68">
-						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><p class="p68 deleP dib">申报预算</p>				
+						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><!-- <p class="p68 deleP dib">申报预算</p> -->				
 					</div>
 					<div class="yaoyiyao addSub5 created_l"><!--合并的时候，请修改此名-->
 
@@ -678,7 +693,7 @@
 						<div class="dib Yyy4 ver re">
 							<!-- <p class="p68 deleP">奖品次数</p>				 -->
 							<div class="dib Yyy4d1 ver">
-								<input type="text" />
+								<input type="text" disabled />
 								<span>次</span>
 							</div>
 						</div>
@@ -686,7 +701,7 @@
 						<div class="dib Yyy5 ver re">
 							<!-- <p class="p68 deleP">补贴峰值</p>				 -->
 							<div class="dib -hi Yyy5d1 ver fz">
-								<input type="text" value="" class="dib"/>						
+								<input type="text" value="" class="dib" readonly />						
 								<span class="dib ba"></span>
 							</div>
 							<div class="dib hi Yyy5d2">	
@@ -694,16 +709,16 @@
 							</div>
 						</div>
 
-						<div class="dib Yyy5-1 ver re">
-							<!-- <p class="p68 deleP">申报预算</p>				 -->
-							<div class="dib -hi Yyy5d1 ver">
-								<input type="text" value="" class="dib"/>						
-								<span class="dib ba">元</span>
-							</div>
-							<div class="dib hi Yyy5d2">	
-								
-							</div>
-						</div>	
+						<!-- <div class="dib Yyy5-1 ver re">
+								<p class="p68 deleP">申报预算</p>
+								<div class="dib -hi Yyy5d1 ver">
+									<input type="text" value="" class="dib"/>						
+									<span class="dib ba">元</span>
+								</div>
+								<div class="dib hi Yyy5d2">	
+									
+								</div>
+							</div> -->	
 
 						<div class="dib Yyy6 setgailv">设置概率</div>
 						<!--添加删除按钮-->
@@ -722,7 +737,7 @@
 						<ul class="fl">
 							<li>现金<span class='cash'>0</span><i class='dw'>元</i></li>
 							<!-- <li>返现券<span class='quan'>10</span><i class='dw'>张</i>，价值<span class='yuan'>20</span><i class='dw'>元</i></li> -->
-							<li>积分<span class='score'>0</span><i class='dw'>分</i></li>
+							<!-- <li>积分<span class='score'>0</span><i class='dw'>分</i></li> -->
 						</ul>
 					</div>
 
@@ -927,19 +942,16 @@
                     <span>概率适用范围</span>
                     <div class="select-wrap">
                         <i></i>
-                        <em class="selected">平台活动1</em>
+                        <em class="selected">按平台活动</em>
                         <ul class="select" style="display: block;">
-                            <li class="option">平台活动1</li>
-                            <li class="option">平台活动2</li>
-                            <li class="option">平台活动3</li>
-                            <li class="option">平台活动4</li>
+                            <li class="option">按平台活动</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="value_curve">
 	                <div class="dollor">
-	                    <span>金额概率<dev>*概率值总和应为100%</dev></span>
+	                    <span>金额概率<dev><i class='pre'>*</i>概率值总和应为100%</dev></span>
 	                </div>
 	                <div class="coordinate">
 	                    <div class="coordinate_images">
@@ -1144,6 +1156,11 @@
 				</div>
             </div>
 
+
+			<div class="layer setCond hide">
+				sdsdsd
+			</div>
+
 		</div>
 		</section>
 
@@ -1186,7 +1203,7 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class='warn tip'>* 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
+						<span class='warn tip'><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
 
 
 						<div class="detail">
@@ -1348,7 +1365,7 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class='warn tip'>* 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
+						<span class='warn tip'><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
 						<div class="detail">
 						
 							<div class="wenan-text propagation"></div>
@@ -1569,7 +1586,7 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class='warn tip'>* 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
+						<span class='warn tip'><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员PC端活动详情页、公众号超惠活动以及微信图文信息中展示</span>
 						<div class="detail">
 						
 							<div class="wenan-text propagation"></div>
@@ -1790,7 +1807,7 @@
 					<div class="item">
 						<label for="">活动标语</label>
 						<span class="edit-area re">
-							<span class='tip warn mb2'>* 将显示在会员PC端活动列表、活动详情页、超惠券列表以及公众号超惠券主题活动、超惠券上</span><br>
+							<span class='tip warn mb2'><i class='pre'>*</i> 将显示在会员PC端活动列表、活动详情页、超惠券列表以及公众号超惠券主题活动、超惠券上</span><br>
 							<!-- <input type="text"  maxlength="15"> -->
 							<textarea name="" id="hdBiaoyu" maxlength="15"></textarea>
 							<span class="tip ab biaoyu"><em>0</em>/15</span>
@@ -1800,7 +1817,7 @@
 					<div class="item">
 						<label for="">微信图文消息标题</label>
 						<span class="edit-area re">
-							<span class='tip warn mb2 wx'>* 用于微信图文消息标题</span><br>
+							<span class='tip warn mb2 wx'><i class='pre'>*</i> 用于微信图文消息标题</span><br>
 							<textarea name="" class="wxtw" maxlength="64"></textarea>
 							<span class="tip ab wx"><em>0</em>/64</span>
 						</span>
@@ -1883,10 +1900,10 @@
 
 					<div class="item">
 						<label for="">宣传文案</label>
-						<span class="tip warn">* 宣传文案、参与活动条件、活动补贴规则、将在会员pc端活动详情页、公众号超惠活动以及微信图文信息中显示</span>
+						<span class="tip warn"><i class='pre'>*</i> 宣传文案、参与活动条件、活动补贴规则、将在会员pc端活动详情页、公众号超惠活动以及微信图文信息中显示</span>
 						<div class="detail">
 							
-							<div class="wenan-text re">
+							<div class="wenan-text re bor">
 								<textarea maxlength='500' placeholder='建议填写宣传性文字' class="xcwa"></textarea>
 								<span class="tip ab"><em>0</em>/500</span>
 							</div>
@@ -2115,14 +2132,12 @@
 </html>
 
 <script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="js/vue.js"></script> -->
 <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script>
 <script type="text/javascript" src="laydate/laydate.js"></script>
 <!-- <script type="text/javascript" src="js/plugin/slimscroll.js"></script> -->
 <!-- <script type="text/javascript" src="js/plugin/superslide.js"></script> -->
 <script type="text/javascript" src="../../lib/district/js/area_select.js"></script>
-
-
 <script type="text/javascript" src="js/CreateActivity.js"></script>
 <script type="text/javascript" src="js/area.js"></script>
-<!-- <script type="text/javascript" src="js/add.js"></script> -->
 <script type="text/javascript" src="js/add.js"></script>

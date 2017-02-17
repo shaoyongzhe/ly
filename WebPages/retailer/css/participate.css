@@ -113,6 +113,7 @@
 		margin: 0 auto;
 		display: block;
 		line-height: 1rem;
+		word-break: break-all;
 		/* margin-bottom: 1rem; */
 	}
 	.Activity{
@@ -299,6 +300,10 @@
 	.variety{
 		width: 100%;
 		background: #ffd9d9;
+		margin-top: 0.3rem;
+	}
+	.variety:nth-child(1){
+		margin-top:0;
 	}
 	.variety a{
 		line-height: 0.9rem;

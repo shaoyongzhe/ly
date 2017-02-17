@@ -1,4 +1,4 @@
-//20170122
+//20170207
 /*滚动条返回顶端*/
 //setTimeout(function(){window.scrollTo(0,0);}, 50);
 /*loading*/
@@ -18,52 +18,32 @@ function loadintEnd(){
 	});			
 	$(".loadingDiv").remove();
 }
+
 /*白板遮罩*/
 /*
-//放弃使用layer，使用更简单的方式
-var marginShadeIndex="";
-function marginShade(){
-	marginShadeIndex=layer.open({
-	  type: 1,
-	  title:false,
-	  skin: 'layui-layer-rim', //加上边框
-	  area: ['100%','100%'], //宽高
-	  content: "",
-	  closeBtn: 0,
-	  skin: false,
-	})
-}*/
-
-/*
-用的时候直接复制到相应的地方
-			.marginShade{
-			    position:fixed;
-			    top:0;
-			    left:0;
-			    width:100%;
-			    height:100%;
-			    background:white;
-			    z-index: 99999;
-			}
-
+用的时候直接如下操作
+1.复制样式，本处3个页面都在public.css中含了此样式
+.marginShade{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:white;
+    z-index: 99999;
+}
+2.复制下面标签到body标签内，最上面。
 <script type="text/javascript">
 	var marginShade=document.createElement("div");			
 	marginShade.className="marginShade";
 	document.getElementsByTagName("body")[0].appendChild(marginShade);	
 </script>
+3.ajax开始前移除
+beforeSend:function(){
+	loadingStart();
+	$(".marginShade").remove();
+},
 */
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*弹窗刷新*/
 var popups=''
@@ -76,6 +56,7 @@ var popups=''
 
 /*通讯异常弹窗*/
 function popupsFn(fn1,fn2){
+	$(".marginShade").show();
 	var popupsFnLayerIndex=layer.open({
 	  type: 1,
 	  title:false,
@@ -102,7 +83,7 @@ function popupsFn(fn1,fn2){
 }
 /*倒计时*/
 //用于活动列表，活动详情
-function countDown(obj,timeArr){//第一个参数是要显示倒计时的对象，第二个参数是时间
+function countDown(obj,timeArr,fn){//第一个参数是要显示倒计时的对象，第二个参数是时间
 	var presentTime=new Date();
 	var endtime=new Date(timeArr);
 	var cha=endtime-presentTime;
@@ -138,12 +119,36 @@ function countDown(obj,timeArr){//第一个参数是要显示倒计时的对象�
 	obj.eq(6).text(mins[1]);
 	obj.eq(7).text(seconds[0]);
 	obj.eq(8).text(seconds[1]);		
+	if(fn){
+		eval(fn());
+	}
 }
 
 //countDownCirculation($(".BsubsidyB span"),"2017-01-22 00:00:00");//写在调用出，注意a参数是一个数据
-function countDownCirculation(obj,time){
-	countDown(obj,time);
+function countDownCirculation(obj,time,fn){
+	countDown(obj,time,fn);
 	setTimeout(function(){
-		countDownCirculation(obj,time)
+		countDownCirculation(obj,time,fn)
 	},500);
 }
+
+/*地址栏传值*/
+function getUrlKeyValue(){			
+    var url = location.search; 
+    var thisParam = {};	
+    if (url.indexOf("?") != -1) {
+
+        var str = url.substr(1);
+        strs = str.split("&");
+
+        for(var i = 0; i < strs.length; i ++) {
+            thisParam[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+
+    }	
+    console.log("地址栏传值是"+JSON.stringify(thisParam));
+    console.log("当前网址是"+window.location.href);
+    return thisParam;
+    
+}
+

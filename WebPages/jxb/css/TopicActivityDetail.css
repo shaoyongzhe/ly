@@ -37,6 +37,12 @@ html, body {
 .vis {
   visibility: hidden; }
 
+.iScrollIndicator {
+  background: rgba(255, 173, 51, 0.3) !important; }
+
+.iScrollVerticalScrollbar {
+  width: 8px !important; }
+
 header {
   background: #4e9fee;
   width: 900px;
@@ -115,11 +121,11 @@ header img:nth-of-type(2) {
   line-height: 30px;
   vertical-align: middle; }
 
-.BreList {
+.returnToList {
   width: 145px;
   cursor: pointer; }
 
-.BreList p {
+.returnToList p {
   vertical-align: middle;
   width: 143px;
   height: 30px;
@@ -177,7 +183,8 @@ header img:nth-of-type(2) {
   font-family: "微软雅黑";
   font-size: 14px;
   line-height: 22px;
-  color: #888888; }
+  color: #888888;
+  word-break: break-all; }
 
 .BtuwenWenS1, .BtuwenWenS2 {
   font-family: arial;
@@ -323,14 +330,14 @@ header img:nth-of-type(2) {
 .Bbtsm {
   box-sizing: border-box;
   width: 1000px;
-  height: 222px;
   border: 1px solid transparent;
   margin-top: 10px; }
 
 .BbtsmL {
   box-sizing: border-box;
   width: 66px;
-  margin-top: 3%; }
+  margin-top: 3%;
+  display: table-cell; }
 
 .BbtsmL img {
   width: 63px;
@@ -338,8 +345,8 @@ header img:nth-of-type(2) {
 
 .BbtsmR {
   width: 923px;
-  height: 100%;
-  border-radius: 5px; }
+  border-radius: 5px;
+  display: table-cell; }
 
 .BbtsmRleft {
   box-sizing: border-box;
@@ -373,12 +380,12 @@ header img:nth-of-type(2) {
   margin-left: -8px;
   padding: 0px 10px;
   box-sizing: border-box;
-  height: 100%;
   width: 886px;
   border: 1px solid #FFAD33; }
 
 .BbtsmRright12 {
-  width: 801px; }
+  width: 801px;
+  display: table-cell; }
 
 .BbtsmRright1 {
   height: 30px;
@@ -406,7 +413,11 @@ header img:nth-of-type(2) {
   width: 801px; }
 
 .BbtsmRright2Content {
-  width: 801px; }
+  width: 801px;
+  overflow: hidden; }
+
+.maxHeight180 {
+  max-height: 180px; }
 
 .BbtsmRright3 {
   margin-left: -8px;
@@ -415,7 +426,8 @@ header img:nth-of-type(2) {
   padding-left: 10px;
   padding-right: 10px;
   height: 100%;
-  position: relative; }
+  position: relative;
+  display: table-cell; }
 
 .BbtsmRright3 img {
   width: 46px;
@@ -434,7 +446,6 @@ header img:nth-of-type(2) {
   box-sizing: border-box;
   border: 1px solid #ffad33;
   border-radius: 0 30px 0 0;
-  max-height: 180px;
   margin-bottom: 10px;
   margin-left: 2px; }
 
@@ -442,7 +453,7 @@ header img:nth-of-type(2) {
   margin-left: 0px; }
 
 .btsmP1 {
-  width: 70px;
+  width: 90px;
   height: 25px;
   color: #fff;
   font-family: "微软雅黑";
@@ -451,13 +462,20 @@ header img:nth-of-type(2) {
   text-align: center;
   background: #ffad33; }
 
+.btsmD1IscrollCon {
+  height: 144px;
+  width: 100%;
+  overflow: hidden;
+  position: relative; }
+
 .btsmD1 {
+  width: 100%;
   font-family: "微软雅黑";
   font-size: 14px;
   color: #333;
   line-height: 24px;
-  min-height: 144px;
-  padding: 3px 15px 4px 15px; }
+  padding: 3px 15px 4px 15px;
+  box-sizing: border-box; }
 
 .BwrapDown {
   box-sizing: content-box;
@@ -573,17 +591,29 @@ header img:nth-of-type(2) {
   margin-top: 10px;
   margin-bottom: 15px; }
 
-.BDcyhdQualified img {
+.BDcyhdQualified .BDQFdsImg {
   margin-right: 5px;
   vertical-align: middle; }
 
-.BDcyhdQualified span {
+.BDcyhdQualified .BDQFdsSpan {
   display: inline-block;
   font-family: "微软雅黑";
   font-size: 14px;
   color: #333;
   line-height: 24px;
   height: 24px; }
+
+.BDQFd2_span1, .BDQFd2_span2 {
+  font-size: 14px;
+  color: red;
+  display: inline-block;
+  width: 10px;
+  margin-top: 4px;
+  vertical-align: top;
+  line-height: 19px; }
+
+.BDQFd2_span2 {
+  width: 308px; }
 
 img.BDcyhdQualifiedXFZimg {
   width: 123px;
@@ -642,12 +672,12 @@ a.less {
     height: 30px;
     line-height: 30px; }
 
-  .BreList {
+  .returnToList {
     width: 145px;
     cursor: pointer;
     display: none; }
 
-  .BreList p {
+  .returnToList p {
     width: 143px;
     height: 30px;
     line-height: 30px;
@@ -798,7 +828,6 @@ a.less {
 
   .Bbtsm {
     width: 1000px;
-    height: 222px;
     margin-top: 10px; }
 
   .BbtsmL {
@@ -822,9 +851,7 @@ a.less {
     line-height: 20px; }
 
   .BbtsmRright {
-    margin-left: -8px;
     padding: 0px 7px;
-    height: 100%;
     width: 732px;
     border: 1px solid #FFAD33; }
 
@@ -870,7 +897,6 @@ a.less {
     width: 215.66667px;
     border: 1px solid #ffad33;
     border-radius: 0 30px 0 0;
-    max-height: 180px;
     margin-bottom: 10px;
     margin-left: 2px; }
 
@@ -878,7 +904,7 @@ a.less {
     margin-left: 0px; }
 
   .btsmP1 {
-    width: 70px;
+    width: 90px;
     height: 25px;
     font-size: 14px;
     line-height: 25px; }
@@ -886,7 +912,6 @@ a.less {
   .btsmD1 {
     font-size: 14px;
     line-height: 24px;
-    min-height: 144px;
     padding: 3px 15px 4px 15px; }
 
   .BwrapDown {

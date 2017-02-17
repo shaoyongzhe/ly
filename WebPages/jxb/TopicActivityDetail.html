@@ -2,14 +2,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>详情</title>
+		<title>详情20170213.1545</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="css/public.css"/>
 		<link rel="stylesheet" type="text/css" href="css/TopicActivityDetail.css"/>
-		
+
 		<style type="text/css">
-		.marginShade{
+/*		.marginShade{转移到public.css
 		    position:fixed;
 		    top:0;
 		    left:0;
@@ -17,7 +17,7 @@
 		    height:100%;
 		    background:white;
 		    z-index: 99999;
-		}
+		}*/
 		</style>
 	</head>	
 	<body>
@@ -40,10 +40,10 @@
 						<div class="Bcollect dib hi"><!--收藏先不做了-->					
 								<img src="img/b7.png" alt="" /><span>&nbsp&nbsp收藏</span>						
 						</div>
-						<div class="BreList dib">	
-							<p class="dib returnTopicList hi">返回主题活动列表</p>
-							<p class="dib returnChaohuiquanList">返回超惠券列表</p>
-						</div>			
+						<div class="returnToList">	
+							<p class="p1 hi">返回主题活动列表</p>
+							<p class="p2">返回超惠券列表</p>
+						</div>				
 					</div>				
 				</div>
 				<!--大小标题A位置BtitleA-->
@@ -106,21 +106,20 @@
 					</div>
 					<!--右边整体-->
 					<div class="BbtsmR dib">
-						<!--左边-->
+						<!--左边"活动补贴说明字样"-->
 						<div class="BbtsmRleft dib">
 							<div>
 								<p>活<br />动<br />补<br />贴<br />说<br />明</p>
 							</div>						
-						</div>
-							
+						</div>							
 						<!--右边--><div class="BbtsmRright dib">
 							<!--上-->
 							<div class="BbtsmRright12 dib">
 								<div class="BbtsmRright1"><p class="dib">会员参与时间:</p><span class="dib">查询中...</span></div>
 								<!--下-->
 								<div class="BbtsmRright2 dib">							
-									<div class="BbtsmRright2Content">
-										<div class="btsm btsm1 dib">
+									<div class="BbtsmRright2Content maxHeight180">
+										<div class="btsm btsm1 dib"><!--0210因为数目不确定，所以变化-->
 											<p class="btsmP1">对分销商</p>											
 											<div class="btsmD1">
 												<!--下面的p的条数不固定，但希望是一条。-->
@@ -141,10 +140,6 @@
 										<div class="btsm btsm3 dib">
 											<p class="btsmP1">对消费者</p>										
 											<div class="btsmD1">
-												<!--下面的p的条数不固定-->
-												<p class="btsmPs">查询中...</p>
-												<!--<p class="btsmPs">2.我是啦啦绿</p>-->
-												
 											</div>										
 										</div>	
 									</div>							
@@ -171,19 +166,19 @@
 									<!--省-->
 									<div class="BDcyhdCityDsSheng">
 										<!--对勾，根据类名确定是否显示，不显示也要占位，好吧visibility-->
-										<div class="BDcyhdCityDsImg dib"><img src="img/a3.png" alt="" /></div>
+										<div class="BDcyhdCityDsImg dib"><img src="img/a3.png" class="BDQFdsImg" alt="" /></div>
 										<!--省-->
 										<p class="BDcyhdCityDsP dib">河北省</p>									
 									</div>
 									<!--市-->
 									<div class="BDcyhdCityDsShi">
-										<div class="BDcyhdCityDsImg dib"><img src="img/a3.png" alt="" /></div>
+										<div class="BDcyhdCityDsImg dib"><img src="img/a3.png" class="BDQFdsImg" alt="" /></div>
 										<p class="BDcyhdCityDsP dib">邯郸市</p>		
 									</div>
 									<!--区，首行缩进-->
 									<div class="BDcyhdCityDsqv">
 										<!--为了布局简单，加上了图片，哈哈-->
-										<!--<div class="BDcyhdCityDsImg dib vis"><img src="img/a3.png" alt="" /></div>-->
+										<!--<div class="BDcyhdCityDsImg dib vis"><img src="img/a3.png" class="BDQFdsImg" alt="" /></div>-->
 										<p class="BDcyhdCityDsP dib BDcyhdCityDsPq">海海海淀区</p>
 									</div>									
 								</div>							
@@ -197,10 +192,10 @@
 						<p class="dib BDcyhdRequireP">超惠活动要求</p>
 						<div class="dib BDcyhdRequireD">
 							<!--如果是偶数，那就加上类名,用以调整margin值，-->
-							<p class="dib BDcyhdRequireDP"><img src="img/a3.png" alt="" class="" /><span class="dib">查询中...</span></p>
-							<!--<p class="dib BDcyhdRequireDP ml50"><img src="img/a3.png" alt="" class="" /><span class="dib">买赠（精品比例不低于买3增2  投放门店数量：10-30）</span></p>-->
-							<!--<p class="dib BDcyhdRequireDP"><img src="img/a3.png" alt="" class="" /><span class="dib">买赠（精品比例不低于买3增2  投放门店数量：10-30）</span></p>-->
-							<!--<p class="dib BDcyhdRequireDP ml50"><img src="img/a3.png" alt="" class="" /><span class="dib">买赠（精品比例不低于买3增2  投放门店数量：10-30）</span></p>-->
+							<p class="dib BDcyhdRequireDP"><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="dib">查询中...</span></p>
+							<!--<p class="dib BDcyhdRequireDP ml50"><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="dib">买赠（精品比例不低于买3增2  投放门店数量：10-30）</span></p>-->
+							<!--<p class="dib BDcyhdRequireDP"><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="dib">买赠（精品比例不低于买3增2  投放门店数量：10-30）</span></p>-->
+							<!--<p class="dib BDcyhdRequireDP ml50"><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="dib">买赠（精品比例不低于买3增2  投放门店数量：10-30）</span></p>-->
 						</div>
 					</div>
 					<!--会员参与资格-->
@@ -209,10 +204,10 @@
 						<!--分销商-->
 						<div class="dib BDcyhdQualifiedD BDcyhdQualifiedD1">
 							<p class="BDcyhdQualifiedDP BDcyhdQualifiedD1">分销商</p>
-							<div class="BDQFd1">
-								<p><img src="img/a3.png"/><span>买赠</span></p>
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
+							<div class="BDQFd1 BDQFds">
+								<p><img src="img/a3.png" class="BDQFdsImg"/><span class="BDQFdsSpan" >买赠</span></p>
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan">买赠</span></p>
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan" >买赠</span></p>
 								<img src="img/b4.png" alt="" class="BDcyhdQualifiedXFZimg"/>
 							</div>
 							
@@ -220,20 +215,21 @@
 						<!--门店-->
 						<div class="dib BDcyhdQualifiedD BDcyhdQualifiedD2">
 							<p class="BDcyhdQualifiedDP">门店</p>
-							<div class="BDQFd2">
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
+							<div class="BDQFd2 BDQFds">
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan" >买赠</span></p>
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan" >买赠</span></p>
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan" >买赠</span></p>
 								<img src="img/b4.png" alt="" class="BDcyhdQualifiedXFZimg"/>
+								<!--<p><span class="BDQFd2_span1">* </span><span class="BDQFd2_span2">如您的投放门店不在平台活动区域范围内的，这些门店将不能享受平台补贴！</span></p>-->
 							</div>
 						</div>
 						<!--消费者BDcyhdQualifiedXFZ-->
 						<div class="dib BDcyhdQualifiedD BDcyhdQualifiedD3">
 							<p class="BDcyhdQualifiedDP">消费者</p>
-							<div class="BDQFd3">
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
-								<p class=""><img src="img/a3.png" alt="" class="" /><span>买赠</span></p>
+							<div class="BDQFd3 BDQFds">
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan" >买赠</span></p>
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan" >买赠</span></p>
+								<p class=""><img src="img/a3.png" class="BDQFdsImg" alt="" class="" /><span class="BDQFdsSpan" >买赠</span></p>
 								<img src="img/b4.png" alt="" class="BDcyhdQualifiedXFZimg"/>
 							</div>
 						</div>
@@ -248,6 +244,7 @@
 	</body>
 	<!--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>-->
 	<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/iscroll.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/layer-v2.4/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 	<!--<script src="//cdn.bootcss.com/Clamp.js/0.5.1/clamp.js"></script>-->

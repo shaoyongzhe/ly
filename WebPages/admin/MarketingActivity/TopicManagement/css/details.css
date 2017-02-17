@@ -70,9 +70,9 @@ body.details section{
     margin: 0;
 }
 
-.detail-wrapper .region-view .region-info{
+/* .detail-wrapper .region-view .region-info{
 	margin-left: 10px;
-}
+} */
 
 
 
@@ -177,4 +177,31 @@ body.details section{
 
 .detail-wrapper .btn-group{
 	text-align: center;
+}
+
+
+
+.details .region-info{
+	display: inline-block;
+    margin-left: 10px;
+}
+
+.details .district-wrap{
+	margin-bottom: 10px;
+}
+
+.details .district-wrap i{
+	margin-right: 10px;
+}
+
+
+.details .wechattitle{
+	width: 660px;
+}
+
+.details .edit-area.description{
+	width: 830px;
+    margin: -20px 0 0 125px;
+    vertical-align: top;
+    word-wrap: break-word;
 }

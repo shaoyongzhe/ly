@@ -1,737 +1,3 @@
-//20170123
-var linshi="";
-/*变量说明，resdataFix为创建活动拼接好的数据，阅后即焚。resdata为ajax的data，_resdata_为方便切换使用resdataFix和resdata的变量*/
-var resdataFix = {
-  "activity": {
-    "description": "人员可见，用于活动",
-    "begintime": "2017-1-20 00:00:00",
-    "endtime": "2017-1-20 23:59:59",
-    "earliestjointime": "2017-1-20 00:00:00",
-    "latestjointime": "2017-1-20 00:00:00",
-    "activitytitle": "活动主题",
-    "servicephone": "111-111111",
-    "singleselection": 0,
-    "responsible_id": "4654269886BC4FD7B5914ED324208FB0",
-    "responsible_oid": 2800992,
-    "responsible_name": "shaoyongzhe",
-    "responsible2nd_id": "4654269886BC4FD7B5914ED324208FB0",
-    "responsible2nd_oid": 2800992,
-    "responsible2nd_name": "shaoyongzhe"
-  },
-  "area_condition": [
-    {
-      "charge": {
-        "state": "active",
-        "name": "六月雪",
-        "guid": "857392948940468784b73a94c6ab1c6c",
-        "oid": "4"
-      },
-      "name": "河北省",
-      "state": "active",
-      "city": [
-        {
-          "state": "active",
-          "charge": {
-            "state": "active",
-            "name": "六月雪",
-            "guid": "857392948940468784b73a94c6ab1c6c",
-            "oid": "4"
-          },
-          "name": "秦皇岛市",
-          "country": [
-            {
-              "state": "active",
-              "name": "海港区"
-            },
-            {
-              "state": "active",
-              "name": "卢龙县"
-            }
-          ]
-        },
-        {
-          "state": "active",
-          "charge": {
-            "state": "active",
-            "name": "六月雪",
-            "guid": "857392948940468784b73a94c6ab1c6c",
-            "oid": "4"
-          },
-          "name": "石家庄市",
-          "country": [
-            {
-              "state": "active",
-              "name": "无极县"
-            },
-            {
-              "state": "active",
-              "name": "藁城市"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "charge": {
-        "state": "active",
-        "name": "六月雪",
-        "guid": "857392948940468784b73a94c6ab1c6c",
-        "oid": "4"
-      },
-      "name": "内蒙古自治区",
-      "state": "active",
-      "city": [
-        {
-          "state": "active",
-          "charge": {
-            "state": "active",
-            "name": "六月雪",
-            "guid": "857392948940468784b73a94c6ab1c6c",
-            "oid": "4"
-          },
-          "name": "兴安盟市",
-          "country": [
-            {
-              "state": "active",
-              "name": "乌兰浩特市"
-            },
-            {
-              "state": "active",
-              "name": "阿尔山市"
-            }
-          ]
-        },
-        {
-          "state": "active",
-          "charge": {
-            "state": "active",
-            "name": "六月雪",
-            "guid": "857392948940468784b73a94c6ab1c6c",
-            "oid": "4"
-          },
-          "name": "赤峰市",
-          "country": [
-            {
-              "state": "active",
-              "name": "红山区"
-            },
-            {
-              "state": "active",
-              "name": "元宝山区"
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "sponsor": "distributor",
-  "distributor_condition": {
-    "singleselection": "1",
-    "state": "active",
-    "number_range": {
-      "min": "3",
-      "max": "4"
-    },
-    "核销次数": {
-      "state": "active",
-      "min": "3",
-      "operator": "between",
-      "max": "4",
-      "begintime": "2016-10-19",
-      "statisticrange": "活动开始前",
-      "timeunit": "天"
-    },
-    "核销人数": {
-      "state": "active",
-      "min": "3",
-      "operator": ">=",
-      "max": "",
-      "begintime": "2016-11-19",
-      "statisticrange": "活动开始前",
-      "timeunit": "天"
-    }
-  },
-  "retailer_condtion": {
-    "state": "active",
-    "number_range": {
-      "min": "",
-      "max": ""
-    },
-    "惠粉数": {
-      "state": "active",
-      "min": "5",
-      "operator": ">=",
-      "max": "",
-      "begintime": "2016-10-19",
-      "statisticrange": "活动开始前",
-      "timeunit": "天"
-    }
-  },
-  "activity_condition": {
-    "product_category": [],
-    "activity_itemkind": [
-      {
-        "state": "active",
-        "activitytype": "套餐",
-        "retailer_count": {
-          "min": "10",
-          "max": "20"
-        },
-        "discount": {
-          "min": "23",
-          "operator": ">="
-        }
-      },
-      {
-        "state": "active",
-        "activitytype": "降价",
-        "retailer_count": {
-          "min": "2",
-          "max": "3"
-        },
-        "discount": {
-          "min": "23",
-          "operator": ">"
-        }
-      }
-    ]
-  },
-    "event_handler_list": [
-        {
-            "state": "active",
-            "refund_to": "retailer_employee",
-            "event": "拉粉",
-            "refund_content": "固定金额返现",
-            "min": "3",
-            "ceiling": "4",
-            "applycount": "5",
-            "limit": {
-                "count_on": "门店",
-                "perday": {
-                    "sum": "2",
-                    "time": "4"
-                },
-                "totalbudget": {
-                    "sum": "1",
-                    "time": "3"
-                }
-            }
-        },
-        {
-            "state": "active",
-            "refund_to": "distributor",
-            "event": "核销(消费者首次)",
-            "refund_content": "随机微信红包",
-            "min": "2",
-            "max": "5",
-            "ceiling": "4",
-            "applycount": "3",
-            "limit": {
-                "count_on": "门店",
-                "perday": {
-                    "sum": "6",
-                    "time": "8"
-                },
-                "totalbudget": {
-                    "sum": "5",
-                    "time": "7"
-                }
-            }
-        },
-        {
-            "state": "active",
-            "refund_to": "retailer_employee",
-            "event": "门店签约分销商",
-            "refund_content": "摇一摇",
-            "min": "",
-            "ceiling": "3",
-            "applycount": "",
-            "probability": [
-                {
-                    "refund_content": "固定金额返现",
-                    "min": "2",
-                    "max": "",
-                    "precentage": "3",
-                    "timelimit": "4",
-                    "applycount": "5"
-                },
-                {
-                    "refund_content": "谢谢参与",
-                    "min": "",
-                    "max": "",
-                    "precentage": "3",
-                    "timelimit": "4",
-                    "applycount": ""
-                },
-                {
-                    "refund_content": "随机微信红包",
-                    "min": "3",
-                    "max": "4",
-                    "precentage": "5",
-                    "timelimit": "6",
-                    "applycount": "3",
-                    "probability": {
-                        "range": "平台活动1",
-                        "time_curve": [],
-                        "value_curve": [
-                            {
-                                "value": "3.0",
-                                "percentage": "12"
-                            },
-                            {
-                                "value": "3.1",
-                                "percentage": "8"
-                            },
-                            {
-                                "value": "3.2",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "3.3",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "3.4",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "3.5",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "3.6",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "3.7",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "3.8",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "3.9",
-                                "percentage": "10"
-                            },
-                            {
-                                "value": "4.0"
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-    ],
-  "propagation": [
-    {
-      "object": "distributor",
-      "activitytitle": "1",
-      "wechattitle": "1",
-      "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
-      "propagation": "1"
-    },
-    {
-      "object": "retailer",
-      "activitytitle": "2",
-      "wechattitle": "2",
-      "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
-      "propagation": "2"
-    },
-    {
-      "object": "consumer",
-      "activitytitle": "3",
-      "wechattitle": "3",
-      "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
-      "propagation": "3"
-    }
-  ],
-  "releaseset": {
-    "optype": "保存"
-  }
-}
-
-
-/*if(location.href.indexOf("activityModify.htmlP")>0){
-    resdata = {
-        "activity": {
-            "guid": "02e80f58cd594eb2a24cb413424e53c5",
-            "description": "11111111111111111111111111",
-            "state": "上架",
-            "begintime": "2016-12-30 00:00:00",
-            "endtime": "2017-01-06 23:59:59",
-            "earliestjointime": "2017-01-08 00:00:00",
-            "lastestjointime": "2017-01-16 23:59:59",
-            "activitytitle": "活动主题活动主题",
-            "servicephone": "111-1111111",
-            "singleselection": 0,
-            "responsible_id": "0FF73F905D8746C19A7152A6AC805755",
-            "responsible_oid": 2801470,
-            "responsible_name": "shaoyongzhe",
-            "responsible_second_id": "0FF73F905D8746C19A7152A6AC805755",
-            "responsible_second_oid": 2801470,
-            "responsible_second_name": "shaoyongzhe"
-        },
-        "area_condition":{ 
-            "topicid": "74f7dc5f232747b2a6db56e4dd0e8b15",
-            "districts": [
-                {
-                    "charge": {
-                        "state": "unactivated",
-                        "name": "shaoyongzhe",
-                        "guid": "4654269886BC4FD7B5914ED324208FB0",
-                        "oid": "2800992"
-                    },
-                    "name": "河北省",
-                    "city": [
-                        {
-                            "charge": {
-                                "state": "active",
-                                "name": "shaoyongzhe",
-                                "guid": "4654269886BC4FD7B5914ED324208FB0",
-                                "oid": "2800992"
-                            },
-                            "name": "秦皇岛市",
-                            "country": [
-                                {
-                                    "state": "active",
-                                    "name": "海港区"
-                                },
-                                {
-                                    "state": "active",
-                                    "name": "卢龙县"
-                                }
-                            ]
-                        },
-                        {
-                            "charge": {
-                                "state": "unactivated",
-                                "name": "shaoyongzhe",
-                                "guid": "4654269886BC4FD7B5914ED324208FB0",
-                                "oid": "2800992"
-                            },
-                            "name": "邯郸市",
-                            "country": [
-                                {
-                                    "state": "unactivated",
-                                    "name": "邯山区"
-                                },
-                                {
-                                    "state": "active",
-                                    "name": "成安县"
-                                },
-                                {
-                                    "state": "active",
-                                    "name": "邱　县"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "charge": {
-                        "state": "active",
-                        "name": "shaoyongzhe",
-                        "guid": "4654269886BC4FD7B5914ED324208FB0",
-                        "oid": "2800992"
-                    },
-                    "name": "山西省",
-                    "city": [
-                        {
-                            "charge": {
-                                "state": "unactivated",
-                                "name": "shaoyongzhe",
-                                "guid": "4654269886BC4FD7B5914ED324208FB0",
-                                "oid": "2800992"
-                            },
-                            "name": "长治市",
-                            "country": [
-                                {
-                                    "state": "active",
-                                    "name": "黎城县"
-                                },
-                                {
-                                    "state": "active",
-                                    "name": "潞城市"
-                                }
-                            ]
-                        },
-                        {
-                            "charge": {
-                                "state": "active",
-                                "name": "shaoyongzhe",
-                                "guid": "4654269886BC4FD7B5914ED324208FB0",
-                                "oid": "2800992"
-                            },
-                            "name": "晋城市",
-                            "country": [
-                                {
-                                    "state": "active",
-                                    "name": "城　区"
-                                },
-                                {
-                                    "state": "active",
-                                    "name": "沁水县"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        "distributor_condition": {
-            "singleselection": "1",
-            "state": "active",
-            "number_range": {
-                "min": "1",
-                "max": "2"
-            },
-            "ticket_verify": {
-                "state": "active",
-                "min": "2",
-                "operator": "between",
-                "max": "3",
-                "begintime": "2016-12-28"
-            },
-            "verify_person_count": {
-                "state": "active",
-                "min": "3",
-                "operator": ">=",
-                "max": "",
-                "begintime": "2016-12-27"
-            }
-        },
-        "retailer_condtion": {
-            "state": "active",
-            "number_range": {
-                "min": "",
-                "max": ""
-            },
-            "fans_range": {
-                "state": "active",
-                "min": "3",
-                "operator": "between",
-                "max": "6",
-                "begintime": "2016-12-27"
-            }
-        },
-        "activity_condition": {
-            "product_category": [],
-            "activity_itemkind": [
-                {
-                    "state": "active",
-                    "activitytype": "package",
-                    "retailer_count": {
-                        "min": "10",
-                        "max": "20"
-                    },
-                    "discount": {
-                        "min": "20",
-                        "operator": ">="
-                    }
-                },
-                {
-                    "state": "active",
-                    "activitytype": "discount",
-                    "retailer_count": {
-                        "min": "2",
-                        "max": "3"
-                    },
-                    "discount": {
-                        "min": "21",
-                        "operator": ">="
-                    }
-                }
-            ]
-        },
-
-        "event_handler_list": [
-            {
-                "state": "active",
-                "refund_to": "retailer_employee",
-                "event": "拉粉",
-                "refund_content": "固定金额返现",
-                "min": "3",
-                "ceiling": "4",
-                "applycount": "5"
-            },
-            {
-                "state": "active",
-                "refund_to": "distributor",
-                "event": "核销(消费者首次)",
-                "refund_content": "随机微信红包",
-                "min": "2",
-                "max": "5",
-                "ceiling": "4",
-                "applycount": "3",
-                "probability": {
-                    "range": "平台活动1",
-                    "time_curve": [],
-                    "value_curve": [
-                        {
-                            "value": "2.0",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "2.3",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "2.6",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "2.9",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "3.2",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "3.5",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "3.8",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "4.1",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "4.4",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "4.7",
-                            "percentage": "10"
-                        },
-                        {
-                            "value": "5.0"
-                        }
-                    ]
-                }
-            },
-            {
-                "state": "active",
-                "refund_to": "retailer_employee",
-                "event": "门店签约分销商",
-                "refund_content": "摇一摇",
-                "min": "",
-                "ceiling": "3",
-                "applycount": "",
-                "prize_content": [
-                    {
-                        "refund_content": "固定金额返现",
-                        "min": "2",
-                        "max": "",
-                        "precentage": "3",
-                        "timelimit": "4",
-                        "applycount": "5"
-                    },
-                    {
-                        "refund_content": "谢谢参与",
-                        "min": "",
-                        "max": "",
-                        "precentage": "3",
-                        "timelimit": "4",
-                        "applycount": ""
-                    },
-                    {
-                        "refund_content": "随机微信红包",
-                        "min": "3",
-                        "max": "4",
-                        "precentage": "5",
-                        "timelimit": "6",
-                        "applycount": "3",
-                        "probability": {
-                            "range": "平台活动1",
-                            "time_curve": [],
-                            "value_curve": [
-                                {
-                                    "value": "3.0",
-                                    "percentage": "12"
-                                },
-                                {
-                                    "value": "3.1",
-                                    "percentage": "8"
-                                },
-                                {
-                                    "value": "3.2",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "3.3",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "3.4",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "3.5",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "3.6",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "3.7",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "3.8",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "3.9",
-                                    "percentage": "10"
-                                },
-                                {
-                                    "value": "4.0"
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        ],
-
-
-        "propagation": [
-            {
-                "object": "distributor",
-                "activitytitle": "活动标语1",
-                "wechattitle": "微信图文消息标题1",
-                "poster_url": "http://img6.bdstatic.com/img/image/smallpic/fengjing1201.jpg",
-                "propagation": "宣传文案1"
-            },
-            {
-                "object": "retailer",
-                "activitytitle": "活动标语2",
-                "wechattitle": "微信图文消息标题2",
-                "poster_url": "http://img6.bdstatic.com/img/image/smallpic/fengjing1201.jpg",
-                "propagation": "宣传文案2"
-            },
-            {
-                "object": "consumer",
-                "activitytitle": "活动标语3",
-                "wechattitle": "微信图文消息标题3",
-                "poster_url": "http://img6.bdstatic.com/img/image/smallpic/fengjing1201.jpg",
-                "propagation": "宣传文案3"
-            }
-        ],
-        "releaseset": {
-            "optype": "提交审核"
-        }
-    }
-}//if结束*/
-
-//var resdata="";
-
 
 function GetUrlParam() {
     
@@ -762,15 +28,19 @@ if(!$.isEmptyObject(GetUrlParam())){
         url: '/webapi/ipaloma/topic/detail/' + GetUrlParam().guid,
         dataType: "json",
         beforeSend: function (){ $('.loading').fadeIn() },
-        complete: function (){ $('.loading').fadeOut();addAjax(); },
-        success: function (resdata){ console.log(JSON.stringify(resdata, null, 4)); render(resdata);addSubJoint(resdata) },
+        complete: function (){ $('.loading').fadeOut(); addAjax(); },
+        success: function (resdata){
+            console.log(JSON.stringify(resdata, null, 4));
+            render(resdata);
+            addSubJoint(resdata);
+        },
         error: function (){ console.warn("修改详情 error") }
     });
 
 } else {
-    // layer.alert("跳转到修改失败了");
-    render(resdata)
+    layer.alert("跳转到修改失败了");
 }
+
 
 function render(resdata){
 
@@ -788,9 +58,12 @@ function render(resdata){
     basic.find('.activityTitle').attr("guid",activity.guid);//0124添加
     basic.find('.tel').val(tel);
     basic.find('.quhao').val(quhao);
-//  debugger;
+
     basic.find('.fzr1 .selected').text(activity.responsible_id.nickname);
     basic.find('.fzr2 .selected').text(activity.responsible2nd_id.nickname);
+    
+    basic.find('.fzr1 .selected').attr("oid",activity.responsible_id.oid);
+    basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
     
     if(activity.singleselection == 1){
         $('.radio:contains(是)').addClass('on');
@@ -827,7 +100,7 @@ function render(resdata){
                 state = "status";
             }
 
-            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>负责人 "+ area.city[j].charge.name +"</em><i class='x'>&times;</i></div><div class='district-wrap'></div></div></div>");
+            $('.region-item').last().append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>"+ area.city[j].name +"</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(area.city[j].charge, null, 4) +"'>"+ area.city[j].charge.name +"</em><i class='x'>&times;</i></div><div class='district-wrap'></div></div></div>");
 
 
             for(var k=0; k<area.city[j].country.length; k++){
@@ -844,81 +117,6 @@ function render(resdata){
         }
 
     }
-
-    // debugger
-    // if(search != ""){
-        // $('.status').hide();
-    // }
-
-
-    /*"activity_condition": {
-        "product_category": [],
-        "activity_itemkind": [
-            {
-                "state": "active",
-                "activitytype": "package",
-                "retailer_count": {
-                    "min": "10",
-                    "max": "20"
-                },
-                "discount": {
-                    "min": "20",
-                    "operator": ">="
-                }
-            },
-            {
-                "state": "active",
-                "activitytype": "discount",
-                "retailer_count": {
-                    "min": "2",
-                    "max": "3"
-                },
-                "discount": {
-                    "min": "21",
-                    "operator": ">="
-                }
-            }
-        ]
-    },*/
-
-    // debugger;
-    // $("nav span:eq(1)").click();
-    // return
-
-        // console.log(kj);
-
-
-    // function kj1(){
-        // debugger;
-        // var res_kj1 = false;
-        /*var hyItem = resdata.activity_condition.activity_itemkind;
-        var hyItemL = resdata.activity_condition.activity_itemkind.length;
-        var hdTypeText = "";
-        var hdTypeArr = [];
-        for(var i=0; i<hyItemL; i++){
-            // var hyItem = hyItem[i];
-            // alert(hyItem[i].activitytype);
-            if(hyItem[i].activitytype == "package"){
-                hdTypeText = "套餐";
-                hdTypeArr.push("套餐");
-            }
-            if(hyItem[i].activitytype == "discount"){
-                hdTypeText = "降价";
-                hdTypeArr.push("降价");
-            }
-            $('.addSub1').last().before("<div class='addSub1'><div class='dib acTy ver re'><div class='select-wrap acSe1 ba activity'><i></i><em class='selected activeType'>"+ hdTypeText +"</em><ul class='select'></ul></div></div><div class='dib acCo ver'><div class='dib acCoSc re ver'><p class='bor selectWrap1'></p><p class='bor hi selectWrap1'>套餐优惠幅度</p><p class='bor hi selectWrap1'>降价幅度</p></div><div class='select-wrap acCoRe ver re dib acSe3'><i></i><em class='selected'></em><ul class='select'><li class='option' name='>='>不低于</li><li class='option' name='>'>高于</li><li class='option' name='=='>等于</li></ul></div><div class='dib acCoRa ver'><div class='bor selectWrap2'><span class='diSpan'></span></div><div class='bor hi selectWrap2'><input class='bor diInput' type='text' value='20'><span class='diSpan por'>%</span></div><div class='bor hi selectWrap2'><input class='bor diInput' type='text' value='20'><span class='diSpan por'>%</span></div></div></div><div class='dib acPu mds'><input class='bor acPuI1' type='text' value='10'><span class='to'></span><input class='bor acPuI2' type='text' value='20'><span class='tip'>不输入代表不限</span></div><div class='acAd dib'><span class='minus acAd1'></span><span class='plus acAd2'></span></div>");
-
-            // $(".addSub1:eq("+ i +") .activity .option:contains("+ hdType +")").click();
-
-        }*/
-
-        // res_kj1 = true;
-
-        /*if($('.kj1ok').length == 1){
-            alert(1)
-        }
-    */
-    // }
 
     // $("nav span:eq(3)").click();
     for(var i=0; i<resdata.propagation.length; i++){
@@ -939,7 +137,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 		_resdata_=linshi=a;	
 //		_resdata_=resdataFix;
 
-	console.log(_resdata_);
+	// console.log(_resdata_);
 	/*增减控件1-会员活动条件拼接*/
 	/*移除页面中已经有的addSub1Manger*/
 	//$(".addSub1Mange").remove();
@@ -947,33 +145,33 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	var activityManger_addSub1Data=_resdata_.activity_condition;//_resdata_.activity_condition.activity_itemkind;
 	var activityManger_addSub1Html='';
 	activityManger_addSub1Html=''
-	    +               '<div class="addSub1 addSub1Mange">'                        
-	    +                   '<div class="dib acTy ver re">'                         
-	    +                       '<div class="select-wrap  acSe1 ba activity mangeStyle">'   
-	    +                           '<i></i>'
-	    +                           '<em class="selected"></em>'                    
-	    +                           '<ul class="select">'
-	    +                           '</ul>'
-	    +                       '</div>'
-	    +                   '</div>         '           
-	    +                   '<!--优惠力度条件activity condition-->'
-	    +                   '<div class="dib acCo ver">'                        
-	    +                       '<div class="dib acCoSc re ver mangeStyle">'
-	    +                           '<p class="bor -hi selectWrap1"></p><!--此处把所有的值直接写入-hi中，与西晨取值方式保持一致-->'
-	//  +                           '<p class="bor hi -hi selectWrap1">赠品比例</p>'
-	//  +                           '<p class="bor hi -hi selectWrap1">套餐价优惠幅度</p>'
-	//  +                           '<p class="bor hi -hi selectWrap1">降价幅度</p>'
-	    +                       '</div><div class="select-wrap  acCoRe ver re dib acSe3 mangeStyle">'
-	    +                           '<i></i>'
-	    +                           '<em class="selected"></em>'
-	    +                           '<ul class="select">'
-	    +                               '<li class="option" name=">=">不低于</li>'
-	    +                               '<li class="option" name=">">高于</li>'
-	    +                               '<li class="option" name="==">等于</li>   '                       
-	    +                           '</ul>'
-	    +                       '</div><div class="dib acCoRa ver mangeStyle">'
-	    +                           '<div class="bor -hi selectWrap2">'
-	    +                               '<input class="bor diInput mangeStyle" type="text" value="" disableds______="disabled"/><span class="diSpan por mangeStyle" ></span>'
+	    +  '<div class="addSub1 addSub1Mange">'                        
+	    +      '<div class="dib acTy ver re">'                         
+	    +          '<div class="select-wrap  acSe1 ba activity mangeStyle">'   
+	    +              '<i></i>'
+	    +              '<em class="selected"></em>'                    
+	    +              '<ul class="select">'
+	    +              '</ul>'
+	    +          '</div>'
+	    +      '</div>         '           
+	    +      '<!--优惠力度条件activity condition-->'
+	    +      '<div class="dib acCo ver">'                        
+	    +          '<div class="dib acCoSc re ver mangeStyle">'
+	    +              '<p class="bor -hi selectWrap1"></p><!--此处把所有的值直接写入-hi中，与西晨取值方式保持一致-->'
+	//  +              '<p class="bor hi -hi selectWrap1">赠品比例</p>'
+	//  +              '<p class="bor hi -hi selectWrap1">套餐价优惠幅度</p>'
+	//  +              '<p class="bor hi -hi selectWrap1">降价幅度</p>'
+	    +          '</div><div class="select-wrap  acCoRe ver re dib acSe3 mangeStyle">'
+	    +              '<i></i>'
+	    +              '<em class="selected"></em>'
+	    +              '<ul class="select">'
+	    +                  '<li class="option" name=">=">不低于</li>'
+	    +                  '<li class="option" name=">">高于</li>'
+	    +                  '<li class="option" name="==">等于</li>   '                       
+	    +              '</ul>'
+	    +          '</div><div class="dib acCoRa ver mangeStyle">'
+	    +              '<div class="bor -hi selectWrap2">'
+	    +                  '<input class="bor diInput mangeStyle" type="text" value="" disableds______="disabled"/><span class="diSpan por mangeStyle" ></span>'
 	    +                           '</div>'                                
 	    +                       '</div>'
 	    +                   '</div>'
@@ -1020,7 +218,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*优惠力度条件*/
 	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
-	    else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
+	    //修复详情页面“等于”不现实的bug
+	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
 	//  //买赠类型（略）
@@ -1049,20 +248,23 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	if(!$.isEmptyObject(_resdata_.distributor_condition)&&_resdata_.distributor_condition!=undefined){
 	    var activityManger_addSub2Data_distributor=_resdata_.distributor_condition;
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家");
-	    console.log('分销商')
+	    // console.log('分销商')
 	}
-	if(!$.isEmptyObject(_resdata_.retailer_condtion)&&_resdata_.retailer_condtion!=undefined){
-	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condtion;  
+	if(!$.isEmptyObject(_resdata_.retailer_condition)&&_resdata_.retailer_condition!=undefined){
+	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condition;  
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家");
-	    console.log('门店')
+	    // console.log('门店')
 	}
 	if(!$.isEmptyObject(_resdata_.consumer_condition)&&_resdata_.consumer_condition!=undefined){
 	    var activityManger_addSub2Data_consumer=_resdata_.consumer_condition;
 	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_consumer,"消费者","人");
-	    console.log('消费者')
+	    // console.log('消费者')
 	}
 	function activityManger_addSub2HtmlFn(obj, participants,unit){// participants为参与者，其值为分销商，门店，消费者等    
 	    /*开始拼js生成的addSub2Mange*/
+
+        // $('nav span:eq(1)').click();
+        // debugger
 	    var activityManger_addSub2Html="";
 	    activityManger_addSub2Html=''
 	        +           '<div class="addSub2 addSub2Mange">'
@@ -1098,7 +300,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '</div>'
 	        +               '</div>'
 	        +               '<!--设置参与资格默认隐藏acZige-->'
-	        +               '<div class="acZige -hi">'
+	        +               '<div class="acZige hi">'
 	        +                   '<div class="addSub3P68">'
 	        +                       '<p class="p68 deleP dib">条件类型</p><p class="p68 deleP dib">统计范围</p><p class="p68 deleP dib">条件</p>'             
 	        +                   '</div>'
@@ -1144,7 +346,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '</div>'                            
 	        +                           '</div>'
 	        +                           '<!--类型2开始时，内容同类型1-->'
-	        +                           '<div class="acZige3a hi acZige2tab n2">'
+	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden">'
 	        +                               '<input type="text" class="date" />'
 	        +                               '<div class="select-wrap  acSe7 dib">'
 	        +                                   '<i></i>'
@@ -1157,7 +359,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib" value="不限" disabled/>'
+	        +                               '<input type="text" class="dib time_y" value="不限"/>'
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
 	        +                       '</div>'
@@ -1201,6 +403,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $('.addSub2:last').before(activityManger_addSub2Html);
 //	  debugger;
 	    $('.addSub2Mange:last').find(".acSe4 .selected").text(participants);
+	    if(participants!="分销商"){
+	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");	 
+	    	$('.addSub2Mange:last').find(".acMeI2").attr("disabled","disabled");	    	
+	    }
 	    $('.addSub2Mange:last').find(".acMeS1").text(unit);
 	    $('.addSub2Mange:last').find(".acMeS2").text(unit);
 	    if(obj.number_range){
@@ -1210,6 +416,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");
 	    	$('.addSub2Mange:last').find(".acMeI2").attr("disabled","disabled");
 	    }
+
+        
 	    /*主办方*/
 	   	$('.red:first').removeClass("vihi");
 	    //启动图标  
@@ -1257,7 +465,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '</div>'                            
 	        +                           '</div>'
 	        +                           '<!--类型2开始时，内容同类型1-->'
-	        +                           '<div class="acZige3a hi acZige2tab n2">'
+	        +                           '<div class="acZige3a hi acZige2tab n2" style="visibility: hidden">'
 	        +                               '<input type="text" class="date" />'
 	        +                               '<div class="select-wrap  acSe7 dib">'
 	        +                                   '<i></i>'
@@ -1270,7 +478,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib" value="不限" disabled/>'      
+	        +                               '<input type="text" class="dib time_y" value="不限" />'      
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
 	        +                       '</div>'
@@ -1318,20 +526,49 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        }
 	        function activityManger_addSub3HtmlFn(a){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
-	            console.log(key)
+                
+                var d = new Date();
+                var dates = d.toLocaleDateString().replace(/\//g, '-');
+                $('.time_y').click(function(e){
+                    // e.stopPropagation();
+                    // var id = $(this).attr('id');
+                    laydate({
+                        // elem: id,
+                        event: 'focus',
+                        format: 'YYYY-MM-DD',
+                        // format: 'YYYY-MM-DD',
+                        // istime: true,
+                        max: dates
+                        /*choose: function(dates){
+                            layer.msg(dates);
+                        },*/
+                    });
+                });
+
+	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
+	            
+	            /*
+	             * 粉丝留存率在修改页显示问题，正确显示为 %
+	             */
+	            if(a == "粉丝留存率"){
+	            	$('.addSub3Mange:last').find(".acZige5a  p").text("%");
+	            }
+//	            	$("p.dib")
+					
+	            //}
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
 	            /*统计范围*/
 	            $('.addSub3Mange:last .acZige2tab').addClass("hi");//0119把.acZige2tab.n2改为.acZige2tab
 	            //两种类型，至今或者活动开始前
 	            if(obj[key].statisticrange!="至今"){
 	                if(obj[key].statisticrange=="活动开始时"){
-	                    $('.addSub3Mange:last .acZige3a:eq(0)').removeClass("hi");
-	                }else if(obj[key].statisticrange=="活动开始前"){
 	                    $('.addSub3Mange:last .acZige3a:eq(1)').removeClass("hi");
+	                }else if(obj[key].statisticrange=="活动开始前"){
+	                    $('.addSub3Mange:last .acZige3a:eq(0)').removeClass("hi");
 	                }else if(obj[key].statisticrange==""){//先认为空就是活动开始时，稍后继续处理
-	                		$('.addSub3Mange:last .acZige3a:eq(0)').removeClass("hi");
+	                		$('.addSub3Mange:last .acZige3a:eq(1)').removeClass("hi");
 	                }
 	                /*0123添加假数据开始*/	               
 	               /* obj[key].statisticrange="ajax匹词空";
@@ -1344,15 +581,30 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                obj[key].guid="7097e5b33e0f4944897240d008bb2f81";*/
 	                /*0123添加假数据结束*/
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//活动开始前     
-	                console.log(_resdata_.activity.begintime,obj[key].begintime)
+	                // console.log(_resdata_.activity.begintime,obj[key].begintime)
 	//              debugger
-	                var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
-	                var bgt2_ = new Date(obj[key].begintime) * 1;
-	                console.log(bgt1_,bgt2_)
-	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
-	                var preMonths_=parseInt(preDays_/30);               
-	                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字
-	                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
+					/*
+					 * 修复修改页面input框不能正常显示数字(显示NaN)的bug
+					 * 月份在修改页面正常显示的bug
+					 */
+					if(obj[key].begintime != "不限"){
+						var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
+		                var bgt2_ = new Date(obj[key].begintime) * 1;
+		                // console.log(bgt1_,bgt2_)
+		                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
+		                var preMonths_=Math.ceil(preDays_/30);               
+		                if(obj[key].begintime!=""){
+			                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
+		                }
+		                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
+					}else{
+						/*
+						 * 修复统计范围与条件显示错误的bug
+						 */
+						$('.addSub3Mange:last .acZige3a').find("input").val("");//非数字-->置空	
+						$('.addSub3Mange:last .acZige3a').find(".acSe7 em").text("天");//天/月---->置空
+					}                
+	                
 	            }else{
 	                $('.addSub3Mange:last .acZige3b').removeClass("hi");        
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//至今
@@ -1380,11 +632,24 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            //启动图标  
 	            if(obj[key].state=="active"){
 	                $(".addSub3Mange:last").find(".activityManger_addsub3State").addClass("on");
-	            }           
+	            }
 	            
 	        }
 	    }   
 	}
+
+    
+
+    $('.acZige').each(function(){
+        if($(this).find('.selected:first').text() != ""){
+            $(this).show();
+        } 
+        // else {
+        //     $(this).hide();
+        // }
+    });
+
+
 	
 	/*增减控件2-参与会员事件*/
 	$(document).on('click','.addSub2Mange .activityManger_addsub2State',function(){
@@ -1412,7 +677,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '</div>'
 	        +           '<!--等待更改下面的类名acTy-->'
 	        +           '<div class="dib hdc2 ver re">'
-	        +               '<div class="select-wrap  acSe10 ba mangeStyle">'
+	        +               '<div class="select-wrap  acSe10 ba butieCond mangeStyle">'
 	        +                   '<i></i>'
 	        +                   '<em class="selected"></em>'
 	        +                   '<ul class="select"></ul>'
@@ -1937,7 +1202,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	$(".addSub2Mange input").removeAttr("disabled");
 //	$(".addSub1Mange input").removeAttr("disabled");
 	/*只保留有数据的控件，加号再其后*/
-	if(location.href.indexOf("activityModify.html")>0){         
+	if(location.href.indexOf("activityModify.html")!=-1){         
 	    //控件1
 	    if($(".addSub1Mange").length>0){
 		    $(".addSub1.created_l").remove();//去除页面初始的addSub1	    	
@@ -1968,7 +1233,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	    $(".addSub5Mange:last").find(".acAd1").css("visibility","hidden");//最后一个控件减号隐藏
 	    $(".addSub5Mange:last").find(".acAd2").removeClass("hi");//最后一个控件加号显示       
 	}
-
+butiefz();
+$('.butieSec .sbys').keyup();
 }
 
 

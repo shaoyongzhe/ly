@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -429,12 +429,13 @@
                     {{vm.jsondata.ruledesc}}
                 </div>
             </div>
-            <div ms-if="isselfverify">
+            <br/>
+            <!--<div ms-if="isselfverify">
                 <img class="tuijianimg" src="/consumer/image/supercoupons/tuijian.png" ms-if="selfVerify.token.length==0" />
                 <div class="btn_css4" style="margin-top:50px" ms-click="selfVerify.VerifyScan">
                  {{selfVerify.token.length==0?"自助扫码核销":"确认核销"}}   
                 </div>
-            </div>
+            </div>-->
             <div class="btn_css4" ms-click="btnClick" ms-if="selfVerify.token.length==0">门店扫码核销</div>
             <div class="btn_css4" ms-click="selfVerify.closeWin" style="background-color:#fff" ms-if="selfVerify.token.length>0">我在想想</div>
         </div>
