@@ -108,7 +108,7 @@ function ajaxActivityDetails(a,b){
 //			$(".BtuwenWenP1").text($.trim(data.content));	
 //			$(".BtuwenWenP1").text(data.content);
 			$(".BtuwenWenP1").html(data.content.replace(" ","&ensp;"));
-			console.log($(".BtuwenWenP1").text())
+//			console.log($(".BtuwenWenP1").text())
 			//展开收起
 //			debugger;
 			$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");			
@@ -202,7 +202,7 @@ function ajaxActivityDetails(a,b){
 						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:214px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
 					}
 					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
-					console.log(hm)
+//					console.log(hm)
 				}	
 				//2.最后的一行的宽度
 				//给每个btsm设置宽度
