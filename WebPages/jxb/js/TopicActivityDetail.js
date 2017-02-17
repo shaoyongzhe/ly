@@ -1078,10 +1078,16 @@ function mmm(){
 returnToList()
 //返回超慧券列表
 function returnToList(){
-	if(UrlKeyValueData.switchfrom=="ticketlist"){
+	if(UrlKeyValueData.switchfrom=="ticketlist"||UrlKeyValueData.switchfrom=="toplicactivitylist"){
 		$(".returnToList").removeClass("hi")
 	}else{
 		$(".returnToList").addClass("hi")
+	}
+	/*详情页特有*/
+	//如果从列表页跳转过来
+	if(UrlKeyValueData.switchfrom=="toplicactivitylist"){
+		$(".returnToList .p1").show();
+		$(".returnToList .p2").hide();
 	}
 	$(".returnToList .p1").click(function(){
 		engine.call('ClosePage',"");
