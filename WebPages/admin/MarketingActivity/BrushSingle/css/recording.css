@@ -319,8 +319,10 @@ select::-ms-expand { display: none; }
     cursor: pointer;
     position: relative;
 }
+.cgl-td13>div{display: none;}
+.cgl-td13>div.czon{display: block;}
 .ckon{background: #f1f1f1;}
-.cgl-td7>a{color: #5380cb;}
+.cgl-td7>a,.cgl-td13>a{color: #5380cb;}
 .cgl-td13>div{
     padding-top: 5px;
     min-width: 600px;
@@ -529,7 +531,7 @@ span.name {
 	border-bottom: none;
 }
 /*****************加载中********************/
-.cgl-jzz{display: none; width: 150px;height: 50px;background: rgba(80,80,80,0.8); color: rgba(255,255,255,1);;position: fixed;top:50%;left: 50%;margin-left: -80px;margin-top: -30px; text-align: center;line-height: 50px;border-radius: 5px;z-index: 100000000000;}
+.cgl-jzz{display: none; width: 150px;height: 50px;background: rgba(80,80,80,0.8); color: rgba(255,255,255,1);position: fixed;top:50%;left: 50%;margin-left: -80px;margin-top: -30px; text-align: center;line-height: 50px;border-radius: 5px;z-index: 100000000000;}
 
 /*****************违规原因********************/
 .layui-layer-content>.yycont{padding-top: 0;}
