@@ -18,7 +18,7 @@
 
 .content{
 	font-size: 12px;
-	width: 97%;
+	width: 100%;
 	/* height: 1200px; */
 	background-color: #FFFFFF;
 	border: 20px solid #F2F2F2;
@@ -68,7 +68,10 @@
 }
 .send_content5{
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
+    top: 46px;
+}
 }
 .objective label{
 	margin :0px 20px 0 0px;
@@ -124,7 +127,7 @@
 }
 
 
-.mode input{
+.mode1_fa input{
 	margin-left:47px;
 }
 
@@ -144,11 +147,19 @@
     line-height: 20px;
     display: inline-block;
 }
-.cover_photo span{
+/* .cover_photo span{
 	float:left;
-	/* height: 26px; */
+	height: 26px;
 	
     padding-top: 10px;
+} */
+.fengmian_img{
+	/*float: left; */
+    /* width: 64px; */
+    position: absolute;
+    margin-top:55px;
+    height: 20px;
+    /* background-color: red; */
 }
 .cover_photo span:after{display:block;clear:both;content:"";visibility:hidden;height:0} 
 .cover_photo span{zoom:1} 
@@ -156,9 +167,10 @@
 .cover_photo .upload_img{
 	/* background-color: #792D20; */
 	display: inline-block;
-	width: 90%;
+	width: 108%;
 	height:240px;
-	margin-left:25px;
+	margin-left:50px;
+	margin-top:20px;
 }
 
 .upload_img .right_size{
@@ -166,14 +178,16 @@
 	color:#999;
 	width: 258px;
     height: 272px;
+    margin-top:20px;
 }
 
 
 .upload_img .file{
-	width: 65px;
-	height: 25px;
+	width: 100px;
+	height: 31px;
 	background-color: #FF6032;
 	display: inline-block;
+	text-align: center;
 	border-style: none;
 	margin:13px;
 	color:#FFFFFF;
@@ -192,7 +206,7 @@
     overflow: hidden;
     color: #1E88C7;
     text-decoration: none;
-    text-indent: 16px;
+    /* text-indent: 16px; */
     line-height: 25px;
 }
 .file input {
@@ -211,8 +225,8 @@
 
 .mode {
 	/* float: right; */
-    height: 246px;
-    width: 80%;
+    /* height: 246px; */
+    width: 90%;
 	margin-top: 16px;
 }
 
@@ -228,15 +242,15 @@
 }
 
 .Graphic_message{
-	width: 80%;
+	width: 90%;
 	height:auto;
 	display: inline-block;
-	margin-top: 16px;
-	padding-left:20px;
+	margin-top: 50px;
+	padding-left:0px;
 }
 
 .Graphic_message input{
-	margin-left:22px;
+	margin-left:42px;
 	cursor:pointer;
 }
 .Graphic_message .custom{
@@ -268,11 +282,11 @@
 	cursor:pointer;
 }
 
-._button .close{
+._button .close_off{
 	background-color:#aaa ;
 	border:none;
 }
-._button .close:hover{
+._button .close_off:hover{
 	background-color:#787878 ;
 	border:none;
 }
@@ -310,7 +324,7 @@
 }
 .Copy_Title .wordwrap{
 	bottom: 10px;
-    right: 7%;
+    right: 13%;
     color: #999;
 }
 .wordwrap .word{
@@ -330,7 +344,7 @@
 
 
 
-#preview{width:40%;height:120%;border:1px solid #000;overflow:hidden;}
+#preview{width:42%;height:120%;border:1px solid #000;overflow:hidden;}
 #imghead {
 	width: 100%;
 	height: 100%;
@@ -344,9 +358,9 @@
 /* 弹框层 */
 
 .Text_Title{
-    width: 70%;
+    width: 90%;
     /* height: 73px; */
-    margin: 0 15%;
+    margin: 0 5%;
     /* background-color: red; */
     font-size: 14px;
 }
@@ -418,7 +432,7 @@
     text-align: center;
     display: block;
     line-height: 65px;
-    width: 100%;
+    width: 103%;
     background-color: #F2F2F2;
 }
 .right_word{

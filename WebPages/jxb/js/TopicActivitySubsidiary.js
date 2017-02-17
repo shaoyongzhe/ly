@@ -41,7 +41,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		allActivity=JSON.parse(arguments[0]);	
 		console.log("UpdateMatchedTopics出现",allActivity);
 		if(allActivity==undefined||allActivity==null||allActivity==''||allActivity==[]||allActivity.content==[]||allActivity.content==undefined||allActivity.content.length==0){
-			console.log('活动列表为空，无法展示指定活动', {icon: 5});
+			console.log('活动列表为空，无法展示指定活动');
 			return;
 		}		
 		ajaxSucFn(allActivity.content[0]);

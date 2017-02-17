@@ -4,6 +4,7 @@
 //$(".BDQFd1").empty();
 //$(".BDQFd2").empty();
 //$(".BDQFd3").empty();
+//alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
 var linshi='';
@@ -662,6 +663,9 @@ function ajaxActivityDetails(a,b){
 					var n=Object.keys(data.subsidy_description).length%3;
 					$(".btsm").eq(-n).width((widthNum-10*2)/n);		
 					$(".btsm").eq(-n).nextAll(".btsm").width((widthNum-10*2)/n);		
+					//最后一行文本的宽度,-30是左右padding的和，16是序号所在span的宽度，一共2个span，一个是序号一个是文本。
+					$(".btsm").eq(-n).find(".btsmPs").find("span:last").width((widthNum-10*2)/n-30-16)
+					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").width((widthNum-10*2)/n-30-16)
 				}
 				//生成滚动条
 				$(".btsm").each(function(i){
@@ -1074,18 +1078,29 @@ function mmm(){
 returnToList()
 //返回超慧券列表
 function returnToList(){
-	$(".BreList .returnTopicList").click(function(){
+	if(UrlKeyValueData.switchfrom=="ticketlist"||UrlKeyValueData.switchfrom=="toplicactivitylist"){
+		$(".returnToList").removeClass("hi")
+	}else{
+		$(".returnToList").addClass("hi")
+	}
+	/*详情页特有*/
+	//如果从列表页跳转过来
+	if(UrlKeyValueData.switchfrom=="toplicactivitylist"){
+		$(".returnToList .p1").show();
+		$(".returnToList .p2").hide();
+	}
+	$(".returnToList .p1").click(function(){
 		engine.call('ClosePage',"");
+		console.log("返回主题活动列表触发")
 	})
-	$(".BreList .returnChaohuiquanList").click(function(){
+	$(".returnToList .p2").click(function(){
 		engine.call('ClosePage',"");
-	})	
+		console.log("返回超惠券列表触发")
+	})
 	$("header").click(function(){			
 		engine.call('ClosePage',"");
-//		alert("header触发")
 	})
 }
-
 
 
 //判断是否接收到经销商id，活动id	
