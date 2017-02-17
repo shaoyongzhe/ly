@@ -809,6 +809,8 @@ $(function() {
     			clearInterval(_tt);
 			},100)
 		}else{
+			localStorage.reload=1;
+			alert(1)
 			fnpinpai(); //品牌下拉点击事件
 			fnurl(); //获取地址栏参数
 			fnpricenum(); //获取购物车总金额和总数量

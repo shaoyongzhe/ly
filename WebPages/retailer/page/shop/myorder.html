@@ -21,6 +21,7 @@
   	var _data2="";
   	var _image="";				 	
   	var _icn="";
+  	localStorage.list=0;
   	(function dd(){
   			height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
   			console.log(height)
@@ -51,7 +52,7 @@
 
 
 					   		$("#select li").click(function(){
-					   			  _id=$(this).attr("id")
+					   			  localStorage.list=$(this).attr("id")
 								 		$("#select li").removeClass("selected")
 								 		$(this).attr("class","selected");
 								 		that=$(this);
@@ -130,20 +131,42 @@ function shopList(pg){
 				 		}
 				 		_imgs=""
 					 			}else if(data["content"][j]["details"].length>0 && data["content"][j]["details"].length<=1){
-						 			if(data["content"][j]["details"][0]["itemobj"]["itemtype"]){
+					 				if(data["content"][j]["details"][0]["itemkind"]){
+					 					if(data["content"][j]["details"][0]["itemkind"]=="买赠"){
+					 						_icn+="<span class=\"icn\">买赠</span>"
+					 					}else if(data["content"][j]["details"][0]["itemkind"]=="降价"){
+					 						_icn+="<span class=\"icn\">降价</span>"
+					 					}else if(data["content"][j]["details"][0]["itemkind"]=="折扣"){
+					 						_icn+="<span class=\"icn\">折扣</span>"
+					 					}else if(data["content"][j]["details"][0]["itemkind"]=="有礼"){
+					 						_icn+="<span class=\"icn\">有礼</span>"
+					 					}
+						 			}
+					 				if(data["content"][j]["details"][0]["isyucun"]){
+					 					if(data["content"][j]["details"][0]["isyucun"]){
+					 						_icn+="<img src="+"\"../../image/shop/yu.jpg\""+">"
+					 					}
+						 			}
+					 				if(data["content"][j]["details"][0]["itemobj"]["itemtype"]){
 							 			if(data["content"][j]["details"][0]["itembobj"]["itemtype"]==0){
-					   					_icn="<img src="+"\"../../image/shop/temp.jpg\""+">"
+					   					_icn+="<img src="+"\"../../image/shop/temp.jpg\""+">"
 					   					console.log(_icn)
 					   				}
 						 			}
-					 				if(data["content"][j]["openflag"]=="0"){
-					 						_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
-					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
-					 				}else{
-					 						_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
-					 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 				if(data["content"][j]["details"][0]["itemquality"]){
+					 					if(data["content"][j]["details"][0]["itemquality"]==0){
+					 						_icn+="<img src="+"\"../../image/shop/temp.jpg\""+">"
+					 					}
 					 				}
-					 				
+
+					 				if(data["content"][j]["openflag"]=="0"){
+					 						_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+					 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 				}else{
+					 						_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+					 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data["content"][j]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 				}
+					 				_icn="";
 					 			}
 								
 				   	}
@@ -247,11 +270,11 @@ function shopList(pg){
 						 			}
 						 			
 						 				if(data2["content"][r]["openflag"]=="0"){
-						 						_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
-						 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+						 						_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+						 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 						 				}else{
-						 						_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"iconbox\""+">"+_icn+"</div><div class="+"\"dectitlebox\""
-						 				+"><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+						 						_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+						 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 						 				}
 						 				
 						 			}
