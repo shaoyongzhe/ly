@@ -191,8 +191,33 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	//活动补贴说明具体内容
 	$(".CccDescriptionCon").empty();
 	var typeCounts=0
-	//分销商
-	if(info.subsidydescription.distributor){
+	//通用，无论是分销商，门店，店员，
+	for (type in info.subsidydescription){
+		console.log(type)
+		console.log(info.subsidydescription[type]);
+		typeCounts++;
+		var text1="";
+		for(m=0;m<info.subsidydescription[type].length;m++){
+			var dd=info.subsidydescription[type][m];
+			for(i in dd){					
+				if(typeof(dd[i])!="object"){						
+					text1+=dd[i]+" ";
+				}else{
+					for (j in dd[i]){							
+						text1+=dd[i][j]+" ";
+					}
+				}	
+			}
+		}
+		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、'+btduixiang(type)+' : </strong><span>'+text1+'</span></p>');		
+		
+		
+		
+		
+		
+		
+	}
+/*	if(info.subsidydescription.distributor){//0217注释掉，因为不再仅仅有3种类型。
 		typeCounts++;
 		var text1="";
 		for(m=0;m<info.subsidydescription.distributor.length;m++){
@@ -245,7 +270,7 @@ function ajaxSucFn(info){//ajax成功回调里调用
 			}
 		}
 		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、消费者 : </strong><span>'+text1+'</span></p>');
-	}
+	}*/
 }
 $(".footerCkxq").click(function(){
 	console.log('OnShowDetailClick',topicactivity_id);
@@ -339,3 +364,4 @@ $(".CcButieRight").click(function(){
 	}
 	console.log(topicactivity_id,allActivityNum);
 })
+
