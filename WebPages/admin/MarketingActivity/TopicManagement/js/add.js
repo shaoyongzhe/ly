@@ -475,6 +475,7 @@ function addAjax(){
 				// $(".addSub4 .acSe9 .select").find("li:last").get(0).attrArr=attrArr;
 				$(".addSub4 .acSe9 .select").find("li:last").attr("attrArr", attrArr);
 			}
+//			debugger;
 			//补贴条件
 			var dss_2b = data.subsidysetting.subsidycondition;
 			$(".addSub4.created_l .acSe10 .select").empty();
@@ -531,6 +532,25 @@ function addAjax(){
 		},
 		error: function() {
 			console.warn("控件 error");
+		},
+		complete:function(){
+			console.log("subsidyConditionArr"+subsidyConditionArr);
+			$(".acSe9").each(function(num){
+				var emText=$(this).find("em").text();
+				var nameValue="";
+				$(this).find(".option").each(function(){
+					if($(this).text()==emText){
+						nameValue=$(this).attr("name");
+					}
+				})
+//				$(".acSe9").click();$(".acSe9 .option:last").click();
+				$(this).click();
+				$(this).find('.option').last().click();
+//				$(".acSe9").click();$(".acSe9 .option[name='retailer_employee']").click();
+				$(this).click();
+				$(this).find(".option[name='"+nameValue+"']").last().click();
+				$(this).closest(".hdc1").next().find("em").text(subsidyConditionArr[num])
+			})
 		}
 	});
 	
