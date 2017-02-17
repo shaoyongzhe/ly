@@ -186,6 +186,12 @@ header img:nth-of-type(2) {
   color: #888888;
   word-break: break-all; }
 
+p.ellipsis-text {
+  max-height: 132px; }
+
+a.less {
+  display: none; }
+
 .BtuwenWenS1, .BtuwenWenS2 {
   font-family: arial;
   font-size: 14px;
@@ -630,12 +636,6 @@ footer {
   color: #777;
   padding-top: 20px;
   padding-bottom: 20px; }
-
-p.ellipsis-text {
-  max-height: 132px; }
-
-a.less {
-  display: none; }
 
 @media screen and (max-width: 990px) {
   header {
