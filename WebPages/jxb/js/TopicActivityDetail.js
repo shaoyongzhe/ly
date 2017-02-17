@@ -1,9 +1,4 @@
 //20170213.1545
-//$(".BDcyhdCityD").empty();
-//$(".BDcyhdRequireD").empty();
-//$(".BDQFd1").empty();
-//$(".BDQFd2").empty();
-//$(".BDQFd3").empty();
 //alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
@@ -48,51 +43,6 @@ function UrlDisID_ActIDRefresh(){
 		console.log("从不明页面跳转");
 	}
 }
-//情形1.等待经销宝传令刷新页面
-//engine.on('OnDisID_ActIDRefresh', OnDisID_ActIDRefresh, this);//主题活动id///***对接经销宝后解除注释####
-//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","a486c6fdfd0b4e339014b16bc6b685d6");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***链接活动详情页面后注释掉
-/*function OnDisID_ActIDRefresh(){
-	isReceivedDistributorID=true;//可能需要改变
-	isReceivedTopicActivityID=true;//可能需要改变
-	if(arguments.length<1){
-//		layer.alert('缺少参数', {icon: 5});
-		console.log("缺少参数");
-		return;
-	}	
-	localStorage.fromTopicActivityList_DistributorID="";//防止情形1和情形2同时发生
-	localStorage.fromTopicActivityList_ActivityID="";
-	var parameter0=JSON.parse(arguments[0]);
-	var parameter1=JSON.parse(arguments[1]);
-	var OnDisID_ActIDRefreshParameter0=JSON.parse(arguments[0]);
-	var OnDisID_ActIDRefreshParameter1=JSON.parse(arguments[1]);
-	ajaxActivityDetails(DistributorIDRefresh,TopicIDRefresh);
-	//0114添加用于调试开始
-	if(arguments[0]){
-		console.log(arguments[0],"id是",OnDisID_ActIDRefreshParameter0.data[0]);		
-	}
-	if(arguments[1]){
-		console.log(arguments[1],OnDisID_ActIDRefreshParameter1.data[0]);		
-	}	
-	0114添加用于调试结束
-	0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
-	$(".returnChaohuiquanList").removeClass("hi");
-	$(".returnTopicList").addClass("hi");
-}*/
-
-/*//情形2.由活动列表跳转至此
-if(location.href.indexOf('fromList')!=-1){
-	console.log("来自列表页");
-	if(localStorage.fromTopicActivityList_DistributorID!=undefined&&localStorage.fromTopicActivityList_ActivityID!=undefined&&localStorage.fromTopicActivityList_DistributorID!=""&&localStorage.fromTopicActivityList_ActivityID!=""){//不要把undefined错写成""	
-//		isReceivedDistributorID=true;//可能需要改变
-//		isReceivedTopicActivityID=true;//可能需要改变	
-		ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);//***对接经销宝后解除注释####
-	}
-	//0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
-//	$(".returnChaohuiquanList").addClass("hi");
-//	$(".returnTopicList").removeClass("hi");
-	
-}*/
-
 
 function ajaxActivityDetails(a,b){
 	console.log("ajax开始")
@@ -106,413 +56,8 @@ function ajaxActivityDetails(a,b){
 			$(".marginShade").hide();
 		},
 		success:function(data){		
+//			data=errorData;
 			linshi=data;
-/*			data={
-  "topicid": "a486c6fdfd0b4e339014b16bc6b685d6",
-  "matched": false,
-  "joinedcount": 0,
-  "poster": "超惠券列表以及公众号超惠券主题",
-  "activitytitle": "疯闷郁主题活动花开放假啦放辣椒法拉盛放辣椒烦死了积分酸辣粉机",
-  "poster_url": "http://img6.bdstatic.com/img/image/smallpic/xingkong1201.jpg",
-  "content": "超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活动、超惠券上超惠券列表以及公众号超惠券主题活",
-  "begintime": "2017-01-17 00:00:00",
-  "endtime": "2017-02-21 23:59:59",
-  "earliestjointime": "2017-01-17 00:00:00",
-  "latestjointime": "2017-02-20 23:59:59",
-  "servicephone": "122-7148302",
-  "budget": {
-    "subsidyreleased": 0,
-    "subisdytotal": 1400,
-    "obtained": 0,
-    "days": 0
-  },
-  "subsidy_description": {
-    "consumer": [
-      {
-        "subsidyevent": "分享超惠券",
-        "subsidymethod": "送固定金额返现2元",
-        "ruledescription": [
-          "总补贴金额上限200","wowowowowowo"
-        ]
-      },
-      {
-        "subsidyevent": "分享超惠券",
-        "subsidymethod": "送固定金额返现2元",
-        "ruledescription": [
-          "总补贴金额上限200"
-        ]
-      },
-      {
-        "subsidyevent": "分享超惠券",
-        "subsidymethod": "送固定金额返现2元",
-        "ruledescription": [
-          "总补贴金额上限200"
-        ]
-      },
-      {
-        "subsidyevent": "分享超惠券",
-        "subsidymethod": "送固定金额返现2元",
-        "ruledescription": [
-          "总补贴金额上限200"
-        ]
-      },
-      {
-        "subsidyevent": "分享超惠券",
-        "subsidymethod": "送固定金额返现2元",
-        "ruledescription": [
-          "总补贴金额上限200"
-        ]
-      },
-      {
-        "subsidyevent": "分享超惠券",
-        "subsidymethod": "送固定金额返现2元",
-        "ruledescription": [
-          "总补贴金额上限200"
-        ]
-      },
-      {
-        "subsidyevent": "分享超惠券",
-        "subsidymethod": "送固定金额返现2元",
-        "ruledescription": [
-          "总补贴金额上限200"
-        ]
-      }
-    ],
-    "distributor": [
-      {
-        "subsidyevent": "门店签约分销商",
-        "subsidymethod": "送固定微信红包4元",
-        "ruledescription": []
-      }
-    ],
-    "retailer": [
-      {
-        "subsidyevent": "门店签约分销商",
-        "subsidymethod": "送固定微信红包8元",
-        "ruledescription": []
-      }
-    ],
-    "我": [
-      {
-        "subsidyevent": "门店签约分销商",
-        "subsidymethod": "送固定微信红包8元",
-        "ruledescription": []
-      }
-    ],
-    "我2": [
-      {
-        "subsidyevent": "门店签约分销商",
-        "subsidymethod": "送固定微信红包8元",
-        "ruledescription": []
-      }
-    ],
-//  "我3": [
-//    {
-//      "subsidyevent": "门店签约分销商",
-//      "subsidymethod": "送固定微信红包8元",
-//      "ruledescription": []
-//    }
-//  ],
-//  "我4": [
-//    {
-//      "subsidyevent": "门店签约分销商",
-//      "subsidymethod": "送固定微信红包8元",
-//      "ruledescription": []
-//    }
-//  ],
-//  "我34": [
-//    {
-//      "subsidyevent": "门店签约分销商",
-//      "subsidymethod": "送固定微信红包8元",
-//      "ruledescription": []
-//    }
-//  ]
-  },
-  "activity_condition": [
-    {
-      "matched": 1,
-      "description": "套餐优惠幅度高于80% 投放门店数量： 1-20",
-      "localtype": "套餐"
-    },
-    {
-      "matched": 1,
-      "description": "无",
-      "localtype": "降价"
-    }
-  ],
-  "distributor": [
-    {
-      "matched": 0,
-      "description": "活动开始前1天,不低于8000次",
-      "localtype": "核销次数"
-    }
-  ],
-  "retailer": [],
-  "consumer": [],
-  "district_condition": [
-    {
-      "name": "北京市",
-      "state": "active",
-      "charge": {
-        "name": null,
-        "guid": null,
-        "oid": null
-      },
-      "city": [
-        {
-          "name": "北京市",
-          "state": "active",
-          "charge": {
-            "name": null,
-            "guid": null,
-            "oid": null
-          },
-          "country": [
-            {
-              "name": "东城区",
-              "state": "active"
-            },
-            {
-              "name": "石景山区",
-              "state": "active"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "天津市",
-      "state": "active",
-      "charge": {
-        "name": "六月雪",
-        "guid": "857392948940468784b73a94c6ab1c6c",
-        "oid": 4
-      },
-      "city": [
-        {
-          "name": "天津市",
-          "state": "active",
-          "charge": {
-            "name": "六月雪",
-            "guid": "857392948940468784b73a94c6ab1c6c",
-            "oid": 4
-          },
-          "country": [
-            {
-              "name": "和平区",
-              "state": "active"
-            },
-            {
-              "name": "河东区",
-              "state": "active"
-            },
-            {
-              "name": "河西区",
-              "state": "active"
-            },
-            {
-              "name": "南开区",
-              "state": "active"
-            },
-            {
-              "name": "河北区",
-              "state": "active"
-            },
-            {
-              "name": "红桥区",
-              "state": "active"
-            },
-            {
-              "name": "塘沽区",
-              "state": "active"
-            },
-            {
-              "name": "汉沽区",
-              "state": "active"
-            },
-            {
-              "name": "大港区",
-              "state": "active"
-            },
-            {
-              "name": "东丽区",
-              "state": "active"
-            },
-            {
-              "name": "西青区",
-              "state": "active"
-            },
-            {
-              "name": "津南区",
-              "state": "active"
-            },
-            {
-              "name": "北辰区",
-              "state": "active"
-            },
-            {
-              "name": "武清区",
-              "state": "active"
-            },
-            {
-              "name": "宝坻区",
-              "state": "active"
-            },
-            {
-              "name": "宁河县",
-              "state": "active"
-            },
-            {
-              "name": "静海县",
-              "state": "active"
-            },
-            {
-              "name": "蓟  县",
-              "state": "active"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "河北省",
-      "state": "active",
-      "charge": {
-        "name": "六月雪",
-        "guid": "857392948940468784b73a94c6ab1c6c",
-        "oid": 4
-      },
-      "city": [
-        {
-          "name": "石家庄市",
-          "state": "active",
-          "charge": {
-            "name": "六月雪",
-            "guid": "857392948940468784b73a94c6ab1c6c",
-            "oid": 4
-          },
-          "country": [
-            {
-              "name": "井陉县",
-              "state": "active"
-            },
-            {
-              "name": "正定县",
-              "state": "active"
-            },
-            {
-              "name": "栾城县",
-              "state": "active"
-            },
-            {
-              "name": "行唐县",
-              "state": "active"
-            },
-            {
-              "name": "灵寿县",
-              "state": "active"
-            },
-            {
-              "name": "深泽县",
-              "state": "active"
-            },
-            {
-              "name": "赞皇县",
-              "state": "active"
-            },
-            {
-              "name": "无极县",
-              "state": "active"
-            },
-            {
-              "name": "平山县",
-              "state": "active"
-            },
-            {
-              "name": "元氏县",
-              "state": "active"
-            },
-            {
-              "name": "辛集市",
-              "state": "active"
-            },
-            {
-              "name": "藁城市",
-              "state": "active"
-            },
-            {
-              "name": "晋州市",
-              "state": "active"
-            },
-            {
-              "name": "新乐市",
-              "state": "active"
-            },
-            {
-              "name": "鹿泉市",
-              "state": "active"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "山西省",
-      "state": "active",
-      "charge": {
-        "name": "六月雪",
-        "guid": "857392948940468784b73a94c6ab1c6c",
-        "oid": 4
-      },
-      "city": [
-        {
-          "name": "长治市",
-          "state": "active",
-          "charge": {
-            "name": "六月雪",
-            "guid": "857392948940468784b73a94c6ab1c6c",
-            "oid": 4
-          },
-          "country": [
-            {
-              "name": "城  区",
-              "state": "active"
-            },
-            {
-              "name": "郊  区",
-              "state": "active"
-            },
-            {
-              "name": "长治县",
-              "state": "active"
-            },
-            {
-              "name": "襄垣县",
-              "state": "active"
-            },
-            {
-              "name": "黎城县",
-              "state": "active"
-            },
-            {
-              "name": "壶关县",
-              "state": "active"
-            },
-            {
-              "name": "长子县",
-              "state": "active"
-            },
-            {
-              "name": "武乡县",
-              "state": "active"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-};
-			linshi=data;*/
 			if(data==""||data==[]){
 //				layer.alert("数据为空，请重试", {icon: 5});
 				console.log("数据为空，请重试");
@@ -560,11 +105,15 @@ function ajaxActivityDetails(a,b){
 			}
 			$(".BsmallTitle").text(data.activitytitle);
 			$(".BbigTitle span").text("已参与分销商数:"+data.joinedcount+"人");
-			$(".BtuwenWenP1").text(data.content);
+//			$(".BtuwenWenP1").text($.trim(data.content));	
+//			$(".BtuwenWenP1").text(data.content);
+			$(".BtuwenWenP1").html(data.content.replace(" ","&ensp;"));
+//			console.log($(".BtuwenWenP1").text())
 			//展开收起
 //			debugger;
-			$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");
+			$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");			
 			zksq1();
+//			return;
 			data.time=data.begintime+"-"+data.endtime;
 			$(".BtuwenWenP2 .BtuwenWenS2").text(data.time);
 			$(".BtuwenWenP3 .BtuwenWenS2").text(data.servicephone);
@@ -653,7 +202,7 @@ function ajaxActivityDetails(a,b){
 						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:214px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
 					}
 					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
-					console.log(hm)
+//					console.log(hm)
 				}	
 				//2.最后的一行的宽度
 				//给每个btsm设置宽度
@@ -854,14 +403,14 @@ function ajaxActivityDetails(a,b){
 			}else{
 				$(".BDQFd3").append('<img src="img/b4.png" alt="" class="BDcyhdQualifiedXFZimg"/>')
 			}
-			if($(".BDcyhdCityXianzhi").height()<144){//后期加上
+			if($(".BDcyhdCityXianzhi").height()<=144){//后期加上
 				$(".BDcyhdCityDsMore").addClass("hi");
 			}
 			//
 			zksq3();
 //			console.log(8888666)
 //			loadintEnd();
-			$(".initialHi").removeClass("initialHi");//因为展开收起插件与显示隐藏冲突，所以，本页面dom中将initialHi变成了-initialHi
+//			$(".initialHi").removeClass("initialHi");//因为展开收起插件与显示隐藏冲突，所以，本页面dom中将initialHi变成了-initialHi
 			
 			/*if(data.matched){//0121左晓雪告诉我，因为现在文案是必填项，所以标题大小标题以及是否显示文案已经统一了，无论是否满足要求，都是stateYes方案。所以这里注释掉。但是文案后续可能变成非必填项，所以还是要考虑的。
 				$(".stateNo").addClass("hi")
@@ -916,6 +465,7 @@ function zksq1(){
 //	$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");
     $("p.ellipsis-text").dotdotdot({
         after: 'a.more',
+        'ellipsis':'...',
         callback: dotdotdotCallback
     });
     $("p.ellipsis-text").on('click','a',function() {
@@ -1078,10 +628,16 @@ function mmm(){
 returnToList()
 //返回超慧券列表
 function returnToList(){
-	if(UrlKeyValueData.switchfrom=="ticketlist"){
+	if(UrlKeyValueData.switchfrom=="ticketlist"||UrlKeyValueData.switchfrom=="toplicactivitylist"){
 		$(".returnToList").removeClass("hi")
 	}else{
 		$(".returnToList").addClass("hi")
+	}
+	/*详情页特有*/
+	//如果从列表页跳转过来
+	if(UrlKeyValueData.switchfrom=="toplicactivitylist"){
+		$(".returnToList .p1").show();
+		$(".returnToList .p2").hide();
 	}
 	$(".returnToList .p1").click(function(){
 		engine.call('ClosePage',"");
@@ -1123,40 +679,3 @@ function isReceivedID(){
 	}
 
 }*/
-function btduixiang(a){
-	var btduixiang = "";
-	switch(a){	
-		case "distributor":
-		btduixiang = '分销商'
-		break;		
-		
-		case "distributoremployee":
-		btduixiang = '分销商业务员'
-		break;
-		
-		case "distributor_employee":
-		btduixiang = '分销商业务员'
-		break;
-		
-		case "retailer":
-		btduixiang = '门店'
-		break;
-		
-		
-		case "retaileremployee":
-		btduixiang = '门店店员'
-		break;
-		
-		case "retailer_employee":
-		btduixiang = '门店店员'
-		break;
-		
-		case "consumer":
-		btduixiang = '消费者'
-		break;
-		
-		default:
-		btduixiang =a;
-	}	
-	return btduixiang;
-}
