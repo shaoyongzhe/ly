@@ -46,10 +46,15 @@ function fnxuanran(data) {
 	var otr = "",
 		viplx = "",
 		diqu = [];
+
 	for(var k1 in odata) {
-		otr += "<tr gu-id='" + odata[k1]["guid"] + "'>" +
-			"<td class='cgl-td1'><input class='thechec' type='checkbox'></td>" +
-			"<td class='cgl-td2'><span style='display: none'></span><p>" + odata[k1]["memberinfo"] + "</p></td>";
+		otr += "<tr gu-id='" + odata[k1]["guid"] + "' ";
+		if(odata[k1]["description"] == "shensu") {
+			otr += "shensu='true'><td class='cgl-td1' style='background: url(../img/fuxuank.png) no-repeat center;'></td>";
+		} else {
+			otr += "><td class='cgl-td1'><input class='thechec' type='checkbox'></td>";
+		}
+		otr += "<td class='cgl-td2'><span style='display: none'></span><p>" + odata[k1]["memberinfo"] + "</p></td>";
 		if(odata[k1]["anticheatingobj_class"] == "tblretailer") {
 			viplx = "门店"
 		}
@@ -66,7 +71,13 @@ function fnxuanran(data) {
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 			"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
 			"<td class='cgl-td12'>" + $(".stateon>span").text() + "</td>" +
-			"<td class='cgl-td13'></td>" +
+			"<td class='cgl-td13' ";
+		if(state.state == "已结束" || odata[k1]["description"] == "shensu") {
+			otr += "style='background:#fff;'><a href='javascript:'>详情</a>";
+		} else {
+			otr += "><ul></ul>";
+		}
+		otr += "</td>" +
 			"</tr>";
 	}
 	$("#cgl-tbody").html(otr);
@@ -115,9 +126,14 @@ function fnmore() {
 					var otr = "",
 						viplx = "";
 					for(var k1 in odata) {
-						otr += "<tr gu-id='" + odata[k1]["guid"] + "'>" +
-							"<td class='cgl-td1'><input class='thechec' type='checkbox'></td>" +
-							"<td class='cgl-td2'><span style='display: none'></span><p>" + odata[k1]["memberinfo"] + "</p></td>";
+						otr += "<tr gu-id='" + odata[k1]["guid"] + "' ";
+						console.log(odata[k1]["description"])
+						if(odata[k1]["description"] == "shensu") {
+							otr += "shensu='true'><td class='cgl-td1' style='background: url(../img/fuxuank.png) no-repeat center;'></td>";
+						} else {
+							otr += "><td class='cgl-td1'><input class='thechec' type='checkbox'></td>";
+						}
+						otr += "<td class='cgl-td2'><span style='display: none'></span><p>" + odata[k1]["memberinfo"] + "</p></td>";
 						if(odata[k1]["anticheatingobj_class"] == "tblretailer") {
 							viplx = "门店";
 						}
@@ -132,7 +148,13 @@ function fnmore() {
 							"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 							"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
 							"<td class='cgl-td12'>" + $(".stateon>span").text() + "</td>" +
-							"<td class='cgl-td13'></td>" +
+							"<td class='cgl-td13' ";
+						if(state.state == "已结束" || odata[k1]["description"] == "shensu") {
+							otr += "style='background:#fff;'><a href='javascript:'>详情</a>";
+						} else {
+							otr += "><ul></ul>";
+						}
+						otr += "</td>" +
 							"</tr>";
 					}
 					$("#cgl-tbody").append(otr);
@@ -533,32 +555,39 @@ function fncaozuo() {
 	$("tbody").on("click", ".cgl-td13", function() {
 		$("#cgl-table").find("input:checkbox").prop("checked", false);
 		var td12 = $(this).parents("tr").find(".cgl-td12").html();
-		$(".cgl-td13").html("");
-		attr = "";
-		attr += "<div><ul>" +
-			"<li class='xiangxi'>详细</li>";
-		if(td12 == "确认违规处罚中") {
-			attr += "<li class='fasong'>发送通知</li>";
+		//$(".cgl-td13").html("");
+		if(state.state=="已结束" || $(this).parents("tr").attr("shensu")=="true") {
+			
+		}else{
+			attr = "";
+			attr += "<div><ul>" +
+				"<li class='xiangxi'>详细</li>";
+			if(td12 == "确认违规处罚中") {
+				attr += "<li class='fasong'>发送通知</li>";
+			}
+			if(td12 == "确认违规处罚中" || (td12 == "解除违规" && $(this).parents("tr").attr("shensu") != "true") || td12 == "申诉中") {
+				attr += "<li class='tiaoz'>调整违规等级</li>";
+			}
+			if(td12 == "确认违规处罚中") {
+				attr += "<li class='vipshensu'>会员申诉</li>";
+			}
+			if(td12 == "申诉中") {
+				attr += "<li class='vipbohui'>驳回申诉</li>";
+			}
+			if((td12 == "解除违规" && $(this).parents("tr").attr("shensu") != "true") || td12 == "未确认") {
+				attr += "<li class='queren'>调整并确认</li>";
+			}
+			if(td12 == "未确认" || td12 == "申诉中" || td12 == "确认违规处罚中") {
+				attr += "<li class='jiechuwg'>解除违规</li>";
+			}
+			attr += "</ul></div>";
+			$(this).html(attr);
+			$("div", ".cgl-td13").removeClass("czon");
+			$("div", this).addClass("czon");
 		}
-		if(td12 == "确认违规处罚中" || td12 == "解除违规" || td12 == "申诉中") {
-			attr += "<li class='tiaoz'>调整违规等级</li>";
-		}
-		if(td12 == "确认违规处罚中") {
-			attr += "<li class='vipshensu'>会员申诉</li>";
-		}
-		if(td12 == "申诉中") {
-			attr += "<li class='vipbohui'>驳回申诉</li>";
-		}
-		if(td12 == "解除违规" || td12 == "未确认") {
-			attr += "<li class='queren'>调整并确认</li>";
-		}
-		if(td12 == "未确认" || td12 == "申诉中" || td12 == "确认违规处罚中") {
-			attr += "<li class='jiechuwg'>解除违规</li>";
-		}
-		attr +=
-			"</ul></div>";
-		$(this).html(attr);
 	}).on("click", ".cgl-td13 .xiangxi", function() {
+		article_add(this);
+	}).on("click", "a", function() {
 		article_add(this);
 	}).on("click", ".fasong", function() {
 		fasong_add($(this).parents("tr"));
@@ -592,7 +621,7 @@ function fncaozuo() {
 	});
 	$(document).click(function(e) {
 		if(!$(e.target).closest(".cgl-td13").length) {
-			$(".cgl-td13").html("");
+			$("div", ".cgl-td13").removeClass("czon");
 		}
 	});
 }
@@ -1358,36 +1387,71 @@ function fnweigyy() {
 
 }
 
-function fnpaixu(data) {
+function fnpaixu(data, order) {
+	var cont = "",
+		cn = null;
+	/*var colorarr=[
+	"#f00","#ff0a0a","#ff1414","#ff1f1f",
+	"#ff2929","#ff3333","ff3d3d","#ff4747",
+	"#ff5252","#ff5c5c","#ff6666","#ff7070",
+	"#ff7a7a","#ff8585","#ff8f8f","#ff9999",
+	"#ffa3a3","#ffadad","#ffb8b8","#ffc2c2",
+	"#ffcccc","#ffd6d6","#ffd6d6","#fff0f0"];*/
+	var colorarr = ["#f00", "#ff1f1f", "#ff4040", "#ff5e5e", "#ff8080", "#ff9e9e", "#ffbfbf", "#ffe0e0"];
 	for(var i = 0; i < data.length; i++) {
-		if(data[i]) {
-
+		for(var j = 0; j < data.length; j++) {
+			if(data[j][order] == i) {
+				cont += "<tr>" +
+					"<td class='jltd1'>" + data[j]["consumername"] + "</td>" +
+					"<td class='jltd2'>" + data[j]["retailername"] + "</td>" +
+					"<td class='jltd3'>" + data[j]["activitytitle"] + "</td>" +
+					"<td class='jltd4'>" + data[j]["itemkind"] + "</td>" +
+					"<td class='jltd5'>" + data[j]["ruletext"] + "</td>" +
+					"<td class='jltd6'>" + data[j]["verifymoney"] + "</td>" +
+					"<td class='jltd7'>暂无</td>" +
+					"<td class='jltd8'>暂无</td>" +
+					"<td class='jltd9'>" + data[j]["issuetime"] + "</td>" +
+					"<td class='jltd10' ";
+				if(parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]) < 0) {
+					cont += "style='background:#fff'";
+				} else {
+					cn = parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]);
+					if(cn < 30) {
+						cont += "style='background:" + colorarr[0] + "'";
+					} else if(cn < 60) {
+						cont += "style='background:" + colorarr[1] + "'";
+					} else if(cn < 150) {
+						cont += "style='background:" + colorarr[2] + "'";
+					} else if(cn < 300) {
+						cont += "style='background:" + colorarr[3] + "'";
+					} else if(cn < 600) {
+						cont += "style='background:" + colorarr[4] + "'";
+					} else if(cn < 1800) {
+						cont += "style='background:" + colorarr[5] + "'";
+					} else if(cn < 3600) {
+						cont += "style='background:" + colorarr[6] + "'";
+					} else {
+						cont += "style='background:" + colorarr[7] + "'";
+					}
+				}
+				cont += ">" + data[j]["timespan" + order.replace(/[^0-9]/ig, "")] + "</td>" +
+					"</tr>";
+			}
 		}
-		cont += "<tr>" +
-			"<td class='jltd1'>" + data["verifylist"][k2]["consumername"] + "</td>" +
-			"<td class='jltd2'>" + data["verifylist"][k2]["retailername"] + "</td>" +
-			"<td class='jltd3'>" + data["verifylist"][k2]["activitytitle"] + "</td>" +
-			"<td class='jltd4'>" + data["verifylist"][k2]["itemkind"] + "</td>" +
-			"<td class='jltd5'>" + data["verifylist"][k2]["ruletext"] + "</td>" +
-			"<td class='jltd6'>" + data["verifylist"][k2]["verifymoney"] + "</td>" +
-			"<td class='jltd7'>暂无</td>" +
-			"<td class='jltd8'>暂无</td>" +
-			"<td class='jltd9'>" + data["verifylist"][k2]["issuetime"] + "</td>" +
-			"<td class='jltd10'></td>" +
-			"</tr>";
 	}
+	$(".table2").find("tbody").html(cont);
 }
 
 function fnshaixuan(data) {
-	console.log(data);
+	fnpaixu(data, "order1");
 	$(".hxjlpx").on("click", "span", function() {
 		$(this).addClass("onck").siblings().removeClass("onck");
 		if($(this).index() == 0) {
-			fnpaixu(data);
+			fnpaixu(data, "order1");
 		} else if($(this).index() == 1) {
-
+			fnpaixu(data, "order2");
 		} else if($(this).index() == 2) {
-
+			fnpaixu(data, "order3");
 		}
 	});
 }
