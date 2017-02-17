@@ -8,6 +8,18 @@ var addsub3HTML="";
 var addsub4HTML="";
 var addsub5HTML="";
 
+var fzrurl = '/webapi/ipaloma/topic/charge';
+_ajax("get", fzrurl, {}, '活动负责人', function (fzr){
+
+	$(fzr.content).each(function(i,item){
+		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.nickname +'</li>');
+	});
+
+	/*$('.fzr .option').each(function(){
+		$(this).click();
+	});*/
+});
+
 
 function previewImage(file) {
   	
@@ -28,24 +40,13 @@ function previewImage(file) {
         cache: false,
         contentType: false,
         processData: false,
-        // timeout: function () {alert(1)},
         success: function(data) {
-            //console.warn(data.picture_url);
-			// console.log(file);
-
-			// debugger;
-            // pic_url = data.picture_url;
-            // console.log(pic_url);
-            // alert(pic_url);
             layer.msg("上传中...",{time:2000});
             setTimeout("$('.area.edit .haibao-wrap img').attr('src', '"+ data.picture_url +"');layer.msg('上传成功')",2000);
-
         },
-
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             console.log("上传 error");
         }
-
     });
 
 	// debugger
@@ -114,17 +115,10 @@ function previewImage(file) {
 
 
 $('body').on("click",".select-wrap",function(e){
-	// $('.select-wrap').click(function(e){
-	// debugger;
 	e.stopPropagation();
 	$(this).find('.select').toggle();
 	$(".select-wrap").not(this).find('.select').hide();
 });
-
-/*$('.select .option').click(function(e){
-	e.stopPropagation();
-	$(this).text().parent().hide().prev().text($(this).text());
-});*/
 
 $(document).click(function(){
 	$('.select').hide();
@@ -292,7 +286,6 @@ $('.rulesok').click(function(){
 	// var gzArr = [];
 	// var guize = $(this).closest('.set-rules').find('.butie-item');
 	var guize = $(this).closest('.set-rules');
-	
 	if($('.check.perdaySum').hasClass('on')){
 		var perdaySum = guize.find('input.perdaySum').val();
 	}
@@ -340,12 +333,8 @@ $('.rulesok').click(function(){
 
 // 设置摇一摇、设置轮盘抽奖
 $('body').on("click",".set",function(e){
-	// $('.set').click(function(){
-	// debugger;
-	var addSub4 = $(this).closest('.addSub4');
-	// alert(index);
-	//return
 
+	var addSub4 = $(this).closest('.addSub4');
 	var type = addSub4.find('.hdc3 .selected').text();
 
 	if(addSub4.find('.hdc5 input').val() == ""){
@@ -360,22 +349,18 @@ $('body').on("click",".set",function(e){
 
 			type: 1,
 			title: '设置摇一摇',
-			area: ['65%',"60%"],
+			area: ['70%',"60%"],
 			maxmin: true,
 			content: $('.yao'),
 
 		});
 
-		// debugger;
-		// debugger;
 		$('.yaoyiyao').not(':last').remove();
 		$('.yaoyiyao').find('.selected').text("");
 		$('.yaoyiyao').find('input').val("");
 
-
 		if($(this).closest('.hdc4d2').find('.y1y').length == 0){
 			$(this).after('<input type="hidden" class="y1y y1yHidden'+ y1yindex +'">');
-			// $('.yaoyiyao').not(':first').remove();
 
 		} else {
 
@@ -385,15 +370,6 @@ $('body').on("click",".set",function(e){
 
 			var y1yObj = {};
 			y1yObj = JSON.parse($(this).next('.y1y').val());
-			c(y1yObj);
-			c(y1yObj.length);
-
-			// $('.Probability_value input').val(0);
-			// $.each(y1yObj.value_curve,function(i){
-			// 	$('.Probability_value input').eq(i).val(y1yObj.value_curve[i].percentage);
-			// });
-			// $('.yaoyiyao').remove();
-			// $('.addSub5P68').after("<div class='preView'>dsadsa</div>");
 
 			for(var i=0; i<y1yObj.length; i++){
 
@@ -403,11 +379,6 @@ $('body').on("click",".set",function(e){
 				}
 
 				var y1yItem = $('.yaoyiyao').eq(i);
-				// if(y1yObj[i].refund_content.indexOf('固定') != -1){
-					// y1yItem.find("li:contains("+ y1yObj[i].refund_content +")").click();
-				// } else {
-					// y1yItem.find('.selected').text(y1yObj[i].refund_content);
-				// }
 
 				y1yItem.find('li').each(function(){
 					if($(this).text() == y1yObj[i].refund_content){
@@ -420,8 +391,6 @@ $('body').on("click",".set",function(e){
 				y1yItem.find('.Yyy3d1 input').val(y1yObj[i].precentage);
 				y1yItem.find('.Yyy4d1 input').val(y1yObj[i].timelimit).keyup();
 				y1yItem.find('.Yyy5-1 input').val(y1yObj[i].applycount);
-				// y1yItem.find('.Yyy6').append("<input type='hidden' class='ygl yglHidden"+ yglindex +"' value='" + JSON.stringify(y1yObj[i].probability, null, 4) + "'");
-				// y1yItem.find('.Yyy6').append($(y1yObj[i].probability));
 
 				y1yItem.find('.setgailv.on').click();
 				$('.value_curve').closest('.layui-layer').find('.layui-layer-close').click();
@@ -432,51 +401,38 @@ $('body').on("click",".set",function(e){
 
 		}
 
+		$('.yaoWrap').on('blur',".Yyy3 input", function(){
 
-
-		$('.yaoWrap').on('input',".Yyy3 input", function(){
-			// console.log(typeof Number($(this).val()));
-
-
+			var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
+			var y1ygailvInput = Number($(this).val());
+			
+			$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
 			
 			var percentNum = 0;
 			$('.yaoWrap .Yyy3 input').each(function(){
 				percentNum += Number($(this).val());
 			});
 
-			if(percentNum > 100){
-				layer.msg('摇一摇概率相加大于了100%');
-				$('.yaook').addClass('disabled');
-				return;
-			} else {
-				$('.yaook').removeClass('disabled');
-			}
-
-
-			/*var cishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
 			var cishuNum = 0;
 			$('.yaoWrap .Yyy4 input').each(function(){
 				cishuNum += Number($(this).val());
 			});
 
-			if(cishuNum != cishu){
-				layer.msg('奖品次数与发放上限次数不一样');
+			if(percentNum != 100){
+				layer.msg('摇一摇概率相加必须等于100');
 				$('.yaook').addClass('disabled');
 				return;
+
+			} else if(cishuNum != shangxiancishu){
+				layer.msg('奖品次数不等于发放上限次数' + shangxiancishu + '次');
+				$('.yaook').addClass('disabled');
+				return;
+
 			} else {
 				$('.yaook').removeClass('disabled');
-			}*/
-
-
-			var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
-			var y1ygailvInput = Number($(this).val());
-			
-			$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
+			}
 
 		});
-
-
-
 
 	} else if( type == '轮盘抽奖'){
 		$(this).next('.lp').remove();
@@ -500,31 +456,53 @@ $('body').on("click",".set",function(e){
 
 	}
 
+}).on("input",".addSub4 .hdc5 input",function(){
+	var addSub4 =$(this).closest('.addSub4'),
+		addSub4_val = addSub4.find('.y1y').val();
+	if(addSub4_val != "" && addSub4_val != undefined){
+		addSub4.find('.set').click();
+		$('.yaoyiyao .Yyy3 input').val("");
+		$('.yaoyiyao .Yyy4 input').val("");
+
+		var y1yArr = JSON.parse(addSub4_val);
+		for(var i in y1yArr){
+			y1yArr[i]['precentage'] = "";
+			y1yArr[i]['timelimit'] = "";
+		}
+		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4))
+
+	}
 });
 
 
 
 // 设置摇一摇 确定按钮
 $('.yaook').click(function(){
-	if($(this).hasClass('.disabled')){
-		layer.msg('灰的哈')
+
+	var isProEmpty = true;
+	$('.yaoWrap .Yyy3 input').each(function(){
+		if($(this).val() == ""){
+			layer.tips("请先设置摇一摇概率", $(this));
+			$('.yaook').addClass('disabled');
+			isProEmpty = false;
+			return false;
+		} else {
+			$('.yaook').removeClass('disabled');
+		}
+	});
+
+	if($(this).hasClass('disabled') || isProEmpty == false){
 		return;
 	}
-	// alert(index);
+
 	var y1yArr = [];
 	var y1yObj = {};
 	if($('.addSub5 .selected:eq(0)').text() != ""){
 
 		var yaoyiyao = $(this).parent().find('.yaoWrap .addSub5');
 		$(yaoyiyao).each(function(){
-			// debugger;
 			var _this = $(this);
-			try {
-				var yaoyiyaogailv = JSON.parse(_this.find('.Yyy6 input').val())
-				// var yaoyiyaogailv = _this.find('.Yyy6 input').prop("outerHTML");
-			} catch(e) {
-				// console.log(e);
-			}
+			try { var yaoyiyaogailv = JSON.parse(_this.find('.Yyy6 input').val()) } catch(e) {}
 			y1yObj = {
 				"refund_content": _this.find('.Yyy1 .selected').text(),
 				"min": _this.find('.Yyy2 input:eq(0)').val(),
@@ -537,16 +515,7 @@ $('.yaook').click(function(){
 			y1yArr.push(y1yObj);
 		});
 
-		// if(y1yObj['max'] == undefined){ 
-		// 	delete y1yObj['max'];
-		// }
-
-		// console.log(y1yObj);
 		$(".y1yHidden" + y1yindex).val(JSON.stringify(y1yArr, null, 4));
-		// console.log($(".y1yHidden" + index).val());
-		// return;
-
-		// subsidyItem['prize_content'] = y1yArr;
 		layer.msg('摇一摇数据已保存');
 
 	} else {
@@ -558,49 +527,35 @@ $('.yaook').click(function(){
 
 });
 
-
-
-
-
 // 设置概率
 var fwmin;
 var fwmax;
 var count = 10;
-// $('.section3').off('click');
 $('.section3').on('click','.setgailv.on',function(){
-	//	alert(1)
-	var _this = $(this);
 
+	var _this = $(this);
 
 	var addSub4 = _this.closest('.addSub4');
 	if(addSub4.find('.hdc3 .selected').text().indexOf('随机') != -1){
-		/* bug修改 */
+
 		var min_suiji = addSub4.find('.hdc4d1.-hi input.hdc4In1').val();
 		var max_suiji = addSub4.find('.hdc4d1.-hi input.hdc4In2').val();
-		if(max_suiji <0.1){
+		if(max_suiji < 0.1){
 			layer.tips('请设置金额不小于0.1元', addSub4.find('.hdc4d1.-hi input.hdc4In2'));
-			// addSub4.find('.selected').focus();
 			return;
 		}
-		
 		if(addSub4.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
-			// debugger
 			layer.tips('请先填写最小范围', addSub4.find('.hdc4d1.-hi input.hdc4In1'));
-			// addSub4.find('.selected').focus();
 			return;
 		}
 		if(addSub4.find('.hdc4d1.-hi input.hdc4In2').val() == ""){
-			// debugger
 			layer.tips('请先填写最大范围', addSub4.find('.hdc4d1.-hi input.hdc4In2'));
-			// addSub4.find('.selected').focus();
 			return;
 		}
 
 	} else {
 		if(addSub4.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
-			// debugger
 			layer.tips('请先填写值', addSub4.find('.hdc4d1.-hi input.hdc4In1'));
-			// addSub4.find('.selected').focus();
 			return;
 		}
 	}
@@ -625,12 +580,10 @@ $('.section3').on('click','.setgailv.on',function(){
 	// 摇一摇中设置概率
 	if(_this.closest('.yaoyiyao').length == 1){
 		
-		/* bug修复 */
 		var min_yy = _this.closest('.yaoyiyao').find('input.min').val();
 		var max_yy = _this.closest('.yaoyiyao').find('input.max').val();
 		if(max_yy <0.1){
 			layer.tips('请设置金额不小于0.1元', _this.closest('.yaoyiyao').find('input.max'));
-			// addSub4.find('.selected').focus();
 			return;
 		}
 
@@ -988,7 +941,7 @@ $('.btn.next').click(function(){
 
 
 
-$('body.create').on('input','input',function(e){
+$('body').on('input','input',function(e){
 	e.stopPropagation();
 
 	$(this).val($.trim($(this).val()));
@@ -1060,7 +1013,6 @@ $('body.create').on('input','input',function(e){
 
 
 });
-
 
 $('.Probability_value input').on("blur",function(){
 
@@ -1956,18 +1908,7 @@ $('.areaSave').click(function(){
 });
 
 
-var fzrurl = '/webapi/ipaloma/topic/charge';
-_ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
-	$(fzr.content).each(function(i,item){
-		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.nickname +'</li>');
-	});
-
-	/*$('.fzr .option').each(function(){
-		$(this).click();
-	});*/
-
-});
 
 if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 	$('div.acMeD1').css('marginLeft', '26px');
@@ -1985,8 +1926,8 @@ $('.saveToDb, .shenhe').click(function(){
 	// debugger
 	if($(this).text() ==  "提交审核"){
 
-	    //获取活动时间与会员参与时间
-	    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
+	    // 获取活动时间与会员参与时间
+	    // 报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
 	    var basic = $('.basic-msg');
 	    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
 	    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
@@ -2125,7 +2066,7 @@ $('.saveToDb, .shenhe').click(function(){
 			return
 		}
 
-		// 参与会员
+		// 2.参与会员
 		if(finished == true){
 			$('.section2 .addSub2').each(function(){
 				// debugger
@@ -2255,11 +2196,11 @@ $('.saveToDb, .shenhe').click(function(){
 			return
 		}
 		
-		// 活动补贴规则
+		// 3.活动补贴规则
 		if(finished == true){
 
 			$('.section3 .addSub4').each(function(){
-//				 debugger
+
 				var _this = $(this);
 				if(_this.find('.butie-select-wrap .selected').text() == ""){
 					// debugger
@@ -2285,29 +2226,42 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}
+
 				var isShake = false;
+
 				if(_this.find('.hdc3 .selected').text().indexOf('随机') != -1){
+
 					if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
 						// debugger
 						$("nav span").eq(2).click();
 						layer.tips('请先填写最小范围', _this.find('.hdc4d1.-hi input.hdc4In1'));
-						// _this.find('.selected').focus();
+						finished = false;
+						return false;
+					} else if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == "0"){
+						$("nav span").eq(2).click();
+						layer.tips('最小范围不可以为0', _this.find('.hdc4d1.-hi input.hdc4In1'));
 						finished = false;
 						return false;
 					}
-					if(_this.find('.hdc4d1.-hi input.hdc4In2').val() == ""){
-						// debugger
-						$("nav span").eq(2).click();
-						layer.tips('请先填写最大范围', _this.find('.hdc4d1.-hi input.hdc4In2'));
-						// _this.find('.selected').focus();
-						finished = false;
-						return false;
+
+					if(_this.find('.hdc4d1.-hi input.hdc4In2').css('display') == 'block'){
+						if(_this.find('.hdc4d1.-hi input.hdc4In2').val() == ""){
+							$("nav span").eq(2).click();
+							layer.tips('请先填写最大范围', _this.find('.hdc4d1.-hi input.hdc4In2'));
+							finished = false;
+							return false;
+						} else if(_this.find('.hdc4d1.-hi input.hdc4In2').val() == "0"){
+							$("nav span").eq(2).click();
+							layer.tips('最大范围不可以为0', _this.find('.hdc4d1.-hi input.hdc4In2'));
+							finished = false;
+							return false;
+						}
 					}
 
 				} else {
 
 					if(_this.find('.hdc4d1.-hi input.hdc4In1').val() == ""){
-						// debugger
+
 						if(_this.find('.select-wrap.acSe11 .selected').text() == "摇一摇"){
 							isShake = true;
 						}
@@ -2315,21 +2269,22 @@ $('.saveToDb, .shenhe').click(function(){
 						if(isShake == false){
 							$("nav span").eq(2).click();
 							layer.tips('请先填写值', _this.find('.hdc4d1.-hi input.hdc4In1'));
-							// _this.find('.selected').focus();
 							finished = false;
-						}
-
-						
+							return false;
+						}						
 						
 					}
 
 				}
 
 				if(_this.find('.hdc5 input').val() == ""){
-					// debugger
 					$("nav span").eq(2).click();
 					layer.tips('请先填写发放上限次数', _this.find('.hdc5 input'));
-					// _this.find('.selected').focus();
+					finished = false;
+					return false;
+				} else if(_this.find('.hdc5 input').val() == "0"){
+					$("nav span").eq(2).click();
+					layer.tips('发放上限次数不可以为0', _this.find('.hdc5 input'));
 					finished = false;
 					return false;
 				}
@@ -2638,9 +2593,7 @@ $('.saveToDb, .shenhe').click(function(){
 				"operator": operator,
 				'value': value
 			}
-
 		} else {
-
 			data[memberType][conditionType] = {
 				"state": "active",
 				"min": min,
@@ -2746,11 +2699,13 @@ $('.saveToDb, .shenhe').click(function(){
             "min": addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val(),
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
-            "applycount": addSub4.find('.hdc6-1 input').val()
+            "applycount": addSub4.find('.hdc6-1 input').val(),
+
         }
+
 		if(location.href.indexOf("activityModify.html")!=-1){
-			subsidyItem.guid=addSub4.find('.acSe9 .selected').attr("guid");//0124添加
-		}	
+			subsidyItem.guid = addSub4.find('.acSe9 .selected').attr("guid");//0124添加
+		}
 
 		var refund_content = addSub4.find('.hdc3 .selected').text();
         if(refund_content == '摇一摇'){
@@ -2840,8 +2795,13 @@ $('.saveToDb, .shenhe').click(function(){
 	        timeout: function () { },
 	        success: function (returnedData) {
 	            if (!returnedData.error) {
-	                layer.msg('创建成功');
-	                console.log(returnedData);
+	            	if($('body').hasClass('xiugai')){
+		                layer.msg('修改成功');
+	            	} else {
+		                layer.msg('创建成功');
+	            	}
+		            console.log(returnedData);
+
 	            } else {
 	                layer.msg(returnedData.error);
 	            }

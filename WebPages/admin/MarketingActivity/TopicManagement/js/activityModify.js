@@ -383,8 +383,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '<!--介于对应的-->'
 	        +                           '<div class="-hi hi acZige5c acZige1Tab acZige4tab mangeStyle">'
 	        +                               '<!--最后一个p标签内容随时变-->'
-	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" disabled/><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
-	        +                           '</div>'                                                            
+	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" /><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
+	        +                           '</div>'                                                  
 	        +                       '</div>'
 	        +                       '<!--添加删除按钮-->'
 	        +                       '<div class="acAdC dib">'
@@ -858,10 +858,19 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang)
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
-	    // $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
-	    
+	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
+
+	    /*debugger
+        $('nav span:eq(2)').click();
+        $(".addSub4Mange:last").find(".acSe9 ul li").each(function(){
+            if($(this).val() == btduixiang){
+                $(this).click().parent().prev().attr('guid',activityManger_addSub4Data[i].guid);
+            }
+        });
+        */
+
 	    /*补贴条件*/
-	//  $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
+	 $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
 	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);
 	
 	    /*补贴形式*/
@@ -871,6 +880,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    if(btType.indexOf('随机') != -1){
 	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
 	    }
+
+
+
 	
 	    /*三种类型的范围值*/
 	//  $(".addSub4Mange:last").find(".addsub4_fanweizhi").addClass("hi");  
