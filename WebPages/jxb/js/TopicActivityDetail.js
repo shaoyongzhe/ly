@@ -56,7 +56,7 @@ function ajaxActivityDetails(a,b){
 			$(".marginShade").hide();
 		},
 		success:function(data){		
-			data=errorData;
+//			data=errorData;
 			linshi=data;
 			if(data==""||data==[]){
 //				layer.alert("数据为空，请重试", {icon: 5});
