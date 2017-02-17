@@ -1,9 +1,4 @@
 //20170213.1545
-//$(".BDcyhdCityD").empty();
-//$(".BDcyhdRequireD").empty();
-//$(".BDQFd1").empty();
-//$(".BDQFd2").empty();
-//$(".BDQFd3").empty();
 //alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
@@ -48,51 +43,6 @@ function UrlDisID_ActIDRefresh(){
 		console.log("从不明页面跳转");
 	}
 }
-//情形1.等待经销宝传令刷新页面
-//engine.on('OnDisID_ActIDRefresh', OnDisID_ActIDRefresh, this);//主题活动id///***对接经销宝后解除注释####
-//ajaxActivityDetails("5ce1d14e07534139ae7774d8983f04f3","a486c6fdfd0b4e339014b16bc6b685d6");console.log("调试代码没有注释掉");//***对接经销宝后注释掉***链接活动详情页面后注释掉
-/*function OnDisID_ActIDRefresh(){
-	isReceivedDistributorID=true;//可能需要改变
-	isReceivedTopicActivityID=true;//可能需要改变
-	if(arguments.length<1){
-//		layer.alert('缺少参数', {icon: 5});
-		console.log("缺少参数");
-		return;
-	}	
-	localStorage.fromTopicActivityList_DistributorID="";//防止情形1和情形2同时发生
-	localStorage.fromTopicActivityList_ActivityID="";
-	var parameter0=JSON.parse(arguments[0]);
-	var parameter1=JSON.parse(arguments[1]);
-	var OnDisID_ActIDRefreshParameter0=JSON.parse(arguments[0]);
-	var OnDisID_ActIDRefreshParameter1=JSON.parse(arguments[1]);
-	ajaxActivityDetails(DistributorIDRefresh,TopicIDRefresh);
-	//0114添加用于调试开始
-	if(arguments[0]){
-		console.log(arguments[0],"id是",OnDisID_ActIDRefreshParameter0.data[0]);		
-	}
-	if(arguments[1]){
-		console.log(arguments[1],OnDisID_ActIDRefreshParameter1.data[0]);		
-	}	
-	0114添加用于调试结束
-	0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
-	$(".returnChaohuiquanList").removeClass("hi");
-	$(".returnTopicList").addClass("hi");
-}*/
-
-/*//情形2.由活动列表跳转至此
-if(location.href.indexOf('fromList')!=-1){
-	console.log("来自列表页");
-	if(localStorage.fromTopicActivityList_DistributorID!=undefined&&localStorage.fromTopicActivityList_ActivityID!=undefined&&localStorage.fromTopicActivityList_DistributorID!=""&&localStorage.fromTopicActivityList_ActivityID!=""){//不要把undefined错写成""	
-//		isReceivedDistributorID=true;//可能需要改变
-//		isReceivedTopicActivityID=true;//可能需要改变	
-		ajaxActivityDetails(localStorage.fromTopicActivityList_DistributorID,localStorage.fromTopicActivityList_ActivityID);//***对接经销宝后解除注释####
-	}
-	//0121添加，如果是从列表来，则显示返回活动列表按钮，隐藏返回超慧券列表按钮；如果从超慧券列表过来，反之
-//	$(".returnChaohuiquanList").addClass("hi");
-//	$(".returnTopicList").removeClass("hi");
-	
-}*/
-
 
 function ajaxActivityDetails(a,b){
 	console.log("ajax开始")
@@ -106,7 +56,7 @@ function ajaxActivityDetails(a,b){
 			$(".marginShade").hide();
 		},
 		success:function(data){		
-//			data=errorData;
+			data=errorData;
 			linshi=data;
 			if(data==""||data==[]){
 //				layer.alert("数据为空，请重试", {icon: 5});
@@ -155,11 +105,15 @@ function ajaxActivityDetails(a,b){
 			}
 			$(".BsmallTitle").text(data.activitytitle);
 			$(".BbigTitle span").text("已参与分销商数:"+data.joinedcount+"人");
-			$(".BtuwenWenP1").text(data.content);
+//			$(".BtuwenWenP1").text($.trim(data.content));	
+//			$(".BtuwenWenP1").text(data.content);
+			$(".BtuwenWenP1").html(data.content.replace(" ","&ensp;"));
+			console.log($(".BtuwenWenP1").text())
 			//展开收起
 //			debugger;
-			$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");
+			$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");			
 			zksq1();
+//			return;
 			data.time=data.begintime+"-"+data.endtime;
 			$(".BtuwenWenP2 .BtuwenWenS2").text(data.time);
 			$(".BtuwenWenP3 .BtuwenWenS2").text(data.servicephone);
@@ -449,14 +403,14 @@ function ajaxActivityDetails(a,b){
 			}else{
 				$(".BDQFd3").append('<img src="img/b4.png" alt="" class="BDcyhdQualifiedXFZimg"/>')
 			}
-			if($(".BDcyhdCityXianzhi").height()<144){//后期加上
+			if($(".BDcyhdCityXianzhi").height()<=144){//后期加上
 				$(".BDcyhdCityDsMore").addClass("hi");
 			}
 			//
 			zksq3();
 //			console.log(8888666)
 //			loadintEnd();
-			$(".initialHi").removeClass("initialHi");//因为展开收起插件与显示隐藏冲突，所以，本页面dom中将initialHi变成了-initialHi
+//			$(".initialHi").removeClass("initialHi");//因为展开收起插件与显示隐藏冲突，所以，本页面dom中将initialHi变成了-initialHi
 			
 			/*if(data.matched){//0121左晓雪告诉我，因为现在文案是必填项，所以标题大小标题以及是否显示文案已经统一了，无论是否满足要求，都是stateYes方案。所以这里注释掉。但是文案后续可能变成非必填项，所以还是要考虑的。
 				$(".stateNo").addClass("hi")
@@ -511,6 +465,7 @@ function zksq1(){
 //	$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");
     $("p.ellipsis-text").dotdotdot({
         after: 'a.more',
+        'ellipsis':'...',
         callback: dotdotdotCallback
     });
     $("p.ellipsis-text").on('click','a',function() {
