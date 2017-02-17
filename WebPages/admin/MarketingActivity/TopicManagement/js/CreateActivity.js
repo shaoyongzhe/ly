@@ -9,7 +9,6 @@ var addsub4HTML="";
 var addsub5HTML="";
 
 
-
 function previewImage(file) {
   	
   	var form = new FormData($('form')[0]);
@@ -1180,7 +1179,7 @@ $('.btn.edit').click(function(){
 
 	var _this = $(this);
 	var area = _this.closest('.area');
-	var i = _this.closest('.area').index();$('.area.edit .index').val(i);
+	var i = _this.closest('.area').index(); $('.area.edit .index').val(i);
 	var edit = $('.area.edit');
 	layer.open({
 
@@ -1397,6 +1396,7 @@ $("body").on("click","li.option",function(e){
 			return;
 		}
 
+
 		var b = true;
 		var thisSelected = $(this).closest('.addSub2').find('.acZige .addSub3 .selected.condition');
 		$(thisSelected).each(function(i,item){
@@ -1407,6 +1407,27 @@ $("body").on("click","li.option",function(e){
 			}
 		});
 
+		if(!b){return}
+
+
+		var addSub3 = $(this).closest('.addSub3');
+		if($(this).text() == "分销商类型"){
+			addSub3.find('.range-wrap').addClass('vihi');
+			addSub3.find('.operator-wrap li:not(:last)').hide();
+			addSub3.find('.operator-wrap li:last').show();
+
+		} else {
+			addSub3.find('.range-wrap').removeClass('vihi');
+			addSub3.find('.operator-wrap li:not(:last)').show();
+			addSub3.find('.operator-wrap li:last').hide();
+			addSub3.find('.operator-wrap li:first').click();
+		}
+
+		addSub3.find('.operator-wrap .selected').text('');
+
+
+		
+
 		if(b == true){
 			_this.parent().hide().prev().text(text);
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
@@ -1415,6 +1436,7 @@ $("body").on("click","li.option",function(e){
 			$(this).closest(".addSub3").find(".acZige1Tab").find("p:last").text(addSub3Arr[index+1])
 			//结束*********************************************************************************************
 		}
+
 		return;
 	}
 
@@ -1431,11 +1453,18 @@ $("body").on("click","li.option",function(e){
 	}
 
 	if($(this).closest('.acZige4')){
-	// $(".acZige4").find(".option").click(function(){			
-			var index=$(this).parents(".acZige4").find(".select-wrap").find(".option").index($(this));	
-			$(this).parents(".acZige4").next().find(".acZige4tab").addClass("hi");
-			$(this).parents(".acZige4").next().find(".acZige4tab").eq(index).removeClass("hi");			
-		// })	
+
+
+		if($(this).closest('.addSub3').find('.range-wrap').hasClass('vihi')){
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').hide();
+		} else {
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').show();
+		}
+
+		var index = $(this).parents(".acZige4").find(".select-wrap").find(".option").index($(this));	
+		$(this).parents(".acZige4").next().find(".acZige4tab").addClass("hi");
+		$(this).parents(".acZige4").next().find(".acZige4tab").eq(index).removeClass("hi");
+
 	}
 
 	// 补贴对象
@@ -1728,20 +1757,24 @@ $("body").on("click","li.option",function(e){
 
 
 
+/*$('.butieCond .selected').click(function(){
+	layer.open({
+
+		type: 1,
+		title: "设置规则-单个<i class='rules-title'>" + $(this).closest('.addSub4').find('.butie-select-wrap .selected').text() + "</i>",
+		area: ['86%',"50%"],
+		maxmin: true,
+		content: $('.layer.setCond')
+
+	});
+});*/
 
 
 
 
 
-// $('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2').on("input",function(){
-$('.butieSec').on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
-	// alert(1)
-	$('.addSub4').find('.acSe13 input').keyup();
-});
-
-// $('.addSub4').find('.acSe13 input').keyup(function(){
 $('.butieSec').on('keyup','.acSe13 input',function(){
-	// debugger;
+
 	var _this = $(this);
 	var thisText = _this.val();
 	if(isNaN(thisText)){
@@ -1771,6 +1804,9 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 	_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(m * thisText).toFixed(2));
 
 	butiefz();
+
+}).on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
+	$('.addSub4').find('.acSe13 input').keyup();
 
 }).on('keyup','.sbys',function(){
 	// alert($(this).val());
@@ -1871,14 +1907,10 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 	// 	_this.keyup();
 	// });
 
-});
-
-
-$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
-});
 
-$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
 });
 
@@ -1942,7 +1974,7 @@ if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 	// $('.addSub2 .selectWrap1 > *').css('float', 'left');
 	// $('.addSub2 span.acMeS2').css('margin-left', '3px 0 0-24px');
 	// $('.addSub2 span.to').css('margin', '0px 5px 0 30px');
-	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('')
+	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('');
 }
 
 
@@ -2399,7 +2431,7 @@ $('.saveToDb, .shenhe').click(function(){
 	var basic = $('.basic-msg'),
 		servicephone = basic.find('.quhao').val() + "-" + basic.find('.tel').val(),
 		singleselection =  basic.find('.radio.on').text();
-		if(singleselection == '以上条件满足其一'){
+		if(singleselection == '是'){
 			singleselection = 1;
 		} else {
 			singleselection = 0;
@@ -2597,16 +2629,29 @@ $('.saveToDb, .shenhe').click(function(){
 		//var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
 		
 		
+		var value = _self.parents('.addSub3').find('.select-wrap.teyao .selected').text();
 		if(conditionType == ""){return}
-		data[memberType][conditionType] = {
-			"state": "active",
-			"min": min,
-			"operator": operator,
-			"max": max,
-			"begintime": begintime,
-			"statisticrange": statisticrange,
-			"timeunit": timeunit
+
+		if(value != ""){
+			data[memberType][conditionType] = {
+				"state": "active",
+				"operator": operator,
+				'value': value
+			}
+
+		} else {
+
+			data[memberType][conditionType] = {
+				"state": "active",
+				"min": min,
+				"operator": operator,
+				"max": max,
+				"begintime": begintime,
+				"statisticrange": statisticrange,
+				"timeunit": timeunit
+			}
 		}
+
 	}
 
 	// 会员活动条件（活动类型）

@@ -137,7 +137,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 		_resdata_=linshi=a;	
 //		_resdata_=resdataFix;
 
-	console.log(_resdata_);
+	// console.log(_resdata_);
 	/*增减控件1-会员活动条件拼接*/
 	/*移除页面中已经有的addSub1Manger*/
 	//$(".addSub1Mange").remove();
@@ -415,6 +415,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");
 	    	$('.addSub2Mange:last').find(".acMeI2").attr("disabled","disabled");
 	    }
+
+        
 	    /*主办方*/
 	   	$('.red:first').removeClass("vihi");
 	    //启动图标  
@@ -611,6 +613,19 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        }
 	    }   
 	}
+
+    
+
+    $('.acZige').each(function(){
+        if($(this).find('.selected:first').text() != ""){
+            $(this).show();
+        } 
+        // else {
+        //     $(this).hide();
+        // }
+    });
+
+
 	
 	/*增减控件2-参与会员事件*/
 	$(document).on('click','.addSub2Mange .activityManger_addsub2State',function(){

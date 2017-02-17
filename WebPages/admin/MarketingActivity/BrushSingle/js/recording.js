@@ -46,8 +46,14 @@ function fnxuanran(data) {
 	var otr = "",
 		viplx = "",
 		diqu = [];
+		
 	for(var k1 in odata) {
-		otr += "<tr gu-id='" + odata[k1]["guid"] + "'>" +
+		otr += "<tr gu-id='" + odata[k1]["guid"] + "' ";
+		console.log(odata[k1]["description"])
+		if(odata[k1]["description"]=="shensu"){
+			otr +="shensu='true'";
+		}
+		otr+=">" +
 			"<td class='cgl-td1'><input class='thechec' type='checkbox'></td>" +
 			"<td class='cgl-td2'><span style='display: none'></span><p>" + odata[k1]["memberinfo"] + "</p></td>";
 		if(odata[k1]["anticheatingobj_class"] == "tblretailer") {
@@ -115,7 +121,12 @@ function fnmore() {
 					var otr = "",
 						viplx = "";
 					for(var k1 in odata) {
-						otr += "<tr gu-id='" + odata[k1]["guid"] + "'>" +
+						otr += "<tr gu-id='" + odata[k1]["guid"] + "' ";
+		console.log(odata[k1]["description"])
+		if(odata[k1]["description"]=="shensu"){
+			otr +="shensu='true'";
+		}
+		otr+=">" +
 							"<td class='cgl-td1'><input class='thechec' type='checkbox'></td>" +
 							"<td class='cgl-td2'><span style='display: none'></span><p>" + odata[k1]["memberinfo"] + "</p></td>";
 						if(odata[k1]["anticheatingobj_class"] == "tblretailer") {
@@ -1360,13 +1371,14 @@ function fnweigyy() {
 
 function fnpaixu(data, order) {
 	var cont = "",cn=null;
-	var colorarr=[
+	/*var colorarr=[
 	"#f00","#ff0a0a","#ff1414","#ff1f1f",
 	"#ff2929","#ff3333","ff3d3d","#ff4747",
 	"#ff5252","#ff5c5c","#ff6666","#ff7070",
 	"#ff7a7a","#ff8585","#ff8f8f","#ff9999",
 	"#ffa3a3","#ffadad","#ffb8b8","#ffc2c2",
-	"#ffcccc","#ffd6d6","#ffd6d6","#fff0f0"];
+	"#ffcccc","#ffd6d6","#ffd6d6","#fff0f0"];*/
+	var colorarr=["#f00","#ff1f1f","#ff4040","#ff5e5e","#ff8080","#ff9e9e","#ffbfbf","#ffe0e0"];
 	for(var i = 0; i < data.length; i++) {
 		for(var j = 0; j < data.length; j++) {
 			if(data[j][order] == i) {
@@ -1384,15 +1396,26 @@ function fnpaixu(data, order) {
 						if(parseInt(data[j]["timespan"+order.replace(/[^0-9]/ig, "")])<0){
 							cont+="style='background:#fff'";
 						}else{
-							cn=parseInt(data[j]["timespan1"]/3600);
-							if(cn>23){
-								cont+="style='background:#fff'";
+							cn=parseInt(data[j]["timespan"+order.replace(/[^0-9]/ig, "")]);
+							if(cn<30){
+								cont+="style='background:"+colorarr[0]+"'";
+							}else if(cn<60){
+								cont+="style='background:"+colorarr[1]+"'";
+							}else if(cn<150){
+								cont+="style='background:"+colorarr[2]+"'";
+							}else if(cn<300){
+								cont+="style='background:"+colorarr[3]+"'";
+							}else if(cn<600){
+								cont+="style='background:"+colorarr[4]+"'";
+							}else if(cn<1800){
+								cont+="style='background:"+colorarr[5]+"'";
+							}else if(cn<3600){
+								cont+="style='background:"+colorarr[6]+"'";
 							}else{
-								cont+="style='background:"+colorarr[cn]+"'";
+								cont+="style='background:"+colorarr[7]+"'";
 							}
 						}
-						console.log(cn)
-					cont+="></td>" +
+					cont+=">"+data[j]["timespan"+order.replace(/[^0-9]/ig, "")]+"</td>" +
 					"</tr>";
 			}
 		}
