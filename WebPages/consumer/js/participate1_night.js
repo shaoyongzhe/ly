@@ -9,8 +9,8 @@ $(function(){
 	//var currentindex=0;
 	replace()
 	function replace(){
-		var topid=window.location.search;
-		var topids=topid.split('=')[1].split(',');
+		//var topid=window.location.search;
+	    var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
 		for (var i = 0; i <topids.length ; i++) {
 			new_arr.push(topids[i]);
 		    console.log(topids[i]);
