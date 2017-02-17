@@ -330,6 +330,7 @@
 	   		console.log(localStorage.disId)
 	   		localStorage.removeItem("Id");
 	   		$(".submit").text("提交中...")
+	   		$(".loads2").css({display:"block"})
 	   		$.ajax({
 	   			url:"/webapi/distributor/"+getRetailerid()+"/orderform",
 	   			type:"post",
@@ -342,8 +343,21 @@
 	   			},
 	   			error:function(){},
 	   			success:function(data){
+	   				console.log(_Id)
 	   				console.log(data)
-	   				window.location="myorder.html"
+	   				if(data.result==true){
+		   				$(".loads2").css({display:"none"})
+		   				$(".loads2 span").text("提交中...")	   					
+	   					window.location="myorder.html"
+	   				}else{
+	   					$(".loads2 span").text("提交失败...")
+		   				$(".loads2 span").css({color:"red"})
+		   				var _tm=setTimeout(function(){
+		   					$(".loads2").css({display:"none"})
+		   					$(".loads2 span").text("提交中...")
+		   					clearTimeout(_tm)
+		   				},500)
+	   				}
 	   			}
 	   		})
 	   	})		
@@ -495,8 +509,8 @@
 
 
 
-<div class="loads"><img src="../../image/shop/loading.gif" style="width:15%;margin: 70% 0 0 44%"/></div>
-
+<div class="loads"><img src="../../image/shop/jiazai.gif" style="width:15%;margin: 70% 0 0 44%"/></div>
+<div class="loads2"><img src="../../image/shop/jiazai.gif" style="width:15%;margin: 70% 0 0 44%"/><div><span style="font-size: 1.7rem;margin-left: 42%;color:#009f96">提交中...</span></div></div>
 
 </body>
 </html>
