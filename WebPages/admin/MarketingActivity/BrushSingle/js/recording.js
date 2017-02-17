@@ -686,7 +686,6 @@ function article_add(that) {
 			$(".cgl-czjl").html("<li>暂无记录</li>");;
 		},
 		success: function(data) {
-			console.log(data)
 			$(".cgl-jzz").hide();
 			var oli = "";
 			if(data.error) {
@@ -786,7 +785,6 @@ function fnfstz(fstz) {
 function fnclose(index) {
 	$(".cgl-close").click(function() {
 		layer.close(index)
-		console.log(1)
 	});
 }
 //操作中的发送通知

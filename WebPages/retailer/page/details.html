@@ -1,15 +1,41 @@
 ﻿<!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>详情</title>
+		<meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<style>
-			*{
-				margin:0;padding:0
+			* {
+				margin: 0;
+				padding: 0
+			}
+			body{font-family: "微软雅黑";font-size: 12px;}
+			.cgl-top {
+				padding: 4px;
+				
 			}
 		</style>
 	</head>
+
 	<body>
+		<div class="cgl-top"></div>
 		<img src="../image/raw_1482292369.png" style="width:100%" />
 	</body>
+	<script src="../js/lib/jquery.min.js">
+		
+	</script>
+	<script>
+		function fnxuanran() {
+			var str = "";
+			str += "<div class='top1'><span>2017123331</span>他的地方人士突然</div>" +
+				"<div class='shensucont'><span>申诉内容</span><p>他的地方人士突然</p></div>" +
+				"<div class='chuli'><span>2017123331</span><p>他的地方人士突然</p></div>";
+			$(".cgl-top").html(str);
+		}
+		$(function() {
+			fnxuanran();
+		});
+	</script>
+
 </html>
