@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-19 19:58:32
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-20 18:37:39
+* @Last Modified time: 2017-02-07 17:24:08
 */
 .page-container1{
 	background-color: #F2F2F2;
@@ -322,7 +322,7 @@ label, .placeholder{
 
 
 
-#preview{width:36%;height: 100%;border:1px solid #000;overflow:hidden;}
+#preview{width:50%;height: 100%;border:1px solid #000;overflow:hidden;}
 #imghead {
 	height: 100%;
 
@@ -336,7 +336,7 @@ label, .placeholder{
 /* 弹框层 */
 
 .Text_Title{
-    width: 777px;
+    width: 510px;
     /* height: 73px; */
     margin: 0 auto;
     /* background-color: red; */

@@ -100,6 +100,7 @@ function fnmore() {
 			$("#cgl-more").find("span").html("没有更多数据")
 		} else {
 			$(".cgl-jzz").html("加载中，请稍后···").show();
+			console.log(state.lastindex)
 			$.ajax({
 				type: "get",
 				url: "/webapi/earlywarningmanage/anticheating/getlist",
@@ -130,7 +131,7 @@ function fnmore() {
 							"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 							"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 							"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
-							"<td class='cgl-td12'>" + odata[k1]["dealtstate"] + "</td>" +
+							"<td class='cgl-td12'>" + $(".stateon>span").text() + "</td>" +
 							"<td class='cgl-td13'></td>" +
 							"</tr>";
 					}
@@ -204,7 +205,7 @@ function fnanniu4() {
 		$("#cgl-jcwg1").show();
 	} else if(state.state == "申诉中") {
 		$("#cgl-tzwg1").show();
-		$("#cgl-jcwg1").show();
+		//$("#cgl-jcwg1").show();
 	} else if(state.state == "处罚中") {
 		$("#cgl-tzwg1").show();
 		$("#cgl-jcwg1").show();
@@ -568,13 +569,15 @@ function fncaozuo() {
 			"dealtstate": "解除违规",
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
-		jiechuwg_add(putdata);
+		var dqzt = $("#cgl-tbody").find("tr:first>.cgl-td12").html();
+		jiechuwg_add(putdata, dqzt);
+
 	}).on("click", ".tiaoz", function() {
 		tiaoz_add("当前违规等级<span>（" + $(this).parents("tr").find(".cgl-td6").html() + "）</span>", $(this).parents("tr").attr("gu-id"));
 	}).on("click", ".queren", function() {
 		var putdata = {
 			"dealtstate": "确认违规",
-			"weiguidengji": $(this).parents("tr").find(".cgl-td6").text().replace(/[^0-9]/ig, ""),
+			"description": $("#cgl-tjbz").find("textarea").val(),
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
 		//querenwg_add(putdata);
@@ -695,7 +698,7 @@ function article_add(that) {
 		if($(this).text() == "调整并确认") {
 			var putdata = {
 				"dealtstate": "确认违规",
-				"weiguidengji": $(".cgl-td6", parents).text().replace(/[^0-9]/ig, ""),
+				"description": $("#cgl-tjbz").find("textarea").val(),
 				"anticheatingids": guid
 			};
 			//querenwg_add(putdata);
@@ -706,7 +709,8 @@ function article_add(that) {
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
 			};
-			jiechuwg_add(putdata);
+			var dqzt = $("#cgl-tbody").find("tr:first>.cgl-td12").html();
+			jiechuwg_add(putdata, dqzt);
 		}
 		if($(this).text() == "驳回申诉") {
 			var putdata = {
@@ -832,7 +836,7 @@ function fnbohui(putdata) {
 	});
 }
 //驳回申诉接口
-function fnbohuiapi (putdata) {
+function fnbohuiapi(putdata) {
 	$('.layui-layer-close').click();
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
@@ -850,7 +854,7 @@ function fnbohuiapi (putdata) {
 			}
 			if(data.succeed) {
 				var guidarr = [putdata.anticheatingid];
-				
+
 				for(var i = 0; i < guidarr.length; i++) {
 					$("tr").each(function(n) {
 						if($(this).attr("gu-id") == guidarr[i]) {
@@ -868,7 +872,7 @@ function fnbohuiapi (putdata) {
 }
 
 //解除违规
-function jiechuwg_add(putdata) {
+function jiechuwg_add(putdata, dqzt) {
 	var cont = "<div>" +
 		"<div id='cgl-miaoshu'>" +
 		"<h4>备注</h4>" +
@@ -902,7 +906,13 @@ function jiechuwg_add(putdata) {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
-			fnqrjcwg(putdata);
+			if(dqzt == "申诉中") {
+				putdata.anticheatingid = putdata.anticheatingids;
+				fnbohuiapi(putdata);
+			} else {
+				fnqrjcwg(putdata);
+			}
+
 		}
 	});
 }
@@ -929,7 +939,7 @@ function tiaoz_add(dangq, guid) {
 	//console.log(dangq,guid);
 	var cont = "<div>" +
 		"<p class='cgl-dqdj'>" + dangq + "</p>" +
-		"<div class='cgl-tiaoz'>调整违规等级" +
+		"<div class='cgl-tiaoz'>调整至" +
 		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +
 		"<div id='cgl-tjbz'>" +
 		"<h4>备注</h4>" +
@@ -956,6 +966,9 @@ function tiaoz_add(dangq, guid) {
 		};
 		if(djjson.description == "") {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+			return false;
+		} else if($(".cgl-dqdj>span").html().replace(/[^0-9]/ig, "") == djjson.level.replace(/[^0-9]/ig, "")) {
+			$(".cgl-jzz").html("不可调整至原等级").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
 			$('.layui-layer-close').click();
@@ -1043,7 +1056,7 @@ function tiaozqr(dangq, guid) {
 		if(djjson.description == "") {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
-		} else{
+		} else if($(".cgl-dqdj>span").html().replace(/[^0-9]/ig, "") != djjson.level.replace(/[^0-9]/ig, "")) {
 			$('.layui-layer-close').click();
 			$(".cgl-jzz").html("加载中，请稍后···").show();
 			$.ajax({
@@ -1066,6 +1079,16 @@ function tiaozqr(dangq, guid) {
 					}
 				}
 			});
+		} else {
+
+			$(".cgl-jzz").html("加载中，请稍后···").show();
+			var putdata1 = {
+				"dealtstate": "确认违规",
+				"description": $("#cgl-tjbz").find("textarea").val(),
+				"anticheatingids": guid
+			};
+			fnwgjlzt(putdata1);
+			$('.layui-layer-close').click();
 		}
 
 	});
@@ -1123,23 +1146,23 @@ function fnanniu() {
 			var guid = fnguid();
 			//console.log(guid.split(","));
 			var checlist = $(".thechec:checked");
-			var isduo="";
-			for(var i=1;i<checlist.length;i++){
-				if(checlist.eq(i).find(".cgl-td6").html()!=checlist.eq(0).find(".cgl-td6").html()){
-					isduo="多个等级";
-					return false;
-				}else{
-					isduo="";
+			var isduo = "";
+			for(var i = 1; i < checlist.length; i++) {
+				if(checlist.eq(i).parents("tr").find(".cgl-td6").html() != checlist.eq(0).parents("tr").find(".cgl-td6").html()) {
+
+					isduo = "多个等级";
+					break;
+				} else {
+					isduo = "";
 				}
 			}
-			if(guid.split(",").length==1){
-				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
-			}else if(isduo=="多个等级"){
-				tiaozqr("当前违规等级<span>（"+isduo+"）</span>", guid);
-			}else{
-				tiaozqr("当前违规等级<span>（"+$("#cgl-tbody>tr:first").find(".cgl-td6").html()+"）</span>", guid);
+			if(guid.split(",").length == 1) {
+				tiaozqr("当前违规等级<span>（" + checlist.eq(0).parents("tr").find(".cgl-td6").html() + "）</span>", guid);
+			} else if(isduo == "多个等级") {
+				tiaozqr("当前违规等级<span>（" + isduo + "）</span>", guid);
+			} else {
+				tiaozqr("当前违规等级<span>（" + checlist.eq(0).parents("tr").find(".cgl-td6").html() + "）</span>", guid);
 			}
-			
 		}
 	});
 	$("#cgl-jcwg1").click(function() {
@@ -1157,7 +1180,8 @@ function fnanniu() {
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
 			};
-			jiechuwg_add(putdata);
+			var dqzt = $("#cgl-tbody").find("tr:first>.cgl-td12").html();
+			jiechuwg_add(putdata, dqzt);
 		}
 
 	});
@@ -1166,8 +1190,24 @@ function fnanniu() {
 			$(".cgl-jzz").html("请先选择要操作的项").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 		} else {
 			var guid = fnguid();
-			//console.log(guid);
-			tiaoz_add("", guid);
+			//console.log(guid.split(","));
+			var checlist = $(".thechec:checked");
+			var isduo = "";
+			for(var i = 1; i < checlist.length; i++) {
+				if(checlist.eq(i).parents("tr").find(".cgl-td6").html() != checlist.eq(0).parents("tr").find(".cgl-td6").html()) {
+					isduo = "多个等级";
+					break;
+				} else {
+					isduo = "";
+				}
+			}
+			if(guid.split(",").length == 1) {
+				tiaoz_add("当前违规等级<span>（" + checlist.eq(0).parents("tr").find(".cgl-td6").html() + "）</span>", guid);
+			} else if(isduo == "多个等级") {
+				tiaoz_add("当前违规等级<span>（" + isduo + "）</span>", guid);
+			} else {
+				tiaoz_add("当前违规等级<span>（" + checlist.eq(0).parents("tr").find(".cgl-td6").html() + "）</span>", guid);
+			}
 		}
 
 	});
@@ -1188,7 +1228,6 @@ function fnanniu() {
 }
 //改变违规记录状态
 function fnwgjlzt(putdata) {
-	//console.log(putdata)
 	$('.layui-layer-close').click();
 	$(".cgl-jzz").html("加载中，请稍后···").show();
 	$.ajax({
@@ -1224,12 +1263,12 @@ function fnwgjlzt(putdata) {
 //违规原因核销记录
 function fnweigyy() {
 	$("#cgl-tbody").on("click", ".cgl-td7>a", function() {
-				var cont = "",
-					cha = null;
-				var oparent = $(this).parents("tr");
+		var cont = "",
+			cha = null;
+		var oparent = $(this).parents("tr");
 		$.ajax({
-			type: "get", 
-			url: "/webapi/earlywarningmanage/anticheating/causedetail/"+oparent.attr("gu-id"),
+			type: "get",
+			url: "/webapi/earlywarningmanage/anticheating/causedetail/" + oparent.attr("gu-id"),
 			data: "",
 			error: function() {
 				$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
@@ -1248,18 +1287,15 @@ function fnweigyy() {
 				}
 				cont += "</div>" +
 					"<h3>违规等级</h3>" +
-					
-					
-					
-					"<div>"+
+
+					"<div>" +
 					"<table border='1'>" +
 					"<tr>" +
 					"<th width='182'>消费者</th>" +
 					"<th width='89'>门店</th>" +
 					"<th>活动名称</th>" +
-					"</tr></table></div>"+
-					
-					
+					"</tr></table></div>" +
+
 					"<div class='table1'><table border='1'>";
 				for(var k1 in data["breakrulesrecord"]) {
 					cont += "<tr><td class='djtd1'>" + data["breakrulesrecord"][k1]["issuetime"] + "</td><td class='djtd2'>" + data["breakrulesrecord"][k1]["breakruleslevel"] + "</td><td class='djtd3'>" + data["breakrulesrecord"][k1]["measures"] + "</td></tr>";
@@ -1283,9 +1319,8 @@ function fnweigyy() {
 					"<span>消费者集中</span>" +
 					"<span>一人多券</span>" +
 					"</div>" +
-					
-					
-					"<div><table border='1'>" +
+
+					"<div><table border='1'><thead>" +
 					"<tr>" +
 					"<th width='60'>消费者</th>" +
 					"<th width='90'>门店</th>" +
@@ -1297,26 +1332,11 @@ function fnweigyy() {
 					"<th width='77'>是否在店核销</th>" +
 					"<th width='72'>核销时间</th>" +
 					"<th>密集程度</th>" +
-					"</tr></table></div>"+
-					
-					"<div class='table2'><table border='1'>";
-				for(var k2 in data["verifylist"]) {
+					"</tr></thead></table></div>" +
 
-					cont += "<tr>" +
-						"<td class='jltd1'>" + data["verifylist"][k2]["consumername"] + "</td>" +
-						"<td class='jltd2'>" + data["verifylist"][k2]["retailername"] + "</td>" +
-						"<td class='jltd3'>" + data["verifylist"][k2]["activitytitle"] + "</td>" +
-						"<td class='jltd4'>" + data["verifylist"][k2]["itemkind"] + "</td>" +
-						"<td class='jltd5'>" + data["verifylist"][k2]["ruletext"] + "</td>" +
-						"<td class='jltd6'>" + data["verifylist"][k2]["verifymoney"] + "</td>" +
-						"<td class='jltd7'>暂无</td>" +
-						"<td class='jltd8'>暂无</td>" +
-						"<td class='jltd9'>" + data["verifylist"][k2]["issuetime"] + "</td>" +
-						"<td class='jltd10'></td>" +
-						"</tr>";
-				}
+					"<div class='table2'><table border='1'><tbody>";
 
-				cont += "</table></div>" +
+				cont += "</tbody></table></div>" +
 					"<div class='cgl-yyclose'>" +
 					"<span class='cgl-close'>关闭</span>" +
 					"</div>" +
@@ -1330,11 +1350,46 @@ function fnweigyy() {
 				});
 				layer.full(index);
 				fnclose(index);
+				fnshaixuan(data.verifylist);
 			}
 		});
 
 	});
 
+}
+
+function fnpaixu(data) {
+	for(var i = 0; i < data.length; i++) {
+		if(data[i]) {
+
+		}
+		cont += "<tr>" +
+			"<td class='jltd1'>" + data["verifylist"][k2]["consumername"] + "</td>" +
+			"<td class='jltd2'>" + data["verifylist"][k2]["retailername"] + "</td>" +
+			"<td class='jltd3'>" + data["verifylist"][k2]["activitytitle"] + "</td>" +
+			"<td class='jltd4'>" + data["verifylist"][k2]["itemkind"] + "</td>" +
+			"<td class='jltd5'>" + data["verifylist"][k2]["ruletext"] + "</td>" +
+			"<td class='jltd6'>" + data["verifylist"][k2]["verifymoney"] + "</td>" +
+			"<td class='jltd7'>暂无</td>" +
+			"<td class='jltd8'>暂无</td>" +
+			"<td class='jltd9'>" + data["verifylist"][k2]["issuetime"] + "</td>" +
+			"<td class='jltd10'></td>" +
+			"</tr>";
+	}
+}
+
+function fnshaixuan(data) {
+	console.log(data);
+	$(".hxjlpx").on("click", "span", function() {
+		$(this).addClass("onck").siblings().removeClass("onck");
+		if($(this).index() == 0) {
+			fnpaixu(data);
+		} else if($(this).index() == 1) {
+
+		} else if($(this).index() == 2) {
+
+		}
+	});
 }
 $(function() {
 	fnshijian(state);
@@ -1357,5 +1412,4 @@ $(function() {
 	fnweigyy(); //违规原因核销记录
 	comSelect(); // 地区下拉调用
 	selectCity(); //城市调用
-
 });
