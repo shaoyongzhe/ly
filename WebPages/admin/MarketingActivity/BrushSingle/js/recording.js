@@ -1361,12 +1361,12 @@ function fnweigyy() {
 function fnpaixu(data, order) {
 	var cont = "",cn=null;
 	var colorarr=[
-	"#f00","#ff1111","#fe333c","#f00",
-	"#ff1111","#ff1111","ff1111","#ff1111",
-	"#ff3333","#ff3333","#ff3333","#ff3333",
-	"#ff6666","#ff6666","#ff6666","#ff6666",
-	"#ff9999","#ff9999","#ff9999","#ff9999",
-	"#ffcccc","#ffcccc","#ffcccc","#ffcccc"];
+	"#f00","#ff0a0a","#ff1414","#ff1f1f",
+	"#ff2929","#ff3333","ff3d3d","#ff4747",
+	"#ff5252","#ff5c5c","#ff6666","#ff7070",
+	"#ff7a7a","#ff8585","#ff8f8f","#ff9999",
+	"#ffa3a3","#ffadad","#ffb8b8","#ffc2c2",
+	"#ffcccc","#ffd6d6","#ffd6d6","#fff0f0"];
 	for(var i = 0; i < data.length; i++) {
 		for(var j = 0; j < data.length; j++) {
 			if(data[j][order] == i) {
@@ -1391,6 +1391,7 @@ function fnpaixu(data, order) {
 								cont+="style='background:"+colorarr[cn]+"'";
 							}
 						}
+						console.log(cn)
 					cont+="></td>" +
 					"</tr>";
 			}
