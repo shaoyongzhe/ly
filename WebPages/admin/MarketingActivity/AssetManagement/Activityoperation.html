@@ -198,8 +198,13 @@
 					
 				</tbody>
 			</table>
-
-		
+			<div class="loaded">
+				<span class="loading"></span>
+				<a href="javascript">正在加载...</a>
+			</div>
+			<div class="finished">
+				数据已加载完!暂无数据!
+			</div>
 		</div>
 
 		<!-- 末尾的字 -->
@@ -208,6 +213,7 @@
 </div>
 <!-- 弹窗 s-->
 <div id="layer_bigbox" style="padding:20px;">
+	<div class="Loading"><img src="images/loading.gif" alt=""></div>
 	<div class="firts_bix"><p class="information">预算基本信息</p><hr></div>
 	<!-- 预算编号 -->
 	<div class="Budget_number">
@@ -226,9 +232,7 @@
 					<a href="javascript:;">活动地区</a>
 				</div>
 				<div class="operation_right">
-
 					<div class="areaallson">
-						
 						<!-- <div class="provice">
 							<span class="provice_left">江苏省</span>
 							<span class="provice_right">负责人</span>
@@ -250,7 +254,6 @@
 				</div>
 			</div>
 			<div class="Three_arrea">
-				
 			</div>
 		</div>
 	</div>
@@ -272,12 +275,14 @@
 		<a class="status_2" href="javascript:;"></a>
 	</div>
 	 <!-- 表格 -->
-	<table class="table2" width="100%" height="290px" border="1" cellspacing="0" cellpadding="2" bordercolor="#cccccc">
+	<table class="table2" width="100%"  border="1" cellspacing="0" cellpadding="2" bordercolor="#cccccc">
 		 <thead>
 		 	<tr>
 		 		<td>补贴对象</td>
-		 		<td>已审批预算(元)</td>
-		 		<td>追加/缩减预算</td>
+		 		<td>补贴方式</td>
+		 		<td>申报预算</td>
+		 		<td>申请追加/缩减(元)</td>
+		 		<td>已审批</td>
 		 	</tr>
 		 </thead>
 		 <tbody>
@@ -285,19 +290,22 @@
 		 		<td></td>
 		 		<td></td>
 		 		<td></td>
+		 		<td></td>
+		 		<td></td>
 		 	</tr>
 		 </tbody>
 	</table>
+	<!-- 按钮组 -->
+	<div class="button_iptn">
+		<input id="Add_reed" class="Additional_red" type="button" value="追加/缩减预算">
+		<input class="close_iptn" type="button" value="去审批">   
+	</div>
 	<div style="margin-top: 15px" class="firts_bix"><p class="information">操作信息</p><hr style="width: 820px;"></div>
 	<!-- 实时信息 -->
 	<div class="time_message">
 		<ul class="information_list"></ul>
 	</div>
-	<!-- 按钮组 -->
-	<div class="button_iptn">
-		<input class="close_iptn" type="button" value="关闭"> 
-		<input id="Add_reed" class="Additional_red" type="button" value="追加/缩减预算">  
-	</div>
+	
 </div>
 <!-- 弹窗 e-->
 <!-- 追加缩减弹窗 s-->
@@ -316,6 +324,7 @@
 		 		<td width="40.17%"></td>
 		 		<td style="position: relative" height="40px">
 		 			<input type="text">
+		 			<a class="addreebox_element" href="javascript:;">元</a>
 		 			<span class="parten_box">
 			 			<a class="fix_font" href="javascript:;">追加</a>
 			 			<i class="triangle"><img src="images/3.png" alt=""></i>
@@ -404,16 +413,54 @@
 	</div>
 </div>
 <!-- 追加缩减弹窗 e-->
+<!-- 去审批弹出框 s -->
+<div id="layer_approval" style="padding:20px;display: none;">
+	<table class="table4" width="100%" height="345px" border="1" cellspacing="0" cellpadding="2" bordercolor="#cccccc">
+		<thead>
+			<tr>
+				<td>补贴对象</td>
+		 		<td>已审批预算(元)</td>
+		 		<td>申请追加/缩减(元)</td>
+		 		<td>本次审批</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+		 		<td width="25%"></td>
+		 		<td width="25%"></td>
+		 		<td width="25%"></td>
+		 		<td width="25%" style="position: relative" height="40px">
+		 			<a class="Additional_reduction" href="javascript:;">追加</a>
+		 			<input type="text">
+		 			<a class="approval_element" href="javascript:;">元</a>
+		 		</td>
+		 	</tr>
+		 	<tr>
+		 		<td></td>
+		 		<td></td>
+		 		<td></td>
+		 		<td></td>
+		 	</tr>
+		</tbody>
+	</table>
+	<div class="layer_Rejectn">
+		<input class="Reject" type="button" value="驳回">
+		<input type="button" value="审批通过">
+	</div>
+</div>
+<!-- 去审批弹出框 e -->
 <!-- loading s-->
-<div style="display:none" class="main">
+<!-- <div style="display:none" class="main">
 	<div class="loadEffect">
 		<div><span></span></div>
 		<div><span></span></div>
 		<div><span></span></div>
 		<div><span></span></div>
 	</div>
-</div>
+</div> -->
 <!-- loading e-->
+
+<input type="hidden" name="" class="pageIndex">
 
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <!-- <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script>-->
@@ -428,7 +475,7 @@
 <!-- <script type="text/javascript" src="javascript/Activityoperation_nig.js"></script> -->
 <script src="/admin/MarketingActivity/AssetManagement/javascript/Activityoperation_nig.js"></script>
 <!-- <script type="text/javascript" src="javascript/dropload.js"></script> -->
-<script src="/admin/MarketingActivity/AssetManagement/javascript/dropload.js"></script>
+<!-- <script src="/admin/MarketingActivity/AssetManagement/javascript/dropload.js"></script> -->
 
 </body>
 </html>
