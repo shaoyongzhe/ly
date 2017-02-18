@@ -1403,7 +1403,7 @@ textarea{
 	cursor: default;
 }
 
-#time_y{
+.time.time_y{
 	background: #fff;
 }
 
