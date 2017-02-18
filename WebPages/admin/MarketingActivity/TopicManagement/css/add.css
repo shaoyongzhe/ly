@@ -660,8 +660,9 @@ div.acZige:before{
 .hdc4 .hdc4dB{
     width: 116px;
     height: 40px;
+    line-height: 40px;
     border: 1px solid #c0c0c0;
-    padding: 2px 7px;
+    /*padding: 2px 7px;*/
     box-sizing: border-box;
     color: #84a6d6;
     border-radius: 2px;
@@ -1206,4 +1207,19 @@ div.acZige:before{
 
 .addSub2 span.to{
     margin-top: 13px;
+}
+
+
+.range-wrap{
+    display: inline-block;
+}
+
+/* .operator-wrap li{
+    display: none;
+} */
+
+.teyao{
+    /*display: none;*/
+    border: 0;
+    width: 114px;
 }

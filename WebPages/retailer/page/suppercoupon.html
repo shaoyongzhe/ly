@@ -181,10 +181,10 @@
                         <a class="assetcontent" v-on:click="topicClick(item.topicdata)">
                             <div class="assetimg">  <p>{{item.topicdata.budget.subsidytotal}}</p> </div>
                             <div class="asset_left" style="width:calc(100% - 110px)">
-                                <p style="max-width:calc(100% - 65px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.2rem;margin-left:0.4rem;_display:inline-block;font-weight:bold;">
+                                <p style="max-width:calc(100% - 65px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1rem;margin-left:0.4rem;_display:inline-block;font-weight:bold;">
                                     {{item.topicdata.topiclist[0].topic.activitytitle}}
                                 </p>
-                                <span v-if="item.topicdata.topiclist.length>1" style="width:50px;display:inline-block;font-size:0.8rem;font-weight:normal;">等活动</span>
+                                <span v-if="item.topicdata.topiclist.length>1" style="width:50px;display:inline-block;font-size:0.8rem;">等活动</span>
                             </div>
                         </a>
                     </div>
@@ -428,8 +428,12 @@
                     }
                     if (pageIndex == 1)
                         vm.$data.array = json.data
-                    else
-                        vm.$data.array.push(json.data)
+                    else {
+                        $.each(json.data, function (i, v) {
+                            vm.$data.array.push(v);
+                        });
+                    }
+                    // vm.$data.array.push(json.data)
 
                     if (pageIndex == 1 && isInit && !json.error && !json.user_notification) {
                         isInit = false;

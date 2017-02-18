@@ -137,7 +137,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 		_resdata_=linshi=a;	
 //		_resdata_=resdataFix;
 
-	console.log(_resdata_);
+	// console.log(_resdata_);
 	/*增减控件1-会员活动条件拼接*/
 	/*移除页面中已经有的addSub1Manger*/
 	//$(".addSub1Mange").remove();
@@ -218,7 +218,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*优惠力度条件*/
 	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
-	    else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
+	    //修复详情页面“等于”不现实的bug
+	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
 	//  //买赠类型（略）
@@ -415,6 +416,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");
 	    	$('.addSub2Mange:last').find(".acMeI2").attr("disabled","disabled");
 	    }
+
+        
 	    /*主办方*/
 	   	$('.red:first').removeClass("vihi");
 	    //启动图标  
@@ -532,7 +535,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
                     laydate({
                         // elem: id,
                         event: 'focus',
-                        format: 'YYYY/MM/DD',
+                        format: 'YYYY-MM-DD',
                         // format: 'YYYY-MM-DD',
                         // istime: true,
                         max: dates
@@ -545,6 +548,16 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
+	            
+	            /*
+	             * 粉丝留存率在修改页显示问题，正确显示为 %
+	             */
+	            if(a == "粉丝留存率"){
+	            	$('.addSub3Mange:last').find(".acZige5a  p").text("%");
+	            }
+//	            	$("p.dib")
+					
+	            //}
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
 	            /*统计范围*/
 	            $('.addSub3Mange:last .acZige2tab').addClass("hi");//0119把.acZige2tab.n2改为.acZige2tab
@@ -570,15 +583,28 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//活动开始前     
 	                // console.log(_resdata_.activity.begintime,obj[key].begintime)
 	//              debugger
-	                var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
-	                var bgt2_ = new Date(obj[key].begintime) * 1;
-	                // console.log(bgt1_,bgt2_)
-	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
-	                var preMonths_=parseInt(preDays_/30);               
-	                if(obj[key].begintime!=""){
-		                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
-	                }
-	                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
+					/*
+					 * 修复修改页面input框不能正常显示数字(显示NaN)的bug
+					 * 月份在修改页面正常显示的bug
+					 */
+					if(obj[key].begintime != "不限"){
+						var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
+		                var bgt2_ = new Date(obj[key].begintime) * 1;
+		                // console.log(bgt1_,bgt2_)
+		                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
+		                var preMonths_=Math.ceil(preDays_/30);               
+		                if(obj[key].begintime!=""){
+			                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
+		                }
+		                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
+					}else{
+						/*
+						 * 修复统计范围与条件显示错误的bug
+						 */
+						$('.addSub3Mange:last .acZige3a').find("input").val("");//非数字-->置空	
+						$('.addSub3Mange:last .acZige3a').find(".acSe7 em").text("天");//天/月---->置空
+					}                
+	                
 	            }else{
 	                $('.addSub3Mange:last .acZige3b').removeClass("hi");        
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//至今
@@ -611,6 +637,19 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        }
 	    }   
 	}
+
+    
+
+    $('.acZige').each(function(){
+        if($(this).find('.selected:first').text() != ""){
+            $(this).show();
+        } 
+        // else {
+        //     $(this).hide();
+        // }
+    });
+
+
 	
 	/*增减控件2-参与会员事件*/
 	$(document).on('click','.addSub2Mange .activityManger_addsub2State',function(){

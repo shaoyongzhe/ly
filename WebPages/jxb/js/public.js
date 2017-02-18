@@ -83,7 +83,7 @@ function popupsFn(fn1,fn2){
 }
 /*倒计时*/
 //用于活动列表，活动详情
-function countDown(obj,timeArr){//第一个参数是要显示倒计时的对象，第二个参数是时间
+function countDown(obj,timeArr,fn){//第一个参数是要显示倒计时的对象，第二个参数是时间
 	var presentTime=new Date();
 	var endtime=new Date(timeArr);
 	var cha=endtime-presentTime;
@@ -119,13 +119,16 @@ function countDown(obj,timeArr){//第一个参数是要显示倒计时的对象�
 	obj.eq(6).text(mins[1]);
 	obj.eq(7).text(seconds[0]);
 	obj.eq(8).text(seconds[1]);		
+	if(fn){
+		eval(fn());
+	}
 }
 
 //countDownCirculation($(".BsubsidyB span"),"2017-01-22 00:00:00");//写在调用出，注意a参数是一个数据
-function countDownCirculation(obj,time){
-	countDown(obj,time);
+function countDownCirculation(obj,time,fn){
+	countDown(obj,time,fn);
 	setTimeout(function(){
-		countDownCirculation(obj,time)
+		countDownCirculation(obj,time,fn)
 	},500);
 }
 
@@ -149,3 +152,40 @@ function getUrlKeyValue(){
     
 }
 
+function btduixiang(a){
+	var btduixiang = "";
+	switch(a){	
+		case "distributor":
+		btduixiang = '分销商'
+		break;		
+		
+		case "distributoremployee":
+		btduixiang = '分销商业务员'
+		break;
+		
+		case "distributor_employee":
+		btduixiang = '分销商业务员'
+		break;
+		
+		case "retailer":
+		btduixiang = '门店'
+		break;
+		
+		
+		case "retaileremployee":
+		btduixiang = '门店店员'
+		break;
+		
+		case "retailer_employee":
+		btduixiang = '门店店员'
+		break;
+		
+		case "consumer":
+		btduixiang = '消费者'
+		break;
+		
+		default:
+		btduixiang =a;
+	}	
+	return btduixiang;
+}

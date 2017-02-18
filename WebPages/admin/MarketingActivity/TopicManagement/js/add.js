@@ -113,7 +113,7 @@ function acAdB() {
             laydate({
                 // elem: id,
                 event: 'focus',
-                format: 'YYYY/MM/DD',
+                format: 'YYYY-MM-DD',
                 // format: 'YYYY-MM-DD',
                 // istime: true,
                 max: dates
@@ -194,7 +194,7 @@ function acAdC() {
 			laydate({
 				// elem: id,
 				event: 'focus',
-				format: 'YYYY/MM/DD',
+				format: 'YYYY-MM-DD',
 				// format: 'YYYY-MM-DD',
 				// istime: true,
 				max: dates

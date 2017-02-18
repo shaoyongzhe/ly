@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-23 20:40:42
+ * @Last Modified time: 2017-02-16 20:03:49
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -49,12 +49,12 @@ $(function() {
                 return;
         }
     //点击关闭
-    $('.close').click(function() {
+    $('.close_off').click(function() {
         layer.msg("正在关闭···");
          window.location='Marketcopymanagement.html';
         layer.msg("已关闭");
     })
-$('.mode1').find('div:eq(0) img').addClass('xiyin_son');
+$('.mode1_fa').find('div:eq(0) img').addClass('xiyin_son');
     //保存---本地保存
 
 
@@ -76,8 +76,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             var c = '';
         }
 
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
-            var d = $('.mode1').find('a').text();
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+            var d = $('.mode1_fa').find('a').text();
         };
 
        if($('.area_val').val()==''){
@@ -129,7 +129,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             objective: $('.input-text').find('option:selected').text(),
             area: $('area').val(),
             send_object: a +'  <br/> ' +b+' <br/> ' + c,
-            mode1: d,
+            mode1_fa: d,
             post_url: pic1_url,
             send_text: $('#send_text').val(),
             together: $('input[name="Fruit"]:checked').val(),
@@ -168,9 +168,9 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
         }
 
-        if (form_value.mode1 == undefined) {
+        if (form_value.mode1_fa == undefined) {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -231,6 +231,16 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         //     return;
         // }
 
+        // $('.note-btn-group .note-icon-code').click();
+        var contentHtml = $('.note-editing-area .panel-body').html();
+        console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
+            layer.tips('请填写内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
 
         var index = layer.open({
             type: 1,
@@ -253,15 +263,16 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
                     '<div class="Text_Title">' +
                         '<div class="Float_Title">发送方式</div>' +
-                        '<div class="Float_text">'+form_value.mode1+'</div>'+
+                        '<div class="Float_text">'+form_value.mode1_fa+'</div>'+
                     '</div>' +
                     '<div class="Text_Title">' +
                         '<div class="Float_Title">封面图片</div>' +
                         '<div class="Float_text srcPic"><img src="Images/QQ截图20161118203155.png" width="400" height="300" alt="" /></div>'+
                     '</div>' +
                     '<div class="Text_Title">' +
+                    // 改为富版本编辑器   $('.note-editing-area .panel-body').html()  /获取整个html内容
                         '<div class="Float_Title">发送内容</div>' +
-                        '<div class="Float_text">' + form_value.send_text + '</div>'+
+                        '<div class="Float_text" id="contentdiv">' + contentHtml + '</div>'+
                     '</div>' +
                     '<div class="Text_Title">' +
                         '<div class="Float_Title">' +
@@ -301,7 +312,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         } else {
             var c = 0;
         };
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var d = 1;
         } else {
             var d = 0;
@@ -351,6 +362,15 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                 }
 
         $('#count').click();
+        var contentHtml = $('.note-editing-area .panel-body').html();
+        console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
+            layer.tips('请填写内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -363,7 +383,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             push_retailer: c,
             category: d,
             poster_url: pic_url,
-            copywriting: JSON.stringify($('.mode textarea').val()),
+            copywriting: contentHtml,
             bindwithperiodpush: e,
             pushtime: time_time,
             guid:guid_val
@@ -399,7 +419,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -501,7 +521,7 @@ var guid_val = '';
         } else {
             var c = 0;
         }
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var d = 1;
         } else {
             var d = 0;
@@ -550,6 +570,15 @@ var guid_val = '';
                 }
 
             $('#count').click();
+            var contentHtml = $('.note-editing-area .panel-body').html();
+        console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
+            layer.tips('请填写内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -564,7 +593,7 @@ var guid_val = '';
             push_retailer: c,
             category: d,
             poster_url: pic_url,
-            copywriting: JSON.stringify($('.mode textarea').val()),
+            copywriting: contentHtml,
             bindwithperiodpush: e,
             pushtime: time_time,
             guid:guid_val
@@ -599,7 +628,7 @@ var guid_val = '';
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -699,7 +728,7 @@ var guid_val = '';
         } else {
             var c = 0;
         }
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var d = 1;
         } else {
             var d = 0;
@@ -750,6 +779,15 @@ var guid_val = '';
                 }
 
             $('#count').click();
+    var contentHtml = $('.note-editing-area .panel-body').html();
+        console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
+            layer.tips('请填写内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -764,7 +802,7 @@ var guid_val = '';
             push_retailer: c,
             category: d,
             poster_url: pic_url,
-            copywriting: JSON.stringify($('.mode textarea').val()),
+            copywriting: contentHtml,
             bindwithperiodpush: e,
             pushtime: time_time,
             guid:guid_val
@@ -799,7 +837,7 @@ var guid_val = '';
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });

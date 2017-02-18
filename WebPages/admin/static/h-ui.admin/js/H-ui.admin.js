@@ -30,7 +30,7 @@ function tabNavallwidth(){
 		$tabNavmore.hide();
 		$tabNav.css({left:0});
 	}
-	activeTab()
+//	activeTab()
 }
 
 /*左侧菜单响应式*/
@@ -168,55 +168,6 @@ function layer_close(){
 	parent.layer.close(index);
 }
 
-//自定义——y--------------------------------------------------------------//
-function reloadPage(){
-	var hash_y = window.location.hash.replace(/#/,"").split("&");
-	if(hash_y !=''){
-		var href_y = hash_y[0]+".html";
-		var name_y = hash_y[1];
-		var a_y = $(".Hui-aside").find(".icoLong2").find("a");
-//		console.log(a_y)
-		$.each(a_y,function(){
-			if($(this).attr("data-title") == name_y){
-				$(this).addClass("action_y");
-				$(this).parent("li").parent("ul").parent("dd").css({"display":"block"})
-			}
-		})
-		//console.log(href_y+"------>"+name_y)
-		creatIframe(href_y,name_y)
-	}
-	
-}
-//自定义——y--------------------------------------------------------------//
-//	window.location.hash
-	function activeTab(){
-//		alert(1)
-		var topWindow = $(window.parent.document);
-		var iframe = topWindow.find('#iframe_box .show_iframe');
-		var tab = topWindow.find(".acrossTab li");
-//		var showTab = topWindow.find(".acrossTab li.active");
-//		var showBox=topWindow.find('.show_iframe:visible');
-		var i = tab.length
-		tab.eq(i-1).addClass("active");
-		iframe.eq(i-1).show();
-//		tab.eq(i).remove();
-//		iframe.eq(i).remove();
-		
-		var obj_y = $("#min_title_list").find("li.active").find("span");
-//		console.log(obj_y);
-		
-		var arr_y = obj_y.attr('data-href');
-		var len = arr_y.length;
-		var href_y = arr_y.substr(0,len-5)
-//		console.log(href_y)				
-		var name_y = obj_y.html()
-//		console.log(name_y)
-		if(href_y != "public"){
-			location.hash=href_y+"&"+name_y;
-		}
-		
-	}
-
 $(function(){
 	reloadPage();
 	getskincookie();
@@ -253,7 +204,7 @@ $(function(){
 //		location.hash="#"+bStopIndex;
 		$("#min_title_list li").removeClass("active").eq(bStopIndex).addClass("active");
 		iframe_box.find(".show_iframe").hide().eq(bStopIndex).show();
-		activeTabDelete()
+//		activeTabDelete()
 	});
 	$(document).on("click","#min_title_list li i",function(){
 		var aCloseIndex=$(this).parents("li").index();
@@ -277,27 +228,6 @@ $(function(){
 		}
 	});
 	tabNavallwidth();
-	
-	
-	//自定义——y--------------------------------------------------------------//
-//	window.location.hash
-	function activeTabDelete(){
-		var obj_y = $("#min_title_list").find("li.active").find("span");
-//		console.log(obj_y);
-		
-		var arr_y = obj_y.attr('data-href');
-		var len = arr_y.length;
-		var href_y = arr_y.substr(0,len-5)
-//		console.log(href_y)				
-		var name_y = obj_y.html()
-//		console.log(name_y)
-		if(href_y != "public"){
-			location.hash=href_y+"&"+name_y;
-		}else{
-			window.location.hash=""
-		}
-	}
-	
 	
 	$('#js-tabNav-next').click(function(){
 		num==oUl.find('li').length-1?num=oUl.find('li').length-1:num++;
@@ -323,3 +253,117 @@ $(function(){
 		//$("#skin").attr("href",hrefResd);
 	});
 });
+
+//自定义——y--------------------------------------------------------------//
+function reloadPage(){
+	var hash_y = window.location.hash.replace(/#/,"")
+	var href_y;
+	var name_y;
+	if(hash_y !=''){
+//		var my_arr = localStorage.getItem("my_arr").split(",");
+//		console.log(my_arr);
+//		$.each(my_arr,function(i,o){
+//			if(JSON.stringify(o).indexOf(hash_y) != -1){
+//				href_y = JSON.stringify(o);
+//			}
+//		})		
+//		var name_y = localStorage.url_y;
+		var a_y = $(".Hui-aside").find(".icoLong2").find("a");
+//		console.log(href_y)
+		$.each(a_y,function(i,o){
+//			console.log(JSON.stringify($(this).attr("_href")))
+//			if(JSON.stringify($(this).attr("_href")) == href_y){
+			if(JSON.stringify($(this).attr("_href")).indexOf(hash_y) != -1){
+				href_y = $(this).attr("_href");
+				name_y = $(this).attr('data-title');
+				$(this).addClass("action_y");
+				$(this).parent("li").parent("ul").parent("dd").css({"display":"block"})
+			}
+		})
+//		console.log(href_y+"------>"+name_y)
+		creatIframe(href_y,name_y)
+	}
+	
+}
+
+//自定义——y--------------------------------------------------------------//
+//	window.location.hash
+//	function activeTab(){
+////		alert(1)
+//		var topWindow = $(window.parent.document);
+//		var iframe = topWindow.find('#iframe_box .show_iframe');
+//		var tab = topWindow.find(".acrossTab li");
+////		var showTab = topWindow.find(".acrossTab li.active");
+////		var showBox=topWindow.find('.show_iframe:visible');
+//		var i = tab.length
+//		tab.eq(i-1).addClass("active");
+//		iframe.eq(i-1).show();
+////		tab.eq(i).remove();
+////		iframe.eq(i).remove();
+//		
+//		var obj_y = $("#min_title_list").find("li.active").find("span");
+////		console.log(obj_y);
+//		
+//		var arr_y = obj_y.attr('data-href');
+//		var len = arr_y.length;
+//		var href_y = arr_y.substr(0,len-5)
+////		console.log(href_y)				
+//		var name_y = obj_y.html()
+////		console.log(name_y)
+//		if(href_y != "public"){
+//			location.hash=href_y+"&"+name_y;
+//		}
+//		
+//	}
+
+
+	//自定义——y--------------------------------------------------------------//
+//	window.location.hash
+//	function activeTabDelete(){
+//		var obj_y = $("#min_title_list").find("li.active").find("span");
+////		console.log(obj_y);
+//		
+//		var arr_y = obj_y.attr('data-href');
+//		var len = arr_y.length;
+//		var href_y = arr_y.substr(0,len-5)
+////		console.log(href_y)				
+//		var name_y = obj_y.html()
+////		console.log(name_y)
+//		if(href_y != "public"){
+//			location.hash=href_y;
+//		}else{
+//			window.location.hash=""
+//		}
+//	}
+
+
+/*
+ * 操作localStorage
+ */
+	if(!location.hash.match(/\?/g)){
+		localStorage.url=1;
+	}
+	var _data=localStorage.url;
+	
+	var _timer=setInterval(function(){
+		_data=localStorage.url
+		if(_data!=1){
+			clearInterval(_timer)
+			location.href = _data
+		}
+//		console.log(_data)		
+	},100)
+
+
+
+/*
+ * 地址栏变化时，重新渲染
+ */
+//	var _kl=location.hash;
+//  var _hh=setInterval(function(){
+////  	console.log(1)
+//  	if(location.hash!=_kl){
+//  		clearInterval(_hh)
+//  		location.reload()
+//  	}
+//  },10)

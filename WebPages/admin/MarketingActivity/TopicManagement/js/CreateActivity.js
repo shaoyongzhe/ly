@@ -9,7 +9,6 @@ var addsub4HTML="";
 var addsub5HTML="";
 
 
-
 function previewImage(file) {
   	
   	var form = new FormData($('form')[0]);
@@ -829,6 +828,7 @@ var start = {
 	choose: function(datas) {
 		end.min = datas; //开始日选好后，重置结束日的最小日期
 		end.start = datas //将结束日的初始值设定为开始日
+		startJ.min = datas;
 		//layer.msg(datas);
 	}
 };
@@ -841,6 +841,8 @@ var end = {
 	istoday: false,
 	choose: function(datas) {
 		start.max = datas; //结束日选好后，重置开始日的最大日期
+		endJ.max = datas;
+		startJ.max = datas;
 		//layer.msg(datas);
 	}
 };
@@ -881,7 +883,7 @@ var d = new Date();
 var dates = d.toLocaleDateString().replace(/\//g, '-');
 var time_y = {		
   elem: '.time_y',
-  format: 'YYYY/MM/DD',
+  format: 'YYYY-MM-DD',
   istime: false,
   istoday: false,
   max: dates, //最大日期
@@ -1180,7 +1182,7 @@ $('.btn.edit').click(function(){
 
 	var _this = $(this);
 	var area = _this.closest('.area');
-	var i = _this.closest('.area').index();$('.area.edit .index').val(i);
+	var i = _this.closest('.area').index(); $('.area.edit .index').val(i);
 	var edit = $('.area.edit');
 	layer.open({
 
@@ -1397,6 +1399,7 @@ $("body").on("click","li.option",function(e){
 			return;
 		}
 
+
 		var b = true;
 		var thisSelected = $(this).closest('.addSub2').find('.acZige .addSub3 .selected.condition');
 		$(thisSelected).each(function(i,item){
@@ -1407,6 +1410,27 @@ $("body").on("click","li.option",function(e){
 			}
 		});
 
+		if(!b){return}
+
+
+		var addSub3 = $(this).closest('.addSub3');
+		if($(this).text() == "分销商类型"){
+			addSub3.find('.range-wrap').addClass('vihi');
+			addSub3.find('.operator-wrap li:not(:last)').hide();
+			addSub3.find('.operator-wrap li:last').show();
+
+		} else {
+			addSub3.find('.range-wrap').removeClass('vihi');
+			addSub3.find('.operator-wrap li:not(:last)').show();
+			addSub3.find('.operator-wrap li:last').hide();
+			addSub3.find('.operator-wrap li:first').click();
+		}
+
+		addSub3.find('.operator-wrap .selected').text('');
+
+
+		
+
 		if(b == true){
 			_this.parent().hide().prev().text(text);
 			_this.parent().hide().prev().attr("name",_this.attr('name'));
@@ -1415,6 +1439,7 @@ $("body").on("click","li.option",function(e){
 			$(this).closest(".addSub3").find(".acZige1Tab").find("p:last").text(addSub3Arr[index+1])
 			//结束*********************************************************************************************
 		}
+
 		return;
 	}
 
@@ -1431,11 +1456,18 @@ $("body").on("click","li.option",function(e){
 	}
 
 	if($(this).closest('.acZige4')){
-	// $(".acZige4").find(".option").click(function(){			
-			var index=$(this).parents(".acZige4").find(".select-wrap").find(".option").index($(this));	
-			$(this).parents(".acZige4").next().find(".acZige4tab").addClass("hi");
-			$(this).parents(".acZige4").next().find(".acZige4tab").eq(index).removeClass("hi");			
-		// })	
+
+
+		if($(this).closest('.addSub3').find('.range-wrap').hasClass('vihi')){
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').hide();
+		} else {
+			$(this).closest('.addSub3').find('.operator-wrap li:not(:last)').show();
+		}
+
+		var index = $(this).parents(".acZige4").find(".select-wrap").find(".option").index($(this));	
+		$(this).parents(".acZige4").next().find(".acZige4tab").addClass("hi");
+		$(this).parents(".acZige4").next().find(".acZige4tab").eq(index).removeClass("hi");
+
 	}
 
 	// 补贴对象
@@ -1728,20 +1760,24 @@ $("body").on("click","li.option",function(e){
 
 
 
+/*$('.butieCond .selected').click(function(){
+	layer.open({
+
+		type: 1,
+		title: "设置规则-单个<i class='rules-title'>" + $(this).closest('.addSub4').find('.butie-select-wrap .selected').text() + "</i>",
+		area: ['86%',"50%"],
+		maxmin: true,
+		content: $('.layer.setCond')
+
+	});
+});*/
 
 
 
 
 
-// $('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2').on("input",function(){
-$('.butieSec').on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
-	// alert(1)
-	$('.addSub4').find('.acSe13 input').keyup();
-});
-
-// $('.addSub4').find('.acSe13 input').keyup(function(){
 $('.butieSec').on('keyup','.acSe13 input',function(){
-	// debugger;
+
 	var _this = $(this);
 	var thisText = _this.val();
 	if(isNaN(thisText)){
@@ -1771,6 +1807,9 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 	_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(m * thisText).toFixed(2));
 
 	butiefz();
+
+}).on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
+	$('.addSub4').find('.acSe13 input').keyup();
 
 }).on('keyup','.sbys',function(){
 	// alert($(this).val());
@@ -1871,14 +1910,10 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 	// 	_this.keyup();
 	// });
 
-});
-
-
-$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
-});
 
-$('.yaoWrap').on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
 });
 
@@ -1942,29 +1977,40 @@ if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 	// $('.addSub2 .selectWrap1 > *').css('float', 'left');
 	// $('.addSub2 span.acMeS2').css('margin-left', '3px 0 0-24px');
 	// $('.addSub2 span.to').css('margin', '0px 5px 0 30px');
-	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('')
+	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('');
 }
 
 
 // debugger
 var data = {};
 $('.saveToDb, .shenhe').click(function(){
+	//获取活动时间与会员参与时间
+    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
+    var basic = $('.basic-msg');
+    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
+    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
+    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
+    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
+
+    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+    var activeEnd = (new Date(endtime)).getTime(); 
+    var joinBegin = (new Date(earliestjointime)).getTime(); 
+    var joinEnd = (new Date(latestjointime)).getTime(); 
+	/*
+	 * 活动时间与参与时间不正确时的保存问题
+	 */
+	if($(this).text() ==  "保存"){
+		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
+		    $("nav span").eq(0).click();
+		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
+		    $('.earliestjointime').focus();
+		    return;
+		}
+	}
+	
 
 	// debugger
-	if($(this).text() ==  "提交审核"){
-
-	    //获取活动时间与会员参与时间
-	    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
-	    var basic = $('.basic-msg');
-	    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
-	    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
-	    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
-	    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
-
-	    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
-	    var activeEnd = (new Date(endtime)).getTime(); 
-	    var joinBegin = (new Date(earliestjointime)).getTime(); 
-	    var joinEnd = (new Date(latestjointime)).getTime(); 
+	if($(this).text() ==  "提交审核"){	    
         //var  activeBegin = basic.find('.begintime').val()
 
 		var finished = true;
@@ -2399,7 +2445,7 @@ $('.saveToDb, .shenhe').click(function(){
 	var basic = $('.basic-msg'),
 		servicephone = basic.find('.quhao').val() + "-" + basic.find('.tel').val(),
 		singleselection =  basic.find('.radio.on').text();
-		if(singleselection == '以上条件满足其一'){
+		if(singleselection == '是'){
 			singleselection = 1;
 		} else {
 			singleselection = 0;
@@ -2597,16 +2643,29 @@ $('.saveToDb, .shenhe').click(function(){
 		//var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
 		
 		
+		var value = _self.parents('.addSub3').find('.select-wrap.teyao .selected').text();
 		if(conditionType == ""){return}
-		data[memberType][conditionType] = {
-			"state": "active",
-			"min": min,
-			"operator": operator,
-			"max": max,
-			"begintime": begintime,
-			"statisticrange": statisticrange,
-			"timeunit": timeunit
+
+		if(value != ""){
+			data[memberType][conditionType] = {
+				"state": "active",
+				"operator": operator,
+				'value': value
+			}
+
+		} else {
+
+			data[memberType][conditionType] = {
+				"state": "active",
+				"min": min,
+				"operator": operator,
+				"max": max,
+				"begintime": begintime,
+				"statisticrange": statisticrange,
+				"timeunit": timeunit
+			}
 		}
+
 	}
 
 	// 会员活动条件（活动类型）

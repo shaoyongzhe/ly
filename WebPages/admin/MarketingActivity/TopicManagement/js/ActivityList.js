@@ -2,8 +2,9 @@ var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
 var pageindex=0;
-var pagesize=15;
+var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
+var autoLoad = true;
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
 $('.selectLWrapL').click(function(e){	
@@ -90,8 +91,26 @@ $(".activityList tbody").scroll(function() {
 	}
 });
 
+/*
+ * 如果文档高度不大于窗口高度，(数据少的话)，就让他自动加载下方数据(其实这块是通用的别管数据多不多)
+ */
+function qixiaofeiload(){
+//  if(autoLoad){
+        if($(".activityList tbody").prop("scrollHeight") <= 500){
+            basicQuery();
+        }
+//  }
+}
+// 重新获取文档（就是你要加载的那个框 比如 window）高度
+//function fnRecoverContentHeight(){
+//  if(me.opts.gundong == win){
+//      me._scrollContentHeight = $doc.height();
+//  }else{
+//      me._scrollContentHeight = me.$element[0].scrollHeight;
+//  }
+//}
 
-function basicQuery(){
+function basicQuery(resetQueryCondition){
     /*判断是否输入了查询条件*/
 	if( $(".qC_aitivityTopic input").val()==""&&
 		$(".qC_number input").val()==""&&
@@ -102,9 +121,13 @@ function basicQuery(){
 		$(".qC_subsidyReleased input:eq(1)").val()==""&&
 		$(".qC_joinVipNumber input:eq(0)").val()==""&&
 		$(".qC_joinVipNumber input:eq(1)").val()==""&&
-		$("#gf-province em").text()=="省"&&
-		$("#gf-city em").text()=="市"&&
-		$("#gf-area em").text()=="区"&&
+//		$("#province em").text()=="省"&&
+//		$("#city em").text()=="市"&&
+//		$("#area em").text()=="区"&&
+		$('.gf-select span em:eq(0)').text() == '省份'&&
+		$('.gf-select span em:eq(1)').text() == '城市'&&
+		$('.gf-select span em:eq(2)').text() == '区县'&&
+		
 		$(".qC_activityBudget input:eq(0)").val()==""&&
 		$(".qC_activityBudget input:eq(1)").val()==""&&
 		$(".qC_status .selectLedL").text()=="请选择"){
@@ -197,6 +220,14 @@ function basicQuery(){
 		state:state,
 		paging:JSON.stringify(pagingJson)
 	}
+	if (resetQueryCondition) {
+	    condition.paging =
+            JSON.stringify({
+                "pagesize": pagesize,
+                "pageindex": pageindex,
+                "sort": [{ "oid": "asc" }]
+            });
+	}
 //	console.log(condition)
     $.each(condition, function(key, value){
     if (value === "" || value === null){
@@ -215,14 +246,17 @@ function basicQuery(){
 		async:true,
 		data:condition,
 		success: function (data) {
+//			console.log(data)
 //		    console.log(data.content.length);
+//			console.log(data)
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
-			console.log('success')
-			if(data.content.length < 2){
-				layer.alert('没有加载到数据，请重新查询', {icon: 1});
+//			console.log('success')
+			if(data.content.length < 1){
+//				layer.alert('数据已加载完', {icon: 1});
+				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
 				return;
 			}
 			linshi=data;
@@ -251,7 +285,6 @@ function basicQuery(){
 		    //表格Tbody
 			var contentBody = data.content;
 			activityListTbody = ConstructRecord(contentBody, statusData);
-//			$(".activityList tbody").empty();
 			$(".activityList tbody").append(activityListTbody+'</tr>');
 			/*拼接完毕，开始事件*/
 			//隐藏所有按钮详情
@@ -262,30 +295,86 @@ function basicQuery(){
 				$(this).attr("title",$(this).html())
 			})
 
-			$('.activityList .activityAreaAndCharge').on("click",function(){
-				$(this).toggleClass('ac_tip');
-			})
+//			$('.activityList .activityAreaAndCharge').on("click",function(){
+//				$(this).toggleClass('ac_tip');
+//			})
 			pagingJson = data["paging"];
-
+			if(autoLoad){
+				if($(".activityList tbody").prop("scrollHeight") > 500){
+					autoLoad = false;
+				}else{
+		//			console.log(1)
+					qixiaofeiload();
+				}		
+			};
 		},
 		beforeSend:function(){
 			$(".loaded").fadeIn();
 		},
 		error:function(data){
+//			console.log(data)
 			linshi=data;
 			layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
 			$(".loaded").fadeOut();
 
 		}
 	});
+//	if(autoLoad){
+//		if($(".activityList tbody").prop("scrollHeight") > 500){
+//			autoLoad = false;
+//		}else{
+////			console.log(1)
+//			qixiaofeiload();
+//		}		
+//	}
 }
 
 /*查询按钮*/
 var condition={}
-$(".queryConditionButton .query").click(function(){
-	 basicQuery();
+$(".queryConditionButton .query").click(function () {
+	autoLoad = true;
+    $(".activityList tbody").empty();
+    basicQuery(true);
+
 });
-  		
+
+/*
+ * 重置按钮
+ */
+$("#reset").click(function(){
+//	alert(1)
+	$(".qC_aitivityTopic input").val("");
+	$(".qC_number input").val('');
+	$(".qC_principal .selectLedL").text("请选择");
+	$(".qC_activityTime input:eq(0)").val("");
+	$(".qC_activityTime input:eq(1)").val("");
+	$(".qC_subsidyReleased input:eq(0)").val("");
+	$(".qC_subsidyReleased input:eq(1)").val("");
+	$(".qC_joinVipNumber input:eq(0)").val("");
+	$(".qC_joinVipNumber input:eq(1)").val("");
+//	$("#province em").val("省");
+//	$("#city em").text("市");
+//	$("#area em").text("区");
+	/*
+	 * 修复--重置省、市、区
+	 */
+	$('.gf-select span em:eq(0)').text('省份');
+    $('.gf-select span em:eq(1)').text('城市');
+    $('.gf-select span em:eq(2)').text('区县');
+    
+	$(".qC_activityBudget input:eq(0)").val("");
+	$(".qC_activityBudget input:eq(1)").val("");
+	$(".qC_status .selectLedL").text("请选择");
+});
+
+
+/*
+ * 内容显隐
+ */
+$('.activityList').on("click", ".activityAreaAndCharge",function(){
+	$(this).toggleClass('ac_tip');
+})
+
 function ConstructRecord(contentBody, statusData)
 {
     var stateHtmlArray = $.Enumerable.From(contentBody).Select(function(x) 
@@ -341,6 +430,7 @@ function chargeAjax(){
 		url:"/webapi/ipaloma/topic/charge",
 		async:true,
 		success:function(data){
+//			console.log(data)
 			linshiCharge=data;
 //			var chargeHtml='<li guid="" class="optionL">请选择</li>';//用于拼接
 			var chargeHtml='';//用于拼接
@@ -351,8 +441,9 @@ function chargeAjax(){
 			
 		},
 		error:function(data){
+			console.log(data)
 			linshiCharge=data;
-			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});			
 		}
 	});
 }
@@ -364,8 +455,12 @@ function statusAjax(){
 		url:"/webapi/ipaloma/topic/stateconfig",
 		async:true,
 		success:function(data){
+//			console.log(data)
 			linshiStatus=data;
 			statusData=data;
+//			window.location.href = "/admin/login/signin.html";
+//			localStorage.url = "/admin/login/signin.html"
+			
 //			console.log(data)
 			var chargeHtml="";//用于拼接
 			for(i=0;i<data.length;i++){
@@ -375,8 +470,14 @@ function statusAjax(){
 			
 		},
 		error:function(data){
+			console.log(data)
 			linshiCharge=data;
-			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+//			console.log(data.status)
+//			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+//			window.location.href = "/admin/login/signin.html";
+			localStorage.status = false;
+			localStorage.url = "/admin/login/signin.html"
+			location.reload()
 		}
 	});
 }
@@ -389,7 +490,14 @@ function JointDistrict(districts)
     .Select(function (x) { 
     	if(x["charge"]){
     		var chrage_y = x["charge"];
-    		return x["name"] +"</br>"+ chrage_y["name"];
+    		/*
+    		 * 负责人显示问题
+    		 */
+    		if(chrage_y["name"]){
+    			return x["name"] +"</br>"+ chrage_y["name"];
+    		}else{
+    			return x["name"];
+    		}
     	}else{
     		return x["name"];
     	}
@@ -399,7 +507,6 @@ function JointDistrict(districts)
     return queryResult.join(" - ");
     
 }
-/**/
 
 /*新增按钮*/
 $(".addButton").click(function(){
@@ -469,9 +576,11 @@ var DictFunction =
                 },
                 success: function (data) {
                     if (data.error)
-                        layer.alert("出错了^_^");
+                    layer.alert("出错了^_^");
                     layer.alert(op + " 成功");
-                    basicQuery();
+                    autoLoad = true;
+                    $(".activityList tbody").empty();
+    				basicQuery(true);
                 },
                 error: function (xhr, textStatus) {
                     layer.alert("出错了^_^");
@@ -506,7 +615,9 @@ var DictFunction =
 	                    if (data.error)
 	                        layer.alert("出错了^_^");
 	                    layer.alert("删除成功");
-	                    basicQuery();
+	                    autoLoad = true;
+	                    $(".activityList tbody").empty();
+    					basicQuery(true);
 	                },
 	                error: function (xhr, textStatus) {
 	                    layer.alert("出错了^_^");
@@ -549,10 +660,20 @@ var DictFunction =
 
 
 $('table.activityList').on('click',".handle",function(){
-
+	
+	/*
+	 * 状态内容置换
+	 */
+//	var oVal = $(this).text();
+//	console.log(oVal)
+//	$(this).parents("td.edit").siblings("td.state").text(oVal)
+//	parent.location.reload()
+//	$(".refresh").load(location.href + " .refresh")
+//	console.log(1)
     $('#guid').val($(this).closest('tr').attr('guid'));
     var currentState = $(this).closest('tr').find('td.state').text();
     var matchKey = $(this).text();
+//  console.log(2)
     if (!$(this).text())
     {
         layer.alert("出错了^_^");
