@@ -406,9 +406,9 @@ function ajaxActivityDetails(a,b){
 			}else{
 				$(".BDQFd3").append('<img src="img/b4.png" alt="" class="BDcyhdQualifiedXFZimg"/>')
 			}
-			if($(".BDcyhdCityXianzhi").height()<=144){//后期加上
+			if($(".BDcyhdCityD").height()<=144){//后期加上
 				$(".BDcyhdCityDsMore").addClass("hi");
-			}
+			}   
 			//
 			zksq3();
 //			console.log(8888666)
