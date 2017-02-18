@@ -1,4 +1,4 @@
-
+var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
 function GetUrlParam() {
     
     var url = location.search; 
@@ -867,7 +867,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
-
+//		debugger
 	    /*debugger
         $('nav span:eq(2)').click();
         $(".addSub4Mange:last").find(".acSe9 ul li").each(function(){
@@ -878,8 +878,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
         */
 
 	    /*补贴条件*/
-	 $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
+//	 	$(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
 	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);
+	    subsidyConditionArr.push(btCond);
 	
 	    /*补贴形式*/
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
