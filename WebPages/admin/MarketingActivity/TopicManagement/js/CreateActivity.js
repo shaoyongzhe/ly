@@ -829,20 +829,29 @@ laydate(endJ);
 
 
 
-var d = new Date();
+/*var d = new Date();
 var dates = d.toLocaleDateString().replace(/\//g, '-');
 var time_y = {		
-  elem: '.time_y',
-  format: 'YYYY/MM/DD',
-  istime: false,
-  istoday: false,
-  max: dates, //最大日期
-  choose: function(){
-//	    time_y.max = datas; //结束日选好后，重置开始日的最大日期
-    // layer.msg(datas);  
-  }
+	elem: '.time_y',
+	format: 'YYYY/MM/DD',
+	istime: false,
+	istoday: false,
+	max: dates, //最大日期
+	choose: function(){
+		// time_y.max = datas; //结束日选好后，重置开始日的最大日期
+		// layer.msg(datas);  
+	}
 };
-laydate(time_y);
+laydate(time_y);*/
+
+var d = new Date();
+var dates = d.toLocaleDateString().replace(/\//g, '-');
+$('.member').on('click', '.time_y', function(e){
+    laydate({
+        format: 'YYYY/MM/DD',
+        max: dates
+    });
+});
 
 
 
@@ -1512,7 +1521,7 @@ $("body").on("click","li.option",function(e){
 	// 选择限制范围
 	if($(this).closest('.xzfw').length==1){
 		// debugger
-		$('.forXzfw').text($(this).text())
+		$('.forXzfw').text($(this).text().replace('按',''))
 	}
 
 
@@ -1985,20 +1994,19 @@ $('.saveToDb, .shenhe').click(function(){
 			return;
 		}
 
-	    //验证活动时间与会员参与时间
+	    // 验证活动时间与会员参与时间
 	    if (activeBegin > activeEnd) {
-//	        	alert(1)
-	            $("nav span").eq(0).click();
-	            layer.tips('请先检查活动结束时间', $('.endtime'));
-	            $('.endtime').focus();
-	            return;
-	        }
-	        if (joinBegin > joinEnd) {
-	            $("nav span").eq(0).click();
-	            layer.tips('请先检查会员参与结束时间', $('.latestjointime'));
-	            $('.endtime').focus();
-	            return;
-	        }
+            $("nav span").eq(0).click();
+            layer.tips('请先检查活动结束时间', $('.endtime'));
+            $('.endtime').focus();
+            return;
+        }
+        if (joinBegin > joinEnd) {
+            $("nav span").eq(0).click();
+            layer.tips('请先检查会员参与结束时间', $('.latestjointime'));
+            $('.endtime').focus();
+            return;
+        }
 		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
 		    $("nav span").eq(0).click();
 		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
@@ -2024,40 +2032,45 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 
 
-		// debugger
-		
+		// 2.会员活动条件
 		if($('.region-item').length == 0){
 			$("nav span").eq(1).click();
 			layer.tips('请先完善地区', $('.setAreaBtn'));
 			return;
 		}
 
-		// 会员活动条件
 		if(finished == true){
 			$('.section2 .addSub1').each(function(){
-				// debugger
-				var _this = $(this);
-				if(_this.find('.activity .selected').text() == ""){
-					// debugger
+
+				var addSub1 = $(this);
+				if(addSub1.find('.activity .selected').text() == ""){
 					$("nav span").eq(1).click();
-					layer.tips('请先完善活动类型', _this.find('.activity .selected'));
-					// _this.find('.selected').focus();
+					layer.tips('请先完善活动类型', addSub1.find('.activity .selected'));
 					finished = false;
 					return false;
 				} 
-				if(_this.find('.acSe3 .selected').text() == ""){
-					// debugger
+				if(addSub1.find('.acSe3 .selected').text() == ""){
 					$("nav span").eq(1).click();
-					layer.tips('请先完善', _this.find('.acSe3 .selected'));
-					// _this.find('.selected').focus();
+					layer.tips('请先完善', addSub1.find('.acSe3 .selected'));
 					finished = false;
 					return false;
 				}
-				if(_this.find('.selectWrap2.-hi input').val() == ""){
-					// debugger
+				if(addSub1.find('.selectWrap2.-hi input').val() == ""){
 					$("nav span").eq(1).click();
-					layer.tips('请先完善', _this.find('.selectWrap2.-hi input'));
-					// _this.find('.selected').focus();
+					layer.tips('请先完善', addSub1.find('.selectWrap2.-hi input'));
+					// addSub1.find('.selected').focus();
+					finished = false;
+					return false;
+				}
+				if(addSub1.find('input.acPuI1').val() == ""){
+					$("nav span").eq(1).click();
+					layer.tips('请先填写', addSub1.find('input.acPuI1'));
+					finished = false;
+					return false;
+				}
+				if(addSub1.find('input.acPuI2').val() == ""){
+					$("nav span").eq(1).click();
+					layer.tips('请先填写', addSub1.find('input.acPuI2'));
 					finished = false;
 					return false;
 				}
@@ -2066,7 +2079,7 @@ $('.saveToDb, .shenhe').click(function(){
 			return
 		}
 
-		// 2.参与会员
+		// 参与会员
 		if(finished == true){
 			$('.section2 .addSub2').each(function(){
 				// debugger
@@ -2074,87 +2087,108 @@ $('.saveToDb, .shenhe').click(function(){
 
 				if(_this.find('.acZige').css('display') == "block"){
 					
-					if(finished == true)
-					$('.section2 .addSub3').each(function(){
-						var _ths = $(this);
+					if(finished == true){
+						$('.section2 .addSub3').each(function(){
+							var addSub3 = $(this);
 
-						if(_ths.closest('.acZige').hasClass('hi') == false){
+							// if(addSub3.closest('.acZige').hasClass('hi') == false){
 
-							if(_ths.find('.condition-type .selected').text() == ""){
-								$("nav span").eq(1).click();
-								layer.tips('请先完善条件类型', _ths.find('.condition-type .selected'));
-								// _ths.find('.selected').focus();
-								finished = false;
-								return false;
-							}
-
-							if(_ths.find('.acSe6 .selected').text() == ""){
-								// debugger
-								$("nav span").eq(1).click();
-								layer.tips('请先完善统计范围', _ths.find('.acSe6 .selected'));
-								// _ths.find('.selected').focus();
-								finished = false;
-								return false;
-							}
-							// debugger
-							if(_ths.find('.acZige3 input:not(.dib)').val() == ""){
-								
-								if($('.select-wrap.acSe6 .selected').text() != "活动开始时"){
-
+								if(addSub3.find('.condition-type .selected').text() == ""){
 									$("nav span").eq(1).click();
-
-									layer.tips('请先完善', _ths.find('.acZige3 input:not(.dib)'));
-
-									// _ths.find('.selected').focus();
+									layer.tips('请先完善条件类型', addSub3.find('.condition-type .selected'));
+									// addSub3.find('.selected').focus();
 									finished = false;
 									return false;
 								}
 
-							}
 
-							// debugger
-						
-							if(_ths.find('.select-wrap.acSe8 .selected').text() == ""){
-								// debugger
-								$("nav span").eq(1).click();
-								layer.tips('请先完善条件', _ths.find('.select-wrap.acSe8 .selected'));
-								// _ths.find('.selected').focus();
-								finished = false;
-								return false;
-							}
+								if(addSub3.find('.range-wrap').hasClass('vihi') == false){
 
-							if(_ths.find('.select-wrap.acSe8 .selected').text() == "介于"){
+									if(addSub3.find('.acSe6 .selected').text() == ""){
+										// debugger
+										$("nav span").eq(1).click();
+										layer.tips('请先完善统计范围', addSub3.find('.acSe6 .selected'));
+										// addSub3.find('.selected').focus();
+										finished = false;
+										return false;
+									}		
+									
+									if(addSub3.find('.select-wrap.acSe6 .selected').text() == "活动开始前"){
+										if(addSub3.find('.acZige2tab input.date').val() == ""){
+											$("nav span").eq(1).click();
+											layer.tips('请先完善', addSub3.find('.acZige2tab input.date'));
+											finished = false;
+											return false;
+										}
+									}
 
-								if(_ths.find('input.jieyu1').val() == ""){
+									if(addSub3.find('.select-wrap.acSe6 .selected').text() == "至今"){
+										if(addSub3.find('.acZige2tab input.time').val() == ""){
+											$("nav span").eq(1).click();
+											layer.tips('请先完善', addSub3.find('.acZige2tab input.time'));
+											finished = false;
+											return false;
+										}
+									}	
+
+								} else {
+
+									if(!addSub3.find('.select-wrap.teyao').hasClass('hi')){
+										if(addSub3.find('.select-wrap.teyao .selected').text() == ""){
+											$("nav span").eq(1).click();
+											layer.tips('请先完善', addSub3.find('.select-wrap.teyao .selected'));
+											finished = false;
+											return false;
+										}
+									}
+								}
+
+
+								// }
+
+
+								if(addSub3.find('.select-wrap.acSe8 .selected').text() == ""){
 									// debugger
 									$("nav span").eq(1).click();
-									layer.tips('请先完善最小值', _ths.find('input.jieyu1'));
-									// _ths.find('.selected').focus();
+									layer.tips('请先完善条件', addSub3.find('.select-wrap.acSe8 .selected'));
+									// addSub3.find('.selected').focus();
 									finished = false;
 									return false;
 								}
 
-								if(_ths.find('input.jieyu2').val() == ""){
-									// debugger
-									$("nav span").eq(1).click();
-									layer.tips('请先完善最大值', _ths.find('input.jieyu2'));
-									// _ths.find('.selected').focus();
-									finished = false;
-									return false;
-								}
+								if(addSub3.find('.select-wrap.acSe8 .selected').text() == "介于"){
 
-							}  else if(_ths.find('.select-wrap.acSe8 .selected').text() == ">="){
-								if(_ths.find('.acZige5a input:eq(0)').val() == ""){
-									// debugger
-									$("nav span").eq(1).click();
-									layer.tips('请先完善', _ths.find('.acZige5a input.dayudengyu'));
-									// _ths.find('.selected').focus();
-									finished = false;
-									return false;
+									if(addSub3.find('input.jieyu1').val() == ""){
+										// debugger
+										$("nav span").eq(1).click();
+										layer.tips('请先完善最小值', addSub3.find('input.jieyu1'));
+										// addSub3.find('.selected').focus();
+										finished = false;
+										return false;
+									}
+
+									if(addSub3.find('input.jieyu2').val() == ""){
+										// debugger
+										$("nav span").eq(1).click();
+										layer.tips('请先完善最大值', addSub3.find('input.jieyu2'));
+										// addSub3.find('.selected').focus();
+										finished = false;
+										return false;
+									}
+
+								}  else if(addSub3.find('.select-wrap.acSe8 .selected').text() == ">="){
+									if(addSub3.find('.acZige5a input:eq(0)').val() == ""){
+										// debugger
+										$("nav span").eq(1).click();
+										layer.tips('请先完善', addSub3.find('.acZige5a input.dayudengyu'));
+										// addSub3.find('.selected').focus();
+										finished = false;
+										return false;
+									}
 								}
-							}
-						}
-					})
+							// }
+						});
+					}	
 				}
 
 				if(_this.find('.member-type .selected').text() == ""){
@@ -2290,11 +2324,14 @@ $('.saveToDb, .shenhe').click(function(){
 				}
 
 				if(isShake == false){
-					if(_this.find('.sbys').val() == ""){
-						// debugger
+					if(_this.find('.sbys').val() == "") {
 						$("nav span").eq(2).click();
 						layer.tips('请先填写申报预算', _this.find('.sbys'));
-						// _this.find('.selected').focus();
+						finished = false;
+						return false;
+					} else if(_this.find('.sbys').val() == "0") {
+						$("nav span").eq(2).click();
+						layer.tips('申报预算不可以为0', _this.find('.sbys'));
 						finished = false;
 						return false;
 					}
@@ -2325,17 +2362,13 @@ $('.saveToDb, .shenhe').click(function(){
 			return
 		}
 		
-		// 宣传图文资料
+		// 4.宣传图文资料
 		if(finished == true){
 
 			$('.section4 .area').each(function(i){
 				// debugger
 				if(i == 3){return false;}
 				var _this = $(this);
-				// var a = _this.find('.activitytitle').text();
-				// debugger
-				// var index = $('.section4 .area .activitytitle').get(i); 
-				// var title = $(index).text();
 				if( _this.find('.activitytitle').text() == ""){
 					 $("nav span").eq(3).click();
 					layer.tips('请先完善活动标语', _this.find('.activitytitle'));
@@ -2344,7 +2377,7 @@ $('.saveToDb, .shenhe').click(function(){
 					return false;
 				}
 				if(_this.find('.wechattitle').text() == ""){
-//					debugger
+					// debugger
 					 $("nav span").eq(3).click();
 					layer.tips('微信图文消息标题', _this.find('.wechattitle'));
 					// _this.find('.selected').focus();
@@ -2352,7 +2385,7 @@ $('.saveToDb, .shenhe').click(function(){
 					return false;
 				}
 				if(_this.find('.wenan-text').text() == ""){
-//					debugger
+					// debugger
 					 $("nav span").eq(3).click();
 					layer.tips('请先完善宣传文案', _this.find('.wenan-text'));
 					// _this.find('.selected').focus();
@@ -2361,8 +2394,6 @@ $('.saveToDb, .shenhe').click(function(){
 				}
 
 			});
-
-			// finished = true;
 			
 		} else {
 			return
@@ -2371,13 +2402,7 @@ $('.saveToDb, .shenhe').click(function(){
 	}
 	
 
-	// delete data;
-	// alert(1)
-	// debugger;
-	if(finished == false){
-		return
-	}
-
+	if(finished == false){return}
 	if($(this).hasClass('disabled')){return}
 
 
@@ -2474,49 +2499,6 @@ $('.saveToDb, .shenhe').click(function(){
 
 	}
 
-	/*function getCondItemData( _self, memberType, conditionType ){
-		// debugger
-		var acPrev = _self.parents('.addSub3').find('.acZige2 .selected').text();		
-		var curDate = _self.parents('.addSub3').find('.acZige3 input.date').val();
-		var begintime = "";
-		// debugger
-		if(acPrev == "活动开始前"){
-			if(_self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text() == "天"){
-				begintimeInput = $('.begintime').val();//.substring(0,10);
-				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
-			} else {
-				begintime = new Date(new Date().setMonth((new Date().getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
-			}
-		}
-
-		var operator = _self.parents('.addSub3').find('.acZige4 .selected').text();
-		var min = '';
-		if(operator == '>='){
-			min = _self.parents('.addSub3').find('.acZige5 .acZige1Tab input.min').val();
-		} else if(operator == '介于'){
-			operator = "between";
-			min = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input.min').val();
-		}
-
-		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
-		var statisticrange = _self.parents('.addSub3').find('.select-wrap.acSe6 .selected').text();
-		var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
-		if(conditionType == ""){return}
-		data[memberType][conditionType] = {
-			// "guid":_self.parents('.addSub3').find('.acZige1 .acSe5 em').attr("guid"),//0124添加
-			"state": "active",
-			"min": min,
-			"operator": operator,
-			"max": max,
-			"begintime": begintime,
-			"statisticrange": statisticrange,
-			"timeunit": timeunit
-		}
-		if(location.href.indexOf("activityModify.html")!=-1){
-			data[memberType][conditionType].guid=_self.parents('.addSub3').find('.acZige1 .acSe5 em').attr("guid");//0124添加
-		}			
-	}*/
-
 	// 统计范围
 	function getCondItemData( _self, memberType, conditionType ){
 		// debugger
@@ -2590,7 +2572,6 @@ $('.saveToDb, .shenhe').click(function(){
 		if(value != ""){
 			data[memberType][conditionType] = {
 				"state": "active",
-				"operator": operator,
 				'value': value
 			}
 		} else {
@@ -2637,7 +2618,7 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 
 		var item = { 
-//			"guid":_this.closest('.addSub1').find('.acTy .acSe1 .selected').attr("guid"),//0124添加
+			// "guid":_this.closest('.addSub1').find('.acTy .acSe1 .selected').attr("guid"),//0124添加
 			"state": "active",                              
 	    	"activitytype": activitytype, 
 	        "retailer_count" : {"min": ra_min, "max": ra_max}, 
@@ -2700,7 +2681,6 @@ $('.saveToDb, .shenhe').click(function(){
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
             "applycount": addSub4.find('.hdc6-1 input').val(),
-
         }
 
 		if(location.href.indexOf("activityModify.html")!=-1){
@@ -2710,29 +2690,17 @@ $('.saveToDb, .shenhe').click(function(){
 		var refund_content = addSub4.find('.hdc3 .selected').text();
         if(refund_content == '摇一摇'){
         	var prize_content = addSub4.find('input.y1y').val();
-        	try {
-        		subsidyItem['prize_content'] = JSON.parse(prize_content);
-        	} catch(e) {
-        		// console.log(e);
-        	}
+        	try { subsidyItem['prize_content'] = JSON.parse(prize_content); } catch(e) { }
         }
 
         if(addSub4.find('.gz').length == 1){
         	var gz = addSub4.find('input.gz').val();
-        	try {
-        		subsidyItem['limit'] = JSON.parse(gz);
-        	} catch(e) {
-        		// console.log(e);
-        	}
+        	try { subsidyItem['limit'] = JSON.parse(gz); } catch(e) { }
         }
 
         if(addSub4.find('.gl').length == 1){
         	var gl = addSub4.find('input.gl').val();
-        	try {
-        		subsidyItem['probability'] = JSON.parse(gl);
-        	} catch(e) {
-        		// console.log(e);
-        	}
+        	try { subsidyItem['probability'] = JSON.parse(gl); } catch(e) { }
         }
 
 		butieArr.push(subsidyItem);
@@ -2772,7 +2740,6 @@ $('.saveToDb, .shenhe').click(function(){
 		// "flag": "",
 		// "releasetime":"",
 	    "optype": optype
-
     }
 
 	console.log(JSON.stringify(data, null, 4));

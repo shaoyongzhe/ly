@@ -1212,6 +1212,7 @@ div.acZige:before{
 
 .range-wrap{
     display: inline-block;
+    width: 315px;
 }
 
 /* .operator-wrap li{
