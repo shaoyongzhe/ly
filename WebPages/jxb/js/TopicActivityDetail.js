@@ -163,6 +163,7 @@ function ajaxActivityDetails(a,b){
 				//不同数量，有无按钮，btsm的宽度各不相同
 				//1.先确定$(".BbtsmRright2Content")宽度
 				var widthNum=0;//$(".BbtsmRright2Content")宽度
+				var textWidth=0;//文本的宽度0218加,用于控制有3列的时候，2种屏幕的宽度。
 				if($(window).width()>1000){				
 					if(Object.keys(data.subsidy_description).length<=3){
 						widthNum=861;
@@ -175,6 +176,7 @@ function ajaxActivityDetails(a,b){
 						width:(widthNum-10*2)/num
 					})*/
 	//				console.log("if")
+					textWidth=214;
 				}else{
 					if(Object.keys(data.subsidy_description).length<=3){
 						widthNum=707;
@@ -187,6 +189,7 @@ function ajaxActivityDetails(a,b){
 						width:(widthNum-10*2)/num
 					})*/
 	//				console.log("else")
+					textWidth=188;
 				}	
 				//生成btsm	
 				for(var key in data.subsidy_description){				
@@ -199,7 +202,7 @@ function ajaxActivityDetails(a,b){
 //						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+'</p>';	
 						//分享超惠券送固定金额返现2元
 //						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+","+data.subsidy_description[key][i].ruledescription.join("，")+'</p>';	
-						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:214px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
+						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:'+textWidth+'px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
 					}
 					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
 //					console.log(hm)

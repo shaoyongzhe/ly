@@ -160,11 +160,11 @@ function btduixiang(a){
 		break;		
 		
 		case "distributoremployee":
-		btduixiang = '分销商业务员'
+		btduixiang = '分销商人员'
 		break;
 		
 		case "distributor_employee":
-		btduixiang = '分销商业务员'
+		btduixiang = '分销商人员'
 		break;
 		
 		case "retailer":
