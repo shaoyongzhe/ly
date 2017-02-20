@@ -27,12 +27,7 @@ function main(){
 	UrlDistributorIDRefresh();	
 }
 function UrlDistributorIDRefresh(){
-	if(UrlKeyValueData.activity_id!=undefined){
-		Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);	//如果UrlKeyValueData.activity_id为undefined也用此。已总结。		
-	}
-	else{
-		Cajax(UrlKeyValueData.distributor_id);
-	}
+	Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);	//如果UrlKeyValueData.activity_id为undefined也用此。已总结。
 }
 
 engine.on('UpdateMatchedTopics', UpdateMatchedTopics, this)
@@ -46,7 +41,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		allActivity=JSON.parse(arguments[0]);	
 		console.log("UpdateMatchedTopics出现",allActivity);
 		if(allActivity==undefined||allActivity==null||allActivity==''||allActivity==[]||allActivity.content==[]||allActivity.content==undefined||allActivity.content.length==0){
-			console.log('活动列表为空，无法展示指定活动', {icon: 5});
+			console.log('活动列表为空，无法展示指定活动');
 			return;
 		}		
 		ajaxSucFn(allActivity.content[0]);
@@ -129,8 +124,6 @@ function Cajax(m,a,b){
 
 function ajaxSucFn(info){//ajax成功回调里调用
 //	debugger;
-	var jjjj=info;
-	console.log(jjjj);
 	if(info.match){//处理不规范的后台数据,
 		info.matched=info.match;		
 	}	
@@ -198,8 +191,33 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	//活动补贴说明具体内容
 	$(".CccDescriptionCon").empty();
 	var typeCounts=0
-	//分销商
-	if(info.subsidydescription.distributor!=undefined){
+	//通用，无论是分销商，门店，店员，
+	for (type in info.subsidydescription){
+		console.log(type)
+		console.log(info.subsidydescription[type]);
+		typeCounts++;
+		var text1="";
+		for(m=0;m<info.subsidydescription[type].length;m++){
+			var dd=info.subsidydescription[type][m];
+			for(i in dd){					
+				if(typeof(dd[i])!="object"){						
+					text1+=dd[i]+" ";
+				}else{
+					for (j in dd[i]){							
+						text1+=dd[i][j]+" ";
+					}
+				}	
+			}
+		}
+		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、'+btduixiang(type)+' : </strong><span>'+text1+'</span></p>');		
+		
+		
+		
+		
+		
+		
+	}
+/*	if(info.subsidydescription.distributor){//0217注释掉，因为不再仅仅有3种类型。
 		typeCounts++;
 		var text1="";
 		for(m=0;m<info.subsidydescription.distributor.length;m++){
@@ -252,7 +270,7 @@ function ajaxSucFn(info){//ajax成功回调里调用
 			}
 		}
 		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、消费者 : </strong><span>'+text1+'</span></p>');
-	}
+	}*/
 }
 $(".footerCkxq").click(function(){
 	console.log('OnShowDetailClick',topicactivity_id);
@@ -346,3 +364,4 @@ $(".CcButieRight").click(function(){
 	}
 	console.log(topicactivity_id,allActivityNum);
 })
+

@@ -828,6 +828,7 @@ var start = {
 	choose: function(datas) {
 		end.min = datas; //开始日选好后，重置结束日的最小日期
 		end.start = datas //将结束日的初始值设定为开始日
+		startJ.min = datas;
 		//layer.msg(datas);
 	}
 };
@@ -840,6 +841,8 @@ var end = {
 	istoday: false,
 	choose: function(datas) {
 		start.max = datas; //结束日选好后，重置开始日的最大日期
+		endJ.max = datas;
+		startJ.max = datas;
 		//layer.msg(datas);
 	}
 };
@@ -875,21 +878,26 @@ laydate(startJ);
 laydate(endJ);
 
 
-
+/*
+ * 解决多个时间控件问题
+ */
 var d = new Date();
 var dates = d.toLocaleDateString().replace(/\//g, '-');
-var time_y = {		
-  elem: '.time_y',
-  format: 'YYYY/MM/DD',
-  istime: false,
-  istoday: false,
-  max: dates, //最大日期
-  choose: function(){
-//	    time_y.max = datas; //结束日选好后，重置开始日的最大日期
-    // layer.msg(datas);  
-  }
-};
-laydate(time_y);
+$('.member').on('click','.time_y',function(e){
+    // e.stopPropagation();
+    // var id = $(this).attr('id');
+    laydate({
+        // elem: id,
+        event: 'focus',
+        format: 'YYYY-MM-DD',
+        // format: 'YYYY-MM-DD',
+        // istime: true,
+        max: dates
+        /*choose: function(dates){
+            layer.msg(dates);
+        },*/
+    });
+});
 
 
 
@@ -1756,273 +1764,18 @@ $("body").on("click","li.option",function(e){
 });
 
 
-/*通用下拉点击事件*/
-//注，特定下拉点击事件见****处
-$(".addSubSubsidyPolicy").on("click",".selectWrapL",function(e){
-//$('.selectWrapL').click(function(e){
-	e.stopPropagation();
-	if($(this).prevAll(".selectWrapL").find(".selectedL").text().indexOf("请选择")!=-1){
-		alert("请先选择前面");
-	}else{
-		$(this).find('.selectL').toggle();//用于切换ul的显示隐藏
-		$(".selectWrapL").not(this).find('.selectL').hide();//点此关别		
-	}
-});
-$(".addSubSubsidyPolicy").on("click",".selectL .optionL",function(e){
-//$('.selectL .optionL').click(function(e){//点击li
-	e.stopPropagation();
-	$(this).parent().prev().text($(this).text());//把li的内容放入em
-	$(this).parent().hide();//点击li的时候隐藏ul	
-});
 
-$(document).click(function(){
-	// debugger;
-	$('.selectL').hide();
-});
-
-var Statistic={
-	"timetag": "主题活动周期内|主题活动结束时|主题活动周期内的前 X 天",
-	"time": 12, 
-	"object": "门店|消费者|分销商", 
-	"method": "按各分销商分别统计|按所有分销商汇总统计" , 
-	"type": "累计核销次数|累计核销金额|累计有核销日|累计假核销金额", 
-	"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",
-    "requestnumber": 10
-}
-addSubSubsidyPolicy();
-function addSubSubsidyPolicy(){
-	/*控件初始化*/
-	if($.isEmptyObject(Statistic)==false&&Statistic!=undefined){
-		$(".addSubSubsidyPolicy .content").empty();
-		var html=''
-		+	'<!--下面类名s1，s2等稍后换-->'
-		//"timetag": "周期内|结束时|周期内的前 X 天",s1
-		if(Statistic.timetag!=""&&Statistic.timetag!=" "&&Statistic.timetag!=undefined){
-			var arr=Statistic.timetag.split("|");	
-			var optionLs='';
-			for(i=0;i<arr.length;i++){
-				optionLs+='<li class="optionL">'+arr[i]+'</li>'
-			}
-			html+=''
-			+	'<div class="selectWrapL s1">'
-			+		'<span class="arrowL"></span>'
-			+		'<span class="selectedL"   >请选择</span>'
-			+		'<ul class="selectL s1_select">'
-			+			optionLs
-			+		'</ul>'
-			+	'</div>';					
-		}
-		//"time": 12, days
-		if(Statistic.time!=""&&Statistic.time!=" "&&Statistic.time!=undefined){
-			html+=''
-			+	'<div class="days s1-1 fl hi">'					
-			+		'<input type="text" id="days" value="'+Statistic.time+'"/><label for="days"><span>天</span></label>'
-			+	'</div>'	
-		}
-		//object": "门店|消费者|分销商", s2
-		if(Statistic.object!=""&&Statistic.object!=" "&&Statistic.object!=undefined){
-			var arr=Statistic.object.split("|");	
-			var optionLs='';
-			for(i=0;i<arr.length;i++){
-				optionLs+='<li class="optionL">'+arr[i]+'</li>'
-			}
-			html+=''
-			+	'<div class="selectWrapL s2">'
-			+		'<span class="arrowL"></span>'
-			+		'<span class="selectedL"   >请选择</span>'
-			+		'<ul class="selectL">'
-			+			optionLs
-			+		'</ul>'
-			+	'</div>'						
-		}
-		html+=''
-		//"method": "各分销商分别统计|所有分销商汇总统计" , s3
-		if(Statistic.method!=""&&Statistic.method!=" "&&Statistic.method!=undefined){
-			var arr=Statistic.method.split("|");	
-			var optionLs='';
-			for(i=0;i<arr.length;i++){
-				optionLs+='<li class="optionL">'+arr[i]+'</li>'
-			}
-			html+=''
-			+	'<div class="selectWrapL s3">'
-			+		'<span class="arrowL"></span>'
-			+		'<span class="selectedL"   >请选择</span>'
-			+		'<ul class="selectL s3_select">'
-			+			optionLs
-			+		'</ul>'
-			+	'</div>'	
-		}
-		//"type": "累计核销次数|累计核销金额|累计有核销日|累计假核销金额", s4
-		if(Statistic.type!=""&&Statistic.type!=" "&&Statistic.type!=undefined){
-			var arr=Statistic.type.split("|");	
-			var optionLs='';
-			for(i=0;i<arr.length;i++){
-				optionLs+='<li class="optionL">'+arr[i]+'</li>'
-			}
-			html+=''	
-			+	'<div class="selectWrapL s4">'
-			+		'<span class="arrowL"></span>'
-			+		'<span class="selectedL"   >请选择</span>'
-			+		'<ul class="selectL s4_select">'
-			+			optionLs
-			+		'</ul>'
-			+	'</div>'	
-		}
-		//"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",s5
-		if(Statistic.reqesttag!=""&&Statistic.reqesttag!=" "&&Statistic.reqesttag!=undefined){
-			var arr=Statistic.reqesttag.split("|");	
-			var optionLs='';
-			for(i=0;i<arr.length;i++){
-				optionLs+='<li class="optionL">'+arr[i]+'</li>'
-			}
-			html+=''		
-			+	'<div class="selectWrapL s5">'
-			+		'<span class="arrowL"></span>'
-			+		'<span class="selectedL"   >请选择</span>'
-			+		'<ul class="selectL s5_select">'
-			+			optionLs
-			+		'</ul>'
-			+	'</div>'	
-		}
-		//"requestnumber": 10,unitContent
-		if(Statistic.requestnumber!=""&&Statistic.requestnumber!=" "&&Statistic.requestnumber!=undefined){
-			html+=''		
-			+	'<div class="unitContent fl s5-5">'
-			+		'<label for="unitNumber"><span class="unitBefore">前</span></label><input type="text" id="unitNumber"/><label for="unitNumber"><span class="unit">名</span></label>'						
-			+	'</div>';					
-		}
-		$(".addSubSubsidyPolicy .content").append(html)
-	}else{
-		console.log('Statistic为空')
-		return;
-	}
-	/*控件局部联动变化*/	
-	//注意，前提是，上面已有通用下拉点击事件
-	//s1的联动	
-	$(".addSubSubsidyPolicy").on("click",".selectL.s1_select .optionL",function(e){	
-		e.stopPropagation();
-		//s1-1跟着动
-		if($(this).text()=="主题活动周期内的前 X 天"){
-			$(".addSubSubsidyPolicy .days").show();
-			$(".addSubSubsidyPolicy .t2").css({
-				marginLeft:'71px'
-			})
-		}else{
-			$(".addSubSubsidyPolicy .days").hide();
-			$(".addSubSubsidyPolicy .t2").css({
-				marginLeft:'8px'
-			})
-		}
-		$(this).parent().prev().text($(this).text().substr(0,9));//把li的内容放入em
-		$(this).parent().hide();//点击li的时候隐藏ul	
-	});
-	//s4的联动	
-	$(".addSubSubsidyPolicy").on("click",".selectL.s4_select .optionL",function(e){	
-		e.stopPropagation();
-		//s5跟着动
-		$(".addSubSubsidyPolicy .s5 .selectedL").text("请选择");//重置		
-		if($(this).text()=="累计假核销金额"){
-			selectFn('s5','=|>|>=','');
-		}else{
-			selectFn('s5',Statistic.reqesttag,'');
-		}
-		//s5-1跟着动
-		var preText=$(this).text();
-		var unit="";
-		if(preText.indexOf("次数")!=-1){
-			unit="次";
-		}else if(preText.indexOf("金额")!=-1){
-			unit="元";
-		}else if(preText.indexOf("核销日")!=-1){
-			unit="天";
-		}		
-		$(".addSubSubsidyPolicy .s5-5 .unit").text(unit);//重置
-//		$(this).parent().prev().text($(this).text());//把li的内容放入em
-//		$(this).parent().hide();//点击li的时候隐藏ul	
-	});
-	//s5的联动
-	$(".addSubSubsidyPolicy").on("click",".selectL.s5_select .optionL",function(e){	
-		e.stopPropagation();
-		var preText=$(this).closest(".selectWrapL").prev(".selectWrapL").find(".selectedL").text();
-		var unit="";
-		if(preText.indexOf("次数")!=-1){
-			unit="次";
-		}else if(preText.indexOf("金额")!=-1){
-			unit="元";
-		}else if(preText.indexOf("核销日")!=-1){
-			unit="天";
-		}
-		$(".s5-5").empty();
-		console.log($(this).text())
-		if($(this).text()=="地区排名"||$(this).text()=="全国排名"){
-			$(".s5-5").append('<label for="unitNumber"><span class="unitBefore">前</span></label><input type="text" id="unitNumber"/><label for="unitNumber"><span class="unit">名</span></label>');
-		}else{
-			$(".s5-5").append('<input type="text" id="unitNumber" style="width:40px;"/><label for="unitNumber"><span class="unit">'+unit+'</span></label>');
-		}
-//		$(this).parent().prev().text($(this).text());//把li的内容放入em
-//		$(this).parent().hide();//点击li的时候隐藏ul	
-	});	
-}
-
-/*下拉封装*/
-function selectFn(className,StatisticKey,shuxing){//eg:,StatisticKey为Statistic.type或字符串,class为模拟下拉整体类名如s1,shuxing为字符串，如style="width:555px"
-	if(StatisticKey!=""&&StatisticKey!=" "&&StatisticKey!=undefined){
-		var arr=StatisticKey.split("|");	
-		var optionLs='';
-		for(i=0;i<arr.length;i++){
-			optionLs+='<li class="optionL" '+shuxing+'>'+arr[i]+'</li>'
-		}
-		$(".addSubSubsidyPolicy ."+className).find(".selectL").empty();
-		$(".addSubSubsidyPolicy ."+className).find(".selectL").append(optionLs);
-	}	
-}
-/*项目点击*/
-$(".subsidyConditionContent").on("click",".subsidyConditionItems",function(e){
-	if($(this).text()=="达到统计指标"){
-		$(".addSubSubsidyPolicy").show();
-	}else{
-		$(".addSubSubsidyPolicy").hide();
-	}
-	$(".subsidyConditionItems").each(function(){
-		$(this).text($(this).text().replace("✔",""));
-		$(this).removeClass("on");
-//		console.log($(this));
-	})	
-//	$(".subsidyConditionItems").text($(this).text().replace("✔",""))
-//	$(".subsidyConditionItems").not(this).text($(this).text().replace("✔",""))
-//	$(this).text($(this).text().replace("✔",""))
-//	console.log($(this))
-	$(this).text("✔"+$(this).text());
-	$(this).addClass("on");
-})
-
-
-
-
-$('.addSub4 .subsidyCondition a').click(function(){
-	$('.subsidyConditionContent').empty();
-	var butieCond = $(this).parent().prev();
-	butieCond.find('li[class=option]').each(function(){
-		$('.subsidyConditionContent').append("<li class='subsidyConditionItems'>"+ $(this).text() +"</li>")
-	});
-
+/*$('.butieCond .selected').click(function(){
 	layer.open({
 
 		type: 1,
 		title: "设置规则-单个<i class='rules-title'>" + $(this).closest('.addSub4').find('.butie-select-wrap .selected').text() + "</i>",
-		area: ['86%',"60%"],
+		area: ['86%',"50%"],
 		maxmin: true,
-		content: $('.setCond')
+		content: $('.layer.setCond')
 
 	});
-
-
-});
-
-
-$('.subsidyPolicy .ok').click(function(){
-
-});
+});*/
 
 
 
@@ -2236,22 +1989,33 @@ if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 // debugger
 var data = {};
 $('.saveToDb, .shenhe').click(function(){
+	//获取活动时间与会员参与时间
+    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
+    var basic = $('.basic-msg');
+    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
+    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
+    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
+    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
+
+    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+    var activeEnd = (new Date(endtime)).getTime(); 
+    var joinBegin = (new Date(earliestjointime)).getTime(); 
+    var joinEnd = (new Date(latestjointime)).getTime(); 
+	/*
+	 * 活动时间与参与时间不正确时的保存问题
+	 */
+	if($(this).text() ==  "保存"){
+		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
+		    $("nav span").eq(0).click();
+		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
+		    $('.earliestjointime').focus();
+		    return;
+		}
+	}
+	
 
 	// debugger
-	if($(this).text() ==  "提交审核"){
-
-	    //获取活动时间与会员参与时间
-	    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
-	    var basic = $('.basic-msg');
-	    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
-	    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
-	    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
-	    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
-
-	    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
-	    var activeEnd = (new Date(endtime)).getTime(); 
-	    var joinBegin = (new Date(earliestjointime)).getTime(); 
-	    var joinEnd = (new Date(latestjointime)).getTime(); 
+	if($(this).text() ==  "提交审核"){	    
         //var  activeBegin = basic.find('.begintime').val()
 
 		var finished = true;
@@ -2840,7 +2604,9 @@ $('.saveToDb, .shenhe').click(function(){
 				begintimeInput = $('.begintime').val();
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
-				begintime = new Date(new Date().setMonth((new Date().getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+				begintimeInput = $('.begintime').val();
+//				console.log(new Date(begintimeInput).getMonth() - curDate)
+				begintime = new Date(new Date(begintimeInput).setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
 			}
 
 			// 统计范围---时间单位
@@ -2849,7 +2615,7 @@ $('.saveToDb, .shenhe').click(function(){
 		} else if(acPrev == "活动开始时") {
 
 			// 判断时间--单位  天、月
-			begintimeInput = $('.begintime').val().substring(0,10);
+			begintimeInput = $('.begintime').val();
 			begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');		
 
 		} else {
@@ -2857,10 +2623,10 @@ $('.saveToDb, .shenhe').click(function(){
 			// 判断时间--单位  天、月
 			begintimeInput = _self.parents('.addSub3').find('.time_y').val();
 
-			if(begintimeInput != '不限'){
-				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
-			} else {
+			if(begintimeInput == '不限' || begintimeInput == ''){
 				begintime = '不限';
+			} else {				
+				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
 			}
 
 		}
@@ -2868,14 +2634,17 @@ $('.saveToDb, .shenhe').click(function(){
 		// 条件
 		var operator = _self.parents('.addSub3').find('.acZige4 .selected').text();
 		var min = '';
+		var max = '';
 		if(operator == '>='){
 			min = _self.parents('.addSub3').find('.acZige5 .acZige1Tab input.min').val();
 		} else if(operator == '介于'){
 			operator = "between";
-			min = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input.min').val();
+			min = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab .jieyu1').val();
+			max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab .jieyu2').val();
+//			console.log(min,max)
 		}
 
-		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
+//		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
 		
 		// 统计范围的名称---活动开始前、活动开始时、至今
 		var statisticrange = _self.parents('.addSub3').find('.select-wrap.acSe6 .selected').text();
@@ -2970,8 +2739,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 	$('.areaSave').click();
 	var areaData = $('#area-data').val();
-	// alert(areaData);return;	
-
+	// alert(areaData);return;
 	data["area_condition"] = JSON.parse(areaData);
 	// console.log(JSON.stringify(data, null, 4));
 	// return;

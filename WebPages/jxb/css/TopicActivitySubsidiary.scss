@@ -176,14 +176,14 @@ padding:0;
     background-image: url(../img/c9.png);
     position: absolute;
     top: 118px;
-    left: 13px;
+    left: 17px;
     cursor: pointer;
 }
 .CcButieRight{
     @extend .CcButieLeft;
     background-image: url(../img/c10.png);
     top: 118px;
-    left:217px ;
+    left:213px ;
 }
 //参与活动条件
 .CcconditionImg{
@@ -305,6 +305,7 @@ padding:0;
     width: 260px;////////////////rem(260);//;
 //  height:23px;
     padding:10px ;////////////////rem(10);//;//右侧是否需要
+    padding-right: 20px;
     box-sizing: border-box;
     font-family: "微软雅黑";
     font-size: 12px ;////////////////rem(12);//;
