@@ -541,16 +541,13 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率');break;
 	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长');break;
 	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级');break;
-	            case '' : activityManger_addSub3HtmlFn('核销次数');break;//别忘去掉。
+	            // case '' : activityManger_addSub3HtmlFn('核销次数');break;//别忘去掉。
 
-                // case '分销商类型' : activityManger_addSub3HtmlFn('分销商类型');break; //0218
+                case '分销商类型' : activityManger_addSub3HtmlFn('分销商类型');break; //0218
 
 	        }
 	        function activityManger_addSub3HtmlFn(a){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
-                if(a == '分销商类型'){
-                    $('.addSub2Mange:last .addSub3').find('.range-wrap').addClass('vihi');
-                }
 
 	            // console.log(key)
 	            /*条件类型*/
@@ -618,6 +615,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                $(".addSub3Mange:last").find(".activityManger_addsub3State").addClass("on");
 	            }
 	            
+                if(a == '分销商类型'){
+                    var distri_type = $('.addSub3 .selected.condition:contains(分销商类型)').closest('.addSub3Mange');
+                    distri_type.find('.range-wrap').addClass('vihi');
+                    // distri_type.find('')
+                    distri_type.find('.acZige4 li:contains(==)').click();
+                    distri_type.find('.teyao .selected').text(obj[key].value);
+                }
+
 	        }
 	    }   
 	}

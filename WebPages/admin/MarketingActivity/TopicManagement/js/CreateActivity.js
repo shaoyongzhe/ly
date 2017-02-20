@@ -11,6 +11,7 @@ var addsub5HTML="";
 var fzrurl = '/webapi/ipaloma/topic/charge';
 _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
+	// c(fzr)
 	$(fzr.content).each(function(i,item){
 		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.nickname +'</li>');
 	});
@@ -457,7 +458,7 @@ $('body').on("click",".set",function(e){
 	}
 
 }).on("input",".addSub4 .hdc5 input",function(){
-	var addSub4 =$(this).closest('.addSub4'),
+	var addSub4 = $(this).closest('.addSub4'),
 		addSub4_val = addSub4.find('.y1y').val();
 	if(addSub4_val != "" && addSub4_val != undefined){
 		addSub4.find('.set').click();
@@ -470,8 +471,10 @@ $('body').on("click",".set",function(e){
 			y1yArr[i]['timelimit'] = "";
 		}
 		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4))
-
 	}
+
+
+
 });
 
 
@@ -500,6 +503,7 @@ $('.yaook').click(function(){
 	if($('.addSub5 .selected:eq(0)').text() != ""){
 
 		var yaoyiyao = $(this).parent().find('.yaoWrap .addSub5');
+		var fengzhi = 0;
 		$(yaoyiyao).each(function(){
 			var _this = $(this);
 			try { var yaoyiyaogailv = JSON.parse(_this.find('.Yyy6 input').val()) } catch(e) {}
@@ -512,15 +516,19 @@ $('.yaook').click(function(){
 				"applycount": _this.find('.Yyy5-1 input').val(),
 				"probability": yaoyiyaogailv
 			}
+
 			y1yArr.push(y1yObj);
+			fengzhi += Number(_this.find('.fz input').val());
+
 		});
 
+		$('.addSub4').eq(y1yindex-1).find('.btfz input').val(fengzhi);
 		$(".y1yHidden" + y1yindex).val(JSON.stringify(y1yArr, null, 4));
 		layer.msg('摇一摇数据已保存');
 
 	} else {
-		layer.msg('请先设置');
-		return;
+		// layer.tips("请先设置奖品类型", $('.addSub5 .selected:eq(0)'));
+		// return;
 	}
 
 	$(this).closest('.layui-layer').find('.layui-layer-close').click();
@@ -984,7 +992,8 @@ $('body').on('input','input',function(e){
 	}
 
 	if($(this).closest('.dianhua').length == 1){return;}
-	if($(this).closest('.input_a').length == 1 || 
+	if($(this).closest('.butie-inner-item.money').length == 1 || 
+	   $(this).closest('.input_a').length == 1 ||
 	   $(this).closest('.hdc4d1').length == 1 || 
 	   $(this).closest('.Yyy2d1').length == 1 ||
 	   $(this).closest('.btfz').length == 1){
@@ -1352,8 +1361,7 @@ $("body").on("click","li.option",function(e){
 		// alert('条件类型');
 		// debugger;
 		if(text == _this.parent().prev().text()){
-			_this.parent().hide().prev().text(text);
-			_this.parent().hide().prev().attr("name",_this.attr('name'));
+			_this.parent().hide().prev().text(text).attr("name",_this.attr('name'));
 			return;
 		}
 
@@ -1369,7 +1377,14 @@ $("body").on("click","li.option",function(e){
 		});
 
 		if(!b){return}
-
+		if(b == true){
+			_this.parent().hide().prev().text(text);
+			_this.parent().hide().prev().attr("name",_this.attr('name'));
+			//开始*********************************************************************************************
+			var index=$(this).closest(".acZige1").find(".select-wrap").find(".option").index($(this));				
+			$(this).closest(".addSub3").find(".acZige1Tab").find("p:last").text(addSub3Arr[index+1])
+			//结束*********************************************************************************************
+		}
 
 		var addSub3 = $(this).closest('.addSub3');
 		if($(this).text() == "分销商类型"){
@@ -1385,19 +1400,6 @@ $("body").on("click","li.option",function(e){
 		}
 
 		addSub3.find('.operator-wrap .selected').text('');
-
-
-		
-
-		if(b == true){
-			_this.parent().hide().prev().text(text);
-			_this.parent().hide().prev().attr("name",_this.attr('name'));
-			//开始*********************************************************************************************
-			var index=$(this).closest(".acZige1").find(".select-wrap").find(".option").index($(this));				
-			$(this).closest(".addSub3").find(".acZige1Tab").find("p:last").text(addSub3Arr[index+1])
-			//结束*********************************************************************************************
-		}
-
 		return;
 	}
 
@@ -1595,7 +1597,7 @@ $("body").on("click","li.option",function(e){
 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In1').val("");
 				$(this).closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2').val("");
 				$(this).closest('.addSub4').find('.hdc5 .acSe13 input').val("");
-				// $(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
+				$(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
 				$(this).parents(".addSub4").find("input.sbys + p").text('次');
@@ -2042,7 +2044,7 @@ $('.saveToDb, .shenhe').click(function(){
 		if(finished == true){
 			$('.section2 .addSub1').each(function(){
 
-				var addSub1 = $(this);
+				/*var addSub1 = $(this);
 				if(addSub1.find('.activity .selected').text() == ""){
 					$("nav span").eq(1).click();
 					layer.tips('请先完善活动类型', addSub1.find('.activity .selected'));
@@ -2073,8 +2075,9 @@ $('.saveToDb, .shenhe').click(function(){
 					layer.tips('请先填写', addSub1.find('input.acPuI2'));
 					finished = false;
 					return false;
-				}
+				}*/
 			});
+
 		} else {
 			return
 		}
@@ -2419,7 +2422,7 @@ $('.saveToDb, .shenhe').click(function(){
 	
 	data = {
 	    "activity": {
-//	    	"guid":basic.find('.activityTitle').attr("guid"),//0124添加
+	    	// "guid":basic.find('.activityTitle').attr("guid"),//0124添加
 	        "description"     : basic.find('.description').val(),
 	        "begintime"       : basic.find('.begintime').val(),
 	        "endtime"         : basic.find('.endtime').val(),
@@ -2548,25 +2551,25 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 		
 		// 条件
-		var operator = _self.parents('.addSub3').find('.acZige4 .selected').text();
+		var operator = _self.closest('.addSub3').find('.acZige4 .selected').text();
 		var min = '';
 		if(operator == '>='){
-			min = _self.parents('.addSub3').find('.acZige5 .acZige1Tab input.min').val();
+			min = _self.closest('.addSub3').find('.acZige5 .acZige1Tab input.min').val();
 		} else if(operator == '介于'){
 			operator = "between";
-			min = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input.min').val();
+			min = _self.closest('.addSub3').find('.acZige5 .-hi.acZige4tab input.min.jieyu1').val();
 		}
 
-		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
+		var max = _self.closest('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
 		
 		// 统计范围的名称---活动开始前、活动开始时、至今
-		var statisticrange = _self.parents('.addSub3').find('.select-wrap.acSe6 .selected').text();
+		var statisticrange = _self.closest('.addSub3').find('.select-wrap.acSe6 .selected').text();
 		
 		// 统计范围---时间单位
-		//var timeunit = _self.parents('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
+		//var timeunit = _self.closest('.addSub3').find('.select-wrap.acSe7 .selected').first().text();
 		
 		
-		var value = _self.parents('.addSub3').find('.select-wrap.teyao .selected').text();
+		var value = _self.closest('.addSub3').find('.select-wrap.teyao .selected').text();
 		if(conditionType == ""){return}
 
 		if(value != ""){
@@ -2617,14 +2620,17 @@ $('.saveToDb, .shenhe').click(function(){
 				break;
 		}
 
-		var item = { 
-			// "guid":_this.closest('.addSub1').find('.acTy .acSe1 .selected').attr("guid"),//0124添加
-			"state": "active",                              
-	    	"activitytype": activitytype, 
-	        "retailer_count" : {"min": ra_min, "max": ra_max}, 
-	        "discount":{"min":min, "operator": operator, "max" : max}
-	        // "state":""
-	    }
+		// if(activitytype != ""){
+			var item = { 
+				// "guid":_this.closest('.addSub1').find('.acTy .acSe1 .selected').attr("guid"),//0124添加
+				"state": "active",
+		    	"activitytype": activitytype, 
+		        "retailer_count" : {"min": ra_min, "max": ra_max}, 
+		        "discount":{"min":min, "operator": operator, "max" : max}
+		        // "state":""
+		    }
+		// }
+
 		if(location.href.indexOf("activityModify.html")!=-1){
 			item.guid=_this.closest('.addSub1').find('.acTy .acSe1 .selected').attr("guid");//0124添加
 		}	
@@ -2638,7 +2644,10 @@ $('.saveToDb, .shenhe').click(function(){
 	$('.activity .selected').each(function(){
 		var _this = $(this),
 			thisText = _this.text();
-		getActivityType(_this, thisText);
+
+		if(thisText != ""){
+			getActivityType(_this, thisText);
+		}
 
 		data['activity_condition'] = {
 			"product_category": [],
@@ -2744,6 +2753,11 @@ $('.saveToDb, .shenhe').click(function(){
 
 	console.log(JSON.stringify(data, null, 4));
 
+	if (!$('nav span:last').hasClass('on') && $(this).text() == "保存"){
+		layer.msg('数据已保存');
+		return;
+	}
+
     var updateFlag = location.href.indexOf("activityModify.html")!=-1;
 	if ($('nav span:last').hasClass('on')) {
 	    $.ajax({
@@ -2762,13 +2776,17 @@ $('.saveToDb, .shenhe').click(function(){
 	        timeout: function () { },
 	        success: function (returnedData) {
 	            if (!returnedData.error) {
-	            	if($('body').hasClass('xiugai')){
-		                layer.msg('修改成功');
-	            	} else {
-		                layer.msg('创建成功');
-	            	}
 		            console.log(returnedData);
-
+	            	if($('body').hasClass('xiugai')){
+		                done('修改成功');
+	            	} else {
+		                done('创建成功');
+	            	}
+	            	function done(sucText){
+	            		layer.msg(sucText, {shift: -1},  function() {
+		            		window.location.href = "http://membership.ipaloma.com/admin/MarketingActivity/topicmanagement/ActivityList.html";
+						});
+	            	}
 	            } else {
 	                layer.msg(returnedData.error);
 	            }
@@ -2780,13 +2798,9 @@ $('.saveToDb, .shenhe').click(function(){
     	});
 		
 		return;
-	}
 
-	
-	if (!$('nav span:last').hasClass('on') && $(this).text() == "保存"){
-		layer.msg('数据已保存');
-		return;
 	}
+	
     
 });
 
