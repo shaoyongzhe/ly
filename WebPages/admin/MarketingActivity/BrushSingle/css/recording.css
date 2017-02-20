@@ -11,6 +11,7 @@ body.create{
     font-family: microsoft yahei;
     background-color: #f2f2f2;
     color: #333;
+    min-width: 1061px;
 }
 i,em,span,label{
     display: inline-block;
@@ -47,7 +48,7 @@ i,em,span,label{
 .option{
     background-color: #fff;
     margin: 0 20px;
- 
+ 	
 }
 .optionl{
     /*width: 228px;*/
@@ -272,7 +273,7 @@ select::-ms-expand { display: none; }
 
 #cgl-box{margin-right: 17px;position: relative;}
 #cgl-box:after{content: "";width: 18px;height: 100%;background: #f1f1f1;position: absolute;right: -17px;top: 0;border: 1px solid #eee;border-left: 0; border-bottom: 0;}
-#cgl-tablebox{margin-bottom: 10px;overflow-y: scroll;max-height: 500px;}
+#cgl-tablebox{margin-bottom: 10px;overflow-y: scroll;height: 500px;}
 .cgl-gd{position: absolute;width: 10px;height: 100%;top: 0;  right:0;background: #333;}
 #cgl-table table{
     width: 100%;
@@ -299,7 +300,7 @@ select::-ms-expand { display: none; }
     padding: 5px 0;
     border:1px solid #e4e4e4;
 }
-#cgl-tbody tr:hover{background: #f1f1f1;}
+
 .cgl-td1{width: 3%;}
 .cgl-td2{width: 10%;}
 .cgl-td3{width: 6%;}
@@ -319,10 +320,13 @@ select::-ms-expand { display: none; }
     cursor: pointer;
     position: relative;
 }
+.td13bgk{background: url("../img/caozuo1.png") no-repeat -1000px 0;}
+#cgl-tbody tr:hover{background: #f1f1f1;}
 .cgl-td13>div{display: none;}
 .cgl-td13>div.czon{display: block;}
 .ckon{background: #f1f1f1;}
 .cgl-td7>a,.cgl-td13>a{color: #5380cb;}
+.cgl-td13>a{text-decoration: none;}
 .cgl-td13>div{
     padding-top: 5px;
     min-width: 600px;
@@ -532,7 +536,7 @@ span.name {
 }
 /*****************加载中********************/
 .cgl-jzz{display: none; width: 150px;height: 50px;background: rgba(80,80,80,0.8); color: rgba(255,255,255,1);position: fixed;top:50%;left: 50%;margin-left: -80px;margin-top: -30px; text-align: center;line-height: 50px;border-radius: 5px;z-index: 100000000000;}
-
+.cgl-zhezao{width: 100%;height: 100%;position: fixed;top:0;z-index: 100;display: none;}
 /*****************违规原因********************/
 .layui-layer-content>.yycont{padding-top: 0;}
 .yycont{width: 790px;margin: 0 auto;}
