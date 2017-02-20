@@ -878,21 +878,26 @@ laydate(startJ);
 laydate(endJ);
 
 
-
+/*
+ * 解决多个时间控件问题
+ */
 var d = new Date();
 var dates = d.toLocaleDateString().replace(/\//g, '-');
-var time_y = {		
-  elem: '.time_y',
-  format: 'YYYY-MM-DD',
-  istime: false,
-  istoday: false,
-  max: dates, //最大日期
-  choose: function(){
-//	    time_y.max = datas; //结束日选好后，重置开始日的最大日期
-    // layer.msg(datas);  
-  }
-};
-laydate(time_y);
+$('.member').on('click','.time_y',function(e){
+    // e.stopPropagation();
+    // var id = $(this).attr('id');
+    laydate({
+        // elem: id,
+        event: 'focus',
+        format: 'YYYY-MM-DD',
+        // format: 'YYYY-MM-DD',
+        // istime: true,
+        max: dates
+        /*choose: function(dates){
+            layer.msg(dates);
+        },*/
+    });
+});
 
 
 
@@ -2599,7 +2604,9 @@ $('.saveToDb, .shenhe').click(function(){
 				begintimeInput = $('.begintime').val();
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
-				begintime = new Date(new Date().setMonth((new Date().getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+				begintimeInput = $('.begintime').val();
+//				console.log(new Date(begintimeInput).getMonth() - curDate)
+				begintime = new Date(new Date(begintimeInput).setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
 			}
 
 			// 统计范围---时间单位
@@ -2608,7 +2615,7 @@ $('.saveToDb, .shenhe').click(function(){
 		} else if(acPrev == "活动开始时") {
 
 			// 判断时间--单位  天、月
-			begintimeInput = $('.begintime').val().substring(0,10);
+			begintimeInput = $('.begintime').val();
 			begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');		
 
 		} else {
@@ -2616,10 +2623,10 @@ $('.saveToDb, .shenhe').click(function(){
 			// 判断时间--单位  天、月
 			begintimeInput = _self.parents('.addSub3').find('.time_y').val();
 
-			if(begintimeInput != '不限'){
-				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
-			} else {
+			if(begintimeInput == '不限' || begintimeInput == ''){
 				begintime = '不限';
+			} else {				
+				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
 			}
 
 		}
@@ -2627,14 +2634,17 @@ $('.saveToDb, .shenhe').click(function(){
 		// 条件
 		var operator = _self.parents('.addSub3').find('.acZige4 .selected').text();
 		var min = '';
+		var max = '';
 		if(operator == '>='){
 			min = _self.parents('.addSub3').find('.acZige5 .acZige1Tab input.min').val();
 		} else if(operator == '介于'){
 			operator = "between";
-			min = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input.min').val();
+			min = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab .jieyu1').val();
+			max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab .jieyu2').val();
+//			console.log(min,max)
 		}
 
-		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
+//		var max = _self.parents('.addSub3').find('.acZige5 .-hi.acZige4tab input').last().val();
 		
 		// 统计范围的名称---活动开始前、活动开始时、至今
 		var statisticrange = _self.parents('.addSub3').find('.select-wrap.acSe6 .selected').text();
@@ -2729,8 +2739,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 	$('.areaSave').click();
 	var areaData = $('#area-data').val();
-	// alert(areaData);return;	
-
+	// alert(areaData);return;
 	data["area_condition"] = JSON.parse(areaData);
 	// console.log(JSON.stringify(data, null, 4));
 	// return;
