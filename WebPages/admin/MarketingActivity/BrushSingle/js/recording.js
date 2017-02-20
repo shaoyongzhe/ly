@@ -571,8 +571,11 @@ function fncaozuo() {
 			if(td12 == "申诉中") {
 				attr += "<li class='vipbohui'>驳回申诉</li>";
 			}
-			if((td12 == "解除违规" && $(this).parents("tr").attr("shensu") != "true") || td12 == "未确认") {
+			if(td12 == "未确认") {
 				attr += "<li class='queren'>调整并确认</li>";
+			}
+			if(td12 == "解除违规" && $(this).parents("tr").attr("shensu") != "true") {
+				attr += "<li class='queren'>确认违规</li>";
 			}
 			if(td12 == "未确认" || td12 == "申诉中" || td12 == "确认违规处罚中") {
 				attr += "<li class='jiechuwg'>解除违规</li>";
@@ -606,8 +609,11 @@ function fncaozuo() {
 			"description": $("#cgl-tjbz").find("textarea").val(),
 			"anticheatingids": $(this).parents("tr").attr("gu-id")
 		};
-		//querenwg_add(putdata);
-		tiaozqr("当前违规等级<span>（" + $(this).parents("tr").find(".cgl-td6").html() + "）</span>", $(this).parents("tr").attr("gu-id"));
+		if($(this).html()=="确认违规"){
+			tiaozqr1("当前违规等级<span>（" + $(this).parents("tr").find(".cgl-td6").html() + "）</span>", $(this).parents("tr").attr("gu-id"));
+		}else{
+			tiaozqr("当前违规等级<span>（" + $(this).parents("tr").find(".cgl-td6").html() + "）</span>", $(this).parents("tr").attr("gu-id"));
+		}
 	}).on("click", ".vipbohui", function() {
 		var putdata = {
 			"dealtstate": "驳回申诉",
@@ -888,12 +894,12 @@ function tiaozqr(dangq, guid) {
 	});
 }
 //确认违规
-function tiaozqr(dangq, guid) {
+function tiaozqr1(dangq, guid) {
 	//console.log(dangq,guid);
 	var cont = "<div>" +
 		"<p class='cgl-dqdj'>" + dangq + "</p>" +
-		"<div class='cgl-tiaoz'>调整至" +
-		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +
+		/*"<div class='cgl-tiaoz'>调整至" +
+		"<select>" + $("#cgl-wgdj").html() + "</select></div>" +*/
 		"<div id='cgl-tjbz'>" +
 		"<h4>备注</h4>" +
 		"<textarea></textarea>" +
@@ -1437,7 +1443,7 @@ function fnweigyy() {
 
 	});
 }
-
+//核销排序
 function fnpaixu(data, order) {
 	var cont = "",
 		cn = null;
@@ -1485,7 +1491,7 @@ function fnpaixu(data, order) {
 	}
 	$(".table2").find("tbody").html(cont);
 }
-
+//三种排序
 function fnshaixuan(data) {
 	fnpaixu(data, "order1");
 	$(".hxjlpx").on("click", "span", function() {
