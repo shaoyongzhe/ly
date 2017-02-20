@@ -308,9 +308,8 @@ function fnychxr(data) {
 		} else {
 			oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
 		}
-		oli += "</div>" +
+		oli += "</div><span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
 			" </div>" +
-			"<span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
 			"<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
 		oli += "</div>" +
 			"</div> " +

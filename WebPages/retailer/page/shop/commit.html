@@ -33,7 +33,7 @@
   		var _flag=0;
   		var _year=new Date().getFullYear()
   		var _month=(new Date().getMonth()+1)>10?new Date().getMonth()+1:("0"+(new Date().getMonth()+1))
-  		var _day=new Date().getDate()>=10?new Date().getDate():"0"+new Date().getDate()
+  		var _day=new Date().getDate()>=10?Number(new Date().getDate())+1:"0"+Nmber(new Date().getDate())+1
   		var _distrgive="";
   		var _reduce=0;
   		var _discount=0;
@@ -61,7 +61,7 @@
        	if(localStorage.Id){
 			_Id=localStorage.Id
 		}else if(location.search==""){
-			location.href="shopcar.html?distributor_id="+localStorage.disId
+			window.history.go(-1)
 		}
 
 		if(_Id!==""){
@@ -326,6 +326,7 @@
        	$(".shoplist").html(_list)
        	$("#sp3").text(data.length)
        	$(".submit span").text("("+data.length+")")
+       	$(".loads2").height($("body").height())
        }//ajax的success方法结束
 		
 	   });      	
@@ -333,6 +334,7 @@
   //ajax结束
 	if(localStorage.Id!=""){
 	   	$(".submit").click(function(){
+	   		$("body").css({overflow:"hidden"})
 	   		console.log($("#inp2").val())
 	   		console.log(localStorage.disId)
 	   		localStorage.removeItem("Id");
@@ -517,7 +519,7 @@
 
 
 <div class="loads"><img src="../../image/shop/jiazai.gif" style="width:15%;margin: 70% 0 0 44%"/></div>
-<div class="loads2"><img src="../../image/shop/jiazai.gif" style="width:15%;margin: 70% 0 0 44%"/><div><span style="font-size: 1.7rem;margin-left: 42%;color:#009f96">提交中...</span></div></div>
+<div class="loads2"><img src="../../image/shop/jiazai.gif" style="position:fixed;width:15%;left:44%;top:40%"/><div style="position: fixed;left: 42%;top: 49%;"><span style="font-size: 1.7rem;color:#009f96">提交中...</span></div></div>
 
 </body>
 </html>
