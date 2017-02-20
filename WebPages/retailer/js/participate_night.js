@@ -248,7 +248,6 @@ $(function(){
 					 	return key;
 				 	}
 				 	jQuery.each(conditions, function(key, value) {  
-				 			console.log(key + '--'+ value)
                          	str+='<div class="variety">'+
 								'<a href="javascript:;">'+keyname(key)+'</a>'+
 							'</div>';
@@ -380,7 +379,6 @@ $(function(){
 					    onProgress: function(swiper){
 					     
 					     // alert(123)
-					     console.log(1)
 					      //currentindex++;
 					       //alert(currentindex); //切换结束时，告诉我现在是第几个slide
 					       // if(currentindex<new_arr.length)
