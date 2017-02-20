@@ -16,9 +16,11 @@ $('table.notify,table.modulePeople').on('click', '.Hui-iconfont', function (e) {
     $(this).toggleClass('on');
     $(".Hui-iconfont").not(this).removeClass('on');
 });
+
 $(document).click(function () {
     $('.Hui-iconfont').removeClass('on');
 });
+
 $(function () {
     $("nav span").first().click();
     getList();
@@ -26,24 +28,61 @@ $(function () {
     getOptionsValue();
 });
 
+
+
+// curr = Number($('#curr').val());
+// var isBottom = false;
 function getList(curr, handle, searchForm) {
-    if (curr == undefined || curr == "") {
-        curr = 1;
-    }
+    
+    var isBottom = false;
+    // var 
+    // if (curr == undefined || curr == "") {
+    //     curr = 1;
+    // } else {
+        // debugger
+        // curr++;
+    // }
+
     var df = {};
     if (handle == 'search') {
         df = searchForm;
+        $("table.notify tbody").empty();
+        // $("table.notify tbody").append(tr);
+
+    } else{
+
+        curr = Number($('#curr').val()) + 1;
+        $('#curr').val(curr);
+
+        if(isBottom){
+            layer.msg('已全部加载完毕');
+            return;
+        }
+
     }
-    var pagesize = 25;
+
+
+    // curr = curr + 1;
+    var pagesize = 15;
     var url = '/webapi/operation/notification/templates?pageindex=' + curr + '&pagesize=' + pagesize;
     _ajax("get", url, df, '刷新列表', function (data) {
         //if (data.error) {
         //    layer.msg('查询出错，出错原因：' + data.error);
         //    return;
         //}
-        $(".totalcount").text(data.totalcount);
-        $("table.notify tbody").empty();
+        console.log($('#curr').val());
+        if(data.content.length == 0){
+            isBottom = true;
+            layer.msg('已全部加载完毕');
+            return;
+        }
+        
 
+
+        $(".totalcount").text(data.totalcount);
+        // $("table.notify tbody").empty();
+        console.log(JSON.stringify(data,null,4));
+        // alert(data.content.length)
         var isSet = "<span class='btn setDefault'>设为默认</span><span class='btn del' title='删除'>删除</span>",
         autoW = "210",//75
         tr = "",
@@ -81,10 +120,13 @@ function getList(curr, handle, searchForm) {
             + "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
             + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
         }
-
+// $('.loading').show()
+ // setTimeout(function() {
         $("table.notify tbody").append(tr);
+        // $('.loading').appendTo('tbody');
         // $(tr).appendTo($("table.notify tbody")).show(600);
-
+// })
+ // $('.loading').hide()
         /*$(tr).appendTo($("table.notify tbody"));
         // alert($(tr).length);
         var len = $(tr).length;
@@ -107,37 +149,37 @@ function getList(curr, handle, searchForm) {
         });
 
         // 显示分页
-        laypage({
-            cont: 'pager',
-            pages: data.pagecount,
-            curr: curr || 1,
-            skip: true,
-            jump: function (obj, first) {
+        // laypage({
+        //     cont: 'pager',
+        //     pages: data.pagecount,
+        //     curr: curr || 1,
+        //     skip: true,
+        //     jump: function (obj, first) {
 
-                if (!first) {
+        //         if (!first) {
 
-                    layer.msg('第' + obj.curr + '页加载中...');
-                    if (handle == 'search') {
-                        getList(obj.curr, 'search', getSearchForm());
-                        return;
-                    }
-                    /*// alert($(tr).length);
-                    var len = $('.notify tbody tr').length + 1;
-                    var index = len;
-                    var interval = setInterval(prev, 100);
-                    layer.msg('正在查询...');
-                    function prev() {
-                        $('.notify tbody tr').eq(index).hide(600);
-                        index--;
-                    }*/
-                    getList(obj.curr, 'page');
-                    /*if(handle=='open'){
-                        layer.msg('正在查询...',{time:0});
-                        getList(obj.curr, 'search');
-                    }*/
-                }
-            }
-        });
+        //             layer.msg('第' + obj.curr + '页加载中...');
+        //             if (handle == 'search') {
+        //                 getList(obj.curr, 'search', getSearchForm());
+        //                 return;
+        //             }
+        //             // alert($(tr).length);
+        //             var len = $('.notify tbody tr').length + 1;
+        //             var index = len;
+        //             var interval = setInterval(prev, 100);
+        //             layer.msg('正在查询...');
+        //             function prev() {
+        //                 $('.notify tbody tr').eq(index).hide(600);
+        //                 index--;
+        //             }
+        //             getList(obj.curr, 'page');
+        //             /*if(handle=='open'){
+        //                 layer.msg('正在查询...',{time:0});
+        //                 getList(obj.curr, 'search');
+        //             }*/
+        //         }
+        //     }
+        // });
 
         if (handle) {
             $('.layui-layer-close').click();
@@ -162,16 +204,19 @@ function getList(curr, handle, searchForm) {
                 layer.msg("已开启为当前使用模板");
             }*/
             if (handle == 'page') {
+
                 layer.msg("加载成功");
                 return;
             }
-            layer.msg("操作成功");
+            //layer.msg("操作成功");
         }
     });
 };
+
 $('#refresh').click(function () {
     getModulePeopleList();
 })
+
 function getModulePeopleList(curr, handle, searchForm) {
     var url = '/webapi/operation/' + "notification" + '/managers';
     _ajax("get", url, {}, '刷新列表', function (data) {
@@ -201,11 +246,29 @@ function getModulePeopleList(curr, handle, searchForm) {
         }
     });
 };
+
 // 查询
 $(".search-btn").click(function () {
-    layer.msg('正在查询...', { time: 20 });
-    getList(1, 'search', getSearchForm());
+    layer.msg('正在查询...');
+
+    $('#curr').val(1);
+    getList(Number($('#curr').val()), 'search', getSearchForm());
+
+
 });
+
+/*
+ * 分页  下拉刷新
+ */
+
+$(".notify tbody").scroll(function() {
+    if($(this).scrollTop() >= ($(this).prop("scrollHeight") - 510) && $(this).prop("scrollHeight") > 510) {
+        // var curr=1;
+        getList(Number($('#curr').val()), 'page', getSearchForm());
+     // console.log(condition)
+    }
+});
+
 //重置
 $(".reset-btn").click(function () {
     $('.search-area .gateway_templateid').val("");
@@ -600,7 +663,10 @@ var _ajax = function (type, url, data, tip, success) {
         dataType: "json",
         data: data,
         beforeSend: function () {
-            //$('.pager-wrap').fadeOut(1000);
+            // $('.pager-wrap').fadeOut(1000);
+            // $('.loading').style='display:block';
+            $('.loading').show();
+            
         },
         complete: function () { },
         timeout: function () { },
@@ -609,7 +675,9 @@ var _ajax = function (type, url, data, tip, success) {
                 layer.msg("【" + tip + '】出错，出错原因：' + json.error);
                 return;
             }
+            $('.loading').hide();
             success(json);
+             
         },
         error: function (ex) {
             console.warn(tip + " error,errMsg is " + ex);
