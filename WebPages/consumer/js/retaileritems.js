@@ -19,7 +19,7 @@ avalon.ready(function () {
     waitloadaddress(function () {
         vm.loaddata(wxlocation.latitude, wxlocation.longitude);
     });
-   
+
 })
 var vm = avalon.define({
     $id: 'retaileritems',
@@ -165,7 +165,7 @@ var vm = avalon.define({
     useticket: function (el) {// 码上用
         if (el.verifylimit > 0) {//可用状态，跳转到码上用核销界面
             var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + el.guid;
-          
+
             var search = window.location.search;
             var isshare = common.getUrlParam(wxjsconfig.sharekey);
             if (isshare != null && isshare != '' && search.length > 0) {
@@ -210,5 +210,15 @@ var vm = avalon.define({
             }
 
         }
+    },
+    topicClick: function (el) {
+        var topicid = "";
+        $.each(el.topiclist, function (index, item, array) {
+            if (index < 20) {
+                topicid += "," + item.topicid
+            }
+        });
+
+        location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
     }
 })

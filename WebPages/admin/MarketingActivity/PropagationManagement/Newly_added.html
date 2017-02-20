@@ -4,27 +4,33 @@
         <meta charset="utf-8">
         <metahttp-equivmetahttp-equiv="x-ua-compatible"content="IE=7"/> 
         <title>市场文案管理</title>
-        <script src="../../lib/jquery/1.9.1/jquery.min.js"></script>
+        <script src="/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script> 
 		<link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-		
+		<script src='/admin/MarketingActivity/PropagationManagement/js/summernote.js'></script>
 		<script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-		<script src="js/Newly_added.js"></script>
-        <link rel="stylesheet" href="css/Newly_added.css">
-        <link rel="stylesheet" href="css/area.css">
+		<script src="/admin/MarketingActivity/PropagationManagement/js/NewlyAdded.js"></script>
+		<link href="http://www.jq22.com/jquery/bootstrap-3.3.4.css" rel="stylesheet">
+        <link rel="stylesheet" href="/admin/MarketingActivity/PropagationManagement/css/Newly_added.css">
+        <link rel="stylesheet" href="/admin/MarketingActivity/PropagationManagement/css/area.css">
+        <link rel="stylesheet" href="/admin/MarketingActivity/PropagationManagement/css/summernote.css">
     </head>
     <body>
     <div class="page-container">
-    	<div class="bread-crumb">营销活动>市场文案管理>新增</div>
-		<div class="content">
+    	<div class="bread-crumb"><span class='activice'>营销活动></span> <span class='activice1'>市场文案管理></span>新增</div>
+    	<!-- <div id='bj'> -->
+			<div class="content">
 			<div class="content_information">
 				<input type="hidden" class="state" value="audit">
 				<div class="Copy_Title" id="wordCount">
 					<span>文案标题</span>
-					<textarea name="Copy_Title" id="textarea_value" cols="30" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" width="650px" rows="10" maxlength="65" resize: none; class="textarea_size"></textarea>
-					<span class="wordwrap" style="margin-right: 90px;margin-top: 12px;">
-						<var class="word">0</var>
-						/65
-					</span>
+					<div class='right_word'>
+						<textarea name="Copy_Title" id="textarea_value" cols="30" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" width="650px" rows="10" maxlength="65" resize: none; class="textarea_size"></textarea>
+						<dev class="wordwrap ab" style="margin-top: 12px;">
+							<var class="word">0</var>
+							/65
+						</dev>
+					</div>
 				</div>
 				<div class="area">
 					<span>发送地区</span>
@@ -37,18 +43,18 @@
 				<div class="send_object">
 					<span style="float: left; margin-top: 16px;">发送对象</span>
 					<dir>
-						<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 4px;float: left;" name="fen" value="分销商"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" height="8" width="11" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;">分销商</a>
-						<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 4px;float: left;" name="fen" value="门店"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;">门店</a>
-						<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 4px;float: left;" name="fen" value="消费者"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;">消费者</a>
+						<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 4px;float: left;border-radius:3px" name="fen" value="分销商"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/3.png" height="8" width="11" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;">分销商</a>
+						<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 4px;float: left;border-radius:3px" name="fen" value="门店"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/3.png" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;">门店</a>
+						<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 4px;float: left;border-radius:3px" name="fen" value="消费者"><img  class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/3.png" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;" href="javascript:;">消费者</a>
 					</dir>	
 				</div>
-				<div class="mode1">
+				<div class="mode1_fa">
 					<span style="float: left; margin-top: 16px;">发送方式</span>
-					<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 16px;float: left;margin-left: 52px;" name="fen" value="图文消息推送"><img class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="Images/3.png" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;margin-top: 17px;" href="javascript:;">图文消息推送</a>
+					<div style="display: inline-block;cursor: pointer; width: 14px;height: 14px;border:1px solid #999999;margin-right: 5px;margin-top: 16px;float: left;margin-left: 52px;border-radius:3px;" name="fen" value="图文消息推送"><img class="xiyin" style="display: block;margin:3px 2px;cursor: pointer;" src="/admin/MarketingActivity/PropagationManagement/Images/3.png" alt=""></div><a style="float: left;text-decoration: none;color: #000;margin-right: 13px;margin-top: 4px;margin-top: 17px; " href="javascript:;">图文消息推送</a>
 				</div>
                <form  enctype="multipart/form-data" >
 				<div class="cover_photo">
-					<span>封面图片</span>
+					<span class='fengmian_img'>封面图片</span>
 					<div class="upload_img">
 						<div id="preview" class="upload_img">
 						    <img id="imghead" class="up_img" width="100%" border=0 src=''>
@@ -65,7 +71,7 @@
 					</div>
 				</div>
 				</form>
-
+		<!-- </div> -->
 
 <!-- 地区选择S -->
 	<div class="area-list wrapper"> 
@@ -97,8 +103,8 @@
 				</div>
 			</div>
 			<div class="btn-wrap fl">
-				<span class="btn clear">清除勾选</span>
-				<span class="btn save">确定</span>
+				<span class="btn_a clear">清除勾选</span>
+				<span class="btn_a save">确定</span>
 			</div>
 	</div>
 
@@ -109,8 +115,11 @@
 	<!-- <script src="js/area.js"></script> -->
 	<!-- 地区选择E -->
 				<div class="mode">
-					<span>发送内容</span>
-					<textarea name="" id="send_text" class="Edit_content" cols="30"  rows="10"></textarea>
+					<span class='send_content5'>发送内容</span>
+					<!-- 替换富文本编辑器 -->
+					<!-- <textarea name="" id="send_text" class="Edit_content" cols="30"  rows="10"></textarea> -->
+					<div id="summernote"></div>
+					<!-- <iframe src="summernote-develop20160420/index.html" width="91%" height='auto'></iframe> -->
 				</div>
 				<div class="Graphic_message">
 
@@ -119,75 +128,55 @@
 			        <div> 
 					<label for='datepicker'>发送时间</label>
 					<input name="Fruit" type="radio" value="pushtime_supplier" />自定义
-					<input type="text" value="" readonly="readonly" class="input-text date" id="LAY_demorange_s">
+					<input type="text" value="" readonly="readonly" class="input-text date" style="background:url(/admin/MarketingActivity/PropagationManagement/Images/2.png) no-repeat 97% 50%"; id="LAY_demorange_s">
 					<span class="custom">*选择自定义以后，占用本地区会员消息推送一次</span></div>
 				</div>
 				<div class="_button">
-					<button class="close">关闭</button>
-					<!-- <button type="submit" class="Preservation">保存</button> -->
+					<button class="close_off">关闭</button>
+					<button type="submit" class="Preservation">保存</button>
 					<button class="preview">预览</button>
 					<button class="examine">保存并提交审核<input type="hidden" value="audit"></button>
 					<button class="Newly_added">保存并继续新增</button>
 				</div>
 			</div>
 		</div>
-	<script src="layui-v1.0.2/layui-v1.0.2/layui/layui.js"></script>
+	<div class='foot_textzo'>
+		凌云科技版权所有  京ICP号10211557.
+	</div>
+	<script src="/admin/lib/laydate/laydate.js"></script>
 	<script>
-		// 日期
-		layui.use('laydate', function(){
-		  var laydate = layui.laydate;
-		  var start = {	
-			    min: laydate.now()
-			    ,max: '2099-06-16 23:59:59'
-			    ,istoday: true
-			    ,choose: function(datas){
-			      end.min = datas; //开始日选好后，重置结束日的最小日期
-			      end.start = datas //将结束日的初始值设定为开始日
-			    },
-			    elem: this, 
-			    istime: true, 
-			    format: 'YYYY-MM-DD hh:mm:ss'
-			  };
-			  var end = {
-			    min: laydate.now()
-			    ,max: '2099-06-16 23:59:59'
-			    ,istoday: true
-			    ,choose: function(datas){
-			      start.max = datas; //结束日选好后，重置开始日的最大日期
-			    }
-			  }
-			   document.getElementById('LAY_demorange_s').onclick = function(){
-			    start.elem = this;
-			    laydate(start);
-			  }
+		laydate({
+		  elem: '#LAY_demorange_s',
+		  min: laydate.now(), //-1代表昨天，-2代表前天，以此类推
+		  max: laydate.now(+100000) //+1代表明天，+2代表后天，以此类推
 		});
 
 $(function(){
 	$('.send_object dir div').click(function(){
 		$(this).find('img').toggleClass('xiyin_son')
 	})
-	$('.mode1 div').click(function(){
+	$('.mode1_fa div').click(function(){
 		$(this).find('img').toggleClass('xiyin_son')
 	})
 
 	$('.Graphic_message div input:eq(0)').on('click',function(){
 		$('#LAY_demorange_s').val('');
+		$('#LAY_demorange_s').attr('disabled',true);
+	})
+	$('.Graphic_message div input:eq(1)').on('click',function(){
+		// $('#LAY_demorange_s').val('');
+		$('#LAY_demorange_s').attr('disabled',false);
 	})
 })
+ 	$(document).ready(function() {
+        $('#summernote').summernote();
+    });
 	</script>
     </div>
-<!-- <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>  -->
-<script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script> 
-<!-- <script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>  -->
-<!-- <script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>  -->
-<!-- <script type="text/javascript" src="static/h-ui/js/H-ui.js"></script> 
-<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
-<script src="lib/laypage-v1.3/laypage/laypage.js" type="text/javascript" charset="utf-8"></script> -->
-<!-- <script src="http://blog.51yip.com/demo/datepick/jquery.datepick-zh-CN.js"></script> -->
-		
-		<script src="js/area_select.js"></script>
-		<script src="js/area.js"></script>
-		<script src="js/layer/layer.js"></script>
+		<script type="text/javascript" src="/admin/lib/layer/2.1/layer.js"></script> 
+		<script src="/admin/MarketingActivity/PropagationManagement/js/area_select.js"></script>
+		<script src="/admin/MarketingActivity/PropagationManagement/js/area.js"></script>
+		<!-- <script src="/admin/MarketingActivity/PropagationManagement/js/layer/layer.js"></script> -->
     </body>
 
 </html>

@@ -29,7 +29,7 @@ td {
 
 body {
     font-family: "Microsoft Yahei", "ËÎÌå", arial;
-    min-width: 1200px;
+    min-width: 1060px;
 }
 
 fieldset,
@@ -42,11 +42,32 @@ img {
     padding: 0;
     vertical-align: middle;
 }
-
+/* em{
+    font-style: normal;
+    font-weight: normal;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+    /* width: 4px; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    /* display: inline-block; */
+    /* width: 41px; */
+    /* white-space: normal; */
+    /* width: 49px; */
+} */
 em,
 strong {
     font-style: normal;
     font-weight: normal;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+    /* width: 4px; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    /* display: inline-block; */
+    width: 41px;
 }
 
 li {
@@ -111,7 +132,7 @@ a:hover {
     width: 82px;
     height: 30px;
     position: relative;
-    right: 15px;
+    right: -13px;
     top: 6px;
 }
 
@@ -182,11 +203,10 @@ a:hover {
 }
 
 .selectable li {
-    border:none;
     margin: 0px;
     padding: 10px 0 0 10px;
     /* font-size: 0.6em; */
-    height: 20px;
+    /* height: 20px; */
     width: 75px;
     display: inline-block;
     float: left;
@@ -440,10 +460,10 @@ a:hover {
 
 .ui-widget-content span {
     width: 73px;
-    overflow: hidden;
+    /* overflow: hidden; */
     float: right;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
 }
 
 ul li a {
@@ -578,6 +598,7 @@ ul li a {
     cursor: pointer;
     font-style: normal;
    display: inline-block;
+   /* display: none; */
 }
 
 .charge{
@@ -613,7 +634,7 @@ ul li a {
 
 .provice,
 .city{
-    width: 70px;
+    /* width: 70px; */
 }
 
 .provice,
@@ -633,6 +654,9 @@ ul li a {
 
 .district-wrap span{
     margin: 0 10px 6px 0;
+}
+.district-wrap span em{
+    font-style: normal;
 }
 
 .region-item + .region-item{
@@ -654,19 +678,20 @@ input,select{
 
 .shengName{
     width: 40px;
-    vertical-align: middle;
+    font-style: normal;
+    /* vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
 }
 
 .btn-wrap{
-    width: 60%;
+    width: 100%;
     height: 80px;
     line-height: 80px;
     text-align: center;
     float: left;
-    margin: 8px 20%;
+    margin: 8px 35%;
 }
 .ui-widget-content{
         border :none;
@@ -678,6 +703,7 @@ input,select{
     color: #fff;
     cursor: pointer;
     border-radius: 2px;
+    margin-left: 5px;
     display: block;
     float: left;
 }
@@ -689,16 +715,3 @@ input,select{
     background-color:#ff6032;
     margin-right: 5px;
 }
-
-.Select_province1 select{
-        right: -20px;
-    top: 23px;
-}
-.Select_province1 .choice{
-        margin-top: -20px;
-}
-
-.btn:first-child{
-    margin-left: 25%; 
-}
-

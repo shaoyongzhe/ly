@@ -1,4 +1,4 @@
-body.create{
+body{
 	margin: 0;
 	font-size: 14px;
 	font-family: microsoft yahei;
@@ -6,7 +6,7 @@ body.create{
 	color: #333;
 }
 
-.create i,em,span,label,dfn{
+i,em,span,label,dfn{
 	display: inline-block;
 	font-style: normal;
 }
@@ -41,6 +41,13 @@ ul{
 	position: absolute;
 }
 
+
+.vihi{
+	visibility: hidden;
+}
+.vivi{
+	visibility: visible;
+}
 /* section::-webkit-scrollbar{
 	width:10px;
 	margin-right: 10px;
@@ -71,6 +78,7 @@ section::-webkit-scrollbar-thumb{
 	line-height: 36px;
 }
 
+.path i,
 .bread-crumb i {
 	color: #999;
 	font-family: simsun;
@@ -168,7 +176,7 @@ nav > span.on i{
 }
 
 .input-contorl .edit-area textarea{
-	width: 380px;
+	width: 382px;
 	height: 46px;
 	border-color: #e4e4e4;
 	border-radius: 2px;
@@ -200,7 +208,7 @@ input.quhao{
 }
 
 input.tel{
-	width: 284px;
+	width: 288px;
 }
 
 input.time{
@@ -210,8 +218,18 @@ input.time{
     cursor: pointer;
 }
 
+.shenbao.bor{
+	height: 145px;
+}
+
 #shenbao{
 	height: 124px;
+	border:none;
+}
+
+.shenbao.bor .tip.ab{
+	right: 8px;
+    bottom: 5px;
 }
 
 
@@ -304,7 +322,7 @@ input.time{
 }
 
 .btn-group .btn + .btn{
-	margin-left: 6px;
+	margin-left: 18px;
 }
 
 
@@ -322,8 +340,8 @@ input.time{
 }
 
 .form.condition{
-	width: auto;
-	margin-left: 20px;
+	width: 1086px;
+	/*margin-left: 20px;*/
 }
 
 .condition .input-contorl label{
@@ -350,7 +368,7 @@ input.time{
 .condition .input-contorl .edit-area{
 	display: inline-block;
     width: 960px;
-	padding: 10px 8px;
+	padding: 10px 0;
 	border: 1px solid #e4e4e4;
 	border-radius: 2px;
 }
@@ -397,7 +415,7 @@ input.time{
 
 .tip.ab{
 	bottom: 10px;
-    right: 10px;
+    right: 8px;
     color: #999;
 }
 
@@ -539,21 +557,30 @@ td a.chq_a{
 }
 
 .select-wrap ul{
-    display: none; 
-
+    display: none;
     width: 100%;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     background-color: #efefef;
-    border: 1px solid #ccc;
+    border: 1px solid #e4e4e4;
     border-top: 0;
-    text-align: center; 
-    box-sizing: border-box; 
+    text-align: center;
+    /* box-sizing: border-box; */
     position: absolute;
-    top: 17px;
-    z-index: 1
+    top: 25px;
+    left: -0.5px;
+    z-index: 1;
+    line-height: 28px;
 }
 
 
+.select-wrap ul li{
+	transition: .2s
+}
+.select-wrap ul li:hover{
+	background-color: #ccc;
+	border-top-color: transparent;
+	/*color: #fff;*/
+}
 .select-wrap ul li + li{
 	border-top: 1px solid #ddd;
 }
@@ -796,7 +823,7 @@ span.tip.warn{
 }
 
 .area .item > span{
-    max-width: 870px;
+    /*max-width: 660px;*/
     vertical-align: middle;
 }
 
@@ -876,8 +903,11 @@ span.tip.warn{
 
 
 .wenan-text{
-	padding-bottom: 20px;
-    /*border-bottom: 1px solid #e4e4e4;*/
+    padding-bottom: 24px;
+    /* border-bottom: 1px solid #e4e4e4; */
+    word-break: break-all;
+    /* background-color: #eee; */
+    /* border: 1px solid; */
 }
 
 /*.xuanchuan.edit{display: none;}*/
@@ -908,15 +938,15 @@ span.tip.warn{
     width: 100%;
     height: 180px;
     padding-bottom: 20px;
-    border: 1px solid #e4e4e4;
+    border: none;
     /* margin: 10px 10px 0 10px; */
-    border-radius: 2px;
+    /*border-radius: 2px;*/
 }
 
 
 .wenan-text span.tip{
-	bottom: 30px;
-    right: 10px;
+	bottom: 3px;
+    right: 8px;
 }
 
 
@@ -933,32 +963,48 @@ span.tip.warn{
 	width: 84%;
 }
 
-.region{
-	margin: -30px 0 0 95px;
+.ml98{
+    margin-left: 98px;
 }
 
 label.condition{
 	vertical-align: top;
 }
 
-.region label{
-	margin-right: 3px;
+
+
+
+.region-view {
+	margin: -30px 0 0 95px;
+}
+
+.region-view label{
+	margin: 0;
 	vertical-align: top;
 }
 
-.province,
-.region-info span{
-	display: block;
+.region-view .province-wrap{
+	margin: -19px 0 0 80px;
 }
 
-.province{
-	padding: 0px 0 5px 0;
+.region-view .province-item .city{
+	width: 310px;
+	/*margin-bottom: 10px;*/
+	margin-top: 5px;
 }
 
-.province + .province{
-	padding: 5px 0 5px 0;
+.region-view .province-item .city i{
+	margin-right: 10px;	
+}
+
+.region-view .province-item + .province-item{
 	border-top: 1px solid #e4e4e4;
+	padding-top: 10px;
 }
+
+
+
+
 
 .item .sec{
 	border-bottom: 1px solid #e4e4e4;
@@ -971,8 +1017,9 @@ label.condition{
     padding-bottom: 10px;
 }
 
-.sec label.zbf{
-	margin-right: 5px;
+
+.sec span.zbf{
+	margin-left: 33px;
 }
 
 .sec table{
@@ -988,9 +1035,7 @@ label.condition{
 	margin-top: -36px;
 }
 
-.ml98{
-    margin-left: 98px;
-}
+
 
 .ell{
 	white-space: nowrap;
@@ -1081,8 +1126,11 @@ label.condition{
 	overflow: hidden;
 }
 
+
+.tip.wx,
 .tip.biaoyu{
 	bottom: 9px;
+	right: 8px;
 }
 
 textarea.wxtw{
@@ -1208,13 +1256,18 @@ textarea{
 	margin-bottom: 20px;
 }
 
-.set-rules .guizerules dfn{
+.set-rules .guizerules-wrap dfn{
 	color: #ff6032
 }
 
-.set-rules .guizerules > span{
+.set-rules .guizerules-wrap > span{
 	vertical-align: top;
 }
+
+.set-rules .guizerules-wrap ul{
+	margin: -18px 0 0 80px;
+}
+
 
 .set-rules input{
 	width:120px;
@@ -1246,7 +1299,7 @@ textarea{
 
 
 .layer.yao{
-	width: 800px;
+	width: 740px;
 }
 
 .yaook{
@@ -1335,3 +1388,54 @@ textarea{
 	display: none;
 	/*display: block!important;*/
 }
+
+
+.sec.tuWen{
+	width: 1100px;
+	margin: 0 auto;
+}
+
+
+.yaook.disabled,
+.gailvok.disabled,
+.shenhe.disabled{
+	background-color: #ccc;
+	cursor: default;
+}
+
+#time_y{
+	background: #fff;
+}
+
+.pre{
+	vertical-align: -3px;
+}
+
+.edit-area.condition{
+	border: none!important;
+	margin-left: -20px;
+}
+
+
+
+.hdzt textarea{
+	border: none;
+}
+
+.pb10{
+	padding-bottom: 10px;
+}
+
+.hdzt .tip.ab{
+	top: 36px;
+    right: 8px;
+}
+
+.wechattitle{
+	width: 740px;
+}
+
+
+/* .addSub2 .member > div{
+	float: left;
+} */

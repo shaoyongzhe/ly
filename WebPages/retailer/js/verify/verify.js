@@ -89,7 +89,6 @@ var vm = avalon.define({
                                 var errormsg = "当前网络不给力，请稍候重试";
                                 if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                                     var json = JSON.parse(XMLHttpRequest.responseText);
-                                    alert(json)
                                     if (json.indexOf("Message") >= 0)
                                         errormsg = JSON.parse(json.Message).error;
                                     else
@@ -203,5 +202,8 @@ var vm = avalon.define({
                 location.href = "/retailer/page/verifycodebind.html?retailername=" + encodeURIComponent(vm.retailername) + "&qrlimitken=" + token[1];
             }
         });
+    },
+    verifycodedown: function () {
+        location.href = "/retailer/page/verifycodedown.html?IsApply=" + (vm.isbinding ? 0 : 1)
     }
 })

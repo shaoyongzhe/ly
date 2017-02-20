@@ -10,11 +10,11 @@ $('.region-wrap').on('click', '.x', function() {
 		_this.closest('.region-item').remove()
 		return;
 	}
-
+	$(this).parent().remove();
 	// $(this).parent().addClass('on');
-	_this.parent().fadeOut(300, function() {
-		_this.remove();
-	});
+	// _this.parent().fadeOut(300, function() {
+	// 	_this.remove();
+	// });
 
 });
 
@@ -72,7 +72,7 @@ $('.setBtn').on('click', function() {
 
 function dataLoad() {
 	// debugger;
-	var area_key_list = ['北京市', '北京市 ', '海淀区'];
+	var area_key_list = ['北京市', '北京市', '海淀区'];
 	var area_json = $.area_json['中国'];
 	var area_selected = new Array(); //区域选中级别
 	var area_selected_3 = new Array(); //区域选中级别
@@ -346,7 +346,11 @@ function dataLoad() {
 			$('.quanbusheng').prop('checked',false);
 			// console.log($(this).closest('li').find('span').text());
 			var this_city = $(this).closest('li').find('span').text();
-			$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			if($("span:contains("+ this_city +")").length==3){
+				$("span:contains("+ this_city +"):eq(2)").closest('li').find(":checkbox").click();
+			}else{
+				$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			}
 
 			return;
 		}
@@ -358,7 +362,7 @@ function dataLoad() {
 
 		if (_this.is(':checked') == false) {
 			$('.quanbushi').prop('checked',false);
-
+			// alert('debugger')
 			// debugger;
 			$('.city > span em').each(function(index, el) {
 				// debugger;
@@ -754,7 +758,7 @@ $('.area-list .save').click(function() {
 	});
 
 	$('.area_val').val(JSON.stringify(areaObj, null, 4));
-	console.log(JSON.stringify(areaObj, null, 4));
+	// console.log(JSON.stringify(areaObj, null, 4));
 
 	// "area_condition": [
 	//       [

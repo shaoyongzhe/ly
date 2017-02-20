@@ -11,16 +11,18 @@ $('.region-wrap').on('click', '.x', function() {
 		return;
 	}
 
+	
+		$(this).parent().remove();
 	// $(this).parent().addClass('on');
-	_this.parent().fadeOut(300, function() {
-		_this.remove();
-	});
+	// _this.parent().fadeOut(300, function() {
+	// 	_this.remove();
+	// });
 
 });
 
 $('.area_Update').on('click', function() {
 
-	$('.region-wrap').empty();
+	// $('.region-wrap').empty();
 
     // alert(1)
 	layer.open({
@@ -50,17 +52,30 @@ $('.area_Update').on('click', function() {
 	/*$('.Select_the_province').on('click', '.ui-selected', function() {
 		$(this).addClass('on').siblings().removeClass('on');
 	});*/
-
+//全省
 	$('.provice .shengName').each(function(){
 		// debugger
 		var shengName = $(this).text();
 		$('.Select_the_province li span').each(function(){
 			if($(this).text() == shengName){
+				$(this).closest('.diqushezhi').click();
 				$(this).closest('li').addClass('on').find(':checkbox').prop("checked",true);
 			}
 		});
 	});
-
+//全国
+$('.provice .shengName').each(function(){
+		// debugger
+		var quanguo = $(this).text();
+		$('.Select_the_province .qt').each(function(){
+			if($(this).text() == quanguo){
+				// $(this).closest('.diqushezhi').click();
+				$(this).find('input').prop("checked",true);
+			}else{
+				$(this).find('input').prop("checked",false);
+			}
+		});
+	});
 
 	$('.Select_province1').empty();
 	$('.Select_province2').empty();
@@ -74,7 +89,7 @@ $('.area_Update').on('click', function() {
 
 function dataLoad() {
 	// debugger;
-	var area_key_list = ['北京市', '北京市 ', '海淀区'];
+	var area_key_list = ['北京市', '北京市', '海淀区'];
 	var area_json = $.area_json['中国'];
 	var area_selected = new Array(); //区域选中级别
 	var area_selected_3 = new Array(); //区域选中级别
@@ -170,7 +185,8 @@ function dataLoad() {
 				// debugger
 				var cityName = $(this).text();
 				$('.Select_the_province1 li span').each(function(){
-					if($(this).text() == cityName){
+					if($.trim($(this).text()) == cityName){
+						$(this).closest('.diqushezhi').click(); 
 						$(this).closest('li').find(':checkbox').prop("checked",true);
 					}
 				})
@@ -180,18 +196,18 @@ function dataLoad() {
 		if (_this.closest('.Select_province1').length == 1){
 			// console.log('quxian');
 			var shi = _this.closest('li').find('span').text(); //alert(shi)
-			var qx = $('.cityName:contains('+ shi +')').closest('.city-wrap').find('.district-wrap em'); 
+			var qx = $('.cityName').closest('.city-wrap').find('.district-wrap em'); 
 			qx.each(function(){
 				// debugger
 				var quxian = $(this).text();
 				$('.Select_province2 li span').each(function(){
-					if($(this).text() == quxian){
+					if($.trim($(this).text()) == quxian){
+						$(this).closest('.diqushezhi').click(); 
 						$(this).closest('li').find(':checkbox').prop("checked",true);
 					}
 				})
 			});
 		}
-
 	});
 
 
@@ -201,7 +217,7 @@ function dataLoad() {
 			// alert(1);
 			$('.area-list :checked').not(this).prop('checked',false);
 			$('.area-list li.on').removeClass('on');
-			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em>全国</em><i class="x">×</i></span></div></div></div>');
+			$('.region-wrap').html('<div class="region-item"><div class="row"><div class="provice"><span><em class="shengName">全国</em><i class="x">×</i></span></div></div></div>');
 			$('.Select_province1').empty();
 			$('.Select_province2').empty();
 		} else {
@@ -351,7 +367,11 @@ function dataLoad() {
 			$('.quanbusheng').prop('checked',false);
 			// console.log($(this).closest('li').find('span').text());
 			var this_city = $(this).closest('li').find('span').text();
-			$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			if($("span:contains("+ this_city +")").length==3){
+				$("span:contains("+ this_city +"):eq(2)").closest('li').find(":checkbox").click();
+			}else{
+				$("span:contains("+ this_city +")").closest('li').find(":checkbox").click();
+			}
 
 			return;
 		}
@@ -393,9 +413,7 @@ function dataLoad() {
 				_this.closest('.region-item').find('em:contains('+ selectedshi +')').closest('.city-wrap').remove();
 				_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'></div></div>");
 			}
-
 		});
-
 	});
 
 
@@ -520,7 +538,7 @@ function dataLoad() {
 					_this.closest('.region-item').find('.allCity').remove();
 					// _this.closest('.region-item').find('.city-wrap').remove();
 					_this.closest('.region-item').find('.cityName:contains('+ selectedshi +')').closest('.city-wrap').remove();
-					
+					_this.closest('.region-item').find('.cityName').closest('.city-wrap').remove();
 					_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='district-wrap'>"+ getDistrictHtml() +"</div></div></div>");
 
 					// $('.cityName').each(function(i,item){
@@ -702,7 +720,6 @@ $('.area-list .save').click(function() {
 
 	var areaObj = {};
 		areaObj["area"] = [];
-
 	var provArr = [];
 	var provObj = {};
 	$('.region-item').each(function(){

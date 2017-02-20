@@ -14,8 +14,186 @@
     <link rel="stylesheet" type="text/css" href="../../lib/Hui-iconfont/1.0.7/iconfont.css" />
     <!-- <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" /> -->
     <script src="laydate/laydate.js"></script>
+    <style>
+        .select-wrap {
+            width: 200px;
+            border: 1px solid #e4e4e4;
+            line-height: 30px;
+            cursor: pointer;
+            position: relative;
+            border-radius: 2px;
+            margin: -23px 0 0 93px;
+        }
+
+
+            .select-wrap input {
+                width: 100%;
+                height: 20px;
+                border: none;
+                text-indent: 1em;
+                font-size: 14px;
+            }
+
+            .select-wrap i {
+                width: 30px;
+                position: absolute;
+                /* background: red; */
+                height: 20px;
+                right: 0;
+                top: 6px;
+                border-left: 1px solid #ccc;
+            }
+
+                .select-wrap i:before {
+                    content: "";
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid #ccc;
+                    border-bottom: 2px solid #ccc;
+                    transform: rotate(45deg);
+                    /* background: red; */
+                    display: inline-block;
+                    margin: 0 0 7px 10px;
+                }
+
+            .select-wrap ul {
+                display: none;
+                width: 100%;
+                padding: 0 10px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-top: 0;
+                text-align: center;
+                box-sizing: border-box;
+                position: absolute;
+                top: 31px;
+                z-index: 100;
+            }
+
+
+                .select-wrap ul li {
+                    line-height: 30px;
+                    font-size: inherit;
+                }
+
+                    .select-wrap ul li + li {
+                        border-top: 1px solid #ddd;
+                    }
+
+
+
+        .gf-select {
+            width: 33% !important;
+            float: left;
+            position: relative;
+            width: 200px;
+        }
+
+            .gf-select span {
+                width: 83%;
+                padding: 4px 0px 0 10px;
+                display: block;
+                border: 1px solid #ddd;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+
+                .gf-select span em {
+                    font-style: normal;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 50px;
+                    display: inline-block;
+                }
+
+            .gf-select .icon-jt {
+                width: 30px;
+                position: absolute;
+                /* background: red; */
+                height: 20px;
+                right: 5px;
+                top: 6px;
+                border-left: 1px solid #ccc;
+                z-index: -1;
+            }
+
+                .gf-select .icon-jt:before {
+                    content: "";
+                    width: 8px;
+                    height: 8px;
+                    border-right: 2px solid #ccc;
+                    border-bottom: 2px solid #ccc;
+                    transform: rotate(45deg);
+                    /* background: red; */
+                    display: inline-block;
+                    margin: 3px 0 7px 10px;
+                }
+
+            .gf-select ul {
+                border: 1px solid #ddd;
+                position: absolute;
+                width: 100%;
+                top: 31px;
+                overflow-y: auto;
+                display: none;
+                background: #fff;
+            }
+
+                .gf-select ul li {
+                    border-bottom: 1px solid #ddd;
+                    line-height: 30px;
+                    padding-left: 10px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                    .gf-select ul li:last-child {
+                        border-bottom: none;
+                    }
+
+        .regionAll {
+            width: 396px;
+            height: 46px;
+        }
+
+        .regionAll_left {
+            float: left;
+            width: 93px;
+            height: 46px;
+        }
+
+        .regionall_right {
+            float: left;
+            width: 303px;
+            height: 46px;
+        }
+
+        .regionAll_left p {
+            line-height: 31px;
+            font-size: 15px;
+        }
+
+        #province ul {
+            z-index: 99999;
+        }
+
+        #city ul {
+            z-index: 9999;
+        }
+
+        #area ul {
+            z-index: 999;
+        }
+
+        .select_template {
+            white-space: pre-wrap !important;
+        }
+    </style>
 </head>
 <body>
+
     <div class="page-container">
         <div class="bread-crumb">系统管理<span> > </span>通知管理</div>
         <nav>
@@ -28,31 +206,31 @@
                     <div class="input-contorl">
                         <label>使用场景</label>
                         <select name="" id="" class="first-type">
-                            <option value="">-- 请选择 --</option>
+                            <option value="" data-key="">-- 请选择 --</option>
                         </select>
                     </div>
                     <div class="input-contorl">
                         <label>事件</label>
                         <select name="" id="" class="second-type">
-                            <option value="">-- 请选择 --</option>
+                            <option value="" data-key="">-- 请选择 --</option>
                         </select>
                     </div>
                     <div class="input-contorl">
                         <label>发送途径</label>
                         <select name="" id="" class="third-type">
-                            <option value="">-- 请选择 --</option>
+                            <option value="" data-key="">-- 请选择 --</option>
                         </select>
                     </div>
                     <div class="input-contorl">
                         <label>组名</label>
                         <select name="" id="" class="fourth-type">
-                            <option value="">-- 请选择 --</option>
+                            <option value="" data-key="">-- 请选择 --</option>
                         </select>
                     </div>
                     <div class="input-contorl">
                         <label>状态查询</label>
                         <select name="" id="" class="fifth-type">
-                            <option value="">--  全部  --</option>
+                            <option value="" data-key="">--  全部  --</option>
                             <option value="Normal">正常状态</option>
                             <option value="Draft">新增待编辑</option>
                         </select>
@@ -88,7 +266,7 @@
                     设置默认分组
                 </span>
                 <select name="" id="" class="float_right group_type">
-                    <option value="">-- 请选择 --</option>
+                    <option value="" data-key="">-- 请选择 --</option>
                 </select>
             </div>
 
@@ -101,6 +279,7 @@
                         <th>发送途径</th>
                         <th>组名</th>
                         <th>区域</th>
+                        <th>描述</th>
                         <th>外部模板编号</th>
                         <th>内容</th>
                         <th>状态</th>
@@ -136,6 +315,7 @@
     </div>
 
     <div class="addForm">
+
         <div class="input-contorl">
             <label>外部模板编号</label>
             <input type="text" value="" class="input-text gateway_templateid" placeholder="&nbsp;必要时可为空直接发送内容!">
@@ -143,9 +323,12 @@
 
         <div class="input-contorl">
             <label>使用场景</label>
-            <select name="" id="" class="firsttype">
-                <option value="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <!--<em class="selected">shaoyongzhe</em>-->
+                <input type="text" name="name" value="" class="category_input" />
+                <ul class="select template_category select_template"></ul>
+            </div>
         </div>
 
         <!--<div class="input-contorl">
@@ -155,9 +338,12 @@
 
         <div class="input-contorl">
             <label>事件</label>
-            <select name="" id="" class="secondtype">
-                <option value="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <!--<em class="selected">shaoyongzhe</em>-->
+                <input type="text" name="name" value="" class="event_input" />
+                <ul class="select template_event select_template"></ul>
+            </div>
         </div>
 
         <!--<div class="input-contorl">
@@ -167,24 +353,57 @@
 
         <div class="input-contorl">
             <label>发送途径</label>
-            <select name="" id="" class="thirdAllType">
-                <option value="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <input type="text" name="name" value="" class="sendway_input" />
+                <ul class="select template_sendway select_template"></ul>
+            </div>
+
         </div>
 
         <div class="input-contorl">
             <label>组名</label>
-            <select name="" id="" class="fourthtype">
-                <option value="">-- 请选择 --</option>
-            </select>
+            <div class="select-wrap">
+                <i></i>
+                <!--<em class="selected">shaoyongzhe</em>-->
+                <input type="text" name="name" value="" class="group_input" />
+                <ul class="select template_group"></ul>
+            </div>
         </div>
 
-        <div class="input-contorl">
+        <!--<div class="input-contorl">
             <label>新增组名</label>
             <input type="text" value="" class="input-text fourthtypeInput" placeholder="&nbsp;可为空，为空使用选择的组名">
-        </div>
+        </div>-->
+        <!-- 新增s -->
+        <div class="regionAll">
+            <div class="regionAll_left">
+                <p>影响区域</p>
 
-        <div class="input-contorl">
+            </div>
+            <div class="regionall_right">
+                <div class="gf-select" id="province">
+                    <span><em>省份</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+                    <ul>
+                        <li data-value="">省份</li>
+                    </ul>
+                </div>
+                <div class="gf-select" id="city">
+                    <span><em>城市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+                    <ul>
+                        <li data-value="">城市</li>
+                    </ul>
+                </div>
+                <div class="gf-select" id="area">
+                    <span><em>区县</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+                    <ul>
+                        <li data-value="">区县</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 新增e -->
+        <!-- <div class="input-contorl">
             <label>影响省份</label>
             <select class="form-control" id="loc_province" name="loc_province"></select>
         </div>
@@ -195,8 +414,7 @@
         <div class="input-contorl">
             <label>影响市、县、区</label>
             <select class="form-control" id="loc_county" name="loc_county"></select>
-        </div>
-
+        </div> -->
         <div class="input-contorl">
             <label>内容</label>
             <textarea name="" id="" class="content"></textarea>
@@ -210,8 +428,8 @@
         <div class="input-contorl">
             <label>是否默认</label>
             <select name="" id="" class="isDefault">
-                <option value="0">false</option>
-                <option value="1">true</option>
+                <option value="0">否</option>
+                <option value="1">是</option>
             </select>
         </div>
         <span class="add-btn">确定</span>
@@ -230,9 +448,15 @@
 <script type="text/javascript" src="../../lib/laypage-v1.3/laypage/laypage.js"></script>
 <script type="text/javascript" src="Notification.js"></script>
 <script src="../../lib/district/ipaloma_location.js"></script>
+<script type="text/javascript" src="/admin/lib/district/js/cityLink.js"></script>
 <script>
     showLocation();
     $(function () { $(window).on("scroll", $backToTopFun); $backToTopFun(); });
+    $(function(){
+        comSelect();
+        selectCity();
+    });
+
 </script>
 <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> -->
 <!-- <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>

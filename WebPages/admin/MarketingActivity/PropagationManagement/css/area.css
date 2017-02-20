@@ -15,6 +15,7 @@ h6,
 pre,
 code,
 form,
+
 fieldset,
 legend,
 input,
@@ -42,11 +43,32 @@ img {
     padding: 0;
     vertical-align: middle;
 }
-
-em,
-strong {
+em{
     font-style: normal;
     font-weight: normal;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+    /* width: 4px; */
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    /* display: inline-block; */
+    /* width: 41px; */
+    /* white-space: normal; */
+    /* width: 49px; */
+}
+em,
+strong {
+        font-style: normal;
+    font-weight: normal;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
+    /* width: 4px; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    /* display: inline-block; */
+    width: 41px;
 }
 
 li {
@@ -97,7 +119,7 @@ a:hover {
 
 
 .Select_province2{
-    margin-left: 30px;
+    margin-left: 41px;
 }
 
 /* .area-list-item2 { width: 150px; float: left; margin-left: 10px; background-color:#FwDFDFD; } */
@@ -147,7 +169,7 @@ a:hover {
 .selectable .ui-selected {
     /* background: url(04diqushezhi-baijiaohao.png) no-repeat right; */
     color: #000000;
-    width: 123px;
+    width: 129px;
     height: 66px;
     border: 1px solid #e4e4e4;
     border-top: none;
@@ -166,7 +188,7 @@ a:hover {
 .selectable .ui-selected1 {
     background: url(04diqushezhi-baijiaohao.png) no-repeat right;
     color: #000000;
-    width: 120px;
+    width: 123px;
     height: 78px;
     border: 1px solid #e4e4e4;
 }
@@ -185,7 +207,7 @@ a:hover {
     margin: 0px;
     padding: 10px 0 0 10px;
     /* font-size: 0.6em; */
-    height: 20px;
+    /* height: 20px; */
     width: 75px;
     display: inline-block;
     float: left;
@@ -195,15 +217,15 @@ a:hover {
 .area-list-item .choice {
      float: left;
     margin-left: 21px;
-    margin-top: -16px;
+    margin-top: -19px;
     display: block;
     cursor: pointer;
 }
 
 .area-list-item1 .choice {
-    float: left;
-    margin-left: -11px;
-    margin-top: 2px;
+       float: left;
+    margin-left: -22px;
+    margin-top: -1px;
     display: block;
     cursor: pointer;
 }
@@ -439,10 +461,10 @@ a:hover {
 
 .ui-widget-content span {
     width: 73px;
-    overflow: hidden;
+    /* overflow: hidden; */
     float: right;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
 }
 
 ul li a {
@@ -542,7 +564,7 @@ ul li a {
 
 .region-wrap{
     margin-left: 100px;
-    width: 90%;
+    width: 80%;
     /* background: antiquewhite; */
     /* height: 140px; */
     margin-top:10px;
@@ -613,7 +635,7 @@ ul li a {
 
 .provice,
 .city{
-    width: 70px;
+    /* width: 70px; */
 }
 
 .provice,
@@ -654,10 +676,10 @@ input,select{
 
 .shengName{
     width: 40px;
-    vertical-align: middle;
+    /* vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
 }
 
 .btn-wrap{
@@ -671,7 +693,7 @@ input,select{
 .ui-widget-content{
         border :none;
 }
-.btn{
+.btn_a{
     width: 128px;
     height: 30px;
     line-height: 30px;
@@ -681,11 +703,11 @@ input,select{
     display: block;
     float: left;
 }
-.btn.clear {
+.btn_a.clear {
     background-color: #ccc;
     margin-right: 5px;
 }
-.btn.save {
+.btn_a.save {
     background-color:#ff6032;
     margin-right: 5px;
 }
