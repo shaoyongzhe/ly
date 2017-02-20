@@ -240,3 +240,8 @@
 				#page_middle > li > ul > li >p{
 					margin-top: 8px;
 				}
+/*新增*/
+.main_content h1{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.main_content dl dt img{height: 1rem;}
+.main_content dl dd{height: 1rem;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;line-height: .33rem!important;word-break:break-all;}
+.content_box{height: 2rem!important;margin-bottom: 0.05rem;}

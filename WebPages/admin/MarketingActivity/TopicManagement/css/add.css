@@ -476,13 +476,13 @@ div.acZige:before{
 	background:white;
 }
 .acZige5c input:nth-of-type(1){
-	width:20px;
-	/*background:red;*/
-	line-height: 24px;
-	position: absolute;
-	left:9px;
-	top:0px;
-	border: 0;
+	    width: 35px;
+    /* background: red; */
+    line-height: 24px;
+    position: absolute;
+    /* left: 0px; */
+    top: 0px;
+    border: 0;
 }
 .acZige5c input:nth-of-type(2){
 	/*background:gray;*/
@@ -494,10 +494,11 @@ div.acZige:before{
 	border: 0;
 }
 .acZige5c p:nth-of-type(1){
-	line-height: 24px;
-	position: absolute;
-	left:31px;
-	top:0px;
+	    line-height: 24px;
+    /* width: auto; */
+    position: absolute;
+    left: 35px;
+    top: 0px;
 }
 .acZige5c p:nth-of-type(2){
 	line-height: 24px;

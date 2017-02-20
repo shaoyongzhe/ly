@@ -152,3 +152,40 @@ function getUrlKeyValue(){
     
 }
 
+function btduixiang(a){
+	var btduixiang = "";
+	switch(a){	
+		case "distributor":
+		btduixiang = '分销商'
+		break;		
+		
+		case "distributoremployee":
+		btduixiang = '分销商人员'
+		break;
+		
+		case "distributor_employee":
+		btduixiang = '分销商人员'
+		break;
+		
+		case "retailer":
+		btduixiang = '门店'
+		break;
+		
+		
+		case "retaileremployee":
+		btduixiang = '门店店员'
+		break;
+		
+		case "retailer_employee":
+		btduixiang = '门店店员'
+		break;
+		
+		case "consumer":
+		btduixiang = '消费者'
+		break;
+		
+		default:
+		btduixiang =a;
+	}	
+	return btduixiang;
+}
