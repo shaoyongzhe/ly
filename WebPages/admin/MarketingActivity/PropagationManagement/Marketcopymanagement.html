@@ -35,30 +35,31 @@
 		
 		<div class="bread-crumb">营销活动><span style="color:#000">市场文案管理</span></div>
 		<div class="search-wrap">
-
 				<div class="search-area">
-
 					<!-- ==========遮罩层=S==================== -->
 					<!-- <div class="xiaoxi" id="msg"> <a style="line-height:100%;position:absolute;left: 46%;top:50%;font-size:26px; color:#fff;" class="msgg">加载中...</a></p></div> -->
 					<!-- ==========遮罩层==E=================== -->
 					<!-- <div class="search-pos-item"> -->
+					<div class='zongchang'>
 						<div class="input-contorl">
 							<label for='datepicker'>文案编号</label>
 							<input type="text" value="" class="input-text" id="numbul_val">
 						</div>
 						
-						<div class="input-contorl">
+						<div class="input-contorl xcxc">
 							<label>发送时间</label>
 							<input type="text" value="" readonly="readonly" style="background:url(/admin/MarketingActivity/PropagationManagement/Images/2.png) no-repeat 97% 50%;"; class="input-text date"  id="serverBeginTime"> <span class='zhi'>至</span>
 							<input type="text" value="" readonly="readonly" style="background:url(/admin/MarketingActivity/PropagationManagement/Images/2.png) no-repeat 97% 50%;"; class="input-text date"  id="serverEndTime">
 						</div>
-						<div class="input-contorl">
+						<div class="input-contorl juli">
 							<label for='datepicker'>文案标题</label>
 							<input type="text" value="" class="input-text length_val" maxlength="65" id="service_val">
 						</div>
+					</div>
+					<div class='zongchang'>
 						<div class="input-contorl">
 							<label>发送对象</label>
-							<select name="" class="input-text text2">
+							<select name="" class="input-text text2 jiantou">
 								<option value="">--请选择--</option>
 								<option value="分销商">分销商</option>
 								<option value="门店">门店</option>
@@ -68,35 +69,35 @@
 					<!-- </div> -->
 
 					<!-- <div class="search-pos-item"> -->
-						<div class="input-contorl">
+						<div class="input-contorl area1">
 							<!-- <label>发送地区</label> -->
 							<!-- <input type="text" value="" class="input-text" id="area"> -->
 							<div class="box">
-								<span class="name">发送地区:</span>
+								<span class="name">发送地区</span>
 								<div class="gf-select" id="province">
-									<span><em>省份</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+									<span><em>省</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
 									<ul>
 										<li data-value="">省份</li>
 									</ul>
 								</div>
 								<div class="gf-select" id="city">
-									<span><em>城市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+									<span><em>城</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
 									<ul>
 										<li data-value="">城市</li>
 									</ul>
 								</div>	
 								<div class="gf-select" id="area">
-									<span><em>区县</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+									<span><em>区</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
 									<ul>
 										<li data-value="">区县</li>
 									</ul>
 								</div>	
 							</div>
 						</div>
-						<div class="input-contorl">
+						<div class="input-contorl juli_two">
 							<label>发送状态</label>
 							<!-- <input type="text" value="" class="input-text"> -->
-							<select name="" class="input-text text1">
+							<select name="" class="input-text text1 jiantou">
 								<option value="">--请选择--</option>
 								<option value="1">草稿</option>
 								<option value="3">审核中</option>
@@ -117,8 +118,8 @@
 									<div value="1"><a href="javascript:;">审核中<input type="hidden" value="store"></a></div>
 								</div>
 							</div>  -->	
-						</div>
-						
+					</div>
+					
 					<!-- </div> -->
 					<input type="button" value="查询" class="search-btn"/>				
 					<input type="button" value="重置" class="search-btn2 resetting"/>	
@@ -257,6 +258,7 @@
 				</div>
 			</div>
 	</div>
+	<div class='toolTip'></div>
 		<!-- 地区选择S -->
 	<div class="area-list wrapper"> 
 		<!-- <div class="wrap"> -->
@@ -363,6 +365,6 @@ $(function(){
 </script> 
 <script src="/admin/MarketingActivity/PropagationManagement/js/area_select.js"></script>
 <script src="/admin/MarketingActivity/PropagationManagement/js/area_update.js"></script>
-<script src="/admin/MarketingActivity/PropagationManagement/js/layer/layer.js"></script>
+<!-- <script src="/admin/MarketingActivity/PropagationManagement/js/layer/layer.js"></script> -->
 </body>
 </html>
