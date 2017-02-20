@@ -1,4 +1,4 @@
-
+var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
 function GetUrlParam() {
     
     var url = location.search; 
@@ -317,7 +317,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'                
 	        +                       '</div>'        
 	        +                       '<!--统计范围-->'
-	        +						'<div class="range-wrap">'
+            +                       '<div class="range-wrap">'
 	        +                       '<div class="dib acZige2 ver" style="margin: 0 4px">'
 	        +                           '<div class="select-wrap  acSe6 mangeStyle">'                                       
 	        +                               '<i></i>'
@@ -360,21 +360,22 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib time_y" value="不限"/>'
+	        +                               '<input type="text" class="time time_y dib" value="不限"/>'
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
+            +                       '</div>'
 	        +                       '</div>'
 	        +						'</div>'
 	        +                       '<!--条件-->'
 	        +                       '<!--大于或介于-->'
-	        +                       '<div class="dib acZige4 ver" style="margin-left: 8px;">'
-	        +                           '<div class="select-wrap  acSe8 mangeStyle operator-wrap">'                                       
+	        +                       '<div class="dib acZige4 ver" style="margin-left: 0px;">'
+	        +                           '<div class="select-wrap acSe8 mangeStyle operator-wrap">'                                       
 	        +                               '<i></i>'
 	        +                               '<em class="selected"></em>'
 	        +                               '<ul class="select">'
 	        +                                   '<li class="option">>=</li>'
-	        +                                   '<li class="option">介于</li>'
-	        +									'<li class="option">==</li>'
+            +                                   '<li class="option">介于</li>'
+	        +                                   '<li class="option">==</li>'
 	        +                               '</ul>'
 	        +                           '</div>'                
 	        +                       '</div>'
@@ -387,15 +388,15 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '<!--介于对应的-->'
 	        +                           '<div class="-hi hi acZige5c acZige1Tab acZige4tab mangeStyle">'
 	        +                               '<!--最后一个p标签内容随时变-->'
-	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" disabled___/><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
-	        +                           '</div>'
-	        +							'<div class="select-wrap acZige4tab teyao hi">'
-	        +								'<i></i>'
-	        +								'<em class="selected"></em>'
-	        +								'<ul class="select">'
-	        +									'<li class="option">特邀联盟</li>'
-	        +								'</ul>'
-	        +							'</div>'
+	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" /><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
+	        +                           '</div>'  
+            +                           '<div class="select-wrap acZige4tab teyao hi">'
+            +                               '<i></i>'
+            +                               '<em class="selected"></em>'
+            +                               '<ul class="select">'
+            +                                   '<li class="option">特邀联盟</li>'
+            +                               '</ul>'
+            +                           '</div>'                                                  
 	        +                       '</div>'
 	        +                       '<!--添加删除按钮-->'
 	        +                       '<div class="acAdC dib">'
@@ -446,7 +447,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                       '</div>'        
 	        +                       '<!--统计范围-->'
-	        +						'<div class="range-wrap">'
+            +                       '<div class="range-wrap">'
 	        +                       '<div class="dib acZige2 ver" style="margin: 0 4px">'
 	        +                           '<div class="select-wrap  acSe6 mangeStyle">'                                       
 	        +                               '<i></i>'
@@ -489,21 +490,22 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib time_y" value="不限" />'      
-	        +                               '<p class="dib">- 至今</p>'
+	        +                               '<input type="text" class="time time_y dib" value="不限" />'      
+	        +                               '<p class="dib"> - 至今</p>'
 	        +                           '</div>'            
+            +                       '</div>'
 	        +                       '</div>'
 	        +						'</div>'
 	        +                       '<!--条件-->'
 	        +                       '<!--大于或介于-->'
-	        +                       '<div class="dib acZige4 ver" style="margin-left: 8px">'
+	        +                       '<div class="dib acZige4 ver" style="margin-left: 0px">'
 	        +                           '<div class="select-wrap  acSe8 mangeStyle operator-wrap">'                                       
 	        +                               '<i></i>'
 	        +                               '<em class="selected"></em>'
 	        +                               '<ul class="select">'
 	        +                                   '<li class="option">>=</li>'
-	        +                                   '<li class="option">介于</li>'
-	        +									'<li class="option">==</li>'
+            +                                   '<li class="option">介于</li>'
+	        +                                   '<li class="option">==</li>'
 	        +                               '</ul>'
 	        +                           '</div>'                
 	        +                       '</div>'
@@ -517,14 +519,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '<div class="-hi hi acZige5c acZige1Tab acZige4tab mangeStyle">'
 	        +                               '<!--最后一个p标签内容随时变-->'
 	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" disableds______/><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
-	        +                           '</div>'  
-	        +							'<div class="select-wrap acZige4tab teyao hi">'
-	        +								'<i></i>'
-	        +								'<em class="selected"></em>'
-	        +								'<ul class="select">'
-	        +									'<li class="option">特邀联盟</li>'
-	        +								'</ul>'
-	        +							'</div>'
+	        +                           '</div>'
+            +                           '<div class="select-wrap acZige4tab teyao hi">'
+            +                               '<i></i>'
+            +                               '<em class="selected"></em>'
+            +                               '<ul class="select">'
+            +                                   '<li class="option">特邀联盟</li>'
+            +                               '</ul>'
+            +                           '</div>'                                                            
 	        +                       '</div>'
 	        +                       '<!--添加删除按钮-->'
 	        +                       '<div class="acAdC dib">'
@@ -639,13 +641,16 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    for (key in obj){
 //	        	debugger;
 	        switch(key){//等待补充case
-	            case '核销次数' : activityManger_addSub3HtmlFn('核销次数',"次");break;
-	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数',"名");break;
-	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数',"名");break;
-	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率',"%");break;
-	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长',"天");break;
-	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级',"天");break;
-	            case '分销商类型' : activityManger_addSub3HtmlFn_y('分销商类型');break;//别忘去掉。
+	            case '核销次数' : activityManger_addSub3HtmlFn('核销次数');break;
+	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数');break;
+	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数');break;
+	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率');break;
+	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长');break;
+	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级');break;
+	            // case '' : activityManger_addSub3HtmlFn('核销次数');break;//别忘去掉。
+
+                case '分销商类型' : activityManger_addSub3HtmlFn('分销商类型');break; //0218
+
 	        }
 	        /*
 	         * 添加分销商类型的判断
@@ -756,6 +761,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                $(".addSub3Mange:last").find(".activityManger_addsub3State").addClass("on");
 	            }
 	            
+                if(a == '分销商类型'){
+                    var distri_type = $('.addSub3 .selected.condition:contains(分销商类型)').closest('.addSub3Mange');
+                    distri_type.find('.range-wrap').addClass('vihi');
+                    // distri_type.find('')
+                    distri_type.find('.acZige4 li:contains(==)').click();
+                    distri_type.find('.teyao .selected').text(obj[key].value);
+                }
+
 	        }
 //	        $('.addSub2Mange:last .acZige .addSub3').last().before('<div class="yyy singleselection"><span class="radio" name="0">以上条件满足其一</span><span class="radio on" name="1">以上条件需全部满足</span></div>');	        
 	    }   	
@@ -1006,11 +1019,21 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang)
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
-	    // $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
-	    
+	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
+//		debugger
+	    /*debugger
+        $('nav span:eq(2)').click();
+        $(".addSub4Mange:last").find(".acSe9 ul li").each(function(){
+            if($(this).val() == btduixiang){
+                $(this).click().parent().prev().attr('guid',activityManger_addSub4Data[i].guid);
+            }
+        });
+        */
+
 	    /*补贴条件*/
-	//  $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
+//	 	$(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
 	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);
+	    subsidyConditionArr.push(btCond);
 	
 	    /*补贴形式*/
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
@@ -1019,6 +1042,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    if(btType.indexOf('随机') != -1){
 	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
 	    }
+
+
+
 	
 	    /*三种类型的范围值*/
 	//  $(".addSub4Mange:last").find(".addsub4_fanweizhi").addClass("hi");  
