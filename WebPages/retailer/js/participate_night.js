@@ -33,7 +33,7 @@ $(function(){
 		// for(var k=0;k<topid.length;k++){
 			//var topidval=topid[i];
 			$.ajax({
-				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=retailer&contributorid=2fb9767e4d2b4667a22e082ddc7cade3&topicid='+topidcont,
+				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=retailer&topicid='+topidcont,
 				//url:url,
 				type:'get',
 				dataType:'json',
