@@ -1327,6 +1327,7 @@ textarea{
     border-radius: 50%;
     font-size: 12px;
     margin-left: 5px;
+    cursor: default;
 }
 
 
