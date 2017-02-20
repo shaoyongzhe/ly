@@ -342,12 +342,13 @@ $(".queryConditionButton .query").click(function () {
  * 重置按钮
  */
 $("#reset").click(function(){
+	myDate();
 //	alert(1)
 	$(".qC_aitivityTopic input").val("");
 	$(".qC_number input").val('');
 	$(".qC_principal .selectLedL").text("请选择");
-	$(".qC_activityTime input:eq(0)").val("");
-	$(".qC_activityTime input:eq(1)").val("");
+	$(".qC_activityTime input:eq(0)").val(today);
+	$(".qC_activityTime input:eq(1)").val(today1);
 	$(".qC_subsidyReleased input:eq(0)").val("");
 	$(".qC_subsidyReleased input:eq(1)").val("");
 	$(".qC_joinVipNumber input:eq(0)").val("");
@@ -494,7 +495,7 @@ function JointDistrict(districts)
     		 * 负责人显示问题
     		 */
     		if(chrage_y["name"]){
-    			return x["name"] +"</br>"+ chrage_y["name"];
+    			return x["name"] +"("+ chrage_y["name"]+")";
     		}else{
     			return x["name"];
     		}
