@@ -460,10 +460,10 @@ function returnToList(){
 }
 
 //展开收起函数封装
-function zhanShou(obj){
+/*function zhanShou(obj){
 	var objGet0=obj.get(0);	
 	$clamp(objGet0,{clamp:2,useNativeClamp:false,truncationChar:'...',truncationHTML:""});
-}
+}*/
 
 //下面djs2()随时删除，仅仅用来测试
 //djs2();
