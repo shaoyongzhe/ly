@@ -85,6 +85,9 @@ table.notify tr td:nth-child(8){width: 14%;}
 table.notify tr td:nth-child(9){width: 6%;}
 table.notify tr td:nth-child(10){width: 6%;}
 table.notify tr td:nth-child(11){width: 3%;}
+.ResponseManagement tr td:nth-child(1){width: 15%!important;}
+.ResponseManagement tr td:nth-child(2){width: 70%!important;max-width: 70%!important;}
+.ResponseManagement tr td:nth-child(3){width: 13.95%!important;}
 /*.loading{
     display: block;
 }*/

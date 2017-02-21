@@ -203,10 +203,10 @@ function render(detailData){
 			ctype.operator = "不低于";
 			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
 		} 
-		else if(ctype.operator == "=="){
+		/*else if(ctype.operator == "=="){
 			ctype.operator = "==";
 			var str = "&nbsp;&nbsp;&nbsp;"+ ctype.operator + " " + ctype.value;
-		}
+		}*/
 		var timeunit = isNaN(prevDays) ? "" : ctype.timeunit;
 		
 		/*
@@ -226,7 +226,7 @@ function render(detailData){
 //		console.log(prevDays)
 		// debugger;
 		if(typeTxt == "分销商类型"){
-			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
+			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + "&nbsp;&nbsp;&nbsp;" + ctype.value +"</p>");
 			return;
 		}
 		
@@ -269,114 +269,40 @@ function render(detailData){
 		var btduixiang = "";
 		switch(butie[i].refund_to){
 
-			case "distributor":
-				btduixiang = '分销商'
-				break;
-
-			case "distributor_employee":
-				btduixiang = '分销商业务员'
-				break;
-
-			case "retailer":
-				btduixiang = '门店'
-				break;
-			/*
-			 * 修复“门店店员”在详情页不能显示的问题
-			 */
-			case "retailer_employee":
-				btduixiang = '门店店员'
-				break;
-
-			case "consumer":
-				btduixiang = '消费者'
-				break;
-
+			case "distributor": btduixiang = '分销商' break;
+			case "distributor_employee": btduixiang = '分销商业务员' break;
+			case "retailer": btduixiang = '门店' break;
+			case "retaileremployee": btduixiang = '门店店员' break;
+			case "consumer": btduixiang = '消费者' break;
 		}
 
 		/*var btCond = "";
 		switch(butie[i].event){
 
-			case "distributorinviteretailer":
-				btCond = '门店签约分销商';
-				break;
-
-			case "register":
-				btCond = '注册';
-				break;
-
-			case "invitefan":
-				btCond = '成功邀请朋友关注';
-				break;
-
-			case "verify":
-				btCond = '首次核销?';
-				break;
-
-			case "verify_first":
-				btCond = '首次核销';
-				break;
-
-			case "verify_normal":
-				btCond = '非首次核销';
-				break;
-
-			case "shareverify":
-				btCond = '分享核销结果';
-				break;
-
-			case "shareticket":
-				btCond = '分享超惠券';
-				break;
-
-			case "shareretailer":
-				btCond = '分享门店';
-				break;
-
-			case "openretailer":
-				btCond = '自主开店';
-				break;
-
-			case "openmemsys":
-				btCond = '开通会员系统';
-				break;
-
+			case "distributorinviteretailer": btCond = '门店签约分销商'; break;
+			case "register": btCond = '注册'; break;
+			case "invitefan": btCond = '成功邀请朋友关注'; break;
+			case "verify": btCond = '首次核销?'; break;
+			case "verify_first": btCond = '首次核销'; break;
+			case "verify_normal": btCond = '非首次核销'; break;
+			case "shareverify": btCond = '分享核销结果'; break;
+			case "shareticket": btCond = '分享超惠券'; break;
+			case "shareretailer": btCond = '分享门店'; break;
+			case "openretailer": btCond = '自主开店'; break;
+			case "openmemsys": btCond = '开通会员系统'; break;
 		}*/
 	
 		/*var btType = "";
 		switch(butie[i].refund_content){
 
-			case "randompoints":
-				btType = '随机积分';
-				break;
-
-			case "fixedpoints":
-				btType = '固定积分';
-				break;
-
-			case "fixedmoney":
-				btType = '固定金额';
-				break;
-
-			case "randommoney":
-				btType = '随机金额';
-				break;
-
-			case "randommoney":
-				btType = '随机金额';
-				break;
-
-			case "randomredpacket":
-				btType = '随机微信红包';
-				break;
-
-			case "fixedredpacket":
-				btType = '固定微信红包';
-				break;
-
-			case "randommoneyticket":
-				btType = '随机金额返现券';
-				break;
-
+			case "randompoints": btType = '随机积分'; break;
+			case "fixedpoints": btType = '固定积分'; break;
+			case "fixedmoney": btType = '固定金额'; break;
+			case "randommoney": btType = '随机金额'; break;
+			case "randommoney": btType = '随机金额'; break;
+			case "randomredpacket": btType = '随机微信红包'; break;
+			case "fixedredpacket": btType = '固定微信红包'; break;
+			case "randommoneyticket": btType = '随机金额返现券'; break;
 		}*/
 
 		// debugger

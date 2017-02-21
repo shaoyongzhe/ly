@@ -715,7 +715,7 @@ div.acZige:before{
 	width:58px;
 	height:40px;	
 	box-sizing: border-box;
-	padding-top:3px;	
+	padding-top:3px;
 	/*padding: 4px 14px;*/
 	border:1px solid #4778C7;
 	text-align: center;
@@ -1213,6 +1213,7 @@ div.acZige:before{
 
 .range-wrap{
     display: inline-block;
+    width: 315px;
 }
 
 /* .operator-wrap li{
