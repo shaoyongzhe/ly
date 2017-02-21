@@ -118,3 +118,5 @@
 .note-hint-popover .popover-content { max-height: 150px; padding: 3px; overflow: auto }
 .note-hint-popover .popover-content .note-hint-group .note-hint-item { display: block !important; padding: 3px }
 .note-hint-popover .popover-content .note-hint-group .note-hint-item.active, .note-hint-popover .popover-content .note-hint-group .note-hint-item:hover { display: block; clear: both; font-weight: 400; line-height: 1.4; color: white; text-decoration: none; white-space: nowrap; cursor: pointer; background-color: #428bca; outline: 0 }
+
+
