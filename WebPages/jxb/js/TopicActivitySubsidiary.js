@@ -34,11 +34,12 @@ function UrlDistributorIDRefresh(){
 
 engine.on('UpdateMatchedTopics', UpdateMatchedTopics, this)
 function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是重新给allActivity赋值的过程。
-	isReceivedUpdateMatchedTopics=true;
     if(arguments.length<1){
 		console.log('缺少参数');
 		return;
 	}	
+	console.log("更新发起",JSON.parse(arguments[0]));
+	isReceivedUpdateMatchedTopics=true;
 	if(UpdateMatchedTopicsBol){
 		allActivity=JSON.parse(arguments[0]);	
 		console.log("UpdateMatchedTopics出现",allActivity);
@@ -49,6 +50,9 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		ajaxSucFn(allActivity.content[0]);
 		topicactivity_id=allActivity.content[0].guid;
 		$(".CcButieRight").hide();
+		if(data.content.length<=1){
+			$(".CcButieLeft").hide();
+		}
 		UpdateMatchedTopicsBol=false;		
 	}
 
@@ -104,6 +108,10 @@ function Cajax(m,a,b){
 			ajaxSucFn(data.content[0]);//先显示第一个活动，			
 			topicactivity_id=data.content[0].guid;//先存储第一个活动id
 			$(".CcButieRight").hide();
+			if(data.content.length<=1){
+				$(".CcButieLeft").hide();
+			}
+//			console.log(data.content.length)
 			console.log(topicactivity_id);
 			$(".initialHi").removeClass("initialHi");
 		},
@@ -221,8 +229,8 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	var typeCounts=0
 	//通用，无论是分销商，门店，店员，
 	for (type in info.subsidydescription){
-		console.log(type)
-		console.log(info.subsidydescription[type]);
+/*		console.log(type)
+		console.log(info.subsidydescription[type]);*/
 		typeCounts++;
 		var text1="";
 		for(m=0;m<info.subsidydescription[type].length;m++){

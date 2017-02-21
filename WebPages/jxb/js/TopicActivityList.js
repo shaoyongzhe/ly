@@ -309,7 +309,7 @@ function sucessFn(obj,info){
 		if(info.content[i].budget.subsidyreleased==undefined){
 			info.content[i].budget.subsidyreleased=0;
 		}		
-		var budgetSubsidytotal=moneyTransform(info.content[i].budget.subsidytotal,4);//万，元，单位处理
+		var budgetSubsidytotal=moneyTransform(info.content[i].budget.subsidytotal);//万，元，单位处理
 		if(info.content[i].poster_url!=undefined&&info.content[i].poster_url!=" "&&info.content[i].poster_url!=""){				
 			obj.find(".conImg:last").find("img").eq(0).attr("src",info.content[i].poster_url);			
 		}
@@ -320,7 +320,7 @@ function sucessFn(obj,info){
 		}else{
 			hanzi="已发放";
 		}					
-		var budgetSubsidyreleased=moneyTransform(info.content[i].budget.subsidyreleased,4);//万，元，单位处理
+		var budgetSubsidyreleased=moneyTransform(info.content[i].budget.subsidyreleased);//万，元，单位处理
 		obj.find(".conImg:last").find("span").eq(1).text(hanzi+budgetSubsidyreleased);
 		if(info.content[i].post==" "){
 			info.content[i].post="暂无标题"
@@ -497,18 +497,53 @@ function isReceivedID(){
 
 /*满n位，变'元'为'万'*/
 function moneyTransform(money,n){
-	var newMoney=parseInt(money).toString();//倪总允许取整
-	if(newMoney.length<=n){
-		newMoney=newMoney+"元";
-	}else{
-		if(n==4){//根据需要补充
-			var moneyUnit="万";
-		}else if(n==8){
-			var moneyUnit="亿";
+	var moneyUnit="";//单位
+	var newMoney="";//金额
+	var arr=[];
+	var point="";//是否有小数点
+	var afterPoint="";
+	if(money<9999&&money>0){	
+		money=money/1;
+		money=money.toString();
+		arr=money.split('.');
+		moneyUnit="元";		
+		if(arr.length>1){
+			point=".";
+			afterPoint=arr[1].substr(0,2);
 		}
-		newMoney=parseInt(newMoney/10000).toString()+moneyUnit;
+		
+	}else if(money<99999999&&money>9999){
+		money=money/10000;
+		money=money.toString();
+		arr=money.split('.');
+		moneyUnit="万";		
+		if(arr.length>1){
+			point=".";
+			afterPoint=arr[1].substr(0,2);
+		}
+		
+	}else if(money<999999999999&&money>99999999){
+		money=money/100000000;
+		money=money.toString();
+		arr=money.split('.');
+		moneyUnit="亿";		
+		if(arr.length>1){
+			point=".";
+			afterPoint=arr[1].substr(0,2);
+		}
+		
+	}else{//大于9999亿的暂不做处理		
+		return money;
 	}
-	return newMoney;
+	//处理.00或者.5的情况，变.00为整，变.5为.50
+	if(afterPoint=="00"||afterPoint=="0"){
+		point="";
+		afterPoint="";
+	}else if(afterPoint.split("").length==1){
+		afterPoint=afterPoint+"0";
+	}
+	newMoney=arr[0]+point+afterPoint;
+	return newMoney+moneyUnit;
 }
 
 /*调试用代码*/
