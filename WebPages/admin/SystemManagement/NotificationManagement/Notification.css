@@ -30,19 +30,70 @@
     float: right;
 }
 
+   /*
+    .notify tbody {
+
+        display:block;
+
+        height:570px;
+
+        overflow-y:scroll;
+
+    }
+    .notify thead, .notify tbody tr {
+
+        display:table;
+
+        width:100%;
+
+        table-layout:fixed;
+
+    }
+    .notify tbody tr td{
+        padding:10px;
+        border-right: 1px solid #e4e4e4;
+        border-bottom: 1px solid #e4e4e4;
+    }
+    .notify thead {
+
+        width: calc( 99.9% - 1em )
+
+    }
+    */
+
+
 table.notify tr td,
 table.notify > tr > td > span,
 table.modulePeople tr td,
 table.modulePeople > tr > td > span
 {
-    max-width: 300px; /*ÒªÏÔÊ¾ÎÄ×ÖµÄ¿í¶È*/
-    overflow: hidden; /*³¬³öµÄ²¿·ÖÒþ²ØÆðÀ´¡£*/
-    white-space: nowrap; /*²»ÏÔÊ¾µÄµØ·½ÓÃÊ¡ÂÔºÅ...´úÌæ*/
-    text-overflow: ellipsis; /* Ö§³Ö IE */
+    max-width: 300px; /*Ã’ÂªÃÃ”ÃŠÂ¾ÃŽÃ„Ã—Ã–ÂµÃ„Â¿Ã­Â¶Ãˆ*/
+    overflow: hidden; /*Â³Â¬Â³Ã¶ÂµÃ„Â²Â¿Â·Ã–Ã’Ã¾Â²Ã˜Ã†Ã°Ã€Â´Â¡Â£*/
+    white-space: nowrap; /*Â²Â»ÃÃ”ÃŠÂ¾ÂµÃ„ÂµÃ˜Â·Â½Ã“ÃƒÃŠÂ¡Ã‚Ã”ÂºÃ…...Â´ÃºÃŒÃ¦*/
+    text-overflow: ellipsis; /* Ã–Â§Â³Ã– IE */
 }
 
-
-
+.text-c{width: 100%;display: flex;}
+table.notify tr td:nth-child(1){width: 18%;}
+table.notify tr td:nth-child(2){width: 8%;}
+table.notify tr td:nth-child(3){width: 6%;}
+table.notify tr td:nth-child(4){width: 6%;}
+table.notify tr td:nth-child(5){width: 3%;}
+table.notify tr td:nth-child(6){width: 12%;}
+table.notify tr td:nth-child(7){width: 18%;}
+table.notify tr td:nth-child(8){width: 14%;}
+table.notify tr td:nth-child(9){width: 6%;}
+table.notify tr td:nth-child(10){width: 6%;}
+table.notify tr td:nth-child(11){width: 3%;}
+.ResponseManagement tr td:nth-child(1){width: 15%!important;}
+.ResponseManagement tr td:nth-child(2){width: 70%!important;max-width: 70%!important;}
+.ResponseManagement tr td:nth-child(3){width: 13.95%!important;}
+/*.loading{
+    display: block;
+}*/
+/*.tbody-c{
+    opacity: 0.3
+}*/
 .input-contorl
 {
     display: inline-block;
@@ -57,6 +108,7 @@ table.modulePeople > tr > td > span
     {
         width: 200px;
         height: 30px;
+        white-space: nowrap;
     }
 
     .input-contorl label
