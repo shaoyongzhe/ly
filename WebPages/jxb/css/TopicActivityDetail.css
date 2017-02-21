@@ -186,6 +186,12 @@ header img:nth-of-type(2) {
   color: #888888;
   word-break: break-all; }
 
+p.ellipsis-text {
+  max-height: 132px; }
+
+a.less {
+  display: none; }
+
 .BtuwenWenS1, .BtuwenWenS2 {
   font-family: arial;
   font-size: 14px;
@@ -631,12 +637,6 @@ footer {
   padding-top: 20px;
   padding-bottom: 20px; }
 
-p.ellipsis-text {
-  max-height: 132px; }
-
-a.less {
-  display: none; }
-
 @media screen and (max-width: 990px) {
   header {
     display: block; }
@@ -912,7 +912,7 @@ a.less {
   .btsmD1 {
     font-size: 14px;
     line-height: 24px;
-    padding: 3px 15px 4px 15px; }
+    padding: 3px 5px 4px 5px; }
 
   .BwrapDown {
     box-sizing: border-box;

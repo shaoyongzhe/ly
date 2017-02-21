@@ -9,8 +9,8 @@ $(function(){
 	//var currentindex=0;
 	replace()
 	function replace(){
-		var topid=window.location.search;
-		var topids=topid.split('=')[1].split(',');
+		//var topid=window.location.search;
+	    var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
 		for (var i = 0; i <topids.length ; i++) {
 			new_arr.push(topids[i]);
 		    console.log(topids[i]);
@@ -34,7 +34,7 @@ $(function(){
 		// for(var k=0;k<topid.length;k++){
 			//var topidval=topid[i];
 			$.ajax({
-				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=consumer&contributorid=oCry_w3IhvBINJb-HA8LonuVDe4w&topicid='+topidcont,
+				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=consumer&topicid='+topidcont,
 				//url:url,
 				type:'get',
 				dataType:'json',

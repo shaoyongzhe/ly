@@ -1327,6 +1327,7 @@ textarea{
     border-radius: 50%;
     font-size: 12px;
     margin-left: 5px;
+    cursor: default;
 }
 
 
@@ -1403,7 +1404,7 @@ textarea{
 	cursor: default;
 }
 
-#time_y{
+.time.time_y{
 	background: #fff;
 }
 
