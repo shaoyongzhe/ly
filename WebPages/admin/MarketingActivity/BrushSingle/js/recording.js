@@ -65,7 +65,7 @@ function fnxuanran(data) {
 			"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 			"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 			"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看核销记录</a></td>" + //查看违规原因***********************************************
+			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看核销记录</a></td>" +
 			"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 			"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
@@ -98,7 +98,7 @@ function fncreattab(data) {
 			$("#cgl-more").hide();
 		}
 	});
-	allcont = data.allcount;
+	allcont = data["allcount"];
 }
 //加载更多
 function fnmore() {
@@ -170,11 +170,11 @@ function fnmore() {
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
-	$(".weiqueren").find("i").text(odata.weichuli);
-	$(".shensuz").find("i").text(odata.shensuzhong);
-	$(".chufaz").find("i").text(odata.chufazhong);
-	$(".yijiesu").find("i").text(odata.yijieshu);
-	$(".jiechu").find("i").text(odata.jiechuweigui);
+	$(".weiqueren").find("i").text(odata["weichuli"]);
+	$(".shensuz").find("i").text(odata["shensuzhong"]);
+	$(".chufaz").find("i").text(odata["chufazhong"]);
+	$(".yijiesu").find("i").text(odata["yijieshu"]);
+	$(".jiechu").find("i").text(odata["jiechuweigui"]);
 	fnjilu();
 }
 //查询条件改变事件
@@ -191,16 +191,16 @@ function fnshijian(state) {
 		success: function(data) {
 			//console.log(data)
 			$(".cgl-jzz").hide();
-			if(data.allcount == 0) {
+			if(data["allcount"] == 0) {
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
 				$("#kou").text(data["koukuanjine"].toFixed(2));
-				fndengji(data.statecount);
+				fndengji(data["statecount"]);
 			} else {
-				allcont = data.allcont;
+				allcont = data["allcount"];
 				djcishu = 1;
-				fndengji(data.statecount);
+				fndengji(data["statecount"]);
 				fncreattab(data); //创建tbody
 				$("#cgl-tablebox").animate({
 					scrollTop: 0
@@ -340,8 +340,8 @@ function fndate() {
 			issure: false,
 			choose: function(dates) {
 				//layer.msg(dates);
-				var isxy = $('#cgl-cxdata1').val().replace(/\-/g, "") - $('#cgl-cxdata').val().replace(/\-/g, "")
-					//console.log(isxy)
+				var isxy = $('#cgl-cxdata1').val().replace(/-/g, "") - $('#cgl-cxdata').val().replace(/-/g, "")
+				//console.log(isxy)
 				if($('#cgl-cxdata').val() == state["querybegindate"] && $('#cgl-cxdata1').val() == state["queryenddate"]) {
 					return false;
 				} else if(isxy < 0 && $('#cgl-cxdata').val() != "" && $('#cgl-cxdata1').val() != "") {
@@ -585,6 +585,7 @@ function fncaozuo() {
 			$("div", this).addClass("czon");
 		}
 	}).on("click", ".cgl-td13 .xiangxi", function() {
+		//console.log($(this).parents("tr"))
 		article_add(this);
 	}).on("click", ".cgl-td13>a", function() {
 		article_add(this);
@@ -665,8 +666,8 @@ function article_add(that) {
 		"</li>" +
 		"</ul>" +
 		"<div class='cgl-antc'><span class='cgl-close cgl-ciyao'>关闭</span>";
-	for(var i = 0; i < $(that).nextAll().length; i++) {
-		cont += "<span class='cgl-import'>" + $(that).nextAll().eq(i).html() + "</span>";
+	for(var i = $(that).prevAll().length-1; i >=0 ; i--) {
+		cont += "<span class='cgl-import'>" + $(that).prevAll().eq(i).html() + "</span>";
 	}
 	cont += "</div>";
 	var index = layer.open({
@@ -710,7 +711,7 @@ function article_add(that) {
 	});
 	fnclose(index); //关闭按钮
 	$(".cgl-antc").on("click", ".cgl-import", function() {
-		var fstz = "";
+		var fstz = "",putdata=null;
 		if($(this).text() == "发送通知") {
 			fstz = {
 				"anticheatingids": guid
@@ -724,7 +725,7 @@ function article_add(that) {
 			vipshensu_add(parents);
 		}
 		if($(this).text() == "调整并确认") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "确认违规",
 				"description": $("#cgl-tjbz").find("textarea").val(),
 				"anticheatingids": guid
@@ -733,14 +734,14 @@ function article_add(that) {
 			tiaozqr("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid)
 		}
 		if($(this).text() == "确认违规") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "确认违规",
 				"anticheatingids": guid
 			};
 			querenwg_add(putdata);
 		}
 		if($(this).text() == "解除违规") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
 			};
@@ -748,7 +749,7 @@ function article_add(that) {
 			jiechuwg_add(putdata, dqzt);
 		}
 		if($(this).text() == "驳回申诉") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "驳回申诉",
 				"description": "",
 				"anticheatingids": $(this).parents("tr").attr("gu-id")
@@ -772,7 +773,7 @@ function fnfstz(fstz) {
 		success: function(data) {
 			$(".cgl-jzz").hide();
 			$(".cgl-zhezao").hide();
-			if(data.succeed == "succeed") {
+			if(data["succeed"] == "succeed") {
 				//alert("发送成功");
 
 				$(".cgl-jzz").html("发送成功").fadeIn(500).delay(1000).fadeOut(100);
@@ -799,8 +800,8 @@ function fasong_add(parents) {
 //确认违规
 function querenwg_add(putdata) {
 	var cont = "<div>";
-	if(putdata.weiguidengji) {
-		cont += "<div class='cgl-jibie'><span class='left'>违规等级</span>" + putdata.weiguidengji + "级</div>";
+	if(putdata["weiguidengji"]) {
+		cont += "<div class='cgl-jibie'><span class='left'>违规等级</span>" + putdata["weiguidengji"] + "级</div>";
 	}
 	cont += "<div class='cgl-tiaoz qrentext'><span class='left'>备注</span><textarea class='left'></textarea></div>" +
 		"<div class='cgl-antz'><span class='cgl-qrwgqx'>取消</span><span class='cgl-import cgl-qrwgqr'>确定</span></div>" +
@@ -873,14 +874,13 @@ function tiaozqr(dangq, guid) {
 						$(".layui-layer-shade").remove();
 						$(".layui-layer").remove();
 					}
-					if(data.succeed) {
+					if(data["succeed"]) {
 						fnshijian(state);
 						$(".cgl-jzz").html("操作成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 					}
 				}
 			});
 		} else {
-
 			$(".cgl-jzz").html("加载中，请稍后···").show();
 			var putdata1 = {
 				"dealtstate": "确认违规",
@@ -902,12 +902,12 @@ function jiechuwg_add(putdata, dqzt) {
 		"</div>" +
 		"<div id='cgl-kuaijie'>" +
 		/*"<h4>快捷申诉</h4>" +
-		"<div>" +
-		    "<label><input name='shensu' type='checkbox'>描述1 </label>" +
-		    "<label><input name='shensu' type='checkbox'>描述2 </label>" +
-		    "<label><input name='shensu' type='checkbox'>描述3 </label>" +
-		    "<label><input name='shensu' type='checkbox'>描述4</label>" +
-		"</div>" +*/
+		 "<div>" +
+		 "<label><input name='shensu' type='checkbox'>描述1 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述2 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述3 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述4</label>" +
+		 "</div>" +*/
 		"</div>" +
 		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>取消</span><span id='qrjcweig' class='cgl-import'>确定</span></div>" +
 		"</div>";
@@ -928,13 +928,7 @@ function jiechuwg_add(putdata, dqzt) {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
-			if(dqzt == "申诉中") {
-				putdata.anticheatingid = putdata.anticheatingids;
-				fnbohuiapi(putdata);
-			} else {
-				fnqrjcwg(putdata);
-			}
-
+			fnqrjcwg(putdata);
 		}
 	});
 }
@@ -953,7 +947,14 @@ function fnqrjcwg(putdata) {
 	});
 	layer.full(index);
 	$(".querenjc").click(function() {
-		fnwgjlzt(putdata);
+		var dqzt=state.state;
+		if(dqzt == "申诉中") {
+			putdata.anticheatingid = putdata.anticheatingids;
+			fnbohuiapi(putdata);
+		}else {
+			fnwgjlzt(putdata);
+		}
+
 	});
 }
 //会员申诉
@@ -965,13 +966,13 @@ function vipshensu_add(parents) {
 		"</div>" +
 		"<div id='cgl-kuaijie'>" +
 		/*		    "<h4>快捷申诉</h4>" +
-				    "<div>" +
-				        "<label><input name='shensu' type='checkbox'>描述1 </label>" +
-				        "<label><input name='shensu' type='checkbox'>描述2 </label>" +
-				        "<label><input name='shensu' type='checkbox'>描述3 </label>" +
-				        "<label><input name='shensu' type='checkbox'>描述4</label>" +
-				    "</div>" +
-		*/
+		 "<div>" +
+		 "<label><input name='shensu' type='checkbox'>描述1 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述2 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述3 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述4</label>" +
+		 "</div>" +
+		 */
 		"</div>" +
 		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>取消</span><span class='cgl-import quedss'>确定</span></div>" +
 		"</div>";
@@ -1042,17 +1043,17 @@ function fnbohuiapi(putdata) {
 				$('.layui-layer-close').click();
 				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
 			}
-			if(data.succeed) {
+			if(data["succeed"]) {
 				/*var guidarr = [putdata.anticheatingid];
-				for(var i = 0; i < guidarr.length; i++) {
-					$("tr").each(function(n) {
-						if($(this).attr("gu-id") == guidarr[i]) {
-							$(this).find(".cgl-td12").html(putdata.dealtstate);
-							$(this).remove();
-							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
-						}
-					});
-				}*/
+				 for(var i = 0; i < guidarr.length; i++) {
+				 $("tr").each(function(n) {
+				 if($(this).attr("gu-id") == guidarr[i]) {
+				 $(this).find(".cgl-td12").html(putdata.dealtstate);
+				 $(this).remove();
+				 $(".stateon").find("i").text($(".stateon").find("i").text() - 1);
+				 }
+				 });
+				 }*/
 				$(".cgl-zhezao").hide();
 				state["lastindex"] = 0;
 				fnshijian(state);
@@ -1115,7 +1116,7 @@ function tiaoz_add(dangq, guid) {
 						$(".layui-layer-shade").remove();
 						$(".layui-layer").remove();
 					}
-					if(data.succeed) {
+					if(data["succeed"]) {
 						$(".cgl-zhezao").hide();
 						fnshijian(state);
 						$(".cgl-jzz").html("等级调整成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
@@ -1278,17 +1279,17 @@ function fnwgjlzt(putdata) {
 				$('.layui-layer-close').click();
 				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
 			}
-			if(data.succeed) {
+			if(data["succeed"]) {
 				/*var guidarr = putdata.anticheatingids.split(",");
-				for(var i = 0; i < guidarr.length; i++) {
-					$("tr").each(function(n) {
-						if($(this).attr("gu-id") == guidarr[i]) {
-							$(this).find(".cgl-td12").html(putdata.dealtstate);
-							$(this).remove();
-							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
-						}
-					});
-				}*/
+				 for(var i = 0; i < guidarr.length; i++) {
+				 $("tr").each(function(n) {
+				 if($(this).attr("gu-id") == guidarr[i]) {
+				 $(this).find(".cgl-td12").html(putdata.dealtstate);
+				 $(this).remove();
+				 $(".stateon").find("i").text($(".stateon").find("i").text() - 1);
+				 }
+				 });
+				 }*/
 				$(".cgl-zhezao").hide();
 				state["lastindex"] = 0;
 				fnshijian(state);
@@ -1316,8 +1317,8 @@ function fnweigyy() {
 				cont = "<div class='yycont'>" +
 					"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>" +
 					"<h3 class='wgdjc'>违规等级</h3>" +
-					"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + data.original_level + "，";
-				cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - data.original_level.replace(/[^0-9]/ig, "");
+					"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + data["original_level"] + "，";
+				cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - data["original_level"].replace(/[^0-9]/ig, "");
 				if(cha >= 0) {
 					cont += "提升" + cha + "级";
 				} else {
@@ -1341,13 +1342,13 @@ function fnweigyy() {
 				cont += "</table></div>" +
 					"<h3 class='tianpfx'>天平分析</h3>" +
 					"<ul class='fxcont'>" +
-					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
-					"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
-					"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
-					"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
-					"<li><h4>Grosbby异常检测</h4><span>" + data["arithmetic"]["value5"] + "</span><p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
-					"<li><h4>粗糙集分类统计</h4><span>" + data["arithmetic"]["value6"] + "</span><p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
-					"<li><h4>门店密集核销</h4><span>" + data["arithmetic"]["value7"] + "</span><p>核销间隔过短，一段时间内频率过高的情况</p></li>" +
+						"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
+						"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
+						"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
+						"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
+						"<li><h4>Grosbby异常检测</h4><span>" + data["arithmetic"]["value5"] + "</span><p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
+						"<li><h4>粗糙集分类统计</h4><span>" + data["arithmetic"]["value6"] + "</span><p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
+						"<li><h4>门店密集核销</h4><span>" + data["arithmetic"]["value7"] + "</span><p>核销间隔过短，一段时间内频率过高的情况</p></li>" +
 					"</ul>" +
 					"<div class='hxjl'>" +
 					"<h3>核销记录</h3>" +
@@ -1357,7 +1358,6 @@ function fnweigyy() {
 					"<span>消费者集中</span>" +
 					"<span>一人多券</span>" +
 					"</div>" +
-
 					"<div><table border='1'><thead>" +
 					"<tr>" +
 					"<th width='60'>消费者</th>" +
@@ -1385,7 +1385,7 @@ function fnweigyy() {
 				});
 				layer.full(index);
 				fnclose(index);
-				fnshaixuan(data.verifylist);
+				fnshaixuan(data["verifylist"]);
 				$(".cgl-zhezao").hide();
 			}
 		});
@@ -1468,7 +1468,7 @@ function fnshaixuan(data) {
 }
 $(function() {
 	fnshijian(state);
-	fnanniu4();
+	fnanniu4();//不同状态下四个按钮的显示
 	fnxze1(); //处理与待处理
 	fnxiala(); //下拉菜单
 	fndate(); //发送时间
