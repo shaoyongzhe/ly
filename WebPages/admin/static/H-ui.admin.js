@@ -30,7 +30,6 @@ function tabNavallwidth(){
 		$tabNavmore.hide();
 		$tabNav.css({left:0});
 	}
-//	activeTab()
 }
 
 /*左侧菜单响应式*/
@@ -53,13 +52,10 @@ function getskincookie(){
 }
 
 function Hui_admin_tab(obj){
-//	console.log(obj)   // a标签
-//	console.log($(obj))
-//	console.log($(obj).attr('_href'))
 	if($(obj).attr('_href')){
 		var bStop=false;
 		var bStopIndex=0;
-		var _href=$(obj).attr('_href');  // MarketingActivity/TopicManagement/CreateActivity.html
+		var _href=$(obj).attr('_href');
 		var _titleName=$(obj).attr("data-title");
 		var topWindow=$(window.parent.document);
 		var show_navLi=topWindow.find("#min_title_list li");
@@ -167,9 +163,7 @@ function layer_close(){
 	var index = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index);
 }
-
 $(function(){
-	reloadPage();
 	getskincookie();
 	//layer.config({extend: 'extend/layer.ext.js'});
 	Huiasidedisplay();
@@ -201,10 +195,8 @@ $(function(){
 	$(document).on("click","#min_title_list li",function(){
 		var bStopIndex=$(this).index();
 		var iframe_box=$("#iframe_box");
-//		location.hash="#"+bStopIndex;
 		$("#min_title_list li").removeClass("active").eq(bStopIndex).addClass("active");
 		iframe_box.find(".show_iframe").hide().eq(bStopIndex).show();
-//		activeTabDelete()
 	});
 	$(document).on("click","#min_title_list li i",function(){
 		var aCloseIndex=$(this).parents("li").index();
@@ -252,118 +244,5 @@ $(function(){
 		$(window.frames.document).contents().find("#skin").attr("href",hrefRes);
 		//$("#skin").attr("href",hrefResd);
 	});
+	
 });
-
-//自定义——y--------------------------------------------------------------//
-function reloadPage(){
-	var hash_y = window.location.hash.replace(/#/,"")
-	var href_y;
-	var name_y;
-	if(hash_y !=''){
-//		var my_arr = localStorage.getItem("my_arr").split(",");
-//		console.log(my_arr);
-//		$.each(my_arr,function(i,o){
-//			if(JSON.stringify(o).indexOf(hash_y) != -1){
-//				href_y = JSON.stringify(o);
-//			}
-//		})		
-//		var name_y = localStorage.url_y;
-		var a_y = $(".Hui-aside").find(".icoLong2").find("a");
-//		console.log(href_y)
-		$.each(a_y,function(i,o){
-//			console.log(JSON.stringify($(this).attr("_href")))
-//			if(JSON.stringify($(this).attr("_href")) == href_y){
-			if(JSON.stringify($(this).attr("_href")).indexOf(hash_y) != -1){
-				href_y = $(this).attr("_href");
-				name_y = $(this).attr('data-title');
-				$(this).addClass("action_y");
-				$(this).parent("li").parent("ul").parent("dd").css({"display":"block"})
-			}
-		})
-//		console.log(href_y+"------>"+name_y)
-		creatIframe(href_y,name_y)
-	}
-	
-}
-
-//自定义——y--------------------------------------------------------------//
-//	window.location.hash
-//	function activeTab(){
-////		alert(1)
-//		var topWindow = $(window.parent.document);
-//		var iframe = topWindow.find('#iframe_box .show_iframe');
-//		var tab = topWindow.find(".acrossTab li");
-////		var showTab = topWindow.find(".acrossTab li.active");
-////		var showBox=topWindow.find('.show_iframe:visible');
-//		var i = tab.length
-//		tab.eq(i-1).addClass("active");
-//		iframe.eq(i-1).show();
-////		tab.eq(i).remove();
-////		iframe.eq(i).remove();
-//		
-//		var obj_y = $("#min_title_list").find("li.active").find("span");
-////		console.log(obj_y);
-//		
-//		var arr_y = obj_y.attr('data-href');
-//		var len = arr_y.length;
-//		var href_y = arr_y.substr(0,len-5)
-////		console.log(href_y)				
-//		var name_y = obj_y.html()
-////		console.log(name_y)
-//		if(href_y != "public"){
-//			location.hash=href_y+"&"+name_y;
-//		}
-//		
-//	}
-
-
-	//自定义——y--------------------------------------------------------------//
-//	window.location.hash
-//	function activeTabDelete(){
-//		var obj_y = $("#min_title_list").find("li.active").find("span");
-////		console.log(obj_y);
-//		
-//		var arr_y = obj_y.attr('data-href');
-//		var len = arr_y.length;
-//		var href_y = arr_y.substr(0,len-5)
-////		console.log(href_y)				
-//		var name_y = obj_y.html()
-////		console.log(name_y)
-//		if(href_y != "public"){
-//			location.hash=href_y;
-//		}else{
-//			window.location.hash=""
-//		}
-//	}
-
-
-/*
- * 操作lsessionStorage
- */
-	if(!location.hash.match(/\?/g)){
-		sessionStorage.url=1;
-	}
-	var _data=sessionStorage.url;
-	
-	var _timer=setInterval(function(){
-		_data=sessionStorage.url
-		if(_data!=1){
-			clearInterval(_timer)
-			location.href = _data
-		}
-//		console.log(_data)		
-	},100)
-
-
-
-/*
- * 地址栏变化时，重新渲染
- */
-//	var _kl=location.hash;
-//  var _hh=setInterval(function(){
-////  	console.log(1)
-//  	if(location.hash!=_kl){
-//  		clearInterval(_hh)
-//  		location.reload()
-//  	}
-//  },10)

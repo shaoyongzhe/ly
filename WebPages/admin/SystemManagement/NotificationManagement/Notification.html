@@ -194,7 +194,7 @@
 </head>
 <body>
 
-    <div class="page-container">
+    <div class="page-container" style="padding-bottom: 0;">
         <div class="bread-crumb">系统管理<span> > </span>通知管理</div>
         <nav>
             <span class="">通知管理</span>
@@ -270,46 +270,49 @@
                 </select>
             </div>
 
-            <table class="notify table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
-                <thead>
-                    <tr class="text-c">
+            <table class="notify table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20" style="position: relative;margin-bottom: 5px;">
+                <thead style="width: 100%;float: left;">
+                    <tr class="text-c" style="width: 100%;display: flex;">
                         <!-- <th><input type="checkbox" name="" value=""></th> -->
-                        <th>使用场景</th>
-                        <th>事件</th>
-                        <th>发送途径</th>
-                        <th>组名</th>
-                        <th>区域</th>
-                        <th>描述</th>
-                        <th>外部模板编号</th>
-                        <th>内容</th>
-                        <th>状态</th>
-                        <th>是否默认</th>
-                        <th>操作</th>
+                        <th style="width: 18%">使用场景</th>
+                        <th style="width: 8%">事件</th>
+                        <th style="width: 6%">发送途径</th>
+                        <th style="width: 6%">组名</th>
+                        <th style="width: 3%">区域</th>
+                        <th style="width: 12%">描述</th>
+                        <th style="width: 18%">外部模板编号</th>
+                        <th style="width: 14%">内容</th>
+                        <th style="width: 6%">状态</th>
+                        <th style="width: 6%">是否默认</th>
+                        <th style="width: 4.1%">操作</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody style="float:left;height: 500px;overflow-y:scroll;width: 100%;" class="pagesTbodyLong content_drop tbody-c"></tbody>
             </table>
+
+
             <!-- 分页 -->
-            <div class="text-c pager-wrap">
+            <div class="loading" style="width: 100%;height: 40px;"></div>
+            <!-- <div class="text-c pager-wrap">
                 <div class="text-l">
                     共有数据：
                     <strong class='totalcount'></strong> 条
                 </div>
                 <div id="pager"></div>
                 <ul id="datalist"></ul>
-            </div>
+            </div> -->
         </div>
         <div class="sec">
             负责人管理
-            <table class="modulePeople table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20">
-                <thead>
+            <table class="modulePeople table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20" style="overflow:hidden;width:100%;display: block;">
+                <thead style="width: 100%;float: left;">
                     <tr class="text-c">
-                        <th>负责模块</th>
-                        <th>联系人信息</th>
-                        <th>操作</th>
+                        <th style="width: 15%">负责模块</th>
+                        <th style="width: 70%">联系人信息</th>
+                        <th style="width: 15%">操作</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody style="float:left;height: 510px;overflow-y:scroll;width: 100%;" class="ResponseManagement"></tbody>
             </table>
         </div>
     </div>
@@ -440,12 +443,16 @@
     <input type="hidden" name="" id="refresh">
     <!--不允许通过打开窗口设置默认模板-->
     <input type="hidden" name="" id="isDefault">
+    <input type="hidden" name="" id="curr">
+
+
 </body>
 </html>
 <script type="text/javascript" src="../../lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script>
-<script type="text/javascript" src="../../lib/laypage-v1.3/laypage/laypage.js"></script>
+<!-- <script type="text/javascript" src="../../lib/laypage-v1.3/laypage/laypage.js"></script> -->
+<script src="../../../MarketingActivity/PropagationManagement/js/dropload.js"></script>
 <script type="text/javascript" src="Notification.js"></script>
 <script src="../../lib/district/ipaloma_location.js"></script>
 <script type="text/javascript" src="/admin/lib/district/js/cityLink.js"></script>
@@ -457,6 +464,14 @@
         selectCity();
     });
 
+    // $(this).prop("scrollHeight")
+    /*var rows = $('.notify tbody').rows.length();
+    if(rows > 13){
+        alert(1)
+       $(this).css({
+        'width':'calc(100% + 17px)'
+       }) ;
+    }*/
 </script>
 <!-- <script type="text/javascript" src="http://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script> -->
 <!-- <link href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
