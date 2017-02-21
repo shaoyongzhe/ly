@@ -615,6 +615,10 @@
             float: left;
         }
 
+        .assetinfo .asset_left .topictitle  nobr{
+            font-size:1.05em;
+        }
+
         .assetinfo .asset_left .topictitle_1 {
             width: 40px;
             float: left;

@@ -222,11 +222,11 @@ function render(detailData){
 		var btduixiang = "";
 		switch(butie[i].refund_to){
 
-			case "distributor": btduixiang = '分销商' break;
-			case "distributor_employee": btduixiang = '分销商业务员' break;
-			case "retailer": btduixiang = '门店' break;
-			case "retaileremployee": btduixiang = '门店店员' break;
-			case "consumer": btduixiang = '消费者' break;
+		    case "distributor": btduixiang = '分销商'; break;
+		    case "distributor_employee": btduixiang = '分销商业务员'; break;
+		    case "retailer": btduixiang = '门店'; break;
+		    case "retaileremployee": btduixiang = '门店店员'; break;
+		    case "consumer": btduixiang = '消费者'; break;
 		}
 
 		/*var btCond = "";

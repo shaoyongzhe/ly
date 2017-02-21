@@ -503,7 +503,7 @@ span.name {
 }
 
 .gf-select .icon-jt {
-	background: url(2.png) center right no-repeat;
+	background: url(/admin/lib/district/image/2.png) center right no-repeat;
 	width: 18px;
 	height: 1px;
 	position: absolute;
@@ -575,7 +575,7 @@ span.name {
 .hxjlpx>span{float: left; width: 100px;border: 1px solid #e4e4e4;background: #f1f1f1;text-align: center;margin-right: 8px;padding: 5px 0;line-height: 1;cursor: pointer;}
 .hxjlpx>span.onck{border-color:#1f52a6;background: #4778c7;color: #fff;}
 .cgl-yyclose{text-align: center;padding: 86px 0 31px 0;}
-.cgl-close{text-align: center;padding: 9px 51px;background: #aaa;color: #fff;line-break: 1;font-size: 14px;cursor: pointer;}
+.cgl-close{text-align: center;padding: 9px 51px;background: #aaa;color: #fff;font-size: 16px;cursor: pointer;}
 .cgl-close:hover{background: #999;}
 
 

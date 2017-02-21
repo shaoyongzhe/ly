@@ -73,10 +73,10 @@
 				},
 				success:function(data){
 
-						if( localStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
+						if( sessionStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
 							console.log(8)
-			                $('#account').val( localStorage["account"] );
-			                $('#password').val( localStorage["password"] );
+			                $('#account').val( sessionStorage["account"] );
+			                $('#password').val( sessionStorage["password"] );
 			            }
 						//$('#enter').on('click',function () { //  点击登录按钮调用defaultaccount且传账户密码值过去
 			                defaultaccount( $('#account').val(),$('#password').val() );
@@ -85,18 +85,18 @@
 			            function defaultaccount( account,password ) {   
 			                if( $('#account').val() == "" && $('#password').val() == "" ) {     
 			                    alert('需要您填写账号密码')
-			                     localStorage["status"]  = false; 
+			                     sessionStorage["status"]  = false; 
 			                }else if (data.error==""&&data.result==true){  
 			                    //if( $('#remember_pass').hasClass('checked') ) {  
-			                         localStorage["account"]  = account;    
-			                         localStorage["status"]  = true;    
+			                         sessionStorage["account"]  = account;    
+			                         sessionStorage["status"]  = true;    
 			                         // localStorage["password"] = password;   
 			                    //}
 			                   
 			                    window.location.href="../index.html";
 			                }else{
 			                	alert('账号或者密码错误')
-			                	 localStorage["status"]  = false;    
+			                	 sessionStorage["status"]  = false;    
 			                }
 			            }
 
@@ -104,7 +104,7 @@
 				},
 				error:function(){
 					alert('异常')
-					 localStorage["status"]  = false; 
+					 sessionStorage["status"]  = false; 
 				}
 			})
 	}
