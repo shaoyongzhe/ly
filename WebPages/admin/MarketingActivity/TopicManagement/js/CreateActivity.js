@@ -221,7 +221,6 @@ $('body').on("click",".setRules",function(e){
 			if(gzVal.perday.sum != "" && gzVal.perday.sum != undefined){
 				$('.layer.set-rules .check.perdaySum').click();
 				$('input.perdaySum').val(gzVal.perday.sum);
-
 			}
 			if(gzVal.perday.time != "" && gzVal.perday.time != undefined){
 				$('.layer.set-rules .check.perdayTime').click();
@@ -235,7 +234,6 @@ $('body').on("click",".setRules",function(e){
 			if(gzVal.totalbudget.time != "" && gzVal.totalbudget.time != undefined){
 				$('.layer.set-rules .check.budgetTime').click();
 				$('input.budgetTime').val(gzVal.totalbudget.time);
-
 			}
 
 			$('.forBudgetSum').text(gzVal.totalbudget.sum);
@@ -309,7 +307,7 @@ $('.rulesok').click(function(){
 		}
 	});
 
-	if(!a){return}
+	if(a == false){return}
 
 	limit = {
 		// "count_on": guize.find('.selected').attr("name"),
@@ -472,8 +470,6 @@ $('body').on("click",".set",function(e){
 		}
 		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4))
 	}
-
-
 
 });
 
@@ -789,7 +785,6 @@ var start = {
 	choose: function(datas) {
 		end.min = datas; //开始日选好后，重置结束日的最小日期
 		end.start = datas //将结束日的初始值设定为开始日
-		startJ.min = datas;
 		//layer.msg(datas);
 	}
 };
@@ -802,8 +797,6 @@ var end = {
 	istoday: false,
 	choose: function(datas) {
 		start.max = datas; //结束日选好后，重置开始日的最大日期
-		endJ.max = datas;
-		startJ.max = datas;
 		//layer.msg(datas);
 	}
 };
@@ -1164,7 +1157,6 @@ $('.btn.edit').click(function(){
 
 	});
 
-	
 	edit.find('#hdBiaoyu').val(area.find('.activitytitle').text());
 	edit.find('.wxtw').val(area.find('.wechattitle').text());
 	edit.find('.xchb').attr('src', area.find('.posterurl').attr('src'));
@@ -1184,11 +1176,6 @@ $('.editok').click(function(){
 		wxtw = cont.find('.wxtw').val(),
 		xchb = cont.find('.xchb img').attr('src'),
 		xcwa = cont.find('.xcwa').val();
-
-	// console.log(hdBiaoyu)
-	// console.log(wxtw)
-	// console.log(xchb)
-	// console.log(xcwa)
 
 	area.find('.activitytitle').text(hdBiaoyu);
 	area.find('.wechattitle').text(wxtw);
@@ -1606,7 +1593,6 @@ $("body").on("click","li.option",function(e){
 				$(this).parents(".addSub4").find("input.sbys + p").text('次');
 				shenbaoyusuanInput.addClass('vihi');
 				return;
-
 			}
 
 		}
@@ -1775,7 +1761,6 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 	$('.addSub4').find('.acSe13 input').keyup();
 
 }).on('keyup','.sbys',function(){
-	// alert($(this).val());
 
 	var ysCount = 0;
 	$('.hdc6-1:contains(元) input').each(function(){
@@ -1884,12 +1869,6 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 function yaoyiyaofengzhi(){
 
 	/*// debugger
-	var yuanNum = 0;
-	$('.yaoWrap .Yyy5d1.fz:contains(元) input').each(function(){
-		yuanNum += parseInt($(this).val());
-		$('.layer.yao .cash').text(yuanNum);
-	});
-	
 	var fenNum = 0;
 	$('.yaoWrap .Yyy5d1.fz:contains(分) input').each(function(){
 		fenNum += parseInt($(this).val());
@@ -1922,44 +1901,32 @@ $('.areaSave').click(function(){
 });
 
 
-
-
 if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 	$('div.acMeD1').css('marginLeft', '26px');
-	// $('.addSub2 .selectWrap1 > *').css('float', 'left');
-	// $('.addSub2 span.acMeS2').css('margin-left', '3px 0 0-24px');
-	// $('.addSub2 span.to').css('margin', '0px 5px 0 30px');
-	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('');
 }
 
 
 // debugger
 var data = {};
 $('.saveToDb, .shenhe').click(function(){
-	//获取活动时间与会员参与时间
-    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
-    var basic = $('.basic-msg');
-    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
-    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
-    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
-    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
 
-    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+   /* var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
     var activeEnd = (new Date(endtime)).getTime(); 
     var joinBegin = (new Date(earliestjointime)).getTime(); 
-    var joinEnd = (new Date(latestjointime)).getTime(); 
+    var joinEnd = (new Date(latestjointime)).getTime(); */
 	/*
 	 * 活动时间与参与时间不正确时的保存问题
 	 */
-	if($(this).text() ==  "保存"){
+	/*if($(this).text() ==  "保存"){
 		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
 		    $("nav span").eq(0).click();
 		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
 		    $('.earliestjointime').focus();
 		    return;
 		}
-	}
+	}*/
 	
+	if($(this).text() ==  "提交审核"){
 
 	    // 获取活动时间与会员参与时间
 	    // 报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
@@ -2451,7 +2418,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        "begintime"       : basic.find('.begintime').val(),
 	        "endtime"         : basic.find('.endtime').val(),
 	        "earliestjointime": basic.find('.earliestjointime').val(),
-	        "latestjointime" : basic.find('.latestjointime').val(),
+	        "latestjointime"  : basic.find('.latestjointime').val(),
 	        "activitytitle"   : basic.find('.activityTitle').val(),
 	        "servicephone"    : servicephone,
 	        "singleselection" : singleselection,
@@ -2473,15 +2440,6 @@ $('.saveToDb, .shenhe').click(function(){
 	$('.member-type .selected').each(function(){
 		var _this = $(this),
 			memberType = _this.text();
-			// alert(memberType)
-			// console.log(memberType)
-		// var memberRangeMin = _this.closest('.member').find('.acMe .selectWrap1.-hi .acMeI1').val(),
-		// memberRangeMax = _this.closest('.member').find('.acMe .selectWrap1.-hi .acMeI2').val();
-		// console.log("memberRangeMin: "+ memberRangeMin + ' memberRangeMax: ' + memberRangeMax);
-		// alert("memberRangeMin: "+ memberRangeMin + ' memberRangeMax: ' + memberRangeMax);
-
-		// return;
-		// console.log(memberType);
 
 		// debugger;
 		if(memberType == '厂商'){
@@ -2549,9 +2507,7 @@ $('.saveToDb, .shenhe').click(function(){
 				begintimeInput = $('.begintime').val();
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
-				begintimeInput = $('.begintime').val();
-//				console.log(new Date(begintimeInput).getMonth() - curDate)
-				begintime = new Date(new Date(begintimeInput).setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+				begintime = new Date(new Date().setMonth((new Date().getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
 			}
 
 			// 统计范围---时间单位
@@ -2560,7 +2516,7 @@ $('.saveToDb, .shenhe').click(function(){
 		} else if(acPrev == "活动开始时") {
 
 			// 判断时间--单位  天、月
-			begintimeInput = $('.begintime').val();
+			begintimeInput = $('.begintime').val().substring(0,10);
 			begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');		
 
 		} else {
@@ -2568,10 +2524,10 @@ $('.saveToDb, .shenhe').click(function(){
 			// 判断时间--单位  天、月
 			begintimeInput = _self.parents('.addSub3').find('.time_y').val();
 
-			if(begintimeInput == '不限' || begintimeInput == ''){
-				begintime = '不限';
-			} else {				
+			if(begintimeInput != '不限'){
 				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
+			} else {
+				begintime = '';
 			}
 
 		}
@@ -2579,7 +2535,6 @@ $('.saveToDb, .shenhe').click(function(){
 		// 条件
 		var operator = _self.closest('.addSub3').find('.acZige4 .selected').text();
 		var min = '';
-		var max = '';
 		if(operator == '>='){
 			min = _self.closest('.addSub3').find('.acZige5 .acZige1Tab input.min').val();
 		} else if(operator == '介于'){
@@ -2624,11 +2579,10 @@ $('.saveToDb, .shenhe').click(function(){
 		
 		var ra_min = _this.closest('.addSub1').find('.acPu .acPuI1').val(),
 			ra_max = _this.closest('.addSub1').find('.acPu .acPuI2').val(),
-
-		// cond1 = _this.closest('.addSub1').find('.acCoSc .bor.selectWrap1.-hi').text(),
-		operator = _this.closest('.addSub1').find('.acCoRe .selected').text(),
-		min = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel1').val(),
-		max = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel2').val();
+			// cond1 = _this.closest('.addSub1').find('.acCoSc .bor.selectWrap1.-hi').text(),
+			operator = _this.closest('.addSub1').find('.acCoRe .selected').text(),
+			min = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel1').val(),
+			max = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel2').val();
 
 		// alert(max)
 		if(_this.text() != '买赠'){
@@ -2653,7 +2607,7 @@ $('.saveToDb, .shenhe').click(function(){
 				"state": "active",
 		    	"activitytype": activitytype, 
 		        "retailer_count" : {"min": ra_min, "max": ra_max}, 
-		        "discount":{"min":min, "operator": operator, "max" : max}
+		        "discount":{"min":min, "operator": operator, "max": max}
 		        // "state":""
 		    }
 		// }
@@ -2685,7 +2639,8 @@ $('.saveToDb, .shenhe').click(function(){
 
 	$('.areaSave').click();
 	var areaData = $('#area-data').val();
-	// alert(areaData);return;
+	// alert(areaData);return;	
+
 	data["area_condition"] = JSON.parse(areaData);
 	// console.log(JSON.stringify(data, null, 4));
 	// return;
@@ -2817,7 +2772,7 @@ $('.saveToDb, .shenhe').click(function(){
 	                layer.msg(returnedData.error);
 	            }
 	        },
-	        error: function () {
+	        error: function (xhr) {
 	            // console.warn("提交审核失败");
 	            layer.msg(optype + "失败");
 	        }

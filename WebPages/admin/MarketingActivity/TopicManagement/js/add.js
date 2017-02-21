@@ -113,7 +113,7 @@ function acAdB() {
             laydate({
                 // elem: id,
                 event: 'focus',
-                format: 'YYYY-MM-DD',
+                format: 'YYYY/MM/DD',
                 // format: 'YYYY-MM-DD',
                 // istime: true,
                 max: dates
@@ -194,7 +194,7 @@ function acAdC() {
 			laydate({
 				// elem: id,
 				event: 'focus',
-				format: 'YYYY-MM-DD',
+				format: 'YYYY/MM/DD',
 				// format: 'YYYY-MM-DD',
 				// istime: true,
 				max: dates
@@ -537,7 +537,7 @@ function addAjax(){
 
 			if(location.href.indexOf("activityModify.html") > 0){
 
-				console.log("subsidyConditionArr"+subsidyConditionArr);
+				console.log("subsidyConditionArr",subsidyConditionArr);
 				$(".acSe9").each(function(num){
 					var emText=$(this).find("em").text();
 					var nameValue="";
