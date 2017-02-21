@@ -1603,7 +1603,6 @@ $("body").on("click","li.option",function(e){
 				$(this).parents(".addSub4").find("input.sbys + p").text('次');
 				shenbaoyusuanInput.addClass('vihi');
 				return;
-
 			}
 
 		}
@@ -1772,7 +1771,6 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 	$('.addSub4').find('.acSe13 input').keyup();
 
 }).on('keyup','.sbys',function(){
-	// alert($(this).val());
 
 	var ysCount = 0;
 	$('.hdc6-1:contains(元) input').each(function(){
@@ -1881,12 +1879,6 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 function yaoyiyaofengzhi(){
 
 	/*// debugger
-	var yuanNum = 0;
-	$('.yaoWrap .Yyy5d1.fz:contains(元) input').each(function(){
-		yuanNum += parseInt($(this).val());
-		$('.layer.yao .cash').text(yuanNum);
-	});
-	
 	var fenNum = 0;
 	$('.yaoWrap .Yyy5d1.fz:contains(分) input').each(function(){
 		fenNum += parseInt($(this).val());
@@ -1919,14 +1911,8 @@ $('.areaSave').click(function(){
 });
 
 
-
-
 if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 	$('div.acMeD1').css('marginLeft', '26px');
-	// $('.addSub2 .selectWrap1 > *').css('float', 'left');
-	// $('.addSub2 span.acMeS2').css('margin-left', '3px 0 0-24px');
-	// $('.addSub2 span.to').css('margin', '0px 5px 0 30px');
-	// $('.aaddSub2 input.acMeI1, .aaddSub2 input.acMeI2').css('');
 }
 
 
@@ -2442,7 +2428,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        "begintime"       : basic.find('.begintime').val(),
 	        "endtime"         : basic.find('.endtime').val(),
 	        "earliestjointime": basic.find('.earliestjointime').val(),
-	        "latestjointime" : basic.find('.latestjointime').val(),
+	        "latestjointime"  : basic.find('.latestjointime').val(),
 	        "activitytitle"   : basic.find('.activityTitle').val(),
 	        "servicephone"    : servicephone,
 	        "singleselection" : singleselection,
@@ -2464,15 +2450,6 @@ $('.saveToDb, .shenhe').click(function(){
 	$('.member-type .selected').each(function(){
 		var _this = $(this),
 			memberType = _this.text();
-			// alert(memberType)
-			// console.log(memberType)
-		// var memberRangeMin = _this.closest('.member').find('.acMe .selectWrap1.-hi .acMeI1').val(),
-		// memberRangeMax = _this.closest('.member').find('.acMe .selectWrap1.-hi .acMeI2').val();
-		// console.log("memberRangeMin: "+ memberRangeMin + ' memberRangeMax: ' + memberRangeMax);
-		// alert("memberRangeMin: "+ memberRangeMin + ' memberRangeMax: ' + memberRangeMax);
-
-		// return;
-		// console.log(memberType);
 
 		// debugger;
 		if(memberType == '厂商'){
@@ -2560,7 +2537,7 @@ $('.saveToDb, .shenhe').click(function(){
 			if(begintimeInput != '不限'){
 				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
 			} else {
-				begintime = '不限';
+				begintime = '';
 			}
 
 		}
@@ -2612,11 +2589,10 @@ $('.saveToDb, .shenhe').click(function(){
 		
 		var ra_min = _this.closest('.addSub1').find('.acPu .acPuI1').val(),
 			ra_max = _this.closest('.addSub1').find('.acPu .acPuI2').val(),
-
-		// cond1 = _this.closest('.addSub1').find('.acCoSc .bor.selectWrap1.-hi').text(),
-		operator = _this.closest('.addSub1').find('.acCoRe .selected').text(),
-		min = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel1').val(),
-		max = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel2').val();
+			// cond1 = _this.closest('.addSub1').find('.acCoSc .bor.selectWrap1.-hi').text(),
+			operator = _this.closest('.addSub1').find('.acCoRe .selected').text(),
+			min = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel1').val(),
+			max = _this.closest('.addSub1').find('.acCoRa .bor.selectWrap2.-hi #acLabel2').val();
 
 		// alert(max)
 		if(_this.text() != '买赠'){
@@ -2641,7 +2617,7 @@ $('.saveToDb, .shenhe').click(function(){
 				"state": "active",
 		    	"activitytype": activitytype, 
 		        "retailer_count" : {"min": ra_min, "max": ra_max}, 
-		        "discount":{"min":min, "operator": operator, "max" : max}
+		        "discount":{"min":min, "operator": operator, "max": max}
 		        // "state":""
 		    }
 		// }
