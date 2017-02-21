@@ -789,7 +789,6 @@ var start = {
 	choose: function(datas) {
 		end.min = datas; //开始日选好后，重置结束日的最小日期
 		end.start = datas //将结束日的初始值设定为开始日
-		startJ.min = datas;
 		//layer.msg(datas);
 	}
 };
@@ -802,8 +801,6 @@ var end = {
 	istoday: false,
 	choose: function(datas) {
 		start.max = datas; //结束日选好后，重置开始日的最大日期
-		endJ.max = datas;
-		startJ.max = datas;
 		//layer.msg(datas);
 	}
 };
@@ -1936,30 +1933,9 @@ if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 // debugger
 var data = {};
 $('.saveToDb, .shenhe').click(function(){
-	//获取活动时间与会员参与时间
-    //报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
-    var basic = $('.basic-msg');
-    var begintime = basic.find('.begintime').val().replace(new RegExp("-","gm"),"/");
-    var endtime =  basic.find('.endtime').val().replace(new RegExp("-","gm"),"/");
-    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
-    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
 
-    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
-    var activeEnd = (new Date(endtime)).getTime(); 
-    var joinBegin = (new Date(earliestjointime)).getTime(); 
-    var joinEnd = (new Date(latestjointime)).getTime(); 
-	/*
-	 * 活动时间与参与时间不正确时的保存问题
-	 */
-	if($(this).text() ==  "保存"){
-		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
-		    $("nav span").eq(0).click();
-		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
-		    $('.earliestjointime').focus();
-		    return;
-		}
-	}
-	
+	// debugger
+	if($(this).text() ==  "提交审核"){
 
 	    // 获取活动时间与会员参与时间
 	    // 报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
@@ -2549,9 +2525,7 @@ $('.saveToDb, .shenhe').click(function(){
 				begintimeInput = $('.begintime').val();
 				begintime = new Date((new Date(begintimeInput) * 1) - (86400000 * curDate)).toLocaleDateString().replace(/\//g, '-');
 			} else {
-				begintimeInput = $('.begintime').val();
-//				console.log(new Date(begintimeInput).getMonth() - curDate)
-				begintime = new Date(new Date(begintimeInput).setMonth((new Date(begintimeInput).getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
+				begintime = new Date(new Date().setMonth((new Date().getMonth() - curDate))).toLocaleDateString().replace(/\//g, '-');
 			}
 
 			// 统计范围---时间单位
@@ -2560,7 +2534,7 @@ $('.saveToDb, .shenhe').click(function(){
 		} else if(acPrev == "活动开始时") {
 
 			// 判断时间--单位  天、月
-			begintimeInput = $('.begintime').val();
+			begintimeInput = $('.begintime').val().substring(0,10);
 			begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');		
 
 		} else {
@@ -2568,10 +2542,10 @@ $('.saveToDb, .shenhe').click(function(){
 			// 判断时间--单位  天、月
 			begintimeInput = _self.parents('.addSub3').find('.time_y').val();
 
-			if(begintimeInput == '不限' || begintimeInput == ''){
-				begintime = '不限';
-			} else {				
+			if(begintimeInput != '不限'){
 				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
+			} else {
+				begintime = '不限';
 			}
 
 		}
@@ -2579,7 +2553,6 @@ $('.saveToDb, .shenhe').click(function(){
 		// 条件
 		var operator = _self.closest('.addSub3').find('.acZige4 .selected').text();
 		var min = '';
-		var max = '';
 		if(operator == '>='){
 			min = _self.closest('.addSub3').find('.acZige5 .acZige1Tab input.min').val();
 		} else if(operator == '介于'){
@@ -2685,7 +2658,8 @@ $('.saveToDb, .shenhe').click(function(){
 
 	$('.areaSave').click();
 	var areaData = $('#area-data').val();
-	// alert(areaData);return;
+	// alert(areaData);return;	
+
 	data["area_condition"] = JSON.parse(areaData);
 	// console.log(JSON.stringify(data, null, 4));
 	// return;
