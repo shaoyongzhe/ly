@@ -246,20 +246,26 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	//$(".addSub2Mange").remove();	
 	if(!$.isEmptyObject(_resdata_.distributor_condition)&&_resdata_.distributor_condition!=undefined){
 	    var activityManger_addSub2Data_distributor=_resdata_.distributor_condition;
-	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家");
+	    /*
+	     * 修复遗漏的模块
+	     */
+	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家","fxs");
+		$('.acZige').find(".fxs").not(':last').remove();
 	    // console.log('分销商')
 	}
 	if(!$.isEmptyObject(_resdata_.retailer_condition)&&_resdata_.retailer_condition!=undefined){
 	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condition;  
-	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家");
+	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家",'md');
+		$('.acZige').find(".md").not(':last').remove();
 	    // console.log('门店')
 	}
 	if(!$.isEmptyObject(_resdata_.consumer_condition)&&_resdata_.consumer_condition!=undefined){
 	    var activityManger_addSub2Data_consumer=_resdata_.consumer_condition;
-	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_consumer,"消费者","人");
+	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_consumer,"消费者","人",'xfz');
+		$('.acZige').find(".xfz").not(':last').remove();
 	    // console.log('消费者')
 	}
-	function activityManger_addSub2HtmlFn(obj, participants,unit){// participants为参与者，其值为分销商，门店，消费者等    
+	function activityManger_addSub2HtmlFn(obj, participants,unit,object_y){// participants为参与者，其值为分销商，门店，消费者等    
 	    /*开始拼js生成的addSub2Mange*/
 
         // $('nav span:eq(1)').click();
@@ -372,8 +378,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '<em class="selected"></em>'
 	        +                               '<ul class="select">'
 	        +                                   '<li class="option">>=</li>'
-            +                                   '<li class="option">介于</li>'
-	        +                                   '<li class="option">==</li>'
+	        +                                   '<li class="option">介于</li>'
+	        +									'<li class="option hi">==</li>'
 	        +                               '</ul>'
 	        +                           '</div>'                
 	        +                       '</div>'
@@ -501,8 +507,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                               '<em class="selected"></em>'
 	        +                               '<ul class="select">'
 	        +                                   '<li class="option">>=</li>'
-            +                                   '<li class="option">介于</li>'
-	        +                                   '<li class="option">==</li>'
+	        +                                   '<li class="option">介于</li>'
+	        +									'<li class="option hi">==</li>'
 	        +                               '</ul>'
 	        +                           '</div>'                
 	        +                       '</div>'
@@ -624,7 +630,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
                 }
 
 	        }
-	    }   
+	        $('.addSub2Mange:last .acZige .addSub3').last().before('<div class="yyy singleselection '+object_y+'"><span class="radio" name="0">以上条件满足其一</span><span class="radio on" name="1">以上条件需全部满足</span></div>');	        
+	    }   	    
 	}
 
     

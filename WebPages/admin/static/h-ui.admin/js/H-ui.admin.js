@@ -338,15 +338,15 @@ function reloadPage(){
 
 
 /*
- * 操作localStorage
+ * 操作lsessionStorage
  */
 	if(!location.hash.match(/\?/g)){
-		localStorage.url=1;
+		sessionStorage.url=1;
 	}
-	var _data=localStorage.url;
+	var _data=sessionStorage.url;
 	
 	var _timer=setInterval(function(){
-		_data=localStorage.url
+		_data=sessionStorage.url
 		if(_data!=1){
 			clearInterval(_timer)
 			location.href = _data

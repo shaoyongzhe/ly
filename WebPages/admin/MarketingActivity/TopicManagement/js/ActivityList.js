@@ -1,4 +1,4 @@
-var linshi = '';
+﻿var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
 var pageindex=0;
@@ -112,25 +112,29 @@ function qixiaofeiload(){
 
 function basicQuery(resetQueryCondition){
     /*判断是否输入了查询条件*/
-	if( $(".qC_aitivityTopic input").val()==""&&
-		$(".qC_number input").val()==""&&
-		$(".qC_principal .selectLedL").text()=="请选择"&&
-		$(".qC_activityTime input:eq(0)").val()==""&&
-		$(".qC_activityTime input:eq(1)").val()==""&&
-		$(".qC_subsidyReleased input:eq(0)").val()==""&&
-		$(".qC_subsidyReleased input:eq(1)").val()==""&&
-		$(".qC_joinVipNumber input:eq(0)").val()==""&&
-		$(".qC_joinVipNumber input:eq(1)").val()==""&&
-		$("#gf-province em").text()=="省"&&
-		$("#gf-city em").text()=="市"&&
-		$("#gf-area em").text()=="区"&&
-		$(".qC_activityBudget input:eq(0)").val()==""&&
-		$(".qC_activityBudget input:eq(1)").val()==""&&
-		$(".qC_status .selectLedL").text()=="请选择"){
-
-		layer.alert('请输入查询条件', {icon: 5});
-		return;
-	}
+//	if( $(".qC_aitivityTopic input").val()==""&&
+//		$(".qC_number input").val()==""&&
+//		$(".qC_principal .selectLedL").text()=="请选择"&&
+//		$(".qC_activityTime input:eq(0)").val()==""&&
+//		$(".qC_activityTime input:eq(1)").val()==""&&
+//		$(".qC_subsidyReleased input:eq(0)").val()==""&&
+//		$(".qC_subsidyReleased input:eq(1)").val()==""&&
+//		$(".qC_joinVipNumber input:eq(0)").val()==""&&
+//		$(".qC_joinVipNumber input:eq(1)").val()==""&&
+////		$("#province em").text()=="省"&&
+////		$("#city em").text()=="市"&&
+////		$("#area em").text()=="区"&&
+//		$('.gf-select span em:eq(0)').text() == '省份'&&
+//		$('.gf-select span em:eq(1)').text() == '城市'&&
+//		$('.gf-select span em:eq(2)').text() == '区县'&&
+//		
+//		$(".qC_activityBudget input:eq(0)").val()==""&&
+//		$(".qC_activityBudget input:eq(1)").val()==""&&
+//		$(".qC_status .selectLedL").text()=="请选择"){
+//
+//		layer.alert('请输入查询条件', {icon: 5});
+//		return;
+//	}
 	
 	/*判断查询条件是否成对*/
 	//活动时间
@@ -455,8 +459,8 @@ function statusAjax(){
 //			console.log(data.status)
 //			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
 //			window.location.href = "/admin/login/signin.html";
-			localStorage.status = false;
-			localStorage.url = "/admin/login/signin.html"
+			sessionStorage.status = false;
+			sessionStorage.url = "/admin/login/signin.html"
 			location.reload()
 		}
 	});
