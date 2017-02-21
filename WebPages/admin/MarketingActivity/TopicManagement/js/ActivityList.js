@@ -1,4 +1,4 @@
-var linshi = '';
+﻿var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
 var pageindex=0;
@@ -112,29 +112,29 @@ function qixiaofeiload(){
 
 function basicQuery(resetQueryCondition){
     /*判断是否输入了查询条件*/
-	if( $(".qC_aitivityTopic input").val()==""&&
-		$(".qC_number input").val()==""&&
-		$(".qC_principal .selectLedL").text()=="请选择"&&
-		$(".qC_activityTime input:eq(0)").val()==""&&
-		$(".qC_activityTime input:eq(1)").val()==""&&
-		$(".qC_subsidyReleased input:eq(0)").val()==""&&
-		$(".qC_subsidyReleased input:eq(1)").val()==""&&
-		$(".qC_joinVipNumber input:eq(0)").val()==""&&
-		$(".qC_joinVipNumber input:eq(1)").val()==""&&
-//		$("#province em").text()=="省"&&
-//		$("#city em").text()=="市"&&
-//		$("#area em").text()=="区"&&
-		$('.gf-select span em:eq(0)').text() == '省份'&&
-		$('.gf-select span em:eq(1)').text() == '城市'&&
-		$('.gf-select span em:eq(2)').text() == '区县'&&
-		
-		$(".qC_activityBudget input:eq(0)").val()==""&&
-		$(".qC_activityBudget input:eq(1)").val()==""&&
-		$(".qC_status .selectLedL").text()=="请选择"){
-
-		layer.alert('请输入查询条件', {icon: 5});
-		return;
-	}
+//	if( $(".qC_aitivityTopic input").val()==""&&
+//		$(".qC_number input").val()==""&&
+//		$(".qC_principal .selectLedL").text()=="请选择"&&
+//		$(".qC_activityTime input:eq(0)").val()==""&&
+//		$(".qC_activityTime input:eq(1)").val()==""&&
+//		$(".qC_subsidyReleased input:eq(0)").val()==""&&
+//		$(".qC_subsidyReleased input:eq(1)").val()==""&&
+//		$(".qC_joinVipNumber input:eq(0)").val()==""&&
+//		$(".qC_joinVipNumber input:eq(1)").val()==""&&
+////		$("#province em").text()=="省"&&
+////		$("#city em").text()=="市"&&
+////		$("#area em").text()=="区"&&
+//		$('.gf-select span em:eq(0)').text() == '省份'&&
+//		$('.gf-select span em:eq(1)').text() == '城市'&&
+//		$('.gf-select span em:eq(2)').text() == '区县'&&
+//		
+//		$(".qC_activityBudget input:eq(0)").val()==""&&
+//		$(".qC_activityBudget input:eq(1)").val()==""&&
+//		$(".qC_status .selectLedL").text()=="请选择"){
+//
+//		layer.alert('请输入查询条件', {icon: 5});
+//		return;
+//	}
 	
 	/*判断查询条件是否成对*/
 	//活动时间
@@ -246,16 +246,16 @@ function basicQuery(resetQueryCondition){
 		async:true,
 		data:condition,
 		success: function (data) {
-//			console.log(data)
-//		    console.log(data.content.length);
-//			console.log(data)
+			// console.log(data)
+		    console.log(data.content.length);
+			console.log(data)
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
-//			console.log('success')
+			console.log('success')
 			if(data.content.length < 1){
-//				layer.alert('数据已加载完', {icon: 1});
+				// layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
 				return;
 			}
@@ -295,9 +295,9 @@ function basicQuery(resetQueryCondition){
 				$(this).attr("title",$(this).html())
 			})
 
-//			$('.activityList .activityAreaAndCharge').on("click",function(){
-//				$(this).toggleClass('ac_tip');
-//			})
+			$('.activityList .activityAreaAndCharge').on("click",function(){
+				$(this).toggleClass('ac_tip');
+			})
 			pagingJson = data["paging"];
 			if(autoLoad){
 				if($(".activityList tbody").prop("scrollHeight") > 500){
@@ -342,40 +342,23 @@ $(".queryConditionButton .query").click(function () {
  * 重置按钮
  */
 $("#reset").click(function(){
-	myDate();
 //	alert(1)
 	$(".qC_aitivityTopic input").val("");
 	$(".qC_number input").val('');
 	$(".qC_principal .selectLedL").text("请选择");
-	$(".qC_activityTime input:eq(0)").val(today);
-	$(".qC_activityTime input:eq(1)").val(today1);
+	$(".qC_activityTime input:eq(0)").val("");
+	$(".qC_activityTime input:eq(1)").val("");
 	$(".qC_subsidyReleased input:eq(0)").val("");
 	$(".qC_subsidyReleased input:eq(1)").val("");
 	$(".qC_joinVipNumber input:eq(0)").val("");
 	$(".qC_joinVipNumber input:eq(1)").val("");
-//	$("#province em").val("省");
-//	$("#city em").text("市");
-//	$("#area em").text("区");
-	/*
-	 * 修复--重置省、市、区
-	 */
-	$('.gf-select span em:eq(0)').text('省份');
-    $('.gf-select span em:eq(1)').text('城市');
-    $('.gf-select span em:eq(2)').text('区县');
-    
+	$("#gf-province em").text("省");
+	$("#gf-city em").text("市");
+	$("#gf-area em").text("区");
 	$(".qC_activityBudget input:eq(0)").val("");
 	$(".qC_activityBudget input:eq(1)").val("");
 	$(".qC_status .selectLedL").text("请选择");
 });
-
-
-/*
- * 内容显隐
- */
-$('.activityList').on("click", ".activityAreaAndCharge",function(){
-	$(this).toggleClass('ac_tip');
-})
-
 function ConstructRecord(contentBody, statusData)
 {
     var stateHtmlArray = $.Enumerable.From(contentBody).Select(function(x) 
@@ -476,8 +459,8 @@ function statusAjax(){
 //			console.log(data.status)
 //			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
 //			window.location.href = "/admin/login/signin.html";
-			localStorage.status = false;
-			localStorage.url = "/admin/login/signin.html"
+			sessionStorage.status = false;
+			sessionStorage.url = "/admin/login/signin.html"
 			location.reload()
 		}
 	});
@@ -491,14 +474,7 @@ function JointDistrict(districts)
     .Select(function (x) { 
     	if(x["charge"]){
     		var chrage_y = x["charge"];
-    		/*
-    		 * 负责人显示问题
-    		 */
-    		if(chrage_y["name"]){
-    			return x["name"] +"("+ chrage_y["name"]+")";
-    		}else{
-    			return x["name"];
-    		}
+    		return x["name"] +"</br>"+ chrage_y["name"];
     	}else{
     		return x["name"];
     	}
@@ -508,6 +484,7 @@ function JointDistrict(districts)
     return queryResult.join(" - ");
     
 }
+/**/
 
 /*新增按钮*/
 $(".addButton").click(function(){
