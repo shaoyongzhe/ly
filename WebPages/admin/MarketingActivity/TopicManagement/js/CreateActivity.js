@@ -221,7 +221,6 @@ $('body').on("click",".setRules",function(e){
 			if(gzVal.perday.sum != "" && gzVal.perday.sum != undefined){
 				$('.layer.set-rules .check.perdaySum').click();
 				$('input.perdaySum').val(gzVal.perday.sum);
-
 			}
 			if(gzVal.perday.time != "" && gzVal.perday.time != undefined){
 				$('.layer.set-rules .check.perdayTime').click();
@@ -235,7 +234,6 @@ $('body').on("click",".setRules",function(e){
 			if(gzVal.totalbudget.time != "" && gzVal.totalbudget.time != undefined){
 				$('.layer.set-rules .check.budgetTime').click();
 				$('input.budgetTime').val(gzVal.totalbudget.time);
-
 			}
 
 			$('.forBudgetSum').text(gzVal.totalbudget.sum);
@@ -309,7 +307,7 @@ $('.rulesok').click(function(){
 		}
 	});
 
-	if(!a){return}
+	if(a == false){return}
 
 	limit = {
 		// "count_on": guize.find('.selected').attr("name"),
@@ -472,8 +470,6 @@ $('body').on("click",".set",function(e){
 		}
 		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4))
 	}
-
-
 
 });
 
@@ -1161,7 +1157,6 @@ $('.btn.edit').click(function(){
 
 	});
 
-	
 	edit.find('#hdBiaoyu').val(area.find('.activitytitle').text());
 	edit.find('.wxtw').val(area.find('.wechattitle').text());
 	edit.find('.xchb').attr('src', area.find('.posterurl').attr('src'));
@@ -1181,11 +1176,6 @@ $('.editok').click(function(){
 		wxtw = cont.find('.wxtw').val(),
 		xchb = cont.find('.xchb img').attr('src'),
 		xcwa = cont.find('.xcwa').val();
-
-	// console.log(hdBiaoyu)
-	// console.log(wxtw)
-	// console.log(xchb)
-	// console.log(xcwa)
 
 	area.find('.activitytitle').text(hdBiaoyu);
 	area.find('.wechattitle').text(wxtw);
@@ -1920,21 +1910,21 @@ if(navigator.userAgent.toUpperCase().indexOf("FIREFOX") != -1){
 var data = {};
 $('.saveToDb, .shenhe').click(function(){
 
-    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+   /* var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
     var activeEnd = (new Date(endtime)).getTime(); 
     var joinBegin = (new Date(earliestjointime)).getTime(); 
-    var joinEnd = (new Date(latestjointime)).getTime(); 
+    var joinEnd = (new Date(latestjointime)).getTime(); */
 	/*
 	 * 活动时间与参与时间不正确时的保存问题
 	 */
-	if($(this).text() ==  "保存"){
+	/*if($(this).text() ==  "保存"){
 		if(!(joinBegin >= activeBegin && activeEnd >=joinEnd )){
 		    $("nav span").eq(0).click();
 		    layer.tips('请先验证会员参与时间区间', $('.latestjointime'));
 		    $('.earliestjointime').focus();
 		    return;
 		}
-	}
+	}*/
 	
 	if($(this).text() ==  "提交审核"){
 
@@ -2782,7 +2772,7 @@ $('.saveToDb, .shenhe').click(function(){
 	                layer.msg(returnedData.error);
 	            }
 	        },
-	        error: function () {
+	        error: function (xhr) {
 	            // console.warn("提交审核失败");
 	            layer.msg(optype + "失败");
 	        }
