@@ -70,22 +70,23 @@
 			$("body").prepend(str);
 		}
 		$(function() {
-			if(window.location.search) {
-				var guid = window.location.search;
-				
-			}
-			$.ajax({
+			if(window.location.search!="") {
+				var guid = window.location.search.replace("?","");
+				//console.log(guid);
+				$.ajax({
 					type: "get",
-					url: "/webapi/earlywarningmanage/anticheating/getappealdetails/931bb86873c947b9b0db60c2ebdc0600",
+					url: "/webapi/earlywarningmanage/anticheating/getappealdetails/"+guid,
 					data: "",
 					error: function(data) {
 
 					},
 					success: function(data) {
-						console.log(data)
+
 						fnxuanran(data);
 					}
 				});
+			}
+
 		});
 	</script>
 
