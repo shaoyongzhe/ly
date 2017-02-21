@@ -273,6 +273,7 @@ function render(detailData){
 		    case "distributor_employee": btduixiang = '分销商业务员'; break;
 		    case "retailer": btduixiang = '门店'; break;
 		    case "retaileremployee": btduixiang = '门店店员'; break;
+		    case "retailer_employee": btduixiang = '门店店员'; break;
 		    case "consumer": btduixiang = '消费者'; break;
 		}
 
