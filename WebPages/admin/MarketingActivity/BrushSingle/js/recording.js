@@ -65,7 +65,7 @@ function fnxuanran(data) {
 			"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 			"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 			"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看核销记录</a></td>" + //查看违规原因***********************************************
+			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看核销记录</a></td>" +
 			"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 			"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
@@ -710,7 +710,7 @@ function article_add(that) {
 	});
 	fnclose(index); //关闭按钮
 	$(".cgl-antc").on("click", ".cgl-import", function() {
-		var fstz = "";
+		var fstz = "",putdata=null;
 		if($(this).text() == "发送通知") {
 			fstz = {
 				"anticheatingids": guid
@@ -724,7 +724,7 @@ function article_add(that) {
 			vipshensu_add(parents);
 		}
 		if($(this).text() == "调整并确认") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "确认违规",
 				"description": $("#cgl-tjbz").find("textarea").val(),
 				"anticheatingids": guid
@@ -733,14 +733,14 @@ function article_add(that) {
 			tiaozqr("当前违规等级<span>（" + parents.find(".cgl-td6").html() + "）</span>", guid)
 		}
 		if($(this).text() == "确认违规") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "确认违规",
 				"anticheatingids": guid
 			};
 			querenwg_add(putdata);
 		}
 		if($(this).text() == "解除违规") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "解除违规",
 				"anticheatingids": guid
 			};
@@ -748,7 +748,7 @@ function article_add(that) {
 			jiechuwg_add(putdata, dqzt);
 		}
 		if($(this).text() == "驳回申诉") {
-			var putdata = {
+			putdata = {
 				"dealtstate": "驳回申诉",
 				"description": "",
 				"anticheatingids": $(this).parents("tr").attr("gu-id")
@@ -873,7 +873,7 @@ function tiaozqr(dangq, guid) {
 						$(".layui-layer-shade").remove();
 						$(".layui-layer").remove();
 					}
-					if(data.succeed) {
+					if(data["succeed"]) {
 						fnshijian(state);
 						$(".cgl-jzz").html("操作成功").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 					}
@@ -1042,7 +1042,7 @@ function fnbohuiapi(putdata) {
 				$('.layui-layer-close').click();
 				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
 			}
-			if(data.succeed) {
+			if(data["succeed"]) {
 				/*var guidarr = [putdata.anticheatingid];
 				for(var i = 0; i < guidarr.length; i++) {
 					$("tr").each(function(n) {
@@ -1468,7 +1468,7 @@ function fnshaixuan(data) {
 }
 $(function() {
 	fnshijian(state);
-	fnanniu4();
+	fnanniu4();//不同状态下四个按钮的显示
 	fnxze1(); //处理与待处理
 	fnxiala(); //下拉菜单
 	fndate(); //发送时间
