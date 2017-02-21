@@ -1,6 +1,6 @@
 //20170221
 //loadingStart();
-//测试网址：http://membership.ipaloma.com/jxb/TopicActivitySubsidiary.html?distributor_id=5ce1d14e07534139ae7774d8983f04f3&switchfrom=ticketdetail
+//测试网址：http://membership.ipaloma.com/jxb/TopicActivitySubsidiary.html?distributor_id=5ce1d14e07534139ae7774d8983f04f3&switchfrom=ticketdetail&type=creat
 
 var linshi='';
 var linshi2="";
