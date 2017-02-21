@@ -8,6 +8,7 @@
  *
  * Date: 2016-02-15T18:35Z
  */
+
 (function (factory) {
   /* global define */
   if (typeof define === 'function' && define.amd) {
@@ -22,7 +23,8 @@
   }
 }(function ($) {
   'use strict';
-
+// console.log(parent.$('tr:first').find('td:eq(3) span.content').html());
+        // alert(156565656665)
   /**
    * @class core.func
    *
@@ -2017,145 +2019,145 @@
   $.extend($.summernote.lang, {
     'en-US': {
       font: {
-        bold: 'Bold',
+        bold: '粗体',
         italic: 'Italic',
-        underline: 'Underline',
-        clear: 'Remove Font Style',
+        underline: '下划线',
+        clear: '清除',
         height: 'Line Height',
-        name: 'Font Family',
+        name: '字体',
         strikethrough: 'Strikethrough',
         subscript: 'Subscript',
         superscript: 'Superscript',
         size: 'Font Size'
       },
       image: {
-        image: 'Picture',
-        insert: 'Insert Image',
-        resizeFull: 'Resize Full',
-        resizeHalf: 'Resize Half',
-        resizeQuarter: 'Resize Quarter',
-        floatLeft: 'Float Left',
-        floatRight: 'Float Right',
-        floatNone: 'Float None',
-        shapeRounded: 'Shape: Rounded',
-        shapeCircle: 'Shape: Circle',
-        shapeThumbnail: 'Shape: Thumbnail',
-        shapeNone: 'Shape: None',
-        dragImageHere: 'Drag image or text here',
-        dropImage: 'Drop image or Text',
-        selectFromFiles: 'Select from files',
-        maximumFileSize: 'Maximum file size',
-        maximumFileSizeError: 'Maximum file size exceeded.',
-        url: 'Image URL',
-        remove: 'Remove Image'
+        image: '图片',
+        insert: '插入图像',
+        resizeFull: '调整充分',
+        resizeHalf: '调整大小的一半',
+        resizeQuarter: '调整季度',
+        floatLeft: '左浮动',
+        floatRight: '右浮动',
+        floatNone: '浮动',
+        shapeRounded: '形状：圆形',
+        shapeCircle: '形状：圆形',
+        shapeThumbnail: '形状：缩略图',
+        shapeNone: '形状：无',
+        dragImageHere: '在此拖动图像或文字',
+        dropImage: '删除图像或文本',
+        selectFromFiles: '选择文件',
+        maximumFileSize: '最大文件大小',
+        maximumFileSizeError: '超过最大文件大小.',
+        url: '图像的URL',
+        remove: '去除图像'
       },
       video: {
-        video: 'Video',
-        videoLink: 'Video Link',
-        insert: 'Insert Video',
-        url: 'Video URL?',
+        video: '视频',
+        videoLink: '视频链接',
+        insert: '插入视频',
+        url: '视频网址?',
         providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)'
       },
       link: {
-        link: 'Link',
-        insert: 'Insert Link',
-        unlink: 'Unlink',
-        edit: 'Edit',
-        textToDisplay: 'Text to display',
-        url: 'To what URL should this link go?',
-        openInNewWindow: 'Open in new window'
+        link: '连接',
+        insert: '插入链接',
+        unlink: '断开',
+        edit: '编辑',
+        textToDisplay: '显示的文本',
+        url: '这个链接应该转到什么URL？',
+        openInNewWindow: '在新窗口中打开'
       },
       table: {
-        table: 'Table'
+        table: '表'
       },
       hr: {
-        insert: 'Insert Horizontal Rule'
+        insert: '插入水平线'
       },
       style: {
-        style: 'Style',
-        normal: 'Normal',
-        blockquote: 'Quote',
-        pre: 'Code',
-        h1: 'Header 1',
-        h2: 'Header 2',
-        h3: 'Header 3',
-        h4: 'Header 4',
-        h5: 'Header 5',
-        h6: 'Header 6'
+        style: '字号样式',
+        normal: '正常',
+        blockquote: '引用',
+        pre: '复制',
+        h1: '一个大标题：',
+        h2: '大标题：2',
+        h3: '大标题：3',
+        h4: '大标题：4',
+        h5: '大标题：5',
+        h6: '大标题：6'
       },
       lists: {
-        unordered: 'Unordered list',
-        ordered: 'Ordered list'
+        unordered: '无序列表',
+        ordered: '有序列表'
       },
       options: {
-        help: 'Help',
-        fullscreen: 'Full Screen',
-        codeview: 'Code View'
+        help: '帮助',
+        // fullscreen: '全屏幕',
+        codeview: '查看代码'
       },
       paragraph: {
-        paragraph: 'Paragraph',
-        outdent: 'Outdent',
-        indent: 'Indent',
-        left: 'Align left',
-        center: 'Align center',
-        right: 'Align right',
-        justify: 'Justify full'
+        paragraph: '段落',
+        outdent: '升级',
+        indent: '缩进',
+        left: '左对齐',
+        center: '居中',
+        right: '右对齐',
+        justify: '铺满'
       },
       color: {
-        recent: 'Recent Color',
-        more: 'More Color',
-        background: 'Background Color',
-        foreground: 'Foreground Color',
-        transparent: 'Transparent',
-        setTransparent: 'Set transparent',
-        reset: 'Reset',
-        resetToDefault: 'Reset to default'
+        recent: '字体颜色',
+        more: '更多颜色哈哈',
+        background: '背景颜色',
+        foreground: '前景颜色',
+        transparent: '透明',
+        setTransparent: '设置透明',
+        reset: '复位',
+        resetToDefault: '重置为默认'
       },
       shortcut: {
-        shortcuts: 'Keyboard shortcuts',
-        close: 'Close',
-        textFormatting: 'Text formatting',
-        action: 'Action',
-        paragraphFormatting: 'Paragraph formatting',
-        documentStyle: 'Document Style',
-        extraKeys: 'Extra keys'
+        shortcuts: '键盘快捷键',
+        close: '关闭',
+        textFormatting: '文本格式',
+        action: '行动',
+        paragraphFormatting: '段落格式',
+        documentStyle: '文档样式',
+        extraKeys: '额外的钥匙'
       },
       help: {
-        'insertParagraph': 'Insert Paragraph',
-        'undo': 'Undoes the last command',
-        'redo': 'Redoes the last command',
-        'tab': 'Tab',
-        'untab': 'Untab',
-        'bold': 'Set a bold style',
-        'italic': 'Set a italic style',
-        'underline': 'Set a underline style',
-        'strikethrough': 'Set a strikethrough style',
-        'removeFormat': 'Clean a style',
-        'justifyLeft': 'Set left align',
-        'justifyCenter': 'Set center align',
-        'justifyRight': 'Set right align',
-        'justifyFull': 'Set full align',
-        'insertUnorderedList': 'Toggle unordered list',
-        'insertOrderedList': 'Toggle ordered list',
-        'outdent': 'Outdent on current paragraph',
-        'indent': 'Indent on current paragraph',
-        'formatPara': 'Change current block\'s format as a paragraph(P tag)',
-        'formatH1': 'Change current block\'s format as H1',
-        'formatH2': 'Change current block\'s format as H2',
-        'formatH3': 'Change current block\'s format as H3',
-        'formatH4': 'Change current block\'s format as H4',
-        'formatH5': 'Change current block\'s format as H5',
-        'formatH6': 'Change current block\'s format as H6',
-        'insertHorizontalRule': 'Insert horizontal rule',
-        'linkDialog.show': 'Show Link Dialog'
+        'insertParagraph': '插入段落',
+        'undo': '撤消上一个命令',
+        'redo': '撤消最后一个命令',
+        'tab': '标签',
+        'untab': '不可预知的',
+        'bold': '设置大胆的风格',
+        'italic': '设置斜体样式',
+        'underline': '设置下划线样式',
+        'strikethrough': '设置删除线样式',
+        'removeFormat': '干净的风格',
+        'justifyLeft': '设置左对齐',
+        'justifyCenter': '设置中心对齐',
+        'justifyRight': '设置右对齐',
+        'justifyFull': '全套对齐',
+        'insertUnorderedList': '切换无序列表',
+        'insertOrderedList': '切换命令列表',
+        'outdent': '在当前段落升级',
+        'indent': '我们经常缩进段落',
+        'formatPara': '将当前块的格式更改为段落（P标记）',
+        'formatH1': '改变当前块的格式为H1',
+        'formatH2': '改变当前块的格式为H2',
+        'formatH3': '改变当前块的格式为H3',
+        'formatH4': '改变当前块的格式为H4',
+        'formatH5': '改变当前块的格式为H5',
+        'formatH6': '改变当前块的格式为H6',
+        'insertHorizontalRule': '插入水平线',
+        'linkDialog.show': '显示链接对话框'
       },
       history: {
-        undo: 'Undo',
-        redo: 'Redo'
+        undo: '撤消',
+        redo: '重做'
       },
       specialChar: {
-        specialChar: 'SPECIAL CHARACTERS',
-        select: 'Select Special characters'
+        specialChar: '特殊字符',
+        select: '选择特殊字符'
       }
     }
   });
@@ -5479,14 +5481,14 @@
         }).render();
       });
 
-      context.memo('button.codeview', function () {
-        return ui.button({
-          className: 'btn-codeview',
-          contents: ui.icon(options.icons.code),
-          tooltip: lang.options.codeview,
-          click: context.createInvokeHandler('codeview.toggle')
-        }).render();
-      });
+      // context.memo('button.codeview', function () {
+      //   return ui.button({
+      //     className: 'btn-codeview',
+      //     contents: ui.icon(options.icons.code),
+      //     tooltip: lang.options.codeview,
+      //     click: context.createInvokeHandler('codeview.toggle')
+      //   }).render();
+      // });
 
       context.memo('button.redo', function () {
         return ui.button({
@@ -6356,9 +6358,9 @@
 
       var body = [
         '<p class="text-center">',
-        '<a href="//summernote.org/" target="_blank">Summernote 0.8.1</a> · ',
-        '<a href="//github.com/summernote/summernote" target="_blank">Project</a> · ',
-        '<a href="//github.com/summernote/summernote/issues" target="_blank">Issues</a>',
+        '<a href="javascript:;" >...</a> · ',
+        '<a href="javascript:;" >帮助</a> · ',
+        '<a href="javascript:;" >介绍</a>',
         '</p>'
       ].join('');
 
@@ -6744,8 +6746,8 @@
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
         ['table', ['table']],
-        ['insert', ['link', 'picture', 'video']],
-        ['view', ['fullscreen', 'codeview', 'help']]
+        ['insert', ['link', 'picture']],//, 'video'
+        ['view', ['codeview', 'help']]
       ],
 
       // popover
@@ -6903,7 +6905,7 @@
         'alignRight': 'note-icon-align-right',
         'indent': 'note-icon-align-indent',
         'outdent': 'note-icon-align-outdent',
-        'arrowsAlt': 'note-icon-arrows-alt',
+        // 'arrowsAlt': 'note-icon-arrows-alt',
         'bold': 'note-icon-bold',
         'caret': 'note-icon-caret',
         'circle': 'note-icon-circle',
