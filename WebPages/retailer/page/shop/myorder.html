@@ -243,7 +243,7 @@ function shopList(pg){
 					   				_price=0;
 				   				for(var t=0;t<data2["content"][r]["details"].length;t++){
 												if(data2["content"][r]["details"][t]["itemtype"]!=3){
-													_price+=Number(data2["content"][r]["details"][t]["itemunitcost"])*Number(data2["content"][r]["details"][t]["qualitycount"])
+													_price+=Number(data2["content"][r]["details"][t]["itemunitcost"])*Number(data2["content"][r]["details"][t]["itemcount"])
 												}
 									}
 				   				if(data2["content"][r]["details"].length>3){
