@@ -324,7 +324,6 @@ $('.rulesok').click(function(){
 
 	// console.log(gzObj);
 	$(".gzHidden" + index).val(JSON.stringify(limit, null, 4));
-	// console.log($(".y1yHidden" + index).val());
 	$(this).closest('.layui-layer').find('.layui-layer-close').click();
 
 });
@@ -480,14 +479,17 @@ $('.yaook').click(function(){
 
 	var isProEmpty = true;
 	$('.yaoWrap .Yyy3 input').each(function(){
+
 		if($(this).val() == ""){
 			layer.tips("请先设置摇一摇概率", $(this));
 			$('.yaook').addClass('disabled');
 			isProEmpty = false;
 			return false;
+
 		} else {
 			$('.yaook').removeClass('disabled');
 		}
+
 	});
 
 	if($(this).hasClass('disabled') || isProEmpty == false){
@@ -503,22 +505,34 @@ $('.yaook').click(function(){
 		$(yaoyiyao).each(function(){
 			var _this = $(this);
 			try { var yaoyiyaogailv = JSON.parse(_this.find('.Yyy6 input').val()) } catch(e) {}
+
+			var max = 0;
+			if(_this.find('.Yyy2 input:eq(1)').val() == ""){
+				max = "";
+			} else {
+				max = Number(_this.find('.Yyy2 input:eq(1)').val());
+			}
+
 			y1yObj = {
 				"refund_content": _this.find('.Yyy1 .selected').text(),
-				"min": _this.find('.Yyy2 input:eq(0)').val(),
-				"max": _this.find('.Yyy2 input:eq(1)').val(),
-				"precentage": _this.find('.Yyy3 input').val(),
-				"timelimit": _this.find('.Yyy4 input').val(),
-				"applycount": _this.find('.Yyy5-1 input').val(),
+				"min": Number(_this.find('.Yyy2 input:eq(0)').val()),
+				"max": max,
+				"precentage": Number(_this.find('.Yyy3 input').val()),
+				"timelimit": Number(_this.find('.Yyy4 input').val()),
+				// "applycount": Number(_this.find('.Yyy5-1 input[readonly]').val()),
 				"probability": yaoyiyaogailv
 			}
 
+			if(y1yObj.max == ""){
+				delete y1yObj.max;
+			}
+
 			y1yArr.push(y1yObj);
-			fengzhi += Number(_this.find('.fz input').val());
+			fengzhi += Math.round(_this.find('.fz input').val());
 
 		});
 
-		$('.addSub4').eq(y1yindex-1).find('.btfz input').val(fengzhi);
+		$('.addSub4').eq(y1yindex-1).find('.btfz input[disabled]').val(fengzhi);
 		$(".y1yHidden" + y1yindex).val(JSON.stringify(y1yArr, null, 4));
 		layer.msg('摇一摇数据已保存');
 
@@ -683,10 +697,6 @@ $('.section3').on('click','.setgailv.on',function(){
 // 设置概率 确定按钮
 var probabilityObj = {};
 $('.gailvok').click(function(){
-	// alert(1);
-	// alert(index);
-	// var gzArr = [];number_doller
-	// debugger
 	
 	if($('.gailvok').hasClass('disabled')){return}
 	var selected = $(this).closest('.setProbability').find('.selected').text();
@@ -695,10 +705,13 @@ $('.gailvok').click(function(){
 	var value_curve_obj = {};
 	value.find('.number_doller b').each(function(){
 		value_curve_obj = {
-			"value": $(this).text()
+			"min": $(this).text(),
+			"max": $(this).parent().next().find('b').text()
 		}
 		value_curve_arr.push(value_curve_obj);
 	});
+
+	value_curve_arr.pop();
 
 	value.find('.Probability_value input').each(function(i){
 		value_curve_arr[i]['percentage'] = $(this).val();
@@ -1590,8 +1603,8 @@ $("body").on("click","li.option",function(e){
 				$(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
-				$(this).parents(".addSub4").find("input.sbys + p").text('次');
-				shenbaoyusuanInput.addClass('vihi');
+				$(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
+				// shenbaoyusuanInput.addClass('vihi');
 				return;
 			}
 
@@ -2317,7 +2330,7 @@ $('.saveToDb, .shenhe').click(function(){
 					return false;
 				}
 
-				if(isShake == false){
+				// if(isShake == false){
 					if(_this.find('.sbys').val() == "") {
 						$("nav span").eq(2).click();
 						layer.tips('请先填写申报预算', _this.find('.sbys'));
@@ -2329,7 +2342,7 @@ $('.saveToDb, .shenhe').click(function(){
 						finished = false;
 						return false;
 					}
-				}
+				// }
 				
 				if(_this.find('.setgailv').hasClass('on')){
 					if(_this.find('.setgailv.on input').length == 0){
@@ -2654,20 +2667,24 @@ $('.saveToDb, .shenhe').click(function(){
 			thisText = _this.text();
 
 		// debugger;
-		var addSub4 = _this.closest('.addSub4');
+		var addSub4 = _this.closest('.addSub4'), min = 0, max = 0;
 		if(addSub4.find('.hdc3 .selected').text().indexOf('随机') != -1){
-			var max = addSub4.find('.hdc4 .hdc4d1 .hdc4In2').val();
+			max = addSub4.find('.hdc4 .hdc4d1 .hdc4In2').val();
 			// alert(max);
+		}
+		if(addSub4.find('.hdc3 .selected').text() == '摇一摇'){
+			min = 1; max = 1;
+		} else {
+			min = addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val();
 		}
 
 		subsidyItem = {
-//			"guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
+			// "guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
 			"state": "active",
-            // "guid": "",
             "refund_to": _this.attr("name"),
             "event": addSub4.find('.hdc2 .selected').text(),
             "refund_content": addSub4.find('.hdc3 .selected').text(),
-            "min": addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val(),
+            "min": min,
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
             "applycount": addSub4.find('.hdc6-1 input').val(),
@@ -2765,7 +2782,7 @@ $('.saveToDb, .shenhe').click(function(){
 	            	}
 	            	function done(sucText){
 	            		layer.msg(sucText, {shift: -1},  function() {
-		            		window.location.href = "http://membership.ipaloma.com/admin/MarketingActivity/topicmanagement/ActivityList.html";
+		            		window.location.href = "/admin/MarketingActivity/topicmanagement/ActivityList.html";
 						});
 	            	}
 	            } else {
@@ -2773,9 +2790,9 @@ $('.saveToDb, .shenhe').click(function(){
 	            }
 	        },
 	        error: function (xhr) {
-	            // console.warn("提交审核失败");
-	            layer.msg(optype + "失败");
-	        }
+		    	layer.alert(optype + '失败 ' + xhr.status, {icon: 5});
+		    }
+
     	});
 		
 		return;
