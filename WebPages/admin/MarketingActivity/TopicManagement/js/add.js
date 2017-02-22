@@ -468,7 +468,7 @@ function addAjax(){
 			addSub4Arr = [""]
 			for (i = 0; i < dss_2c.length; i++) {
 				//补贴形式
-				$(".addSub4 .acSe11 .select").append('<li class="option" name="' + dss_2c[i].type + '" type="' + dss_2c[i].type + '" category="' + dss_2c[i].category + '" showtype=' + dss_2c[i].showtype + '>' + dss_2c[i].localtype + '</li>');
+				$(".addSub4 .acSe11 .select").append('<li class="option" category="' + dss_2c[i].category + '" showtype=' + dss_2c[i].showtype + '>' + dss_2c[i].localtype + '</li>');
 				//范围值
 				if (dss_2c[i].unit == "元") {
 					dss_2c[i].unit = "元/次";
