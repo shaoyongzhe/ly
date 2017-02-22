@@ -77,7 +77,8 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .cgl-linqi{display: inline-block;width:0.75rem;height: 0.75rem; background: url("../image/shop/icon_lin.png") no-repeat center;background-size:0.75rem ;margin:0 0.1rem -0.1rem 0;}
 .the-xiangxi>h3{font-weight: 100;color: #333;font-size: 0.65rem;}
 .the-xiangxi>p{color: #999;font-size: 0.5rem;}
-.c-price>span{color: red;font-size: 0.7rem;}
+.c-price span:nth-child(1){color: red;font-size: 0.7rem;}
+.c-price .del{margin-left: 5px;}
 .c-price>div{padding-right: 0.5rem;margin-top: -0.2rem;}
 .c-price>div>span{float: left;}
 .jian,.add{display: inline-block; width: 1.32rem;height: 1.32rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.32rem;}
@@ -105,7 +106,7 @@ footer{height: 50px;background: #333;color: #fff;}
 .ammount{width: 30px;height: 30px;background: red;color: #fff; text-align: center;line-height: 32px;border: 1px solid #fff;border-radius: 50%;position: absolute;top:-10px;right: -10px;font-size: 16px;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;transform:scale(0.5);}
 .price{padding-left: 59px;line-height: 50px;font-size: 13px;}
 .price>i,.c-price i,.footerr>span>i{font-style: normal;}
-.footerr>a{display:block;color: #fff; width: 79px;background: #009f96;text-align: center;line-height: 50px;font-size: 14px;padding: 0 9px;}
+.footerr>a{display:block;color: #fff;background: #009f96;text-align: center;line-height: 50px;font-size: 14px;padding: 0 9px;}
 .footerr>span{display: block;background: #54504f;text-align: center;line-height: 50px;padding: 0 9px;font-size: 14px;}
 
 

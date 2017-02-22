@@ -8,109 +8,7 @@
 <link href="../../css/common.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../../js/jquery-1.7.2.min.js"></script>
 <script type="text/jscript" src="../../js/retailerid.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		
-
-		var _page=localStorage.pg;
-		if(JSON.parse(_page)["pageindex"]==1){
-			_page=""
-		}
-		var commodity=location.search.split("&")[1].replace("index=","")
-		var pg=location.search.split("&")[0].replace("?pg=","")
-		var _list="";
-		var _kind="";
-		var _give="";
-		var _flag=1;
-		var _price=0;
-		var _amount=0;
-		var _data1=JSON.parse(localStorage.data)
-		var _pp="";
-		console.log(pg)
-		console.log(_data1[pg]["distributor_id"])
-		console.log(commodity)
-		$.ajax({
-			type:"get",
-			url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging="+_page,
-			async:true,
-			success:function(data){
-										console.log(data)
-						$(".emp li:nth-child(1)").text("订单号："+data["content"][commodity]["serialnumber"])
-						$(".emp li:nth-child(2)").text("下单时间："+data["content"][commodity]["issuetime"])
-						$(".emp li:nth-child(3)").text("期望配送时间："+data["content"][commodity]["billexpecteddelivertime"])
-						$(".emp li:nth-child(4)").text("订单备注："+(data["content"][commodity]["description"]==null?"":data["content"][commodity]["description"]))
-						$(".emp li:nth-child(5)").text("分销商名称："+_data1[pg]["distributorname"])
-						$(".emp li:nth-child(6)").text("联系方式："+_data1[pg]["mobilephone"])
-						//alert(data["content"][7]["details"].length)
-						for(var i=0;i<data["content"][commodity]["details"].length;i++){
-							if(data["content"][commodity]["details"][i]["billid_class"]==="tblbillpofromcustomer"){
-								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
-								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
-								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["qualitycount"]+
-								"</div></div></div></div><div class="+
-								"\"discount\""+"></li>";
-								_amount+=Number(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"])
-							}else{
-								_price+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]
-								var _ll="";
-								var _kk=0;
-								console.log(_price)
-
-								
-								
-								console.log(_give)
-
-								
-							}
-							console.log(i)
-						}
-								for(var b=0;b<_data1[pg]["promotionactivity"]["details"].length;b++){
-									if(_amount>=_data1[pg]["promotionactivity"]["details"][b]["moneysum"]){
-										console.log(1)
-										for(var c=0;c<_data1[pg]["promotionactivity"]["details"][b]["giftitems"].length;c++){
-											_ll=_data1[pg]["promotionactivity"]["details"][b]["giftitems"][c]["itemname"];
-											_kk=Number(_data1[pg]["promotionactivity"]["details"][b]["giftitems"][c]["count"])
-											if(_flag==1){
-												_give+="<li><div class="+"\"gg\""+">满赠</div><span class="+"\"gif\""+">"+_ll+"<span>×"+_kk+"</span></span></li>"
-												_flag++
-											}else{
-												_give+="<li><div class="+"\"gift\""+">"+_ll+"<span>×"+_kk+"</span></div></li>"
-											}											
-										}
-
-									}
-								}
-						$(".shoplist").html(_list)
-						//alert(_give)
-						if(_give!=""){
-							$(".kind").html(_give)
-						}else{
-							$(".giveto").remove()
-						}
-						$("#ss div:nth-child(2)").text("￥"+_price)
-						$("#dd div:nth-child(2)").text("￥"+_amount.toFixed(1))
-						if(_amount>=100 && _amount<500){
-							$("#same-ss div:nth-child(3)").text("￥10.0")
-						}else if(_amount>=500){
-							$("#same-ss div:nth-child(3)").text("￥50.0")
-						}else if(_amount<100){
-							$("#same-ss div:nth-child(3)").text("￥0.0")
-						}
-						$(".amountBig span").text(Number($("#dd div:nth-child(2)").text().replace("￥",""))-Number($("#ff div:nth-child(2)").text().replace("￥",""))-Number($("#same-ss div:nth-child(3)").text().replace("￥","")))
-				console.log($("section").css("height"))
-				console.log($("body").css("height"))
-				if(Number($("section").css("height").replace("px",""))<=Number($("body").css("height").replace("px",""))){
-					$("html").css({overflow:"hidden"})
-				}else{
-					$("html").css({overflow:"scroll"})
-				}
-				$(".loads").css({display:"none"})
-				
-			}
-		});
-
-	})
-</script>
+<script type="text/javascript" src="../../js/details.js"></script>
 </head>
 <body style="overflow-x: hidden;">
 	<div class="loads"><img src="../../image/shop/loading.gif" style="width:15%;margin: 70% 0 0 44%;z-index: 100000;"/></div>
@@ -127,35 +25,47 @@
 		</ul>
 		<img src="../../image/shop/border.jpg" style="width:100%" /> 
 	</div>
-<ul class="shoplist">
-
+		<ul class="shoplist" style="border-bottom: 8px solid #f1f2f6;">
+		<div style="width: 100%;height: 13px;line-height: 13px;font-size: 15px;vertical-align: middle;padding: 12px 0px 12px 10px;text-indent: 10px;background: url(../../image/shop/icon_title.png) no-repeat 10px center;border-bottom: 1px #ddd solid;">
+			销售商品
+		</div>
 			
+		</ul>
+		<ul class="gflist">
+			<div style="width: 100%;height: 13px;line-height: 13px;font-size: 15px;vertical-align: middle;padding: 12px 0px 12px 10px;text-indent: 10px;background: url(../../image/shop/icon_title.png) no-repeat 10px center;border-bottom: 1px #ddd solid;">
+				赠送商品
+			</div>
+		</ul>
+		<ul class="yucunList">
+			<div style="width: 100%;height: 13px;line-height: 13px;font-size: 15px;vertical-align: middle;padding: 12px 0px 12px 10px;text-indent: 10px;background: url(../../image/shop/icon_title.png) no-repeat 10px center;border-bottom: 1px #ddd solid;">
+				预存货
+			</div>
 		</ul>
 		<div class="giveto">
 			<ul class="kind">
 
 			</ul>
 		</div>
-		<div class="same">
+		<div class="same" id="pp">
 			<div>商品促销优惠金额</div>
-			<div>￥15.5</div>
+			<div>￥<span>0.0</span></div>
 		</div>
 		<div class="same" id="ss">
 			<div>赠品金额</div>
-			<div>￥15.5</div>
+			<div>￥<span></span></div>
 		</div>
 		<div class="same" id="dd">
 			<div>商品应付金额</div>
-			<div>￥15.5</div>
+			<div>￥<span>0.0</span></div>
 		</div>
-		<div class="same" id="ff">
+		<div class="same" id="vv" style="display: none;">
 			<div>微信下单专享</div>
-			<div>￥15.5</div>
+			<div>￥<span></span></div>
 		</div>
 		<div id="same-ss" style="border-bottom: 1px solid #f1f2f6;">
 			<div>满减</div>
 			<div>(满100元减10元；满500元减50元)</div>
-			<div>￥15.5</div>
+			<div>￥<span></span></div>
 		</div>
 		</section>
 <div class="bottomlayout">
@@ -168,7 +78,7 @@
                           
                             <div class="totalsum">
                                           <p class="amountBig" style="text-align: right;"> 合计：￥<span>50</span>元</p> 
-                                            <p style="text-align: right;">已优惠金额：￥<span>139.00</span>  </p> 
+                                            <p style="text-align: right;">已优惠金额：￥<span></span>  </p> 
                                             
                                       </div>
                             

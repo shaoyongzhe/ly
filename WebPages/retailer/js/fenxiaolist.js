@@ -6,6 +6,7 @@
 
 //获取Id
 
+
 function getid(){
 	return "57839d2ad6424786bd3c319585f2088e";
 }
@@ -26,11 +27,12 @@ function fnfooterclick() {
         }
     });
 }
+
 //获取数据
 function fngetlist() {
     $.ajax({
         type: "get",
-      	url: "/webapi/distributor/"+getid()+"/distributors",
+      	url: "/webapi/distributor/distributors/getall",
       	//url: "../../data/fenxiaolist.json",
         data:"",
         timeout:"9000",
@@ -42,7 +44,13 @@ function fngetlist() {
         	}
         },
         success: function(data){
-            console.log(data)
+        	localStorage.retaler=data.retalerid;
+            console.log(data);
+            localStorage.retalerdata=JSON.stringify(data)
+            if(data.data.result==false){
+            	return false;
+            }
+            data=data.data
             var oli="";
             var ceng1=null;
             var ceng2=null;
@@ -58,7 +66,9 @@ function fngetlist() {
             	itemcount:null,
             	active:null
             };
+            
             for(var k1 in data){
+            	if(data[k1]["openshipping"]==1){
             	ceng1=data[k1];
             	thissp.distributor_id=ceng1["distributor_id"];
             	thissp.distributorname=ceng1["distributorname"];
@@ -67,7 +77,8 @@ function fngetlist() {
             	thissp.mobilephone=ceng1["mobilephone"];
             	thissp.cutgift=ceng1["cutgift"];
             	thissp.itemcount=ceng1["itemcount"];
-            	oli+="<li class='hori' data-xx='"+JSON.stringify(thissp)+"'>" +
+            	
+            	oli+="<li id='"+k1+"' class='hori' data-xx='"+JSON.stringify(thissp)+"'>" +
                         "<div class='main-l'>" +
                                 "<img src='"+ceng1["distributorimg"]+"'>" +
                         "</div>" +
@@ -82,7 +93,7 @@ function fngetlist() {
                                 "<a href='shopcar.html?distributor_id="+thissp.distributor_id+"'><span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span></a>" +
                             "</div>" +
                             "<div class='cgl-manj'>"+
-	                            "<p>微信下单立减5元</p>";
+	                            "<p>微信下单立减<span>"+ceng1["specialprice"]+"</span>元</p>";
 	                            if(ceng1["itemkind"]=="满赠"){
 	                            	oli+="<p style='background-image:url(../../image/shop/icon_zeng.png);'>";
 	                            	for(var k2 in ceng1["promotionactivity"]["details"]){
@@ -119,30 +130,57 @@ function fngetlist() {
                         "</div>" +
                     "</li>";
             }
+           }
             $("#cgl-main").html(oli).on("click","li",function () {
+            	localStorage.index=$(this).attr("id")
             	var thissp1=JSON.parse($(this).attr("data-xx"));
             	thissp1.active=$(this).find(".cgl-manj").html();
             	//console.log(thissp)
             	window.location="activeindex.html?"+JSON.stringify(thissp1);
+            	
             });  
             
         }
     });
 }
+
+
+
 $(function () {
-	$.ajax({
-        type: "get",
-      	url: "/webapi/account/login/test-2-135-1",
-        data: "",
-        timeout:"9000",
-        dataType:"json",
-        error:function(XMLHttpRequest, textStatus, errorThrown){
-        	if(textStatus=="timeout"){
-        		console.log("请求超时")
-        		XMLHttpRequest.abort();
-        	}
-        }
-   });
-    fnfooterclick();
-    fngetlist();
+	//location.reload()
+//	$.ajax({
+//      type: "get",
+//    	url: "/webapi/account/login/ozt7Ntwv2IynvKUMokgnelKWCOQQ",
+//      data: "",
+//      timeout:"9000",
+//      dataType:"json",
+//      error:function(XMLHttpRequest, textStatus, errorThrown){
+//      	if(textStatus=="timeout"){
+//      		console.log("请求超时")
+//      		XMLHttpRequest.abort();
+//      	}
+//      },
+//      success: function(data){
+//      	console.log(data)
+//      }
+// });
+   	
+	
+	if(!localStorage.reload){
+		localStorage.reload=0;
+		    fnfooterclick();
+    		fngetlist();
+	}else if(localStorage.reload==1){
+		var _tt=setInterval(function(){
+			
+				localStorage.reload=0;
+				
+				fnfooterclick();
+    			fngetlist();
+    			clearInterval(_tt);
+			},100)
+		}else{
+							fnfooterclick();
+    			fngetlist();
+		}
 });
