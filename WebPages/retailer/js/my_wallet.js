@@ -101,7 +101,7 @@ var vm = avalon.define({
                 if (index != 1) {
                     if (vm.showType == 0) {//个人
                         var filterarray = $.grep(vm.individual.array, function (item) {
-                            return item.summaryperiod != undefined;//筛选出大于5的
+                            return item.summaryperiod != undefined;//筛选出每月统计
                         });
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
@@ -115,14 +115,29 @@ var vm = avalon.define({
                             }
                         });
 
-                    } else {//门店，公共收入
+                    }
+                    else {//门店，公共收入
+
+                        var filterarray = $.grep(vm.retail.array, function (item) {
+                            return item.summaryperiod != undefined;//筛选出每月统计
+                        });
+
                         $.each(json.content, function (i, v) {
-                            vm.retail.array.push(v)
+
+                            if (filterarray.length > 0) {
+                                $.each(filterarray, function (i, item) {
+                                    if (!compare(item.$model, v)) {
+                                        vm.retail.array.push(v)
+                                    }
+                                })
+                            } else {
+                                vm.retail.array.push(v)
+                            }
                         });
                         vm.retail.current = json.paging.current
                     }
-
-                } else {
+                }
+                else {
                     if (vm.showType == 0) {//个人
                         vm.individual.array = json.content
                         vm.individual.paging = json.paging
