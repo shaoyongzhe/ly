@@ -61,6 +61,7 @@ function getList(curr, handle, searchForm) {
     var df = {};
     if (handle == 'search') {
         df = searchForm;
+        initPageData();
         $("table.notify tbody").empty();
         // $("table.notify tbody").append(tr);
 
@@ -221,6 +222,8 @@ function getList(curr, handle, searchForm) {
 };
 
 $('#refresh').click(function () {
+    initPageData();
+    getList(null, 'search', getSearchForm());
     getModulePeopleList();
 })
 
@@ -288,6 +291,7 @@ $(".reset-btn").click(function () {
     $('.search-area .fifth-type option:first').prop("selected", 'selected');
     $('.search-area .area').val("");
     $(".inra").attr("checked", false)
+    initPageData();
     getList();
     layer.msg('重置完成...');
 });
@@ -494,7 +498,8 @@ $('.add-btn').click(function () {
     layer.msg('正在新增...', { time: 0 });
     console.log(addForm);
     _ajax("POST", "/webapi/operation/notification/template", addForm, '新增', function () {
-        getList(1, 'add');
+        initPageData();
+        getList(null, 'add', getSearchForm());
     });
 });
 
