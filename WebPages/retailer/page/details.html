@@ -71,7 +71,7 @@
 		}
 		$(function() {
 			if(window.location.search!="") {
-				var guid = window.location.search.replace("?","");
+				var guid = window.location.search.replace("?","").split("=")[1];
 				//console.log(guid);
 				$.ajax({
 					type: "get",
@@ -81,7 +81,6 @@
 
 					},
 					success: function(data) {
-
 						fnxuanran(data);
 					}
 				});
