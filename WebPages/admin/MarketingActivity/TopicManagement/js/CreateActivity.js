@@ -2794,7 +2794,7 @@ $('.saveToDb, .shenhe').click(function(){
 	            	}
 	            	function done(sucText){
 	            		layer.msg(sucText, {shift: -1},  function() {
-		            		window.location.href = "/admin/MarketingActivity/topicmanagement/ActivityList.html";
+		            		window.location.href = "/admin/MarketingActivity/TopicManagement/ActivityList.html";
 						});
 	            	}
 	            } else {
