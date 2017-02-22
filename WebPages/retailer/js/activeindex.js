@@ -522,7 +522,7 @@ function fnyibanlist(data) {
                 itemid: data[k1]["itemid"],
                 itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
                 isyucun: 0
-            }
+            };
             oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
@@ -556,16 +556,16 @@ function fnlist2(odata) {
             if(textStatus == "timeout") {
                 $("#loading img").remove();
                 $("#loading div").text("请求超时");
-                console.log("请求超时")
+                console.log("请求超时");
                 XMLHttpRequest.abort();
             }
         },
         success: function(data) {
-            console.log(data)
+            console.log(data);
             $("#loading").hide();
             $("#zhezao").hide();
             if(data.result == false) {
-                console.log(data.error)
+                console.log(data.error);
                 $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data)
@@ -879,7 +879,7 @@ function fncontscroll() {
     arr.each(function(i) {
         n += fngethei(arr.eq(i).attr("id"));
         heiarr[i] = [arr.eq(i).attr("id")] + "=" + n;
-    })
+    });
     //console.log(heiarr);
 
     $(".cgl-contlist").off("scroll").scroll(function() {
