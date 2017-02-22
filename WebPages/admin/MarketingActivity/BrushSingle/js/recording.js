@@ -25,7 +25,7 @@ if(sessionStorage.state && sessionStorage.state.state != "") {
 	state = JSON.parse(sessionStorage.state);
 } else {
 	state = {
-		state: "未处理", //状态
+		state: "未处理", //状态(必填)
 		membername: "", //会员名称
 		membertype: "", //会员类型
 		querybegindate: arr1.strold, //查询开始日期
@@ -170,12 +170,16 @@ function fnmore() {
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
-	$(".weiqueren").find("i").text(odata["weichuli"]);
-	$(".shensuz").find("i").text(odata["shensuzhong"]);
-	$(".chufaz").find("i").text(odata["chufazhong"]);
-	$(".yijiesu").find("i").text(odata["yijieshu"]);
-	$(".jiechu").find("i").text(odata["jiechuweigui"]);
-	fnjilu();
+	console.log(odata)
+	if(odata){
+		$(".weiqueren").find("i").text(odata["weichuli"]);
+		$(".shensuz").find("i").text(odata["shensuzhong"]);
+		$(".chufaz").find("i").text(odata["chufazhong"]);
+		$(".yijiesu").find("i").text(odata["yijieshu"]);
+		$(".jiechu").find("i").text(odata["jiechuweigui"]);
+		fnjilu();
+	}
+
 }
 //查询条件改变事件
 function fnshijian(state) {
@@ -192,6 +196,7 @@ function fnshijian(state) {
 			//console.log(data)
 			$(".cgl-jzz").hide();
 			if(data["allcount"] == 0) {
+
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
@@ -360,63 +365,45 @@ function fndate() {
 }
 //发生地区
 function fnfsdiqu() {
-	$("#province").on("click", "li", function() {
+	$("#province").find("ul").on("click", "li", function() {
 		var sheng = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
 			quold = $("#area>span>em").html();
 		if(sheng != shengold) {
-			if(sheng == "省份") {
-				sheng = ""
-			}
-			if(shiold == "市" || shiold == "城市") {
-				shiold = ""
-			}
-			if(quold == "区" || quold == "区县") {
-				quold = ""
-			}
+			if(sheng == "省份") {sheng = ""}
+			if(shiold == "市" || shiold == "城市") {shiold = ""}
+			if(quold == "区" || quold == "区县") {quold = ""}
 			state["province"] = sheng;
 			state["lastindex"] = 0;
-			fnshijian(state);
+			//fnshijian(state);
 			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
-	$("#city").on("click", "li", function() {
+	$("#city").find("ul").on("click", "li", function() {
 		var shi = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
 			quold = $("#area>span>em").html();
 		if(shi != shiold) {
-			if(shi == "城市") {
-				shi = ""
-			}
-			if(shengold == "省" || shengold == "省份") {
-				shengold = ""
-			}
-			if(quold == "区" || quold == "区县") {
-				quold = ""
-			}
+			if(shi == "城市") {shi = ""}
+			if(shengold == "省" || shengold == "省份") {shengold = ""}
+			if(quold == "区" || quold == "区县") {quold = ""}
 			state["city"] = shi;
 			state["lastindex"] = 0;
-			fnshijian(state);
+			//fnshijian(state);
 			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
-	$("#area").on("click", "li", function() {
+	$("#area").on("click", ">ul>li", function() {
 		var qu = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
 			quold = $("#area>span>em").html();
 		if(qu != quold) {
-			if(qu == "区县") {
-				qu = ""
-			}
-			if(shiold == "市" || shiold == "城市") {
-				shiold = ""
-			}
-			if(shengold == "省" || shengold == "省份") {
-				shengold = ""
-			}
+			if(qu == "区县") {qu = ""}
+			if(shiold == "市" || shiold == "城市") {shiold = ""}
+			if(shengold == "省" || shengold == "省份") {shengold = ""}
 			state["county"] = qu;
 			state["lastindex"] = 0;
 			fnshijian(state);
@@ -1441,16 +1428,19 @@ function fnpaixu(data, order) {
 	$(".table2").find("tbody").html(cont);
 
 	//同名同色
-	var alltr = $(".table2 tr");
-	var con = 0;
-	for(var n = 1; n < alltr.length; n++) {
-		if(alltr.eq(n).find(".jltd1").html() != alltr.eq(n - 1).find(".jltd1").html()) {con++;}
-		if(con % 2 != 0) {
-			alltr.eq(n).css({
-				"background": "#f8f8f8"
-			});
-		}
-	}
+    if(order!="order1"){
+        var alltr = $(".table2 tr");
+        var con = 0;
+        for(var n = 1; n < alltr.length; n++) {
+            if(alltr.eq(n).find(".jltd1").html() != alltr.eq(n - 1).find(".jltd1").html()) {con++;}
+            if(con % 2 != 0) {
+                alltr.eq(n).css({
+                    "background": "#f8f8f8"
+                });
+            }
+        }
+    }
+
 }
 //三种排序
 function fnshaixuan(data) {
