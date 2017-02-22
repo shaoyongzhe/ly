@@ -193,6 +193,15 @@ section .remarks{
 .gflist li img{
 	width:70px;height:70px
 }
+.yucunList{
+	width:100%;height:auto
+}
+.yucunList li{
+	padding:12px 12px 12px 12px;border-bottom: 1px solid #e8e8e8;
+}
+.yucunList li img{
+	width:70px;height:70px
+}
 .shop-tit{
 	width:auto;float:left;font-size: 1.6rem;
 }
