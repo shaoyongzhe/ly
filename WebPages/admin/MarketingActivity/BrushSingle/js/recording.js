@@ -25,7 +25,7 @@ if(sessionStorage.state && sessionStorage.state.state != "") {
 	state = JSON.parse(sessionStorage.state);
 } else {
 	state = {
-		state: "未处理", //状态
+		state: "未处理", //状态(必填)
 		membername: "", //会员名称
 		membertype: "", //会员类型
 		querybegindate: arr1.strold, //查询开始日期
@@ -170,12 +170,16 @@ function fnmore() {
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
-	$(".weiqueren").find("i").text(odata["weichuli"]);
-	$(".shensuz").find("i").text(odata["shensuzhong"]);
-	$(".chufaz").find("i").text(odata["chufazhong"]);
-	$(".yijiesu").find("i").text(odata["yijieshu"]);
-	$(".jiechu").find("i").text(odata["jiechuweigui"]);
-	fnjilu();
+	console.log(odata)
+	if(odata){
+		$(".weiqueren").find("i").text(odata["weichuli"]);
+		$(".shensuz").find("i").text(odata["shensuzhong"]);
+		$(".chufaz").find("i").text(odata["chufazhong"]);
+		$(".yijiesu").find("i").text(odata["yijieshu"]);
+		$(".jiechu").find("i").text(odata["jiechuweigui"]);
+		fnjilu();
+	}
+
 }
 //查询条件改变事件
 function fnshijian(state) {
@@ -192,6 +196,7 @@ function fnshijian(state) {
 			//console.log(data)
 			$(".cgl-jzz").hide();
 			if(data["allcount"] == 0) {
+
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
@@ -341,7 +346,7 @@ function fndate() {
 			choose: function(dates) {
 				//layer.msg(dates);
 				var isxy = $('#cgl-cxdata1').val().replace(/-/g, "") - $('#cgl-cxdata').val().replace(/-/g, "")
-					//console.log(isxy)
+				//console.log(isxy)
 				if($('#cgl-cxdata').val() == state["querybegindate"] && $('#cgl-cxdata1').val() == state["queryenddate"]) {
 					return false;
 				} else if(isxy < 0 && $('#cgl-cxdata').val() != "" && $('#cgl-cxdata1').val() != "") {
@@ -360,63 +365,45 @@ function fndate() {
 }
 //发生地区
 function fnfsdiqu() {
-	$("#province").on("click", "li", function() {
+	$("#province").find("ul").on("click", "li", function() {
 		var sheng = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
 			quold = $("#area>span>em").html();
 		if(sheng != shengold) {
-			if(sheng == "省份") {
-				sheng = ""
-			}
-			if(shiold == "市" || shiold == "城市") {
-				shiold = ""
-			}
-			if(quold == "区" || quold == "区县") {
-				quold = ""
-			}
+			if(sheng == "省份") {sheng = ""}
+			if(shiold == "市" || shiold == "城市") {shiold = ""}
+			if(quold == "区" || quold == "区县") {quold = ""}
 			state["province"] = sheng;
 			state["lastindex"] = 0;
-			fnshijian(state);
+			//fnshijian(state);
 			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
-	$("#city").on("click", "li", function() {
+	$("#city").find("ul").on("click", "li", function() {
 		var shi = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
 			quold = $("#area>span>em").html();
 		if(shi != shiold) {
-			if(shi == "城市") {
-				shi = ""
-			}
-			if(shengold == "省" || shengold == "省份") {
-				shengold = ""
-			}
-			if(quold == "区" || quold == "区县") {
-				quold = ""
-			}
+			if(shi == "城市") {shi = ""}
+			if(shengold == "省" || shengold == "省份") {shengold = ""}
+			if(quold == "区" || quold == "区县") {quold = ""}
 			state["city"] = shi;
 			state["lastindex"] = 0;
-			fnshijian(state);
+			//fnshijian(state);
 			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
-	$("#area").on("click", "li", function() {
+	$("#area").on("click", ">ul>li", function() {
 		var qu = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
 			quold = $("#area>span>em").html();
 		if(qu != quold) {
-			if(qu == "区县") {
-				qu = ""
-			}
-			if(shiold == "市" || shiold == "城市") {
-				shiold = ""
-			}
-			if(shengold == "省" || shengold == "省份") {
-				shengold = ""
-			}
+			if(qu == "区县") {qu = ""}
+			if(shiold == "市" || shiold == "城市") {shiold = ""}
+			if(shengold == "省" || shengold == "省份") {shengold = ""}
 			state["county"] = qu;
 			state["lastindex"] = 0;
 			fnshijian(state);
@@ -585,6 +572,7 @@ function fncaozuo() {
 			$("div", this).addClass("czon");
 		}
 	}).on("click", ".cgl-td13 .xiangxi", function() {
+		//console.log($(this).parents("tr"))
 		article_add(this);
 	}).on("click", ".cgl-td13>a", function() {
 		article_add(this);
@@ -665,8 +653,8 @@ function article_add(that) {
 		"</li>" +
 		"</ul>" +
 		"<div class='cgl-antc'><span class='cgl-close cgl-ciyao'>关闭</span>";
-	for(var i = 0; i < $(that).nextAll().length; i++) {
-		cont += "<span class='cgl-import'>" + $(that).nextAll().eq(i).html() + "</span>";
+	for(var i = $(that).prevAll().length-1; i >=0 ; i--) {
+		cont += "<span class='cgl-import'>" + $(that).prevAll().eq(i).html() + "</span>";
 	}
 	cont += "</div>";
 	var index = layer.open({
@@ -880,7 +868,6 @@ function tiaozqr(dangq, guid) {
 				}
 			});
 		} else {
-
 			$(".cgl-jzz").html("加载中，请稍后···").show();
 			var putdata1 = {
 				"dealtstate": "确认违规",
@@ -902,12 +889,12 @@ function jiechuwg_add(putdata, dqzt) {
 		"</div>" +
 		"<div id='cgl-kuaijie'>" +
 		/*"<h4>快捷申诉</h4>" +
-		"<div>" +
-		    "<label><input name='shensu' type='checkbox'>描述1 </label>" +
-		    "<label><input name='shensu' type='checkbox'>描述2 </label>" +
-		    "<label><input name='shensu' type='checkbox'>描述3 </label>" +
-		    "<label><input name='shensu' type='checkbox'>描述4</label>" +
-		"</div>" +*/
+		 "<div>" +
+		 "<label><input name='shensu' type='checkbox'>描述1 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述2 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述3 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述4</label>" +
+		 "</div>" +*/
 		"</div>" +
 		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>取消</span><span id='qrjcweig' class='cgl-import'>确定</span></div>" +
 		"</div>";
@@ -928,13 +915,7 @@ function jiechuwg_add(putdata, dqzt) {
 			$(".cgl-jzz").html("请先填写备注").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 			return false;
 		} else {
-			if(dqzt == "申诉中") {
-				putdata.anticheatingid = putdata.anticheatingids;
-				fnbohuiapi(putdata);
-			} else {
-				fnqrjcwg(putdata);
-			}
-
+			fnqrjcwg(putdata);
 		}
 	});
 }
@@ -953,7 +934,14 @@ function fnqrjcwg(putdata) {
 	});
 	layer.full(index);
 	$(".querenjc").click(function() {
-		fnwgjlzt(putdata);
+		var dqzt=state.state;
+		if(dqzt == "申诉中") {
+			putdata.anticheatingid = putdata.anticheatingids;
+			fnbohuiapi(putdata);
+		}else {
+			fnwgjlzt(putdata);
+		}
+
 	});
 }
 //会员申诉
@@ -965,13 +953,13 @@ function vipshensu_add(parents) {
 		"</div>" +
 		"<div id='cgl-kuaijie'>" +
 		/*		    "<h4>快捷申诉</h4>" +
-				    "<div>" +
-				        "<label><input name='shensu' type='checkbox'>描述1 </label>" +
-				        "<label><input name='shensu' type='checkbox'>描述2 </label>" +
-				        "<label><input name='shensu' type='checkbox'>描述3 </label>" +
-				        "<label><input name='shensu' type='checkbox'>描述4</label>" +
-				    "</div>" +
-		*/
+		 "<div>" +
+		 "<label><input name='shensu' type='checkbox'>描述1 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述2 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述3 </label>" +
+		 "<label><input name='shensu' type='checkbox'>描述4</label>" +
+		 "</div>" +
+		 */
 		"</div>" +
 		"<div class='cgl-anfs'><span class='cgl-close cgl-ciyao'>取消</span><span class='cgl-import quedss'>确定</span></div>" +
 		"</div>";
@@ -1044,15 +1032,15 @@ function fnbohuiapi(putdata) {
 			}
 			if(data["succeed"]) {
 				/*var guidarr = [putdata.anticheatingid];
-				for(var i = 0; i < guidarr.length; i++) {
-					$("tr").each(function(n) {
-						if($(this).attr("gu-id") == guidarr[i]) {
-							$(this).find(".cgl-td12").html(putdata.dealtstate);
-							$(this).remove();
-							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
-						}
-					});
-				}*/
+				 for(var i = 0; i < guidarr.length; i++) {
+				 $("tr").each(function(n) {
+				 if($(this).attr("gu-id") == guidarr[i]) {
+				 $(this).find(".cgl-td12").html(putdata.dealtstate);
+				 $(this).remove();
+				 $(".stateon").find("i").text($(".stateon").find("i").text() - 1);
+				 }
+				 });
+				 }*/
 				$(".cgl-zhezao").hide();
 				state["lastindex"] = 0;
 				fnshijian(state);
@@ -1280,15 +1268,15 @@ function fnwgjlzt(putdata) {
 			}
 			if(data["succeed"]) {
 				/*var guidarr = putdata.anticheatingids.split(",");
-				for(var i = 0; i < guidarr.length; i++) {
-					$("tr").each(function(n) {
-						if($(this).attr("gu-id") == guidarr[i]) {
-							$(this).find(".cgl-td12").html(putdata.dealtstate);
-							$(this).remove();
-							$(".stateon").find("i").text($(".stateon").find("i").text() - 1);
-						}
-					});
-				}*/
+				 for(var i = 0; i < guidarr.length; i++) {
+				 $("tr").each(function(n) {
+				 if($(this).attr("gu-id") == guidarr[i]) {
+				 $(this).find(".cgl-td12").html(putdata.dealtstate);
+				 $(this).remove();
+				 $(".stateon").find("i").text($(".stateon").find("i").text() - 1);
+				 }
+				 });
+				 }*/
 				$(".cgl-zhezao").hide();
 				state["lastindex"] = 0;
 				fnshijian(state);
@@ -1341,13 +1329,13 @@ function fnweigyy() {
 				cont += "</table></div>" +
 					"<h3 class='tianpfx'>天平分析</h3>" +
 					"<ul class='fxcont'>" +
-					"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
-					"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
-					"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
-					"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
-					"<li><h4>Grosbby异常检测</h4><span>" + data["arithmetic"]["value5"] + "</span><p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
-					"<li><h4>粗糙集分类统计</h4><span>" + data["arithmetic"]["value6"] + "</span><p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
-					"<li><h4>门店密集核销</h4><span>" + data["arithmetic"]["value7"] + "</span><p>核销间隔过短，一段时间内频率过高的情况</p></li>" +
+						"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
+						"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
+						"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
+						"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
+						"<li><h4>Grosbby异常检测</h4><span>" + data["arithmetic"]["value5"] + "</span><p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
+						"<li><h4>粗糙集分类统计</h4><span>" + data["arithmetic"]["value6"] + "</span><p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
+						"<li><h4>门店密集核销</h4><span>" + data["arithmetic"]["value7"] + "</span><p>核销间隔过短，一段时间内频率过高的情况</p></li>" +
 					"</ul>" +
 					"<div class='hxjl'>" +
 					"<h3>核销记录</h3>" +
@@ -1357,7 +1345,6 @@ function fnweigyy() {
 					"<span>消费者集中</span>" +
 					"<span>一人多券</span>" +
 					"</div>" +
-
 					"<div><table border='1'><thead>" +
 					"<tr>" +
 					"<th width='60'>消费者</th>" +
@@ -1441,16 +1428,19 @@ function fnpaixu(data, order) {
 	$(".table2").find("tbody").html(cont);
 
 	//同名同色
-	var alltr = $(".table2 tr");
-	var con = 0;
-	for(var n = 1; n < alltr.length; n++) {
-		if(alltr.eq(n).find(".jltd1").html() != alltr.eq(n - 1).find(".jltd1").html()) {con++;}
-		if(con % 2 != 0) {
-			alltr.eq(n).css({
-				"background": "#f8f8f8"
-			});
-		}
-	}
+    if(order!="order1"){
+        var alltr = $(".table2 tr");
+        var con = 0;
+        for(var n = 1; n < alltr.length; n++) {
+            if(alltr.eq(n).find(".jltd1").html() != alltr.eq(n - 1).find(".jltd1").html()) {con++;}
+            if(con % 2 != 0) {
+                alltr.eq(n).css({
+                    "background": "#f8f8f8"
+                });
+            }
+        }
+    }
+
 }
 //三种排序
 function fnshaixuan(data) {

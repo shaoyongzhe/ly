@@ -537,7 +537,7 @@ function addAjax(){
 
 			if(location.href.indexOf("activityModify.html") > 0){
 
-				console.log("subsidyConditionArr",subsidyConditionArr);
+				// console.log("subsidyConditionArr"+subsidyConditionArr);
 				$(".acSe9").each(function(num){
 					var emText=$(this).find("em").text();
 					var nameValue="";
