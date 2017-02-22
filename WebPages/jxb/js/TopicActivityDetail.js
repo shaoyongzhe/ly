@@ -1,4 +1,4 @@
-//20170213.1545
+//20170221老大修改了一部分代码
 //alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
@@ -196,13 +196,21 @@ function ajaxActivityDetails(a,b){
 					$(".BbtsmRright2Content").append(btsmHtml);//生成btsm	
 					
 					$(".BbtsmRright2Content .btsm:last").find(".btsmP1").text(btduixiang(key));//补贴对象
-					var hm=''
-					for(i=0;i<data.subsidy_description[key].length;i++){
+					var hm = ''
+					var subsidyDescriptionSummary = data.subsidy_description[key]
+					for (i = 0; i < subsidyDescriptionSummary.length; i++) {
 						//分享超惠券送固定金额返现2元
 //						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+'</p>';	
 						//分享超惠券送固定金额返现2元
 //						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+","+data.subsidy_description[key][i].ruledescription.join("，")+'</p>';	
-						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:'+textWidth+'px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
+					    var subsidyDescriptionString = subsidyDescriptionSummary[i].subsidyevent + ',' + subsidyDescriptionSummary[i].subsidymethod;
+					    if (subsidyDescriptionSummary[i].ruledescription &&
+                            subsidyDescriptionSummary[i].ruledescription.length > 0 &&
+                            subsidyDescriptionSummary[i].rulerestrict)
+					    {
+					           subsidyDescriptionString += "," + subsidyDescriptionSummary[i].rulerestrict + ',' + subsidyDescriptionSummary[i].ruledescription.join("，");
+					    }
+					    hm += '<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">' + (i + 1) + '、</span><span style="display: inline-block;width:' + textWidth + 'px;vertical-align:top">' + subsidyDescriptionString + '</span></p>'
 					}
 					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
 //					console.log(hm)

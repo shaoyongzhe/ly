@@ -159,8 +159,9 @@
                         {@else}
                         <div class="assetinfo">
                             <a href="${testclick(item)}" class="assetcontent">
-                                <div class="asset_left">
-                                    <small>${item.topiclist[0].topictitle + (item.topiclist.length>1?'等活动':'')}</small>
+                                <div class="asset_left" style="width: calc(100% - 115px);">
+                                    <div style="width: calc(100% - 55px);text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;float: left;">${item.topiclist[0].topictitle}</div>
+                                    <small>${item.topiclist.length>1?'等活动':''}</small>
                                 </div>
                                 <div class="asset_right">
                                     <small>已参加</small>${item.topiclist[0].headcount}<small>人</small>
@@ -184,9 +185,7 @@
                             </li>
                             <div class="clear"></div>
                         </ul>
-
                     </div>
-
                     {@/each}
                     {@if data[0].description.length >0}
                     <div class="chdetail-textbox" style="border-top:1px solid #ccc;">
