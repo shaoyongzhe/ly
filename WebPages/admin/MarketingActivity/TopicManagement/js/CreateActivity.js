@@ -454,23 +454,7 @@ $('body').on("click",".set",function(e){
 
 	}
 
-}).on("input",".addSub4 .hdc5 input",function(){
-	var addSub4 = $(this).closest('.addSub4'),
-		addSub4_val = addSub4.find('.y1y').val();
-	if(addSub4_val != "" && addSub4_val != undefined){
-		addSub4.find('.set').click();
-		$('.yaoyiyao .Yyy3 input').val("");
-		$('.yaoyiyao .Yyy4 input').val("");
-
-		var y1yArr = JSON.parse(addSub4_val);
-		for(var i in y1yArr){
-			y1yArr[i]['precentage'] = "";
-			y1yArr[i]['timelimit'] = "";
-		}
-		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4))
-	}
-
-});
+})
 
 
 
@@ -762,8 +746,6 @@ $('.gailvok').click(function(){
 
 var time = new Date();
 var tomorrow = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + (time.getDate() + 1);
-// var timer_tommory=time.getFullYear()+ 1 +"/"+(time.getMonth()+1)+"/"+time.getDate();
-
 // var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
@@ -1603,7 +1585,7 @@ $("body").on("click","li.option",function(e){
 				$(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
-				$(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
+				// $(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
 				// shenbaoyusuanInput.addClass('vihi');
 				return;
 			}
@@ -1734,11 +1716,7 @@ $("body").on("click","li.option",function(e){
 	});
 });*/
 
-
-
-
-
-$('.butieSec').on('keyup','.acSe13 input',function(){
+$('.butieSec').on('blur','.acSe13 input',function(){
 
 	var _this = $(this);
 	var thisText = _this.val();
@@ -1746,32 +1724,51 @@ $('.butieSec').on('keyup','.acSe13 input',function(){
 		thisText = 0;
 	}
 
+	var addSub4 = _this.closest('.addSub4'),
+		addSub4_val = addSub4.find('.y1y').val();
+	if(addSub4_val != "" && addSub4_val != undefined){
+		addSub4.find('.set').click();
+
+		layer.msg('请重新设置摇一摇概率')
+		$('.yaoyiyao .Yyy3 input').val("0");
+		$('.yaoyiyao .Yyy4 input').val("0");
+		$('.yaoyiyao .Yyy5 input').val("0");
+		$('.layer.yao .cash').text("0");
+
+		var y1yArr = JSON.parse(addSub4_val);
+		for(var i in y1yArr){
+			y1yArr[i]['precentage'] = "";
+			y1yArr[i]['timelimit'] = "";
+		}
+		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4))
+	}
+
 	var m = 0;
-	var minInput = _this.closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In1');
-	var maxInput = _this.closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2');
+	var minInput = addSub4.find('.hdc4 .hdc4d1 input.hdc4In1');
+	var maxInput = addSub4.find('.hdc4 .hdc4d1 input.hdc4In2');
 
 	if(maxInput.css('display') == 'block'){
 		m = maxInput.val();
 	} else {
 		m = minInput.val();
 		minInput.keyup(function(){
-			_this.keyup();
+			_this.blur();
 		});
 	}
 
 	// debugger;
 	if( isNaN(maxInput.val()) || isNaN(minInput.val()) ){
-		_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(0 * thisText));
+		addSub4.find('.hdc6.fz .acSe14 input').val(Number(0 * thisText));
 		butiefz();
 		return;
 	}
 
-	_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(m * thisText).toFixed(2));
+	addSub4.find('.hdc6.fz .acSe14 input').val(Number(m * thisText).toFixed(2));
 
 	butiefz();
 
 }).on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
-	$('.addSub4').find('.acSe13 input').keyup();
+	$('.addSub4').find('.acSe13 input').blur();
 
 }).on('keyup','.sbys',function(){
 
@@ -1801,7 +1798,6 @@ var butiefz = function(){
 	if(yuanL != 0){
 
 		yuanDom.each(function(){
-			// if($(this).val() == ""){return false}
 			yuanNum += Number($(this).val());
 		});
 
@@ -1817,8 +1813,8 @@ var butiefz = function(){
 	if(fenL != 0){
 		fenDom.each(function(){
 			fenNum += Number($(this).val()).toFixed(2);
-			$('.ysfz .score').text(Number(fenNum));
 		});
+		$('.ysfz .score').text(Number(fenNum));
 	} else {
 		$('.ysfz .score').text('0');
 	}
