@@ -247,13 +247,13 @@ function basicQuery(resetQueryCondition){
 		data:condition,
 		success: function (data) {
 			// console.log(data)
-		    console.log(data.content.length);
-			console.log(data)
+		    // console.log(data.content.length);
+			// console.log(data)
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
-			console.log('success')
+			// console.log('success')
 			if(data.content.length < 1){
 				// layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
