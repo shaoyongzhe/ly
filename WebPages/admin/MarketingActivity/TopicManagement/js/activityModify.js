@@ -64,11 +64,16 @@ function render(resdata){
     
     basic.find('.fzr1 .selected').attr("oid",activity.responsible_id.oid);
     basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
-    
+
+    basic.find('.fzr1 .selected').attr("guid",activity.responsible_id.guid);
+    basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
+
+
+
     if(activity.singleselection == 1){
-        $('.radio:contains(是)').addClass('on');
+        $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
     } else {
-        $('.radio:contains(否)').addClass('on');
+        $('.radio:contains(否)').addClass('on').siblings().removeClass('on');
     }
 
 
@@ -129,8 +134,6 @@ function render(resdata){
 
 }
 
-
-/*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 //addSubJoint()
 function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个函数里，然后上面ajax中调用		
 	var _resdata_="";	
@@ -323,7 +326,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '</div>'        
 	        +                       '<!--统计范围-->'
             +                       '<div class="range-wrap">'
-	        +                       '<div class="dib acZige2 ver" style="margin: 0 4px">'
+	        +                       '<div class="dib acZige2 ver" style="margin-right: 4px;">'
 	        +                           '<div class="select-wrap  acSe6 mangeStyle">'                                       
 	        +                               '<i></i>'
 	        +                               '<em class="selected"></em>'
@@ -630,7 +633,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
                 }
 
 	        }
-	        $('.addSub2Mange:last .acZige .addSub3').last().before('<div class="yyy singleselection '+object_y+'"><span class="radio" name="0">以上条件满足其一</span><span class="radio on" name="1">以上条件需全部满足</span></div>');	        
+	        $('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio' name='0'>以上条件满足其一</span><span class='radio on' name='1'>以上条件需全部满足</span></div>");	        
 	    }   	    
 	}
 
@@ -717,7 +720,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '<input type="text" placeholder="" class="hdc4In1 dib" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->'
 	        +                   '</div>'
 	        +                   '<div class="dib hi hdc4d2 link">'
-	        +                       '<a href="#" class="dib hdc4dB ver set"></a>'
+	        +                       '<a href="javascript:;" class="dib hdc4dB ver set"></a>'
 	        +												'<input type="hidden" class="y1y">'
 	        +                   '</div>'
 	        +               '</div>'
@@ -738,7 +741,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '<!--申报预算-->'
 	        +           '<div class="dib hdc6 hdc6-1 ver re mangeStyle">'
 	        +               '<div class="acSe14 ba btfz ">'                     
-	        +                   '<input type="text" class="sbys " />'
+	        +                   '<input type="text" class="sbys"/>'
 	        +                   '<p class="dib ">元</p><!--即将被替代为别的单位-->'
 	        +               '</div>'
 	        +           '</div>'

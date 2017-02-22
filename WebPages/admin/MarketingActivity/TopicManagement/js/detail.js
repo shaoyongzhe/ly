@@ -226,6 +226,7 @@ function render(detailData){
 		    case "distributor_employee": btduixiang = '分销商业务员'; break;
 		    case "retailer": btduixiang = '门店'; break;
 		    case "retaileremployee": btduixiang = '门店店员'; break;
+		    case "retailer_employee": btduixiang = '门店店员'; break;
 		    case "consumer": btduixiang = '消费者'; break;
 		}
 
@@ -273,8 +274,10 @@ function render(detailData){
 			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ butie[i].min * butie[i].ceiling +"</i><i>"+ danwei +"</i></td>";
 		}
 
+		// debugger
+		var applycount = butie[i].applycount.substring(0, butie[i].applycount.indexOf('.') + 3)
 		// debugger;
-		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ butie[i].applycount +"</i><i>"+ danwei +"</i></td></tr>");
+		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ applycount +"</i><i>"+ danwei +"</i></td></tr>");
 	}
 
 	// debugger

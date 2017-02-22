@@ -25,7 +25,19 @@ a{
     line-height: 34px;
     float: left;
 }
-
+/*
+ * 城市三级联动样式
+ */
+.gf-select span em {
+    font-style: normal;
+    /* text-align: center; */
+    /* margin-top: 2px; */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    width: 38px;
+}
 
 /*模拟下拉样式*/
 ul {
@@ -215,7 +227,9 @@ button {
   vertical-align: middle; }
 
 .qC_activityArea .activityAreaSelect {
-  vertical-align: middle; }
+  vertical-align: middle; 
+  height: 24px;
+}
 
 .qC_activityBudget input {
   font-size: 15px;
@@ -337,7 +351,12 @@ button {
   text-align: center;
   /*background-color: #FFFFFF;*/
   /*display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;*/
-  
+  word-wrap: break-word;
+  }
+
+  .activitytitle{
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
 .ac_tip{
