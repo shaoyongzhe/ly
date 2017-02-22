@@ -200,7 +200,6 @@ function fnmclick2 () {
 function fnmenuhei() {
     $(".cgl-contlist").css("height", $(".cgl-menu").height());
 }
-
 //获取菜单列表
 function fnmenu() {
     $("#zhezao").show();
