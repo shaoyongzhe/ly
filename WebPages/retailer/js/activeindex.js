@@ -914,6 +914,12 @@ function fnserach() {
 		"pagecount": 5000
 	};
 	$(".searchbtn").on("click", function() {
+        $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
+        $("#cgl-contlist").find("ul").animate({
+            "margin-top": "0"
+        }, 300);
+        $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
+
 		odata.filter = $(".content").val();
 		if($(".titlestyle>span").html() == "品牌") {
 			odata.filtertype = 1;
