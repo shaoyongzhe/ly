@@ -48,7 +48,7 @@ function fnpricenum() {
 	$("#zhezao").show();
 	$.ajax({
 		type: "get",
-		url: "/webapi/distributor/" + fnurl().shopid + "/shoppingcart/" + fnurl().distributor_id + "/count",
+		url: "/webapi/distributor/" + localStorage.retaler + "/shoppingcart/" + fnurl().distributor_id + "/count",
 		//url: "../../data/menu.json",
 		data: "",
 		timeout: "9000",
@@ -60,7 +60,7 @@ function fnpricenum() {
 			}
 		},
 		success: function(data) {
-			//console.log(data)
+			console.log(data)
 			$("#zhezao").hide();
 			$(".ammount").html(data.itemcount);
 			$(".num").html(data.itemcount);
@@ -325,7 +325,7 @@ function fnhqactive() {
 	$("#loading").show();
 	$.ajax({
 		type: "get",
-		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/activity",
+		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/activity",
 		data: {
 			"lastcount": 0,
 			"pagecount": 5000
@@ -554,7 +554,7 @@ function fnlist2(odata) {
 	$("#zhezao").show();
 	$.ajax({
 		type: "get",
-		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/items",
+		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
 		data: odata,
 		timeout: "9000",
 		dataType: "json",
@@ -831,10 +831,10 @@ function fnaddcar(that, a) {
 	var dataid = JSON.parse($(that).parents(".c-price").attr("dataid"));
 	dataid.itemcount = a;
 	dataid.versiontime = formaty();
-	//console.log(dataid)
+	console.log(dataid)
 	$("#zhezao").show();
 	$.ajax({
-		url: "/webapi/distributor/" + fnurl().shopid + "/shoppingcart",
+		url: "/webapi/distributor/" + localStorage.retaler + "/shoppingcart",
 		contentType: "application/json; charset=utf-8",
 		async: true,
 		cache: false,
@@ -849,7 +849,7 @@ function fnaddcar(that, a) {
 			}
 		},
 		success: function(data) {
-			//console.log(data)
+			console.log(data)
 			$("#zhezao").hide();
 		}
 	})
