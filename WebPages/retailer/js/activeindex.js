@@ -143,7 +143,6 @@ function fnmenuclick() {
 	var thetext = "";
 	fnhqactive();
 	$("#cgl-menu").on("click", ".link", function() {
-//		$(this).parent().parent().parent().next().find("h4").html("某一子类<i> > </i>")
 		thetext = $(this).text();
 		if(thetext == "我的预存货") {
 			fnyucun();
@@ -927,23 +926,6 @@ function fnserach() {
 			});
 		$("#cgl-menu").find(">li").removeClass("clion").find(".link>i").show();
 	});
-}
-//	if(localStorage.reload){
-//		var _tt=setInterval(function(){
-//			if(localStorage.reload==1){
-//				localStorage.reload=0;
-//				clearInterval(_tt)
-//				location.reload();
-//			}
-//		},100)		
-//	}
-function guowu(){
-	$(".footerl>a").click({function(){
-		location.href="shopcar.html?distributor_id=" + fnurl().distributor_id
-	}})
-	$(".footerr>a").click({function(){
-		location.href="shopcar.html?distributor_id=" + fnurl().distributor_id
-	}})
 }
 $(function() {
 		if(localStorage.reload==1){
