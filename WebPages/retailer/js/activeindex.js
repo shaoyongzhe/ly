@@ -143,7 +143,6 @@ function fnmenuclick() {
 	var thetext = "";
 	fnhqactive();
 	$("#cgl-menu").on("click", ".link", function() {
-//		$(this).parent().parent().parent().next().find("h4").html("某一子类<i> > </i>")
 		thetext = $(this).text();
 		if(thetext == "我的预存货") {
 			fnyucun();
@@ -262,7 +261,7 @@ function fnyucun() {
 	$("#zhezao").show();
 	$.ajax({
 		type: "get",
-		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/prepayinventorys",
+		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
 		//url: "../../data/activeindex.json",
 		data: "",
 		timeout: "2000",
@@ -510,10 +509,10 @@ function fnyibanlist(data) {
 						"<p>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + "</p>" +
 						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
 						"<div class='right'>";
-					if(data[k1]["itemcount"] <= 0) {
-						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+					if(data[k1]["itemslist"][k2]["itemcount"] <= 0) {
+						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
 					} else {
-						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
 					}
 					oli += "</div></div></div></div></li>";
 				}
@@ -650,6 +649,7 @@ function fnyibanlist2(data) {
 			}
 			oli += "</li>";
 		}else if(data[k1].itemslist) {
+			if(data[k1].itemslist.length > 1) {
 				//多种包装情况下包装大于1时
 				oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "' itemcategory='" + data[k1].itemcategory + "' itemsubcategory='" + data[k1].itemsubcategory + "'>";
 				for(var k2 in data[k1]["itemslist"]) {
@@ -675,6 +675,34 @@ function fnyibanlist2(data) {
 					oli += "</div></div></div>" +
 						"</div>";
 				}
+
+			} else {
+				//多种包装情况下包装等于1时
+				for(var k2 in data[k1]["itemslist"]) {
+					dataid = {
+						distributorid: fnurl().distributor_id,
+						itemquality: data[k1]["itemquality"],
+						itemid: data[k1]["itemslist"][k2]["guid"],
+						itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
+						isyucun: 0
+					}
+					oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1].itemcategory + "' itemsubcategory='" + data[k1].itemsubcategory + "'>" +
+						"<div class='cgl-top hori'> " +
+						"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
+						"<div class='the-xiangxi'> " +
+						"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
+						"<p>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + "</p>" +
+						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
+						"<div class='right'>";
+					if(data[k1]["itemslist"][k2]["itemcount"] <= 0) {
+						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
+					} else {
+						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
+					}
+					oli += "</div></div></div></div></li>";
+				}
+
+			}
 		} else {
 			//一种包装时
 			dataid = {
@@ -915,6 +943,12 @@ function fnserach() {
 		"pagecount": 5000
 	};
 	$(".searchbtn").on("click", function() {
+        $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
+        $("#cgl-contlist").find("ul").animate({
+            "margin-top": "0"
+        }, 300);
+        $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
+
 		odata.filter = $(".content").val();
 		if($(".titlestyle>span").html() == "品牌") {
 			odata.filtertype = 1;
@@ -927,23 +961,6 @@ function fnserach() {
 			});
 		$("#cgl-menu").find(">li").removeClass("clion").find(".link>i").show();
 	});
-}
-//	if(localStorage.reload){
-//		var _tt=setInterval(function(){
-//			if(localStorage.reload==1){
-//				localStorage.reload=0;
-//				clearInterval(_tt)
-//				location.reload();
-//			}
-//		},100)		
-//	}
-function guowu(){
-	$(".footerl>a").click({function(){
-		location.href="shopcar.html?distributor_id=" + fnurl().distributor_id
-	}})
-	$(".footerr>a").click({function(){
-		location.href="shopcar.html?distributor_id=" + fnurl().distributor_id
-	}})
 }
 $(function() {
 		if(localStorage.reload==1){
