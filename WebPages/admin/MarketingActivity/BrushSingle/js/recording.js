@@ -172,13 +172,13 @@ function fndengji(data) {
 	var odata = data[0];
 	console.log(odata)
 	if(odata){
-        $(".weiqueren").find("i").text(odata["weichuli"]);
-        $(".shensuz").find("i").text(odata["shensuzhong"]);
-        $(".chufaz").find("i").text(odata["chufazhong"]);
-        $(".yijiesu").find("i").text(odata["yijieshu"]);
-        $(".jiechu").find("i").text(odata["jiechuweigui"]);
-        fnjilu();
-    }
+		$(".weiqueren").find("i").text(odata["weichuli"]);
+		$(".shensuz").find("i").text(odata["shensuzhong"]);
+		$(".chufaz").find("i").text(odata["chufazhong"]);
+		$(".yijiesu").find("i").text(odata["yijieshu"]);
+		$(".jiechu").find("i").text(odata["jiechuweigui"]);
+		fnjilu();
+	}
 
 }
 //查询条件改变事件
@@ -366,7 +366,7 @@ function fndate() {
 //发生地区
 function fnfsdiqu() {
 	$("#province").find("ul").on("click", "li", function() {
-        var sheng = $(this).html(),
+		var sheng = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
 			quold = $("#area>span>em").html();
@@ -380,7 +380,7 @@ function fnfsdiqu() {
 			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
-    $("#city").find("ul").on("click", "li", function() {
+	$("#city").find("ul").on("click", "li", function() {
 		var shi = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
@@ -395,7 +395,7 @@ function fnfsdiqu() {
 			sessionStorage.setItem("state", JSON.stringify(state));
 		}
 	});
-    $("#area").on("click", ">ul>li", function() {
+	$("#area").on("click", ">ul>li", function() {
 		var qu = $(this).html(),
 			shengold = $("#province>span>em").html(),
 			shiold = $("#city>span>em").html(),
@@ -1428,16 +1428,19 @@ function fnpaixu(data, order) {
 	$(".table2").find("tbody").html(cont);
 
 	//同名同色
-	var alltr = $(".table2 tr");
-	var con = 0;
-	for(var n = 1; n < alltr.length; n++) {
-		if(alltr.eq(n).find(".jltd1").html() != alltr.eq(n - 1).find(".jltd1").html()) {con++;}
-		if(con % 2 != 0) {
-			alltr.eq(n).css({
-				"background": "#f8f8f8"
-			});
-		}
-	}
+    if(order!="order1"){
+        var alltr = $(".table2 tr");
+        var con = 0;
+        for(var n = 1; n < alltr.length; n++) {
+            if(alltr.eq(n).find(".jltd1").html() != alltr.eq(n - 1).find(".jltd1").html()) {con++;}
+            if(con % 2 != 0) {
+                alltr.eq(n).css({
+                    "background": "#f8f8f8"
+                });
+            }
+        }
+    }
+
 }
 //三种排序
 function fnshaixuan(data) {
