@@ -650,7 +650,6 @@ function fnyibanlist2(data) {
 			}
 			oli += "</li>";
 		}else if(data[k1].itemslist) {
-			if(data[k1].itemslist.length > 1) {
 				//多种包装情况下包装大于1时
 				oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "' itemcategory='" + data[k1].itemcategory + "' itemsubcategory='" + data[k1].itemsubcategory + "'>";
 				for(var k2 in data[k1]["itemslist"]) {
@@ -676,35 +675,6 @@ function fnyibanlist2(data) {
 					oli += "</div></div></div>" +
 						"</div>";
 				}
-
-			} else {
-				//多种包装情况下包装等于1时
-				for(var k2 in data[k1]["itemslist"]) {
-					dataid = {
-						distributorid: fnurl().distributor_id,
-						itemquality: data[k1]["itemquality"],
-						itemid: data[k1]["itemslist"][k2]["guid"],
-						itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
-						isyucun: 0
-					}
-					oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1].itemcategory + "' itemsubcategory='" + data[k1].itemsubcategory + "'>" +
-						"<div class='cgl-top hori'> " +
-						"<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
-						"<div class='the-xiangxi'> " +
-						"<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
-						"<p>" + data[k1]["itemslist"][k2]["specification"] + " | " + data[k1]["itemslist"][k2]["packagetypename"] + "</p>" +
-						"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
-						"<div class='right'>";
-					if(data[k1]["itemcount"] <= 0) {
-						oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-					} else {
-						oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-					}
-					oli += "</div></div></div></div></li>";
-				}
-
-			}
-
 		} else {
 			//一种包装时
 			dataid = {
