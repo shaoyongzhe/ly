@@ -13,12 +13,13 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
 	// c(fzr)
 	$(fzr.content).each(function(i,item){
-		$('.fuzeren .select').append('<li class="option" guid='+ item.guid +' oid='+ item.oid +'>'+ item.nickname +'</li>');
+		$('.fuzeren .select').append('<li class="option" guid="'+ item.guid +'" oid='+ item.oid +'>'+ item.nickname +'</li>');
 	});
 
 	/*$('.fzr .option').each(function(){
 		$(this).click();
 	});*/
+	
 });
 
 
@@ -328,7 +329,38 @@ $('.rulesok').click(function(){
 
 });
 
+$('.yaoWrap').on('blur',".Yyy3 input", function(){
 
+	var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
+	var y1ygailvInput = Number($(this).val());
+	
+	$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
+	
+	var percentNum = 0;
+	$('.yaoWrap .Yyy3 input').each(function(){
+		percentNum += Number($(this).val());
+	});
+
+	var cishuNum = 0;
+	$('.yaoWrap .Yyy4 input').each(function(){
+		cishuNum += Number($(this).val());
+	});
+
+	if(percentNum != 100){
+		layer.msg('摇一摇概率相加必须等于100');
+		$('.yaook').addClass('disabled');
+		return;
+
+	} else if(cishuNum != shangxiancishu){
+		layer.msg('奖品次数不等于发放上限次数' + shangxiancishu + '次');
+		$('.yaook').addClass('disabled');
+		return;
+
+	} else {
+		$('.yaook').removeClass('disabled');
+	}
+
+});
 // 设置摇一摇、设置轮盘抽奖
 $('body').on("click",".set",function(e){
 
@@ -399,38 +431,7 @@ $('body').on("click",".set",function(e){
 
 		}
 
-		$('.yaoWrap').on('blur',".Yyy3 input", function(){
-
-			var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
-			var y1ygailvInput = Number($(this).val());
-			
-			$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
-			
-			var percentNum = 0;
-			$('.yaoWrap .Yyy3 input').each(function(){
-				percentNum += Number($(this).val());
-			});
-
-			var cishuNum = 0;
-			$('.yaoWrap .Yyy4 input').each(function(){
-				cishuNum += Number($(this).val());
-			});
-
-			if(percentNum != 100){
-				layer.msg('摇一摇概率相加必须等于100');
-				$('.yaook').addClass('disabled');
-				return;
-
-			} else if(cishuNum != shangxiancishu){
-				layer.msg('奖品次数不等于发放上限次数' + shangxiancishu + '次');
-				$('.yaook').addClass('disabled');
-				return;
-
-			} else {
-				$('.yaook').removeClass('disabled');
-			}
-
-		});
+		
 
 	} else if( type == '轮盘抽奖'){
 		$(this).next('.lp').remove();
@@ -454,23 +455,7 @@ $('body').on("click",".set",function(e){
 
 	}
 
-}).on("input",".addSub4 .hdc5 input",function(){
-	var addSub4 = $(this).closest('.addSub4'),
-		addSub4_val = addSub4.find('.y1y').val();
-	if(addSub4_val != "" && addSub4_val != undefined){
-		addSub4.find('.set').click();
-		$('.yaoyiyao .Yyy3 input').val("");
-		$('.yaoyiyao .Yyy4 input').val("");
-
-		var y1yArr = JSON.parse(addSub4_val);
-		for(var i in y1yArr){
-			y1yArr[i]['precentage'] = "";
-			y1yArr[i]['timelimit'] = "";
-		}
-		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4))
-	}
-
-});
+})
 
 
 
@@ -762,8 +747,6 @@ $('.gailvok').click(function(){
 
 var time = new Date();
 var tomorrow = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + (time.getDate() + 1);
-// var timer_tommory=time.getFullYear()+ 1 +"/"+(time.getMonth()+1)+"/"+time.getDate();
-
 // var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
@@ -1522,7 +1505,6 @@ $("body").on("click","li.option",function(e){
 	}
 
 
-
 	// 选择限制范围
 	if($(this).closest('.xzfw').length==1){
 		// debugger
@@ -1530,21 +1512,20 @@ $("body").on("click","li.option",function(e){
 	}
 
 
-	if(!selected){
-		_this.parent().hide().prev().text(text);
-		_this.parent().hide().prev().attr("name",_this.attr('name'));
-	}
+
 
 	//开始*********************************************************************************************
 	//控件4活动补贴规则****直接复制add.js中hdc3Tab()并纳入$('.select').on("click",".option",function(e){}
 	// $(".hdc3").find(".option").click(function(){
+
+	// 补贴形式
 	if($(this).closest('.acSe11').length==1){	
 		// alert(1);
 
 		// debugger;
 		$(this).closest(".addSub4").find("input").val("");
 		
-
+		_this.parent().hide().prev().text($(this).text()).attr("showtype",_this.attr('showtype'));
 		// return
 		// var arr=["分/次","分/次","元/次","元/次","元/次","元/次","元/张","元/张","微信手机红包；随机金额返现","轮盘抽奖，祝你好运","蒙牛酸酸乳，买一赠一"];
 
@@ -1603,7 +1584,7 @@ $("body").on("click","li.option",function(e){
 				$(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
-				$(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
+				// $(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
 				// shenbaoyusuanInput.addClass('vihi');
 				return;
 			}
@@ -1629,13 +1610,23 @@ $("body").on("click","li.option",function(e){
 		// $(this).closest('.addSub4').find('.hdc6 .acSe14 p').width(14);		
 		//内部修改项结束**********************
 
-
 		// $('.addSub4 .acSe13 input').keyup();
 		// $('.butieSec .sbys').keyup();
+
+		return;
 
 	}
 	// });
 	//结束********************************************************************************************
+
+
+
+	if(!selected){
+		_this.parent().hide().prev().text(text);
+		_this.parent().hide().prev().attr("name",_this.attr('name'));
+	}
+
+
 
 
 	//开始*********************************************************************************************
@@ -1734,44 +1725,65 @@ $("body").on("click","li.option",function(e){
 	});
 });*/
 
+var focusVal = "";
+$('.butieSec').on('focus','.acSe13 input',function(){
+	focusVal = $(this).val();
+});
+$('.butieSec').on('blur','.acSe13 input',function(){
 
-
-
-
-$('.butieSec').on('keyup','.acSe13 input',function(){
 
 	var _this = $(this);
-	var thisText = _this.val();
-	if(isNaN(thisText)){
-		thisText = 0;
+	var thisVal = _this.val();
+	if(thisVal == focusVal){return}
+	if(isNaN(thisVal)){
+		thisVal = 0;
+	}
+
+	var addSub4 = _this.closest('.addSub4'),
+		addSub4_val = addSub4.find('.y1y').val();
+	if(addSub4_val != "" && addSub4_val != undefined){
+		addSub4.find('.set').click();
+
+		layer.msg('请重新设置摇一摇概率');
+		$('.yaoyiyao .Yyy3 input').val("0");
+		$('.yaoyiyao .Yyy4 input').val("0");
+		$('.yaoyiyao .Yyy5 input').val("0");
+		$('.layer.yao .cash').text("0");
+
+		var y1yArr = JSON.parse(addSub4_val);
+		for(var i in y1yArr){
+			y1yArr[i]['precentage'] = "";
+			y1yArr[i]['timelimit'] = "";
+		}
+		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4));
 	}
 
 	var m = 0;
-	var minInput = _this.closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In1');
-	var maxInput = _this.closest('.addSub4').find('.hdc4 .hdc4d1 input.hdc4In2');
+	var minInput = addSub4.find('.hdc4 .hdc4d1 input.hdc4In1');
+	var maxInput = addSub4.find('.hdc4 .hdc4d1 input.hdc4In2');
 
 	if(maxInput.css('display') == 'block'){
 		m = maxInput.val();
 	} else {
 		m = minInput.val();
 		minInput.keyup(function(){
-			_this.keyup();
+			_this.blur();
 		});
 	}
 
 	// debugger;
 	if( isNaN(maxInput.val()) || isNaN(minInput.val()) ){
-		_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(0 * thisText));
+		addSub4.find('.hdc6.fz .acSe14 input').val(Number(0 * thisVal));
 		butiefz();
 		return;
 	}
 
-	_this.closest('.addSub4').find('.hdc6.fz .acSe14 input').val(Number(m * thisText).toFixed(2));
+	addSub4.find('.hdc6.fz .acSe14 input').val(Number(m * thisVal).toFixed(2));
 
 	butiefz();
 
 }).on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
-	$('.addSub4').find('.acSe13 input').keyup();
+	$('.addSub4').find('.acSe13 input').blur();
 
 }).on('keyup','.sbys',function(){
 
@@ -1801,7 +1813,6 @@ var butiefz = function(){
 	if(yuanL != 0){
 
 		yuanDom.each(function(){
-			// if($(this).val() == ""){return false}
 			yuanNum += Number($(this).val());
 		});
 
@@ -1817,8 +1828,8 @@ var butiefz = function(){
 	if(fenL != 0){
 		fenDom.each(function(){
 			fenNum += Number($(this).val()).toFixed(2);
-			$('.ysfz .score').text(Number(fenNum));
 		});
+		$('.ysfz .score').text(Number(fenNum));
 	} else {
 		$('.ysfz .score').text('0');
 	}
@@ -2684,6 +2695,7 @@ $('.saveToDb, .shenhe').click(function(){
             "refund_to": _this.attr("name"),
             "event": addSub4.find('.hdc2 .selected').text(),
             "refund_content": addSub4.find('.hdc3 .selected').text(),
+            "showtype": addSub4.find('.hdc3 .selected').attr('showtype'),
             "min": min,
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
@@ -2782,7 +2794,7 @@ $('.saveToDb, .shenhe').click(function(){
 	            	}
 	            	function done(sucText){
 	            		layer.msg(sucText, {shift: -1},  function() {
-		            		window.location.href = "/admin/MarketingActivity/topicmanagement/ActivityList.html";
+		            		window.location.href = "/admin/MarketingActivity/TopicManagement/ActivityList.html";
 						});
 	            	}
 	            } else {
