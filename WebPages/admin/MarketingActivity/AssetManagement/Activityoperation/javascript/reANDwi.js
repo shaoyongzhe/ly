@@ -2,12 +2,12 @@
  * Created by Administrator on 2016/12/21.
  */
 
-/*³ÇÊĞÁª¶¯*/
+/*åŸå¸‚è”åŠ¨*/
 comSelect();
 selectCity();
 
-/*×ÖÊıÏŞÖÆ*/
-$("#ar").on("input propertychange", function() {
+/*å­—æ•°é™åˆ¶*/
+$("#ar,#ar_tx").on("input propertychange", function() {
     var $this = $(this),
         _val = $this.val(),
         count = "";
@@ -15,72 +15,45 @@ $("#ar").on("input propertychange", function() {
         $this.val(_val.substring(0, 100));
     }
     count = 100 - $this.val().length;
-    $("#text-count").text(count);
+    $("#text-count,#text-count_tx").text(count);
 });
 
-/*ÉÏ´«Í¼Æ¬*/
-$(function() {
-    $(".filepath").on("change",function() {
-        var srcs = getObjectURL(this.files[0]);   //»ñÈ¡Â·¾¶
-        $(this).nextAll(".img2").show();  //fireBUg²é¿´µÚ¶ş´Î»»Í¼Æ¬²»Æğ×öÓÃ
-        $(this).nextAll(".img1").hide();   //thisÖ¸µÄÊÇinput
-        $(this).nextAll(".img2").attr("src",srcs);    //thisÖ¸µÄÊÇinput
-        $(this).val('');    //±ØĞëÖÆ¿Õ
-    })
-})
-function getObjectURL(file) {
-    var url = null;
-    if (window.createObjectURL != undefined) {
-        url = window.createObjectURL(file)
-    } else if (window.URL != undefined) {
-        url = window.URL.createObjectURL(file)
-    } else if (window.webkitURL != undefined) {
-        url = window.webkitURL.createObjectURL(file)
-    }
-    return url
-};
+/*ç¡®è®¤æç°ç™»è®°*/
 
-$(".filepath_T").click (function () {
-    $(".filepath").trigger("click");
-})
-
-/*È·ÈÏÌáÏÖµÇ¼Ç*/
-
-$(".confirm").click(function(){
+$(".cz_dialog .confirm").click(function(){
     $(".non,.ares").css({
-        "background": "none",
-        "border": "none"
+        background: "none",
+        border: "none"
     });
-    $(".pic_r").css("background","none");
     $(".ze").css("display","block");
     $(".icon-jt").css("background","none");
     $(".non img").css("visibility","hidden")
 
-    $(this).css("display","none");
-    $(".cancel").css("display","none");
-    $(".revise").css("display","block");
+    $('.cz_dialog input,.cz_dialog select,.cz_dialog textarea').attr('readonly',true);
 
-    $('.cz_dialog_bom input,.cz_dialog_bom select,.cz_dialog_bom textarea').attr('readonly',true);
+    $(this).css("display","none");
+    $(".cz_dialog_Btn .cancel").css("display","none");
+    $(".cz_dialog_Btn .revise").css("display","block");
 
 })
 
+$(".tx_dialog .confirm").click(function(){
+    $(".non,.ares").css({
+        background: "none",
+        border: "none"
+    });
+    $(".ze").css("display","block");
+    $(".icon-jt").css("background","none");
+    $(".non img").css("visibility","hidden")
 
-//$(".tx_dialog .confirm").click(function(){
-//    $(".non").css({
-//        "background": "none",
-//        "border": "none"
-//    });
-//    $(".ze").css("display","block");
-//    $(".icon-jt").css("background","none");
-//    $(".non img").css("visibility","hidden")
-//
-//    $(this).css("display","none");
-//    $(".cancel").css("display","none");
-//    $(".revise").css("display","block");
-//
-//    $('.tx_dialog input,.tx_dialog select,.tx_dialog textarea').attr('readonly',true);
-//})
+    $('.tx_dialog input,.tx_dialog select,.tx_dialog textarea').attr('readonly',true);
 
+    $(this).css("display","none");
+    $(".cz_dialog_Btn .cancel").css("display","none");
+    $(".cz_dialog_Btn .revise").css("display","block");
+})
+
+/*ä¿®æ”¹æŒ‰é”®*/
 $(".revise").click(function(){
     $(".non,.ares").css({
         background: "#ffffff",
@@ -100,10 +73,10 @@ $(".revise").click(function(){
 })
 
 
-/*È¡Ïû°´Å¥--ÍË³ö*/
-var index = parent.layer.getFrameIndex(window.name); //»ñÈ¡µ±Ç°´°ÌåË÷Òı
+/*å–æ¶ˆæŒ‰é’®--é€€å‡º*/
+var index = parent.layer.getFrameIndex(window.name); //è·å–å½“å‰çª—ä½“ç´¢å¼•
 $('.cancel').on('click', function(){
-    parent.layer.close(index); //Ö´ĞĞ¹Ø±Õ
+    parent.layer.close(index); //æ‰§è¡Œå…³é—­
 });
 
 

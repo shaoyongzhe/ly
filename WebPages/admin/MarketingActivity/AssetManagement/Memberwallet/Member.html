@@ -242,24 +242,24 @@
                 //     alert("请填写登记日期");
                 //     return false;
                 // }
-                getList(1,getCheck());
+                getList(getCheck());
             }else{
                 if($("#start").val()=="" || $("#end").val()==""){
                     alert("请填写正确的时间");
                     return false;
                 }
-                getList(1,getSearch());
+                getList(getSearch());
             }
         })
 
-        getList(1,getSearch());
-        function getList(curr,searchForm) {
+        getList(getSearch());
+        function getList(searchForm) {
             $(".table1 tbody").empty();
 //            $('.layui-layer-close').click();
-            // console.log(searchForm)
-            if (curr == undefined || curr == "") {
-                curr = 1;
-            }
+            console.log(searchForm)
+            // if (curr == undefined || curr == "") {
+            //     curr = 1;
+            // }
             var df = {};
             // if(searchForm){
             // if (handle == 'search') {
@@ -277,12 +277,12 @@
                 gundong: $('.table1 tbody'),
                 loadDownFn: function(me) {
                     pageindex++;
+                    
                     // 拼接HTML
                     var df = {};
                     df = searchForm;
-                    df.pageindex = pageindex;
                     df.pagesize = pagesize;
-
+                    df.pageindex = pageindex;
                     $.ajax({
                         type: "get",
                        url: "http://127.0.0.1:40010/webapi/asset/member/trading/list?parameters=" + JSON.stringify(df),
@@ -295,7 +295,6 @@
                         success: function(data) {
                             $(".noData").css("display","none");
                             // console.log("term");
-                            $(".find_b").html("查询")
 //                        alert("ok");
                             var str="";
                             var shouru="";
@@ -305,8 +304,19 @@
 //                        console.log(data.content[0].member_class)
                             $('.dropload-load').css('display', 'none');
                             if(data.content.length>0){
-                           console.log(data.content)
+                                console.log(data.content)
                                 $(data.content).each(function(i){
+                                    /*判断返回值是否为null或者undefined,如果是 则制空*/
+                                    if(this.member_name==null || !this.member_name){this.member_name="";}
+                                    if(this.member_class==null || !this.member_class){this.member_class="";}
+                                    if(this.area==null || !this.area){this.area="";}
+                                    if(this.flowing_id==null || !this.flowing_id){this.flowing_id="";}
+                                    if(this.count==null || !this.count){this.count="";} 
+                                    if(this.tradingtime==null || !this.tradingtime){this.tradingtime="";} 
+                                    if(this.ipacasher_name==null || !this.ipacasher_name){this.ipacasher_name="";} 
+                                    if(this.descriptioin==null || !this.descriptioin){this.descriptioin="";}    
+                                    if(this.register_time==null || !this.register_time){this.register_time="";} 
+                                   /*拼接字符串*/
                                     str+='<tr><td>'+ this.member_name
                                             + '</td><td>'+ this.member_class
                                             + '</td><td>'+ this.area
@@ -316,15 +326,15 @@
                                             + '</td><td>'+ this.tradingtime
                                             + '</td><td class="ac_tip">'+ this.descriptioin
                                             + '</td><td>'+ this.ipacasher_name
-                                            +'<br/>'+ this.register_time + '</td></tr>'
+                                            +'<br/>'+ this.register_time 
+                                            + '</td></tr>'
+                                    /*判断count值，以便在呈现*/
                                     if(this.count > 0){
                                         shouru+=this.count;
-                                        console.log(shouru);
                                     }else{
                                         zhichu+=this.count;
-                                        console.log(zhichu)
-                                    }        
-                                            
+                                    }
+
                                 })
                                 $(".table1 tbody").append(str);
                                 if(zhichu==""){
@@ -397,7 +407,7 @@
 //                    "area_province":$("#province em").html(),
 //                    "area_city":$("#city em").html(),
 //                    "area_district":$("#area em").html(),
-//                    "serialnumber":$(".serialnumber").val(),
+            // serialnumber:$(".serialnumber").val(),
             transfertype:$(".expenses_son").val(),
 //                    "purpose_id":$(".resonDown").attr("id"),
             purpose_class:$(".resonDown").val(),

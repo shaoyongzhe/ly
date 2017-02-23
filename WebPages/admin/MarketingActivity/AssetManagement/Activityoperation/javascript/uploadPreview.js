@@ -1,4 +1,4 @@
-﻿
+﻿/*上传图片格式限制*/
 var uploadPreview = function(setting) {
 
     var _self = this;

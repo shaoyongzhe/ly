@@ -57,15 +57,29 @@ input,select,textarea{
     background:none;
 }
 
+.Title_Index{
+    width: 96.3%;
+    height: 36px;
+    line-height: 36px;
+    background: #f2f2f2;
+    margin: 0 auto;
+}
+.Title_Index a{
+    color: #c6c6c6;
+}
+.Title_Index a:last-of-type{
+    color: #000;
+}
+
 .wrap{
-    min-width:1080px ;
+    min-width:1200px ;
     height: 935px;
     overflow: hidden;
 }
 .w_wrap{
     width: 96.3%;/*1040*/
     height: 818px;
-    margin: 36px auto 0;
+    margin: 0 auto;
     overflow: hidden;
 }
 .b_wrap{

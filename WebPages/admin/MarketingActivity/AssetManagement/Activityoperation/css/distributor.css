@@ -60,7 +60,7 @@ input,select,textarea{
 /*mian*/
 
 .wrap{
-    min-width:1080px;
+    min-width:1200px;
     height: 890px;
     background: #f2f2f2;
 }
@@ -518,6 +518,8 @@ input,select,textarea{
     margin: 8px auto 0;
     text-align: center;
     display: block;
+    color: #fff;
+    cursor: pointer;
 }
 .mid_R .reset{
     width: 130px;
@@ -527,6 +529,8 @@ input,select,textarea{
     border: none;
     margin: 8px auto 0;
     display: block;
+    color: #fff;
+    cursor: pointer;
 }
 .mar_10{
     width: 100%;
@@ -572,16 +576,17 @@ input,select,textarea{
     background: #fff;
     display: block;
     margin: 0 auto;
+    position: relative;
 }
 .table1{
     font-size: 14px;
     width: 100%;
     height: 543px;
+    background: #e6e6e6;
 }
 .table1 thead tr th{
     height: 32px;
     line-height: 32px;
-    background: #e6e6e6;
     border: 1px solid #cccccc;
 }
 /* 新加 */
@@ -593,6 +598,7 @@ input,select,textarea{
     display:block;
     height:507px;
     overflow-y:scroll;
+    background: #ffffff;
 }
 .table1 thead,.table1 tbody tr {
     display:table;
@@ -654,6 +660,16 @@ input,select,textarea{
 .tab_warp::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
+}
+
+.noData{
+    position: absolute;
+    width: 100%;
+    line-height: 200px;
+    text-align: center;
+    display: none;
+    top: 0;
+    left: 0;
 }
 
 .footer_text_logo{

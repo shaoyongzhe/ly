@@ -7,6 +7,11 @@
 </head>
 <body>
 <div class="wrap" style="background: #f2f2f2">
+    <div class="Title_Index">
+        <a href="javascript:;">财务管理</a>
+        <i>></i>
+        <a href="javascript:;">运营账户充值管理</a>
+    </div>
     <div class="w_wrap" style="background: #ffffff">
         <div class="b_wrap" style="background: #e3e3e3">
             <div class="distributor">
@@ -31,7 +36,7 @@
                                 <li>可用余额</li>
                                 <li class="available_balance"></li>
                                 <span>公式</span>
-                                <p>可用余额：账户余额 - 会员带提现</p>
+                                <p>可用余额 = 账户余额 - 会员带提现</p>
                             </div>
                         </div>
                     </div>
@@ -102,7 +107,7 @@
                                 <li>可用余额</li>
                                 <li class="available_balance"></li>
                                 <span>公式</span>
-                                <p>可用余额：账户余额 - 会员带提现</p>
+                                <p>可用余额 = 账户余额 - 会员带提现</p>
                             </div>
                         </div>
                     </div>
@@ -161,7 +166,7 @@
                                 <li>可用余额</li>
                                 <li class="available_balance"></li>
                                 <span>公式</span>
-                                <p>可用余额：账户余额 - 会员带提现</p>
+                                <p>可用余额 = 账户余额 - 会员带提现</p>
                             </div>
                         </div>
                     </div>
@@ -216,7 +221,7 @@
             function timeAjax (matchDay){
  
                 $.ajax({
-               url:"http://127.0.0.1:40010/webapi/asset/ipaloma/forecast?parameters=" + JSON.stringify(matchDay),
+               // url:"http://127.0.0.1:40010/webapi/asset/ipaloma/forecast?parameters=" + JSON.stringify(matchDay),
 //                    url:"http://127.0.0.1:40010/webapi/asset/member/dict/member_class",
                     // url:"javascript/summary.json",
                     dataType:"json",
@@ -224,62 +229,63 @@
                     success:function(data){
                         console.log(data)
                         /*第一部分*/                     
-                        // var str1="";
-                        // var str2="";
-                        // var str3="";   
-                        // var str4="";                                    
-                        // str1+="<p id='"+ data.content.account_1.assetid + "'>" + data.content.account_1.asset_name + "</p>";
-                        // str2+="<li>" + data.content.account_1.budget_count + " 笔</li><li>"
-                        //     + data.content.account_1.budget_approved + " 元</li><li>"
-                        //     + data.content.account_1.budget_expend + " 元</li>";
-                        // str3+="<li>" + data.content.account_1.asset_balance + " 元</li><li>"
-                        //     + data.content.account_1.pending_withdraw + " 元</li>";
-                        // str4+="<span>" + data.content.account_1.gap + " 元</span>"
-                        // $(".distributor .dis_side").html(str1);
-                        // $(".distributor .dis_r_T2").html(str2);
-                        // $(".distributor .dis_min_T2").html(str3);
-                        // $(".distributor .breach").html(str4); 
-                        // var Formula= data.content.account_1.asset_balance - data.content.account_1.pending_withdraw + " 元";
-                        // console.log(Formula);
-                        // $('.distributor .available_balance').html(Formula);
-                        // /*第二部分*/
-                        // var str_a="";
-                        // var str_b="";
-                        // var str_c="";   
-                        // var str_d="";                                    
-                        // str_a+="<p id='"+ data.content.account_2.assetid + "'>" + data.content.account_2.asset_name + "</p>";
-                        // str_b+="<li>" + data.content.account_2.budget_count + " 笔</li><li>"
-                        //     + data.content.account_2.budget_approved + " 元</li><li>"
-                        //     + data.content.account_2.budget_expend + " 元</li>";
-                        // str_c+="<li>" + data.content.account_2.asset_balance + " 元</li><li>"
-                        //     + data.content.account_2.pending_withdraw + " 元</li>";
-                        // str_d+="<span>" + data.content.account_2.gap + " 元</span>"
-                        // $(".sell .dis_side").html(str_a);
-                        // $(".sell .dis_r_T2").html(str_b);
-                        // $(".sell .dis_min_T2").html(str_c);
-                        // $(".sell .breach").html(str_d); 
-                        // var Formula2= data.content.account_2.asset_balance - data.content.account_2.pending_withdraw + " 元";
-                        // console.log(Formula2);
-                        // $('.sell .available_balance').html(Formula2);
-                        // /*第三部分*/
-                        // var str_q="";
-                        // var str_w="";
-                        // var str_e="";   
-                        // var str_r="";                                    
-                        // str_q+="<p id='"+ data.content.account_3.assetid + "'>" + data.content.account_3.asset_name + "</p>";
-                        // str_w+="<li>" + data.content.account_3.budget_count + " 笔</li><li>"
-                        //     + data.content.account_3.budget_approved + " 元</li><li>"
-                        //     + data.content.account_3.budget_expend + " 元</li>";
-                        // str_e+="<li>" + data.content.account_3.asset_balance + " 元</li><li>"
-                        //     + data.content.account_3.pending_withdraw + " 元</li>";
-                        // str_r+="<span>" + data.content.account_3.gap + " 元</span>"
-                        // $(".buy .dis_side").html(str_q);
-                        // $(".buy .dis_r_T2").html(str_w);
-                        // $(".buy .dis_min_T2").html(str_e);
-                        // $(".buy .breach").html(str_r); 
-                        // var Formula3= data.content.account_3.asset_balance - data.content.account_3.pending_withdraw + " 元";
-                        // console.log(Formula3);
-                        // $('.buy .available_balance').html(Formula3);
+                        var str1="";
+                        var str2="";
+                        var str3="";   
+                        var str4="";                                    
+                        str1+="<p id='"+ data.content.account_1.assetid + "'>" + data.content.account_1.asset_name + "</p>";
+                        str2+="<li>" + data.content.account_1.budget_count + " 笔</li><li>"
+                            + data.content.account_1.budget_approved + " 元</li><li>"
+                            + data.content.account_1.budget_expend + " 元</li>";
+                        str3+="<li>" + data.content.account_1.asset_balance + " 元</li><li>"
+                            + data.content.account_1.pending_withdraw + " 元</li>";
+                        str4+="<span>" + data.content.account_1.gap + " 元</span>"
+                        $(".distributor .dis_side").html(str1);
+                        $(".distributor .dis_r_T2").html(str2);
+                        $(".distributor .dis_min_T2").html(str3);
+                        $(".distributor .breach").html(str4); 
+                        var Formula= data.content.account_1.asset_balance - data.content.account_1.pending_withdraw + " 元";
+                        console.log(Formula);
+                        $('.distributor .available_balance').html(Formula);
+                        /*第二部分*/
+                        var str_a="";
+                        var str_b="";
+                        var str_c="";   
+                        var str_d="";   
+                                                 
+                        str_a+="<p id='"+ data.content.account_2.assetid + "'>" + data.content.account_2.asset_name + "</p>";
+                        str_b+="<li>" + data.content.account_2.budget_count + " 笔</li><li>"
+                            + data.content.account_2.budget_approved + " 元</li><li>"
+                            + data.content.account_2.budget_expend + " 元</li>";
+                        str_c+="<li>" + data.content.account_2.asset_balance + " 元</li><li>"
+                            + data.content.account_2.pending_withdraw + " 元</li>";
+                        str_d+="<span>" + data.content.account_2.gap + " 元</span>"
+                        $(".sell .dis_side").html(str_a);
+                        $(".sell .dis_r_T2").html(str_b);
+                        $(".sell .dis_min_T2").html(str_c);
+                        $(".sell .breach").html(str_d); 
+                        var Formula2= data.content.account_2.asset_balance - data.content.account_2.pending_withdraw + " 元";
+                        console.log(Formula2);
+                        $('.sell .available_balance').html(Formula2);
+                        /*第三部分*/
+                        var str_q="";
+                        var str_w="";
+                        var str_e="";   
+                        var str_r="";                                    
+                        str_q+="<p id='"+ data.content.account_3.assetid + "'>" + data.content.account_3.asset_name + "</p>";
+                        str_w+="<li>" + data.content.account_3.budget_count + " 笔</li><li>"
+                            + data.content.account_3.budget_approved + " 元</li><li>"
+                            + data.content.account_3.budget_expend + " 元</li>";
+                        str_e+="<li>" + data.content.account_3.asset_balance + " 元</li><li>"
+                            + data.content.account_3.pending_withdraw + " 元</li>";
+                        str_r+="<span>" + data.content.account_3.gap + " 元</span>"
+                        $(".buy .dis_side").html(str_q);
+                        $(".buy .dis_r_T2").html(str_w);
+                        $(".buy .dis_min_T2").html(str_e);
+                        $(".buy .breach").html(str_r); 
+                        var Formula3= data.content.account_3.asset_balance - data.content.account_3.pending_withdraw + " 元";
+                        console.log(Formula3);
+                        $('.buy .available_balance').html(Formula3);
 
 
 
@@ -326,20 +332,22 @@
                     keyDown();
                 }
             })
-//            $(".tians input").blur(function(){
-//                var reg = new RegExp("^[0-9]*$");
-//                if(!reg.test($(".tians input").val())){
-//                    alert("请输入数字!");
-//                    $(this).val("");
-//                }
-//            })
+            /*添加双击事件、 双击自定义时间重置*/
+            $("span.tians").dblclick(function(){
+                console.log("dodo");
+                $(".tians").css("color","#000000")
+                $(".tians").html("");
+                $(".tians").html('近' + '<input type="text" value="">' +'天')
+                keyDown();
+            });
+
 
            /* 预测时间段--回车按键*/
             keyDown();
             function keyDown(){
                 $(".tians input").keydown(function(e){
                     if(e.keyCode==13){
-//                    e.preventDefault();
+                        // e.preventDefault();
                         var reg = new RegExp("^[0-9]*$");
                         if(!reg.test($(".tians input").val())){
                             alert("请输入数字!");
@@ -351,9 +359,10 @@
                             $(this).parents(".tians").html("近" + $(this).val() + "天");
                             //自定义时间的ajax搜索
                             var self=$(this).val();
-//                            console.log(self);
+                            console.log(self);
                             timeAjax(self);
                         }
+
                     }
                 });
             }
@@ -374,14 +383,47 @@
             })
 
 
-            /*交易明细跳转*/
-            $(".jymx").click(function(){
+            /*交易明细跳转*/            
+            $('.distributor .jymx').on("click",function(e){      
+                var assetID=$(".distributor").find($(".dis_side p")).attr("id");
+                if(assetID){
+                    sendStorage(assetID);
+                }
                 window.location.href="html/distributor.html";
             })
+            $('.sell .jymx').on("click",function(e){
+                var assetID=$(".sell").find($(".dis_side p")).attr("id");
+                if(assetID){
+                    sendStorage(assetID);
+                }
+                window.location.href="html/distributor.html";
+            })
+            $('.buy .jymx').on("click",function(e){
+                var assetID=$(".buy").find($(".dis_side p")).attr("id");
+                /*做一层验证 如果存在assetid 执行回调函数*/
+                if(assetID){
+                    sendStorage(assetID);
+                }
+                window.location.href="html/distributor.html";
+            })
+            /**
+            将所选择的交易明细对应的assetid保存到localstrorage
+            */
+            function sendStorage (id) {
+                if(!window.localStorage){
+                    alert("浏览器不支持localstorage");
+                    return false;
+                }else{
+                    var storage=window.localStorage;
+                    //写入字段
+                    storage.assetid=id;
+                    console.log(storage.assetid);
+                }          
+            }
 
 
           /*  /!*****layui******!/*/
-
+          
             layui.use('layer', function(){ //独立版的layer无需执行这一句
                 var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
                 //触发事件
