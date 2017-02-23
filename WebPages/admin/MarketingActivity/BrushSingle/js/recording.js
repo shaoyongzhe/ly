@@ -70,7 +70,7 @@ function fnxuanran(data) {
 			"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 			"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
-			"<td class='cgl-td12'>" + $(".stateon>span").text() + "</td>";
+			"<td class='cgl-td12'>" + $(".stateon>span",".xzcont>div:visible").text() + "</td>";
 		if(state.state == "已结束" || odata[k1]["description"] == "shensu") {
 			otr += "<td class='cgl-td13 td13bgk'><a href='javascript:'>详情</a>";
 		} else {
@@ -146,7 +146,7 @@ function fnmore() {
 							"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 							"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 							"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
-							"<td class='cgl-td12'>" + $(".stateon>span").text() + "</td>";
+							"<td class='cgl-td12'>" + $(".stateon>span",".xzcont>div:visible").text() + "</td>";
 						if(state.state == "已结束" || odata[k1]["description"] == "shensu") {
 							otr += "<td class='cgl-td13 td13bgk'><a href='javascript:'>详情</a>";
 						} else {
@@ -302,27 +302,31 @@ function fnjilu() {
 function fnxze1() {
 	$(".xze1>li").on("click", function() {
 		$(this).addClass("clicon").siblings().removeClass("clicon");
-		state["state"] = $("span", this).text();
+
+
 		$(".xzcont>div>div").removeClass("stateon");
 		$(".xzcont>div>div").each(function(i) {
-			if($(this).attr("state") == state.state) {
+			if($(this).attr("state") == $(this).parent().attr("state")) {
 				$(this).addClass("stateon");
 			}
 		});
 		$(".xzcont>div").hide().eq($(this).index()).show();
+        state["state"] = $(".xzcont>div").eq($(this).index()).attr("state");
 		state["lastindex"] = 0;
 		fnshijian(state);
 		sessionStorage.setItem("state", JSON.stringify(state));
 		fnanniu4();
 	});
 }
+
 //模拟下拉菜单
 function fnxiala() {
 	$(".xzcont").on("click", ">div>div", function() {
 		$(this).addClass("stateon").siblings().removeClass("stateon");
 		state["lastindex"] = 0;
 		state["state"] = $(this).attr("state");
-		console.log(state)
+		$(this).parent().attr("state",$(this).attr("state"));
+		//console.log(state)
 		fnshijian(state);
 		sessionStorage.setItem("state", JSON.stringify(state));
 		fnanniu4();
@@ -516,6 +520,7 @@ function fnreset() {
 			lastindex: "0", //上次返回结果的最后一条数据索引
 			pagecount: "50" //要查询的数据条数
 		};
+		$(".yichuli").attr("state","处罚中");
 		if(JSON.stringify(state1) == JSON.stringify(state) && $("#cgl-cxdata").val() == state1.querybegindate &&
 			$("#cgl-cxdata1").val() == state1.queryenddate) {
 			$(".cgl-jzz").html("已经是最初始状态").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
@@ -1312,7 +1317,7 @@ function fnweigyy() {
 					cont += "降低" + -cha + "级";
 				}
 				cont += "</div>" +
-					"<h3>违规等级</h3>" +
+					"<h3>与提升相关的违规记录</h3>" +
 
 					"<div>" +
 					"<table border='1'>" +
@@ -1478,3 +1483,8 @@ $(function() {
 	comSelect(); // 地区下拉调用
 	selectCity(); //城市调用
 });
+
+
+function fsdfsd() {
+
+}
