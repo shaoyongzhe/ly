@@ -255,7 +255,7 @@
 		        	console.log(data)
 		        	console.log(_Id)
 		        	$("#phoneto").attr("href","tel:"+data[_indd]["mobilephone"])
-		        	if(data[_indd]["activityitem_id"]){
+		        	if(data[_indd]["activityitem_id"]!=""){
 		        	_dx["activityitem_id"]=data[_indd]["activityitem_id"]
 		        	for(var t=0;t<data[_indd]["promotionactivity"]["details"].length;t++){
 			        	if(_price>=Number(data[_indd]["promotionactivity"]["details"][t]["moneysum"])){
@@ -266,6 +266,11 @@
 			        	}
 		        	}
 		        	_dx["giftitems"]=_mz
+		        	if(_dx=={}){
+		        		_dx=""
+		        	}else{
+		        		_dx=JSON.stringify(_dx)
+		        	}
 					console.log(_dx)
 		        	if(data[_indd]["specialprice"]){
 		        		$("#vv").css({display:"flex"})
@@ -346,7 +351,7 @@
 					remark:$("#inp2").val(), 
 					deliverdate:$("#beginTime").val(),
 					submitids:_Id,
-					manzeng:JSON.stringify(_dx)
+					manzeng:_dx
 	   			},
 	   			error:function(){},
 	   			success:function(data){
