@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-21 10:53:14
+* @Last Modified time: 2017-02-22 15:35:30
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -16,9 +16,8 @@
 	box-sizing: border-box;
 }
 .fou{
-    background-color:#C0BCBC ;
+    background-color:#C0BCBC;
 }
-
 
 /* .newadd {
     height: 360px;
@@ -29,6 +28,9 @@
     border-top: solid 10px #eee;
 }
  */
+.Float_text .table-bordered td {
+    border-top: 1px solid #ddd;
+}
 .toolTip{
     width: 50%;
     height: 50%;
@@ -546,6 +548,7 @@ table thead {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
 }
 .text-c td:last-child{
     overflow: visible !important;

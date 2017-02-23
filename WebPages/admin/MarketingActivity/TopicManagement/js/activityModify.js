@@ -64,7 +64,12 @@ function render(resdata){
     
     basic.find('.fzr1 .selected').attr("oid",activity.responsible_id.oid);
     basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
-    
+
+    basic.find('.fzr1 .selected').attr("guid",activity.responsible_id.guid);
+    basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
+
+
+
     if(activity.singleselection == 1){
         $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
     } else {
@@ -715,7 +720,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '<input type="text" placeholder="" class="hdc4In1 dib" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->'
 	        +                   '</div>'
 	        +                   '<div class="dib hi hdc4d2 link">'
-	        +                       '<a href="#" class="dib hdc4dB ver set"></a>'
+	        +                       '<a href="javascript:;" class="dib hdc4dB ver set"></a>'
 	        +												'<input type="hidden" class="y1y">'
 	        +                   '</div>'
 	        +               '</div>'
@@ -736,7 +741,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '<!--申报预算-->'
 	        +           '<div class="dib hdc6 hdc6-1 ver re mangeStyle">'
 	        +               '<div class="acSe14 ba btfz ">'                     
-	        +                   '<input type="text" class="sbys" readonly/>'
+	        +                   '<input type="text" class="sbys"/>'
 	        +                   '<p class="dib ">元</p><!--即将被替代为别的单位-->'
 	        +               '</div>'
 	        +           '</div>'
