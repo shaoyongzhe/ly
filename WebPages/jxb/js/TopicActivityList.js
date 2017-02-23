@@ -538,5 +538,11 @@ function savePage(){  //操作浏览器的历史记录
 	console.log(nowTop)
 	scrollTo(0, nowTop);	
 }*/
+
+if(location.hash!=""){
+	var nowTop=Number(location.hash.split("nowTop=")[1]);
+}else{
+	var nowTop=0;
+}
 scrollTo(0, nowTop);
 //console.log(88988)
