@@ -214,7 +214,13 @@ function ajaxSucFn(info){//ajax成功回调里调用
 			
 			$(".CcconditionContent").append(conditionHtml);
 		}		
-	}	
+	}
+	/*地区匹配*///0226加入
+	if(info.areamatch!=undefined){
+		$(".CcconditionContent").append('<p class="地区"><img src="'
+			+CimgArr2[info.condition[i].matched]
+			+'" alt="" /><i><span>地区</span></i></p>');
+	}
 	//活动补贴说明具体内容
 	$(".CccDescriptionCon").empty();
 	var typeCounts=0
