@@ -257,14 +257,17 @@
 		        	$("#phoneto").attr("href","tel:"+data[_indd]["mobilephone"])
 		        	if(data[_indd]["activityitem_id"]!=""){
 		        	_dx["activityitem_id"]=data[_indd]["activityitem_id"]
-		        	for(var t=0;t<data[_indd]["promotionactivity"]["details"].length;t++){
-			        	if(_price>=Number(data[_indd]["promotionactivity"]["details"][t]["moneysum"])){
-			        		//data[0]["promotionactivity"]["details"]
-			        		
-			        			_mz=data[_indd]["promotionactivity"]["details"][t]["giftitems"]
-			        		
-			        	}
+		        	if(data[_indd]["promotionactivity"]){
+			        	for(var t=0;t<data[_indd]["promotionactivity"]["details"].length;t++){
+				        	if(_price>=Number(data[_indd]["promotionactivity"]["details"][t]["moneysum"])){
+				        		//data[0]["promotionactivity"]["details"]
+				        		
+				        			_mz=data[_indd]["promotionactivity"]["details"][t]["giftitems"]
+				        		
+				        	}
+			        	}		        		
 		        	}
+
 		        	_dx["giftitems"]=_mz
 		        	if(_dx=={}){
 		        		_dx=""
@@ -288,11 +291,13 @@
 		        			}
 						}
 		        	}
-		        	for(var c=0;c<data[_indd]["promotionactivity"]["details"][_yu]["giftitems"].length;c++){
-		        	  	_zengprice+=Number(data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["price"])
-		        	  				
-		        	  	_distrgive+="<div style="+"\"padding-left:11%\""+">"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"]+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"]+"</span></div>"		        	  						        	  					
-		        	  				
+		        	if(data[_indd]["promotionactivity"]){
+			        	for(var c=0;c<data[_indd]["promotionactivity"]["details"][_yu]["giftitems"].length;c++){
+			        	  	_zengprice+=Number(data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["price"])
+			        	  				
+			        	  	_distrgive+="<div style="+"\"padding-left:11%\""+">"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"]+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"]+"</span></div>"		        	  						        	  					
+			        	  				
+			        	}		        		
 		        	}
 		        	if(_distrgive!=""){
 						$(".giveto").css({display:"block"})
@@ -327,6 +332,8 @@
        	$(".shoplist").html(_list)
        	if(_distrgive!=""){
        		$("#sp3").text(_zz+Number($(".gifty").text().replace("x","")))	
+       	}else{
+       		$("#sp3").text(_zz)
        	}
        	$(".submit span").text("("+data.length+")")
        	$(".loads2").height($("body").height())
@@ -367,6 +374,8 @@
 		   				var _tm=setTimeout(function(){
 		   					$(".loads2").css({display:"none"})
 		   					$(".loads2 span").text("提交中...")
+		   					$(".submit").text("提交订单")
+		   					$("body").css({overflow:"auto"})
 		   					clearTimeout(_tm)
 		   				},500)
 	   				}
