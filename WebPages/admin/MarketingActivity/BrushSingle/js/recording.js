@@ -1312,7 +1312,7 @@ function fnweigyy() {
 					cont += "降低" + -cha + "级";
 				}
 				cont += "</div>" +
-					"<h3>违规等级</h3>" +
+					"<h3>与提升相关的违规记录</h3>" +
 
 					"<div>" +
 					"<table border='1'>" +
