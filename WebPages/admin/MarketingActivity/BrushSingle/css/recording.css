@@ -11,7 +11,7 @@ body.create{
     font-family: microsoft yahei,sans-serif;
     background-color: #f2f2f2;
     color: #333;
-    min-width: 1061px;
+    min-width: 990px;
 }
 i,em,span,label{
     display: inline-block;
@@ -50,11 +50,7 @@ i,em,span,label{
     margin: 0 20px;
  	
 }
-.optionl{
-    /*width: 228px;*/
-   width: 28%;
-    
-}
+.optionl{min-width: 280px; width: 28%;}
 .xze1{width: 86px; padding: 31px 0 0 15px;}
 .xze1>li{
     width: 66px;height: 24px;border: 1px solid #e2e2e2;background: #f1f1f1;border-radius: 3px;text-align: center;line-height: 24px;margin-bottom: 8px;
@@ -173,9 +169,7 @@ i,em,span,label{
 .cgl-jian>i{
     font-size: 14px;
 }
-.optionm{
-    padding:14px 0 0 8px;width: 34%;
-}
+.optionm{  padding:14px 0 0 8px;width: 30%;min-width: 300px;}
 .optionm input{width: 218px;}
 .optionm>li{margin-bottom: 9px;}
 .chatime{
@@ -186,7 +180,7 @@ i,em,span,label{
     margin: 0 0 0 10px;
 }
 #cgl-cxdata1{margin-left: 0;}
-#cgl-cxdata,#cgl-cxdata1{width:127px;}
+#cgl-cxdata,#cgl-cxdata1{width:104px;}
 .opm2{
     position: relative;
     height: 30px;
@@ -223,14 +217,14 @@ select::-ms-expand { display: none; }
     right: 141px;
 }
 .opm3>span{margin-right: 14px;line-height: 25px;}
-.opm3>div{border:1px solid #ccc;  border-radius: 3px;overflow: hidden;width: 274px;}
+.opm3>div{border:1px solid #ccc;  border-radius: 3px;overflow: hidden;width: 230px;}
 .diqu{
     height: 22px;
     border: 1px solid #ccc;
     border-radius: 3px;
     margin: 0 0 0 10px;
 }
-.optionr{padding-top: 14px;width: 20%;}
+.optionr{padding-top: 14px;width: 21%;min-width: 207px;}
 .optionr input{width: 138px;}
 .optionr>.opm2>select,.fsdiqu>select{width: 140px;height: 27px; border: 1px solid #ddd;margin-left: 10px;border-radius: 3px; background: url("../img/select.png") no-repeat scroll right center transparent;appearance:none;  -moz-appearance:none;-webkit-appearance:none;}
 .fsdiqu>select{width: 72px;margin-left: -10px;color: #aaa;padding-right: 23px;overflow: hidden;}
@@ -483,14 +477,14 @@ span.name {
 
 .gf-select {
 	float: left;
-	width: 89px;
+	width: 74px;
 	margin-left: 2px;
 	position: relative;
 }
 
 .gf-select span {
 	font-size: 13px;
-	width: 60px;
+	width: 43px;
 	padding: 4px 18px 4px 7px;
 	display: block;
 	cursor: pointer;

@@ -1478,3 +1478,8 @@ $(function() {
 	comSelect(); // 地区下拉调用
 	selectCity(); //城市调用
 });
+
+
+function fsdfsd() {
+
+}
