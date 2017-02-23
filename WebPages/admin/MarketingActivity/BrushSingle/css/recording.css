@@ -1,6 +1,6 @@
 body,h2,h3,h4,p,ul,li{margin: 0;padding: 0;}
 ul,li{list-style: none;}
-input,select{outline: none;text-indent: .5em;color: #333;font-family: "微软雅黑";}
+input,select{outline: none;text-indent: .5em;color: #333;font-family: "微软雅黑",sans-serif;}
 
 
 #cgl-table .cgl-ciyao:hover{background: #999;}
@@ -8,7 +8,7 @@ input,select{outline: none;text-indent: .5em;color: #333;font-family: "微软雅
 body.create{
     margin: 0;
     font-size: 12px;
-    font-family: microsoft yahei;
+    font-family: microsoft yahei,sans-serif;
     background-color: #f2f2f2;
     color: #333;
     min-width: 1061px;
@@ -33,7 +33,7 @@ i,em,span,label{
 .bread-crumb i,
 .select span {
     color: #999;
-    font-family: simsun;
+    font-family: simsun,sans-serif;
 }
 
 .bread-crumb .path-text{
@@ -499,7 +499,7 @@ span.name {
 
 .gf-select span em {
 	font-style: normal;
-	color: #333;
+	color: #333;overflow: hidden;height: 15px;
 }
 
 .gf-select .icon-jt {
