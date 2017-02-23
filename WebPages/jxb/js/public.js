@@ -189,3 +189,64 @@ function btduixiang(a){
 	}	
 	return btduixiang;
 }
+
+
+/*满n位，变'元'为'万'*/
+function moneyTransform(money,n){
+	var moneyUnit="";//单位
+	var newMoney="";//金额
+	var arr=[];
+	var point="";//是否有小数点
+	var afterPoint="";
+	if(money==0){
+		return "0元";
+	}else if(money<9999&&money>0){	
+		money=money/1;
+		money=money.toString();
+		arr=money.split('.');
+		moneyUnit="元";		
+		if(arr.length>1){
+			point=".";
+			afterPoint=arr[1].substr(0,2);
+		}
+		
+	}else if(money<99999999&&money>9999){
+		money=money/10000;
+		money=money.toString();
+		arr=money.split('.');
+		moneyUnit="万";		
+		if(arr.length>1){
+			point=".";
+			afterPoint=arr[1].substr(0,2);
+		}
+		
+	}else if(money<999999999999&&money>99999999){
+		money=money/100000000;
+		money=money.toString();
+		arr=money.split('.');
+		moneyUnit="亿";		
+		if(arr.length>1){
+			point=".";
+			afterPoint=arr[1].substr(0,2);
+		}
+		
+	}else{//大于9999亿的暂不做处理		
+		return money;
+	}
+	//不带小数点，纯数字只允许有4位。	//新加
+	if(arr[0].length==4){
+		point="";
+		afterPoint="";
+	}else if(arr[0].length<4&&afterPoint.length>0){		
+		point=".";
+		afterPoint=afterPoint.substr(0,4-arr[0].length);
+	}
+	//变.00或.0为整 //新加
+	if(afterPoint=="00"||afterPoint=="0"){
+		point="";
+		afterPoint="";
+	}
+	
+	newMoney=arr[0]+point+afterPoint;
+	return newMoney+moneyUnit;
+}

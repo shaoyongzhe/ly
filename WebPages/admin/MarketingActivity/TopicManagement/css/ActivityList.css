@@ -354,6 +354,11 @@ button {
   word-wrap: break-word;
   }
 
+  .activitytitle{
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
 .ac_tip{
   overflow: hidden;
   white-space: nowrap;

@@ -183,12 +183,13 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	}
 	//*******数据规范后考虑删除结束
 	if(info.budget.subsidytotal==null){info.budget.subsidytotal=0;}
-	$(".CcButieMax").text(info.budget.subsidytotal);
+	$(".CcButieMax").text(moneyTransform(info.budget.subsidytotal));
 	if(info.budget.subsidyreleased==null){info.budget.subsidyreleased=0;}
-	$(".CcButieAlready").text(info.budget.subsidyreleased);			
+	$(".CcButieAlready").text(moneyTransform(info.budget.subsidyreleased));			
 	//参与活动条件具体内容
 	$(".CcconditionContent").empty();	
-	if(info.condition==undefined||info.budget==null){//后台可能不给我condition,若数据规范该if可以删除	
+	
+	if(info.condition==undefined||info.condition==null){//后台可能不给我condition,若数据规范该if可以删除	
 //		info.condition=[{
 //			localtype:"ajax请求成功",
 //			description:"后台没有给我传该条件",
@@ -203,9 +204,13 @@ function ajaxSucFn(info){//ajax成功回调里调用
 //			+':</span><span class="Cccspan dib">'
 //			+info.condition[0].description
 //			+'</span></i></p>')
-//		return;
-		console.log("条件为空,已经匹配,故无需条件");
-	}else{
+//		return;		
+		console.log("匹配成功，没有条件参数");
+	}else if(info.condition.length==0){
+		console.log("匹配失败，条件为空");
+		$(".Cccondition").hide();
+	}
+	else{
 		for(i=0;i<info.condition.length;i++){	
 //			debugger;
 			if(info.condition[i].localtype==undefined){
