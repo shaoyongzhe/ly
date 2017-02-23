@@ -336,7 +336,13 @@
        		$("#sp3").text(_zz)
        	}
        	$(".submit span").text("("+data.length+")")
-       	$(".loads2").height($("body").height())
+       	console.log($("section").height())
+       	if((Number($("section").height())+Number($("section").css("padding-bottom").replace("px","")))>=$("html").height()){
+       		$(".loads2").height(Number($("section").height())+Number($("section").css("padding-bottom").replace("px","")))
+       	}else{
+       		$(".loads2").height($("html").height())
+       	}
+       	
        }//ajax的success方法结束
 		
 	   });      	
