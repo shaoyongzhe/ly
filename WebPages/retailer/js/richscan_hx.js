@@ -9,7 +9,7 @@ avalon.ready(function () {
     // vm.cardkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpdml0eWl0ZW1faWQiOiJiNGQ2MDEyNmZiYjA0MjVmOWE4MDZkNWViZDJkYTgxYiIsInRvdGFsbnVtIjoiMSIsImFjdGl2aXR5X2lkIjoiMTg2NzZlYzI0YmZhNDY4MTg3M2E1M2VlNmY0MDI1YWEiLCJkaXN0cmlidXRvcl9pZCI6IjVjZTFkMTRlMDc1MzQxMzlhZTc3NzRkODk4M2YwNGYzIiwicmFuZG9tIjoiMC4yNzU5MzQwNzY4NTIzODciLCJjb21iaW5laWNvbiI6IlRydWUiLCJjb21iaW5ldGV4dCI6IlRydWUiLCJwaWN0dXJlZm9ybWF0IjoiZ2lmIiwiY29uc3VtZXJfaWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDBlZWVlZTEwMDAwOCIsImdlb2xvYyI6IlBPSU5UICgxMjEuMDkzIDMzLjIyNikiLCJsYXRpdHVkZSI6IjMzLjIyNjAwMTczOTUwMiIsImxvbmdpdHVkZSI6IjEyMS4wOTMwMDIzMTkzMzYiLCJ2ZXJpZnlpcCI6IjEyNy4wLjAuMSIsImV4cGlyYXRpb250aW1lIjoiMjAxNi0xMi0yNyAxNjowNjo0OCJ9.d_CbMb9NgLbrEcEHta44vD4ThA84DdfrCALQYudxIhE"
     //vm.GetTicketInfo(vm.cardkey)
 
-  
+
 })
 
 function isJson(obj) {
@@ -43,14 +43,13 @@ var vm = avalon.define({
 
                     $(".btn").hide()
                     $("#btn_1").show()//返回
-                } else
-                {
+                } else {
                     waitloadaddress(function () {
                         vm.GetTicketInfo(res.resultStr, wxlocation.latitude, wxlocation.longitude)
                         //加载位置
                     });
                 }
-                    
+
             }
         });
     },
@@ -60,14 +59,11 @@ var vm = avalon.define({
     zengpin: 0,//赠品份数
     seconds: 8,//描述
     IsVerifycard: false,
-    GetTicketInfo: function (cardkey,latitude,longitude) {//加载优惠卷
-
-      
-
+    GetTicketInfo: function (cardkey, latitude, longitude) {//加载优惠卷
         $.ajax({
             type: 'get',
             dataType: 'json',
-            data: { cardkey: cardkey, retailergeoloc: longitude +","+latitude },
+            data: { cardkey: cardkey, retailergeoloc: longitude + "," + latitude },
             url: '/webapi/retailer/weixin/verifycardview',
             beforeSend: function () { Msg.show(1, "超惠券信息加载中...") },
             // complete: function () { Msg.hide(); },
@@ -115,7 +111,20 @@ var vm = avalon.define({
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                Msg.show(4, "网络不给力", "查不到超惠券信息，请重试！")
+
+                var errormsg = "网络不给力";
+                try {
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = JSON.parse(json.Message).error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+                } catch (e) {
+
+                }
+
+                Msg.show(4, errormsg, "查不到超惠券信息，请重试！")
                 $(".btn").hide()
                 $("#btn_2").show()//返回
                 $("#btn_3").show()//返回
@@ -283,7 +292,7 @@ var vm = avalon.define({
             vm.GetTicketInfo(vm.cardkey, wxlocation.latitude, wxlocation.longitude)
             //加载位置
         });
-      
+
     },
     favorable: function (el, num) {
         vm.youhui = 0;

@@ -18,7 +18,7 @@ $(document).ready(function () {
 var vm = new Vue({
     el: '#shakegame',
     data: {
-        owner_id: "",//登陆用户account_id
+        //owner_id: "",//登陆用户account_id
         shakeNum: 0,//可刮奖次数
         IsShake: false,//是否摇奖
         IsWin: false,//是否中奖
@@ -27,26 +27,44 @@ var vm = new Vue({
     },
     methods: {
         startShake: function () {//开始摇奖
-            vm.shakeNum--;
             $.ajax({
                 type: 'post',
                 dataType: 'json',
                 async: false,
-                url: '/webapi/marketingservice/topic/shake/' + vm.owner_id,
+                url: '/webapi/marketingservice/topic/shake',
                 success: function (result) {
+                    vm.IsShake = false;
                     audio.pause();
                     openAudio.play();//播放音乐
-                    vm.shakeStatus = result.result == 1 ? 1 : 2;
-                    if (vm.shakeStatus == 1) {
-                        vm.winMoney = result.total_amount
-                    }
 
+                    if (result.error && result.state == undefined) {
+                        toasterextend.showtips(result.error, "error");
+                        return;
+                    }
+                    if (result.user_notification != undefined && result.state == undefined) {
+                        toasterextend.showtips(result.user_notification, "info");
+                        return;
+                    }
+                    if (result.state != undefined) {
+                        vm.shakeStatus = result.state
+                    } else {//中奖
+                        vm.shakeStatus = 1
+                        vm.winMoney = result.data[0].count
+                    }
+                    vm.shakeNum--;
                     $('.red-tc').css('display', 'block');
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    vm.shakeStatus = 2;
-                    // vm.shakeNum--;
-                    $('.red-tc').css('display', 'block');
+                    var errormsg = "访问异常";
+                    vm.IsShake = false;
+                    vm.shakeStatus = 0;
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = json.error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+                    toasterextend.showtips(errormsg, "error");
                 }
             });
         },
@@ -78,12 +96,12 @@ function loadShakeNum() {
                 return;
             }
             if (json.content.length > 0) {
-                vm.shakeNum = json.content[0].count
-                $(".red_bg").show()
+                vm.shakeNum = json.content[0].balance
 
                 ///初始化摇一摇效果代码
                 init()
             }
+            $(".red_bg").show()
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             common.loading.hide();//隐藏转圈动画
