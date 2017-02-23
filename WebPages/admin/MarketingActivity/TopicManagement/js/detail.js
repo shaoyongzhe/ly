@@ -226,7 +226,8 @@ function render(detailData){
 //		console.log(prevDays)
 		// debugger;
 		if(typeTxt == "分销商类型"){
-			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
+//			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
+			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + "&nbsp;&nbsp;&nbsp;" + ctype.value +"</p>");
 			return;
 		}
 		
