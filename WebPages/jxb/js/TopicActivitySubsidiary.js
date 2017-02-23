@@ -4,7 +4,7 @@
 
 var linshi='';
 var linshi2="";
-
+var linshiInfo="";
 var allActivity='';//储存ajax收到的所有的活动
 var topicactivity_id='';//存储的当前显示主题活动的id
 var CbdDimgArr=["img/c7.png","img/c8.png"];//笑脸图标数组
@@ -134,6 +134,7 @@ function Cajax(m,a,b){
 
 function ajaxSucFn(info){//ajax成功回调里调用
 //	debugger;
+	linshiInfo=info;
 	if(info.match){//处理不规范的后台数据,
 		info.matched=info.match;		
 	}	
@@ -189,24 +190,9 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	//参与活动条件具体内容
 	$(".CcconditionContent").empty();	
 	
-	if(info.condition==undefined||info.condition==null){//后台可能不给我condition,若数据规范该if可以删除	
-//		info.condition=[{
-//			localtype:"ajax请求成功",
-//			description:"后台没有给我传该条件",
-//			matched:"0",
-//		}]
-//		$(".CcconditionContent").append('<p class="'
-//			+info.condition[0].localtype
-//			+'"><img src="'
-//			+CimgArr2[info.condition[0].matched]
-//			+'" alt="" /><i><span>'
-//			+info.condition[0].localtype
-//			+':</span><span class="Cccspan dib">'
-//			+info.condition[0].description
-//			+'</span></i></p>')
-//		return;		
+	if(info.condition===undefined){//后台可能不给我condition,若数据规范该if可以删除		
 		console.log("匹配成功，没有条件参数");
-	}else if(info.condition.length==0){
+	}else if(info.condition===null||info.condition.length==0){//短路
 		console.log("匹配失败，条件为空");
 		$(".Cccondition").hide();
 	}
