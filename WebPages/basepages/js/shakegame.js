@@ -8,9 +8,9 @@ $(document).ready(function () {
     //    return
     //}
     //init()
-    //$(".red_bg").click(function () {
-    //    shakeAfter()
-    //});
+    $(".red_bg").click(function () {
+        shakeAfter()
+    });
     loadShakeNum()
 })
 
@@ -18,32 +18,29 @@ $(document).ready(function () {
 var vm = new Vue({
     el: '#shakegame',
     data: {
-        array: [],
+        owner_id: "",//登陆用户account_id
         shakeNum: 0,//可刮奖次数
+        IsShake: false,//是否摇奖
+        IsWin: false,//是否中奖
+        shakeStatus: 0,//摇一摇状态 0：未摇 1：中奖 2：未中奖 3：没有摇签机会
+        winMoney: 0,
     },
     methods: {
-        startShake: function (items) {//开始摇奖
+        startShake: function () {//开始摇奖
             vm.shakeNum--;
             $.ajax({
                 type: 'post',
                 dataType: 'json',
                 async: false,
-                data: {
-                    distributor_id: vm.distributor_id,
-                    retailer_id: vm.retailer_id,
-                    activityitem_id: vm.activityitem_id,
-                    activity_id: vm.activity_id,
-                    shakekey: vm.shakekey
-                },
-                url: '/webapi/consumer/weixin/verifyshake',
+                url: '/webapi/marketingservice/topic/shake/' + vm.owner_id,
                 success: function (result) {
                     audio.pause();
                     openAudio.play();//播放音乐
                     vm.shakeStatus = result.result == 1 ? 1 : 2;
                     if (vm.shakeStatus == 1) {
                         vm.winMoney = result.total_amount
-                        vm.IsWin = true
                     }
+
                     $('.red-tc').css('display', 'block');
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -52,6 +49,11 @@ var vm = new Vue({
                     $('.red-tc').css('display', 'block');
                 }
             });
+        },
+        againClick: function () {//再摇一次
+            vm.IsShake = false;
+            vm.winMoney = 0;
+            vm.shakeStatus = 0;
         }
     }
 })
@@ -76,7 +78,7 @@ function loadShakeNum() {
                 return;
             }
             if (json.content.length > 0) {
-                vm.shakeNum = json.content.count
+                vm.shakeNum = json.content[0].count
                 $(".red_bg").show()
 
                 ///初始化摇一摇效果代码
@@ -189,8 +191,6 @@ function closeWindow() {
     wx.closeWindow();
 }
 
-
-
 var SHAKE_THRESHOLD = 3000;
 var last_update = 0;
 var x = y = z = last_x = last_y = last_z = 0;
@@ -230,14 +230,15 @@ function shakeAfter() {
 
         // $('.red-ss').removeClass('wobble')
         if (vm.shakeNum > 0) {
-            if (!vm.IsWin) {
-                vm.startShake()
-            } else {
-                vm.shakeNum--
-                vm.shakeStatus = 2;
-                audio.pause();
-                $('.red-tc').css('display', 'block');
-            }
+            vm.startShake()
+            //if (!vm.IsWin) {
+            //    vm.startShake()
+            //} else {
+            //    vm.shakeNum--
+            //    vm.shakeStatus = 2;
+            //    audio.pause();
+            //    $('.red-tc').css('display', 'block');
+            //}
         } else {//没有抽奖次数
             vm.shakeStatus = 3;
             audio.pause();
