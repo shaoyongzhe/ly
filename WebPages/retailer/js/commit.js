@@ -38,26 +38,12 @@
 		var _Id="";
 		var _sub="";
 		var _url=location.href;
-
-		$(function(){ 
-		pushHistory(); 
-		window.addEventListener("popstate", function(e) { 
 			if(localStorage.Id){
 				_Id=localStorage.Id
 			}else if(location.search==""){
 				window.history.go(-1)
-			}else{
-				alert(1)
 			}
-		}, false); 
-		function pushHistory() { 
-		var state = { 
-		title: "title", 
-		url: "#"
-		}; 
-		window.history.pushState(state, "title", "#"); 
-		} 
-		});
+
 		if(_Id!==""){
 			_sub="&submitids="+_Id
 		}
@@ -158,7 +144,7 @@
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
-			       		">买"+_data[i]["specification"]+_data[i]["giftitemobj"]["packagetypename"]+"赠"+_data[i]["giftitemobj"]["specification"]+_data[i]["giftitemobj"]["packagetypename"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		">买"+_data[i]["salecount"]+(_data[i]["packagetypename"]==null?"":_data[i]["packagetypename"])+_data[i]["itemname"]+"赠"+_data[i]["giftcount"]+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+Math.floor(Number(_data[i]["itemcount"])/Number(_data[i]["salecount"]))*Number(_data[i]["giftcount"])+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+"</div></div>"+_remark+"</li>"
 			       		}else if(_data[i]["itemkind"]=="有礼"){
 			       			_zz+=Number(_data[i]["itemcount"])
 			       			_zengprice+=Number(_data[i]["giftprice"])
@@ -166,8 +152,8 @@
 			       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">有礼</div><span class="+"\"discount-con\""+
-			       		">购买"+_data[i]["salecount"]+_data[i]["packagetypename"]+_data[i]["itemname"]+"赠送"+
-								_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		">购买"+_data[i]["salecount"]+(_data[i]["packagetypename"]==null?"":_data[i]["packagetypename"])+_data[i]["itemname"]+"赠送"+
+								_data[i]["giftcount"]+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+Math.floor(Number(_data[i]["itemcount"])/Number(_data[i]["salecount"]))*Number(_data[i]["giftcount"])+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+"</div></div>"+_remark+"</li>"
 			       		}else if(_data[i]["itemkind"]=="折扣"){
 			       			_zz+=Number(_data[i]["itemcount"])
 			       			_price+=_data[i]["price"]*_data[i]["itemcount"];
@@ -200,7 +186,7 @@
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
-			       		">买"+_data[i]["salecount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["itemname"]+"赠"+_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		">买"+_data[i]["salecount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["itemname"]+"赠"+_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+Math.floor(Number(_data[i]["itemcount"])/Number(_data[i]["salecount"]))*Number(_data[i]["giftcount"])+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+"</div></div>"+_remark+"</li>"
 			       		}else if(_data[i]["itemkind"]=="有礼"){
 			       			_zz+=Number(_data[i]["itemcount"])
 			       			_zengprice+=Number(_data[i]["giftprice"])
@@ -209,7 +195,7 @@
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">有礼</div><span class="+"\"discount-con\""+
 			       		">购买"+_data[i]["salecount"]+_data[i]["packagetypename"]+_data[i]["itemname"]+"赠送"+
-								_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["itemname"]+"</div></div>"+_remark+"</li>"
+								_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+Math.floor(Number(_data[i]["itemcount"])/Number(_data[i]["salecount"]))*Number(_data[i]["giftcount"])+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+"</div></div>"+_remark+"</li>"
 			       		}else if(_data[i]["itemkind"]=="折扣"){
 			       			_zz+=Number(_data[i]["itemcount"])
 			       			_price+=_data[i]["price"]*_data[i]["itemcount"];
@@ -242,7 +228,7 @@
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
-			       		">买"+_data[i]["salecount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["itemname"]+"赠"+_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+"</div></div>"+_remark+"</li>"
+			       		">买"+_data[i]["salecount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["itemname"]+"赠"+_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+Math.floor(Number(_data[i]["itemcount"])/Number(_data[i]["salecount"]))*Number(_data[i]["giftcount"])+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+"</div></div>"+_remark+"</li>"
 		       		}else if(_data[i]["itemkind"]=="有礼"){
 		       			_zz+=Number(_data[i]["itemcount"])
 		       			_zengprice+=Number(_data[i]["giftprice"])
@@ -250,7 +236,7 @@
 		       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 		       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">满赠</div><span class="+"\"discount-con\""+
 		       		">购买"+_data[i]["salecount"]+_data[i]["packagetypename"]+_data[i]["itemname"]+"赠送"+
-							_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+data[i]["itemname"]+"</div></div>"+_remark+"</li>"
+							_data[i]["giftcount"]+_data[i]["giftitemobj"]["packagetypename"]+_data[i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_data[i]["giftitemobj"]["itemname"]+Math.floor(Number(_data[i]["itemcount"])/Number(_data[i]["salecount"]))*Number(_data[i]["giftcount"])+(_data[i]["giftitemobj"]["packagetypename"]==null?"":_data[i]["giftitemobj"]["packagetypename"])+"</div></div>"+_remark+"</li>"
 		       		}else if(_data[i]["itemkind"]=="折扣"){
 		       			_zz+=Number(_data[i]["itemcount"])
 		       			_discount+=(_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]

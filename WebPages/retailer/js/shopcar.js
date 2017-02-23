@@ -177,7 +177,7 @@
 						_Id.push(data1[i]["guid"])
 						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+"\"disc\""+
 						"><span>有礼</span><span> 购买"+data1[i]["salecount"]+(data1[i]["packagetypename"]==null?"":data1[i]["packagetypename"])+data1[i]["itemname"]+"赠送"+
-							data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+
+							data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+"\"giveTo\""+"><b style="+"\"margin-right:5px\""+">赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span><span class=\"yuj\">"+Math.floor((data1[i]["itemcount"])/Number(data1[i]["salecount"]))*Number(data1[i]["giftcount"])+"</span>"+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+"</div></div><div class="+
 						"\"set\""+"style="+
 						"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"					
 					}else if(data1[i]["itemkind"]=="买赠" && data1[i]["salestop"]==0){
@@ -187,7 +187,7 @@
 						_Id.push(data1[i]["guid"])
 						_price+=Number(data1[i]["price"])*Number(data1[i]["itemcount"]);
 						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+"\"disc\""+
-						"><span>买赠</span><span> 买"+data1[i]["salecount"]+(data1[i]["packagetypename"]==null?"":data1[i]["packagetypename"])+data1[i]["itemname"]+"赠"+data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+"\"giveTo\""+"><b style="+"\"margin-right:5px\""+">赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span><span class=\"yuj\">"+data1[i]["itemcount"]+"</span>"+data1[i]["giftitemobj"]["packagetypename"]+"</div></div><div class="+
+						"><span>买赠</span><span> 买"+data1[i]["salecount"]+(data1[i]["packagetypename"]==null?"":data1[i]["packagetypename"])+data1[i]["itemname"]+"赠"+data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+"\"giveTo\""+"><b style="+"\"margin-right:5px\""+">赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span><span class=\"yuj\">"+Math.floor((data1[i]["itemcount"])/Number(data1[i]["salecount"]))*Number(data1[i]["giftcount"])+"</span>"+data1[i]["giftitemobj"]["packagetypename"]+"</div></div><div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span>留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
 					}else if(data1[i]["isyucun"]==1 && data1[i]["salestop"]==0){
 						console.log(1)
@@ -238,7 +238,7 @@
 				$(".gift").html(_distrgive)
 			}
 			$("section ul").html(_list)
-			$(".summ").text("("+_ges+")")
+			$(".summ").text(_ges)
 
 			$(".amountBig span").text(_price.toFixed(1))
 			$(".commit span").text("("+_ges+")")
@@ -285,7 +285,10 @@
 							//$(".delete").remove($(".delete").parent().parent())
 							$("html").css({overflow:"auto"})
 							$(".ifDelt").css({display:"none"})
+							_ges-=Number($("#"+_id).find(".amount").text())
+							$(".summ").text(_ges)
 							$("#"+_id).remove()
+							
 							if(data1[_id]["salestop"]==0){
 								console.log(_id)
 								_price-=Number(data1[_id]["price"])*Number(_dll)
@@ -294,9 +297,6 @@
 							$(".amountBig span").text(_price.toFixed(1))
 							fg()
 							zz()
-//							if(){
-//								
-//							}
 						}
 					})
 				})
@@ -372,7 +372,7 @@
 					$(".gg").css({"background":"none",borderColor:"#fff"});
 				}
 				$(".commit span").text("("+_ges+")")
-				$(".summ").text("("+_ges+")")
+				$(".summ").text(_ges)
 				fg()
 			});
 			$(".all").on('click','.gg',function(){
@@ -380,7 +380,7 @@
 					_count=0;
 					_ges=0
 					$(".commit span").text("("+_ges+")")
-					$(".summ").text("("+_ges+")")
+					$(".summ").text(_ges)
 					$(this).attr("flag","0")
 					$(this).css({"background":"none",borderColor:"#fff"});
 					for(var k=0;k<$(".list i").length;k++){
@@ -412,7 +412,7 @@
 					_count=_ct
 					_ges=_cun
 					$(".commit span").text("("+_ges+")")
-					$(".summ").text("("+_ges+")")
+					$(".summ").text(_ges)
 					$(this).attr("flag","1")
 					$(this).css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
 						for(var j=0;j<$(".list i").length;j++){
@@ -467,7 +467,7 @@
 							success:function(data){
 								if(data.result==true){
 									console.log(data);
-									$(tht).parent().parent().parent().parent().parent().find(".yuj").text($(tht).prev().text());
+									$(tht).parent().parent().parent().parent().parent().find(".yuj").text(Math.floor(Number($(tht).prev().text())/Number(data1[_ind]["salecount"]))*Number(data1[_ind]["giftcount"]));
 									if($(tht).parent().parent().parent().prev().attr("flag")==1){
 										_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
 										$(".amountBig span").text(_price.toFixed(1))
@@ -479,7 +479,7 @@
 									fg();
 									zz()
 									$(".commit span").text("("+_ges+")")
-									$(".summ").text("("+_ges+")")
+									$(".summ").text(_ges)
 									if(Number($(tht).parent().find(".amount").text())==Number(data1[_ind]["salecount"])){
 										$(tht).css({color:"#e3e7ea"})
 									}									
@@ -522,7 +522,7 @@
 								fg()
 								zz()
 								$(".commit span").text("("+_ges+")")
-								$(".summ").text("("+_ges+")")
+								$(".summ").text(_ges)
 								if(Number($(tht).parent().find(".amount").text())<=1){
 									$(tht).css({color:"#e3e7ea"})
 								}
@@ -559,7 +559,7 @@
 					error:function(){},
 					success:function(data){
 						if(data.result==true){
-							$(th).parent().parent().parent().parent().parent().find(".yuj").text($(th).next().text());
+							$(th).parent().parent().parent().parent().parent().find(".yuj").text(Math.floor(Number($(th).next().text())/Number(data1[_ind]["salecount"]))*Number(data1[_ind]["giftcount"]));
 							console.log(data);
 							console.log(_price)
 							console.log($(th).parent().parent().parent().prev().attr("flag"))
@@ -575,7 +575,7 @@
 							fg()
 							zz()
 							$(".commit span").text("("+_ges+")")
-							$(".summ").text("("+_ges+")")
+							$(".summ").text(_ges)
 							if(data1[_ind]["salecount"]){
 								if(Number($(th).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
 									$(th).parent().find(".reduce").css({color:"#009f96"})

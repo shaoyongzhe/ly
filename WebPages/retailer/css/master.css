@@ -202,6 +202,18 @@ section .remarks{
 .yucunList li img{
 	width:70px;height:70px
 }
+.giveTo{
+	padding:5px 0 5px 10%;font-size: 1.4rem;background: #effdfc;
+}
+.giveTo b{
+	width:10%;font-weight: normal;display: block;float: left;
+}
+.giveTo div{
+	width:85%
+}
+.giveTo span:nth-child(2){
+	margin-left:5px
+}
 .shop-tit{
 	width:auto;float:left;font-size: 1.6rem;
 }
