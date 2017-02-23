@@ -8,9 +8,7 @@
 
     vm.getAssetFlow(1, null)
 
-    setTimeout(function () {
-        qrcode.href();
-    }, 1000)
+    qrcode.href();
 })
 
 var tmdropme = null;
@@ -116,18 +114,54 @@ var vm = avalon.define({
                 }
 
                 if (index != 1) {
+
                     if (vm.category == "all") {//全部
+                        var filterarray = $.grep(vm.alllist.array, function (item) {
+                            return item.summaryperiod != undefined;//筛选出每月统计
+                        });
+
                         $.each(json.content, function (i, v) {
-                            vm.alllist.array.push(v)
+                            if (filterarray.length > 0) {
+                                $.each(filterarray, function (i, item) {
+                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
+                                        vm.alllist.array.push(v)
+                                    }
+                                })
+                            } else {
+                                vm.alllist.array.push(v)
+                            }
                         });
 
                     } else if (vm.category == "income") {//收入
+                        var filterarray = $.grep(vm.incomelist.array, function (item) {
+                            return item.summaryperiod != undefined;//筛选出每月统计
+                        });
                         $.each(json.content, function (i, v) {
-                            vm.incomelist.array.push(v)
+                            if (filterarray.length > 0) {
+                                $.each(filterarray, function (i, item) {
+                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
+                                        vm.incomelist.array.push(v)
+                                    }
+                                })
+                            } else {
+                                vm.incomelist.array.push(v)
+                            }
                         });
                     } else {
+
+                        var filterarray = $.grep(vm.expendlist.array, function (item) {
+                            return item.summaryperiod != undefined;//筛选出每月统计
+                        });
                         $.each(json.content, function (i, v) {
-                            vm.expendlist.array.push(v)
+                            if (filterarray.length > 0) {
+                                $.each(filterarray, function (i, item) {
+                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
+                                        vm.expendlist.array.push(v)
+                                    }
+                                })
+                            } else {
+                                vm.expendlist.array.push(v)
+                            }
                         });
                     }
 
@@ -290,3 +324,22 @@ var vm = avalon.define({
         });
     }
 })
+
+
+///对比object 是否相同
+function compare(Obj_1, Obj_2) {
+    for (var key in Obj_1) {
+        if (typeof (Obj_2[key]) === 'undefined') {
+            return false;
+        } else {
+            if (typeof (Obj_1[key]) === 'object') {
+                compare(Obj_1[key], Obj_2[key]);
+            } else {
+                if (Obj_1[key] !== Obj_2[key]) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}

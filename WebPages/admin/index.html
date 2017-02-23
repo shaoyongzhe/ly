@@ -348,7 +348,7 @@
 		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js"></script>
 		<script src="lib/layer-v2.4/layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			$(".yonghu").text(localStorage.account);
+			$(".yonghu").text(sessionStorage.account);
 //			$(".project").eq(1).addClass("hi"); //控制左侧菜单一级项目显示隐藏
 //			$(".project").eq(2).addClass("hi");
 //			$(".project").eq(4).addClass("hi");
@@ -357,13 +357,13 @@
 //			$(".project").eq(0).find("li").eq(5).removeClass("hi");
 //
 //			$(".project").eq(3).find("li").eq(4).addClass("hi");
-			if(localStorage.status != "true") {
+			if(sessionStorage.status != "true") {
 				// alert(localStorage.status)
 				window.location.href = "login/signin.html";
 			}
 			$(".exit").click(function() {
 					window.location.href = "login/signin.html";
-					localStorage["status"] = false;
+					sessionStorage["status"] = false;
 				})
 				/*资讯-添加*/
 			function article_add(title, url) {

@@ -113,7 +113,7 @@ function acAdB() {
             laydate({
                 // elem: id,
                 event: 'focus',
-                format: 'YYYY-MM-DD',
+                format: 'YYYY/MM/DD',
                 // format: 'YYYY-MM-DD',
                 // istime: true,
                 max: dates
@@ -183,26 +183,6 @@ function acAdC() {
 		$(this).closest(".acZige").find(".yyy").not(':last').remove();
 		$(this).addClass("hi");
 		$(this).closest('.acZige').addClass('on');
-
-		$('.addSub3:last').find('.time_y').addClass('time_y' + $('.addSub3:last').index());
-
-		var d = new Date();
-		var dates = d.toLocaleDateString().replace(/\//g, '-');
-		$('.time_y' + Number($('.addSub3').last().index())).click(function(e){
-			// e.stopPropagation();
-			// var id = $(this).attr('id');
-			laydate({
-				// elem: id,
-				event: 'focus',
-				format: 'YYYY-MM-DD',
-				// format: 'YYYY-MM-DD',
-				// istime: true,
-				max: dates
-				/*choose: function(dates){
-					layer.msg(dates);
-				},*/
-			});
-		});
 
 	});
 
@@ -454,7 +434,7 @@ function addAjax(){
 				addSub3Arr.push(dcc_1[i].unit);
 			}
 			//统计范围的第二部分
-	//		 $(".addSub3 .acZige3").prepend('<div class="acZige3z  acZige2tab" style="width:135px;"></div>');
+			 // $(".addSub3 .acZige3").prepend('<div class="acZige3z  acZige2tab" style="width:135px;"></div>');
 			addsub3HTML = $(".addSub3.created_l").get(0).outerHTML;
 			addsub2HTML = $(".addSub2.created_l").get(0).outerHTML;
 			if(location.href.indexOf("activityModify.html")>0){		//0123临时注释掉	
@@ -475,6 +455,7 @@ function addAjax(){
 				// $(".addSub4 .acSe9 .select").find("li:last").get(0).attrArr=attrArr;
 				$(".addSub4 .acSe9 .select").find("li:last").attr("attrArr", attrArr);
 			}
+			// debugger;
 			//补贴条件
 			var dss_2b = data.subsidysetting.subsidycondition;
 			$(".addSub4.created_l .acSe10 .select").empty();
@@ -487,7 +468,7 @@ function addAjax(){
 			addSub4Arr = [""]
 			for (i = 0; i < dss_2c.length; i++) {
 				//补贴形式
-				$(".addSub4 .acSe11 .select").append('<li class="option" name="' + dss_2c[i].type + '" type="' + dss_2c[i].type + '" category="' + dss_2c[i].category + '" showtype=' + dss_2c[i].showtype + '>' + dss_2c[i].localtype + '</li>');
+				$(".addSub4 .acSe11 .select").append('<li class="option" category="' + dss_2c[i].category + '" showtype=' + dss_2c[i].showtype + '>' + dss_2c[i].localtype + '</li>');
 				//范围值
 				if (dss_2c[i].unit == "元") {
 					dss_2c[i].unit = "元/次";
@@ -531,6 +512,33 @@ function addAjax(){
 		},
 		error: function() {
 			console.warn("控件 error");
+		},
+		complete:function(){
+
+			if(location.href.indexOf("activityModify.html") > 0){
+
+				// console.log("subsidyConditionArr"+subsidyConditionArr);
+				$(".acSe9").each(function(num){
+					var emText=$(this).find("em").text();
+					var nameValue="";
+					$(this).find(".option").each(function(){
+						if($(this).text()==emText){
+							nameValue=$(this).attr("name");
+						}
+					})
+
+					$(this).click();
+					$(this).find('.option').last().click();
+					$(this).click();
+					$(this).find('.option').first().click();
+
+					$(this).click();
+					$(this).find(".option[name='"+nameValue+"']").last().click();
+					$(this).closest(".hdc1").next().find("em").text(subsidyConditionArr[num]);
+				})
+
+				
+			}
 		}
 	});
 	
