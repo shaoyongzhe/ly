@@ -84,6 +84,12 @@ function render(detailData){
 			case ">":
 				operator = "高于";
 				break;
+			/*
+			 * 修复修改页面显示 == 的bug
+			 */
+			case "==":
+				operator = "等于";
+				break;
 		}
 
 		var str = "";
@@ -161,29 +167,29 @@ function render(detailData){
 
 		// debugger
 		if(type.核销次数){
-			condType(type.核销次数, "核销次数");
+			condType(type.核销次数, "核销次数","次");
 		}
 		if(type.核销人数){
-			condType(type.核销人数, '核销人数');
+			condType(type.核销人数, '核销人数',"名");
 		}
 		if(type.惠粉数){
-			condType(type.惠粉数, '惠粉数');
+			condType(type.惠粉数, '惠粉数',"名");
 		}
 		if(type.粉丝留存率){
-			condType(type.粉丝留存率, '粉丝留存率');
+			condType(type.粉丝留存率, '粉丝留存率',"%");
 		}
 		if(type.会员时长){
-			condType(type.会员时长, '会员时长');
+			condType(type.会员时长, '会员时长',"天");
 		}
 		if(type.会员等级){
-			condType(type.会员等级, '会员等级');
+			condType(type.会员等级, '会员等级',"天");
 		}
 		if(type.分销商类型){
 			condType(type.分销商类型, '分销商类型');
 		}
 	}
 
-	function condType(ctype, typeTxt){
+	function condType(ctype, typeTxt,unitType){
 		var bgt1 = new Date(activity.begintime) * 1;
 		var bgt2 = new Date(ctype.begintime) * 1;
 		var prevDays = (bgt1 - bgt2) / 86400000;
@@ -197,19 +203,43 @@ function render(detailData){
 			ctype.operator = "不低于";
 			var str = "&nbsp;"+ ctype.operator +"<i>"+ range +"</i>";
 		} 
-		/*else if(ctype.operator == "=="){
+		else if(ctype.operator == "=="){
 			ctype.operator = "==";
 			var str = "&nbsp;&nbsp;&nbsp;"+ ctype.operator + " " + ctype.value;
-		}*/
+		}
 		var timeunit = isNaN(prevDays) ? "" : ctype.timeunit;
-		prevDays = isNaN(prevDays) ? "" : prevDays;
+		
+		/*
+		 * 修复详情页时间--数字显示错误
+		 */
+		if(timeunit == "月"){
+//			console.log(prevDays/30)
+			prevDays = isNaN(prevDays) ? "" : Math.round(prevDays/30);
+			prevDays = prevDays + "个";
+		}else{
+			/*
+			 * 修改详情页面中整数天数显示位小数的bug
+			 */
+			prevDays = isNaN(prevDays) ? "" : parseInt(prevDays);//  
+		}	
+		
+//		console.log(prevDays)
 		// debugger;
 		if(typeTxt == "分销商类型"){
-			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + "&nbsp;&nbsp;&nbsp;" + ctype.value +"</p>");
+			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +">"+ typeTxt + str +"</p>");
 			return;
 		}
-		$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +" <i>"+ timeunit +"</i>"+ str +" 次</p>");
-		// $('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span>"+ prevDays +" "+ str +" 次</p>");
+		
+		/*
+		 * 修复活动开始时、至今 详情页显示的bug
+		 * 粉丝留存率在详情页显示问题，正确显示为 %
+		 * 会员时长在详情页显示问题，正确显示为 天
+		 */		
+		if(ctype.statisticrange == "活动开始时" || ctype.statisticrange == "至今"){
+			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ " <i>"+ timeunit +"　</i>"+ str +""+ unitType +"</p>");			
+		}else{
+			$('table.canyu tr:last td:last').append("<p guid="+ ctype.guid +" state="+ ctype.state +"><span class='typeTxt'>"+ typeTxt +"</span> "+ ctype.statisticrange +" "+ prevDays +"<i>"+ timeunit +"　</i>"+ str +""+ unitType +"</p>");
+		}		
 		
 	}
 
@@ -289,13 +319,13 @@ function render(detailData){
 
 	$('.totalYuan').text(yuan);
 
-	var fen = 0;
-	$('td.btfz:contains(分) .valTxt').each(function(){
-		if($(this).text() == ""){return false;}
-		fen += parseInt($(this).text());
-	});
-
-	$('.totalFen').text(fen);
+//	var fen = 0;
+//	$('td.btfz:contains(分) .valTxt').each(function(){
+//		if($(this).text() == ""){return false;}
+//		fen += parseInt($(this).text());
+//	});
+//
+//	$('.totalFen').text(fen);
 
 
 	var sbysYuan = 0;
@@ -307,13 +337,13 @@ function render(detailData){
 	$('.totalSbysYuan').text(sbysYuan);
 
 
-	var sbysFen = 0;
-	$('td.sbys:contains(分) .valTxt').each(function(){
-		if($(this).text() == ""){return false;}
-		sbysFen += parseInt($(this).text());
-	});
-
-	$('.totalSbysFen').text(sbysFen);
+//	var sbysFen = 0;
+//	$('td.sbys:contains(分) .valTxt').each(function(){
+//		if($(this).text() == ""){return false;}
+//		sbysFen += parseInt($(this).text());
+//	});
+//
+//	$('.totalSbysFen').text(sbysFen);
 
 
 	// 4.宣传图文资料
