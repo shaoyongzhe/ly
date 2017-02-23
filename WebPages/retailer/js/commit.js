@@ -38,15 +38,17 @@
 		var _Id="";
 		var _sub="";
 		var _url=location.href;
-       	if(localStorage.Id){
-			_Id=localStorage.Id
-		}else if(location.search==""){
-			window.history.go(-1)
-		}
+
 		$(function(){ 
 		pushHistory(); 
 		window.addEventListener("popstate", function(e) { 
-		alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能 
+			if(localStorage.Id){
+				_Id=localStorage.Id
+			}else if(location.search==""){
+				window.history.go(-1)
+			}else{
+				alert(1)
+			}
 		}, false); 
 		function pushHistory() { 
 		var state = { 
