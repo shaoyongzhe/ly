@@ -73,7 +73,8 @@ var vm = avalon.define({
         var data = {
             paging: JSON.stringify(paging),
             myemployer: vm.showType == 0 ? false : true,
-            category: vm.showType == 0 ? vm.individual.category : vm.retail.category
+            category: vm.showType == 0 ? vm.individual.category : vm.retail.category,
+            assettype: "现金"
         }
 
         $.ajax({

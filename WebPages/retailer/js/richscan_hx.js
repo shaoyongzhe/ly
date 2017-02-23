@@ -2,7 +2,7 @@
 
 avalon.ready(function () {
     writeOff(function () {
-        avalon.scan(document.body, vm)
+    avalon.scan(document.body, vm)
     });
 
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
@@ -40,9 +40,12 @@ var vm = avalon.define({
 
                     $(".btn").hide()
                     $("#btn_1").show()//返回
-                } else
-                    vm.GetTicketInfo(res.resultStr)
-            }
+                } else {
+                    waitloadaddress(function () {
+                        vm.GetTicketInfo(res.resultStr, wxlocation.latitude, wxlocation.longitude)
+                        //加载位置
+                    });
+                }
         });
     },
     yhxNum: 0,//已核销
@@ -51,12 +54,12 @@ var vm = avalon.define({
     zengpin: 0,//赠品份数
     seconds: 8,//描述
     IsVerifycard: false,
-    GetTicketInfo: function (cardkey) {//加载优惠卷
+    GetTicketInfo: function (cardkey, latitude, longitude) {//加载优惠卷
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: {},
-            url: '/webapi/retailer/weixin/verifycardview/' + cardkey,
+            data: { cardkey: cardkey, retailergeoloc: longitude + "," + latitude },
+            url: '/webapi/retailer/weixin/verifycardview',
             beforeSend: function () { Msg.show(1, "超惠券信息加载中...") },
             // complete: function () { Msg.hide(); },
             success: function (result) {
@@ -95,7 +98,20 @@ var vm = avalon.define({
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                Msg.show(4, "网络不给力", "查不到超惠券信息，请重试！")
+
+                var errormsg = "网络不给力";
+                try {
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = JSON.parse(json.Message).error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+                } catch (e) {
+
+                }
+
+                Msg.show(4, errormsg, "查不到超惠券信息，请重试！")
                 $(".btn").hide()
                 $("#btn_2").show()//返回
                 $("#btn_3").show()//返回
