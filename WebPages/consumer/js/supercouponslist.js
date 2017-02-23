@@ -81,12 +81,20 @@ var vm = avalon.define({
     topicClick: function (el) {
         var topicid = "";
         $.each(el.topiclist, function (index, item, array) {
-            if (index<=20) {
+            if (index <= 20) {
                 topicid += "," + item.topicid
             }
         });
 
         location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+    },
+    getheadcount: function (el) {
+        var headcount = 0;
+        $.each(el, function (i, v) {
+            headcount += v.headcount
+        })
+
+        return headcount
     }
 });
 
@@ -174,7 +182,7 @@ function loaddata(longitude, latitude, dropme) {
                 }
                 qrcode.show()
                 setTimeout(function () {
-                    
+
                     $('#list').dropload({
                         scrollArea: window,
                         domDown: {
