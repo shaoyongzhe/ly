@@ -520,7 +520,7 @@ $(".setDefaultGroup").click(function () {
     _ajax("put", '/webapi/operation/notification/template/currentgroup', {
         "groupname": groupNameText
     }, "设置默认分组", function (data) {
-        if (data.error != '') {
+        if (data.error == '') {
             layer.msg('默认分组设置完成...');
         } else {
             layer.msg('默认分组设置失败');
