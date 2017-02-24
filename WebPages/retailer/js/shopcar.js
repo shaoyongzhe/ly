@@ -287,11 +287,13 @@
 							$("html").css({overflow:"auto"})
 							$(".ifDelt").css({display:"none"})
 							_cun-=Number($("#"+_id).find(".amount").text());
-							_ct-=1;
+							
 							_pp-=Number(data1[_id]["price"])*Number(_dll)
 							if($("#"+_id).find(".gouxuan").attr("flag")==1){
 								_ges-=Number($("#"+_id).find(".amount").text())
 								$(".summ").text(_ges)
+							}else{
+								_save-=1;
 							}
 							console.log(_ges)
 							if(_count==_save && _count!=0){
@@ -306,12 +308,13 @@
 								_price-=Number(data1[_id]["price"])*Number(_dll)
 								console.log(_price)
 								$(".amountBig span").text(_price.toFixed(1))
-								if(data1[_id]["itemkind"]=="降价" || data1[_id]["itemkind"]=="折扣"){
+
+							}
+							if(data1[_id]["itemkind"]=="降价" || data1[_id]["itemkind"]=="折扣"){
 									_dis-=(Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))
 									_discount-=(Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))
 									$(".ab span:nth-child(2)").text(_discount.toFixed(1))
 								}
-							}
 							$("#"+_id).remove();
 							
 							fg()

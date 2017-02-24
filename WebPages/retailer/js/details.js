@@ -41,7 +41,7 @@
 						//alert(data["content"][7]["details"].length)
 						_image="<img src=../../image/shop/yu.jpg />"
 						for(var i=0;i<data["content"][commodity]["details"].length;i++){
-							if(data["content"][commodity]["details"][i]["remark"]!="" || data["content"][commodity]["details"][i]["remark"]!=null){
+							if(data["content"][commodity]["details"][i]["ruledesc"]!="" || data["content"][commodity]["details"][i]["ruledesc"]!=null){
 								_remark="<div class="+"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data["content"][commodity]["details"][i]["ruledesc"]+"</div></div>"
 							}
 //							if(data["content"][commodity]["details"][i]["itemobj"]["itemimage"]){
