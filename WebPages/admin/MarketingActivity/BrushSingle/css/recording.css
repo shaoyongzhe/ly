@@ -415,7 +415,7 @@ span.name {float: left;width: 60px;text-align: left;line-height: 28px;}
 .fxcont>li{overflow: hidden;border: 1px solid #e4e4e4;line-height: 26px;margin-bottom: 14px;}
 .fxcont>li:last-child{margin: 0;}
 .fxcont>li>h4{float: left;width: 116px;border-right: 1px solid #e4e4e4;background: #f1f1f1;padding-left: 6px;font-weight: normal;}
-.fxcont>li>span{float: left;width: 128px;padding-left: 14px;}
+.fxcont>li>span{float: left;width: 142px;padding-left: 10px;}
 .fxcont>li>p{float: left;}
 .fxcont>li>span{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .hxjl>h3{font-size: 14px;font-weight: normal;padding: 19px 0 12px 0;}

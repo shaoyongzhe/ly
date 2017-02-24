@@ -1326,16 +1326,20 @@ function fnweigyy() {
 				cont+="</div>" +
 					"<h3>与提升相关的违规记录</h3>" +
 					"<div>";
-				if(data["breakrulesrecord"].length==0){
-					cont+="暂无记录";
+				if(data["breakrulesrecord"]){
+                    if(data["breakrulesrecord"].length==0){
+                        cont+="暂无记录";
+                    }else{
+                        cont+="<table border='1'>" +
+                            "<tr>" +
+                            "<th width='182'>违规时间</th>" +
+                            "<th width='89'>违规等级</th>" +
+                            "<th>处罚措施</th>" +
+                            "</tr>" +
+                            "</table>";
+                    }
 				}else{
-                    cont+="<table border='1'>" +
-                        "<tr>" +
-                        "<th width='182'>违规时间</th>" +
-                        "<th width='89'>违规等级</th>" +
-                        "<th>处罚措施</th>" +
-                        "</tr>" +
-                        "</table>";
+                    cont+="暂无记录";
 				}
 				cont+="</div>" +
 					"<div class='table1'><table border='1'>";
@@ -1345,7 +1349,7 @@ function fnweigyy() {
 				cont += "</table></div>" +
 					"<h3 class='tianpfx'>天平分析</h3>" +
 					"<ul class='fxcont'>" +
-						"<li><h4>消费者集中</h4><span title='"+data["arithmetic"]["value1"]+"'>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
+						"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
 						"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
 						"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
 						"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
@@ -1355,28 +1359,32 @@ function fnweigyy() {
 					"</ul>" +
 					"<div class='hxjl'>" +
 					"<h3>核销记录</h3>" +
-					"</div>" +
-					"<div class='hxjlpx'>" +
-					"<span class='onck'>密集核销</span>" +
-					"<span>消费者集中</span>" +
-					"<span>一人多券</span>" +
-					"</div>" +
-					"<div><table border='1'><thead>" +
-					"<tr>" +
-					"<th width='60'>消费者</th>" +
-					"<th width='90'>门店</th>" +
-					"<th width='99'>活动名称</th>" +
-					"<th width='67'>超惠券类型</th>" +
-					"<th width='86'>优惠内容</th>" +
-					"<th width='77'>门店核销金额</th>" +
-					"<th width='77'>双方位置距离</th>" +
-					"<th width='77'>是否在店核销</th>" +
-					"<th width='72'>核销时间</th>" +
-					"<th>密集程度</th>" +
-					"</tr></thead></table></div>" +
-					"<div class='table2'><table border='1'><tbody>";
-				cont += "</tbody></table></div>" +
-					"<div class='cgl-yyclose'>" +
+					"</div>";
+					if(data["verifylist"]){
+                        cont+="<div class='hxjlpx'>" +
+                            "<span class='onck'>密集核销</span>" +
+                            "<span>消费者集中</span>" +
+                            "<span>一人多券</span>" +
+                            "</div>" +
+                            "<div><table border='1'><thead>" +
+                            "<tr>" +
+                            "<th width='60'>消费者</th>" +
+                            "<th width='90'>门店</th>" +
+                            "<th width='99'>活动名称</th>" +
+                            "<th width='67'>超惠券类型</th>" +
+                            "<th width='86'>优惠内容</th>" +
+                            "<th width='77'>门店核销金额</th>" +
+                            "<th width='77'>双方位置距离</th>" +
+                            "<th width='77'>是否在店核销</th>" +
+                            "<th width='72'>核销时间</th>" +
+                            "<th>密集程度</th>" +
+                            "</tr></thead></table></div>" +
+                            "<div class='table2'><table border='1'><tbody>";
+                        cont += "</tbody></table></div>";
+					}else{
+						cont+="<p>暂无记录</p>";
+					}
+					cont+="<div class='cgl-yyclose'>" +
 					"<span class='cgl-close'>关闭</span>" +
 					"</div>" +
 					"</div>";
@@ -1388,7 +1396,10 @@ function fnweigyy() {
 				});
 				layer.full(index);
 				fnclose(index);
-				fnshaixuan(data["verifylist"]);
+				if(data["verifylist"]){
+                    fnshaixuan(data["verifylist"]);
+				}
+
 				$(".cgl-zhezao").hide();
 			}
 		});
@@ -1400,48 +1411,51 @@ function fnpaixu(data, order) {
 	var cont = "",
 		cn = null;
 	var colorarr = ["#f00", "#ff4a4a", "#ff6e6e", "#ff8585", "#ffc1c1", "#ffd9d9", "#ffe1e1", "#fff1f1"];
-	for(var i = 0; i < data.length; i++) {
-		for(var j = 0; j < data.length; j++) {
-			if(data[j][order] == i) {
-				cont += "<tr>" +
-					"<td class='jltd1'>" + data[j]["consumername"] + "</td>" +
-					"<td class='jltd2'>" + data[j]["retailername"] + "</td>" +
-					"<td class='jltd3'>" + data[j]["activitytitle"] + "</td>" +
-					"<td class='jltd4'>" + data[j]["itemkind"] + "</td>" +
-					"<td class='jltd5'>" + data[j]["ruletext"] + "</td>" +
-					"<td class='jltd6'>" + data[j]["verifymoney"] + "</td>" +
-					"<td class='jltd7'>暂无</td>" +
-					"<td class='jltd8'>暂无</td>" +
-					"<td class='jltd9'>" + data[j]["issuetime"] + "</td>" +
-					"<td class='jltd10' ";
-				if(parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]) < 0) {
-					cont += "style='background:#fff'";
-				} else {
-					cn = parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]);
-					if(cn < 30) {
-						cont += "style='background:" + colorarr[0] + "'";
-					} else if(cn < 60) {
-						cont += "style='background:" + colorarr[1] + "'";
-					} else if(cn < 150) {
-						cont += "style='background:" + colorarr[2] + "'";
-					} else if(cn < 300) {
-						cont += "style='background:" + colorarr[3] + "'";
-					} else if(cn < 600) {
-						cont += "style='background:" + colorarr[4] + "'";
-					} else if(cn < 1800) {
-						cont += "style='background:" + colorarr[5] + "'";
-					} else if(cn < 3600) {
-						cont += "style='background:" + colorarr[6] + "'";
-					} else {
-						cont += "style='background:" + colorarr[7] + "'";
-					}
-				}
-				cont += "></td>" +
-					"</tr>";
-			}
-		}
+	if(data){
+        for(var i = 0; i < data.length; i++) {
+            for(var j = 0; j < data.length; j++) {
+                if(data[j][order] == i) {
+                    cont += "<tr>" +
+                        "<td class='jltd1'>" + data[j]["consumername"] + "</td>" +
+                        "<td class='jltd2'>" + data[j]["retailername"] + "</td>" +
+                        "<td class='jltd3'>" + data[j]["activitytitle"] + "</td>" +
+                        "<td class='jltd4'>" + data[j]["itemkind"] + "</td>" +
+                        "<td class='jltd5'>" + data[j]["ruletext"] + "</td>" +
+                        "<td class='jltd6'>" + data[j]["verifymoney"] + "</td>" +
+                        "<td class='jltd7'>暂无</td>" +
+                        "<td class='jltd8'>暂无</td>" +
+                        "<td class='jltd9'>" + data[j]["issuetime"] + "</td>" +
+                        "<td class='jltd10' ";
+                    if(parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]) < 0) {
+                        cont += "style='background:#fff'";
+                    } else {
+                        cn = parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]);
+                        if(cn < 30) {
+                            cont += "style='background:" + colorarr[0] + "'";
+                        } else if(cn < 60) {
+                            cont += "style='background:" + colorarr[1] + "'";
+                        } else if(cn < 150) {
+                            cont += "style='background:" + colorarr[2] + "'";
+                        } else if(cn < 300) {
+                            cont += "style='background:" + colorarr[3] + "'";
+                        } else if(cn < 600) {
+                            cont += "style='background:" + colorarr[4] + "'";
+                        } else if(cn < 1800) {
+                            cont += "style='background:" + colorarr[5] + "'";
+                        } else if(cn < 3600) {
+                            cont += "style='background:" + colorarr[6] + "'";
+                        } else {
+                            cont += "style='background:" + colorarr[7] + "'";
+                        }
+                    }
+                    cont += "></td>" +
+                        "</tr>";
+                }
+            }
+        }
+        $(".table2").find("tbody").html(cont);
 	}
-	$(".table2").find("tbody").html(cont);
+
 
 	//同名同色
     if(order!="order1"){
