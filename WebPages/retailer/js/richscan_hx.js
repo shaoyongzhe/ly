@@ -1,10 +1,13 @@
+wx.ready(function () {
+    //  alert("开始扫一扫")
 
+    writeOff(function () {
+        vm.scanwx()
+    });
+});
 
 avalon.ready(function () {
-    writeOff(function () {
     avalon.scan(document.body, vm)
-    });
-
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
     // vm.cardkey = "H4sIAAAAAAAEAEWLQQrDIBBF7zLrLtTJaOxlZKKTItQEmjEQQu_ekE3_6j14_wTOWveqR6oqLb16LfAE5pEizxMHssMsmX1xlgI78QZLnOABuiq_l96uGi_N67L1Jp90_63DgXwYo_mTkXsYDRJ8f-EbdWN5AAAA"
     //vm.GetTicketInfo(vm.cardkey)
@@ -24,10 +27,11 @@ var vm = avalon.define({
     title: "",
     subTitle: "",
     hxNum: 0,
+    totalnum: 0,
     scanwx: function () {//微信扫一扫
         vm.seconds = 8;
         vm.cardkey = "";
-        vm.pageStep = 1
+        vm.pageStep = 1;
         wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
@@ -43,9 +47,9 @@ var vm = avalon.define({
                 } else {
                     waitloadaddress(function () {
                         vm.GetTicketInfo(res.resultStr, wxlocation.latitude, wxlocation.longitude)
-                        //加载位置
                     });
                 }
+            }
         });
     },
     yhxNum: 0,//已核销
@@ -77,6 +81,7 @@ var vm = avalon.define({
                     Msg.hide()
                     vm.pageStep = 2;
                     vm.jsondata = jsondata.activityitemjson
+                    vm.totalnum = jsondata.totalnum
                     vm.MsgShow(1, "消费者已选择" + result.verifynum + "张超惠券", "请确认")
                     vm.hxNum = result.verifynum
 
@@ -138,7 +143,7 @@ var vm = avalon.define({
                     vm.pageStep = 3
                     if (jsondata.verifynum > 0) {//核销成功
                         vm.yhxNum = jsondata.verifynum
-                        vm.whxNum = vm.jsondata.totalnum - jsondata.verifynum
+                        vm.whxNum = vm.totalnum - jsondata.verifynum
                         var whxMsg = vm.whxNum > 0 ? (vm.whxNum + "张超惠券未核销") : ""
                         vm.MsgShow(1, "您已经成功核销了" + jsondata.verifynum + "张超惠券", whxMsg)
 
@@ -274,7 +279,9 @@ var vm = avalon.define({
         });
     },
     fun_tautology: function () {//重试
-        vm.GetTicketInfo(vm.cardkey)
+        waitloadaddress(function () {
+            vm.GetTicketInfo(vm.cardkey, wxlocation.latitude, wxlocation.longitude)
+        });
     },
     favorable: function (el, num) {
         vm.youhui = 0;

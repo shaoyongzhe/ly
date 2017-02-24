@@ -18,10 +18,8 @@
     <link href="/retailer/css/weixintips.css" rel="stylesheet" />
     <link href="/retailer/css/style.css" rel="stylesheet" />
     <link href="/retailer/css/suppercouponitems.css" rel="stylesheet" />
-
-<!--
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
--->
+    <!--<script type="text/javascript" src="/js/wx/md5.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>-->
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
@@ -34,9 +32,9 @@
     <script src="/retailer/js/lib/common.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
-<!--
-    <script src="../js/CommonWriteOff.js"></script>
--->
+    <!--
+        <script src="../js/CommonWriteOff.js"></script>
+    -->
     <style>
         html, body {
             height: 100%;
@@ -116,7 +114,9 @@
             #page_middle > li {
                 width: initial;
                 float: left;
-                height: 50px; max-width:50%; overflow:hidden
+                height: 50px;
+                max-width: 50%;
+                overflow: hidden;
             }
 
                 #page_middle > li #p_yxchj {
@@ -125,7 +125,8 @@
                     border: solid 1px #009f96;
                     border-radius: 0 20px 20px 0;
                     border-left: none;
-                    padding:0 10px; margin-top:10px
+                    padding: 0 10px;
+                    margin-top: 10px;
                 }
 
                 #page_middle > li > ul {
@@ -155,7 +156,9 @@
                 box-sizing: border-box;
                 text-align: center;
                 line-height: 30px;
-                font-size: 18px;white-space:nowrap;overflow:hidden
+                font-size: 18px;
+                white-space: nowrap;
+                overflow: hidden;
             }
 
                 #tab_tishi li:first-child {
@@ -250,7 +253,8 @@
             font-size: 18px;
             -webkit-box-sizing: content-box;
             -moz-box-sizing: content-box;
-            box-sizing: content-box;border-radius:5px;
+            box-sizing: content-box;
+            border-radius: 5px;
         }
 
         .stamp1 {
@@ -330,53 +334,112 @@
             -ms-transform: rotate(270deg);
             transform: rotate(270deg);
         }
-        #list{
-            position:absolute;height:50%;width:100%;display:none
+
+        #list {
+            position: absolute;
+            height: 50%;
+            width: 100%;
+            display: none;
         }
-        .punish{
-            position:absolute;width:20%;left:8%;top:7%
+
+        .punish {
+            position: absolute;
+            width: 20%;
+            left: 8%;
+            top: 7%;
         }
-        .upp{
-            width:8%;height:8%;position:absolute;right:6%;top:5%
+
+        .upp {
+            width: 8%;
+            height: 8%;
+            position: absolute;
+            right: 6%;
+            top: 5%;
         }
-        .days-img{
-            width:100%;height:40%;
+
+        .days-img {
+            width: 100%;
+            height: 40%;
         }
-        .days-img img{
-            width:20%;margin-left:40%;margin-top:5%
+
+            .days-img img {
+                width: 20%;
+                margin-left: 40%;
+                margin-top: 5%;
+            }
+
+        .stop {
+            width: 100%;
+            height: 12%;
+            font-size: 18px;
+            line-height: 40px;
+            text-align: center;
         }
-        .stop{
-            width:100%;height:12%;font-size:18px;line-height:40px;text-align:center
+
+            .stop span {
+                color: #ff7e00;
+            }
+
+        .time-down {
+            width: 100%;
+            height: 20%;
+            margin-top: 3%;
         }
-        .stop span{
-            color:#ff7e00;
+
+        .time-down {
+            text-align: center;
+            line-height: 26px;
         }
-        .time-down{
-            width:100%;height:20%;margin-top:3%
+
+        .how {
+            width: 100%;
+            height: 10%;
+            margin-top: 3%;
+            text-align: center;
+            font-family: blue;
+            line-height: 26px;
+            font-size: 18px;
         }
-        .time-down{
-            text-align:center;line-height:26px
+
+            .how a {
+                text-decoration: underline;
+            }
+
+        .question {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+            line-height: 26px;
         }
-        .how{
-            width:100%;height:10%;margin-top:3%;text-align:center;font-family:blue;line-height:26px;font-size:18px;
+
+        .f-list {
+            width: 100%;
+            height: 5%;
+            background: #ff9800;
+            position: absolute;
+            display: none;
         }
-        .how a{
-            text-decoration:underline
+
+        .f-list-img1 {
+            width: 8%;
+            height: 100%;
+            margin-left: 2%;
+            float: left;
         }
-        .question{
-            width:100%;height:10%;text-align:center;line-height:26px
+
+        .f-list p {
+            float: left;
+            height: 100%;
+            line-height: 30px;
+            margin-left: 2%;
         }
-        .f-list{
-            width:100%;height:5%;background:#ff9800;position:absolute;display:none
-        }
-        .f-list-img1{
-            width:8%;height:100%;margin-left:2%;float:left
-        }
-        .f-list p{
-            float:left;height:100%;line-height:30px;margin-left:2%
-        }
-        .f-list-img2{
-            width:8%;height:82%;float:right;margin-right:1%;margin-top:0.5%
+
+        .f-list-img2 {
+            width: 8%;
+            height: 82%;
+            float: right;
+            margin-right: 1%;
+            margin-top: 0.5%;
         }
     </style>
 </head>
@@ -407,7 +470,7 @@
         <ul id="page_middle">
             <li>
                 <p id="p_yxchj">
-                    已选超惠券<font color="#009f96">{{vm.jsondata.totalnum}}</font>张
+                    已选超惠券<font color="#009f96">{{vm.totalnum}}</font>张
                 </p>
             </li>
             <li style="float:right">
