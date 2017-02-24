@@ -793,26 +793,24 @@ function fncarnum(data) {
         fnaddcar(this, $(this).next().html() - 0);
     }).on("click", ".add", function() {
         var num = Number($(this).prev().html());
-        console.log(num)
-        var xian = $(this).parents(".the-xiangxi").find(".cgl-syu>span").html();
-        if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id") && data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
-
-
-            num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])
-            var _l=(Number($(".price>i").html())+(num-Number($(this).prev().html()))*Number($(this).parent().prev().find("i").html())).toFixed(1)
-            $(".ammount").html(Number($(".ammount").html()) +num);
-            $(this).prev().html(Number($(this).prev().html())+num).show().prev().show();
-            $(".price>i").html(_l);
-
-        }else{
-            $(".ammount").html(Number($(".ammount").html()) +1);
-            $(this).prev().html(num + 1).show().prev().show();
-            $(".price>i").html((Number($(".price>i").html())+Number($(this).parent().prev().find("i").html())).toFixed(1));
-        }
-        if(xian && xian <= num) {
+        
+        var xian = Number($(this).parents(".the-xiangxi").find(".cgl-syu>span").html());
+		console.log($(this).prev().text())
+        if(xian && Number($(this).prev().text())>=xian) {
             console.log("购买已到上限")
         } else {
-
+	        if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id") && data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
+	            num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])
+	            var _l=(Number($(".price>i").html())+(num-Number($(this).prev().html()))*Number($(this).parent().prev().find("i").html())).toFixed(1)
+	            $(".ammount").html(Number($(".ammount").html()) +num);
+	            $(this).prev().html(Number($(this).prev().html())+num).show().prev().show();
+	            $(".price>i").html(_l);
+	
+	        }else{
+	            $(".ammount").html(Number($(".ammount").html()) +1);
+	            $(this).prev().html(num + 1).show().prev().show();
+	            $(".price>i").html((Number($(".price>i").html())+Number($(this).parent().prev().find("i").html())).toFixed(1));
+	        }
 
             $(".num").html($(".ammount").html());
 
