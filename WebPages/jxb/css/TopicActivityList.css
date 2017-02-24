@@ -480,7 +480,8 @@ header img:nth-of-type(2) {
     width: 145px;
     height: 80px;
     left: 739px;
-    top: 9px; }
+    top: 9px;
+    display: none; }
 
   .returnToList p {
     width: 126px;

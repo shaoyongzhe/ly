@@ -2548,10 +2548,10 @@ $('.saveToDb, .shenhe').click(function(){
 			// 判断时间--单位  天、月
 			begintimeInput = _self.parents('.addSub3').find('.time_y').val();
 
-			if(begintimeInput != '不限'){
-				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
-			} else {
+			if(begintimeInput == '不限' || begintimeInput == ''){
 				begintime = '';
+			} else {				
+				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
 			}
 
 		}
