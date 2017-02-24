@@ -274,52 +274,7 @@ function fnyucun() {
             //sessionStorage.setItem("yucunhuo", JSON.stringify(data));
         }
     });
-	$("#cgl-contlist").find("ul").html("");
-	$("#loading").show();
-	$("#zhezao").show();
-	$.ajax({
-		type: "get",
-		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
-		//url: "../../data/activeindex.json",
-		data: "",
-		timeout: "2000",
-		dataType: "json",
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			$("#loading").hide();
-			if(textStatus == "timeout") {
-				console.log("请求超时")
-				XMLHttpRequest.abort();
-			}
-		},
-		success: function(data) {
-			$("#zhezao").hide();
-			fnychxr(data);
-			//sessionStorage.setItem("yucunhuo", JSON.stringify(data));
-		}
-	});
-	$("#cgl-contlist").find("ul").html("");
-	$("#loading").show();
-	$("#zhezao").show();
-	$.ajax({
-		type: "get",
-		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
-		//url: "../../data/activeindex.json",
-		data: "",
-		timeout: "2000",
-		dataType: "json",
-		error: function(XMLHttpRequest, textStatus, errorThrown) {
-			$("#loading").hide();
-			if(textStatus == "timeout") {
-				console.log("请求超时")
-				XMLHttpRequest.abort();
-			}
-		},
-		success: function(data) {
-			$("#zhezao").hide();
-			fnychxr(data);
-			//sessionStorage.setItem("yucunhuo", JSON.stringify(data));
-		}
-	});
+
 }
 //预存货列表渲染
 function fnychxr(data) {

@@ -103,7 +103,7 @@
 					console.log(11)
 					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/yu.jpg"+" />"
 				}
-				if(data1[i]["itemquality"]==0){
+				if(data1[i]["itemquality"]!=="" && data1[i]["itemquality"]!=="1"){
 					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
 				}
 				console.log(_image)
