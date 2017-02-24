@@ -54,14 +54,16 @@ var popups=''
 
 
 
-/*通讯异常弹窗*/
-function popupsFn(fn1,fn2){
+/*通讯异常弹窗*///0224更新，兼容附属页面小尺寸的框，并设置了宽度和height缺省的时候为原型的默认值402 170.所以，列表，详情无需改动。
+function popupsFn(fn1,fn2,width,height){
+	var w=width?width:'402px';
+	var h=height?height:'170px';
 	$(".marginShade").show();
 	var popupsFnLayerIndex=layer.open({
 	  type: 1,
 	  title:false,
 	  skin: 'layui-layer-rim', //加上边框
-	  area: ['402px', '170px'], //宽高
+	  area: [w, h], //宽高
 	  content: popups,
 	  closeBtn: 0,
 	  skin: false,
@@ -70,6 +72,7 @@ function popupsFn(fn1,fn2){
 		console.log("弹窗刷新");
 		if(fn1){
 			fn1();
+			console.log("fn1动了")
 		}	
 		layer.close(popupsFnLayerIndex);
 	})	
@@ -77,6 +80,7 @@ function popupsFn(fn1,fn2){
 		console.log("弹窗取消");
 		if(fn2){
 			fn2();
+			console.log("fn2动了")
 		}
 		layer.close(popupsFnLayerIndex);
 	})	
