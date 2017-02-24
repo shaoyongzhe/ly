@@ -99,30 +99,10 @@ function acAdB() {
 		}
 
 		// $('.red').last().css({"visibility": "hidden"});
-//		$('.red').last().addClass('vihi');
+		// $('.red').last().addClass('vihi');
 		$('.red').not(':first').addClass("vihi");
 		$(".addSub2").last().find(".acAd2").removeClass("hi");
-
-
-
-		var d = new Date();
-        var dates = d.toLocaleDateString().replace(/\//g, '-');
-        $('.time_y').click(function(e){
-            // e.stopPropagation();
-            // var id = $(this).attr('id');
-            laydate({
-                // elem: id,
-                event: 'focus',
-                format: 'YYYY/MM/DD',
-                // format: 'YYYY-MM-DD',
-                // istime: true,
-                max: dates
-                /*choose: function(dates){
-                    layer.msg(dates);
-                },*/
-            });
-        });
-
+		
 	});
 
 	$(".addSub3:last .acAd3").css({"visibility": "hidden"});
@@ -179,7 +159,9 @@ function acAdC() {
 			"visibility": "visible",
 			"cursor": "pointer"
 		});
-		$(this).closest(".acZige").append($('<div class="yyy singleselection"><span class="radio" name="0">以上条件满足其一</span><span class="radio on" name="1">以上条件需全部满足</span></div>'));
+
+		$(this).closest(".acZige").append('<div class="yyy singleselection"><span class="radio" name="1">以上条件满足其一</span><span class="radio" name="0">以上条件需全部满足</span></div>');
+
 		$(this).closest(".acZige").find(".yyy").not(':last').remove();
 		$(this).addClass("hi");
 		$(this).closest('.acZige').addClass('on');

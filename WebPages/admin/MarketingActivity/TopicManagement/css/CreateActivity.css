@@ -784,7 +784,9 @@ span.tip.warn{
     margin-top: 15px;
 }
 
-
+.area.edit .content{
+	width: 86%;
+}
 
 
 .heading{.haibao-wrap
@@ -797,7 +799,7 @@ span.tip.warn{
 }
 
 .heading .heading-line{
-    width: 90%;
+    width: 88%;
     height: 1px;
     margin: 0 10px;
     background-color: #999;
@@ -1392,7 +1394,7 @@ textarea{
 
 
 .sec.tuWen{
-	width: 1100px;
+	width: 1000px;
 	margin: 0 auto;
 }
 
@@ -1440,3 +1442,8 @@ textarea{
 /* .addSub2 .member > div{
 	float: left;
 } */
+
+
+.section2{
+	overflow-x: auto;
+}
