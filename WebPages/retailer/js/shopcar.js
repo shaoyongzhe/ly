@@ -87,6 +87,7 @@
 			var _remark="";
 			var _intr="";
 			var _dd=""
+			var _image=""
 			for(var i=0;i<data1.length;i++){
 						if(data1[i]["guid"]){
 							_dd=data1[i]["guid"]
@@ -100,11 +101,10 @@
 				}
 				if(data1[i]["isyucun"]==1){
 					console.log(11)
-					_image="<img class="+"\"img2\" "+"src="+"../../image/shop/yu.jpg"+" />"
-				}else if(data1[i]["itemquality"]===0){
-					_image="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
-				}else{
-					_image=""
+					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/yu.jpg"+" />"
+				}
+				if(data1[i]["itemquality"]==0){
+					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
 				}
 				console.log(_image)
 				if(data1[i]["remark"]!=""){
@@ -223,6 +223,7 @@
 				for(var z=0;z<_Id.length;z++){
 					_sv[z]=_Id[z]
 				}
+				_image=""
 			}
 					zz()
 			_save=_count;
