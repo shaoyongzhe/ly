@@ -1,10 +1,13 @@
+wx.ready(function () {
+    //  alert("开始扫一扫")
 
+    writeOff(function () {
+        vm.scanwx()
+    });
+});
 
 avalon.ready(function () {
-    writeOff(function () {
     avalon.scan(document.body, vm)
-    });
-
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
     // vm.cardkey = "H4sIAAAAAAAEAEWLQQrDIBBF7zLrLtTJaOxlZKKTItQEmjEQQu_ekE3_6j14_wTOWveqR6oqLb16LfAE5pEizxMHssMsmX1xlgI78QZLnOABuiq_l96uGi_N67L1Jp90_63DgXwYo_mTkXsYDRJ8f-EbdWN5AAAA"
     //vm.GetTicketInfo(vm.cardkey)
@@ -46,6 +49,7 @@ var vm = avalon.define({
                         //加载位置
                     });
                 }
+            }
         });
     },
     yhxNum: 0,//已核销
