@@ -599,15 +599,18 @@ a.less {
 
 .BDcyhdQualified .BDQFdsImg {
   margin-right: 5px;
-  vertical-align: middle; }
+  vertical-align: top; }
 
 .BDcyhdQualified .BDQFdsSpan {
   display: inline-block;
   font-family: "微软雅黑";
   font-size: 14px;
   color: #333;
-  line-height: 24px;
-  height: 24px; }
+  line-height: 19px;
+  /* height: 24px; */
+  /* background: red; */
+  width: 290px;
+  /* vertical-align: top; */ }
 
 .BDQFd2_span1, .BDQFd2_span2 {
   font-size: 14px;
@@ -998,6 +1001,21 @@ footer {
     font-size: 16px;
     margin-top: 10px;
     margin-bottom: 15px; }
+
+  .BDcyhdQualified .BDQFdsImg {
+    margin-right: 5px;
+    vertical-align: top; }
+
+  .BDcyhdQualified .BDQFdsSpan {
+    display: inline-block;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    color: #333;
+    line-height: 19px;
+    /* height: 24px; */
+    /* background: red; */
+    width: 250px;
+    /* vertical-align: top; */ }
 
   .BDcyhdQualified img {
     margin-right: 5px; }
