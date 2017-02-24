@@ -33,7 +33,7 @@ var vm = avalon.define({
             complete: function () { common.loading.hide(); },
             success: function (json) {
                 common.loading.hide();
-                json = json || {};   /* 统一加这句话 */ 
+                json = json || {};   /* 统一加这句话 */
                 if (json.error) {
                     toasterextend.showtips(json.error, "error");
                     return;
@@ -87,7 +87,8 @@ var vm = avalon.define({
         var data = {
             paging: JSON.stringify(paging),
             myemployer: false,
-            category: vm.category
+            category: vm.category,
+            assettype: "现金"
         }
         $.ajax({
             type: 'GET',

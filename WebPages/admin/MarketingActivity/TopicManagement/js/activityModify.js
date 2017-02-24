@@ -221,7 +221,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*优惠力度条件*/
 	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
-	    else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
+	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
 	//  //买赠类型（略）
@@ -544,24 +544,26 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    for (key in obj){
 //	        	debugger;
 	        switch(key){//等待补充case
-	            case '核销次数' : activityManger_addSub3HtmlFn('核销次数');break;
-	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数');break;
-	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数');break;
-	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率');break;
-	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长');break;
-	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级');break;
-	            // case '' : activityManger_addSub3HtmlFn('核销次数');break;//别忘去掉。
-
+	        	case '核销次数' : activityManger_addSub3HtmlFn('核销次数',"次");break;
+	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数',"名");break;
+	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数',"名");break;
+	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率',"%");break;
+	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长',"天");break;
+	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级',"天");break;
                 case '分销商类型' : activityManger_addSub3HtmlFn('分销商类型');break; //0218
 
 	        }
-	        function activityManger_addSub3HtmlFn(a){
+	        function activityManger_addSub3HtmlFn(a,unitType){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
 
 	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
+	            /*
+	             * 修改页单位显示问题修复
+	             */
+	            $('.addSub3Mange:last').find(".acZige1Tab   p.dib").text(unitType);
 	            /*统计范围*/
 	            $('.addSub3Mange:last .acZige2tab').addClass("hi");//0119把.acZige2tab.n2改为.acZige2tab
 	            //两种类型，至今或者活动开始前
