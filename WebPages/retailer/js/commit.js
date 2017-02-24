@@ -89,12 +89,11 @@
        	var _zz=0;
        	if(_data!=""){
 	       	for(var i=0;i<_data.length;i++){
-	       		if(_data[i]["isyucun"]==1){
-					_image="<img class="+"\"img2\" "+"src="+"../../image/shop/yu.jpg"+" />"
-				}else if(_data[i]["itemquality"]===0){
-					_image="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
-				}else{
-					_image=""
+	      if(_data[i]["isyucun"]==1){
+					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/yu.jpg"+" />"
+				}
+	      if(_data[i]["itemquality"]!="" && _data[i]["itemquality"]!="1"){
+					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
 				}
 	       		if(_data[i]["specification"]==null && _data[i]["packagetypename"]==null){
 					_intr=""
@@ -139,7 +138,7 @@
 			       		">"+_data[i]["discount"]+" 折</span></div>"+_remark+"</li>"
 			       		}else if(_data[i]["itemkind"]=="买赠"){
 			       			_zz+=Number(_data[i]["itemcount"])
-			       			_zengprice+=(Number(_data[i]["giftprice"])*Number(_data[i]["giftcount"]))
+			       			_zengprice+=(Number(_data[i]["unitprice"])*Number(_data[i]["giftcount"]))
 			       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
@@ -181,7 +180,7 @@
 			       		">"+_data[i]["discount"]+"</span></div>"+_remark+"</li>"
 			       		}else if(_data[i]["itemkind"]=="买赠"){
 			       			_zz+=Number(_data[i]["itemcount"])
-			       			_zengprice+=(Number(_data[i]["giftprice"])*Number(_data[i]["giftcount"]))
+			       			_zengprice+=(Number(_data[i]["unitprice"])*Number(_data[i]["giftcount"]))
 			       			_price+=_data[i]["price"]*_data[i]["itemcount"];
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
@@ -224,7 +223,7 @@
 		       		">"+_data[i]["discount"]+"</span></div></li>"
 		       		}else if(_data[i]["itemkind"]=="买赠"){
 		       			_zz+=Number(_data[i]["itemcount"])
-		       			_zengprice+=(Number(_data[i]["giftprice"])*Number(_data[i]["giftcount"]))
+		       			_zengprice+=(Number(_data[i]["unitprice"])*Number(_data[i]["giftcount"]))
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+_data[i]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+_name+_image+"</div><div class="+"\"shop-body\""+">￥"+_data[i]["price"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div>"+_intr+"</div><div>×"+_data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">买赠</div><span class="+"\"discount-con\""+
@@ -246,7 +245,7 @@
 		       		">"+_data[i]["discount"]+"</span></div>"+_remark+"</li>"   			
 		       		}       			
 	       		}
-	
+						_image=""
 	       	}
        	}
        	sdd()
@@ -290,9 +289,10 @@
 		        			}
 						}
 		        	}
+		        	console.log(_zengprice)
 		        	if(data[_indd]["promotionactivity"]){
 			        	for(var c=0;c<data[_indd]["promotionactivity"]["details"][_yu]["giftitems"].length;c++){
-			        	  	_zengprice+=Number(data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["price"])*Number(data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"])
+			        	  	_zengprice+=(Number(data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["price"])*Number(data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"]))
 			        	  				
 			        	  	_distrgive+="<div style="+"\"padding-left:11%\""+">"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["itemname"]+"<span style="+"\"margin-left:15px\""+">"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"]+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["unit"]+"</span><span class="+"\"gifty\""+">x"+data[_indd]["promotionactivity"]["details"][_yu]["giftitems"][c]["count"]+"</span></div>"		        	  						        	  					
 			        	  				
