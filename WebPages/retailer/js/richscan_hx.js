@@ -8,7 +8,7 @@ wx.ready(function () {
 
 avalon.ready(function () {
     writeOff(function () {
-        avalon.scan(document.body, vm)
+    avalon.scan(document.body, vm)
     });
 
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
@@ -33,7 +33,7 @@ var vm = avalon.define({
     scanwx: function () {//微信扫一扫
         vm.seconds = 8;
         vm.cardkey = "";
-        vm.pageStep = 1
+        vm.pageStep = 1;
         wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
