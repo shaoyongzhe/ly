@@ -65,7 +65,7 @@ function fnxuanran(data) {
 			"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 			"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 			"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看详情</a></td>" +
+			"<td class='cgl-td7'><p title='"+odata[k1]["breakrulescause"]+"'>" + odata[k1]["breakrulescause"] + "</p><a href='javascript:;'>查看详情</a></td>" +
 			"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 			"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
@@ -141,7 +141,7 @@ function fnmore() {
 							"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 							"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 							"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-							"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看详情</a></td>" +
+                            "<td class='cgl-td7'><p title='"+odata[k1]["breakrulescause"]+"'>" + odata[k1]["breakrulescause"] + "</p><a href='javascript:;'>查看详情</a></td>" +
 							"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 							"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 							"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
@@ -1294,8 +1294,8 @@ function fnwgjlzt(putdata) {
 function fnweigyy() {
 	$("#cgl-tbody").on("click", ".cgl-td7>a", function() {
 		var cont = "",
-			cha = null;
-		var oparent = $(this).parents("tr");
+			cha = null,
+			oparent = $(this).parents("tr");
 		$(".cgl-zhezao").show();
 		$.ajax({
 			type: "get",
@@ -1317,16 +1317,28 @@ function fnweigyy() {
 					cont += "降低" + -cha + "级";
 				}
 				cont += "</div>" +
+					"<h3>违规原因</h3>" +
+					"<div style='padding: 0 0 8px;'>";
+				if(oparent.find(".cgl-td7>p").text()!=""){
+					cont+=oparent.find(".cgl-td7>p").text();
+				}else{
+                    cont+="暂无原因";
+				}
+				cont+="</div>" +
 					"<h3>与提升相关的违规记录</h3>" +
-
-					"<div>" +
-					"<table border='1'>" +
-					"<tr>" +
-					"<th width='182'>违规时间</th>" +
-					"<th width='89'>违规等级</th>" +
-					"<th>处罚措施</th>" +
-					"</tr></table></div>" +
-
+					"<div>";
+				if(data["breakrulesrecord"].length==0){
+					cont+="暂无记录";
+				}else{
+                    cont+="<table border='1'>" +
+                        "<tr>" +
+                        "<th width='182'>违规时间</th>" +
+                        "<th width='89'>违规等级</th>" +
+                        "<th>处罚措施</th>" +
+                        "</tr>" +
+                        "</table>";
+				}
+				cont+="</div>" +
 					"<div class='table1'><table border='1'>";
 				for(var k1 in data["breakrulesrecord"]) {
 					cont += "<tr><td class='djtd1'>" + data["breakrulesrecord"][k1]["issuetime"] + "</td><td class='djtd2'>" + data["breakrulesrecord"][k1]["breakruleslevel"] + "</td><td class='djtd3'>" + data["breakrulesrecord"][k1]["measures"] + "</td></tr>";
@@ -1334,7 +1346,7 @@ function fnweigyy() {
 				cont += "</table></div>" +
 					"<h3 class='tianpfx'>天平分析</h3>" +
 					"<ul class='fxcont'>" +
-						"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
+						"<li><h4>消费者集中</h4><span title='"+data["arithmetic"]["value1"]+"'>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
 						"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
 						"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
 						"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
