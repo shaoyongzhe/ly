@@ -110,7 +110,6 @@ function fnmore() {
 			$("#cgl-more").find("span").html("没有更多数据")
 		} else {
 			$(".cgl-jzz").html("加载中，请稍后···").show();
-			console.log(state.lastindex)
 			$.ajax({
 				type: "get",
 				url: "/webapi/earlywarningmanage/anticheating/getlist",
@@ -120,13 +119,12 @@ function fnmore() {
 				},
 				success: function(data) {
 					$(".cgl-jzz").hide();
-					console.log(state)
+					//console.log(state)
 					var odata = data.data;
 					var otr = "",
 						viplx = "";
 					for(var k1 in odata) {
 						otr += "<tr gu-id='" + odata[k1]["guid"] + "' ";
-						console.log(odata[k1]["description"])
 						if(odata[k1]["description"] == "shensu") {
 							otr += "shensu='true'><td class='cgl-td1' style='background: url(../img/fuxuank.png) no-repeat center;'></td>";
 						} else {
@@ -169,7 +167,7 @@ function fnmore() {
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
-	console.log(odata)
+	//console.log(odata)
 	if(odata){
 		$(".weiqueren").find("i").text(odata["weichuli"]);
 		$(".shensuz").find("i").text(odata["shensuzhong"]);
@@ -195,7 +193,6 @@ function fnshijian(state) {
 			//console.log(data)
 			$(".cgl-jzz").hide();
 			if(data["allcount"] == 0) {
-
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
@@ -209,11 +206,10 @@ function fnshijian(state) {
 				$("#cgl-tablebox").animate({
 					scrollTop: 0
 				}, 0);
-				$("#cgl-more").find("span").html("点击加载更多");
 				$("#cgl-more").hide(function() {
 					$("#cgl-more").css({
 						"display": "none"
-					});
+					}).find("span").html("点击加载更多");
 				});
 			}
 
@@ -273,9 +269,9 @@ function fnjilu() {
 	if(state.compare == "等于") {
 		$("#cgl-xzf").val("等于");
 	} else {
-		for(var i = 0; i < $("#cgl-xzf option").length; i++) {
-			if($("#cgl-xzf option").eq(i).html() == state.compare) {
-				$("#cgl-xzf option").eq(i).attr("selected", true)
+		for(var i = 0; i < $("option","#cgl-xzf").length; i++) {
+			if($("option","#cgl-xzf").eq(i).html() == state.compare) {
+                $("option","#cgl-xzf").eq(i).attr("selected", true)
 			}
 		}
 	}
@@ -290,9 +286,9 @@ function fnjilu() {
 		$("#cgl-wgdj").css({
 			"color": "#333"
 		});
-		for(var j = 1; j < $("#cgl-wgdj option").length; j++) {
-			if($("#cgl-wgdj option").eq(j).html() == state.level) {
-				$("#cgl-wgdj option").eq(j).attr("selected", true)
+		for(var j = 1; j < $("option","#cgl-wgdj").length; j++) {
+			if($("option","#cgl-wgdj").eq(j).html() == state.level) {
+                $("option","#cgl-wgdj").eq(j).attr("selected", true)
 			}
 		}
 	}
@@ -303,8 +299,7 @@ function fnxze1() {
 		$(this).addClass("clicon").siblings().removeClass("clicon");
 
 
-		$(".xzcont>div>div").removeClass("stateon");
-		$(".xzcont>div>div").each(function(i) {
+		$(".xzcont>div>div").removeClass("stateon").each(function(i) {
 			if($(this).attr("state") == $(this).parent().attr("state")) {
 				$(this).addClass("stateon");
 			}
@@ -348,7 +343,7 @@ function fndate() {
 			issure: false,
 			choose: function(dates) {
 				//layer.msg(dates);
-				var isxy = $('#cgl-cxdata1').val().replace(/-/g, "") - $('#cgl-cxdata').val().replace(/-/g, "")
+				var isxy = $('#cgl-cxdata1').val().replace(/-/g, "") - $('#cgl-cxdata').val().replace(/-/g, "");
 				//console.log(isxy)
 				if($('#cgl-cxdata').val() == state["querybegindate"] && $('#cgl-cxdata1').val() == state["queryenddate"]) {
 					return false;
@@ -643,7 +638,7 @@ function article_add(that) {
 		"<ul id='cgl-li4ul'>" +
 		"<li><h4>近半年</h4><p>" + $(".cgl-td5", parents).html() + "</p></li>" +
 		"<li><h4>违规级别</h4><p>" + $(".cgl-td6", parents).text() + "</p></li>" +
-		"<li><h4>违规原因</h4><p>" + $(".cgl-td7", parents).text() + "</p></li>" +
+		"<li><h4>违规原因</h4><p>" + $(".cgl-td7>p", parents).text() + "<br/><a class='xqckxq' style='color: #5380cb;' href='javascript:'>查看详情</a></p></li>" +
 		"<li><h4>处罚措施</h4><p>" + $(".cgl-td8", parents).text() + "</p></li>" +
 		"<li><h4>处罚周期</h4><p class='cgl-xxcfzq'>" + $(".cgl-td9", parents).html() + "</p></li>" +
 		"<li><h4>刷单金额</h4><p>￥ " + Number($(".cgl-td10", parents).text()).toFixed(2) + "</p></li>" +
@@ -668,6 +663,9 @@ function article_add(that) {
 		content: cont
 	});
 	layer.full(index);
+	$(".xqckxq").on("click",function () {
+        parents.find(".cgl-td7>a").click();
+    });
 	//操作记录
 	var guid = parents.attr("gu-id");
 	$.ajax({
@@ -1306,8 +1304,15 @@ function fnweigyy() {
 			success: function(data) {
 				console.log(data)
 				cont = "<div class='yycont'>" +
-					"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>" +
-					"<h3 class='wgdjc'>违规等级</h3>" +
+					"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>"+
+                    "<h3>违规描述</h3>" +
+                    "<div style='padding: 0 0 6px;'>";
+                if(oparent.find(".cgl-td7>p").text()!=""){
+                    cont+=oparent.find(".cgl-td7>p").text();
+                }else{
+                    cont+="暂无原因";
+                }
+					cont+="</div><h3 class='wgdjc'>违规等级</h3>" +
 					"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + data["original_level"] + "，";
 				cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - data["original_level"].replace(/[^0-9]/ig, "");
 				if(cha >= 0) {
@@ -1315,14 +1320,7 @@ function fnweigyy() {
 				} else {
 					cont += "降低" + -cha + "级";
 				}
-				cont += "</div>" +
-					"<h3>违规原因</h3>" +
-					"<div style='padding: 0 0 8px;'>";
-				if(oparent.find(".cgl-td7>p").text()!=""){
-					cont+=oparent.find(".cgl-td7>p").text();
-				}else{
-                    cont+="暂无原因";
-				}
+
 				cont+="</div>" +
 					"<h3>与提升相关的违规记录</h3>" +
 					"<div>";
