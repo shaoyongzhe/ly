@@ -205,7 +205,7 @@ function fnmenu() {
     $("#zhezao").show();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/itemtypegroups",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/itemtypegroups",
         //url: "../../data/menu.json",
         data: "",
         timeout: "9000",
@@ -256,7 +256,7 @@ function fnyucun() {
     $("#zhezao").show();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/prepayinventorys",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
         //url: "../../data/activeindex.json",
         data: "",
         timeout: "2000",
@@ -279,7 +279,7 @@ function fnyucun() {
 	$("#zhezao").show();
 	$.ajax({
 		type: "get",
-		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/prepayinventorys",
+		url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
 		//url: "../../data/activeindex.json",
 		data: "",
 		timeout: "2000",
@@ -356,75 +356,8 @@ function fnychxr(data) {
             "</li>";
     }
     $("#cgl-contlist").find("ul").html(oli);
-    $("#cgl-contlist").find("ul>li:lt(4)").remove();
-	console.log(data)
+	console.log(oli)
 	$("#loading").hide();
-	var oli = "",
-		dataid = null;
-	for(var k1 in data) {
-		dataid = {
-			distributorid: fnurl().distributor_id,
-			itemid: data[k1]["itemid"],
-			itemquality: data[k1]["itemquality"],
-			itemprice: 0,
-			isyucun: 1
-		}
-		oli += "<li>" +
-			"<div class='cgl-top hori'> " +
-			"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
-			"<div class='the-xiangxi'> " +
-			"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
-			"<p>" + data[k1]["specification"] + " | " + data[k1]["packagetypename"] + "</p>" +
-			"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>0</i></span>";
-		oli += "<div class='right'>";
-		if(data[k1]["itemcount"] <= 0) {
-			oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-		} else {
-			oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-		}
-		oli += "</div><span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
-			" </div>" +
-			"<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
-		oli += "</div>" +
-			"</div> " +
-			"</li>";
-	}
-	$("#cgl-contlist").find("ul").html(oli);
-	$("#cgl-contlist").find("ul>li:lt(4)").remove();
-	console.log(data)
-	$("#loading").hide();
-	var oli = "",
-		dataid = null;
-	for(var k1 in data) {
-		dataid = {
-			distributorid: fnurl().distributor_id,
-			itemid: data[k1]["itemid"],
-			itemquality: data[k1]["itemquality"],
-			itemprice: 0,
-			isyucun: 1
-		}
-		oli += "<li>" +
-			"<div class='cgl-top hori'> " +
-			"<img src='" + data[k1]["itemimage"] + "' alt=''> " +
-			"<div class='the-xiangxi'> " +
-			"<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
-			"<p>" + (data[k1]["specification"]==null?"":  data[k1]["specification"]+" | ") + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + "</p>" +
-			"<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>0</i></span>";
-		oli += "<div class='right'>";
-		if(data[k1]["itemcount"] <= 0) {
-			oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-		} else {
-			oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-		}
-		oli += "</div><span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
-			" </div>" +
-			"<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
-		oli += "</div>" +
-			"</div> " +
-			"</li>";
-	}
-	$("#cgl-contlist").find("ul").html(oli);
-	$("#cgl-contlist").find("ul>li:lt(4)").remove();
 }
 //获取促销活动列表
 function fnhqactive() {
@@ -546,7 +479,7 @@ function fnlist(odata) {
     $("#zhezao").show();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + fnurl().shopid + "/items",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
         data: odata,
         timeout: "9000",
         dataType: "json",

@@ -109,10 +109,13 @@ function shopList(pg){
 				   				}
 				   				_price=0;
 			   				for(var z=0;z<data["content"][j]["details"].length;z++){
-											if(data["content"][j]["details"][z]["itemtype"]!=3){
+											if(data["content"][j]["details"][z]["itemtype"]!=3 && data["content"][j]["details"][z]["billid_class"]=="tblbillpofromcustomer"){
 												_price+=Number(data["content"][j]["details"][z]["itemunitcost"])*Number(data["content"][j]["details"][z]["itemcount"])
 											}
 								}
+			   				if(_data1[pg]["specialprice"]){
+			   					_price-=_data1[pg]["specialprice"]
+			   				}
 				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
 		  		_bookTm = (new Date(_bookTm)).getTime();
 		  			_price=_price.toFixed(2)

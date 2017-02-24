@@ -71,7 +71,7 @@
 						if(_price<_tt[_indd]["cutgift"]){
 							_qu=1;
 							$(".commit").css({background:"#ccc",width:"auto",padding:"0 3px"})
-							$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price)+" 元起送")
+							$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price).toFixed(1)+" 元起送")
 						}else{
 							aa()
 						}						
@@ -79,8 +79,8 @@
 		function show(data1){
 			
 
-			
-			$(".addr").text("clienton")//需要修改
+			console.log(_tt[_indd]["distributorname"])
+			$(".addr").text(_tt[_indd]["distributorname"])
 			var _name="";
 			var _index=0;
 			var _tell="";
@@ -279,22 +279,40 @@
 					$.ajax({
 						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dl,
 						type:"delete",
-						error:function(){alert("网络出错")},
+						error:function(){},
 						success:function(data){
 							console.log(data)
 							//$(".delete").remove($(".delete").parent().parent())
 							$("html").css({overflow:"auto"})
 							$(".ifDelt").css({display:"none"})
-							_ges-=Number($("#"+_id).find(".amount").text())
-							$(".summ").text(_ges)
-							$("#"+_id).remove()
-							
-							if(data1[_id]["salestop"]==0){
+							_cun-=Number($("#"+_id).find(".amount").text());
+							_ct-=1;
+							_pp-=Number(data1[_id]["price"])*Number(_dll)
+							if($("#"+_id).find(".gouxuan").attr("flag")==1){
+								_ges-=Number($("#"+_id).find(".amount").text())
+								$(".summ").text(_ges)
+							}
+							console.log(_ges)
+							if(_count==_save && _count!=0){
+								$(".gg").attr("flag","1")
+								$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
+							}else{
+								$(".gg").attr("flag","0")
+								$(".gg").css({"background":"none",borderColor:"#fff"});
+							}
+							if(data1[_id]["salestop"]==0 && $("#"+_id).find(".gouxuan").attr("flag")==1){
 								console.log(_id)
 								_price-=Number(data1[_id]["price"])*Number(_dll)
 								console.log(_price)
+								$(".amountBig span").text(_price.toFixed(1))
+								if(data1[_id]["itemkind"]=="降价" || data1[_id]["itemkind"]=="折扣"){
+									_dis-=(Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))
+									_discount-=(Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))
+									$(".ab span:nth-child(2)").text(_discount.toFixed(1))
+								}
 							}
-							$(".amountBig span").text(_price.toFixed(1))
+							$("#"+_id).remove();
+							
 							fg()
 							zz()
 						}
@@ -307,9 +325,9 @@
 				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/"+data1[_indd]["distributor_id"]+"?isvalid=0",
 				dataType:"json",
 				type:"get",
-				error:function(){alert("网络出错")},
+				error:function(){},
 				success:function(){
-					alert(1)
+					
 				}
 			})		
     	}

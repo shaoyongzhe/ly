@@ -277,7 +277,6 @@
 					console.log(_dx)
 		        	if(data[_indd]["specialprice"]){
 		        		$("#vv").css({display:"flex"})
-		        		_discount+=Number(data[_indd]["specialprice"])
 		        		$("#vv span").text(data[_indd]["specialprice"].toFixed(1))
 		        	}else{
 		        		$("#vv").css({display:"none"})
