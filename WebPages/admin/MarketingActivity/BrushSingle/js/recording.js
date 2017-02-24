@@ -148,12 +148,11 @@ function fnmore() {
 							"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
 							"<td class='cgl-td12'>" + $(".stateon>span",".xzcont>div:visible").text() + "</td>";
 						if(state.state == "已结束" || odata[k1]["description"] == "shensu") {
-							otr += "<td class='cgl-td13 td13bgk'><a href='javascript:'>详情</a>";
+							otr += "<td class='cgl-td13 td13bgk'><a href='javascript:'>详情</a></td>";
 						} else {
-							otr += "<td class='cgl-td13'><ul></ul>";
+							otr += "<td class='cgl-td13'><ul></ul></td>";
 						}
-						otr += "</td>" +
-							"</tr>";
+						otr +="</tr>";
 					}
 					$("#cgl-tbody").append(otr);
 					if(data["shuadanjine"]) {
