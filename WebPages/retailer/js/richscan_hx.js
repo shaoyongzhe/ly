@@ -1,8 +1,14 @@
+wx.ready(function () {
+    //  alert("开始扫一扫")
 
+    writeOff(function () {
+        vm.scanwx()
+    });
+});
 
 avalon.ready(function () {
     writeOff(function () {
-    avalon.scan(document.body, vm)
+        avalon.scan(document.body, vm)
     });
 
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
@@ -46,6 +52,7 @@ var vm = avalon.define({
                         //加载位置
                     });
                 }
+            }
         });
     },
     yhxNum: 0,//已核销
