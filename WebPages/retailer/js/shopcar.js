@@ -1,14 +1,6 @@
 	$(document).ready(function(){
-		if(localStorage.reload==1){
-			var _tt=setInterval(function(){
-				localStorage.reload=0;
-				asd()
-    			clearInterval(_tt);
-			},100)
-		}else{
 			localStorage.reload=1;
 			asd()
-		}
 	})
 	function asd(){
 		var _list="";
@@ -316,9 +308,9 @@
 
 							}
 							if(data1[_id]["itemkind"]=="降价" || data1[_id]["itemkind"]=="折扣"){
-									_dis-=(Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))
+									_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
 									if($("#"+_id).find(".gouxuan").attr("flag")==1){
-										_discount-=(Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))
+										_discount-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
 										$(".ab span:nth-child(2)").text(_discount.toFixed(1))										
 									}
 								}
