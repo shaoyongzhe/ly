@@ -66,8 +66,8 @@ function Cajax(m,a,b){
 		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m+"/",//
 //		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
 		data:{
-			"activityid": a, // 对应的活动id
-   			"retailerids": b// 对应的门店id，以逗号分割
+		    "activityid": a == undefined ? "" : a, // 对应的活动id
+		    "retailerids": b == undefined ? "" : b// 对应的门店id，以逗号分割
 		},
 		async:true,
 		beforeSend:function(){
