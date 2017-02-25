@@ -71,6 +71,9 @@ section li{
 .disc div{
 	font-size: 1.4rem;
 }
+.disc2 div{
+	font-size: 1.4rem;
+}
 .giveTo{
 	padding:5px 0 5px 10%;font-size: 1.4rem;background: #effdfc;
 }
@@ -82,6 +85,9 @@ section li{
 }
 .giveTo span:nth-child(2){
 	margin-left:5px
+}
+.disc2{
+	padding-top:5px;padding-bottom:5px;padding-left:10%;color:#009f96;
 }
 .disc span:nth-child(1){
 	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;padding:0 2px;font-size: 1.2rem;float: left;margin-right: 5px;
