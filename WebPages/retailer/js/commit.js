@@ -374,15 +374,16 @@ $(document).ready(function () {
                         $(".loads2 div").text("提交中...")
                         window.location = "myorder.html"
                     } else {
-                        $(".loads2 div").text(data.error + "...")
-                        $(".loads2 div").css({ color: "red" })
-                        var _tm = setTimeout(function () {
-                            $(".loads2").css({ display: "none" })
-                            $(".loads2 div").text("提交中...")
+                    		$(".ms").text(data.error);
+//                      $(".loads2 div").text(data.error + "...")
+                        $(".loads2").css({ display: "none" })
+                        $(".tsh").css({display:"block"})
+                        $(".cfm").click(function(){
+                            $(".tsh").css({display:"none"})
                             $(".submit").text("提交订单")
-                            $("body").css({ overflow: "auto" })
-                            clearTimeout(_tm)
-                        }, 3000)
+                            $("body").css({ overflow: "auto" })                        	
+                        })
+
                     }
                 }
             })

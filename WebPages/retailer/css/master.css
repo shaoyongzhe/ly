@@ -749,7 +749,7 @@ color:#666;background:#f5f5f5;
         transform-origin: 0 0;
     }
 .tishi div:nth-child(2) {
-    position: relative;height:65%;font-size: 1.4rem;
+    position: relative;height:65%;font-size: 1.2rem;
 }
 
     .tishi div:nth-child(2):after{
