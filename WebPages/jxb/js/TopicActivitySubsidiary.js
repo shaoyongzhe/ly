@@ -61,7 +61,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 function Cajax(m,a,b){
 	console.log("ajax开始")
 	$.ajax({
-		type:"get",//0121更新为post
+		type:"post",//0121更新为post
 		dataType:'json',	
 		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m+"/",//
 //		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
