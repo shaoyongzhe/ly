@@ -253,6 +253,11 @@
 			function deLete(data1){
 				var _dl="";
 				$("#edit").click(function(){
+					if($(this).text()=="编辑"){
+						$(this).text("完成")
+					}else{
+						$(this).text("编辑")
+					}
 					if($(".set").css("display")=="none"){
 						$(".set").css({display:"block"})
 					}else{
