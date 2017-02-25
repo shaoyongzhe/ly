@@ -8,7 +8,7 @@
 
     vm.getAssetFlow(1, null)
 
-    qrcode.href();
+    setTimeout(function () { qrcode.href(); }, 500)
 })
 
 var tmdropme = null;
