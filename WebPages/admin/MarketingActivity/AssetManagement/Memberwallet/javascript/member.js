@@ -348,7 +348,7 @@ $(function(){
                 layer.open({
                     type: 2 //iframe
 //                          , title: 'recharge'
-                    , area: ['1150px', '560px']
+                    , area: ['1150px', '650px']
                     , shade: 0.8
                     ,title: false
                     ,scrollbar: false
@@ -363,7 +363,7 @@ $(function(){
                 layer.open({
                     type: 2 //iframe
 //                          , title: 'recharge'
-                    , area: ['1150px', '560px']
+                    , area: ['1150px', '650px']
                     , shade: 0.8
                     ,title: false
                     ,scrollbar: false

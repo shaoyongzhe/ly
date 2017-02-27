@@ -72,7 +72,7 @@ input,select,textarea{
 }
 
 .wrap{
-    min-width:1200px ;
+    min-width:1080px ;
     height: 935px;
     overflow: hidden;
 }

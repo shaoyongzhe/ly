@@ -248,6 +248,18 @@
                     alert("请填写正确的时间");
                     return false;
                 }
+                if($("#province em").html()!="省" && $("#province em").html()!="省份" && $(".membertype").val()==""){
+                    alert("请选择会员类型");
+                    return false;
+                }
+                if($("#city em").html()!="省" && $("#city em").html()!="省份" && $(".membertype").val()==""){
+                    alert("请选择会员类型");
+                    return false;
+                }
+                if($("#area em").html()!="省" && $("#area em").html()!="省份" && $(".membertype").val()==""){
+                    alert("请选择会员类型");
+                    return false;
+                }
                 getList(getSearch());
             }
         })
@@ -260,6 +272,10 @@
             // if (curr == undefined || curr == "") {
             //     curr = 1;
             // }
+            // "area_province":$("#province em").html(),
+            // "area_city":$("#city em").html(),
+            // "area_district":$("#area em").html(),
+
             var df = {};
             // if(searchForm){
             // if (handle == 'search') {
@@ -278,6 +294,8 @@
                 loadDownFn: function(me) {
                     pageindex++;
                     
+
+
                     // 拼接HTML
                     var df = {};
                     df = searchForm;
@@ -399,6 +417,7 @@
                 case "分销商":memberTap2="tbldistributor";break;
                 case "门店":memberTap2="tblsupplier";break;
                 case "凌云代理商":memberTap2="tblipalomaagent";break;
+                case "":memberTap2="";break;
             }
 
             var searchForm = {

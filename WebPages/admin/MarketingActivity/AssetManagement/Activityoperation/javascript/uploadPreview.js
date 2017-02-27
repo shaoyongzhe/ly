@@ -1,8 +1,12 @@
-﻿/*上传图片格式限制*/
+﻿
 var uploadPreview = function(setting) {
-
+    /*
+    *work:this(当前对象)
+    */
     var _self = this;
-
+    /*
+    *work:判断为null或者空值
+    */
     _self.IsNull = function(value) {
         if (typeof (value) == "function") { return false; }
         if (value == undefined || value == null || value == "" || value.length == 0) {
@@ -10,7 +14,9 @@ var uploadPreview = function(setting) {
         }
         return false;
     }
-
+    /*
+    *work:默认配置
+    */
     _self.DefautlSetting = {
         UpBtn: "",
         DivShow: "",
@@ -18,13 +24,13 @@ var uploadPreview = function(setting) {
         fileSize:500,
         Width: 100,
         Height: 100,
-        //ImgType: ["gif", "jpeg", "jpg", "bmp", "png"],
-        ImgType: ["jpeg", "jpg", "bmp", "png"],  //gif 格式图片除外
-        //ErrMsg: "选择文件错误,图片类型必须是(gif,jpeg,jpg,bmp,png)中的一种",
-        ErrMsg: "选择文件错误,图片类型必须是(jpeg,jpg,bmp,png)中的一种",
+        ImgType: ["gif", "jpeg", "jpg", "bmp", "png"],
+        ErrMsg: "选择文件错误,图片类型必须是(gif,jpeg,jpg,bmp,png)中的一种",
         callback: function() { }
     };
-
+    /*
+    *work:读取配置
+    */
     _self.Setting = {
         UpBtn: _self.IsNull(setting.UpBtn) ? _self.DefautlSetting.UpBtn : setting.UpBtn,
         DivShow: _self.IsNull(setting.DivShow) ? _self.DefautlSetting.DivShow : setting.DivShow,
@@ -32,11 +38,13 @@ var uploadPreview = function(setting) {
         Width: _self.IsNull(setting.Width) ? _self.DefautlSetting.Width : setting.Width,
         Height: _self.IsNull(setting.Height) ? _self.DefautlSetting.Height : setting.Height,
         ImgType: _self.IsNull(setting.ImgType) ? _self.DefautlSetting.ImgType : setting.ImgType,
-        ErrMsg: _self.IsNull(setting.ErrMsg) ? _self.DefautlSetting.ErrMsg : setting.ErrMsg,
         fileSize: _self.IsNull(setting.fileSize) ? _self.DefautlSetting.fileSize : setting.fileSize,
+        ErrMsg: _self.IsNull(setting.ErrMsg) ? _self.DefautlSetting.ErrMsg : setting.ErrMsg,
         callback: _self.IsNull(setting.callback) ? _self.DefautlSetting.callback : setting.callback
     };
-
+    /*
+    work:获取文本控件URL
+    */
     _self.getObjectURL = function(file) {
         var url = null;
         if (window.createObjectURL != undefined) {
@@ -48,7 +56,7 @@ var uploadPreview = function(setting) {
         }
         return url;
     }
-
+    
     _self.Bind = function() {
         document.getElementById(_self.Setting.UpBtn).onchange = function() {
             if (this.value) {
@@ -65,7 +73,7 @@ var uploadPreview = function(setting) {
                 }else{
                     alert("ok");
                 }
-                if (navigator.userAgent.indexOf("MSIE") > -1) {  //浏览器版本过滤 navigator.userAgent.indexOf()  兼容IE（6-7）浏览器
+                if (navigator.userAgent.indexOf("MSIE") > -1) {
                     try {
                         document.getElementById(_self.Setting.ImgShow).src = _self.getObjectURL(this.files[0]);
                     } catch (e) {
@@ -85,20 +93,26 @@ var uploadPreview = function(setting) {
                 }
                 _self.Setting.callback();
             }
-
         }
     }
-
+    /*
+    *work:执行绑定事件
+    */
     _self.Bind();
 }
 
-
-
 function file_click(){
-    var WARP = document.getElementById('warp');
-    var WARP_LI = WARP.getElementsByTagName('li');
-    for(var i=0; i<WARP_LI.length;i++){
-        new uploadPreview({ UpBtn: "up_img_WU_FILE_"+i, ImgShow: "imgShow_WU_FILE_"+i});
-    }
+    new uploadPreview({
+        UpBtn: "up_img_WU_FILE_0",
+        ImgShow: "imgShow_WU_FILE_0",
+        // Img: "imgShow_WU_FILE_0",
+        Width: 284,
+        Height: 138,
+        ImgType: ["jpeg", "jpg", "bmp", "png"], 
+        callback: function () {
+            var tupian = $("#imgShow_WU_FILE_0").attr("src");
+        }
+    });
+
 }
 window.onload = file_click;

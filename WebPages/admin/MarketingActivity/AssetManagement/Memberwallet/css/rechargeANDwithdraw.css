@@ -597,3 +597,18 @@ span.name { display: block;text-align: right; line-height: 30px;}
     font-size: 15px;
     display: none;
 }
+
+.ze{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00E8D7;
+    filter:alpha(opacity=0);
+    -moz-opacity:0;
+    opacity:0;
+    z-index: 200;
+    display: none;
+
+}

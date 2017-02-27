@@ -75,7 +75,7 @@ input,select,textarea{
     background: #F2F2F2;
     height: 100%;
     overflow: hidden;
-    min-width: 1200px;
+    min-width: 1080px;
 }
 
 .wrap{
