@@ -531,6 +531,33 @@ function addAjax(){
 		},
 		error: function() {
 			console.warn("控件 error");
+		},
+		complete:function(){
+
+			if(location.href.indexOf("activityModify.html") > 0){
+
+				// console.log("subsidyConditionArr"+subsidyConditionArr);
+				$(".acSe9").each(function(num){
+					var emText=$(this).find("em").text();
+					var nameValue="";
+					$(this).find(".option").each(function(){
+						if($(this).text()==emText){
+							nameValue=$(this).attr("name");
+						}
+					})
+
+					$(this).click();
+					$(this).find('.option').last().click();
+					$(this).click();
+					$(this).find('.option').first().click();
+
+					$(this).click();
+					$(this).find(".option[name='"+nameValue+"']").last().click();
+					$(this).closest(".hdc1").next().find("em").text(subsidyConditionArr[num]);
+				})
+
+				
+			}
 		}
 	});
 	
