@@ -50,7 +50,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		ajaxSucFn(allActivity.content[0]);
 		topicactivity_id=allActivity.content[0].guid;
 		$(".CcButieRight").hide();
-		if(data.content.length<=1){
+		if(allActivity.content.length<=1){
 			$(".CcButieLeft").hide();
 		}
 		UpdateMatchedTopicsBol=false;		
@@ -61,13 +61,13 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 function Cajax(m,a,b){
 	console.log("ajax开始")
 	$.ajax({
-		type:"get",//0121更新为post
+		type:"post",//0121更新为post
 		dataType:'json',	
 		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m+"/",//
 //		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
 		data:{
-			"activityid": a, // 对应的活动id
-   			"retailerids": b// 对应的门店id，以逗号分割
+		    "activityid": a == undefined ? "" : a, // 对应的活动id
+		    "retailerids": b == undefined ? "" : b// 对应的门店id，以逗号分割
 		},
 		async:true,
 		beforeSend:function(){
