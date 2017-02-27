@@ -690,6 +690,25 @@ input,select{
     float: left;
     margin: 8px 35%;
 }
+
+.btn_a {
+    width: 128px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    display: block;
+    float: left;
+}
+.btn_a.clear {
+    background-color: #ccc;
+    margin-right: 5px;
+}
+.btn_a.save {
+    background-color: #ff6032;
+    margin-right: 5px;
+}
 .ui-widget-content{
         border :none;
 }
