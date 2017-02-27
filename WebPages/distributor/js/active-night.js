@@ -10,6 +10,7 @@ $(function(){
 	replace()
 	function replace(){
 		var topid=window.location.search;
+		console.log(topid);
 		var topids=topid.split('=')[1].split(',');
 		for (var i = 0; i <topids.length ; i++) {
 			new_arr.push(topids[i]);
