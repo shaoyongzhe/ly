@@ -22,7 +22,8 @@
 		var _zeng=0;
 		var _get=0;
 		var _list3="";
-		var _indd=localStorage.list
+		var _indd=localStorage.list;
+		var _ly="";
 		console.log(pg)
 		console.log(_data1[pg]["distributor_id"])
 		console.log(commodity)
@@ -41,18 +42,22 @@
 						//alert(data["content"][7]["details"].length)
 						_image="<img src=../../image/shop/yu.jpg />"
 						for(var i=0;i<data["content"][commodity]["details"].length;i++){
-							if(data["content"][commodity]["details"][i]["ruledesc"]!="" || data["content"][commodity]["details"][i]["ruledesc"]!=null){
-								_remark="<div class="+"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data["content"][commodity]["details"][i]["ruledesc"]+"</div></div>"
+							if(data["content"][commodity]["details"][i]["description"]){
+								if(data["content"][commodity]["details"][i]["description"]!="" || data["content"][commodity]["details"][i]["description"]!=null){
+									_remark="<div class="+"\"give\""+"><div class="+"\"give-tit\""+">备注：</div><div class="+"\"give-con\""+">"+data["content"][commodity]["details"][i]["description"]+"</div></div>"
+								}							
+							}else{
+								_remark="";
 							}
-//							if(data["content"][commodity]["details"][i]["itemobj"]["itemimage"]){
-//								_img="<img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+">"
-//							}
 							console.log(data["content"][commodity]["details"][i]["itemquality"])
 							if(data["content"][commodity]["details"][i]["itemquality"]==0){
 								_img="<img src=\"../../image/shop/icon_lin.png\" style=\"float: left;width: 1.6rem;height: 1.6rem;\">"
 							}else{
 								_img="";
 							}
+//							if(data["content"][commodity]["details"][i]["description"]!="" || data["content"][commodity]["details"][i]["description"]!=null){
+//								_ly="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div>留言：<input readonly=\"true\" style=\";outline:none;width:80%;font-size:1.6rem\" value="+(data1[i]["remark"]==""?"":data1[i]["remark"])+"></div></div>"
+//							}
 							if(data["content"][commodity]["details"][i]["billid_class"]==="tblbillpofromcustomer"){
 //								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+_image+"<div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["qualitycount"]).toFixed(1)+
 //								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
@@ -69,8 +74,8 @@
 //							">预</span></span><p>可提"+data["content"][commodity]["details"][i]["prepaycount"]+data[i]["packagetypename"]+"</p></div></div></li>"
 								_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+/*_image+*/"<div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]).toFixed(1)+
-								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | "+
-								data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+"</div><div>x"+data["content"][commodity]["details"][i]["itemcount"]+
+								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+(data["content"][commodity]["details"][i]["itemobj"]["specification"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | ")+
+								(data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["packagetypename"])+"</div><div>x"+data["content"][commodity]["details"][i]["itemcount"]+
 								"</div></div></div></div><div class="+
 								"\"discount\""+"></li>";
 			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="降价"){

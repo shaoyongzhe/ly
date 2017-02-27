@@ -99,7 +99,8 @@
 					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
 				}
 				console.log(_image)
-					_remark="<div class="+"\"disc2\""+"><div>留言：<input readonly=\"true\" style=\";outline:none;width:80%;font-size:1.6rem\" value="+(data1[i]["remark"]==""?"":data1[i]["remark"])+"></div></div>"
+
+					_remark="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div>留言：<input readonly=\"true\" style=\";outline:none;width:80%;font-size:1.6rem\" value="+(data1[i]["remark"]==""?"":data1[i]["remark"])+"></div></div>"
 				_intr="";
 				if(data1[i]["salestop"]==0){
 					if(!data1[i]["itemslist"]){
@@ -261,6 +262,7 @@
 					_arr.splice($(this).parent().parent().attr("ip"),1,-2)
 				})
 				$(".ly").click(function(){
+					$(this).parent().parent().find(".disc2").css({display:"block"})
 					console.log($(this).parent().parent().find(".disc2>div>input"))
 					$(this).parent().parent().find(".disc2>div>input").attr("readonly",false);
 					$(this).parent().parent().find(".disc2>div>input").focus()
@@ -272,6 +274,9 @@
 				})		
 				$(".disc2>div>input").blur(function(){
 					$(this).attr("readonly",true)
+					if($(this).val()==""){
+						$(this).parent().parent().css({display:"none"})
+					}
 				})
 				$(".disc2>div>input").on("input propertychange",function(){
 					console.log($(this).parent().parent().parent().find(".amount").text())
