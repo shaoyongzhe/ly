@@ -785,11 +785,11 @@ span.tip.warn{
 }
 
 .area.edit .content{
-	width: 86%;
+	width: 80%;
 }
 
 
-.heading{.haibao-wrap
+.heading{
 	margin-bottom: 20px;
 }
 
@@ -825,7 +825,7 @@ span.tip.warn{
 }
 
 .area .item > span{
-    /*max-width: 660px;*/
+    max-width: 660px;
     vertical-align: middle;
 }
 
@@ -1132,7 +1132,7 @@ label.condition{
 .tip.wx,
 .tip.biaoyu{
 	bottom: 9px;
-	right: 8px;
+	right: -75px;
 }
 
 textarea.wxtw{
@@ -1140,6 +1140,7 @@ textarea.wxtw{
     height: 60px;
     box-sizing: border-box;
 }
+
 
 textarea{
     padding: 6px;

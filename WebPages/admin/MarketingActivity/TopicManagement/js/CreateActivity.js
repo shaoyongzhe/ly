@@ -22,7 +22,6 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 	
 });
 
-
 function previewImage(file) {
   	
   	var form = new FormData($('form')[0]);
@@ -1750,6 +1749,7 @@ $('.butieSec').on('blur','.acSe13 input',function(){
 
 		layer.msg('请重新设置摇一摇概率');
 		$('.yaoyiyao .Yyy3 input').val("0");
+		$('.yaoyiyao .Yyy3 input').first().blur().focus();
 		$('.yaoyiyao .Yyy4 input').val("0");
 		$('.yaoyiyao .Yyy5 input').val("0");
 		$('.layer.yao .cash').text("0");
@@ -2645,7 +2645,6 @@ $('.saveToDb, .shenhe').click(function(){
 	    // if(max == undefined){
 	    // 	delete item['max'];
 	    // }
-
 	    acArr.push(item);
 	}
 
@@ -2797,7 +2796,7 @@ $('.saveToDb, .shenhe').click(function(){
 	            	}
 	            	function done(sucText){
 	            		layer.msg(sucText, {shift: -1},  function() {
-		            		// window.location.href = "/admin/MarketingActivity/topicmanagement/ActivityList.html";
+		            		window.location.href = "/admin/MarketingActivity/topicmanagement/ActivityList.html";
 						});
 	            	}
 	            } else {
@@ -2823,8 +2822,8 @@ function _ajax(type, url, data, tip, success) {
         url: url,
         dataType: "json",
         data: data,
-        complete: function () {},
-        timeout: function () {},
+        complete: function () { },
+        timeout: function () { },
         success: function (json) {
             success(json);
         },

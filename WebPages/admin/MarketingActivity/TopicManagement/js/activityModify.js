@@ -918,7 +918,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
-//		debugger
+		// debugger
 	    /*debugger
         $('nav span:eq(2)').click();
         $(".addSub4Mange:last").find(".acSe9 ul li").each(function(){
@@ -992,7 +992,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 			/*设置摇一摇*/
 			if(activityManger_addSub4Data[i].prize_content){
 				var addSub4MangeYaoyiyao=JSON.stringify(activityManger_addSub4Data[i].prize_content, null, 4);
-				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao);   
+				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao); 
+
+	    		$(".addSub4Mange:last").find(".fz p").text('元');//单位  
 			}
 			 $(".addSub4Mange:last").find(".hdc4d2 .y1y").addClass("y1yHidden"+(i+1));
 	    /*设置概率*/

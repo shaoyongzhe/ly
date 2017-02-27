@@ -117,6 +117,7 @@ function acAdC() {
 	$("body").on("click", ".acZige .acAd3", function(e) {
 		if ($(this).closest(".acZige").find(".addSub3").length <= 1) {
 			alert("至少需要一个"); //等待修改该模块
+
 		} else {
 			if ($(this).closest(".addSub3").next().hasClass("yyy")) {
 				$(this).closest(".acZige").find(".addSub3:last").prev().find(".acAd4").removeClass("hi");
@@ -178,8 +179,6 @@ $("body").on("click", ".acMeD2", function(e) {
 	e.stopPropagation();
 
 	// $(this).parents(".addSub2").find(".acZige").toggleClass("hi");
-
-
 	$(this).closest('.addSub2').find('.acZige').toggle();
 	
 });
