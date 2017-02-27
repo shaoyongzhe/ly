@@ -693,21 +693,21 @@ input,select{
 .ui-widget-content{
         border :none;
 }
-.btn_a{
+.btn_b{
     width: 128px;
     height: 30px;
-    line-height: 30px;
+    /* line-height: 30px!Important; */
     color: #fff;
     cursor: pointer;
     border-radius: 2px;
     display: block;
     float: left;
 }
-.btn_a.clear {
+.btn_b.clear {
     background-color: #ccc;
     margin-right: 5px;
 }
-.btn_a.save {
+.btn_b.save {
     background-color:#ff6032;
     margin-right: 5px;
 }

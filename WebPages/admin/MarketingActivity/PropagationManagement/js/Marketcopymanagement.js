@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-02-21 13:52:28
+ * @Last Modified time: 2017-02-24 17:30:35
  */
 
 
@@ -1975,7 +1975,7 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title">发送内容</div>' +
-                    '<div class="Float_text" id="contentdiv">'+'<div id="contentdiv2">'+'</div>'+'</span></div></div>' +
+                    '<div class="Float_text" id="contentdiv"></div></div>' +
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title1">图文消息<br />发送时间</div>' +
@@ -2008,7 +2008,7 @@ $('table.notify').on('click', '.detailed', function() {
                 $('.btn_center .btn:eq(0)').css('margin-left', '-5%');
                 // $('.Float_Title1').css('margin-left','0px');
             }
-             $('#contentdiv').html(data_text.content.copywriting);
+            $('#contentdiv').html(data_text.content.copywriting);
             
             //     var cstring=$('#contentdiv2').text();
             //         if(cstring.substring(0)=="\"")
@@ -2127,22 +2127,6 @@ $(document).on('click', '.btn_adopt', function() {
 });
 
 
-// $('.text-c').each(function(){
-//     $(this).onmousemove('td')(function(){
-//         console.log('a');
-//     })
-// })
-
-//  $(".text-c").mousemove(function(){
-//   $(".text-c").each(function(){
-//     // alert($(this).text();
-//     $("td").each(function(){
-//       alert($(this).text());
-//      return false;
-//     })
-    
-//   });
-// });
 // 封装
 var _ajax = function(type, url, data, tip, success) {
     $.ajax({
