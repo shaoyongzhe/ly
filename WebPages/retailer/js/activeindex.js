@@ -352,7 +352,7 @@ function fncuxiao(data) {
             distributorid: fnurl().distributor_id,
             itemid: data[k1]["itemid"],
             activityitemid: data[k1]["activityitem_id"],
-            remark: data[k1]["ruledesc"],
+            remark:"",
             itemquality: data[k1]["itemquality"],
             itemprice: Number(data[k1]["discountprice"]).toFixed(1),
             isyucun: 0
@@ -586,7 +586,7 @@ function fnyibanlist2(data) {
             distributorid: fnurl().distributor_id,
             itemid: data[k1]["itemid"],
             activityitemid: data[k1]["activityitem_id"],
-            remark: data[k1]["ruledesc"],
+            remark:"",
             itemquality: data[k1]["itemquality"],
             itemprice: Number(data[k1]["discountprice"]).toFixed(1),
             isyucun: 0
