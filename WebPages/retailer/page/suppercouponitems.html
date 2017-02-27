@@ -164,7 +164,7 @@
                                     <small>${item.topiclist.length>1?'等活动':''}</small>
                                 </div>
                                 <div class="asset_right">
-                                    <small>已参加</small>${item.topiclist[0].headcount}<small>人</small>
+                                    <small>已参加</small>${getheadcount(item)}<small>人</small>
                                 </div>
                             </a>
                         </div>
@@ -215,6 +215,15 @@
                 });
                 return "../page/participate.html?topicid=" + topicid.substring(1)
             });
+
+            juicer.register("getheadcount", function (items) {
+                var headcount = 0
+                $.each(items.topiclist, function (index, item, array) {
+                    headcount += item.headcount
+                });
+                return headcount
+            });
+
             var activity_id = "";
             var urlinfo = window.location.href; //获取当前页面的url
 
