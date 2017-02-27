@@ -106,6 +106,8 @@ $(".yeNo li").click(function(){
 $(".contentCont").on("click",".ccfoot2",function(){
 //	localStorage.fromTopicActivityList_ActivityID=$(this).parents(".con").find(".Aguid").text();
 //	location.href="TopicActivityDetail.html";
+//	event.stopPropagation();
+    savePage();
 	window.location.assign("TopicActivityDetail.html?" + "switchfrom=toplicactivitylist"+"&distributor_id="+UrlKeyValueData.distributor_id+"&activity_id="+$(this).parents(".con").find(".Aguid").text());
 //	console.log($(this).parents(".con").find(".Aguid").text());
 //	engine.call('OnShowDetailClick', $(this).parents(".con").find(".Aguid").text());		
@@ -495,65 +497,7 @@ function isReceivedID(){
 	}
 }*/
 
-/*满n位，变'元'为'万'*/
-function moneyTransform(money,n){
-	var moneyUnit="";//单位
-	var newMoney="";//金额
-	var arr=[];
-	var point="";//是否有小数点
-	var afterPoint="";
-	if(money==0){
-		return "0元";
-	}else if(money<9999&&money>0){	
-		money=money/1;
-		money=money.toString();
-		arr=money.split('.');
-		moneyUnit="元";		
-		if(arr.length>1){
-			point=".";
-			afterPoint=arr[1].substr(0,2);
-		}
-		
-	}else if(money<99999999&&money>9999){
-		money=money/10000;
-		money=money.toString();
-		arr=money.split('.');
-		moneyUnit="万";		
-		if(arr.length>1){
-			point=".";
-			afterPoint=arr[1].substr(0,2);
-		}
-		
-	}else if(money<999999999999&&money>99999999){
-		money=money/100000000;
-		money=money.toString();
-		arr=money.split('.');
-		moneyUnit="亿";		
-		if(arr.length>1){
-			point=".";
-			afterPoint=arr[1].substr(0,2);
-		}
-		
-	}else{//大于9999亿的暂不做处理		
-		return money;
-	}
-	//不带小数点，纯数字只允许有4位。	//新加
-	if(arr[0].length==4){
-		point="";
-		afterPoint="";
-	}else if(arr[0].length<4&&afterPoint.length>0){		
-		point=".";
-		afterPoint=afterPoint.substr(0,4-arr[0].length);
-	}
-	//变.00或.0为整 //新加
-	if(afterPoint=="00"||afterPoint=="0"){
-		point="";
-		afterPoint="";
-	}
-	
-	newMoney=arr[0]+point+afterPoint;
-	return newMoney+moneyUnit;
-}
+
 
 /*调试用代码*/
 $("body").on("mouseenter",".ccfoot2",function(){
@@ -585,3 +529,20 @@ $(".contentNull div p").click(function(){
 $(".refresh").click(function(){
 	history.go(0);
 })
+/*后退记忆，详情退回列表*/
+function savePage(){  //操作浏览器的历史记录
+	history.replaceState('', document.title, location.href.replace(location.hash, "") + "#nowTop=" + $(window).scrollTop()+"nowTop=");
+}
+/*if(location.hash!=""){
+	var  nowTop=Number(location.hash.split("nowTop=")[1]);
+	console.log(nowTop)
+	scrollTo(0, nowTop);	
+}*/
+
+if(location.hash!=""){
+	var nowTop=Number(location.hash.split("nowTop=")[1]);
+}else{
+	var nowTop=0;
+}
+scrollTo(0, nowTop);
+//console.log(88988)
