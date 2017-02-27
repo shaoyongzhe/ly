@@ -101,9 +101,12 @@ function shareactivities() {
                     html += ' </div> <div class="img_tag"> </div> <div class="clear"></div></div>'
                     if (item.topiclist != undefined && item.topiclist.length > 0) {
                         var topicid = ""
+                        var headcount = 0;
                         $.each(item.topiclist, function (index, items, array) {
                             if (index < 20)
                                 topicid += "," + items.topicid
+
+                            headcount += items.headcount
                         });
 
                         //html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
@@ -115,7 +118,7 @@ function shareactivities() {
                         html += "<div class=\"topictitle\"><nobr >" + item.topiclist[0].topictitle + "</nobr></div>"
                         html += "<div class=\"topictitle_1\"><small>" + (item.topiclist.length > 1 ? '等活动' : '') + "</small></div>  </div>"
                         html += " <div class=\"asset_right\">"
-                        html += "   <small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small>"
+                        html += "   <small>已参加</small>" + headcount + "<small>人</small>"
                         html += " </div> </a> </div> "
 
                     } else {
@@ -131,7 +134,7 @@ function shareactivities() {
                     //if (item.returnticket_id != null && item.returnticket_id != '') {
                     //    html += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
                     //}
-                   
+
                     html += '  <hr />  </div></div>'
                 }
                 html += '<div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; "><div class="more-md" style="border:none">'

@@ -354,7 +354,7 @@ div.acZige:before{
 }
 
 .acZige1 .select-wrap{
-	width:128px;
+	width:135px;
 	margin-right:28px;
 }
 .acZige2 .select-wrap{
@@ -507,7 +507,7 @@ div.acZige:before{
 }
 .acAdC{
 	position:relative;
-	bottom:-4px;
+	bottom:1px;
 	left:5px;
 }
 .acAdC img{
@@ -874,16 +874,19 @@ div.acZige:before{
         border: 1px solid #ccc;
     border-radius: 2px;
 }
+
 .Yyy4d1 input{
     width: 45px;
-    position: absolute;
-    top: -3px;
-    left: 5px;
+    height: 100%;
+    /* position: absolute; */
+    /* top: -3px; */
+    /* left: 5px; */
     border: 0px;
-    background:transparent;  
-    text-indent: 5px;
-    color:#ff6032;
+    text-indent: 10px;
+    background: transparent;
+    color: #ff6032;
 }
+
 .Yyy4d1 span{
     width: 25px;
     position: absolute;
@@ -1104,7 +1107,9 @@ div.acZige:before{
 	width:750px;
 	/*background:red;*/
 	/*margin-bottom: -8px;查看样式插在哪里，为啥需要此来弥补*/
-	margin-bottom: -2px;/*查看样式插在哪里，为啥需要此来弥补*/
+	/*margin-bottom: -2px;查看样式插在哪里，为啥需要此来弥补*/
+
+    margin-bottom: 6px;
 }
 .addSub3P68 p:nth-of-type(1){
 	width: 163px;
@@ -1112,7 +1117,7 @@ div.acZige:before{
 		/*margin-bottom: 0;*/
 }
 .addSub3P68 p:nth-of-type(2){
-	width:308px;
+	width:315px;
 	/*color:green;*/
 	/*margin-bottom: 0;*/
 }
@@ -1151,7 +1156,7 @@ div.acZige:before{
 	/*margin-bottom: 0;*/
 }
 .acZige3z{
-	width:179px;
+	width:180px;
 }
 .acZige3z p{
 	width:133px;
@@ -1170,6 +1175,7 @@ div.acZige:before{
 
 
 
+.addSub3:after,
 .addSub4:after{
     content: "";
     display: table;
@@ -1223,4 +1229,8 @@ div.acZige:before{
     /*display: none;*/
     border: 0;
     width: 114px;
+}
+
+.addSub3 > div{
+    float: left;
 }

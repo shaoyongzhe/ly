@@ -64,11 +64,16 @@ function render(resdata){
     
     basic.find('.fzr1 .selected').attr("oid",activity.responsible_id.oid);
     basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
-    
+
+    basic.find('.fzr1 .selected').attr("guid",activity.responsible_id.guid);
+    basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
+
+
+
     if(activity.singleselection == 1){
-        $('.radio:contains(是)').addClass('on');
+        $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
     } else {
-        $('.radio:contains(否)').addClass('on');
+        $('.radio:contains(否)').addClass('on').siblings().removeClass('on');
     }
 
 
@@ -129,8 +134,6 @@ function render(resdata){
 
 }
 
-
-/*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 //addSubJoint()
 function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个函数里，然后上面ajax中调用		
 	var _resdata_="";	
@@ -218,7 +221,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*优惠力度条件*/
 	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
-	    else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
+	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
 	//  //买赠类型（略）
@@ -323,7 +326,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '</div>'        
 	        +                       '<!--统计范围-->'
             +                       '<div class="range-wrap">'
-	        +                       '<div class="dib acZige2 ver" style="margin: 0 4px">'
+	        +                       '<div class="dib acZige2 ver" style="margin-right: 4px;">'
 	        +                           '<div class="select-wrap  acSe6 mangeStyle">'                                       
 	        +                               '<i></i>'
 	        +                               '<em class="selected"></em>'
@@ -541,24 +544,26 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    for (key in obj){
 //	        	debugger;
 	        switch(key){//等待补充case
-	            case '核销次数' : activityManger_addSub3HtmlFn('核销次数');break;
-	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数');break;
-	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数');break;
-	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率');break;
-	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长');break;
-	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级');break;
-	            // case '' : activityManger_addSub3HtmlFn('核销次数');break;//别忘去掉。
-
+	        	case '核销次数' : activityManger_addSub3HtmlFn('核销次数',"次");break;
+	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数',"名");break;
+	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数',"名");break;
+	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率',"%");break;
+	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长',"天");break;
+	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级',"天");break;
                 case '分销商类型' : activityManger_addSub3HtmlFn('分销商类型');break; //0218
 
 	        }
-	        function activityManger_addSub3HtmlFn(a){
+	        function activityManger_addSub3HtmlFn(a,unitType){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
 
 	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
+	            /*
+	             * 修改页单位显示问题修复
+	             */
+	            $('.addSub3Mange:last').find(".acZige1Tab   p.dib").text(unitType);
 	            /*统计范围*/
 	            $('.addSub3Mange:last .acZige2tab').addClass("hi");//0119把.acZige2tab.n2改为.acZige2tab
 	            //两种类型，至今或者活动开始前
@@ -630,7 +635,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
                 }
 
 	        }
-	        $('.addSub2Mange:last .acZige .addSub3').last().before('<div class="yyy singleselection '+object_y+'"><span class="radio" name="0">以上条件满足其一</span><span class="radio on" name="1">以上条件需全部满足</span></div>');	        
+	        $('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio' name='0'>以上条件满足其一</span><span class='radio on' name='1'>以上条件需全部满足</span></div>");	        
 	    }   	    
 	}
 
@@ -717,7 +722,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '<input type="text" placeholder="" class="hdc4In1 dib" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->'
 	        +                   '</div>'
 	        +                   '<div class="dib hi hdc4d2 link">'
-	        +                       '<a href="#" class="dib hdc4dB ver set"></a>'
+	        +                       '<a href="javascript:;" class="dib hdc4dB ver set"></a>'
 	        +												'<input type="hidden" class="y1y">'
 	        +                   '</div>'
 	        +               '</div>'
@@ -738,7 +743,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '<!--申报预算-->'
 	        +           '<div class="dib hdc6 hdc6-1 ver re mangeStyle">'
 	        +               '<div class="acSe14 ba btfz ">'                     
-	        +                   '<input type="text" class="sbys " />'
+	        +                   '<input type="text" class="sbys"/>'
 	        +                   '<p class="dib ">元</p><!--即将被替代为别的单位-->'
 	        +               '</div>'
 	        +           '</div>'
