@@ -14,7 +14,7 @@
     <link href="/consumer/css/menustyle.css" rel="stylesheet" />
     <link href="/consumer/css/reset.css" rel="stylesheet" />
     <link href="/consumer/css/share.css" rel="stylesheet" />
-    <link href="../css/shakegame/animate.css" rel="stylesheet" />
+    <link href="../../basepages/css/shakegame/animate.css" rel="stylesheet" />
     <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
@@ -369,7 +369,7 @@
   
     <div class="tip-w">
         <div class="tip">
-            <img src="/consumer/image/shakegame/shareimg.png" style="width:80%;margin:20px 10% 0 10%" />
+            <img src="/consumer/image/shareimg.png" style="width:80%;margin:20px 10% 0 10%" />
         </div>
     </div>
     <div ms-controller="superticket_hx" style="margin-bottom:10px">
@@ -440,7 +440,7 @@
             <div class="btn_css4" ms-click="selfVerify.closeWin" style="background-color:#fff" ms-if="selfVerify.token.length>0">我在想想</div>
         </div>
         <div id="page2" ms-if="vm.pageStep>=2" ms-controller="superticket_page2">
-            <img src="/consumer/image/shakegame/share_hb.png" class="share_hb animated tada infinite" hidden id="dowebok" />
+            <img src="/consumer/image/share_hb.png" class="share_hb animated tada infinite" hidden id="dowebok" />
             <div id="page_top">
                 <div id="page_msg" hidden>
                     <img ms-attr-src="Msg.imgurl" id="_loading" />
@@ -557,10 +557,10 @@
                 </div>
                 <div class="main_content">
                     <div class="content_box" ms-repeat="vm.topicdata">
-                        <h1>{{el.activitytitle}}</h1>
+                        <h1>{{el.slogan}}</h1>
                         <dl class="clearfix">
                             <dt><img ms-attr-src="el.poster_url"></dt>
-                            <dd>{{el.description}}</dd>
+                            <dd>{{el.activitytitle}}</dd>
                         </dl>
                         <div class="L-alert">
                             <span>恭喜您获得{{el.count+el.unit+el.assettype}}，请注意查收！</span>
@@ -584,10 +584,10 @@
                 </div>
                 <div class="main_content">
                     <div class="content_box born" ms-repeat="vm.topicdata">
-                        <h1>{{el.activitytitle}}</h1>
+                        <h1>{{el.slogan}}</h1>
                         <dl class="clearfix">
                             <dt><img ms-attr-src="el.poster_url"></dt>
-                            <dd>{{el.description}}</dd>
+                            <dd>{{el.activitytitle}}</dd>
                         </dl>
                     </div>
                     <div class="conten_wenan" ms-repeat="vm.topicdata">

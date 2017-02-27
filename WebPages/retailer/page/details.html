@@ -17,7 +17,7 @@
 				line-height: 21px;
 				color: #333;
 			}
-			
+			img{display: block;}
 			.cgl-top {
 				padding: 9px 27px 8px 32px;
 			}
@@ -49,7 +49,7 @@
 	</head>
 
 	<body>
-		<div class="cgl-top"></div>
+		
 		<img src="../image/raw_1482292369.png" style="width:100%" />
 	</body>
 	<script src="../js/lib/jquery.min.js">
@@ -59,31 +59,31 @@
 			var str = "";
 			for(var k1 in data) {
 				if(data[k1]["dealtstate"] == "会员申诉") {
-					str += "<div class='top1'><span>" + data[k1]["issuetime"] + "</span>您提交了一条申诉</div>" +
-						"<div class='shensucont'><span>申诉内容</span><p>" + data[k1]["description"] + "</p></div>";
+					str += "<div class='cgl-top'><div class='top1'><span>" + data[k1]["issuetime"] + "</span>您提交了一条申诉</div>" +
+						"<div class='shensucont'><span>申诉内容</span><p>" + data[k1]["description"] + "</p></div></div>";
 				} else {
-					str += "<div class='top1'><span>" + data[k1]["issuetime"] + "</span>对您的申诉做了处理</div>" +
-						"<div class='shensucont'><span>处理结果</span><p>" + data[k1]["description"] + "</p></div>";
+					str += "<div class='cgl-top'><div class='top1'><span>" + data[k1]["issuetime"] + "</span>对您的申诉做了处理</div>" +
+						"<div class='shensucont'><span>处理结果</span><p>" + data[k1]["description"] + "</p></div></div>";
 				}
 			}
 
-			$(".cgl-top").html(str);
+			$("body").prepend(str);
 		}
 		$(function() {
-			if(window.location.search) {
-				var guid = window.location.search;
+			if(window.location.search!="") {
+				var guid = window.location.search.replace("?","").split("=")[1];
+				//console.log(guid);
 				$.ajax({
 					type: "get",
-					url: "/webapi/earlywarningmanage/anticheating/getappealdetails/931bb86873c947b9b0db60c2ebdc0600",
+					url: "/webapi/earlywarningmanage/anticheating/getappealdetails/"+guid,
 					data: "",
 					error: function(data) {
 
 					},
 					success: function(data) {
-						console.log(data)
 						fnxuanran(data);
 					}
-				})
+				});
 			}
 
 		});

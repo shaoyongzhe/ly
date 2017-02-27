@@ -1,8 +1,10 @@
-//20170210.9
+//20170221
 //loadingStart();
+//测试网址：http://membership.ipaloma.com/jxb/TopicActivitySubsidiary.html?distributor_id=5ce1d14e07534139ae7774d8983f04f3&switchfrom=ticketdetail&type=creat
+
 var linshi='';
 var linshi2="";
-
+var linshiInfo="";
 var allActivity='';//储存ajax收到的所有的活动
 var topicactivity_id='';//存储的当前显示主题活动的id
 var CbdDimgArr=["img/c7.png","img/c8.png"];//笑脸图标数组
@@ -32,11 +34,12 @@ function UrlDistributorIDRefresh(){
 
 engine.on('UpdateMatchedTopics', UpdateMatchedTopics, this)
 function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是重新给allActivity赋值的过程。
-	isReceivedUpdateMatchedTopics=true;
     if(arguments.length<1){
 		console.log('缺少参数');
 		return;
 	}	
+	console.log("更新发起",JSON.parse(arguments[0]));
+	isReceivedUpdateMatchedTopics=true;
 	if(UpdateMatchedTopicsBol){
 		allActivity=JSON.parse(arguments[0]);	
 		console.log("UpdateMatchedTopics出现",allActivity);
@@ -47,6 +50,9 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		ajaxSucFn(allActivity.content[0]);
 		topicactivity_id=allActivity.content[0].guid;
 		$(".CcButieRight").hide();
+		if(allActivity.content.length<=1){
+			$(".CcButieLeft").hide();
+		}
 		UpdateMatchedTopicsBol=false;		
 	}
 
@@ -55,13 +61,13 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 function Cajax(m,a,b){
 	console.log("ajax开始")
 	$.ajax({
-		type:"get",//0121更新为post
+		type:"post",//0121更新为post
 		dataType:'json',	
 		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m+"/",//
 //		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
 		data:{
-			"activityid": a, // 对应的活动id
-   			"retailerids": b// 对应的门店id，以逗号分割
+		    "activityid": a == undefined ? "" : a, // 对应的活动id
+		    "retailerids": b == undefined ? "" : b// 对应的门店id，以逗号分割
 		},
 		async:true,
 		beforeSend:function(){
@@ -73,27 +79,27 @@ function Cajax(m,a,b){
 //				layer.alert("数据为空，请重试", {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
+				},null,"259px","149px")
 				return;
 			}
 			if(data.content==undefined){
 //				layer.alert('数据结构变化，请通知管理员', {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
+				},null,"259px","149px")
 				return;
 			}
 			if(data.content==[]){
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
+				},null,"259px","149px")
 				return;
 			}
 			if(data.content.length==0){
 //				layer.alert('数据为空', {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				})
+				},null,"259px","149px")
 				return;
 			}
 			console.log(data);
@@ -102,6 +108,10 @@ function Cajax(m,a,b){
 			ajaxSucFn(data.content[0]);//先显示第一个活动，			
 			topicactivity_id=data.content[0].guid;//先存储第一个活动id
 			$(".CcButieRight").hide();
+			if(data.content.length<=1){
+				$(".CcButieLeft").hide();
+			}
+//			console.log(data.content.length)
 			console.log(topicactivity_id);
 			$(".initialHi").removeClass("initialHi");
 		},
@@ -111,7 +121,7 @@ function Cajax(m,a,b){
 //			layer.alert('通讯异常:错误'+data.status, {icon: 5});
 			popupsFn(function(){					
 				Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-			})
+			},null,"259px","149px")
 		},
 		complete:function(data){
 			linshi2=data;
@@ -124,21 +134,48 @@ function Cajax(m,a,b){
 
 function ajaxSucFn(info){//ajax成功回调里调用
 //	debugger;
+	linshiInfo=info;
 	if(info.match){//处理不规范的后台数据,
 		info.matched=info.match;		
 	}	
 	$(".CbdD .CbdD1 img").attr("src",CbdDimgArr[info.matched]);//看看哲哥用的是matched还是match
 //	console.log(info.matched);
 	
-	if(info.matched){
-		$(".CbdD2P1").text("您已达到活动条件");
-		$(".CbdD2P2").text("马上可以赚补贴喽！");
-		$(".Cccondition").hide();//1228加入
-	}else{
-		$(".CbdD2P1").text("您差一点点");
-		$(".CbdD2P2").text("就可以赚补贴喽");
-		$(".Cccondition").show();
-	}
+	//如果是创建优惠券的时候
+	if(UrlKeyValueData.type!=undefined){		
+		if(UrlKeyValueData.type=="creat"){
+			$(".CbdD2P1").text("您所在的地区正在如火");
+			$(".CbdD2P2").text("如荼的进行此活动！");
+			if(info.matched){
+				$(".Cccondition").hide();
+			}else{
+				$(".Cccondition").show();
+			}
+		}else if(UrlKeyValueData.type=="modify"){
+			if(info.matched){
+				$(".CbdD2P1").text("您已达到活动条件");
+				$(".CbdD2P2").text("马上可以赚补贴喽！");
+				$(".Cccondition").hide();//1228加入
+			}else{
+				$(".CbdD2P1").text("您差一点点");
+				$(".CbdD2P2").text("就可以赚补贴喽");
+				$(".Cccondition").show();
+			}				
+		}else{
+			console.log("url传值type属性不是creat也不是modify")
+		}
+		
+	}else{//出新buddle后删除else//0221
+		if(info.matched){
+			$(".CbdD2P1").text("您已达到活动条件");
+			$(".CbdD2P2").text("马上可以赚补贴喽！");
+			$(".Cccondition").hide();//1228加入
+		}else{
+			$(".CbdD2P1").text("您差一点点");
+			$(".CbdD2P2").text("就可以赚补贴喽");
+			$(".Cccondition").show();
+		}		
+	}	
 	$(".CcBigTitle").text(info.post);
 	$(".CcSmallTitle").text(info.activitytitle);
 	//*******数据规范后考虑删除开始
@@ -147,29 +184,19 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	}
 	//*******数据规范后考虑删除结束
 	if(info.budget.subsidytotal==null){info.budget.subsidytotal=0;}
-	$(".CcButieMax").text(info.budget.subsidytotal);
+	$(".CcButieMax").text(moneyTransform(info.budget.subsidytotal));
 	if(info.budget.subsidyreleased==null){info.budget.subsidyreleased=0;}
-	$(".CcButieAlready").text(info.budget.subsidyreleased);			
+	$(".CcButieAlready").text(moneyTransform(info.budget.subsidyreleased));			
 	//参与活动条件具体内容
 	$(".CcconditionContent").empty();	
-	if(info.condition==undefined||info.budget==null){//后台可能不给我condition,若数据规范该if可以删除	
-//		info.condition=[{
-//			localtype:"ajax请求成功",
-//			description:"后台没有给我传该条件",
-//			matched:"0",
-//		}]
-//		$(".CcconditionContent").append('<p class="'
-//			+info.condition[0].localtype
-//			+'"><img src="'
-//			+CimgArr2[info.condition[0].matched]
-//			+'" alt="" /><i><span>'
-//			+info.condition[0].localtype
-//			+':</span><span class="Cccspan dib">'
-//			+info.condition[0].description
-//			+'</span></i></p>')
-//		return;
-		console.log("条件为空,已经匹配,故无需条件");
-	}else{
+	
+	if(info.condition===undefined){//后台可能不给我condition,若数据规范该if可以删除		
+		console.log("匹配成功，没有条件参数");
+	}else if(info.condition===null||info.condition.length==0){//短路
+		console.log("匹配失败，条件为空");
+		$(".Cccondition").hide();
+	}
+	else{
 		for(i=0;i<info.condition.length;i++){	
 //			debugger;
 			if(info.condition[i].localtype==undefined){
@@ -187,14 +214,20 @@ function ajaxSucFn(info){//ajax成功回调里调用
 			
 			$(".CcconditionContent").append(conditionHtml);
 		}		
-	}	
+	}
+	/*地区匹配*///0226加入
+	if(info.areamatch!=undefined){
+		$(".CcconditionContent").append('<p class="地区"><img src="'
+			+CimgArr2[info.areamatch]
+			+'" alt="" /><i><span>地区</span></i></p>');
+	}
 	//活动补贴说明具体内容
 	$(".CccDescriptionCon").empty();
 	var typeCounts=0
 	//通用，无论是分销商，门店，店员，
 	for (type in info.subsidydescription){
-		console.log(type)
-		console.log(info.subsidydescription[type]);
+/*		console.log(type)
+		console.log(info.subsidydescription[type]);*/
 		typeCounts++;
 		var text1="";
 		for(m=0;m<info.subsidydescription[type].length;m++){

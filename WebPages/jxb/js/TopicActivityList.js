@@ -106,6 +106,8 @@ $(".yeNo li").click(function(){
 $(".contentCont").on("click",".ccfoot2",function(){
 //	localStorage.fromTopicActivityList_ActivityID=$(this).parents(".con").find(".Aguid").text();
 //	location.href="TopicActivityDetail.html";
+//	event.stopPropagation();
+    savePage();
 	window.location.assign("TopicActivityDetail.html?" + "switchfrom=toplicactivitylist"+"&distributor_id="+UrlKeyValueData.distributor_id+"&activity_id="+$(this).parents(".con").find(".Aguid").text());
 //	console.log($(this).parents(".con").find(".Aguid").text());
 //	engine.call('OnShowDetailClick', $(this).parents(".con").find(".Aguid").text());		
@@ -309,7 +311,7 @@ function sucessFn(obj,info){
 		if(info.content[i].budget.subsidyreleased==undefined){
 			info.content[i].budget.subsidyreleased=0;
 		}		
-		var budgetSubsidytotal=moneyTransform(info.content[i].budget.subsidytotal,4);//万，元，单位处理
+		var budgetSubsidytotal=moneyTransform(info.content[i].budget.subsidytotal);//万，元，单位处理
 		if(info.content[i].poster_url!=undefined&&info.content[i].poster_url!=" "&&info.content[i].poster_url!=""){				
 			obj.find(".conImg:last").find("img").eq(0).attr("src",info.content[i].poster_url);			
 		}
@@ -320,7 +322,7 @@ function sucessFn(obj,info){
 		}else{
 			hanzi="已发放";
 		}					
-		var budgetSubsidyreleased=moneyTransform(info.content[i].budget.subsidyreleased,4);//万，元，单位处理
+		var budgetSubsidyreleased=moneyTransform(info.content[i].budget.subsidyreleased);//万，元，单位处理
 		obj.find(".conImg:last").find("span").eq(1).text(hanzi+budgetSubsidyreleased);
 		if(info.content[i].post==" "){
 			info.content[i].post="暂无标题"
@@ -460,10 +462,10 @@ function returnToList(){
 }
 
 //展开收起函数封装
-function zhanShou(obj){
+/*function zhanShou(obj){
 	var objGet0=obj.get(0);	
 	$clamp(objGet0,{clamp:2,useNativeClamp:false,truncationChar:'...',truncationHTML:""});
-}
+}*/
 
 //下面djs2()随时删除，仅仅用来测试
 //djs2();
@@ -495,21 +497,7 @@ function isReceivedID(){
 	}
 }*/
 
-/*满n位，变'元'为'万'*/
-function moneyTransform(money,n){
-	var newMoney=parseInt(money).toString();//倪总允许取整
-	if(newMoney.length<=n){
-		newMoney=newMoney+"元";
-	}else{
-		if(n==4){//根据需要补充
-			var moneyUnit="万";
-		}else if(n==8){
-			var moneyUnit="亿";
-		}
-		newMoney=parseInt(newMoney/10000).toString()+moneyUnit;
-	}
-	return newMoney;
-}
+
 
 /*调试用代码*/
 $("body").on("mouseenter",".ccfoot2",function(){
@@ -541,3 +529,20 @@ $(".contentNull div p").click(function(){
 $(".refresh").click(function(){
 	history.go(0);
 })
+/*后退记忆，详情退回列表*/
+function savePage(){  //操作浏览器的历史记录
+	history.replaceState('', document.title, location.href.replace(location.hash, "") + "#nowTop=" + $(window).scrollTop()+"nowTop=");
+}
+/*if(location.hash!=""){
+	var  nowTop=Number(location.hash.split("nowTop=")[1]);
+	console.log(nowTop)
+	scrollTo(0, nowTop);	
+}*/
+
+if(location.hash!=""){
+	var nowTop=Number(location.hash.split("nowTop=")[1]);
+}else{
+	var nowTop=0;
+}
+scrollTo(0, nowTop);
+//console.log(88988)

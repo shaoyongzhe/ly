@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-08 19:24:21
+* @Last Modified time: 2017-02-27 14:42:05
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -16,24 +16,21 @@
 	box-sizing: border-box;
 }
 .fou{
-    background-color:#C0BCBC ;
+    background-color:#C0BCBC;
 }
 
-
-.line {
-    /*width: 680px;*/
+/* .newadd {
     height: 360px;
     overflow: hidden;
     position: relative;
-    /*left: -50px;*/
-    /*top: -40px;*/
     margin-top:10px;
     height:70px;
     border-top: solid 10px #eee;
-    /* background-color: #F69642; */
-
 }
-
+ */
+.Float_text .table-bordered td {
+    border-top: 1px solid #ddd;
+}
 .toolTip{
     width: 50%;
     height: 50%;
@@ -130,11 +127,11 @@
 .handle-btns a {
     margin-right: 10px;
     text-decoration: none;
-    border-left: 1px solid #8ABDCF;
+    border-left: 1px solid #8ABDCF!Important;
     padding-left:13px;
 }
 .handle-btns a:first-child {
-    border:none;
+    border:none!Important;
 }
 .handle-icon:hover + .handle-btns,
 .handle-icon.on + .handle-btns{
@@ -147,7 +144,12 @@
 	width: 100%;
     float: left;
 }
-
+span.content0{
+    display: none;
+}
+.text-c td:nth-child(7){
+     display: none;
+}
 body{
 		background-color: #eee;
 	}
@@ -159,17 +161,30 @@ body{
 .table th {
     font-weight: 200;
     font-size: 14px;
+    position: relative;
+}
+.table th:last-child:after{
+    content: "";
+    width: 18px;
+    height: 100%;
+    background: #f1f1f1;
+    position: absolute;
+    right: -17px;
+    top: 0;
+    border: 1px solid #eee;
+    border-left: 0;
+    border-bottom: 0;
 }
 /*查询div*/
 .search-area{
 	display: inline-block;
-	width:100%;
-	padding-bottom: 20px;
-	/* background: red; */
-	vertical-align: middle;
-	/* background-color: yellow; */
-	position: relative;
-	margin-left:20px;
+    width: 94.7%;
+    padding-bottom: 20px;
+    /* background: white; */
+    /* vertical-align: middle; */
+    /* background-color: yellow; */
+    position: relative;
+    /* margin-left: 20px; */
 }
 
 .search-area .search-btn{
@@ -180,7 +195,7 @@ body{
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 5%;
+    right: 2%;
     bottom: 90px;
     width: 138px;
     height: 32px;
@@ -192,8 +207,11 @@ body{
 select.input-text.text1.jiantou,select.input-text.text2.jiantou {
     background: url(/admin/MarketingActivity/PropagationManagement/Images/21.png) 98% no-repeat;
     -webkit-appearance: none;
+    appearance:none;
+    -moz-appearance:none; /* Firefox */
+    select::-ms-expand { display: none; }
 }
-
+select::-ms-expand { display: none; }
 .search-wrap{
 	background-color: #fff;
     height: 110px;
@@ -201,13 +219,13 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
 
 .search-area .input-contorl{
     display: inline-block;
-    width: 33%;
+    width: 28%;
     position: relative;
-    margin-left: -9px;
+    /* margin-left: -9px; */
 }
 .search-area .input-contorl.xcxc{
     display: inline-block;
-    width: 34%;
+    width: 44%;
     position: relative;
     margin-left: -9px;
 }
@@ -251,23 +269,15 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
 }
 
 .input-contorl input{
-	width: 60%;
+	width: 138px;
 	margin:0 0 0 -10px;
-    /* border-right: 3px; */
 }
-
-
 
 .input-contorl .date{
-	width: 34%;
-    cursor: pointer;
-    position: relative;
-    left: 18px;
-    margin-right: 1px;
-     /* background: #fff url(datePicker.gif) no-repeat right; */
+    width: 125px;
 }
 .input-text{
-	width: 60%;
+	width: 138px;
     margin:0 0 0 -10px;
 }
 /* .input-contorl input, .input-contorl select{
@@ -277,14 +287,14 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
 }
  */
 .input-text .text2{
-        width: 60%;
+        width: 138px;
 }
 
 .zhi{
     /* padding-right: 10px; */
     margin-right: 10px;
-    position: relative;
-    left: 17px;
+    /* position: relative; */
+    /* left: 17px; */
 }
 .input-text .disable{
   background-color: #D5C7C7;
@@ -294,16 +304,16 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
     height: 90%;
     opacity: 1;
 }
-.search-area .input-contorl.juli{
+/* .search-area .input-contorl.juli{
     left: 52px;
 }
 .search-area .input-contorl.juli_two{
     left: 53px;
-}
+} */
 
 .search-area .input-contorl.area1{
     display: inline-block;
-    width: 34%;
+    width: 44%;
     position: relative;
     margin-left: -10px;
 }
@@ -377,12 +387,11 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
     margin-left: 37px;
 }
 
-.btn{
+/* .btn{
     margin: 0 0;
-    width: 130px;
     height: 31px;
-    display:inline-block;
-}
+    display: inline-block;
+} */
 .btn_modify{
     background-color: #27B56B;
 }
@@ -422,16 +431,15 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
 
 
 .layui-layer-setwin{
-    right: 22px;
+    right: 13px;
 }
 .layui-layer-title{
-    margin-left: 24px;
-    margin-right: 22px;
+    margin-left: 31px;
+    margin-right: 32px;
     padding: 0 80px 0 0px;
     background-color: #FFFFFF;
+    /* width: 100%; */
 }
-
-
 .D_send{
      background-color: #FF5F31;
 }
@@ -440,7 +448,6 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
 .paging_data_ul{}
 .paging_paging_div{}
 
-/* 郭冠荣 s */
 
 .search-area .search-btn2{
     background-color:#AAAAAA ;
@@ -450,7 +457,7 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 5%;
+    right: 2%;
     bottom: 50px;
     width: 138px;
     height: 32px;
@@ -460,7 +467,7 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
      background-color:#9A9898; 
 }
 .text1{
-    width: 60%;
+    width: 138px;
     height: 32px;
     border:1px solid #cccccc !important;
     margin:21px 0 0 0px;
@@ -517,12 +524,13 @@ select.input-text.text1.jiantou,select.input-text.text2.jiantou {
 
 .table1{
     width: 97.5%;
+    margin-left: 20px;
 }
 .table1 tbody {
 
     display:block;
 
-    height:550px;
+    min-height:75px;
 
     overflow-y:scroll;
 
@@ -536,7 +544,7 @@ table thead, tbody tr {
 
 table thead {
 
-    width: calc( 99.9% - 1em )
+    width: calc( 100% - 1.4em )
 
 }
 .text-c td {
@@ -546,6 +554,7 @@ table thead {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
 }
 .text-c td:last-child{
     overflow: visible !important;
@@ -558,6 +567,7 @@ table thead {
 
 .zongchang{
     width: 80%;
+    padding-left: 40px;
 }
 .Float_text1{
      margin-left: 118px;
@@ -604,10 +614,10 @@ tbody td {
     span.name { display: block; width: 75px; text-align: left; line-height: 30px;font-size: 14px;}
     .gf-select { 
     float: left;
-    width: 21.8%;
+    width: 80px;
     top: -30px;
     margin-left: 12px;
-    left: 71px;
+    left: 54px;
     position: relative;
     }
     .gf-select span {   
@@ -659,7 +669,10 @@ tbody td {
 .tooltip.bottom-right .tooltip-arrow {top: 0;right: 5px;border-width: 0 5px 5px;border-bottom-color: #000}
  */
 
-
+.btn-close{
+    /* width: 130px; */
+    color:#deee!Important;
+}
 .bigbx{
     background: #fff;
     height: 720px;
@@ -670,9 +683,6 @@ tbody td {
     display: block;
     line-height: 65px;
 }
-
-
-
 /* 遮罩 */
 #msg{
    z-index:9999;

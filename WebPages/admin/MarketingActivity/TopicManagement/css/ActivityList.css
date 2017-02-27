@@ -25,7 +25,19 @@ a{
     line-height: 34px;
     float: left;
 }
-
+/*
+ * 城市三级联动样式
+ */
+.gf-select span em {
+    font-style: normal;
+    /* text-align: center; */
+    /* margin-top: 2px; */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    width: 38px;
+}
 
 /*模拟下拉样式*/
 ul {
@@ -107,7 +119,7 @@ button {
 /*wrap*/
 .wrap {
   background: #f2f2f2;
-  min-width: 1200px;
+  min-width: 1081px;
   box-sizing: border-box;
   padding: 0px 20px;
   margin: 0px auto; 
@@ -130,7 +142,7 @@ button {
 /*查询条件左侧*/
 .queryConditionLeft {
   font-size: 0;
-  width: 25%;
+  width: 22%;
   display: inline-block;
   vertical-align: top;
    }
@@ -145,7 +157,7 @@ button {
 
 .queryConditionLeft input, .queryConditionLeft .selectLWrapL {
   font-size: 15px;
-  width: 56%;
+  width: 63%;
   height: 25px;
   box-sizing: border-box;
   vertical-align: middle; }
@@ -161,7 +173,7 @@ button {
 /*查询条件中侧*/
 .queryConditionMiddle {
   font-size: 0;
-  width: 35%;
+  width: 34%;
   display: inline-block;
   vertical-align: top; 
 
@@ -177,7 +189,7 @@ button {
 
 .queryConditionMiddle input {
   font-size: 15px;
-  width: 28%;
+  width: 31%;
   height: 25px;
   box-sizing: border-box;
   vertical-align: middle;
@@ -194,7 +206,7 @@ button {
 /*查询条件右侧*/
 .queryConditionRight {
   font-size: 0;
-  width: 26%;
+  width: 29%;
   display: inline-block;
   vertical-align: top; 
   /*padding-right: 20px;*/
@@ -215,7 +227,9 @@ button {
   vertical-align: middle; }
 
 .qC_activityArea .activityAreaSelect {
-  vertical-align: middle; }
+  vertical-align: middle; 
+  height: 24px;
+}
 
 .qC_activityBudget input {
   font-size: 15px;
@@ -264,7 +278,7 @@ button {
   color: #ffffff;
   border: 0; 
   position: absolute;  
-  right: -10%;
+  left: -8%;
   border-radius: 2px;
 }
 .queryConditionButton button:nth-of-type(1){
@@ -337,7 +351,12 @@ button {
   text-align: center;
   /*background-color: #FFFFFF;*/
   /*display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;*/
-  
+  word-wrap: break-word;
+  }
+
+  .activitytitle{
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
 .ac_tip{
