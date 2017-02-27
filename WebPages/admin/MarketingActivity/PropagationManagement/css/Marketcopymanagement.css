@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-24 17:31:10
+* @Last Modified time: 2017-02-27 14:42:05
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -431,7 +431,7 @@ select::-ms-expand { display: none; }
 
 
 .layui-layer-setwin{
-    right: 22px;
+    right: 13px;
 }
 .layui-layer-title{
     margin-left: 31px;
