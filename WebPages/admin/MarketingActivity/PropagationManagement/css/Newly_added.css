@@ -1,6 +1,8 @@
 /*
 
 */
+body{
+	min-width: 1062px!Important;}
 .page-container1{
 	background-color: #F2F2F2;
 	padding: 0 20px;
@@ -12,7 +14,7 @@
 .bread-crumb{
     height: 0px;
     width: 100%;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     line-height: 30px;
 }
 
@@ -270,7 +272,8 @@
 	box-shadow: 0 1px  1px rgba(0,0,0,0.075) inset ,0 0 8px  rgba(102,175,233,0.6);
 }
 ._button{
-	padding-left:23%;
+	/* padding-left:23%; */
+	width: 680px;
 	margin :60px  auto;
 }
 
@@ -433,7 +436,7 @@
     text-align: center;
     display: block;
     line-height: 65px;
-    width: 103%;
+    width: 100%;
     background-color: #F2F2F2;
 }
 .right_word{
