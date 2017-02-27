@@ -106,6 +106,8 @@ $(".yeNo li").click(function(){
 $(".contentCont").on("click",".ccfoot2",function(){
 //	localStorage.fromTopicActivityList_ActivityID=$(this).parents(".con").find(".Aguid").text();
 //	location.href="TopicActivityDetail.html";
+//	event.stopPropagation();
+    savePage();
 	window.location.assign("TopicActivityDetail.html?" + "switchfrom=toplicactivitylist"+"&distributor_id="+UrlKeyValueData.distributor_id+"&activity_id="+$(this).parents(".con").find(".Aguid").text());
 //	console.log($(this).parents(".con").find(".Aguid").text());
 //	engine.call('OnShowDetailClick', $(this).parents(".con").find(".Aguid").text());		
@@ -527,3 +529,20 @@ $(".contentNull div p").click(function(){
 $(".refresh").click(function(){
 	history.go(0);
 })
+/*后退记忆，详情退回列表*/
+function savePage(){  //操作浏览器的历史记录
+	history.replaceState('', document.title, location.href.replace(location.hash, "") + "#nowTop=" + $(window).scrollTop()+"nowTop=");
+}
+/*if(location.hash!=""){
+	var  nowTop=Number(location.hash.split("nowTop=")[1]);
+	console.log(nowTop)
+	scrollTo(0, nowTop);	
+}*/
+
+if(location.hash!=""){
+	var nowTop=Number(location.hash.split("nowTop=")[1]);
+}else{
+	var nowTop=0;
+}
+scrollTo(0, nowTop);
+//console.log(88988)
