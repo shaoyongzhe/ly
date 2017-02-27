@@ -1347,13 +1347,13 @@ function fnweigyy() {
 				cont += "</table></div>" +
 					"<h3 class='tianpfx'>天平分析</h3>" +
 					"<ul class='fxcont'>" +
-						"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
-						"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
-						"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
-						"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
-						"<li><h4>Grosbby异常检测</h4><span>" + data["arithmetic"]["value5"] + "</span><p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
-						"<li><h4>粗糙集分类统计</h4><span>" + data["arithmetic"]["value6"] + "</span><p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
-						"<li><h4>门店密集核销</h4><span>" + data["arithmetic"]["value7"] + "</span><p>核销间隔过短，一段时间内频率过高的情况</p></li>" +
+						"<li><h4>消费者集中</h4><span title='"+ data["arithmetic"]["value1"] +"'>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
+						"<li><h4>经济学模型重尾分布</h4><span title='"+ data["arithmetic"]["value2"] +"'>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
+						"<li><h4>单人多券</h4><span title='"+ data["arithmetic"]["value3"] +"'>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
+						"<li><h4>T分布统计</h4><span title='"+ data["arithmetic"]["value4"] +"'>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
+						"<li><h4>Grosbby异常检测</h4><span title='"+ data["arithmetic"]["value5"] +"'>" + data["arithmetic"]["value5"] + "</span><p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
+						"<li><h4>粗糙集分类统计</h4><span title='"+ data["arithmetic"]["value6"] +"'>" + data["arithmetic"]["value6"] + "</span><p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
+						"<li><h4>门店密集核销</h4><span title='"+ data["arithmetic"]["value7"] +"'>" + data["arithmetic"]["value7"] + "</span><p>核销间隔过短，一段时间内频率过高的情况</p></li>" +
 					"</ul>" +
 					"<div class='hxjl'>" +
 					"<h3>核销记录</h3>" +
