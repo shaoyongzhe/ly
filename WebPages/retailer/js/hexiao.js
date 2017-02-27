@@ -13,7 +13,7 @@ function writeOff(callback) {
                 $(".upp img").click(function () {
                     $("#list").hide();
                     $(".f-list").show()
-                })
+                });
                 $(".f-list").click(function () {
                     $("#list").show();
                     $(".f-list").hide()
@@ -48,7 +48,7 @@ function writeOff(callback) {
             _Day = Math.floor((_endTm - _newTm) / 1000 / 60 / 60 / 24);
             _durnt = (_endTm - _newTm) - _Day * 24 * 60 * 60 * 1000;
             _Hour = Math.floor(_durnt / 1000 / 60 / 60);
-            _durnt = _durnt - _Hour * 1000 * 60 * 60
+            _durnt = _durnt - _Hour * 1000 * 60 * 60;
             _Minus = Math.floor(_durnt / 1000 / 60);
             _durnt = _durnt - _Minus * 1000 * 60;
             _Seconds = Math.floor(_durnt / 1000);
@@ -67,7 +67,7 @@ function writeOff(callback) {
             } else {
                 $(".sp3").text(_Seconds);
             }
-            $(".sp4").text(_Day + "天 ")
+            $(".sp4").text(_Day + "天 ");
             if (_endTm - _newTm <= 0) {
                 $(".time-down p").text("处罚已结束");
                 $(".sp1").text("00");
@@ -83,16 +83,16 @@ function writeOff(callback) {
             $(".stop").text("警告通知");
             $(".change").attr("src", "../image/punish1.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv2") {
-            $(".stop").html("暂停核销<span> 1天<span>")
+            $(".stop").html("暂停核销<span> 1天<span>");
             $(".change").attr("src", "../image/punish2.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv3") {
-            $(".stop").html("暂停核销<span> 7天<span>")
+            $(".stop").html("暂停核销<span> 7天<span>");
             $(".change").attr("src", "../image/punish3.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv4") {
-            $(".stop").html("暂停核销<span> 30天<span>")
+            $(".stop").html("暂停核销<span> 30天<span>");
             $(".change").attr("src", "../image/punish4.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv5") {
-            $(".stop").html("暂停核销<span> 1年<span>")
+            $(".stop").html("暂停核销<span> 1年<span>");
             $(".change").attr("src", "../image/punish5.jpg")
         }
     }
