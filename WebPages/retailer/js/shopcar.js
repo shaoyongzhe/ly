@@ -2,7 +2,7 @@
 			localStorage.reload=1;
 			asd()
 	})
-	function asd(){
+	function asd(){//购物车页起始调用函数
 		var _list="";
 		var _give="";
 		var _color="";
@@ -32,7 +32,7 @@
 			_tt=JSON.parse(localStorage.retalerdata).data;
 			console.log(_tt)
 			
-			$.ajax({
+			$.ajax({//获取购物车业的数据
 				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/"+_disId+"?isvalid=0",
 				async:true,
 		    	cache:false,
@@ -44,7 +44,7 @@
 		        	show(data1)
 		        }
 			})
-		function aa(){
+		function aa(){//提交订单文字变化
 			$(".commit").css({background:"#009f96",width:"24%"})
 			$(".commit").html("去提交"+"<span>("+_ges+")</span>")
 			console.log(_Id)
@@ -59,7 +59,7 @@
 			
 		
 		}
-					function zz(){
+					function zz(){//起送价显示
 						if(_price<_tt[_indd]["cutgift"]){
 							_qu=1;
 							$(".commit").css({background:"#ccc",width:"auto",padding:"0 3px"})
@@ -68,7 +68,7 @@
 							aa()
 						}						
 					}
-		function show(data1){
+		function show(data1){//页面渲染
 			
 
 			console.log(_tt[_indd]["distributorname"])
@@ -238,7 +238,7 @@
 			$(".ab span:nth-child(2)").text(_discount.toFixed(1))
 			fg()
 		}
-			function deLete(data1){
+			function deLete(data1){//删除商品
 				var _dl="";
 				$("#edit").click(function(){
 					if($(this).text()=="编辑"){
@@ -366,7 +366,7 @@
 			})		
     	}
 
-		function select(){
+		function select(){//购物车商品的勾选
 			var _ll=0;
 
 			console.log(_arr)
@@ -489,7 +489,7 @@
 				fg()
 			});
 		}
-		function change(data1){
+		function change(data1){//购物车数量改变
 			$(".change").on('click','.reduce',function(){
 				var tht=this					
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
@@ -650,7 +650,7 @@
 
 			})
 		}
-		function formaty(){
+		function formaty(){//计算当前时间传入参数post
 			var d=new Date();
 			_year=d.getFullYear();
 			_month=d.getMonth()+1;
@@ -682,7 +682,7 @@
 			return _year+"-"+_month+"-"+_day+" "+_hour+":"+_minute+":"+_second+"."+_msecond
 		}
 
-		function fg(){
+		function fg(){//活动显示
 				console.log(_price)
 					var _nm="";
 		        	var _jies="";

@@ -48,7 +48,7 @@ $(document).ready(function () {
     }
     console.log(_Id)
 
-
+	//获取提交订单数据
     $.ajax({
         url: "/webapi/distributor/" + getRetailerid() + "/orderform/items?distributor_id=" + localStorage.disId + _sub,
         async: true,
@@ -57,24 +57,7 @@ $(document).ready(function () {
         type: "get",
         error: function () { },
         success: function (data) {
-
-            //     	else if(localStorage.Id){
-            //			for(var k in data){
-            //				_Id+=data[k]["guid"]+","
-            //			}
-            //			_Id=_Id.replace(/\,$/g,"")
-            //			console.log(_Id)
-            //		}
-
-            //checkChange(data)
-            console.log(data)
-            //     	for(var x=0;x<_index.length;x++){
-            //     		if(_index[x]!=-1){
-            //     			console.log(data[x])
-            //     			_data.push(data[x])
-            //     		}
-            //     	}
-            //     	_data.push
+        	//遍历data，渲染页面
             var _list = "";
             var _name = "";
             var _price = 0;
@@ -246,7 +229,7 @@ $(document).ready(function () {
                     _image = ""
                 }
             }
-            sdd()
+            sdd()//计算分销商活动满足条件
             function sdd() {
                 data = JSON.parse(localStorage.retalerdata).data;
                 console.log(data)
@@ -347,8 +330,8 @@ $(document).ready(function () {
     });
 
     //ajax结束
-    if (localStorage.Id != "") {
-        $(".submit").click(function () {
+    if (localStorage.Id != "") {//判断存储id是否存在
+        $(".submit").click(function () {//提交订单函数触发
             $("body").css({ overflow: "hidden" })
             console.log(_Id)
             console.log(localStorage.disId)
@@ -391,12 +374,12 @@ $(document).ready(function () {
     }
 
 
-    $("#sp1").click(function () {
+    $("#sp1").click(function () {//日历的显示和隐藏
         $(".canlendar").css({ display: "block" })
         $("html").css({ overflow: "hidden" })
     })
 
-    $(function () {
+    $(function () {//日历方法的调用
 
         $('#beginTime').date();
 
@@ -404,40 +387,6 @@ $(document).ready(function () {
 
     });
 
-    //	$("#inp2").focus(function(){
-    //		$(this).css({textAlign:"left"})
-    //	}).blur(function(){
-    //		if($(this).val()==""){
-    //			$(this).css({textAlign:"right"})
-    //		}
-    //		
-    //	})
-    function checkChange(data11) {
-        var _tm = setInterval(function () {
-            $.ajax({
-                url: "/webapi/distributor/" + getRetailerid() + "/orderform/items?distributor_id=" + localStorage.disId + "&submitids=" + _Id,
-                async: true,
-                cache: false,
-                dataType: "json",
-                type: "get",
-                success: function (data0) {
-                    if (JSON.stringify(data11) !== JSON.stringify(data0)) {
-                        var _vm = 0.8;
-                        $(".chg").css({ display: "block" })
-                        clearInterval(_tm)
-                        var _yu = setInterval(function () {
-                            _vm -= 0.1;
-                            $(".chg").css({ background: "rgba(248,236,235," + _vm + ")" })
-                            console.log(_vm)
-                            if (_vm <= 0) {
-                                $(".chg").css({ display: "none" })
-                                clearInterval(_yu)
-                            }
-                        }, 300)
-                    }
-                }
-            })
-        }, 5000)
-    }
+
 
 }); //document结束
