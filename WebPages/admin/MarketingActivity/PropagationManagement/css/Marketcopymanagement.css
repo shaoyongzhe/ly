@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-02-22 15:35:30
+* @Last Modified time: 2017-02-24 17:31:10
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -161,17 +161,30 @@ body{
 .table th {
     font-weight: 200;
     font-size: 14px;
+    position: relative;
+}
+.table th:last-child:after{
+    content: "";
+    width: 18px;
+    height: 100%;
+    background: #f1f1f1;
+    position: absolute;
+    right: -17px;
+    top: 0;
+    border: 1px solid #eee;
+    border-left: 0;
+    border-bottom: 0;
 }
 /*查询div*/
 .search-area{
 	display: inline-block;
-	width:100%;
-	padding-bottom: 20px;
-	/* background: red; */
-	vertical-align: middle;
-	/* background-color: yellow; */
-	position: relative;
-	margin-left:20px;
+    width: 94.7%;
+    padding-bottom: 20px;
+    /* background: white; */
+    /* vertical-align: middle; */
+    /* background-color: yellow; */
+    position: relative;
+    /* margin-left: 20px; */
 }
 
 .search-area .search-btn{
@@ -182,7 +195,7 @@ body{
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 5%;
+    right: 2%;
     bottom: 90px;
     width: 138px;
     height: 32px;
@@ -206,13 +219,13 @@ select::-ms-expand { display: none; }
 
 .search-area .input-contorl{
     display: inline-block;
-    width: 33%;
+    width: 28%;
     position: relative;
-    margin-left: -9px;
+    /* margin-left: -9px; */
 }
 .search-area .input-contorl.xcxc{
     display: inline-block;
-    width: 34%;
+    width: 44%;
     position: relative;
     margin-left: -9px;
 }
@@ -256,23 +269,15 @@ select::-ms-expand { display: none; }
 }
 
 .input-contorl input{
-	width: 60%;
+	width: 138px;
 	margin:0 0 0 -10px;
-    /* border-right: 3px; */
 }
-
-
 
 .input-contorl .date{
-	width: 34%;
-    cursor: pointer;
-    position: relative;
-    left: 18px;
-    margin-right: 1px;
-     /* background: #fff url(datePicker.gif) no-repeat right; */
+    width: 125px;
 }
 .input-text{
-	width: 60%;
+	width: 138px;
     margin:0 0 0 -10px;
 }
 /* .input-contorl input, .input-contorl select{
@@ -282,14 +287,14 @@ select::-ms-expand { display: none; }
 }
  */
 .input-text .text2{
-        width: 60%;
+        width: 138px;
 }
 
 .zhi{
     /* padding-right: 10px; */
     margin-right: 10px;
-    position: relative;
-    left: 17px;
+    /* position: relative; */
+    /* left: 17px; */
 }
 .input-text .disable{
   background-color: #D5C7C7;
@@ -299,16 +304,16 @@ select::-ms-expand { display: none; }
     height: 90%;
     opacity: 1;
 }
-.search-area .input-contorl.juli{
+/* .search-area .input-contorl.juli{
     left: 52px;
 }
 .search-area .input-contorl.juli_two{
     left: 53px;
-}
+} */
 
 .search-area .input-contorl.area1{
     display: inline-block;
-    width: 34%;
+    width: 44%;
     position: relative;
     margin-left: -10px;
 }
@@ -452,7 +457,7 @@ select::-ms-expand { display: none; }
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 5%;
+    right: 2%;
     bottom: 50px;
     width: 138px;
     height: 32px;
@@ -462,7 +467,7 @@ select::-ms-expand { display: none; }
      background-color:#9A9898; 
 }
 .text1{
-    width: 60%;
+    width: 138px;
     height: 32px;
     border:1px solid #cccccc !important;
     margin:21px 0 0 0px;
@@ -519,12 +524,13 @@ select::-ms-expand { display: none; }
 
 .table1{
     width: 97.5%;
+    margin-left: 20px;
 }
 .table1 tbody {
 
     display:block;
 
-    height:550px;
+    min-height:75px;
 
     overflow-y:scroll;
 
@@ -561,6 +567,7 @@ table thead {
 
 .zongchang{
     width: 80%;
+    padding-left: 40px;
 }
 .Float_text1{
      margin-left: 118px;
@@ -607,10 +614,10 @@ tbody td {
     span.name { display: block; width: 75px; text-align: left; line-height: 30px;font-size: 14px;}
     .gf-select { 
     float: left;
-    width: 21.8%;
+    width: 80px;
     top: -30px;
     margin-left: 12px;
-    left: 71px;
+    left: 54px;
     position: relative;
     }
     .gf-select span {   
