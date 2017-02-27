@@ -20,20 +20,6 @@ $(document).ready(function () {
     var _indd = localStorage.index;
     $("#beginTime").val(_year + "-" + _month + "-" + _day)
     var _index = [];
-    //		if(location.search.replace("?","").split("/")){
-    //			if(location.search.replace("?","").split("-2")){
-    //				if(location.search.replace("?","").split("-2/")){
-    //					_index=location.search.replace("?","").replace("-2/","").split("/")
-    //				}else{
-    //					_index=location.search.replace("?","").replace("-2","").split("/")
-    //				}
-    //			}else{
-    //				_index=location.search.replace("?","").split("/")
-    //			}
-    //		}else{
-    //			_index.push(location.search.replace("?",""))
-    //		};
-    //		console.log(_index)
     var _Id = "";
     var _sub = "";
     var _url = location.href;
@@ -58,6 +44,7 @@ $(document).ready(function () {
         error: function () { },
         success: function (data) {
         	//遍历data，渲染页面
+        	console.log(data)
             var _list = "";
             var _name = "";
             var _price = 0;
@@ -99,7 +86,7 @@ $(document).ready(function () {
                     }
                     _remark = "";
                     if (_data[i]["remark"] != "") {
-                        _remark = "<div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">备注：</div><div class=" + "\"give-con\"" + ">" + _data[i]["ruledesc"] + "</div></div>"
+                        _remark = "<div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
                     }
                     if (_data[i]["isyucun"] === 0) {
                         if (!_data[i]["itemslist"]) {
@@ -321,8 +308,10 @@ $(document).ready(function () {
             console.log($("section").height())
             if ((Number($("section").height()) + Number($("section").css("padding-bottom").replace("px", ""))) >= $("html").height()) {
                 $(".loads2").height(Number($("section").height()) + Number($("section").css("padding-bottom").replace("px", "")))
+                $(".tsh").height(Number($("section").height()) + Number($("section").css("padding-bottom").replace("px", "")))
             } else {
                 $(".loads2").height($("html").height())
+                $(".tsh").height($("html").height())
             }
 
         }//ajax的success方法结束
@@ -357,7 +346,7 @@ $(document).ready(function () {
                         $(".loads2 div").text("提交中...")
                         window.location = "myorder.html"
                     } else {
-                    		$(".ms").text(data.error);
+                    	$(".ms").text(data.error);
 //                      $(".loads2 div").text(data.error + "...")
                         $(".loads2").css({ display: "none" })
                         $(".tsh").css({display:"block"})
@@ -366,7 +355,6 @@ $(document).ready(function () {
                             $(".submit").text("提交订单")
                             $("body").css({ overflow: "auto" })                        	
                         })
-
                     }
                 }
             })

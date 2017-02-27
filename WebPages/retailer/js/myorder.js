@@ -119,10 +119,14 @@ function shopList(pg){
 				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
 		  		_bookTm = (new Date(_bookTm)).getTime();
 		  			_price=_price.toFixed(2)
+		  			var _ggf=0;
+		  			for(var g=0;g<data["content"][j]["details"].length;g++){
+		  				_ggf+=Number(data["content"][j]["details"][g]["itemcount"])
+		  			}
 				   	if(data["content"][j]["openflag"]=="0"){
-				   			_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+				   			_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+_ggf+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}else{
-								_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+data["content"][j]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+								_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+_ggf+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}
 				 		_imgs=""
 					 			}else if(data["content"][j]["details"].length>0 && data["content"][j]["details"].length<=1){
