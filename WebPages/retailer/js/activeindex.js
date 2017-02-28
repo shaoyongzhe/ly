@@ -407,8 +407,12 @@ function fncuxiao(data) {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
             oli += "</div></div></div></div>" +
-                "<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + (data[k1]["giftitemobj"]["packagetypename"]==null?"":data[k1]["giftitemobj"]["packagetypename"]);
-            data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
+                "<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + (data[k1]["giftitemobj"]["packagetypename"]==null?"":data[k1]["giftitemobj"]["packagetypename"]);            
+            if(data[k1]["giftitemquality"]){
+            	data[k1]["giftitemquality"] == 0 ? oli += "(临期)" : oli += "";
+            }else{
+            	data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
+            }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
                 oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
@@ -642,7 +646,11 @@ function fnyibanlist2(data) {
             }
             oli += "</div></div></div></div>" +
                 "<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + (data[k1]["giftitemobj"]["packagetypename"]==null?"":data[k1]["giftitemobj"]["packagetypename"]);
-            data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
+            if(data[k1]["giftitemquality"]){
+            	data[k1]["giftitemquality"] == 0 ? oli += "(临期)" : oli += "";
+            }else{
+            	data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
+            }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
                 oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";

@@ -10,8 +10,21 @@ $(document).ready(function () {
     var _send = "";
     var _flag = 0;
     var _year = new Date().getFullYear()
-    var _month = (new Date().getMonth() + 1) > 10 ? new Date().getMonth() + 1 : ("0" + (new Date().getMonth() + 1))
-    var _day = new Date().getDate() >= 10 ? Number(new Date().getDate()) + 1 : "0" + Nmber(new Date().getDate()) + 1
+    var _month = new Date().getMonth() + 1 
+    var _jud=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime();
+    var _day = new Date(new Date().getFullYear(),new Date().getMonth(),28).getTime()+1000*60*60*24;
+    if(_jud-_day<=0){
+    	if(_month<12){
+    		_month=Number(_month)+1;
+    		_month=_month > 10 ? _month : ("0" + _month)
+    		_day=new Date(_day).getDate()
+    	}else{
+    		_year=Number(_year)+1
+    		_month=1;
+    		_month=_month > 10 ? _month : ("0" + _month)
+    	}
+    }
+    _day=_day >= 10 ? _day  : "0" + _day
     var _distrgive = "";
     var _reduce = 0;
     var _discount = 0;
