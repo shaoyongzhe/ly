@@ -42,19 +42,34 @@ $(function(){
 
 	//追加/缩减下拉
 		function selec(name1,name2){
-			name1.on('click',function(){
+			$(document).on('click',name1,function(){
 				$(this).next('.add_redd').stop().slideToggle(200);
 			});
-			name2.on('click',function(){
+			$(document).on('click',name2,function(){
 				var Xia_text=$(this).text();
 				$(this).parent('.add_redd').prev('.parten_box').children('a').text(Xia_text);
 				$(this).parent('.add_redd').slideUp();
+				//判断追加还是缩减改变输入框文字的颜色	
+				if(Xia_text=='追加'){
+					$(this).closest('ul').prev().prev().prev().removeClass().addClass('fontclorsgr')
+				}else if(Xia_text=='缩减'){
+					$(this).closest('ul').prev().prev().prev().removeClass().addClass('fontclorsre')
+				}
+				$('.table3 tbody tr td input').keyup();
 			});
 		};
-		selec($('.parten_box'),$('.add_redd li'));
+		selec('.parten_box','.add_redd li');
+		//进入追加/缩减弹窗的时候判断他们文字 确定输入框颜色
+		$(document).on('focus','.table3 tbody tr td input',function(){
+			if($(this).next().next().find('.fix_font').html()=='追加'){
+				$(this).removeClass().addClass('fontclorsgr')
+			}else if($(this).next().next().find('.fix_font').html()=='缩减'){
+				$(this).removeClass().addClass('fontclorsre')
+			}
+		})
 
 	//预算事由
-	 _ajax('get','http://127.0.0.1:40010/webapi/budget/ipaloma/dict/purpose',{},'预算事由获取错误',function(data){
+	 _ajax('get','/webapi/budget/ipaloma/dict/purpose',{},'预算事由获取错误',function(data){
 
 		// if(typeOf item == 'string'){
 		// 	var item = JSON.parse(item);
@@ -71,7 +86,7 @@ $(function(){
 	 })
 	
 	//负责人http://membership.ipaloma.com/webapi/budget/ipaloma/dict/responsible
-	_ajax('get','http://127.0.0.1:40010/webapi/budget/ipaloma/dict/responsible',{},'负责人获取错误',function(data){
+	_ajax('get','/webapi/budget/ipaloma/dict/responsible',{},'负责人获取错误',function(data){
 		var peson_charge=data.responsible;
 		var str='';
 		for(var i=0;i<peson_charge.length;i++){
@@ -84,7 +99,7 @@ $(function(){
 	})
 
 	//预算状态
-	_ajax('get','http://127.0.0.1:40010/webapi/budget/ipaloma/dict/auditstatus',{},'预算状态获取错误',function(data){
+	_ajax('get','/webapi/budget/ipaloma/dict/auditstatus',{},'预算状态获取错误',function(data){
 		var yu_state=data.auditstatus;
 		var str='';
 		for(var i=0;i<yu_state.length;i++){
@@ -162,7 +177,7 @@ $(function(){
 			$('.Person2_ipt').attr('value',$(this).children('a').text());
 		});
 
-    //页面刷新的时候触发查询事件(相当于页面刷新的时候默认点击了查询按钮，自动出数据)
+//页面刷新的时候触发查询事件(相当于页面刷新的时候默认点击了查询按钮，自动出数据)
 	window.onload=function (){
 		$('.query_iptn').click()
 	}
@@ -378,7 +393,7 @@ $(function(){
 		        					"</td>"
 		        				//图片
 		        				str+="<td>"+
-		        						'<img src="images/icon5.png" uuid="'+Budgetary_reasons[i].purpose_id+'" />'+
+		        						'<img src="images/icon5.png" uuid="'+Budgetary_reasons[i].purpose_id+'" uuname="'+Budgetary_reasons[i].purpose_class+'" />'+
 		        					"</td>"	
 		        			"</tr>";
 		        		}
@@ -446,11 +461,11 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 		  });
 
 		    var this_uuid = $(this).attr('uuid');
+		    var this_uuname=$(this).attr('uuname');
 			$.ajax({
 				type: "get",
 		        url:'http://membership.ipaloma.com/webapi/budget/purpose/summary?purpose_id='+this_uuid,
 		        dataType: "json",
-		        data:{},
 		        beforeSend: function() { 
 		         	// layer.msg('玩命加载中');
 		         	$('.Loading').fadeIn();
@@ -459,14 +474,14 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 		         	$('.Loading').fadeOut();
 		        },
 		        success:function(data){
-		        	console.log(data);
+		        	// console.log(data);
 		        	var Areamodule='';
 		        	var str1='';
 		        	var str2='';
 		        	var str3='';
 		        	var str4='';
 		        	var str5='';
-		        	var details_object='';
+		        	// var details_object='';
 		        	var Budgetary_reasons=data.content;
 
 			        //详情地区模块
@@ -624,16 +639,16 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 								}
 
 								//详情的小表格
-								details_object+='<tr>'+
-													'<td>'+keyg(key)+'</td>'+
-													'<td>'+keyall[key]["refund_content"]+'</td>'+
-													'<td>'+keyall[key]["applycount"]+'</td>'+
-													'<td>'+'</td>'+
-													'<td>'+'</td>'+
-												'</tr>'
+								// details_object+='<tr>'+
+								// 					'<td>'+keyg(key)+'</td>'+
+								// 					'<td>'+keyall[key]["refund_content"]+'</td>'+
+								// 					'<td>'+keyall[key]["applycount"]+'</td>'+
+								// 					'<td>'+'</td>'+
+								// 					'<td>'+'</td>'+
+								// 				'</tr>'
 								
 								sum2+=Number(keyall[key]["applycount"])
-								console.log(sum2)
+								// console.log(sum2)
 							}
 							
 						//预算状态：
@@ -645,13 +660,13 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 		        	// $('.operation_right').html(str3); //详情-活动地区
 		        	$('.Three_arrea').html(str4); //详情-
 		        	$('.status_2').html(str5);//预算状态
-		        	$('.table2 tbody').html(details_object+'<tr>'+
-		        												'<td>'+'合计'+'</td>'+
-		        												'<td>'+'</td>'+
-		        												'<td>'+sum2+'</td>'+
-		        												'<td>'+'</td>'+
-		        												'<td>'+'</td>'+
-		        											'</tr>')//详情小表格
+		        	// $('.table2 tbody').html(details_object+'<tr>'+
+		        	// 											'<td>'+'合计'+'</td>'+
+		        	// 											'<td>'+'</td>'+
+		        	// 											'<td>'+sum2+'</td>'+
+		        	// 											'<td>'+'</td>'+
+		        	// 											'<td>'+'</td>'+
+		        	// 										'</tr>')//详情小表格
 		        },
 		        error:function(){
 		        	alert('详情分销商、门店、消费者信息加载失败');
@@ -662,7 +677,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 			//详情下面-操作信息
 			$.ajax({
 				type: "get",
-		        url: "http://127.0.0.1:40010/webapi/budget/purpose/"+this_uuid+"/operation",
+		        url: "http://membership.ipaloma.com/webapi/budget/purpose/"+this_uuid+"/operation",
 		        dataType: "json",
 		        success:function(data){
 		        	console.log(data)
@@ -690,51 +705,310 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 		        error:function(){
 		        	alert('操作信息加载失败')
 		        }
-		    });   
+		    });  
+
+		    //详情补贴小表格
+		    $.ajax({
+		    	type: "get",
+		        url:'http://membership.ipaloma.com/webapi/budget/purpose/audit/'+this_uuname+'/'+this_uuid+'/summary',
+		        dataType: "json",
+		        beforeSend: function() { 
+		         	// layer.msg('玩命加载中');
+		         	$('.loaded').show();
+		        },
+		        success:function(data){
+		        	console.log(data);
+		        	var str = '';
+		        	var str2 = '';
+		        	var Sub_details = data.content.list;
+		        	var sum_subdet = data.content.sum;
+		        	function keyg(keyy){
+						if(keyy=='distributor'){
+					 		keyy='分销商'
+					 	}else if(keyy=='retailer'){
+					 		keyy='门店'
+					 	}else if(keyy=='consumer'){
+					 		keyy='消费者'
+					 	}else if(keyy=='distributor_employee'){
+					 		keyy='分销商业务员'
+					 	}else if(keyy=='retailer_employee'){
+					 		keyy='门店店员'
+						 	}
+						return keyy;
+					}
+					//小表哥
+		        	for(var i = 0; i < Sub_details.length; i++){
+		        		str+='<tr>'+
+		        				'<input class="Subq" type="hidden" value="'+Sub_details[i].purposeid+'">'+
+		        				'<input class="Subw" type="hidden" value="'+Sub_details[i].purposeclass+'">'+
+		        				'<td>' + keyg(Sub_details[i].benefitclass) + '</td>' +
+		        				'<td>' + Sub_details[i].applycount + '</td>' +
+		        				'<td>' + Sub_details[i].append + '</td>' +
+		        				'<td>' + Sub_details[i].auditcount + '</td>' +
+		        			 '</tr>'
+		        	}
+		        	//合计
+		        	str2 = '<tr>'+
+								'<td>'+'合计'+'</td>'+
+								'<td>'+ sum_subdet.applycountsum +'</td>'+
+								'<td>'+ sum_subdet.appendsum +'</td>'+
+								'<td>'+ sum_subdet.auditcountsum +'</td>'+
+							'</tr>'
+		        	//补贴详情小表格
+		        	$('.table2 tbody').html(str + str2)
+		        },
+		        error:function(jqXHR){
+		        	// console.log(jqXHR)
+		        	var jqXHRstr=jqXHR.status;
+		        	if(jqXHRstr==400){
+		            	alert('未找到补贴详情信息');
+		            	// $('#layui-layer-shade7').hide();
+		            }else if(jqXHRstr.status==500){
+		            	alert('补贴对象详情请求失败');
+		            	// $('#layui-layer-shade7').hide();
+		            }
+		        }
+		    }) 
 		  
-		});
 
-		//去审查按钮
-		// $('.close_iptn').on('click',function(){
-		// 	// $('.layui-layer-close').click();
-		// 	alert('暂无审查内容');
-		// });
-		//追加缩减弹出框
-		$('#Add_reed').on('click',function(){
-		  //弹出框
-		  layer.open({ 
-			  //anim:1,
-			  type: 1,
-			  title:'追加缩减预算',
-			  area: ['714px', '55%'],
-			  shadeClose: false, //点击遮罩关闭
 
-			  content: $('#layer_addreebox')
-		  });
 
-		  $('.cancel').on('click',function(){
-		  	$(this).closest('.layui-layer').find('.layui-layer-close').click()
-		  	$('.add_redd li').parent('.add_redd').slideUp();
-		  });
 
-		});	
-		//去审批弹出框
-		$('.close_iptn').on('click',function(){
-		  //弹出框
-		  layer.open({ 
-			  //anim:1,
-			  type: 1,
-			  title:'审批预算',
-			  area: ['714px', '55%'],
-			  shadeClose: false, //点击遮罩关闭
-			  content: $('#layer_approval')
-		  });
 
-		  // $('.cancel').on('click',function(){
-		  // 	$(this).closest('.layui-layer').find('.layui-layer-close').click()
-		  // });
+			//去审查按钮
+			// $('.close_iptn').on('click',function(){
+			// 	// $('.layui-layer-close').click();
+			// 	alert('暂无审查内容');
+			// });
+			//追加缩减弹出框
+			$('#Add_reed').on('click',function(){
+			  //弹出框
+			  layer.open({ 
+				  //anim:1,
+				  type: 1,
+				  title:'追加缩减预算',
+				  area: ['714px', '55%'],
+				  shadeClose: false, //点击遮罩关闭
+				  content: $('#layer_addreebox')
+			  });
 
-		});		
+			  $('.cancel').on('click',function(){
+			  	$(this).closest('.layui-layer').find('.layui-layer-close').click()
+			  	$('.add_redd li').parent('.add_redd').slideUp();
+			  });
+			  $.ajax({
+			  	type: "get",
+		        url:'http://membership.ipaloma.com/webapi/budget/purpose/audit/'+this_uuname+'/'+this_uuid+'/gotoappend',
+		        dataType: "json",
+		        beforeSend: function() { 
+		         	$('.loaded').show();
+		        },
+		        success:function(data){
+		        	console.log(data);
+		        	$('.loaded').hide();
+		        	var str='';
+		        	var str2='';
+		        	var adorreduce = data.content.list;
+		        	function keyg(keyy){
+						if(keyy=='distributor'){
+					 		keyy='分销商'
+					 	}else if(keyy=='retailer'){
+					 		keyy='门店'
+					 	}else if(keyy=='consumer'){
+					 		keyy='消费者'
+					 	}else if(keyy=='distributor_employee'){
+					 		keyy='分销商业务员'
+					 	}else if(keyy=='retailer_employee'){
+					 		keyy='门店店员'
+						 	}
+						return keyy;
+					}
+					var sum=0;
+					for(var i = 0; i < adorreduce.length; i++){
+			        	str+='<tr>'+
+			        			'<td width="26.83%">'+ keyg(adorreduce[i].benefitclass) +'</td>'+
+			        			'<td width="40.17%">'+ adorreduce[i].auditcount +'</td>'+
+			        			'<td style="position: relative" height="40px">'+
+			        				'<input type="text">'+
+			        				'<a class="addreebox_element" href="javascript:;">元</a>'+
+			        				'<span class="parten_box">'+
+			        					'<a class="fix_font" href="javascript:;">追加</a>'+
+			        					'<i class="triangle"><img src="images/3.png" alt=""></i>'+
+			        					'<i class="shu_xian"><img src="images/4.png" alt=""></i>'+
+			        				'</span>'+
+			        				'<ul class="add_redd">'+
+			        					'<li>追加</li>'+
+			        					'<li>缩减</li>'+
+			        				'</ul>'+
+			        			'</td>'+
+			        		  '</tr>'
+			            sum+=adorreduce[i].auditcount;
+					}
+					str2='<tr>'+
+							'<td>合计</td>'+
+							'<td>'+sum+'</td>'+
+							'<td><a class="addormunis" href="javascript:;">追加</a>:<span class="add_sum">'+'</span>'+'<a href="javascript:;">元</a></td>'+
+						 '</tr>'
+
+					$('.table3 tbody').html(str+str2);
+					//判断正负(追加或者缩减)
+					$(document).on('keyup','.table3 tbody tr td input',function(){
+						var _thisNum=Number($(this).val());
+						if(isNaN(_thisNum)){
+							_thisNum = 0;
+						}
+
+						var totalGr = 0;
+						$('.fontclorsgr').each(function(){
+							totalGr += Number($(this).val());
+						});
+
+						var totalRe = 0;
+						$('.fontclorsre').each(function(){
+							totalRe += Number($(this).val());
+						});
+						var buSum = totalGr-totalRe;
+						if(buSum>=0){
+							$('.addormunis').html('追加');
+							$('.adismusin').val('确定追加');
+							$('.add_sum').removeClass('fontclorsre').addClass('fontclorsgr');
+							buSum=buSum;
+						}
+						if(buSum<0){
+							$('.addormunis').html('缩减');
+							$('.adismusin').val('确定缩减')
+							$('.add_sum').removeClass('fontclorsgr').addClass('fontclorsre');
+							buSum=-(buSum);
+						}
+						$('.add_sum').html(buSum); //总值 
+					})
+
+
+		        },
+		        error:function(){
+		        	alert('追加/缩减预算请求失败');
+		        	$('#layui-layer3').hide();
+		        }
+			  })
+
+			});	
+			//确定追加/缩减
+			$(document).on('click','.adismusin',function(){
+				var a0=$('.table3 tbody tr');
+				var a1=a0.length-1;
+				var karay=[];
+				for(var y=0;y<a1;y++){
+					// console.log(a0.eq(y).find("td:first").html());//获取表格的所有的第一tr
+					// console.log(a0.eq(y).find("td:last input").val()); //获取表格所有最后一组tr
+					if(a0.eq(y).find("td:last input").hasClass('')){
+						
+					}
+					if(a0.eq(y).find("td:last input").hasClass('')){
+						karay.push(-(a0.eq(y).find("td:last input").val()));
+					}
+
+					karay.push(a0.eq(y).find("td:last input").val());
+					
+				}
+				console.log(karay)
+				var a2=$('.table2 tbody tr');
+				for(var adorreu=0;adorreu<a2.length-1;adorreu++){
+					a2.eq(adorreu).find("td:eq(2)").html(karay[adorreu]);
+				}
+				$(this).closest('.layui-layer').find('.layui-layer-close').click()
+				//求小表格追加/缩减的总和
+				var aorrusumbig=0;
+				for(var aorrusum=0;aorrusum<karay.length;aorrusum++){
+					aorrusumbig+=Number(karay[aorrusum])
+				}	
+				$('.table2 tbody tr:last td:eq(2)').html(aorrusumbig)
+			})
+			//确定追加或者缩减弹出框
+			// $(document).on('click','.adismusin',function(){
+			    //弹出框
+				/*layer.open({ 
+					//anim:1,
+					type: 1,
+					title:'审批预算',
+					area: ['714px', '55%'],
+					shadeClose: false, //点击遮罩关闭
+					content: $('#layer_approval')
+				});
+				$.ajax({
+					type: "get",
+			        url:'http://membership.ipaloma.com/webapi/budget/purpose/audit/'+this_uuname+'/'+this_uuid+'/gotoaudit',
+			        dataType: "json",
+			        beforeSend: function() { 
+			         	$('.loaded').show();
+			        },
+			        success:function(data){
+			        	// console.log(data);
+			        },
+			        error:function(){
+
+			        }
+				})*/
+			// 	var a0=$('.table3 tbody tr');
+			// 	var a1=a0.length-1;
+			// 	for(var i=0;i<a1.length;i++){
+			// 		console.log(a0.eq(i).find("td:first").html());//获取表格的所有的第一tr
+
+			// 	}
+			// })
+			//去审批弹出框
+			$('.close_iptn').on('click',function(){
+			  //弹出框
+			  layer.open({ 
+				  //anim:1,
+				  type: 1,
+				  title:'审批预算',
+				  area: ['714px', '55%'],
+				  shadeClose: false, //点击遮罩关闭
+				  content: $('#layer_approval')
+			  });
+			  $.ajax({
+					type: "get",
+			        url:'http://membership.ipaloma.com/webapi/budget/purpose/audit/'+this_uuname+'/'+this_uuid+'/gotoaudit',
+			        dataType: "json",
+			        beforeSend: function() { 
+			         	$('.loaded').show();
+			        },
+			        success:function(data){
+			        	console.log(data);
+			        	alert('审批获取了')
+			        	var str='';
+			        	var str2='';
+			        	var approval=data.content.list;
+			        	for(var i = 0; i < approval.length; i++){
+			        		str+='<tr>'+
+			        				'<td width="25%">'+approval[i].benefitclass+'</td>'+
+			        				'<td width="25%">'+approval[i].auditcount+'</td>'+
+			        				'<td width="25%">'+approval[i].append+'</td>'+
+			        				'<td width="25%" style="position: relative" height="40px">'+
+			        					'<a class="Additional_reduction" href="javascript:;">'+追加+'</a>'+
+			        					'<input type="text">'+
+			        					'<a class="approval_element" href="javascript:;">'+元+'</a>'+
+			        				'</td>'+
+			        			 '</tr>'
+			        	}
+			        	str2='<tr>'+
+								'<td>合计</td>'+
+								'<td>'+'</td>'+
+								'<td>'+'</td>'+
+								'<td>'+'</td>'+
+						 	 '</tr>'
+						$('.table4 tbody').html(str+str2);
+			        },
+			        error:function(){
+
+			        }
+			  })
+			  $('.Reject').on('click',function(){
+			  	$(this).closest('.layui-layer').find('.layui-layer-close').click()
+			  });
+
+			});	
+		});//详情按钮结束------------------
 		
 //预算编号模糊查询
  	// $.ajax({
@@ -785,6 +1059,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 	        complete: function() {}, //请求成功动作发生时 
 	        timeout: function() {},  //延时请求
 	        success: function(json) {//请求成功 JSON请求完成的数据
+	        	success(json);
 	            $('.loaded').hide();
 	        },
 	        error: function() {

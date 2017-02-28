@@ -67,7 +67,7 @@
 	/* 代码开始 */
 	.wrap{
 		width:96.3%;
-		min-width: 1180px;
+		min-width: 1200px;
 		
 		margin:0 auto;
 	}
@@ -654,7 +654,7 @@
 
 	}
 	.table1 tbody tr td{
-		padding:10px;
+		padding:9px 5px 9px 4px;
 		border-right: 1px solid #e4e4e4;
 		border-bottom: 1px solid #e4e4e4;
 	}
@@ -694,18 +694,18 @@
 
 
 	/* 滚动条样式 */
-	.table1::-webkit-scrollbar {
+	.tab_warp::-webkit-scrollbar {
 	    width: 10px;
 		height: 20px;
 	    background-color: #f1f1f1;
 	}
-	.table1::-webkit-scrollbar-thumb {
+	.tab_warp::-webkit-scrollbar-thumb {
 	    border-radius: 15px;
 	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	    background-color: #cacaca;
 
 	}
-	.table1::-webkit-scrollbar-track {
+	.tab_warp::-webkit-scrollbar-track {
 	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	    background-color: #F5F5F5;
 	}
@@ -884,7 +884,7 @@
 		width: 61px;
 		height: 21px;
 		position: absolute;
-		left: 35px;
+		left: 26px;
 		top: 14px;
 		cursor: pointer;
 	}
@@ -913,10 +913,10 @@
 	}
 	.add_redd{
 		position: absolute;
-		left: 34px;
+		left: 25px;
 	    top: 35px;
 	    border: 1px solid #ccc;
-	    width: 44px;
+	    width: 49px;
 	    display: none;
 	    background: #fff;
 	    z-index: 999;
@@ -1321,7 +1321,7 @@
 
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
- ::-webkit-scrollbar  
+ .tbale1 tbody::-webkit-scrollbar  
 {  
     width: 16px;  
     height: 16px;  
@@ -1329,7 +1329,7 @@
 }  
   
 /*定义滚动条轨道 内阴影+圆角*/  
- ::-webkit-scrollbar-track  
+ .tbale1 tbody ::-webkit-scrollbar-track  
 {  
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  
    /* border-radius: 10px;  */
@@ -1337,13 +1337,13 @@
 }  
   
 /*定义滑块 内阴影+圆角*/  
- ::-webkit-scrollbar-thumb  
+ .tbale1 tbody ::-webkit-scrollbar-thumb  
 {  
     border-radius: 10px;  
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
     background-color:#cacaca;  
 } 
-::-webkit-scrollbar-corner {  
+.tbale1 tbody ::-webkit-scrollbar-corner {  
   background: transparent;  
 }  
 
@@ -1351,4 +1351,12 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.fontclorsgr{
+	color: #27b56b !important;
+	font-weight: bold;
+}
+.fontclorsre{
+	color: red !important;
+	font-weight: bold;
 }
