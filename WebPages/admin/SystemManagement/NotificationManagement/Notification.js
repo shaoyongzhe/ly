@@ -16,6 +16,12 @@ $('table.notify,table.modulePeople').on('click', '.Hui-iconfont', function (e) {
     $(this).toggleClass('on');
     $(".Hui-iconfont").not(this).removeClass('on');
 });
+$('table.templateList').on('click', '.Hui-iconfont', function (e) {
+    e.stopPropagation();
+    // $(this).toggleClass('on').parents('tr').siblings().find('.Hui-iconfont').removeClass('on');
+    $(this).toggleClass('on');
+    $(".Hui-iconfont").not(this).removeClass('on');
+});
 
 $(document).click(function () {
     $('.Hui-iconfont').removeClass('on');
@@ -28,7 +34,7 @@ $(function () {
     getOptionsValue();
 });
 
-var pagesize = 20;
+var pagesize = 10;
 var pageindex = 1;
 var commonPaging = {
     "pagesize": pagesize,
@@ -50,26 +56,17 @@ function initPageData() {
 function getList(curr, handle, searchForm) {
 
     var isBottom = false;
-    // var 
-    // if (curr == undefined || curr == "") {
-    //     curr = 1;
-    // } else {
-    // debugger
-    // curr++;
-    // }
-
     var df = {};
     if (handle == 'search') {
         df = searchForm;
         initPageData();
-        $("table.notify tbody").empty();
-        // $("table.notify tbody").append(tr);
+        $("table.templateList tbody").empty();
 
     } else if (handle == 'page') {
         df = searchForm;
         df.paging = JSON.stringify(commonPaging);
     } else {
-        $("table.notify tbody").empty();
+        $("table.templateList tbody").empty();
         initPageData();
         df = searchForm;
     }
@@ -83,18 +80,38 @@ function getList(curr, handle, searchForm) {
         commonPaging.pageindex++;
         if (data.content.length == 0) {
             isBottom = true;
-            layer.msg('已全部加载完毕');
+            console.log("pageindex:" + commonPaging.pageindex);
+            $(".finished").fadeIn(500).delay(1000).fadeOut(500);
+            return;
+            //layer.msg('已全部加载完毕');
             return;
         }
 
         $(".totalcount").text(data.totalcount);
         // $("table.notify tbody").empty();
-        console.log(JSON.stringify(data, null, 4));
+        //console.log(JSON.stringify(data, null, 4));
         // alert(data.content.length)
         var isSet = "<span class='btn setDefault'>设为默认</span><span class='btn del' title='删除'>删除</span>",
         autoW = "210",//75
         tr = "",
         td = data.content;
+        var templateListThead = '';//表格Thead
+        var templateListTbody = '';//表格Tbody
+        templateListThead += '<tr>'
+       + '<th>使用场景</th>'
+       + '<th>事件</th>'
+       + '<th>发送途径</th>'
+       + '<th>组名</th>'
+       + '<th>区域</th>'
+       + '<th>描述</th>'
+       + '<th>外部模板编号</th>'
+       + '<th class="last">内容</th>'
+       + '<th>状态</th>'
+       + '<th>是否默认</th>'
+       + '<th>操作</th>'
+       + '</tr>';
+        $(".templateList thead").empty();
+        $(".templateList thead").append(templateListThead);
         for (var i = 0; i < td.length; i++) {
             var isHtml;
             var contentFormat = td[i].content;
@@ -111,84 +128,22 @@ function getList(curr, handle, searchForm) {
             } catch (e) {
                 content = "";
             }
-            // try{
-            //          content = JSON.parse(contentFormat);
-            //      }catch(e){
-            //          content= contentFormat;
-            //      }
-            tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span>" + td[i].category
+            tr += "<tr class='text-c'><td><input type='hidden' class='guid' value=" + td[i].guid + "><span class='content templatecontent'>" + td[i].category
             + "</span></td><td>" + td[i].subcategory
             + "</td><td>" + td[i].channel
             + "</td><td>" + td[i].groupname
             + "</td><td>" + td[i].area
             + "</td><td>" + td[i].description
             + "</td><td class='templateid'>" + td[i].gateway_templateid
-            + "</td><td title='" + content + "'><span class='content'>" + content
+            + "</td><td title='" + content + "'><span class='content templatecontent'>" + content
             + "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
             + "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
             + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
         }
-        // $('.loading').show()
-        // setTimeout(function() {
-        $("table.notify tbody").append(tr);
-        // $('.loading').appendTo('tbody');
-        // $(tr).appendTo($("table.notify tbody")).show(600);
-        // })
-        // $('.loading').hide()
-        /*$(tr).appendTo($("table.notify tbody"));
-        // alert($(tr).length);
-        var len = $(tr).length;
-        var index = 0;
-        var interval = setInterval(next, 100);
-
-        function next() {
-            $('.notify tbody tr').eq(index).show(300);
-            index++;
-            if(index > len){
-                clearInterval(interval);
-                console.log(interval);
-                // return;
-                $('.pager-wrap').fadeIn(1000);
-            }
-        }*/
-
+        $(".templateList tbody").append(tr);
         $('td span.content').each(function () {
             $(this).text($(this).html())
         });
-
-        // 显示分页
-        // laypage({
-        //     cont: 'pager',
-        //     pages: data.pagecount,
-        //     curr: curr || 1,
-        //     skip: true,
-        //     jump: function (obj, first) {
-
-        //         if (!first) {
-
-        //             layer.msg('第' + obj.curr + '页加载中...');
-        //             if (handle == 'search') {
-        //                 getList(obj.curr, 'search', getSearchForm());
-        //                 return;
-        //             }
-        //             // alert($(tr).length);
-        //             var len = $('.notify tbody tr').length + 1;
-        //             var index = len;
-        //             var interval = setInterval(prev, 100);
-        //             layer.msg('正在查询...');
-        //             function prev() {
-        //                 $('.notify tbody tr').eq(index).hide(600);
-        //                 index--;
-        //             }
-        //             getList(obj.curr, 'page');
-        //             /*if(handle=='open'){
-        //                 layer.msg('正在查询...',{time:0});
-        //                 getList(obj.curr, 'search');
-        //             }*/
-        //         }
-        //     }
-        // });
-
         if (handle) {
             $('.layui-layer-close').click();
             if (handle == 'add') {
@@ -230,22 +185,25 @@ $('#refresh').click(function () {
 function getModulePeopleList(curr, handle, searchForm) {
     var url = '/webapi/operation/' + "notification" + '/managers';
     _ajax("get", url, {}, '刷新列表', function (data) {
-        //if (data.error) {
-        //    layer.msg('查询出错，出错原因：' + data.error);
-        //    return;
-        //}
+
         $("table.modulePeople tbody").empty();
         var isSet = "";
         var autoW = "75";//75
+        var modulePeopleThead = '';//表格Thead
+        modulePeopleThead += '<tr>'
+       + '<th>负责模块</th>'
+       + '<th>联系人信息</th>'
+       + '<th>操作</th>'
+       + '</tr>';
+        $(".modulePeople thead").empty();
+        $(".modulePeople thead").append(modulePeopleThead);
         var contentFormat = JSON.stringify(data, null, 4);
+
         var tr = "<tr class='text-c'><td><input type='hidden' class='guid' value'notification'>" + "通知"
-             + "</td><td>" + contentFormat
-             + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+             + "</td><td ><span class='content templatecontent'>" + contentFormat
+             + " </span></td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
 
         $("table.modulePeople tbody").append(tr);
-        //$('td span.content').each(function () {
-        //    $(this).text($(this).html())
-        //});
         if (handle) {
             $('.layui-layer-close').click();
             if (handle == 'update') {
@@ -271,13 +229,11 @@ $(".search-btn").click(function () {
 /*
  * 分页  下拉刷新
  */
-
-$(".notify tbody").scroll(function () {
-    if ($(this).scrollTop() >= ($(this).prop("scrollHeight") - 500) && $(this).prop("scrollHeight") > 500) {
-        // var curr=1;
-        //alert('page');
+var count = 0;
+$(".templateList tbody").scroll(function () {
+    if ($(".templateList tbody").scrollTop() >= ($(".templateList tbody").prop("scrollHeight") - 500) && $(".templateList tbody").prop("scrollHeight") > 500) {
+        //console.log($(".templateList tbody").scrollTop()+'-'+$(".templateList tbody").prop("scrollHeight")+'-'+$(".templateList tbody").prop("scrollHeight")+'-'+count++);
         getList(null, 'page', getSearchForm());
-        // console.log(condition)
     }
 });
 
@@ -528,7 +484,7 @@ $(".setDefaultGroup").click(function () {
     });
 });
 
-$('table.notify')
+$('table.templateList')
                  .on('click', 'span.del', function () {
                      var thisTr = $(this).parents("tr");
                      var guid = thisTr.find('.guid').val();
@@ -538,14 +494,6 @@ $('table.notify')
                          layer.msg('正在删除...', { time: 0 });
                          _ajax("DELETE", "/webapi/operation/notification/template/" + guid, null, '删除', function () {
                              var cur = $('.laypage_curr').text();
-                             if (cur) {
-                                 if ($('table.notify tbody tr').length == 1) {
-                                     cur -= 1;
-                                     if (cur <= 0) {
-                                         cur = 1;
-                                     }
-                                 }
-                             }
                              initPageData();
                              getList(null, 'del', getSearchForm());
                          });
@@ -620,24 +568,6 @@ $('table.modulePeople')
                         });
                     });// 单行修改 弹出插件本身
 
-// 批量删除
-/*$('.batchDel').click(function(){
-
-    if($('tbody :checked').length == 0){
-        layer.msg('请先选择要删除的通知！');
-        return;
-    }
-
-    layer.confirm('确认要删除本页所有未启用的通知吗？',function(index){
-        // $("tbody :checked").parents('tr').find('td.posted').parents('tr').find(':checked').prop('checked',false);
-        $("tbody :checked").parents('tr').find('td:contains(已启用)').parents('tr').find(':checked').prop('checked',false);
-        $("tbody :checked").not('thead :checked').parents('tr').hide();
-        // $(_this).parents("tr").remove();
-        layer.msg('已删除本页所有未启用的通知');
-    });
-
-});*/
-
 $("#refresh").click(function () {
     getList(null, 'refresh', getSearchForm());
 });
@@ -651,27 +581,7 @@ $('table').on('click', '.open', function () {
     // state.text("已启用");return
     _ajax('PUT', '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
         if (data.error == "") {
-            /*state.text("已启用");
-            state.parents("tr").find('.handle-btns-wrap').innerWidth(75).html("<div class='handle-btns'><span class='arrow-right'></span><span class='btn modify'>修改</span></div>");
-            var tmpId = thisTr.find('.templateid').text();
-            // $('.text-c.m').find('td:contains('+ a +')').parents('tr').find('.state');
-            state.parents("tr").find('td:contains('+ tmpId +')').parents('tr').find('.state').text('未启用');
-            state.parents("tr").siblings().find('.handle-btns-wrap').innerWidth(183).empty().html("<div class='handle-btns'><span class='btn open'>启用</span><span class='btn del' title='删除''>删除</span><span class='arrow-right'></span><span class='btn modify'>修改</span></div>");
-            layer.msg('已开启为当前使用模板');*/
             var cur = $('.laypage_curr').text();
-            /*if(cur){
-
-                if($('table.notify tbody tr').length == 1){
-                    cur -= 1;
-                    if(cur <= 0){
-                        cur = 1;
-                    }
-                }
-            } else {
-                layer.msg("已开启为当前使用模板");
-                return;
-            }*/
-            // getList(cur, 'search', getSearchForm());
             getList(cur, 'search', getSearchForm());
         }
     });
@@ -684,10 +594,8 @@ var _ajax = function (type, url, data, tip, success) {
         dataType: "json",
         data: data,
         beforeSend: function () {
-            // $('.pager-wrap').fadeOut(1000);
-            // $('.loading').style='display:block';
             $('.loading').show();
-
+            $(".loaded").fadeIn();
         },
         complete: function () { },
         timeout: function () { },
@@ -701,7 +609,7 @@ var _ajax = function (type, url, data, tip, success) {
 
         },
         error: function (ex) {
-            console.warn(tip + " error,errMsg is " + ex);
+            console.warn(tip + " error,errMsg is ", ex);
         }
     });
 }
