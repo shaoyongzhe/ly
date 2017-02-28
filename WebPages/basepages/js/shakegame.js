@@ -69,6 +69,7 @@ var vm = new Vue({
             });
         },
         againClick: function () {//再摇一次
+            $('.red-tc').css('display', 'none');
             vm.IsShake = false;
             vm.winMoney = 0;
             vm.shakeStatus = 0;
