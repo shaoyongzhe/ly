@@ -74,7 +74,6 @@ var vm = avalon.define({
     },
     jsondataReadered: function (e) {
         qrcode.href()
-        console.log(tmdropme);
         if (tmdropme != null)
             tmdropme.resetload();
     },
@@ -182,7 +181,7 @@ function loaddata(longitude, latitude, dropme) {
                 }
                 qrcode.show()
                 setTimeout(function () {
-                    
+
                     $('#list').dropload({
                         scrollArea: window,
                         domDown: {
