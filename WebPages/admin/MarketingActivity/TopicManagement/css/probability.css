@@ -6,9 +6,10 @@
 }
 
 .setProbability .Platform_activity span{
+	float: left;
 	height: 68px;
 	line-height: 68px;
-	float: left;
+	margin-left: 40px;
 }
 
 .setProbability .select-wrap{

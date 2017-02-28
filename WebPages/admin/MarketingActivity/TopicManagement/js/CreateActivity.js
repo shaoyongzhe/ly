@@ -22,7 +22,6 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 	
 });
 
-
 function previewImage(file) {
   	
   	var form = new FormData($('form')[0]);
@@ -152,7 +151,7 @@ $('body').on("click",".setRules",function(e){
 
 		type: 1,
 		title: "设置规则-单个<i class='rules-title'>" + butieduixiang + "</i>",
-		area: ['66%',"50%"],
+		area: ['850px',"460px"],
 		maxmin: true,
 		content: $('.layer.set-rules')
 
@@ -250,7 +249,7 @@ $('body').on("click",".setRules",function(e){
 
 	// debugger;
 	// $('.butie-inner-item .sum').text("");
-	$('.butie-inner-item .sum').text($(this).closest('.addSub4').find('.hdc6-1 p').text());
+	$('.butie-inner-item .sum').text($(this).closest('.addSub4').find('.hdc6.fz .acSe14.ba.btfz p').text());
 
 });
 
@@ -462,6 +461,10 @@ $('body').on("click",".set",function(e){
 // 设置摇一摇 确定按钮
 $('.yaook').click(function(){
 
+	if($(this).hasClass('disabled')){
+		return;
+	}
+
 	var isProEmpty = true;
 	$('.yaoWrap .Yyy3 input').each(function(){
 
@@ -477,7 +480,7 @@ $('.yaook').click(function(){
 
 	});
 
-	if($(this).hasClass('disabled') || isProEmpty == false){
+	if(isProEmpty == false){
 		return;
 	}
 
@@ -602,16 +605,15 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	}
 
-
 	$('.setProbability .yaoyiyaogailv').remove();
 
 	layer.open({
 
 		type: 1,
 		title: '设置概率',
-		area: ['1320px',"55%"],
+		area: ['1000px',"60%"],
 		maxmin: true,
-		content: $('.layer.setProbability'),
+		content: $('.layer.setProbability')
 
 	});
 
@@ -984,7 +986,7 @@ $('body').on('input','input',function(e){
 	}
 
 	if($(this).closest('.dianhua').length == 1){return;}
-	if($(this).closest('.butie-inner-item.money').length == 1 || 
+	if($(this).closest('.butie-inner-item:contains(元)').length == 1 || 
 	   $(this).closest('.input_a').length == 1 ||
 	   $(this).closest('.hdc4d1').length == 1 || 
 	   $(this).closest('.Yyy2d1').length == 1 ||
@@ -1147,7 +1149,7 @@ $('.btn.edit').click(function(){
 
 		type: 1,
 		title: "编辑"+ _this.parent().find('.heading-title').text() +"宣传资料",
-		area: ['1110px',"80%"],
+		area: ['1000px',"auto"],
 		maxmin: true,
 		content: edit,
 
@@ -1584,7 +1586,8 @@ $("body").on("click","li.option",function(e){
 				$(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
-				// $(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
+				$(this).parents(".addSub4").find(".btfz p").text('元');//.addClass('vihi');
+				$(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
 				// shenbaoyusuanInput.addClass('vihi');
 				return;
 			}
@@ -1746,6 +1749,7 @@ $('.butieSec').on('blur','.acSe13 input',function(){
 
 		layer.msg('请重新设置摇一摇概率');
 		$('.yaoyiyao .Yyy3 input').val("0");
+		$('.yaoyiyao .Yyy3 input').first().blur().focus();
 		$('.yaoyiyao .Yyy4 input').val("0");
 		$('.yaoyiyao .Yyy5 input').val("0");
 		$('.layer.yao .cash').text("0");
@@ -2642,7 +2646,6 @@ $('.saveToDb, .shenhe').click(function(){
 	    // if(max == undefined){
 	    // 	delete item['max'];
 	    // }
-
 	    acArr.push(item);
 	}
 
@@ -2820,8 +2823,8 @@ function _ajax(type, url, data, tip, success) {
         url: url,
         dataType: "json",
         data: data,
-        complete: function () {},
-        timeout: function () {},
+        complete: function () { },
+        timeout: function () { },
         success: function (json) {
             success(json);
         },
