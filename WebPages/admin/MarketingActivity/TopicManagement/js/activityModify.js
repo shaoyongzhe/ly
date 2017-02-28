@@ -1,4 +1,5 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
+var statisticArr=[];
 function GetUrlParam() {
     
     var url = location.search; 
@@ -762,6 +763,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '</div>'
 	        +       '</div>';
 	for(i=0;i<activityManger_addSub4Data.length;i++){
+		subsidyConditionArr.push(activityManger_addSub4Data[i].event);
+		statisticArr.push(activityManger_addSub4Data[i].statistic);//如果有statistic就插入，没有就插入undefined
 	    $('.addSub4:last').before(activityManger_addSub4Html);
 	       // $('.subsidyCondition a.btCond').hide()
 		/*临时数据*/	 
@@ -791,7 +794,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            break;
 	
 	        case "distributor_employee":
-	            btduixiang = '分销商业务员';
+	            btduixiang = '分销商人员';
 	            break;
 	
 	        case "retailer":
@@ -906,7 +909,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang)
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
-	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
+//	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
 //		debugger
 	    /*debugger
         $('nav span:eq(2)').click();
