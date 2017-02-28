@@ -457,9 +457,10 @@ $('.yaook').click(function(){
 	var y1yObj = {};
 	if($('.addSub5 .selected:eq(0)').text() != ""){
 
-		var yaoyiyao = $(this).parent().find('.yaoWrap .addSub5');
+		var addSub5 = $(this).parent().find('.yaoWrap .addSub5');
 		var fengzhi = 0;
-		$(yaoyiyao).each(function(){
+		var yao_yuan = 0;
+		$(addSub5).each(function(){
 			var _this = $(this);
 			try { var yaoyiyaogailv = JSON.parse(_this.find('.Yyy6 input').val()) } catch(e) {}
 
@@ -485,11 +486,13 @@ $('.yaook').click(function(){
 			}
 
 			y1yArr.push(y1yObj);
-			fengzhi += Math.round(_this.find('.fz input').val());
+			fengzhi += Number(_this.find('.fz input').val());
+			yao_yuan += Number(_this.find('.Yyy5-1 input').val());
 
 		});
 
-		$('.addSub4').eq(y1yindex-1).find('.btfz input[disabled]').val(fengzhi);
+		$('.addSub4').eq(y1yindex-1).find('.hdc6-1:eq(1) input').val(yao_yuan);
+		$('.addSub4').eq(y1yindex-1).find('.btfz input[disabled]').val(fengzhi).keyup();
 		$(".y1yHidden" + y1yindex).val(JSON.stringify(y1yArr, null, 4));
 		layer.msg('摇一摇数据已保存');
 
@@ -717,8 +720,8 @@ $('.gailvok').click(function(){
 	
 
 var time = new Date();
-var tomorrow = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + (time.getDate() + 1);
-// var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
+// var tomorrow = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + (time.getDate() + 1);
+var tomorrow = new Date((new Date() * 1) + (86400000 * 1)).toLocaleDateString().replace(/\//g, '-');
 $('.begintime').val(tomorrow + " 00:00:00");
 $('.endtime').val(tomorrow + " 23:59:59");
 $('.earliestjointime').val(tomorrow + " 00:00:00");
@@ -1700,8 +1703,8 @@ $("body").on("click","li.option",function(e){
 var focusVal = "";
 $('.butieSec').on('focus','.acSe13 input',function(){
 	focusVal = $(this).val();
-});
-$('.butieSec').on('blur','.acSe13 input',function(){
+
+}).on('blur','.acSe13 input',function(){
 
 
 	var _this = $(this);
@@ -1760,13 +1763,13 @@ $('.butieSec').on('blur','.acSe13 input',function(){
 
 }).on('keyup','.sbys',function(){
 
-	// if(){
+	if($(this).closest('.addSub4').find('.selected[showtype=compose]').text() == "摇一摇"){
 		if(Number($(this).val()) > Number($(this).closest('.addSub4').find('.acSe13 input').val())){
 			layer.tips('申报预算 不可以大于 发放上限次数', $(this));
 			this.value = 0;
 			return;
 		}
-	// }
+	}
 
 	var ysCount = 0;
 	$('.hdc6-1:contains(元) input').each(function(){
@@ -1774,7 +1777,9 @@ $('.butieSec').on('blur','.acSe13 input',function(){
 		ysCount += Number($(this).val());
 	});
 
-	
+	if($(this).closest('.addSub4').find('.hdc6-1 input:eq(1)').length == 1){ // 加上摇一摇的
+		ysCount += Number($(this).closest('.addSub4').find('.hdc6-1 input:eq(1)').val());
+	}
 
 	$('.sec.rule .hdsbys_text.yuan').text(ysCount.toFixed(2));
 
@@ -1892,10 +1897,12 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 	var shenbaoys = Number($('.addSub4').eq(y1yindex-1).find('.hdc6-1 input.sbys').val());
 	
 	var m = 0;
-	if($(this).closest('.addSub5').find('input.max').css('display') == 'inline-block'){
-		m = $(this).closest('.addSub5').find('input.max').val();
+	var min = $(this).closest('.addSub5').find('input.min');
+	var max = $(this).closest('.addSub5').find('input.max');
+	if(max.css('display') == 'inline-block'){
+		m = max.val();
 	} else {
-		m = $(this).closest('.addSub5').find('input.min').val();
+		m = min.val();
 	}
 
 	$(this).closest('.addSub5').find('.Yyy5-1 input').val(shenbaoys * (y1ygailvInput / 100) * m);
