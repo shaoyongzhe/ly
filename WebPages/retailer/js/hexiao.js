@@ -13,12 +13,21 @@ function writeOff(callback) {
                 $(".upp img").click(function () {
                     $("#list").hide();
                     $(".f-list").show()
-                })
+                });
                 $(".f-list").click(function () {
                     $("#list").show();
                     $(".f-list").hide()
                 })
-            } else {
+            }else if(data.penaltytype=="警告"){
+            	  durentime(data);
+            	  $(".time-down").css({display:"none"});
+            	  $(".punish").css({display:"none"});
+            	  var _tt=setTimeout(function(){
+		        		clearTimeout(_tt);
+		        		vm.scanwx();
+		        	},4000)
+            }
+            else {
                 callback();
             }
         },
@@ -30,52 +39,65 @@ function writeOff(callback) {
 
     }
     function cooldown(data) {//违规倒计时
-        var start = data.endtime;
-        var _years = start.split("-")[0];
-        var _months = start.split("-")[1].split("-")[0];
-        var _days = start.split("-")[2].split(" ")[0];
-        var _d = new Date();
-        _endTm = (new Date(data.endtime)).getTime();
-        var _newTm;
-        var _Day;
-        var _durnt;
-        var _Hour;
-        var _Minus;
-        var _Seconds;
-        var _timer = setInterval(function () {
-            _d = new Date();
-            _newTm = _d.getTime();
-            _Day = Math.floor((_endTm - _newTm) / 1000 / 60 / 60 / 24);
-            _durnt = (_endTm - _newTm) - _Day * 24 * 60 * 60 * 1000;
-            _Hour = Math.floor(_durnt / 1000 / 60 / 60);
-            _durnt = _durnt - _Hour * 1000 * 60 * 60
-            _Minus = Math.floor(_durnt / 1000 / 60);
-            _durnt = _durnt - _Minus * 1000 * 60;
-            _Seconds = Math.floor(_durnt / 1000);
-            if (_Hour < 10) {
-                $(".sp1").text("0" + _Hour);
-            } else {
-                $(".sp1").text(_Hour);
-            }
-            if (_Minus < 10) {
-                $(".sp2").text("0" + _Minus);
-            } else {
-                $(".sp2").text(_Minus);
-            }
-            if (_Seconds < 10) {
-                $(".sp3").text("0" + _Seconds);
-            } else {
-                $(".sp3").text(_Seconds);
-            }
-            $(".sp4").text(_Day + "天 ")
-            if (_endTm - _newTm <= 0) {
-                $(".time-down p").text("处罚已结束");
-                $(".sp1").text("00");
-                $(".sp2").text("00");
-                $(".sp3").text("00");
-                clearInterval(_timer)
-            }
-        }, 1000)
+        if(data.endtime && data.endtime!=""){        
+        	var start = data.endtime;
+        	var _years = start.split("-")[0];
+       		var _months = start.split("-")[1].split("-")[0];
+       		var _days = start.split("-")[2].split(" ")[0];
+        	var _d = new Date();
+        	var _newTm;
+        	var _Day;
+        	var _durnt;
+        	var _Hour;
+        	var _Minus;
+        	var _Seconds;
+        	_endTm = (new Date(data.endtime)).getTime();
+	        var _timer = setInterval(function () { 
+	        	 _d = new Date();
+            	_newTm = _d.getTime();
+	        	if (_endTm - _newTm <= 0) {
+	                $(".time-down p").text("处罚已结束");
+	                $(".sp1").text("00");
+	                $(".sp2").text("00");
+	                $(".sp3").text("00");
+	                clearInterval(_timer)
+	                $("#list").hide();
+                    $(".f-list").show()
+	                vm.scanwx()
+	           }else{
+		            _Day = Math.floor((_endTm - _newTm) / 1000 / 60 / 60 / 24);
+		            _durnt = (_endTm - _newTm) - _Day * 24 * 60 * 60 * 1000;
+		            _Hour = Math.floor(_durnt / 1000 / 60 / 60);
+		            _durnt = _durnt - _Hour * 1000 * 60 * 60;
+		            _Minus = Math.floor(_durnt / 1000 / 60);
+		            _durnt = _durnt - _Minus * 1000 * 60;
+		            _Seconds = Math.floor(_durnt / 1000);
+		            if (_Hour < 10) {
+		                $(".sp1").text("0" + _Hour);
+		            } else {
+		                $(".sp1").text(_Hour);
+		            }
+		            if (_Minus < 10) {
+		                $(".sp2").text("0" + _Minus);
+		            } else {
+		                $(".sp2").text(_Minus);
+		            }
+		            if (_Seconds < 10) {
+		                $(".sp3").text("0" + _Seconds);
+		            } else {
+		                $(".sp3").text(_Seconds);
+		            }
+		            $(".sp4").text(_Day + "天 ");
+	            }
+	           
+	        }, 1000)        	
+        }else{
+        	var _tt=setTimeout(function(){
+        		clearTimeout(_tt);
+        		vm.scanwx();
+        	},4000)
+        }
+
 
     }
     function durentime(data) {//违规处罚时间
@@ -83,16 +105,16 @@ function writeOff(callback) {
             $(".stop").text("警告通知");
             $(".change").attr("src", "../image/punish1.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv2") {
-            $(".stop").html("暂停核销<span> 1天<span>")
+            $(".stop").html("暂停核销<span> 1天<span>");
             $(".change").attr("src", "../image/punish2.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv3") {
-            $(".stop").html("暂停核销<span> 7天<span>")
+            $(".stop").html("暂停核销<span> 7天<span>");
             $(".change").attr("src", "../image/punish3.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv4") {
-            $(".stop").html("暂停核销<span> 30天<span>")
+            $(".stop").html("暂停核销<span> 30天<span>");
             $(".change").attr("src", "../image/punish4.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv5") {
-            $(".stop").html("暂停核销<span> 1年<span>")
+            $(".stop").html("暂停核销<span> 1年<span>");
             $(".change").attr("src", "../image/punish5.jpg")
         }
     }
