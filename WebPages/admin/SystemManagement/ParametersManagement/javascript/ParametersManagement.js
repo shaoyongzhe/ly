@@ -354,7 +354,7 @@ function ajaxEffectconfig(guidEffect){
 //			$('.imgcontent').empty();			
 		},
 		error:function(){
-			console.log('访问失败')
+			// console.log('访问失败')
 		}
 	});			
 }
