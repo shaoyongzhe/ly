@@ -21,13 +21,16 @@
         var initS=parseInt(nowdate.getYear());
         var yearScroll=null,monthScroll=null,dayScroll=null;
         var HourScroll=null,MinuteScroll=null,SecondScroll=null;
+        var _y=0;
+        var _m=0;
+        var _d=0;
         $.fn.date.defaultOptions = {
             beginyear:nowdate.getFullYear(),                 //日期--年--份开始
             endyear:nowdate.getFullYear()+50,                   //日期--年--份结束
-            beginmonth:1,                   //日期--月--份结束
+            beginmonth:nowdate.getMonth()+1,                   //日期--月--份结束
             endmonth:12,                    //日期--月--份结束
-            beginday:1,                     //日期--日--份结束
-            endday:31,                      //日期--日--份结束
+            beginday:nowdate.getDate()+1,                     //日期--日--份结束
+            endday:(new Date(new Date(nowdate.getFullYear(),nowdate.getMonth()+1,1).getTime()-1000*60*60*24)).getDate() ,                     //日期--日--份结束
             beginhour:1,
             endhour:12,
             beginminute:00,
@@ -65,22 +68,11 @@
             dayScroll.refresh();
 
             resetInitDete();
-            	yearScroll.scrollTo(0, initY*41, 100, true);
-            	monthScroll.scrollTo(0, initM*41-41, 100, true);
-            	dayScroll.scrollTo(0, initD*41-41, 100, true); 
+            	yearScroll.scrollTo(0, initY*40, 100, false);
+            	monthScroll.scrollTo(0, initM*40-40, 100, false);
+            	dayScroll.scrollTo(0, initD*40-40, 1, false); 
         }
-        function refreshTime(){
-            HourScroll.refresh();
-            MinuteScroll.refresh();
-            SecondScroll.refresh();
-            if(initH>12){    //判断当前时间是上午还是下午
-                 SecondScroll.scrollTo(0, initD*40-40, 100, true);   //显示“下午”
-                 initH=initH-12-1;
-            }
-            HourScroll.scrollTo(0, initH*40, 100, true);
-            MinuteScroll.scrollTo(0, initI*40, 100, true);   
-            initH=parseInt(nowdate.getHours());
-        }
+
 	function resetIndex(){
             indexY=1;
             indexM=1;
@@ -92,6 +84,7 @@
             initY = parseInt(that.val().substr(0,4))-opts.beginyear;
             initM = parseInt(that.val().substr(5,2));
             initD = parseInt(that.val().substr(8,2));
+            console.log(initD)
         }
         function bindButton(){
             resetIndex();
@@ -136,16 +129,28 @@
             var strM = $("#monthwrapper ul li:eq("+indexM+")").html().substr(0,$("#monthwrapper ul li:eq("+indexM+")").html().length-1)
               yearScroll = new iScroll("yearwrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function () {
-                       indexY = Math.floor((this.y/41)*(-1))+1;
+                       indexY = Math.floor((this.y/40)*(-1))+1;
+                       strY = $("#yearwrapper ul li:eq("+indexY+")").html().substr(0,$("#yearwrapper ul li:eq("+indexY+")").html().length-1);
+                       strM = $("#monthwrapper ul li:eq("+indexM+")").html().substr(0,$("#monthwrapper ul li:eq("+indexM+")").html().length-1)
                        opts.endday = checkdays(strY,strM);
+                       if(_y==1){
+                       		opts.beginmonth = 1
+                       }
+                       _y=1;
                           $("#daywrapper ul").html(createDAY_UL());
                            dayScroll.refresh();
                   }});
               monthScroll = new iScroll("monthwrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function (){
-                      indexM = Math.floor((this.y/41)*(-1))+1;
-                      console.log(indexM)
+                      indexM = Math.floor((this.y/40)*(-1))+1;
+                      strY = $("#yearwrapper ul li:eq("+indexY+")").html().substr(0,$("#yearwrapper ul li:eq("+indexY+")").html().length-1);
+                      strM = $("#monthwrapper ul li:eq("+indexM+")").html().substr(0,$("#monthwrapper ul li:eq("+indexM+")").html().length-1)
                       opts.endday = checkdays(strY,strM);
+                       if(_m==1){
+                       		opts.beginday = 1
+                       }
+                       _m=1;
+                      console.log(opts.endday)
                           $("#daywrapper ul").html(createDAY_UL());
                            dayScroll.refresh();
                   }});
@@ -167,17 +172,17 @@
         function init_iScroll_datetime(){
             HourScroll = new iScroll("Hourwrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexH = Math.round((this.y/41)*(-1))+1;
+                    indexH = Math.round((this.y/40)*(-1))+1;
                     HourScroll.refresh();
             }})
             MinuteScroll = new iScroll("Minutewrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexI = Math.round((this.y/41)*(-1))+1;
+                    indexI = Math.round((this.y/40)*(-1))+1;
                     HourScroll.refresh();
             }})
             SecondScroll = new iScroll("Secondwrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexS = Math.round((this.y/41)*(-1));
+                    indexS = Math.round((this.y/40)*(-1));
                     HourScroll.refresh();
             }})
         } 

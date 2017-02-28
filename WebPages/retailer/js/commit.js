@@ -95,7 +95,7 @@ $(document).ready(function () {
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                                 ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
-                                "><div>" + _ltr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div></li>"
+                                "><div>" + _ltr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div>"+_remark+"</li>"
                             } else if (_data[i]["itemkind"] == "降价") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
@@ -137,7 +137,7 @@ $(document).ready(function () {
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemslist"][_data[i]["selectedindex"]]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                                 ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
                                 "><div>" + _ltr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><span class=" + "\"pi\"" + ">￥" + _data[i]["itemslist"][_data[i]["selectedindex"]]["price"].toFixed(2) + "<span style=" + "\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\"" +
-                                    ">预</span></span><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div></li>"
+                                    ">预</span></span><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
                             } else if (_data[i]["itemkind"] == "降价") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
@@ -180,7 +180,7 @@ $(document).ready(function () {
                             _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                             ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><span class=" + "\"pi\"" + ">￥" + _data[i]["itemunitcost"].toFixed(2) + "<span style=" + "\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\"" +
-                                    ">预</span></span><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div></li>"
+                                    ">预</span></span><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
                         } else if (_data[i]["itemkind"] == "降价") {
                             _zz += Number(_data[i]["itemcount"])
                             _price += _data[i]["price"] * _data[i]["itemcount"];

@@ -502,7 +502,7 @@
 				console.log(data1[_ind]["salecount"])
 				if(data1[_ind]["salecount"]){
 					if(Number($(this).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
-						_ges-=1;
+						_cun-=1;
 						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 						that=$(this).parent().find(".amount").text()
 						$.ajax({
@@ -525,13 +525,17 @@
 								if(data.result==true){
 									console.log(data);
 									$(tht).parent().parent().parent().parent().parent().find(".yuj").text(Math.floor(Number($(tht).prev().text())/Number(data1[_ind]["salecount"]))*Number(data1[_ind]["giftcount"]));
+									_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
 									if($(tht).parent().parent().parent().prev().attr("flag")==1){
 										_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
 										$(".amountBig span").text(_price.toFixed(1))
 									}
-									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" && $(tht).parent().parent().parent().prev().attr("flag")==1){
-										_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价"){
+										_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+										if($(tht).parent().parent().parent().prev().attr("flag")==1){
+											_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+											$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+										}									
 									}
 									fg();
 									zz()
@@ -549,7 +553,7 @@
 					if($(this).parent().find(".amount").text()>1){
 						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 						that=$(this).parent().find(".amount").text()
-						_ges-=1;
+						_cun-=1;
 						$.ajax({
 							type:"post",
 							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
@@ -568,13 +572,17 @@
 							error:function(){},
 							success:function(data){
 								console.log(data);
+								_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
 								if($(tht).parent().parent().parent().prev().attr("flag")==1){
 									_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
 									$(".amountBig span").text(_price.toFixed(1))
 								}
-								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" && $(tht).parent().parent().parent().prev().attr("flag")==1){
-									_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-									$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价"){
+									_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+									if($(tht).parent().parent().parent().prev().attr("flag")==1){
+										_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+									}									
 								}
 								fg()
 								zz()
@@ -601,7 +609,9 @@
 					
 				}else{
 					$(this).parent().find(".amount").text(parseInt($(this).parent().find(".amount").text())+1)
-					_ges+=1;
+					console.log(_ges)
+					_cun+=1;
+					console.log(_ges)
 					var that=$(this).parent().find(".amount").text();
 					$.ajax({
 						type:"post",
@@ -625,18 +635,21 @@
 								console.log(data);
 								console.log(_price)
 								console.log($(th).parent().parent().parent().prev().attr("flag"))
+								_pp+=Number($(th).parent().parent().find(".pp1").text().replace("￥",""));
 								if($(th).parent().parent().parent().prev().attr("flag")==1){
 									_price+=Number($(th).parent().parent().find(".pp1").text().replace("￥",""))
 									$(".amountBig span").text(_price.toFixed(1))
 								}
 								console.log($(th).parent().parent().parent().parent().next().find("span:nth-child(1)"))
-								if($(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" && $(th).parent().parent().parent().prev().attr("flag")==1){
-									_discount+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
-									$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+								if($(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价"){
+									_dis+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
+									if($(th).parent().parent().parent().prev().attr("flag")==1){
+										_discount+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
+										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+									}									
 								}
 								fg()
 								zz()
-								$(".commit span").text("("+_ges+")")
 								$(".summ").text(_ges)
 								if(data1[_ind]["salecount"]){
 									if(Number($(th).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
