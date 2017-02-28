@@ -150,20 +150,23 @@ $(function(){
 						str_small+=getmoneys[p]
 					}
 				
-					function formatCash1( cash ){
-						var str_cash = cash + "";
-						var ret_cash = "";
-						var counter = 0;
-						for(var i=str_cash.length-1;i>=0;i--){
-							ret_cash = str_cash.charAt(i) + ret_cash;
-							counter++;
-							if(counter==3){
-								counter = 0;
-							if(i!=0)
-								ret_cash = "," + ret_cash;
-							}
-						}
-						return ret_cash;
+					function formatCash1(num) {
+					    var result = '', counter = 0;
+					    var num = (num || 0).toString();
+					    var str_cash_unit = num.split('.')[0]
+						var str_cash_decimals = num.split('.')[1];
+					    for (var i = str_cash_unit.length - 1; i >= 0; i--) {
+					        counter++;
+					        result = num.charAt(i) + result;
+					        if (!(counter % 3) && i != 0) { result = ',' + result; }
+					    }
+					    if(str_cash_decimals != undefined){
+					    	if(str_cash_decimals.length != 0  ){
+					    	return result + '.' + str_cash_decimals;
+					    }
+						}else{
+						    	return result;
+						    }
 					}
 
 

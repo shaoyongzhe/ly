@@ -32,6 +32,7 @@ var vm = avalon.define({
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             success: function (json) {
+                console.log(json)
                 common.loading.hide();
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
