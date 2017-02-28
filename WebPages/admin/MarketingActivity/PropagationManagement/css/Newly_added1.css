@@ -2,8 +2,9 @@
 * @Author: Administrator
 * @Date:   2016-11-19 19:58:32
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-18 18:38:31
+* @Last Modified time: 2017-02-24 16:17:52
 */
+
 .page-container1{
 	background-color: #F2F2F2;
 	padding: 0 20px;
@@ -41,13 +42,22 @@
 	float: left;
 }
 .textarea_size{
-	width: 85%;
-	height: 50px;
-	max-width: 1067px;
-	max-height: 70px;
-	border-radius: 5px;
-	margin-left: 9%;
-	margin-top: -23%;
+    max-height: 70px;
+    max-width: 1100px;
+    width: 90%;
+    height: 46px;
+    border-color: black;
+    border-radius: 2px;
+    margin-left: 101px;
+    margin-top: -26px;
+}
+.mode span{
+	display: block;
+}
+.kuayu{
+    margin-left: 90px;
+    margin-top: -30px;
+    height: 400px;
 }
 
 .objective{
@@ -72,6 +82,41 @@
 	/* background-color: #A01212; */
 }
 
+#contentdiv .table-bordered td {
+    border-top: 1px solid #ddd;
+}
+.examine1_preview{
+	background-color: #27B56B;
+}
+.examine1_preview:hover{
+	background-color: #309E65;
+}
+.examine1_Preservation{
+	background-color: #27B56B;
+}
+.examine1_Preservation:hover{
+	background-color: #309E65;
+}
+.examine1{
+	background-color: #FF5F31;
+}
+.examine1:hover{
+	background-color: #D86544;
+}
+.examine1_Newly_added{
+	background-color: #FF5F31;
+}
+.examine1_Newly_added:hover{
+	background-color: #D86544;
+}
+
+.examine1_close{
+	background-color: #aaa;
+}
+
+.examine1_close:hover{
+	background-color: #787878;
+}
 .area button{
 	margin-left: 50px;
 	width: 60px;
@@ -80,6 +125,9 @@
 	color: #4778C7;
 	background: none;
 	border-radius: 3px;
+}
+.tableadd{
+	border-top:1px solid #ddd;
 }
 
 .area button:hover{
@@ -136,7 +184,7 @@
 .cover_photo .upload_img{
 	/* background-color: #792D20; */
 	display: inline-block;
-	width:80%;
+	width:88%;
 	height:240px;
 	margin-left:25px;
 }
@@ -144,6 +192,9 @@
 .upload_img .right_size{
 	float:right;
 	color:#999;
+	width: 252px;
+	height: 272px;
+	margin-top:20px;
 }
 
 
@@ -187,7 +238,7 @@
 
 .mode {
 	float: right;
-    height: 190px;
+    /* height: 190px; */
 }
 
 
@@ -212,6 +263,7 @@
 	width: 111px;
 	height: 24px;
 	cursor: pointer;
+	margin-left: 5px;
 }
 .Graphic_message .custom{
 	color:red;
@@ -233,7 +285,7 @@ label, .placeholder{
 	width: 16%;
 	height: 31px;
 	/* margin-left: 15px; */
-	background-color:red;
+	/* background-color:red; */
 	color:#FFFFFF;
 	border: none;
 	cursor: pointer;
@@ -268,8 +320,8 @@ label, .placeholder{
 }
 .Copy_Title .wordwrap{
 	position: absolute;
-	    right: 21%;
-	    top: 55px;
+	right: 23%;
+	top: 55px;
 	float: right;
 }
 .wordwrap .word{
@@ -288,10 +340,10 @@ label, .placeholder{
 
 
 
-#preview{width:36%;height: 100%;border:1px solid #000;overflow:hidden;}
+#preview{width:50%;height: 100%;border:1px solid #000;overflow:hidden;}
 #imghead {
 	height: 100%;
-
+	width: 100%;
 	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image)
 }
 
@@ -302,7 +354,7 @@ label, .placeholder{
 /* 弹框层 */
 
 .Text_Title{
-    width: 777px;
+    width: 510px;
     /* height: 73px; */
     margin: 0 auto;
     /* background-color: red; */

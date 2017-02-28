@@ -130,11 +130,25 @@ html, body {
   left: 117px;
   font-family: arial;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
   text-align: center;
   transform-origin: left;
   -webkit-transform-origin: left; }
+
+.CcButieLeft, .CcButieRight {
+  width: 30px;
+  height: 30px;
+  background-image: url(../img/c9.png);
+  position: absolute;
+  top: 118px;
+  left: 17px;
+  cursor: pointer; }
+
+.CcButieRight {
+  background-image: url(../img/c10.png);
+  top: 118px;
+  left: 213px; }
 
 .CcconditionImg {
   background-image: url(../img/c4.png);
@@ -229,6 +243,7 @@ html, body {
 .CccDescriptionCon {
   width: 260px;
   padding: 10px;
+  padding-right: 20px;
   box-sizing: border-box;
   font-family: "微软雅黑";
   font-size: 12px;

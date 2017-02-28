@@ -20,7 +20,7 @@ input,select{outline:none;/*background: white;*/}
 }
 .bor{
 	border:1px solid #e4e4e4;
-	border-radius: 3px;
+	border-radius: 2px;
 }
 .ver{
 	vertical-align: bottom;
@@ -81,11 +81,16 @@ ul{
     border-bottom: 2px solid #ccc;
     transform: rotate(45deg);
     display: inline-block;
+    margin: 0 0 7px 8px;
+}
+
+.section3 .select-wrap i:before{
     margin: 0 0 7px 10px;
 }
 
-.select-wrap ul{
-    display: none; 			
+
+/* .select-wrap ul{
+    display: none;             
     width: 100%;
     padding: 0 10px;
     background-color: #efefef;
@@ -94,9 +99,9 @@ ul{
     text-align: center; 
     box-sizing: border-box; 
     position: absolute;
-    top: 25px;/*调整*/
+    top: 25px;调整
     z-index: 1;
-}
+} */
 
 .select-wrap ul li + li{
 	border-top: 1px solid #ddd;
@@ -197,7 +202,7 @@ ul{
 /*控件1会员活动条件*/
 	/*投放门店数acPu*/
 .acPu{
-	margin-right:18px;
+	margin-right:33px;
 }
 .acPu input.acPuI1{
 	width:86px;
@@ -222,7 +227,7 @@ ul{
 }
 .acAd img{
 	width:24px;
-	margin-right: 6px;
+	margin-left: 6px;
 	cursor: pointer;
 }
 /*.acAd{
@@ -245,27 +250,30 @@ ul{
 	position: relative;
 }
 input.acMeI1,input.acMeI2{
-	width:134px;
+	width:132px;
 	height:24px;
 	/*text-indent: 15px;*/
 }
 span.acMeS1{
 	position: relative;
     left: -24px;
-    top: 2px;
+    top: 3px;
 
     width: 0;
+
+
+
 }
 span.acMeS2{
 	/*position: relative;
     left: -24px;
     top: 2px;*/
-    margin-left: -24px;
+    margin: 3px 0px 0 -23px;
 }
 div.acMeD1{
 	width: 150px;
-    /*position: relative;
-    top: 10px; */
+    position: relative;
+    /*top: 10px; */
     font-size: 13px;
     color: #999;
     vertical-align: middle;
@@ -281,15 +289,22 @@ div.acMeD2{
 	cursor: pointer;
 	border-radius: 2px;
 }
+
 div.acMeD3{
 	width:100px;
 	text-align: center;
 	color: #999;
+    margin-right: 20px;
 }
+
+.addSub2Mange div.acMeD3{
+    margin: 0 22px 0 3px;
+}
+
 .acAdB{
 	position:relative;
 	bottom:-6px;
-	left:5px;
+	left:9px;
 }
 .acAdB img{
 	width:24px;
@@ -311,7 +326,9 @@ div.acZige{
 	margin-top: 15px;
 	border: 1px solid #f8a78f;
 	position: relative;
-	border-radius: 2px; 
+	border-radius: 2px;
+    /* position: fixed;
+    z-index: 1; */
 }
 
 div.acZige:before{
@@ -337,7 +354,7 @@ div.acZige:before{
 }
 
 .acZige1 .select-wrap{
-	width:128px;
+	width:135px;
 	margin-right:28px;
 }
 .acZige2 .select-wrap{
@@ -407,6 +424,7 @@ div.acZige:before{
     transform: rotate(45deg);
     display: inline-block;
     margin: 0 0 7px 10px;*/
+        margin-left: 13px;
 }
 
 .acSe7.select-wrap ul{
@@ -489,7 +507,7 @@ div.acZige:before{
 }
 .acAdC{
 	position:relative;
-	bottom:-4px;
+	bottom:1px;
 	left:5px;
 }
 .acAdC img{
@@ -531,9 +549,9 @@ div.acZige:before{
 }
 
 .addSub4 .select-wrap ul{
-    padding: 0 1px;
-    top: 39px;/*调整*/
-    left:0px;
+    /* padding: 0 1px; */
+    top: 39px;
+    /* left: 0px; */
     line-height: 28px;
 }
 .addSub4 .select-wrap em{
@@ -642,8 +660,9 @@ div.acZige:before{
 .hdc4 .hdc4dB{
     width: 116px;
     height: 40px;
+    line-height: 40px;
     border: 1px solid #c0c0c0;
-    padding: 2px 7px;
+    /*padding: 2px 7px;*/
     box-sizing: border-box;
     color: #84a6d6;
     border-radius: 2px;
@@ -695,7 +714,7 @@ div.acZige:before{
 	width:58px;
 	height:40px;	
 	box-sizing: border-box;
-	padding-top:3px;	
+	padding-top:3px;
 	/*padding: 4px 14px;*/
 	border:1px solid #4778C7;
 	text-align: center;
@@ -707,10 +726,16 @@ div.acZige:before{
 
 
 .hdc9{	
-	position:relative;
-	top:10px;
-	left:10px;
+    position: relative;
+    top: 10px;
+    left: 0;
+    width: 77px;
+    /* height: 32px; */
+    /* line-height: 32px; */
+    /*background: antiquewhite;*/
+    text-align: left;
 }
+
 .hdc9 img{
 	width:30px;
 }
@@ -849,16 +874,19 @@ div.acZige:before{
         border: 1px solid #ccc;
     border-radius: 2px;
 }
+
 .Yyy4d1 input{
     width: 45px;
-    position: absolute;
-    top: -3px;
-    left: 5px;
+    height: 100%;
+    /* position: absolute; */
+    /* top: -3px; */
+    /* left: 5px; */
     border: 0px;
-    background:transparent;  
-    text-indent: 5px;
-    color:#ff6032;
+    text-indent: 10px;
+    background: transparent;
+    color: #ff6032;
 }
+
 .Yyy4d1 span{
     width: 25px;
     position: absolute;
@@ -993,10 +1021,11 @@ div.acZige:before{
 
 .addSub4P68{
     width: 970px;
-    display: inline-block;
-    /*background: red;*/
-    text-align: left;
     height: 18px;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-align: left;
+    /*background: red;*/
     /*color: #999;*/
 }
 .addSub4P68 p:nth-of-type(1){
@@ -1059,7 +1088,7 @@ div.acZige:before{
 .addSub2P68{
 	width:960px;
 	/*background:blue;*/
-	margin-bottom: -12px;/*查看样式插在哪里，为啥需要此来弥补*/
+	margin-bottom: -4px;/*查看样式插在哪里，为啥需要此来弥补*/
 }
 .addSub2P68 p:nth-of-type(1){
 	width: 178px;   			
@@ -1078,7 +1107,9 @@ div.acZige:before{
 	width:750px;
 	/*background:red;*/
 	/*margin-bottom: -8px;查看样式插在哪里，为啥需要此来弥补*/
-	margin-bottom: -2px;/*查看样式插在哪里，为啥需要此来弥补*/
+	/*margin-bottom: -2px;查看样式插在哪里，为啥需要此来弥补*/
+
+    margin-bottom: 6px;
 }
 .addSub3P68 p:nth-of-type(1){
 	width: 163px;
@@ -1086,7 +1117,7 @@ div.acZige:before{
 		/*margin-bottom: 0;*/
 }
 .addSub3P68 p:nth-of-type(2){
-	width:308px;
+	width:315px;
 	/*color:green;*/
 	/*margin-bottom: 0;*/
 }
@@ -1125,7 +1156,7 @@ div.acZige:before{
 	/*margin-bottom: 0;*/
 }
 .acZige3z{
-	width:179px;
+	width:180px;
 }
 .acZige3z p{
 	width:133px;
@@ -1140,4 +1171,66 @@ div.acZige:before{
 .setgailv.on.o{
 	color: #ff6032;
 	border: 1px solid #ff6032;
+}
+
+
+
+.addSub3:after,
+.addSub4:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.addSub4{
+    margin-left: 16px;
+}
+
+.addSub4 > div{
+    float: left;
+}
+
+.addSub4 > div ~ div{
+    margin-left: 4px;
+}
+
+
+
+
+.addSub2 .selectWrap1{
+    position: relative;
+    top: 9px;
+}
+
+.addSub2 .selectWrap1 > *{
+    float: left;
+}
+
+
+.addSub2 span.acMeS2{
+    margin-left: 3px 0 0-24px;
+}
+
+.addSub2 span.to{
+    margin-top: 13px;
+}
+
+
+.range-wrap{
+    display: inline-block;
+    width: 315px;
+}
+
+/* .operator-wrap li{
+    display: none;
+} */
+
+.teyao{
+    /*display: none;*/
+    border: 0;
+    width: 114px;
+}
+
+.addSub3 > div{
+    float: left;
 }

@@ -132,8 +132,60 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 
 	// c(dataprov)
 	// debugger
-	if($('.Select_province select').first().val() == null){
-	
+
+
+	// var allcharge = [];
+	if(sessionStorage.getItem('shengfzr')){
+
+		var savedPro;
+		function get(shengfzr){
+			var json_str = sessionStorage.getItem(shengfzr);
+			savedPro = JSON.parse(json_str);
+		};
+
+		get('shengfzr');
+
+		$('.Select_province li select').empty();
+		$('.Select_province li').each(function(i){
+			// debugger;
+			var _this = $(this);
+			var _thisprovice = _this.find('span').text();
+
+			try {
+				savedPro.content[i].provice
+			} catch(e) {
+				return false;
+			}
+
+			var provice = savedPro.content[i].provice;
+			// console.log('_thisprovice: ' + _thisprovice + '  provice: ' + provice);
+			
+
+			if(_thisprovice == provice){
+				_this.find('select').append('<option guid='+ savedPro.content[i].charge.guid +' oid='+ savedPro.content[i].charge.oid +' >'+ savedPro.content[i].charge.name +'</option>');
+			} else {
+				$('.Select_province li').find('span:contains('+ provice +')').next().append('<option guid='+ savedPro.content[i].charge.guid +' oid='+ savedPro.content[i].charge.oid +' >'+ savedPro.content[i].charge.name +'</option>');
+			}
+
+		});
+
+		$('.layer-wait').hide();
+
+		// if($('.region-text:contains(省) > i').length == 1){
+
+			// var allcharge = JSON.parse($('.region-text:contains(省) > i').attr('allcharge'));
+			var allcharge = JSON.parse(sessionStorage.getItem("allcharge"));
+			$('.Select_province select').each(function(){
+				if($(this).val() == null){
+					// $(this).val('请选择负责人');
+					$(this).append("<option>请选择负责人</option><option selected guid="+ allcharge.guid +" oid="+ allcharge.oid +">"+ allcharge.name +"</option>");
+				}
+			});
+
+		// }
+
+	} else {
+		
 	    $('.Select_province li select').empty();
 		// $('.Select_province').parent().append("<div class='layer-wait'>");
 		var url = '/webapi/ipaloma/district/charge?district_type=province';
@@ -141,6 +193,14 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 			// $('.layer-wait').remove();
 			// debugger;
 			// c(dataprov);return;
+			var str = JSON.stringify(dataprov);
+			function set(set){
+				sessionStorage.setItem("shengfzr", set);
+			};
+			
+			// 齐枭飞调用-------------
+			set(str);
+			//-------------------
 			if(dataprov.error){
 				console.warn(JSON.stringify(dataprov.error, null, 4));
 				return;
@@ -168,9 +228,30 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 				}
 
 			});
+
+
+			$('.Select_province select').each(function(){
+				if($(this).val() == null){
+					// $(this).val('请选择负责人');
+					$(this).append("<option>请选择负责人</option><option guid="+ dataprov.allcharge[0].guid +" oid="+ dataprov.allcharge[0].oid +" allcharge='"+ JSON.stringify(dataprov.allcharge[0], null, 4) +"'>"+ dataprov.allcharge[0].name +"</option>");
+				}
+			});
+
+			// console.log(JSON.stringify(dataprov.allcharge[0], null, 4));
+			// allcharge.push(dataprov.allcharge[0]);
+
+			// $('.region-text:contains(省)').append("<i allcharge='"+ JSON.stringify(dataprov.allcharge[0], null, 4) +"'></i>")
+
+			sessionStorage.setItem("allcharge", JSON.stringify(dataprov.allcharge[0], null, 4));
+
 		});
 
 	}
+
+	// $('li:contains(四川)').prependTo('.Select_province')
+	
+
+	
 
 	// debugger;
 	var shengText = "";
@@ -319,10 +400,103 @@ function dataLoad() {
 			// debugger
 			// if($('.Select_province1 select').first().val() == null){
 
-			var url = '/webapi/ipaloma/district/charge?district_type=city&province=' + shengText;
-			_ajax("get", url, {}, '市负责人信息', function (datacity){
+				// 齐枭飞修改-----------------封装------------
+			if(sessionStorage.getItem(shengText)){
+				// console.log(sessionStorage.getItem('shengfzr'))
+				var parse = JSON.parse(sessionStorage.getItem(shengText)).content;
+
+					// for(var i=0;i<parse.length;i++){
+						var parse_area = parse[0].provice;
+						if(parse_area!=shengText){
+							var url = '/webapi/ipaloma/district/charge?district_type=city&province=' + shengText;
+								_ajax("get", url, {}, '市负责人信息', function (datacity){
+								// $('.layer-wait').remove();
+								// debugger
+								var str = JSON.stringify(datacity);
+								
+									// var a = shengText;
+									
+								function set_val(set){
+											// function shifze(shifzr){
+												sessionStorage.setItem(shengText, set);
+											// }
+											// shifze(shengText);
+										};
+									// 齐枭飞调用-------------
+									
+									set_val(str);
+
+								if(datacity.error){
+									console.warn(JSON.stringify(datacity, null, 4));
+									return;
+								}
+
+								$('.Select_province1 li select').empty();
+								$('.Select_province1 li').each(function(i,item){
+									// debugger;
+									var _this = $(this);
+									var _thiscity = _this.find('span').text();
+									var content = datacity.content[i];
+									var city = content.city;
+
+									// console.log('_thiscity: ' + _thiscity.substring(0, 3) + '  city: ' + city.substring(0, 3));
+									// console.log('_thiscity: ' + _thiscity + '  city: ' + city);
+
+									if(_thiscity == city){
+										$(this).find('select').append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
+									} else {
+										$('.Select_province1 li').find('span:contains('+ city +')').next().append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
+									}
+								});
+
+							});
+						}
+					// }
+
+					var JSON_parse_shi;
+					function get_val(shifzr){
+						var json_str_shi = sessionStorage.getItem(shifzr);
+							
+							JSON_parse_shi = JSON.parse(json_str_shi);
+								// console.log(JSON_parse_shi);	
+					};
+					//调用---获取值
+					get_val(shengText);
+					$('.Select_province1 li select').empty();
+					$('.Select_province1 li').each(function(i,item){
+						// debugger;
+						var _this = $(this);
+						var _thiscity = _this.find('span').text();
+						var content = JSON_parse_shi.content[i];
+						var city = content.city;
+
+						// console.log('_thiscity: ' + _thiscity.substring(0, 3) + '  city: ' + city.substring(0, 3));
+						// console.log('_thiscity: ' + _thiscity + '  city: ' + city);
+
+						if(_thiscity == city){
+							$(this).find('select').append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
+						} else {
+							$('.Select_province1 li').find('span:contains('+ city +')').next().append('<option city='+ content.city +' guid='+ content.charge.guid +' oid='+ content.charge.oid +' >'+ content.charge.name +'</option>');
+						}
+
+						// if(_this.find('select option').length == 0){
+						// 	_this.hide();
+						// }
+
+					});
+				}
+				else
+				{
+				var url = '/webapi/ipaloma/district/charge?district_type=city&province=' + shengText;
+				_ajax("get", url, {}, '市负责人信息', function (datacity){
 				// $('.layer-wait').remove();
 				// debugger
+				var str = JSON.stringify(datacity);
+				function set_val(set){
+						sessionStorage.setItem(shengText, set);
+					};
+				// 齐枭飞调用-------------
+				set_val(str);
 				if(datacity.error){
 					console.warn(JSON.stringify(datacity, null, 4));
 					return;
@@ -352,6 +526,8 @@ function dataLoad() {
 				});
 
 			});
+				}
+			
 			// }
 		}
 
@@ -451,7 +627,7 @@ function dataLoad() {
 			oid: _this.find(':selected').attr('oid'),
 		};
 
-		c(shengfzr)
+		// c(shengfzr)
 
 		var provfzr = _this.closest('li').find('span').text();
 		$('.provice > span em').each(function() {
@@ -640,7 +816,7 @@ function dataLoad() {
 				
 				_this.closest('.region-item').find('.allCity').remove();
 				_this.closest('.region-item').find('em:contains('+ selectedshi +')').closest('.city-wrap').remove();
-				_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em shifzr='"+ JSON.stringify(shifzr, null, 4) +"'>" + shifzr.name + "</em><i class='x'>&times;</i></div></div></div>");
+				_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em guid="+ shifzr.guid +" oid="+ shifzr.oid +" shifzr='"+ JSON.stringify(shifzr, null, 4) +"'>" + shifzr.name + "</em><i class='x'>&times;</i></div></div></div>");
 			}
 
 		});
@@ -744,7 +920,13 @@ function dataLoad() {
 
 			var parentProv = $('.Select_province li.on span').text();
 			var selectedshi = $('.Select_province1 li.on span').text();
-			var shifzr = $('.Select_province1 li.on select').val();
+
+			var shifzrObj = {
+				state: "active",
+				shifzr: $('.Select_province1 li.on select').val(),
+				guid: $('.Select_province1 li.on :selected').attr("guid"),
+				oid: $('.Select_province1 li.on :selected').attr("oid")
+			}
 
 			$('.provice > span em').each(function(index, el) {
 				// debugger;
@@ -778,7 +960,7 @@ function dataLoad() {
 					// _this.closest('.region-item').find('.city-wrap').remove();
 					_this.closest('.region-item').find('.cityName:contains('+ selectedshi +')').closest('.city-wrap').remove();
 					
-					_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em>" + shifzr + "</em><i class='x'>&times;</i></div><div class='district-wrap'>"+ getDistrictHtml() +"</div></div></div>");
+					_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em guid="+ shifzrObj.guid +" oid="+ shifzrObj.oid +" shifzr='"+ JSON.stringify(shifzrObj, null, 4) +"'>" + shifzrObj.shifzr + "</em><i class='x'>&times;</i></div><div class='district-wrap'>"+ getDistrictHtml() +"</div></div></div>");
 
 					// $('.cityName').each(function(i,item){
 					// 	if($(this).text() == $('.cityName').eq(i + 1).text()){
@@ -814,7 +996,7 @@ function dataLoad() {
 			if ($(this).is(":checked") == true) {
 				var selected = $(this).parent().prev().text();
 				// console.log(selected);
-				xian += "<span><em>" + selected + "</em><i class='x'>×</i></span>";
+				xian += "<span><em>"+ selected +"</em><i class='x'>×</i></span>";
 			}
 		});
 
@@ -855,6 +1037,7 @@ function dataLoad() {
 				xian += "<span><em qx='"+ JSON.stringify(qxObj, null, 4) +"'>" + qxObj.name + "</em><i class='x'>×</i></span>";
 			}
 		});
+		
 		return xian;
 	}
 
@@ -889,7 +1072,25 @@ function dataLoad() {
 $('.area-list .save').off('click');
 $('.area-list .save').click(function() {
 
-	var areaObj = {};areaObj["area_condition"] = [];
+	var isfzr = true;
+	$('.Select_province select').each(function(){
+		if( $(this).val() == '请选择负责人' && $(this).closest('li').hasClass('on') ){
+
+			// alert($(this).closest('li').index())
+			// alert($(this).closest('li').outerHeight())
+
+			$('.Select_the_province .b').scrollTop($(this).closest('li').index() * $(this).closest('li').outerHeight())
+			layer.tips('请选择负责人', $(this));
+			isfzr = !isfzr;
+			return false
+		}
+	});
+
+	if(isfzr == false){
+		return
+	}
+
+	var areaObj = {}; areaObj["area_condition"] = [];
 	var areaArr = [];
 	var provArr = [];
 	var provObj = {};
@@ -930,7 +1131,7 @@ $('.area-list .save').click(function() {
 
 				cityObj = {
 					"state": "active",
-					"charge": JSON.parse(shengfzr),
+					"charge": JSON.parse(shifzr),
 					"name": shi,
 					"country": quxianArr
 				}
@@ -941,8 +1142,7 @@ $('.area-list .save').click(function() {
 
 			try {
 				var shengfzrObj = JSON.parse(shengfzr);
-			} catch(e) {
-			}
+			} catch(e) {}
 
 			provObj = {
 				"charge": shengfzrObj,
@@ -963,21 +1163,6 @@ $('.area-list .save').click(function() {
 
 	// console.log(JSON.stringify(areaObj, null, 4));
 	$('#area-data').val(JSON.stringify(areaArr, null, 4));
-	// "area_condition": [
-	//       [
-	//           {
-	//               "charge": "",
-	//               "name": "",
-	//               "city": [
-	//                   {
-	//                       "charge": "",
-	//                       "name": "",
-	//                       "country": []
-	//                   }
-	//               ]
-	//           }
-	//       ]
-	// ],
 
 	// return;
 	$('.layui-layer-close').click();
@@ -990,21 +1175,26 @@ $('.btn.clear').click(function(){
 	$('.area-list :checkbox').prop('checked',false);
 	$('.area-list li.on').removeClass('on');
 	$('.area-list .Select_province2').empty();
-	$('.region-wrap').empty();
+	$('.region-item').remove();
 });
 	
 
+
+
 $('.zhiding').click(function(){
+	
+	// debugger;
 
 	$(this).toggleClass('on');
 	if($(this).hasClass('on')){
 		// debugger
-		var sheng = $('.Select_province li input:checked').closest('li').stop().slideUp(300).clone(true).addClass('clone');
+		var sheng = $('.Select_province li input:checked').closest('li')
+		.stop().slideUp(300).clone(true).addClass('clone');
 		$(sheng).prependTo('.Select_province');
 
-		var shi = $('.Select_province1 li input:checked').closest('li').stop().slideUp(300).clone(true).addClass('clone');
+		var shi = $('.Select_province1 li input:checked').closest('li')
+		.stop().slideUp(300).clone(true).addClass('clone');
 		$(shi).prependTo('.Select_province1');
-
 
 	} else {
 		// debugger
@@ -1014,7 +1204,6 @@ $('.zhiding').click(function(){
 		$('.Select_province li').stop().slideDown(300);
 		$('.Select_province1 li').stop().slideDown(300);
 
-		
 	}
 
 });

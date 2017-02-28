@@ -15,6 +15,7 @@ h6,
 pre,
 code,
 form,
+
 fieldset,
 legend,
 input,
@@ -29,7 +30,7 @@ td {
 
 body {
     font-family: "Microsoft Yahei", "ËÎÌå", arial;
-    min-width: 1200px;
+    min-width: 1062px;
 }
 
 fieldset,
@@ -42,23 +43,23 @@ img {
     padding: 0;
     vertical-align: middle;
 }
-/* em{
+em{
     font-style: normal;
     font-weight: normal;
     /* white-space: nowrap; */
     /* text-overflow: ellipsis; */
     /* width: 4px; */
-    /* text-overflow: ellipsis; */
+    text-overflow: ellipsis;
     /* white-space: nowrap; */
-    /* overflow: hidden; */
+    overflow: hidden;
     /* display: inline-block; */
     /* width: 41px; */
     /* white-space: normal; */
     /* width: 49px; */
-} */
+}
 em,
 strong {
-    font-style: normal;
+        font-style: normal;
     font-weight: normal;
     /* white-space: nowrap; */
     /* text-overflow: ellipsis; */
@@ -118,7 +119,7 @@ a:hover {
 
 
 .Select_province2{
-    margin-left: 30px;
+    margin-left: 41px;
 }
 
 /* .area-list-item2 { width: 150px; float: left; margin-left: 10px; background-color:#FwDFDFD; } */
@@ -168,7 +169,7 @@ a:hover {
 .selectable .ui-selected {
     /* background: url(04diqushezhi-baijiaohao.png) no-repeat right; */
     color: #000000;
-    width: 123px;
+    width: 129px;
     height: 66px;
     border: 1px solid #e4e4e4;
     border-top: none;
@@ -187,7 +188,7 @@ a:hover {
 .selectable .ui-selected1 {
     background: url(04diqushezhi-baijiaohao.png) no-repeat right;
     color: #000000;
-    width: 120px;
+    width: 123px;
     height: 78px;
     border: 1px solid #e4e4e4;
 }
@@ -216,15 +217,15 @@ a:hover {
 .area-list-item .choice {
      float: left;
     margin-left: 21px;
-    margin-top: -16px;
+    margin-top: -19px;
     display: block;
     cursor: pointer;
 }
 
 .area-list-item1 .choice {
-    float: left;
-    margin-left: -11px;
-    margin-top: 2px;
+       float: left;
+    margin-left: -22px;
+    margin-top: -1px;
     display: block;
     cursor: pointer;
 }
@@ -563,7 +564,7 @@ ul li a {
 
 .region-wrap{
     margin-left: 100px;
-    width: 86%;
+    /* width: 90%; */
     /* background: antiquewhite; */
     /* height: 140px; */
     margin-top:10px;
@@ -655,9 +656,6 @@ ul li a {
 .district-wrap span{
     margin: 0 10px 6px 0;
 }
-.district-wrap span em{
-    font-style: normal;
-}
 
 .region-item + .region-item{
     margin-top: 30px;
@@ -678,7 +676,6 @@ input,select{
 
 .shengName{
     width: 40px;
-    font-style: normal;
     /* vertical-align: middle;
     white-space: nowrap;
     overflow: hidden;
@@ -693,6 +690,25 @@ input,select{
     float: left;
     margin: 8px 35%;
 }
+
+.btn_a {
+    width: 128px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    display: block;
+    float: left;
+}
+.btn_a.clear {
+    background-color: #ccc;
+    margin-right: 5px;
+}
+.btn_a.save {
+    background-color: #ff6032;
+    margin-right: 5px;
+}
 .ui-widget-content{
         border :none;
 }
@@ -703,6 +719,7 @@ input,select{
     color: #fff;
     cursor: pointer;
     border-radius: 2px;
+    margin: 1px;
     display: block;
     float: left;
 }

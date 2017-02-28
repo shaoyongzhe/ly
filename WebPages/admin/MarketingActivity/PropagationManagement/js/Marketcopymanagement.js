@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-21 15:50:13
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-18 17:19:53
+ * @Last Modified time: 2017-02-24 17:30:35
  */
 
 
@@ -176,7 +176,6 @@
 //             }
 //         });
 //     });
-
 // })(window, jQuery)
 
 // 遮罩加载层
@@ -224,10 +223,11 @@ $('.resetting').on('click', function() {
     $('.search-btn').click();
 });
 
-
+$('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
 function getList(curr, handle, searchForm) {
     $("table.notify tbody").empty();
+   // alert('我执行了');
     $('.layui-layer-close').click();
     // console.log(searchForm)
     if (curr == undefined || curr == "") {
@@ -240,7 +240,7 @@ function getList(curr, handle, searchForm) {
     // 页数
     var pageindex = 0;
     // 每页展示5个
-    var pagesize = 40;
+    var pagesize = 15;
     // $('.content_drop .dropload-down').siblings().remove()
     // 每次刷新的时候清空上一次的记录（加载记录）
     $('.content_drop .dropload-down').remove();
@@ -287,7 +287,7 @@ function getList(curr, handle, searchForm) {
                         autoW = "",
                         tr = "",
                         td = data.content;
-
+                    // var i = 0;
                     if (td.length>0) {
                         // $('.tiaoshu').html('当前共有数据'+td.length+'条');
                         for (var i = 0; i < td.length; i++) {
@@ -295,7 +295,7 @@ function getList(curr, handle, searchForm) {
                             if (td[i].state == "draft") {
                                 td[i].draft = "草稿";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + '&#xe6f5;' + "</i>" + '详细' + "</a>" + "<a class='ml-5 exm'  title='提交审核'>" + "<input type='hidden' value='draft' />" + "<i class='Hui-iconfont'>" + "&#xe615;" + "</i>" + '提交审核' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "310";
+                                autoW = "335";
                             } else if (td[i].state == "auditsuccess") {
                                 td[i].auditsuccess = "待发送";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
@@ -303,15 +303,15 @@ function getList(curr, handle, searchForm) {
                             } else if (td[i].state == 'auditfail') {
                                 td[i].auditfail = "审核未通过";
                                 isSet = "<a class='ml-5 detailed'title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<input type='hidden' value='auditfail' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "180";
+                                autoW = "220";
                             } else if (td[i].state == 'toberelease') {
                                 td[i].toberelease = "待发送";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<input type='hidden' value='store' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 release' title='立即发送'>" + "<i class='Hui-iconfont'>" + "&#xe68a;" + "</i>" + '立即发送' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "310";
+                                autoW = "335";
                             } else if (td[i].state == 'audit') {
                                 td[i].audit = "审核中";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>" + "<a class='ml-5 Reject'  title='驳回'>" + "<input type='hidden' value='audit' />" + "<i class='Hui-iconfont'>" + "&#xe6a6;" + "</i>" + '驳回' + "</a>" + "<a class='ml-5 adopt' title='审核通过'>" + "<i class='Hui-iconfont'>" + "&#xe6a7;" + "</i>" + '审核通过' + "</a>";
-                                autoW = "317";
+                                autoW = "407";
                             } else if (td[i].state == 'released') {
                                 td[i].released = "已发送";
                                 isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
@@ -336,11 +336,10 @@ function getList(curr, handle, searchForm) {
                             } else {
                                 var c = td[i].push_retailer = ""
                             };
-
                             var areastring = "";
                             var provinces = td[i].area;
                             var array = [];
-                            if (provinces.length == 1 && provinces[0].name == "全国") {
+                            if (provinces.length == 1 && provinces[0].name == "fullcountry"||provinces[0].name =='全国') {
                                 areastring = "全国";
                             } else {
                                 for (var j = 0; j < provinces.length; j++) {
@@ -352,7 +351,7 @@ function getList(curr, handle, searchForm) {
                                             //process city
                                             var citytemp = provinces[j].city[k].name + ' ';
                                             areastring += citytemp;
-                                            if (provinces[j].city[k].country.length > 0) {
+                                            if (provinces[j].city[k].country) {
                                                 //process country
                                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
                                                     var countrytemp = provinces[j].city[k].country[l] + ' ';
@@ -363,10 +362,21 @@ function getList(curr, handle, searchForm) {
                                     }
                                 }
                             }
-                            tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td title='" + td[i].copywriting + "'><span class='content'>" + td[i].copywriting + "</span></td><td>" + "<span>" + b + "</span>" + "<span>" + c + "</span>" +
-                                "<span>" + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" + ProcessDate1(td[i].pushtime) + "><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
+                            // var copywriting_zhuanyi = td[i].copywriting 
+                            // function HTMLEncode(html) {
+                            //     var temp = document.createElement("div");
+                            //         (temp.textContent != null) ? (temp.textContent = html) : (temp.innerText = html);
+                            //     var output = temp.innerHTML;
+                            //         temp = null;
+                            //         return output;
+                            //     }
+// " + td[i].copywriting + "
+                            // var cowr = '请在详情中查看内容';
+                            //     var tagText = td[i].copywriting;
+                            // HTMLEncode(tagText)//&lt;p&gt;&lt;b&gt;123&amp;456&lt;/b&gt;&lt;/p&gt; 
+                            tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td></td><td>" + "<span>" + b + "</span>" + "<span>" + c + "</span>" + "<span>" + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" + ProcessDate1(td[i].pushtime) + "><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
+                                // aaa(i)
                         }
-                        
                         // 如果没有数据
                     } else {
                         // 锁定
@@ -379,6 +389,9 @@ function getList(curr, handle, searchForm) {
                         $('.dropload-down').fadeOut(4000);
                         me.resetload();
 
+                       // function aaa(i){
+                            // $('tbody tr:eq(4) td:eq(3)').text($('tbody tr:eq(4) td:eq(3)').attr('title'));
+                        // }
                 },
                 error: function() {
                     console.log('加载出错');
@@ -414,10 +427,15 @@ function ProcessDate1(date)
 }
 // $('.pushtime').val().split(',')[1]
 
-$(document).on('click', '.search-btn', function() {
-    getList(1, 'search', getSearch());
-})
+    // $(document).on('click', '.search-btn', function() {
+    // getList(1, 'search', getSearch());
+    // })
+    $('.search-btn').click(function(){
+          getList(1, 'search', getSearch());
+    })
 
+
+    
 
 // 查询
 // $("body").on("click", ".search-btn", function() {
@@ -471,18 +489,18 @@ function getSearch() {
     var shi_val = "";// + ',';
     var qu_val = "";//;
 
-    if ($('.gf-select span em:eq(0)').text() == '省份') {
+    if ($('.gf-select span em:eq(0)').text() == '省份'||$('.gf-select span em:eq(0)').text() == '省') {
         sheng_val = "";
     }else{
         sheng_val = $('.gf-select span em:eq(0)').text();
     }
 
-    if ($('.gf-select span em:eq(1)').text() == '城市') {
+    if ($('.gf-select span em:eq(1)').text() == '城市'||$('.gf-select span em:eq(1)').text() == '城') {
         shi_val = "";
     }else{
         shi_val =  ',' + $('.gf-select span em:eq(1)').text();
     }
-    if ($('.gf-select span em:eq(2)').text() == '区县') {
+    if ($('.gf-select span em:eq(2)').text() == '区县'||$('.gf-select span em:eq(2)').text() == '区') {
         qu_val = "";
     }else
     {
@@ -507,8 +525,8 @@ function getSearch() {
         state: send_state,
         // 发送对象
         push_distributor: a,
-        push_consumer: b,
-        push_retailer: c
+        push_consumer: c,
+        push_retailer: b
             // state:d
     };
     // console.log(searchForm.area);
@@ -880,7 +898,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj["area"].length; i++) {
                 var areaobj1 = areaobj["area"][i];
                 // console.log(areaobj1.name);
-                if (areaobj1.name == '全国') {
+                if (areaobj1.name == 'fullcountry') {
                     areaobj1.name = '全国';
                 }
             }
@@ -893,7 +911,7 @@ $('table.notify').on('click', '.modify', function() {
             for (var i = 0; i < areaobj.area.length; i++) {
                 // debugger
                 var area = areaobj.area[i];
-                if (area.name == '全国') {
+                if (area.name == 'fullcountry') {
                     area.name = '全国';
                 }
                 // debugger
@@ -915,6 +933,9 @@ $('table.notify').on('click', '.modify', function() {
 
 
             }
+
+            // $('.panel-body').html(data_text.content.copywriting);
+            $($('#iframeID')[0].contentWindow.$.find('.panel-body')).html(data_text.content.copywriting);
         }
 
         // <div class="region-item"><div class='row'><div class='provice'><span><em class='shengName' title='天津市'>天津市</em><i class='x'>×</i></span></div><div class='charge'></div></div><div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>天津市 </em><i class='x'>×</i></span></div><div class='charge'><div class='district-wrap'><span><em>红桥区</em><i class='x'>×</i></span><span><em>西青区</em><i class='x'>×</i></span><span><em>宁河县</em><i class='x'>×</i></span></div></div></div></div>
@@ -925,7 +946,7 @@ $('table.notify').on('click', '.modify', function() {
         service: tr.find('td:eq(1)').text(),
         purpose: tr.find('td:eq(0)').text(),
         area: tr.find('td:eq(2)').text(),
-        senfContent: tr.find('td:eq(3)').text(),
+        senfContent: tr.find('td:eq(3) .content').html(),
         readyNumber: tr.find('td:eq(4) span:eq(0)').text(),
         readyNumber2: tr.find('td:eq(4) span:eq(1)').text(),
         readyNumber3: tr.find('td:eq(4) span:eq(2)').text(),
@@ -935,10 +956,10 @@ $('table.notify').on('click', '.modify', function() {
     layer.msg('正在操作，请稍等')
     layer.open({
         type: 1,
-        shadeClose: true,
+        shadeClose: false,
         anim: 2,
         title: '修改文案',
-        area: ["70%", "100%"],
+        area: ["75%", "100%"],
         content: $('.c'),
         end: function(){ 
             // layer.open({
@@ -955,14 +976,15 @@ $('table.notify').on('click', '.modify', function() {
             // $('.search-btn').click();
         }
     });
-    
+
     $('.qxf_colse').css('display','none');
     $('.region-wrap').empty();
     // 获取到数据放到输入框中
     $('._guid').val(data.guid);
     $('.word').text(data.service.length);
     $('#textarea_value').val(data.service);
-    $('#send_text').val(data.senfContent);
+
+    
     // 显示到页面上的地区，并不能传给后台，传给后台的是隐藏域的数据 input type =  hidden
     // $('.region-wrap').append(data.area);
 
@@ -1003,22 +1025,26 @@ $('table.notify').on('click', '.modify', function() {
     }
     var data_pic = data.poster_url;
     $('#imghead').attr('src', data_pic);
-
-
     var area_val5 = $('.area_val').val();
     if(area_val5!=''){
         var area_val3 = JSON.parse(area_val5);
     }
-   
-
     if (!area_val3) {
         $('.region-wrap').text('');
-    } 
-})
+    }
+    // $($('#iframeID')[0].contentWindow.$.find('.note-editing-area .panel-body')).html('<div>齐晓飞131jokp;</div>');
+    // var iframe = document.getElementById('iframeID');//获取那个iframe，也可以用$('#iframe')[0]替代
+    //     var iframeWindow = iframe.contentWindow;//获取iframe里的window对象
+    //     var $c = iframeWindow.$;//获取iframe中的jquery对象
+    //     $c('body')//获取iframe中body元素，其他的话自己用$c('#aaa')去获取吧
+    // $($('#iframeID')[0].contentWindow.$.find('.panel-body')).html('<div>11111111111111111</div>');
+    // var a = $('#iframeID')[0].contentWindow.$.find('.note-editing-area .panel-body'); $(a).html('<div>gfdgfd</div>')
+    // $('#iframeID').contents().find('.note-editing-area').html('<div>齐晓飞</div>');
+   // $($('#iframeID').contents().find('.note-editing-area')).html('<div>齐晓飞</div>');
+});
 
 // 修改 里面的提交审核
 $('.examine1').on('click', function() {
-
     if ($('.send_object dir').find('div:eq(0) img').hasClass('xiyin_son') == true) {
         var a = 1;
     } else {
@@ -1062,8 +1088,12 @@ $('.examine1').on('click', function() {
     if (pic_url == "") {
         pic_url = $('#imghead').attr('src');
     }
-
+ // var iframe = document.getElementById('iframeID');//获取那个iframe，也可以用$('#iframe')[0]替代
+ //        var iframeWindow = iframe.contentWindow;//获取iframe里的window对象
+ //        var $c = iframeWindow.$;//获取iframe中的jquery对象
+ //        // $c('body')//获取iframe中body元素，其他的话自己用$c('#aaa')去获取吧
     $('#count').click();
+    var contentHtml = $($('#iframeID')[0].contentWindow.$.find('.note-editing-area .panel-body')).html();
     var guid = $(this).closest('.layui-layer-content').find('._guid').val();
     var state1 = $(this).closest('.layui-layer-content').find('.state').val();
     var textarea_value = JSON.stringify($.trim($('#textarea_value').val()));
@@ -1072,11 +1102,11 @@ $('.examine1').on('click', function() {
         service: textarea_value,
         area: JSON.stringify(JSON.parse($('.area_val').val()).area),
         push_distributor: a,
-        push_consumer: b,
-        push_retailer: c,
+        push_consumer: c,
+        push_retailer: b,
         category: d,
         poster_url: pic_url,
-        copywriting: $('#send_text').val(),
+        copywriting: contentHtml,
         bindwithperiodpush: e,
         pushtime: time_val,
         currentstate: state1,
@@ -1086,8 +1116,8 @@ $('.examine1').on('click', function() {
 
 
          if (form_value.service == ""||$('#textarea_value').val().length=='0') {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1095,8 +1125,8 @@ $('.examine1').on('click', function() {
     }
 
         if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1122,8 +1152,8 @@ $('.examine1').on('click', function() {
         return;
     }
     if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
-        layer.msg('请选择发送对象');
-        layer.tips('请选择发送对象', '.send_object', {
+        layer.msg('请选择对象');
+        layer.tips('请选择对象', '.send_object', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1132,7 +1162,7 @@ $('.examine1').on('click', function() {
 
     if (form_value.category == "") {
         // layer.msg('请选择发送方式');
-        layer.tips('请选择发送方式', '.mode1', {
+        layer.tips('请选择方式', '.mode1', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1145,7 +1175,7 @@ $('.examine1').on('click', function() {
     // }
     if ($('#imghead').attr('src') == '') {
         // layer.msg('请选择封面图片');
-        layer.tips('请选择封面图片', '.cover_photo', {
+        layer.tips('请上传图片', '.cover_photo', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1153,7 +1183,7 @@ $('.examine1').on('click', function() {
     }
     if (form_value.copywriting == "") {
         // layer.msg('请填写发送内容');
-        layer.tips('请填写发送内容', '.mode', {
+        layer.tips('请填写内容', '.mode', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1164,11 +1194,13 @@ $('.examine1').on('click', function() {
     layer.msg('正在提交');
     _ajax('put', '/webapi/ipaloma/propagation/', form_value, '修改失败', function() {
         getList(1, 'release', getSearch());
+        // $('.layui-layer-close').click();
     })
 })
 
 //修改里面的关闭
 $('.examine1_close').on('click', function() {
+    $($('#iframeID').contents().find('.note-editing-area')).html('');
     // $('.layui-layer-close').click();
         //并提交审核后 回到页面刷新
         $('.search-btn').click();
@@ -1203,7 +1235,7 @@ $('.examine1_preview').click(function() {
             areastring = "";
             var provinces = JSON.parse($('.area_val').val()).area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "全国") {
+            if (provinces.length == 1 && provinces[0].name == "fullcountry"||provinces[0].name =='全国') {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -1223,7 +1255,7 @@ $('.examine1_preview').click(function() {
                             // }
                             var citytemp = provinces[j].city[k].name + '<br />';
                             areastring += citytemp;
-                            if (provinces[j].city[k].country.length > 0) {
+                            if (provinces[j].city[k].country) {
                                 //process country
                                 areastring += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
@@ -1252,22 +1284,22 @@ $('.examine1_preview').click(function() {
             pushtime: time_val,
             // 这个是假的
             push_distributor: a,
-            push_consumer: b,
-            push_retailer: c,
+            push_consumer: c,
+            push_retailer: b,
         }
 
         if (form_value.service == ""||$('#textarea_value').val().length=='0') {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
         return;
-    }
+        }
 
         if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1293,8 +1325,8 @@ $('.examine1_preview').click(function() {
         }
 
         if (form_value.push_distributor == '' && form_value.push_consumer == '' && form_value.push_retailer == '') {
-            layer.msg('请选择发送对象');
-            layer.tips('请选择发送对象', '.send_object', {
+            layer.msg('请选择对象');
+            layer.tips('请选择对象', '.send_object', {
                 tips: [4, '#F22525'],
                 time: 4000
             });
@@ -1303,7 +1335,7 @@ $('.examine1_preview').click(function() {
 
         if (form_value.mode1 == undefined) {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择发送方式', '.mode1', {
+            layer.tips('请选择方式', '.mode1', {
                 tips: [1, '#F22525'],
                 time: 4000
             });
@@ -1312,7 +1344,7 @@ $('.examine1_preview').click(function() {
 
         if (form_value.post_url == "") {
             // layer.msg('请选择封面图片');
-            layer.tips('请选择封面图片', '.cover_photo', {
+            layer.tips('请上传图片', '.cover_photo', {
                 tips: [4, '#F22525'],
                 time: 4000
             });
@@ -1321,7 +1353,7 @@ $('.examine1_preview').click(function() {
 
         if (form_value.send_text == "") {
             // layer.msg('请填写发送内容');
-            layer.tips('请填写发送内容', '.mode', {
+            layer.tips('请填写内容', '.mode', {
                 tips: [1, '#F22525'],
                 time: 4000
             });
@@ -1331,7 +1363,7 @@ $('.examine1_preview').click(function() {
         var radio_val = $('.Graphic_message').find('.ck:eq(0) img').hasClass('xiyin_son');
         var radio_val1 = $('.Graphic_message').find('.ck:eq(1) img').hasClass('xiyin_son');
         if (radio_val == false && radio_val1 == false) {
-            layer.tips('请选择图文发送方式', '.Graphic_message', {
+            layer.tips('请选择方式', '.Graphic_message', {
                 tips: [3, '#F22525'],
                 time: 4000
             });
@@ -1363,12 +1395,20 @@ $('.examine1_preview').click(function() {
         //     layer.msg('请选择时间');
         //     return;
         // }
-
-
+// 1---------------------------
+// var iframe = document.getElementById('iframeID');//获取那个iframe，也可以用$('#iframe')[0]替代
+// var iframeWindow = iframe.contentWindow;//获取iframe里的window对象
+// var $c = iframeWindow.$;//获取iframe中的jquery对象
+// $c('body')//获取iframe中body元素，其他的话自己用$c('#aaa')去获取吧     
+// 
+// 2----------------------
+        // var contentHtml1 = $('#iframeID')[0].contentWindow.$;
+        var contentHtml = $($('#iframeID')[0].contentWindow.$.find('.note-editing-area .panel-body')).html();
+        // var contentHtml = $('.note-editing-area .panel-body').html();
         var index = layer.open({
             type: 1,
             title: '预览',
-            area: ['51.3%', "100%"],
+            area: ['61.3%', "100%"],
             // maxmin: true,
             content: '<div class="Text_Title">' +
                 '<div class="Float_Title">文案标题</div>' +
@@ -1378,7 +1418,6 @@ $('.examine1_preview').click(function() {
                 '<div class="Float_Title">发送地区</div>' +
                 '<div class="Float_text">' + areastring + '</div>' +
                 '</div>' +
-
                 '<div class="Text_Title">' +
                 '<div class="Float_Title">发送对象</div>' +
                 '<div class="Float_text">' + form_value.send_object + '</div>' +
@@ -1394,7 +1433,7 @@ $('.examine1_preview').click(function() {
                 '</div>' +
                 '<div class="Text_Title">' +
                 '<div class="Float_Title">发送内容</div>' +
-                '<div class="Float_text">' + form_value.send_text + '</div>' +
+                '<div class="Float_text">' + contentHtml + '</div>' +
                 '</div>' +
                 '<div class="Text_Title">' +
                 '<div class="Float_Title">' +
@@ -1405,7 +1444,7 @@ $('.examine1_preview').click(function() {
                 '<div class="button">' + '</div>'
         });
         //两种方法获取图片 
-        $('.srcPic').html($('#preview').html())
+        $('.srcPic').html($('#preview').html());
             // var a=$('.upload_img img ').attr('src');
             // $('.Float_text img').attr('src',a);
         var picwidth = $('.upload_img img').width();
@@ -1465,6 +1504,7 @@ $('.examine1_Newly_added').on('click', function() {
     }
 
     $('#count').click();
+     var contentHtml = $($('#iframeID')[0].contentWindow.$.find('.note-editing-area .panel-body')).html();
     var guid = $(this).closest('.layui-layer-content').find('._guid').val();
     var state1 = $(this).closest('.layui-layer-content').find('.state').val();
     var textarea_value = JSON.stringify($.trim($('#textarea_value').val()));
@@ -1473,11 +1513,11 @@ $('.examine1_Newly_added').on('click', function() {
         service: textarea_value,
         area: JSON.stringify(JSON.parse($('.area_val').val()).area),
         push_distributor: a,
-        push_consumer: b,
-        push_retailer: c,
+        push_consumer: c,
+        push_retailer: b,
         category: d,
         poster_url: pic_url,
-        copywriting: $('#send_text').val(),
+        copywriting: contentHtml,
         bindwithperiodpush: e,
         pushtime: time_val,
         currentstate: state1,
@@ -1486,8 +1526,8 @@ $('.examine1_Newly_added').on('click', function() {
     };
 
     if (form_value.service == ""||$('#textarea_value').val().length=='0') {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1495,8 +1535,8 @@ $('.examine1_Newly_added').on('click', function() {
     }
 
 if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1523,8 +1563,8 @@ if(!$('#textarea_value').val()){
     }
 
     if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
-        layer.msg('请选择发送对象');
-        layer.tips('请选择发送对象', '.send_object', {
+        layer.msg('请选择对象');
+        layer.tips('请选择对象', '.send_object', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1533,7 +1573,7 @@ if(!$('#textarea_value').val()){
 
     if (form_value.category == "") {
         // layer.msg('请选择发送方式');
-        layer.tips('请选择发送方式', '.mode1', {
+        layer.tips('请选择方式', '.mode1', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1546,7 +1586,7 @@ if(!$('#textarea_value').val()){
     // }
     if ($('#imghead').attr('src') == '') {
         // layer.msg('请选择封面图片');
-        layer.tips('请选择封面图片', '.cover_photo', {
+        layer.tips('请上传图片', '.cover_photo', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1554,7 +1594,7 @@ if(!$('#textarea_value').val()){
     }
     if (form_value.copywriting == "") {
         // layer.msg('请填写发送内容');
-        layer.tips('请填写发送内容', '.mode', {
+        layer.tips('请填写内容', '.mode', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1576,7 +1616,7 @@ if(!$('#textarea_value').val()){
 
 
         // 清空输入框里面的内容
-        $('#textarea_value').val('');
+        // $('#textarea_value').val('');
         $('.word').text('0');
         // 清空隐藏域的地区
         $('.area_val ').val('');
@@ -1593,7 +1633,7 @@ if(!$('#textarea_value').val()){
         // $('#imghead').css('height', '0px');
         // $('#imghead').css('width', '0px');
         //清空发送内容
-        $('#send_text').val('');
+        $($('#iframeID')[0].contentWindow.$.find('.note-editing-area .panel-body')).empty();
         // 新增标题
         $('.layui-layer-title').text('新增文案');
         // 默认选择发送方式
@@ -1662,7 +1702,7 @@ $('.examine1_Preservation').on('click', function() {
     //         area_fullcountry2='全国';
     //     }
     // }
-
+     var contentHtml = $($('#iframeID')[0].contentWindow.$.find('.note-editing-area .panel-body')).html();
     var guid = $(this).closest('.layui-layer-content').find('._guid').val();
     var state1 = $(this).closest('.layui-layer-content').find('.state').val();
     var textarea_value = JSON.stringify($.trim($('#textarea_value').val()));
@@ -1671,11 +1711,11 @@ $('.examine1_Preservation').on('click', function() {
         service: textarea_value,
         area: JSON.stringify(JSON.parse($('.area_val').val()).area),
         push_distributor: a,
-        push_consumer: b,
-        push_retailer: c,
+        push_consumer: c,
+        push_retailer: b,
         category: d,
         poster_url: pic_url,
-        copywriting: $('#send_text').val(),
+        copywriting: contentHtml,
         bindwithperiodpush: e,
         pushtime: time_val,
         currentstate: state1,
@@ -1684,8 +1724,8 @@ $('.examine1_Preservation').on('click', function() {
     };
 
     if (form_value.service == "") {
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1693,8 +1733,8 @@ $('.examine1_Preservation').on('click', function() {
     }
 
     if(!$('#textarea_value').val()){
-        layer.msg('请输入文案标题');
-        layer.tips('请输入文案标题', '#wordCount', {
+        layer.msg('请输入标题');
+        layer.tips('请输入标题', '#wordCount', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1721,8 +1761,8 @@ $('.examine1_Preservation').on('click', function() {
         return;
     }
     if (form_value.push_distributor == 0 && form_value.push_consumer == 0 && form_value.push_retailer == 0) {
-        layer.msg('请选择发送对象');
-        layer.tips('请选择发送对象', '.send_object', {
+        layer.msg('请选择对象');
+        layer.tips('请选择对象', '.send_object', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1731,7 +1771,7 @@ $('.examine1_Preservation').on('click', function() {
 
     if (form_value.category == "") {
         // layer.msg('请选择发送方式');
-        layer.tips('请选择发送方式', '.mode1', {
+        layer.tips('请选择方式', '.mode1', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1744,7 +1784,7 @@ $('.examine1_Preservation').on('click', function() {
     // }
     if ($('#imghead').attr('src') == '') {
         // layer.msg('请选择封面图片');
-        layer.tips('请选择封面图片', '.cover_photo', {
+        layer.tips('请上传图片', '.cover_photo', {
             tips: [4, '#F22525'],
             time: 4000
         });
@@ -1752,7 +1792,7 @@ $('.examine1_Preservation').on('click', function() {
     }
     if (form_value.copywriting == "") {
         // layer.msg('请填写发送内容');
-        layer.tips('请填写发送内容', '.mode', {
+        layer.tips('请填写内容', '.mode', {
             tips: [1, '#F22525'],
             time: 4000
         });
@@ -1834,7 +1874,7 @@ $('table.notify').on('click', '.detailed', function() {
         dataType: "json",
         // data: data,
         success: function(data_text) {
-            // console.log(data_text);
+             // console.log(data_text);
             var a = "";
             if (data_text.content.push_consumer == 1) {
                 var temp = "消费者" + '<br />'
@@ -1851,7 +1891,7 @@ $('table.notify').on('click', '.detailed', function() {
             var areastring = "";
             var provinces = data_text.content.area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "全国") {
+            if (provinces.length == 1 && provinces[0].name == "fullcountry"||provinces[0].name =='全国') {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -1862,7 +1902,7 @@ $('table.notify').on('click', '.detailed', function() {
                     // }
                     var temp = provinces[j].name + '<br />';
                     areastring += temp;
-                    if (provinces[j].city.length > 0) {
+                    if (provinces[j].city) {
                         for (var k = 0; k < provinces[j].city.length; k++) {
                             //process city
                             // var citycharge = "";
@@ -1871,7 +1911,7 @@ $('table.notify').on('click', '.detailed', function() {
                             // }
                             var citytemp = provinces[j].city[k].name + '<br />';
                             areastring += citytemp;
-                            if (provinces[j].city[k].country.length > 0) {
+                            if (provinces[j].city[k].country) {
                                 //process country
                                 areastring += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
@@ -1896,11 +1936,13 @@ $('table.notify').on('click', '.detailed', function() {
                 }else{
                     var pushtime_val = riqi;
                 }
+            //var contentHtml = $('#contentdiv').html($('#contentdiv').html(data_text.content.copywriting));
+            //console.log(typeof(data_text.content.copywriting));
 
             var index = layer.open({
                 type: 1,
                 title: '详情',
-                area: ['57.3%', "100%"],
+                area: ['68.3%', "100%"],
                 // maxmin: true,
                 content: '<input type="hidden" id="guid_val" value="' + guid + '">' +
                     '<input type="hidden" id="state_val" value="' + state + '">' +
@@ -1915,7 +1957,7 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div style="float:left" class="Float_Title">发送地区</div>' +
-                    '<div class="Float_text">' +
+                    '<div class="Float_text area_text">' +
                     areastring +
                     '</div></div>' +
 
@@ -1933,7 +1975,7 @@ $('table.notify').on('click', '.detailed', function() {
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title">发送内容</div>' +
-                    '<div class="Float_text">' + data_text.content.copywriting + '</div></div>' +
+                    '<div class="Float_text" id="contentdiv"></div></div>' +
 
                     '<div class="Text_Title">' +
                     '<div class="Float_Title1">图文消息<br />发送时间</div>' +
@@ -1948,25 +1990,38 @@ $('table.notify').on('click', '.detailed', function() {
                     '<span class="button_two">' +
                     isInput +
                     '</span>'
-
             })
+
             var abc = $('.button_two .btn_center button');
             if (abc.length == 1) {
                 $('.btn_center .btn').css('display', 'block');
-                $('.btn_center .btn').css('margin-left', '45%');
-
+                $('.btn_center .btn').css('margin-left', '20%');
             } else if (abc.length == 2) {
                 $('.btn_center .btn').css('display', 'inline-block');
-                $('.btn_center .btn:eq(0)').css('margin-left', '40%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '0%');
             } else if (abc.length == 4) {
-                $('.btn_center .btn:eq(0)').css('margin-left', '26%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '-20%');
                 $('.btn_center .btn').css('display', 'inline-block');
                 // $('.Float_Title1').css('margin-left','0px');
             } else if (abc.length == 3) {
                 $('.btn_center .btn').css('display', 'inline-block');
-                $('.btn_center .btn:eq(0)').css('margin-left', '31%');
+                $('.btn_center .btn:eq(0)').css('margin-left', '-5%');
                 // $('.Float_Title1').css('margin-left','0px');
             }
+            $('#contentdiv').html(data_text.content.copywriting);
+            
+            //     var cstring=$('#contentdiv2').text();
+            //         if(cstring.substring(0)=="\"")
+            //         {
+            //         //字符串以"开头，去掉"
+            //         cstring=cstring.substr(1,cstring.length-1)
+            //         }
+            //         if(cstring.substring(cstring.length-1)=="\"")
+            //         {
+            //         //字符串以"结尾，去掉"
+            //         cstring=cstring.substr(0,cstring.length-2)
+            //         }
+            // $('#contentdiv').html(cstring);
         },
         error: function() {
             alert('出错了');
@@ -2070,7 +2125,6 @@ $(document).on('click', '.btn_adopt', function() {
     var index_val = parseInt(i);
     $('tr:eq(' + index_val + ') td:eq(7) .adopt').click()
 });
-
 
 
 // 封装

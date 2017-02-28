@@ -111,6 +111,7 @@
 		margin: 0 auto;
 		display: block;
 		line-height: 1rem;
+		word-break: break-all;
 	}
 	.Activity{
 		width: 93.75%;
@@ -309,7 +310,9 @@
 	.Bu_time p span{
 		color: #fd806f;
 	}
-	
+	.Bu_time p a span{
+		color:#333;
+	}
 
 
 	.Focus_box{

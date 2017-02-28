@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-01-17 19:15:47
+ * @Last Modified time: 2017-02-24 18:42:29
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -49,12 +49,12 @@ $(function() {
                 return;
         }
     //点击关闭
-    $('.close').click(function() {
+    $('.close_off').click(function() {
         layer.msg("正在关闭···");
          window.location='Marketcopymanagement.html';
         layer.msg("已关闭");
     })
-$('.mode1').find('div:eq(0) img').addClass('xiyin_son');
+$('.mode1_fa').find('div:eq(0) img').addClass('xiyin_son');
     //保存---本地保存
 
 
@@ -76,8 +76,8 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             var c = '';
         }
 
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
-            var d = $('.mode1').find('a').text();
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+            var d = $('.mode1_fa').find('a').text();
         };
 
        if($('.area_val').val()==''){
@@ -87,7 +87,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             areastring = "";
             var provinces = JSON.parse($('.area_val').val()).area;
             var array = [];
-            if (provinces.length == 1 && provinces[0].name == "全国") {
+            if (provinces.length == 1 && provinces[0].name == "fullcountry" || provinces[0].name =='全国') {
                 areastring = "全国";
             } else {
                 for (var j = 0; j < provinces.length; j++) {
@@ -98,7 +98,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                     }
                     var temp = provinces[j].name + ':' + provincecharge + '<br />';
                     areastring += temp;
-                    if (provinces[j].city.length > 0) {
+                    if (provinces[j].city) {
                         for (var k = 0; k < provinces[j].city.length; k++) {
                             //process city
                             var citycharge = "";
@@ -107,7 +107,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                             }
                             var citytemp = provinces[j].city[k].name + ':' + citycharge + '<br />';
                             areastring += citytemp;
-                            if (provinces[j].city[k].country.length > 0) {
+                            if (provinces[j].city[k].country) {
                                 //process country
                                 areastring += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                 for (var l = 0; l < provinces[j].city[k].country.length; l++) {
@@ -129,15 +129,15 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             objective: $('.input-text').find('option:selected').text(),
             area: $('area').val(),
             send_object: a +'  <br/> ' +b+' <br/> ' + c,
-            mode1: d,
+            mode1_fa: d,
             post_url: pic1_url,
             send_text: $('#send_text').val(),
             together: $('input[name="Fruit"]:checked').val(),
             pushtime: time_val,
             // 这个是假的
             push_distributor: a,
-            push_consumer: b,
-            push_retailer: c,
+            push_consumer: c,
+            push_retailer: b,
         }
 
         if (form_value.textarea_value == "") {
@@ -168,9 +168,9 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             return;
         }
 
-        if (form_value.mode1 == undefined) {
+        if (form_value.mode1_fa == undefined) {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -198,7 +198,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         var radio_val = $('input[name="Fruit"]:checked').val();
            if(radio_val==undefined){
             // layer.msg('请选择图文发送方式');
-             layer.tips('请选择图文发送方式','.Graphic_message', {
+             layer.tips('请选择方式','.Graphic_message', {
                   tips: [3, '#F22525'],
                   time: 4000
                 });
@@ -231,6 +231,22 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         //     return;
         // }
 
+        // $('.note-btn-group .note-icon-code').click();
+        var contentHtml = $('.note-editing-area .panel-body').html();
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
+            layer.tips('请填写内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+        if(contentHtml.length>4000){
+            layer.tips('填写内容过多','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
 
         var index = layer.open({
             type: 1,
@@ -253,15 +269,16 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
                     '<div class="Text_Title">' +
                         '<div class="Float_Title">发送方式</div>' +
-                        '<div class="Float_text">'+form_value.mode1+'</div>'+
+                        '<div class="Float_text">'+form_value.mode1_fa+'</div>'+
                     '</div>' +
                     '<div class="Text_Title">' +
                         '<div class="Float_Title">封面图片</div>' +
                         '<div class="Float_text srcPic"><img src="Images/QQ截图20161118203155.png" width="400" height="300" alt="" /></div>'+
                     '</div>' +
                     '<div class="Text_Title">' +
+                    // 改为富版本编辑器   $('.note-editing-area .panel-body').html()  /获取整个html内容
                         '<div class="Float_Title">发送内容</div>' +
-                        '<div class="Float_text">' + form_value.send_text + '</div>'+
+                        '<div class="Float_text" id="contentdiv">' + contentHtml + '</div>'+
                     '</div>' +
                     '<div class="Text_Title">' +
                         '<div class="Float_Title">' +
@@ -301,7 +318,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
         } else {
             var c = 0;
         };
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var d = 1;
         } else {
             var d = 0;
@@ -351,6 +368,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
                 }
 
         $('#count').click();
+    
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -359,11 +377,11 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
             belong_group: $('.input-text').find('option:selected').text(),
             area:JSON.stringify(JSON.parse($('.area_val').val()).area),
             push_distributor: a,
-            push_consumer: b,
-            push_retailer: c,
+            push_consumer: c,
+            push_retailer: b,
             category: d,
             poster_url: pic_url,
-            copywriting: JSON.stringify($('.mode textarea').val()),
+            copywriting: contentHtml,
             bindwithperiodpush: e,
             pushtime: time_time,
             guid:guid_val
@@ -399,7 +417,7 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -417,6 +435,15 @@ $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
         if (form_value.copywriting.length == 2) {
             // layer.msg('请填写发送内容');
+            layer.tips('请填写内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+        var contentHtml = $('.note-editing-area .panel-body').html();
+        console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
             layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
@@ -501,7 +528,7 @@ var guid_val = '';
         } else {
             var c = 0;
         }
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var d = 1;
         } else {
             var d = 0;
@@ -550,6 +577,7 @@ var guid_val = '';
                 }
 
             $('#count').click();
+     
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -560,11 +588,11 @@ var guid_val = '';
             area: JSON.stringify(JSON.parse($('.area_val').val()).area),
             // area = JSON.stringify(area); 
             push_distributor: a,
-            push_consumer: b,
-            push_retailer: c,
+            push_consumer: c,
+            push_retailer: b,
             category: d,
             poster_url: pic_url,
-            copywriting: JSON.stringify($('.mode textarea').val()),
+            copywriting: contentHtml,
             bindwithperiodpush: e,
             pushtime: time_time,
             guid:guid_val
@@ -599,7 +627,7 @@ var guid_val = '';
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -618,6 +646,15 @@ var guid_val = '';
 
         if (form_value.copywriting.length==2) {
             // layer.msg('请填写发送内容');
+            layer.tips('请填写内容','.mode', {
+                  tips: [1, '#F22525'],
+                  time: 4000
+                });
+            return;
+        }
+           var contentHtml = $('.note-editing-area .panel-body').html();
+        // console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
             layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
@@ -699,7 +736,7 @@ var guid_val = '';
         } else {
             var c = 0;
         }
-        if ($('.mode1').find('div:eq(0) img').hasClass('xiyin_son') == true) {
+        if ($('.mode1_fa').find('div:eq(0) img').hasClass('xiyin_son') == true) {
             var d = 1;
         } else {
             var d = 0;
@@ -750,6 +787,7 @@ var guid_val = '';
                 }
 
             $('#count').click();
+
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -760,11 +798,11 @@ var guid_val = '';
             area: JSON.stringify(JSON.parse($('.area_val').val()).area),
             // area = JSON.stringify(area); 
             push_distributor: a,
-            push_consumer: b,
-            push_retailer: c,
+            push_consumer: c,
+            push_retailer: b,
             category: d,
             poster_url: pic_url,
-            copywriting: JSON.stringify($('.mode textarea').val()),
+            copywriting: contentHtml,
             bindwithperiodpush: e,
             pushtime: time_time,
             guid:guid_val
@@ -799,7 +837,7 @@ var guid_val = '';
 
         if (form_value.category == "") {
             // layer.msg('请选择发送方式');
-            layer.tips('请选择方式','.mode1', {
+            layer.tips('请选择方式','.mode1_fa', {
                   tips: [1, '#F22525'],
                   time: 4000
                 });
@@ -816,8 +854,9 @@ var guid_val = '';
         }
         
 
-        if (form_value.copywriting.length==2) {
-            // layer.msg('请填写发送内容');
+          var contentHtml = $('.note-editing-area .panel-body').html();
+        // console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
             layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
@@ -872,7 +911,7 @@ var guid_val = '';
             _ajax("POST", "/webapi/ipaloma/propagation", form_value, '保存错误', function(data) {
             layer.msg('保存成功',{time:1500});
             guid_val = data.guid;
-            console.log(guid_val);
+            // console.log(guid_val);
             // window.location='Marketcopymanagement.html';
         });
         }else{
@@ -1001,6 +1040,5 @@ function clacImgZoomParam(maxWidth, maxHeight, width, height) {
     param.top = Math.round((maxHeight - param.height) / 2);
     return param;
 }
-
 
 

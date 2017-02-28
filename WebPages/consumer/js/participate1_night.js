@@ -9,8 +9,8 @@ $(function(){
 	//var currentindex=0;
 	replace()
 	function replace(){
-		var topid=window.location.search;
-		var topids=topid.split('=')[1].split(',');
+		//var topid=window.location.search;
+	    var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
 		for (var i = 0; i <topids.length ; i++) {
 			new_arr.push(topids[i]);
 		    console.log(topids[i]);
@@ -18,6 +18,7 @@ $(function(){
 		 // _ajax_paly(new_arr[0]);
 		 for (var index = 0; index <new_arr.length; index++) {
 		 	 _ajax_paly(new_arr[index]);
+		 	 console.log(new_arr[index])
 		 }
 	}
 	/* function GetQueryString(name)
@@ -33,7 +34,7 @@ $(function(){
 		// for(var k=0;k<topid.length;k++){
 			//var topidval=topid[i];
 			$.ajax({
-				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=consumer&contributorid=oCry_w3IhvBINJb-HA8LonuVDe4w&topicid='+topidcont,
+				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=consumer&topicid='+topidcont,
 				//url:url,
 				type:'get',
 				dataType:'json',
@@ -84,7 +85,6 @@ $(function(){
 										'</div>'+
 									'</section>'+
 									'<section class="tablecont">'+
-										
 									'</section>'+
 									'<footer>'+
 										'<div class="Bu_time">'+
@@ -102,18 +102,23 @@ $(function(){
 											'<div class="qualification_top">'+
 												'<h2>'+'参与资格'+'</h2>'+
 											'</div>'+
-											'<div class="xsp_x">'+
-												'<div class="xsp_x_left">'+
-													'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
+											'<div class="qua_box">'+
+												'<div class="variety">'+
+													'<a href="javascript:;">'+'活动商'+'</a>'+
 												'</div>'+
-												'<div class="xsp_x_right">'+
-													'<a href="javascript:;">'+description+'</a>'+
+												'<div class="xsp_x">'+
+													'<div class="xsp_x_left">'+
+														'<a href="javascript:;">'+'不限'+'</a>'+
+													'</div>'+
+													'<div class="xsp_x_right">'+
+														'<a href="javascript:;">'+'</a>'+
+													'</div>'+
 												'</div>'+
 											'</div>'+
 										'</section>'+
 										'<div class="T_time">'+
 											'<p>'+
-												'<img src="../image/4.png" alt="">'+
+												'<img src="../image/4-1.png" alt="">'+
 												'<a href="javascript:void(0)">'+
 													'服务电话&nbsp;&nbsp;&nbsp;'+
 													'<span>'+data.servicephone+'</span>'+
@@ -124,75 +129,20 @@ $(function(){
 											'本次活动最终解释权归凌云科技所有'
 										'</p>'+
 									'</footer>'+
-								'<article>'+
+								'</article>'+
 							'</div>'
 							 
 					$('.swiper2>.swiper-wrapper').append(str_sum);
-				
-	 					
-	 				// var str_svg='<div class="more_active hidden_page_b">'+
-						// 		 	'<img class="more_active_left" src="../image/6.png" alt="">'+
-						// 		 	'<p class="more_active_cen">'+
-						// 		 		'更多活动'+
-						// 		 	'<p>'+
-						// 		 	'<div class="more_active_right">'+
-						// 		 		'<p>'+ '向左滑' +'</p>'+
-						// 		 	'</div>'+
-						// 		 '</div>'+
-						// 		 '<div class="Popup">'+
-						// 		 '</div>'
-
-
-	 				
-
-					/*var _guid = data.guid; //获取guid
-					var _oid = data.oid; //获取oid;
-					$('.oid_ipt').val(_oid);
-					$('.guid_ipt').val(_guid);
-
-					var subsidiesstart = data.begintime; //补贴开始时间
-					var subsidiesend = data.endtime;	//补贴结束时间
-					$('.begin_times').html(subsidiesstart); //补贴时间输出到页面
-					$('.end_times').html(subsidiesend);
-
-					//服务电话
-					var Service_telephone=data.servicephone;
-					$('.T_time p a span').html(Service_telephone);
-
-					var postslogan = data.post; //获取标题
-					$('header h1').html(postslogan); //标题输出到页面
-
-					var Activity_theme = data.activitytitle; //获取主题
-					$('.Topbanner_contimgbox a').html(Activity_theme); //主题输出到页面
-
-					var posturlpic = data.poster_url; //获取图片
-					$('.Topbanner_contimg img').attr('src',posturlpic); //图片输出到页面
-					
-					var Advertising_copywriter = data.content; //获取宣传文案
-					$('.Bottombanner_cont a').html(Advertising_copywriter); //宣传文案输出到页面
-*/
-					
 
 				//钱袋
-					var Platform_subsidies=data.budget.subsidytotal; //平台最高补贴
-					var issued=data.budget.subsidyreleased; //已发放
-					/*var enjoys=data.budget.days; //已经补贴
-					$('.enjoy a').html(enjoys); //已经补贴输出到页面*/
+					
 					var getmoneys=data.budget.obtained; //获取获得
 					var str_small='';
 					for(var p=0;p<getmoneys.length;p++){
 						str_small+=getmoneys[p]
 					}
-					/*$('.enjoy span:eq(1)').html(formatCash1(str_small))*/
-					//console.log(getmoneys)
-
-				//三位数加上小数点	
-					/*function init1(){
-						$('.yellow_money span').html(formatCash1(Platform_subsidies)); //平台最高补贴输出页面
-						$('.issued a:eq(1)').html(formatCash1(issued)) //已发放输出页面
-						//$('.enjoy span span').html(formatCash1(getmoneys)); //获得输出到页面
-					}
-					init1()*/
+					
+				
 					function formatCash1( cash ){
 						var str_cash = cash + "";
 						var ret_cash = "";
@@ -209,11 +159,11 @@ $(function(){
 						return ret_cash;
 					}
 
-
 				allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
 					var str='';
+					// console.log(str);
 					var keyy = '';
 				 	function keyg(keyy){
 					 if(keyy=='distributor'){
@@ -223,12 +173,13 @@ $(function(){
 					 	}else if(keyy=='consumer'){
 					 		keyy='消费者'
 					 	}else if(keyy=='distributor_employee'){
-					 		keyy='分銷商店员'
+					 		keyy='分销商店员'
 					 	}else if(keyy=='retailer_employee'){
 							keyy='门店店员'
 					 	}
 					 	return keyy;
 				 	}
+				 	
 					for(key in subsidy){
 						str+='<div class="tablecont_one">'+
 								'<div class="xps_q">'+
@@ -248,9 +199,13 @@ $(function(){
 										'</div>'+
 									'</div>'+
 								'</div>'+
-							 '</div>'			
+							 '</div>'	
+							 $('.tablecont:last').html(str);	
 					}
-					$('.tablecont').html(str);
+					/*jQuery.each(str, function(i, val) {  
+
+					    $('.tablecont').html(str[i]);
+					}); */ 
 					// console.log(str);
 					// function composeSubsidyDescription(subsidycontent)
 					// {
@@ -260,16 +215,16 @@ $(function(){
 					// 		+ '<a style="line-height: 0.8rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:' +
 					// 			subsidycontent.ruledescription+ '...</a>';
 					// }
-
 					function composeSubsidyObject(subsidyparameter)
 					{
 						var li = "";
-						li += '<li style="text-indent: 0.3rem;border-left: 1px solid #ffcccc;" class="swiper-slide">';
-						for (var i = 0; i <= subsidyparameter.length - 1; i++) 
-						{
+						
+						for (var i = 0; i <= subsidyparameter.length - 1; i++)
+						{	
+							li += '<li style="text-indent: 0.3rem;border-left: 1px solid #ffcccc;" class="swiper-slide">';
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
-								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidyparameter[i].subsidymethod + '</a>'
-								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:<br/>';
+								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidyparameter[i].subsidymethod.split(',')[0]+ '</a>'
+								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'+'1个'+keyg(key) +'在一个超惠卷主题活动中:'+'<br/>';
 								
 								var textson = subsidyparameter[i].ruledescription;
 								for( var y = 0; y < textson.length; y++ ){
@@ -284,36 +239,87 @@ $(function(){
 					
 				}
 
-
 				swiper2()
-
-
 				//swiper
 				var Swiper1 = new Swiper ('.swiper1', { 
 				    speed:1200,
 					slidesPerView :2,
-				});
-
-
-
-				/*//服务电话
-					var servicephone=data.servicephone;
-					$('.T_time p a span').html(servicephone);*/
-
-				//参与资格（条件）
-					var conditions=data.condition.consumer;
-					if(conditions==undefined){
-						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
-					}else if(conditions.length==0){
-						$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
-					}else{
-						for(var i=0;i<conditions.length;i++){
-							var description=conditions[i].description;
+				});				
+				//参与资格
+				Participationqualification();
+				function Participationqualification(){
+						var conditions = data.condition;
+						var str='';
+						var key = '';
+					 	function keyname(key){
+						 if(key=='distributor'){
+						 		key='分销商'
+						 	}else if(key=='retailer'){
+						 		key='门店'
+						 	}else if(key=='consumer'){
+						 		key='消费者'
+						 	}else if(key=='distributor_employee'){
+						 		key='分销商店员'
+						 	}else if(key=='retailer_employee'){
+								key='门店店员'
+						 	}
+						 	return key;
+					 	}
+					 	jQuery.each(conditions, function(key, value) {  
+					 			console.log(key)
+	                         	str+='<div class="variety">'+
+									'<a href="javascript:;">'+keyname(key)+'</a>'+
+								'</div>';
+								//console.log(conditions.consumer[0])
+							    if(conditions.distributor!==undefined){
+									//$('.xsp_x').html('<a class="Unlimited">'+ '不限' +'</a>')
+									if(conditions.distributor.length==0){
+										str+='<div class="xsp_x">'+'<a class="Unlimited">'+ '不限' +'</a>'+'</div>';
+									}else{
+										detail()
+									}
+								}else if(conditions.retailer!==undefined){
+									if(conditions.retailer.length==0){
+										str+='<div class="xsp_x">'+'<a class="Unlimited">'+ '不限' +'</a>'+'</div>';
+									}else{
+										detail()
+									}
+								}else if(conditions.consumer!==undefined){
+									if(conditions.consumer.length==0){
+										str+='<div class="xsp_x">'+'<a class="Unlimited">'+ '不限' +'</a>'+'</div>';
+									}else{
+										detail()
+									}
+								}else if(conditions.distributor_employee!==undefined){
+									if(conditions.distributor_employee.length==0){
+										str+='<div class="xsp_x">'+'<a class="Unlimited">'+ '不限' +'</a>'+'</div>';
+									}else{
+										detail()
+									}
+								}else if(conditions.retailer_employee!==undefined){
+									if(conditions.retailer_employee.length==0){
+										str+='<div class="xsp_x">'+'<a class="Unlimited">'+ '不限' +'</a>'+'</div>';
+									}else{
+										detail()
+									}
+								}
+						function detail(){
+							for (var i = 0; i <value.length; i++) {
+								str+= '<div class="xsp_x">'+
+										'<div class="xsp_x_left">'+
+											'<a href="javascript:;">'+value[i].localtype+'</a>'+
+										'</div>'+
+										'<div class="xsp_x_right">'+
+											'<a href="javascript:;">'+value[i].description+'</a>'+
+										'</div>'+
+									'</div>';
+								}
 						}
-						/*$('.xsp_x_right a').html(description);*/
-					}
-					//console.log(conditions.length)
-					
+
+	                    });  
+						
+						$('.qua_box:last').html(str);
+				}
 					//调整度数
 					if($('.issued a:nth-child(2)').text().length < 4){
 						$('.issued a:nth-child(1)').css({
@@ -324,10 +330,29 @@ $(function(){
 					}
 
 					//活动编号
-					$('.active1font').html(function(index){
-						return "活动" + (index+1);
-					});
-
+					activityNumber();
+					function activityNumber(i){
+						var topid=window.location.search;
+						var topids=topid.split('=')[1].split(',');
+						for (var i = 0; i <topids.length ; i++) {
+							if(i==0){
+								$('.activesmallpic').attr({
+									src:""
+								});
+								$('.active1font').html();
+								$('.more_active').hide();
+							}else{
+								$('.activesmallpic').attr({
+									src:"../image/5-1.png"
+								});
+								$('.more_active').show();
+								$('.active1font').html(function(index){
+									return "活动" + (index+1);
+								})
+							}
+						}
+						
+					}
 
 				},
 				error:function(jqXHR){
@@ -372,8 +397,6 @@ $(function(){
 					    //allowSwipeToPrev : true, //禁止向左滑动
 					    //swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
-					     
-					     // alert(123)
 					     console.log(1)
 					      //currentindex++;
 					       //alert(currentindex); //切换结束时，告诉我现在是第几个slide
@@ -382,7 +405,7 @@ $(function(){
 					       //     //_ajax_paly(new_arr[currentindex]);
 					       //     console.log(currentindex);
 					       // }
-					       // alert(1)
+					     
 					    }
 					})
 				}

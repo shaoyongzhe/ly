@@ -1,3 +1,4 @@
+//20170221
 //通用样式
 html,body{
     width:100%;
@@ -162,12 +163,27 @@ padding:0;
 //  background:red;
     font-family: arial;
     font-weight: bold;
-    font-size: 20px;////////////////rem(20);//;
+    font-size: 18px;////////////////rem(20);//;
     color:#fff;   
     text-align: center;
     transform-origin: left;
     -webkit-transform-origin:left;
 //  transform: rotate(-15deg);//稍后补充
+}
+.CcButieLeft{
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/c9.png);
+    position: absolute;
+    top: 118px;
+    left: 17px;
+    cursor: pointer;
+}
+.CcButieRight{
+    @extend .CcButieLeft;
+    background-image: url(../img/c10.png);
+    top: 118px;
+    left:213px ;
 }
 //参与活动条件
 .CcconditionImg{
@@ -289,6 +305,7 @@ padding:0;
     width: 260px;////////////////rem(260);//;
 //  height:23px;
     padding:10px ;////////////////rem(10);//;//右侧是否需要
+    padding-right: 20px;
     box-sizing: border-box;
     font-family: "微软雅黑";
     font-size: 12px ;////////////////rem(12);//;

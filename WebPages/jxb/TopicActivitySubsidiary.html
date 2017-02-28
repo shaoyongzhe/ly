@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">		
-		<title>附属</title>
+		<title>附属0221</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> 
 		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="css/public.css"/>
@@ -14,13 +14,45 @@
 			body{
 				width:100%;
 			}
-			/*.Cwrap{
-				margin:0 auto;
-			}*/
+			.popups {
+			    width: 259px;
+			    height: 149px;
+			    box-sizing: border-box;
+			    padding: 25px 10px;
+			    background: white;
+			    /*position: relative;*/
+			    /*left: 71px;*/
+			}
+			.popups p {
+			    width: 100%;
+			    text-align: center;
+			    font-size: 14px;
+			    line-height: 25px;
+			    font-weight: bold;
+			    margin-top: -3px;
+			    margin-bottom: 23px;
+			}
+			.popups span {
+			    display: inline-block;
+			    border-radius: 20px;
+			    width: 88px;
+			    height: 40px;
+			    line-height: 40px;
+			    text-align: center;
+			    color: white;
+			    font-size: 12px;
+			    margin: 0 15px;
+			    cursor: pointer;
+			}			
 		</style>
 
 	</head>
 	<body>
+		<script type="text/javascript">
+			var marginShade=document.createElement("div");			
+			marginShade.className="marginShade";
+			document.getElementsByTagName("body")[0].appendChild(marginShade);	
+		</script>			
 		<div class="Cwrap initialHi">
 			<!--背景图，固定定位-->
 			<div class="Cbd">
@@ -46,6 +78,9 @@
 					<p class="CcButieMax"></p>
 					<!--已发放-->
 					<p class="CcButieAlready"></p>
+					<!--0208添加左右按钮-->
+					<p class="CcButieLeft"></p>
+					<p class="CcButieRight"></p>
 				</div>
 				<!--参与活动条件-->
 				<div class="Cccondition">
@@ -81,6 +116,7 @@
 			</div>
 			<div class="footer">
 				<div class="footerCkxq dib">查看详情</div><div class="footerCkgd dib">查看更多</div>
+				
 			</div>
 		</div>			
 	</body>

@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2016-11-18 15:37:05
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-01-17 22:09:37
+* @Last Modified time: 2017-02-27 14:42:05
 */
 @charset "utf-8";
 /* 你自己的样式 */
@@ -16,25 +16,30 @@
 	box-sizing: border-box;
 }
 .fou{
-    background-color:#C0BCBC ;
+    background-color:#C0BCBC;
 }
 
-
-.line {
-    /*width: 680px;*/
+/* .newadd {
     height: 360px;
     overflow: hidden;
     position: relative;
-    /*left: -50px;*/
-    /*top: -40px;*/
     margin-top:10px;
     height:70px;
     border-top: solid 10px #eee;
-    /* background-color: #F69642; */
-
+}
+ */
+.Float_text .table-bordered td {
+    border-top: 1px solid #ddd;
+}
+.toolTip{
+    width: 50%;
+    height: 50%;
+    background-color: pink;
+    display: block;
+    z-index: 8998664;
 }
 
-.Newly_added{
+.Newly_added1{
 	width: 131px;
 	height: 33px;
 	background-color: #FF6032;
@@ -47,22 +52,25 @@
     border-radius: 3px;
 }
 
-
+.Newly_added1:hover{
+    background-color: #D86544;
+}
 .handle{
 	position:relative;
 }
 .bread-crumb{
-    font-size: 14px;
-    height: 34px;
-    line-height: 22px;
+    color: #A6A6A6;
+    font-size: 12px;
+    height: 26px;
+    line-height: 18px;
 }
 
 .handle-btns-wrap{
      display:none; 
     /*opacity: 1;*/
     width: 350px;
-    height: 30px;
-    line-height: 32px;
+    height: 35px;
+    line-height: 35px;
     background: #C4E4EF;
     transition: .6s;
     position: absolute;
@@ -73,7 +81,9 @@
 }
 
 
-
+.Hui-iconfont{
+    margin-right:4px;
+}
 .handle-icon.on + .handle-btns-wrap{
     opacity: 1;
     z-index: 1;
@@ -115,18 +125,14 @@
 }
 
 .handle-btns a {
-    /* display: inline-block; */
-    /* width: 100px; */
-    /* text-align: center; */
-    /* background: red; */
-    /* margin-bottom: 5px; */
-    /* float: left; */
-    /* height: 20px; */
     margin-right: 10px;
     text-decoration: none;
-    /* vertical-align: -7px; */
+    border-left: 1px solid #8ABDCF!Important;
+    padding-left:13px;
 }
-
+.handle-btns a:first-child {
+    border:none!Important;
+}
 .handle-icon:hover + .handle-btns,
 .handle-icon.on + .handle-btns{
 	/* opacity: 1; */
@@ -138,53 +144,90 @@
 	width: 100%;
     float: left;
 }
-
+span.content0{
+    display: none;
+}
+.text-c td:nth-child(7){
+     display: none;
+}
 body{
 		background-color: #eee;
 	}
 
 .page-container{
 	background-color: #F2F2F2;
-    padding: 10px 38px 10px 23px
+    padding: 10px 38px 10px 20px
 }
-
+.table th {
+    font-weight: 200;
+    font-size: 14px;
+    position: relative;
+}
+.table th:last-child:after{
+    content: "";
+    width: 18px;
+    height: 100%;
+    background: #f1f1f1;
+    position: absolute;
+    right: -17px;
+    top: 0;
+    border: 1px solid #eee;
+    border-left: 0;
+    border-bottom: 0;
+}
 /*查询div*/
 .search-area{
 	display: inline-block;
-	width:100%;
-	padding-bottom: 20px;
-	/* background: red; */
-	vertical-align: middle;
-	/* background-color: yellow; */
-	position: relative;
-	margin-left:20px;
+    width: 94.7%;
+    padding-bottom: 20px;
+    /* background: white; */
+    /* vertical-align: middle; */
+    /* background-color: yellow; */
+    position: relative;
+    /* margin-left: 20px; */
 }
 
 .search-area .search-btn{
     background-color: #4C83DB !important;
     color: #fff;
-    padding: 10px 30px;
+    padding: 8px 30px;
     border-radius: 3px;
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 3%;
-    bottom: 96px;
-    width: 130px;
-    height: 36px;
+    right: 2%;
+    bottom: 90px;
+    width: 138px;
+    height: 32px;
     cursor: pointer;
 }
-
+.search-area .search-btn:hover{
+    background-color: #2D67C3  !important;
+}
+select.input-text.text1.jiantou,select.input-text.text2.jiantou {
+    background: url(/admin/MarketingActivity/PropagationManagement/Images/21.png) 98% no-repeat;
+    -webkit-appearance: none;
+    appearance:none;
+    -moz-appearance:none; /* Firefox */
+    select::-ms-expand { display: none; }
+}
+select::-ms-expand { display: none; }
 .search-wrap{
 	background-color: #fff;
     height: 110px;
 }
 
 .search-area .input-contorl{
-	display: inline-block;
-	width: 32%;
+    display: inline-block;
+    width: 28%;
     position: relative;
-    margin-left: 2px;
+    /* margin-left: -9px; */
+}
+.search-area .input-contorl.xcxc{
+    display: inline-block;
+    width: 44%;
+    position: relative;
+    margin-left: -9px;
 }
 .calendar1{
     position: absolute;
@@ -226,20 +269,16 @@ body{
 }
 
 .input-contorl input{
-	width: 40%;
-	/* margin-right:50px; */
+	width: 138px;
+	margin:0 0 0 -10px;
 }
-
-
 
 .input-contorl .date{
-	width:26%;
-    cursor: pointer;
-    margin-right: 0;
-     /* background: #fff url(datePicker.gif) no-repeat right; */
+    width: 125px;
 }
 .input-text{
-	width: 40%;
+	width: 138px;
+    margin:0 0 0 -10px;
 }
 /* .input-contorl input, .input-contorl select{
 	display: block;
@@ -247,6 +286,16 @@ body{
 	height: 30px;
 }
  */
+.input-text .text2{
+        width: 138px;
+}
+
+.zhi{
+    /* padding-right: 10px; */
+    margin-right: 10px;
+    /* position: relative; */
+    /* left: 17px; */
+}
 .input-text .disable{
   background-color: #D5C7C7;
 }
@@ -255,13 +304,26 @@ body{
     height: 90%;
     opacity: 1;
 }
+/* .search-area .input-contorl.juli{
+    left: 52px;
+}
+.search-area .input-contorl.juli_two{
+    left: 53px;
+} */
 
-
+.search-area .input-contorl.area1{
+    display: inline-block;
+    width: 44%;
+    position: relative;
+    margin-left: -10px;
+}
 /* 弹框层 */
-
+.Text_Title .Float_text.area_text {
+    line-height: 40px;
+}
 
 .Text_Title{
-    width: 70%;
+    width: 80%;
     /* height: 73px; */
     margin: 0 15%;
     /* background-color: red; */
@@ -282,7 +344,7 @@ body{
     /* height: 73px; */
     line-height: 61px;
     margin-top:14px;
-    margin-left: 55px;
+    margin-left: 62px;
     display: inline-block;
 
 }
@@ -325,35 +387,59 @@ body{
     margin-left: 37px;
 }
 
-.btn{
+/* .btn{
     margin: 0 0;
-    width: 130px;
     height: 31px;
-    display:inline-block;
-}
+    display: inline-block;
+} */
 .btn_modify{
-    background-color: #1BCC49;
+    background-color: #27B56B;
+}
+
+.btn_modify:hover{
+    background-color: #309E65;
 }
 .btn_adopt{
-    background-color: #FF5F31;
+    background-color:  #FF5F31;
+}
+.btn_adopt:hover{
+    background-color:  #D86544;
 }
 .btn_send{
-    background-color: #FF5F31;
+    background-color:  #FF5F31;
 }
-.button_two{
-    margin: 0px 55%;
-    padding-bottom: 30px;
-    width: 435px;
+.btn_send:hover{
+    background-color:  #D86544;
 }
 .btn_Reject{
-    background-color: #1BCC49;
+    background-color:  #27B56B;
 }
+.btn_Reject:hover{
+    background-color:  #309E65;
+}
+.button_two{
+    margin: 45px 33%;
+    padding-bottom: 27px;
+    width: 435px;
+    display: block;
+}
+
 
 .content{
     font-size: 12px;
 }
 
 
+.layui-layer-setwin{
+    right: 13px;
+}
+.layui-layer-title{
+    margin-left: 31px;
+    margin-right: 32px;
+    padding: 0 80px 0 0px;
+    background-color: #FFFFFF;
+    /* width: 100%; */
+}
 .D_send{
      background-color: #FF5F31;
 }
@@ -362,29 +448,33 @@ body{
 .paging_data_ul{}
 .paging_paging_div{}
 
-/* 郭冠荣 s */
 
 .search-area .search-btn2{
     background-color:#AAAAAA ;
     color: #fff;
-    padding: 10px 30px;
+    padding: 8px 30px;
     border-radius: 3px;
     position: absolute;
     border: 0;
     line-height: 32px;
-    right: 3%;
-    bottom: 46px;
-    width: 130px;
-    height: 36px;
+    right: 2%;
+    bottom: 50px;
+    width: 138px;
+    height: 32px;
     cursor: pointer;
 }
+.search-area .search-btn2:hover{
+     background-color:#9A9898; 
+}
 .text1{
-    width: 40%;
+    width: 138px;
     height: 32px;
     border:1px solid #cccccc !important;
     margin:21px 0 0 0px;
     position: relative;
     cursor: pointer;
+    margin: 0 0 0 -10px;
+    border-radius: 3px;
 }
 /* .ipts1{
     width: 200px !important;
@@ -434,12 +524,13 @@ body{
 
 .table1{
     width: 97.5%;
+    margin-left: 20px;
 }
 .table1 tbody {
 
     display:block;
 
-    height:550px;
+    min-height:75px;
 
     overflow-y:scroll;
 
@@ -453,31 +544,36 @@ table thead, tbody tr {
 
 table thead {
 
-    width: calc( 99.9% - 1em )
+    width: calc( 100% - 1.4em )
 
 }
 .text-c td {
-    width: 20px;
+    /* width: 20px; */
     text-align: center;
     width: 100px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
 }
 .text-c td:last-child{
     overflow: visible !important;
 }
 .input-text{
     font-size: 12px;
+    border-radius: 3px;
 }
 
 
-
+.zongchang{
+    width: 80%;
+    padding-left: 40px;
+}
 .Float_text1{
      margin-left: 118px;
     /* margin-top: -32px; */
     width: 224px;
-        padding-bottom: 12px;
+    padding-bottom: 12px;
 }
 
 
@@ -515,34 +611,47 @@ tbody td {
 ..district-wrap span em{
     font-style: normal;
 }
-    span.name { display: block; width: 75px; text-align: left; line-height: 30px;}
+    span.name { display: block; width: 75px; text-align: left; line-height: 30px;font-size: 14px;}
     .gf-select { 
-                float: left;
-    width: 16.9%;
+    float: left;
+    width: 80px;
     top: -30px;
-    margin-left: 14px;
-    left: 60px;
+    margin-left: 12px;
+    left: 54px;
     position: relative;
     }
-    .gf-select span {width: 95%; padding: 1px 0px 1px 2px;display: block; border: 1px solid #ddd; cursor: pointer;}
-    .gf-select span em {font-style: normal;text-align: center;margin-top: 2px;
+    .gf-select span {   
+    width: 100%;
+    padding: 1px 0px 1px 2px;
+    display: block;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 3px;}
+    .gf-select span em {font-style: normal;margin-top: 2px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
-    width: 41px;
+    width: 54px;
+    font-size: 14px;
     }
     .gf-select span:hover{
         border:solid 1px #3bb4f2;box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 8px rgba(102,175,233,0.075);
     }
 
-    .gf-select .icon-jt { background: url(/admin/MarketingActivity/PropagationManagement/Images/21.png) center right no-repeat; width: 18px; height: 15px;position: absolute;right: 5px;top: 37%; margin-top: -3px;}
-    .gf-select ul {border: 1px solid #ddd; position: absolute; width: 100%; top: 31px; overflow-y :auto; display: none; background: #fff;}
+    .gf-select .icon-jt { background: url(/admin/MarketingActivity/PropagationManagement/Images/21.png) center right no-repeat; width: 18px; height: 15px;position: absolute;right: 0px;top: 37%; margin-top: -3px;}
+    .gf-select ul {border: 1px solid #ddd;
+    position: absolute;
+    width: 140%;
+    top: 31px;
+    overflow-y: auto;
+    display: none;
+    background: #fff;}
     .gf-select ul li { border-bottom: 1px solid #ddd; line-height: 30px; padding-left: 10px;}
     .gf-select ul li:last-child{ border-bottom: none; }
 
 /* tips  显示 */
-.tooltip {position: absolute;z-index: 1070;display: block;font-size: 12px;line-height: 1.4;visibility: visible;filter: alpha(opacity=0);opacity: 0}
+/* .tooltip {position: absolute;z-index: 1070;display: block;font-size: 12px;line-height: 1.4;visibility: visible;filter: alpha(opacity=0);opacity: 0}
 .tooltip.in {filter: alpha(opacity=90);opacity: .9}
 .tooltip.top {padding: 5px 0;margin-top: -3px}
 .tooltip.right {padding: 0 5px;margin-left: 3px}
@@ -558,9 +667,12 @@ tbody td {
 .tooltip.bottom .tooltip-arrow {top: 0;left: 50%;margin-left: -5px;border-width: 0 5px 5px;border-bottom-color: #000}
 .tooltip.bottom-left .tooltip-arrow {top: 0;left: 5px;border-width: 0 5px 5px;border-bottom-color: #000}
 .tooltip.bottom-right .tooltip-arrow {top: 0;right: 5px;border-width: 0 5px 5px;border-bottom-color: #000}
+ */
 
-
-
+.btn-close{
+    /* width: 130px; */
+    color:#deee!Important;
+}
 .bigbx{
     background: #fff;
     height: 720px;
@@ -570,12 +682,6 @@ tbody td {
     text-align: center;
     display: block;
     line-height: 65px;
-}
-
-
-
-.bread-crumb{
-    color: #A6A6A6;
 }
 /* 遮罩 */
 #msg{

@@ -1,8 +1,10 @@
-
-var linshi = '';
+﻿var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
+var pageindex=0;
+var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
+var autoLoad = true;
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
 $('.selectLWrapL').click(function(e){	
@@ -22,7 +24,6 @@ $(document).click(function(){
 	$('.selectL').hide();
 });
 
-
 /*起始时间laydate控件*/
 var dataStart = {
   elem: '#dataStart',
@@ -30,13 +31,14 @@ var dataStart = {
 //min: laydate.now(), //设定最小日期为当前日期
   max: '2099-06-16', //最大日期
   istime: true,
-  istoday: false,//是否显示今天这个按钮
   start: laydate.now(),  //开始日期
   choose: function(datas){
      dataEnd.min = datas; //开始日选好后，重置结束日的最小日期
      dataEnd.start = datas //将结束日的初始值设定为开始日
   }
+
 };
+
 var dataEnd = {
   elem: '#dataEnd',
   format: 'YYYY-MM-DD',
@@ -52,14 +54,88 @@ var dataEnd = {
 laydate(dataStart);
 laydate(dataEnd);
 
-/*查询按钮*/
-var condition={}
-$(".queryConditionButton .query").click(function(){
-	/*判断是否输入了查询条件*/
-	if($(".qC_aitivityTopic input").val()==""&&$(".qC_number input").val()==""&&$(".qC_principal .selectLedL").text()=="请选择"&&$(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()==""&&$(".qC_subsidyReleased input:eq(0)").val()==""&&$(".qC_subsidyReleased input:eq(1)").val()==""&&$(".qC_joinVipNumber input:eq(0)").val()==""&&$(".qC_joinVipNumber input:eq(1)").val()==""&&$("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"&&$(".qC_activityBudget input:eq(0)").val()==""&&$(".qC_activityBudget input:eq(1)").val()==""&&$(".qC_status .selectLedL").text()=="请选择"){
-		layer.alert('请输入查询条件', {icon: 5});
-		return;
+/*创建日期函数*/
+myDate();
+function myDate(){
+    var d = new Date();
+    var year = d.getFullYear();
+    var year1=d.getFullYear()+1;
+    var month = d.getMonth() + 1; // 当前月是要+1
+    month = month < 10 ? ("0" + month) : month;
+    var dt = d.getDate();
+    dt = dt < 10 ? ("0" + dt) : dt;
+//                var today = year + "-" + month + "-" + dt;
+//                alert(today);
+    today = year + "-" + month + "-" + dt;
+    today1 = year1 + "-" + month + "-" + dt;
+    
+}
+
+ $("#dataStart").val(today);
+ $("#dataEnd").val(today1)
+
+	var pagingJson = {
+                "pagesize": pagesize,
+                "pageindex":pageindex,
+                "sort": [{"oid": "asc"}]
+         };
+         
+         
+/*
+ * 分页  下拉刷新
+ */
+$(".activityList tbody").scroll(function() {
+	if($(this).scrollTop() >= ($(this).prop("scrollHeight") - 500) && $(this).prop("scrollHeight") > 500) {
+		basicQuery();
+//		console.log(condition)
 	}
+});
+
+/*
+ * 如果文档高度不大于窗口高度，(数据少的话)，就让他自动加载下方数据(其实这块是通用的别管数据多不多)
+ */
+function qixiaofeiload(){
+//  if(autoLoad){
+        if($(".activityList tbody").prop("scrollHeight") <= 500){
+            basicQuery();
+        }
+//  }
+}
+// 重新获取文档（就是你要加载的那个框 比如 window）高度
+//function fnRecoverContentHeight(){
+//  if(me.opts.gundong == win){
+//      me._scrollContentHeight = $doc.height();
+//  }else{
+//      me._scrollContentHeight = me.$element[0].scrollHeight;
+//  }
+//}
+
+function basicQuery(resetQueryCondition){
+    /*判断是否输入了查询条件*/
+//	if( $(".qC_aitivityTopic input").val()==""&&
+//		$(".qC_number input").val()==""&&
+//		$(".qC_principal .selectLedL").text()=="请选择"&&
+//		$(".qC_activityTime input:eq(0)").val()==""&&
+//		$(".qC_activityTime input:eq(1)").val()==""&&
+//		$(".qC_subsidyReleased input:eq(0)").val()==""&&
+//		$(".qC_subsidyReleased input:eq(1)").val()==""&&
+//		$(".qC_joinVipNumber input:eq(0)").val()==""&&
+//		$(".qC_joinVipNumber input:eq(1)").val()==""&&
+////		$("#province em").text()=="省"&&
+////		$("#city em").text()=="市"&&
+////		$("#area em").text()=="区"&&
+//		$('.gf-select span em:eq(0)').text() == '省份'&&
+//		$('.gf-select span em:eq(1)').text() == '城市'&&
+//		$('.gf-select span em:eq(2)').text() == '区县'&&
+//		
+//		$(".qC_activityBudget input:eq(0)").val()==""&&
+//		$(".qC_activityBudget input:eq(1)").val()==""&&
+//		$(".qC_status .selectLedL").text()=="请选择"){
+//
+//		layer.alert('请输入查询条件', {icon: 5});
+//		return;
+//	}
+	
 	/*判断查询条件是否成对*/
 	//活动时间
 	if(($(".qC_activityTime input:eq(0)").val()==""&&$(".qC_activityTime input:eq(1)").val()!="")||($(".qC_activityTime input:eq(0)").val()!=""&&$(".qC_activityTime input:eq(1)").val()=="")){
@@ -110,12 +186,21 @@ $(".queryConditionButton .query").click(function(){
 		membercount=$(".qC_joinVipNumber input:eq(0)").val()+','+$(".qC_joinVipNumber input:eq(1)").val();
 	}
 	//活动区域
-	var districthash='';
-	if($("#gf-province em").text()=="省"&&$("#gf-city em").text()=="市"&&$("#gf-area em").text()=="区"){
-		districthash='';
-	}else{
-		districthash=$("#gf-province em").text()+","+$("#gf-city em").text()+","+$("#gf-area em").text();
-	}	
+
+	var areaProvince = $("#province em").text();
+	var areaCity = $("#city em").text();
+	var areaCountry = $("#area em").text();
+	var districthash= areaProvince == "省份" ? "" : areaProvince;
+	if (areaCity != "城市")
+	{
+		districthash += "," + areaCity;
+		if (areaCountry != "区县")
+		{
+			districthash += "," + areaCountry;
+		}
+	}
+	
+	
 	//状态
 	var state="";
 	if($(".qC_status .selectLedL").text()=="请选择"){
@@ -123,9 +208,7 @@ $(".queryConditionButton .query").click(function(){
 	}else{
 		state=$(".qC_status .selectLedL").text();
 	}
-	//活动预算
-	//暂时不需要
-	console.log("点击查询了，现在可以在控制台查询变量condition")
+	pagingJson.pageindex++;
 	condition={
 		activitytitle:$(".qC_aitivityTopic input").val(),
 		activitycode:$(".qC_number input").val(),
@@ -135,7 +218,23 @@ $(".queryConditionButton .query").click(function(){
 		membercount:membercount,
 		districthash:districthash,
 		state:state,
+		paging:JSON.stringify(pagingJson)
 	}
+	if (resetQueryCondition) {
+	    condition.paging =
+            JSON.stringify({
+                "pagesize": pagesize,
+                "pageindex": pageindex,
+                "sort": [{ "oid": "asc" }]
+            });
+	}
+//	console.log(condition)
+    $.each(condition, function(key, value){
+    if (value === "" || value === null){
+        delete condition[key];
+    }
+    });
+
 	if(statusData==""){
 		layer.alert('数据加载中，请稍后重试', {icon: 1});
 		return;
@@ -146,18 +245,28 @@ $(".queryConditionButton .query").click(function(){
 		url:"/webapi/ipaloma/topic/list/query",
 		async:true,
 		data:condition,
-		success:function(data){
+		success: function (data) {
+			// console.log(data)
+		    // console.log(data.content.length);
+			// console.log(data)
+			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
 
-			console.log('success')
+			// console.log('success')
+			if(data.content.length < 1){
+				// layer.alert('数据已加载完', {icon: 1});
+				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
+				return;
+			}
 			linshi=data;
+
 
 			var activityListThead='';//表格Thead
 			var activityListTbody='';//表格Tbody
 			//表格Thead
 			activityListThead+='<tr>'
-			+'<th><p class="checkBox"></p></th>'
+			// +'<th><p class="checkBox"></p></th>'
 			+'<th>活动编号</th>'
 			+'<th>活动主题</th>'
 			+'<th>活动时间</th>'
@@ -176,20 +285,96 @@ $(".queryConditionButton .query").click(function(){
 		    //表格Tbody
 			var contentBody = data.content;
 			activityListTbody = ConstructRecord(contentBody, statusData);
-			$(".activityList tbody").empty();
 			$(".activityList tbody").append(activityListTbody+'</tr>');
 			/*拼接完毕，开始事件*/
 			//隐藏所有按钮详情
 			$(".edit .menu").hide();
 			//点击按钮，显示
-			
+
+			$('.activityList td:not(".last")').on("mouseover",function(){
+				$(this).attr("title",$(this).html())
+			})
+
+//			$('.activityList .activityAreaAndCharge').on("click",function(){
+//				$(this).toggleClass('ac_tip');
+//			})
+			pagingJson = data["paging"];
+			if(autoLoad){
+				if($(".activityList tbody").prop("scrollHeight") > 500){
+					autoLoad = false;
+				}else{
+		//			console.log(1)
+					qixiaofeiload();
+				}		
+			};
+		},
+		beforeSend:function(){
+			$(".loaded").fadeIn();
 		},
 		error:function(data){
+//			console.log(data)
 			linshi=data;
 			layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
-		},
+			$(".loaded").fadeOut();
+
+		}
 	});
+//	if(autoLoad){
+//		if($(".activityList tbody").prop("scrollHeight") > 500){
+//			autoLoad = false;
+//		}else{
+////			console.log(1)
+//			qixiaofeiload();
+//		}		
+//	}
+}
+
+/*查询按钮*/
+var condition={}
+$(".queryConditionButton .query").click(function () {
+	autoLoad = true;
+    $(".activityList tbody").empty();
+    basicQuery(true);
+
 });
+
+/*
+ * 重置按钮
+ */
+$("#reset").click(function(){
+	myDate();
+//	alert(1)
+	$(".qC_aitivityTopic input").val("");
+	$(".qC_number input").val('');
+	$(".qC_principal .selectLedL").text("请选择");
+	$(".qC_activityTime input:eq(0)").val(today);
+	$(".qC_activityTime input:eq(1)").val(today1);
+	$(".qC_subsidyReleased input:eq(0)").val("");
+	$(".qC_subsidyReleased input:eq(1)").val("");
+	$(".qC_joinVipNumber input:eq(0)").val("");
+	$(".qC_joinVipNumber input:eq(1)").val("");
+//	$("#province em").val("省");
+//	$("#city em").text("市");
+//	$("#area em").text("区");
+	/*
+	 * 修复--重置省、市、区
+	 */
+	$('.gf-select span em:eq(0)').text('省份');
+    $('.gf-select span em:eq(1)').text('城市');
+    $('.gf-select span em:eq(2)').text('区县');
+    
+	$(".qC_activityBudget input:eq(0)").val("");
+	$(".qC_activityBudget input:eq(1)").val("");
+	$(".qC_status .selectLedL").text("请选择");
+});
+
+
+/*
+ * 内容显隐
+ */
+$('.activityList').on("click", ".activityAreaAndCharge",function(){
+	$(this).toggleClass('ac_tip');
+})
 
 function ConstructRecord(contentBody, statusData)
 {
@@ -197,11 +382,11 @@ function ConstructRecord(contentBody, statusData)
     {
         var stateHtml = ConstructOpStatus(statusData, x.state);
         return '<tr guid='+x.guid+'>'
-				+'<td><p class="checkBox"></p></td>'
+				// +'<td><p class="checkBox"></p></td>'
 				+'<td class="activityCode">'+x.activitycode+'</td>' 
 				+ '<td class="activitytitle">' + x.activitytitle + '</td>'
-				+ '<td class="activityTime">' + x.begintime + '-' + x.endtime + '</td>'
-				+ '<td class="activityAreaAndCharge">' + JointDistrict(x.district) + '</td>'
+				+ '<td class="activityTime">' + x.begintime + ' -- ' + x.endtime + '</td>'
+				+ '<td class="activityAreaAndCharge ac_tip">' + JointDistrict(x.district) +'</td>'
 				+ '<td class="estimateJoinVipQuantity">' + x.membercount + '</td>'
 				+ '<td class="JoinedVipQuantity">' + x.alreadyinmembercount + '</td>'
 //				+='<td class="declareBudget">'+data[i].xxxxxx+'</td>'//哲哥说先不要这个
@@ -218,8 +403,8 @@ function ConstructRecord(contentBody, statusData)
 
 function ConstructOpStatus(statusData, state)
 {
-
-    var opArray = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] }).First();
+    var findedState = $.Enumerable.From(statusData).Where(function (x) { return x["state"] == state }).Select(function (y) { return y["ops"] });
+    var opArray = findedState.Count() > 0 ? findedState.First() : [];
     if (opArray.length == 0)
         return "";
     var statehtmlArray =$.Enumerable.From(opArray.slice(0, opArray.length - 1)).Select(function(x) 
@@ -227,9 +412,16 @@ function ConstructOpStatus(statusData, state)
         return '<p class="menuElement">' + "<span class='handle "+ x + "'>"+x+"</span>" + "</p>";
     }).ToArray();
 
-    var statehtml = statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
-    return '<div class="menu"><div class="menuArrow"></div><div class="menuContent">' + statehtml + '</div></div>';
+    var statehtml =  statehtmlArray.join("") + '<p class="menuElement" style="border:0px;">' + "<span class='handle " + opArray[opArray.length - 1] + "'>" + opArray[opArray.length - 1] + "</span>" + "</p>";
+    return '<div class="menu"><div class="menuArrow"></div><div class="menuContent">' +  statehtml + '</div></div>';
 }
+
+// $(".activityAreaAndCharge").hover(function(){
+	
+// })
+
+
+
 
 /*负责人*/
 chargeAjax()
@@ -239,6 +431,7 @@ function chargeAjax(){
 		url:"/webapi/ipaloma/topic/charge",
 		async:true,
 		success:function(data){
+//			console.log(data)
 			linshiCharge=data;
 //			var chargeHtml='<li guid="" class="optionL">请选择</li>';//用于拼接
 			var chargeHtml='';//用于拼接
@@ -249,8 +442,9 @@ function chargeAjax(){
 			
 		},
 		error:function(data){
+			console.log(data)
 			linshiCharge=data;
-			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});			
 		}
 	});
 }
@@ -262,8 +456,12 @@ function statusAjax(){
 		url:"/webapi/ipaloma/topic/stateconfig",
 		async:true,
 		success:function(data){
+//			console.log(data)
 			linshiStatus=data;
 			statusData=data;
+//			window.location.href = "/admin/login/signin.html";
+//			localStorage.url = "/admin/login/signin.html"
+			
 //			console.log(data)
 			var chargeHtml="";//用于拼接
 			for(i=0;i<data.length;i++){
@@ -273,22 +471,43 @@ function statusAjax(){
 			
 		},
 		error:function(data){
+			console.log(data)
 			linshiCharge=data;
-			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+//			console.log(data.status)
+//			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+//			window.location.href = "/admin/login/signin.html";
+			sessionStorage.status = false;
+			sessionStorage.url = "/admin/login/signin.html"
+			location.reload()
 		}
 	});
 }
 
 /*区域信息拼接*/
+// districts -----> x.district
 function JointDistrict(districts)
 {
     var queryResult = $.Enumerable.From(districts)
-    .Select(function (x) { return x["name"] })
+    .Select(function (x) { 
+    	if(x["charge"]){
+    		var chrage_y = x["charge"];
+    		/*
+    		 * 负责人显示问题
+    		 */
+    		if(chrage_y["name"]){
+    			return x["name"] +"("+ chrage_y["name"]+")";
+    		}else{
+    			return x["name"];
+    		}
+    	}else{
+    		return x["name"];
+    	}
+    	
+    })
     .ToArray();
     return queryResult.join(" - ");
     
 }
-/**/
 
 /*新增按钮*/
 $(".addButton").click(function(){
@@ -338,23 +557,31 @@ var DictFunction =
                 maxmin: true,
                 area: ['90%', '90%'],
                 content: 'detail.html',
+                calcel: function(index)
+                {
+                	layer.close(index);
+                	return false;
+                }
             });
         },
         "修改": function (op, currenttype) { window.location.href = "activityModify.html?guid=" + $('#guid').val() },
-        "'提交审核', '审核通过', '立即发布','下架', '上架'": function (op, currentstate)
+        "'提交审核', '审核通过', '立即发布','下架', '上架','驳回'": function (op, currentstate)
         {
             $.ajax({
                 type: "put",
                 url: "/webapi/ipaloma/topic/operation/" + $('#guid').val(),
                 async: true,
                 data: {
-                    ["currentstate"]: currentstate,
-                    ["optype"]: op
+                    "currentstate": currentstate,
+                    "optype": op
                 },
                 success: function (data) {
                     if (data.error)
-                        layer.alert("出错了^_^");
+                    layer.alert("出错了^_^");
                     layer.alert(op + " 成功");
+                    autoLoad = true;
+                    $(".activityList tbody").empty();
+    				basicQuery(true);
                 },
                 error: function (xhr, textStatus) {
                     layer.alert("出错了^_^");
@@ -362,35 +589,92 @@ var DictFunction =
                 }
 
             });
+             
+
         },
         "删除": function (op, currenttype)
         {
-            $.ajax({
-                type: "delete",
-                url: "/webapi/ipaloma/topic/" + $('#guid').val(),
-                async: true,
-                data: null,
-                success: function (data) {
-                    if (data.error)
-                        layer.alert("出错了^_^");
-                    layer.alert("删除成功");
-                },
-                error: function (xhr, textStatus) {
-                    layer.alert("出错了^_^");
-                    console.log(textStatus);
-                }
 
-            });
+        	layer.confirm('确定要删除？', {
+		        title: '删除',
+		        btn: ['确定', '取消']
+		    }, function() {
+		        layer.msg('正在删除，请稍等', {
+		            time: 2000
+		        });
+		        // 此处只是演示，并没有真正的删除数据，如果有api的话 直接传个guid，后台就给删除数据了，然后再传给getlist，走ajax刷新页面
+		        // parentTr.remove();
+		        // window.localStorage.clear();
+		        // layer.msg('删除成功');
+		        // return;
+		        $.ajax({
+	                type: "delete",
+	                url: "/webapi/ipaloma/topic/" + $('#guid').val(),
+	                async: true,
+	                data: null,
+	                success: function (data) {
+	                    if (data.error)
+	                        layer.alert("出错了^_^");
+	                    layer.alert("删除成功");
+	                    autoLoad = true;
+	                    $(".activityList tbody").empty();
+    					basicQuery(true);
+	                },
+	                error: function (xhr, textStatus) {
+	                    layer.alert("出错了^_^");
+	                    console.log(textStatus);
+	                }
+
+            	});
+		    })
         }
     };
+
+// layer.confirm('确定要删除？', {
+//         title: '删除',
+//         btn: ['确定', '取消']
+//     }, function() {
+//         layer.msg('正在删除，请稍等', {
+//             time: 2000
+//         });
+//         // 此处只是演示，并没有真正的删除数据，如果有api的话 直接传个guid，后台就给删除数据了，然后再传给getlist，走ajax刷新页面
+//         // parentTr.remove();
+//         // window.localStorage.clear();
+//         // layer.msg('删除成功');
+//         // return;
+//         _ajax("delete", '/webapi/ipaloma/propagation/' + guid + '', null, '删除失败', function() {
+//             var cur = $('.laypage_curr').text();
+//             if (cur) {
+//                 if ($('table.notify tbody tr').length == 1) {
+//                     cur -= 1;
+//                     if (cur <= 0) {
+//                         cur = 1;
+//                     }
+//                 }
+//             }
+//             getList(cur, 'del', getSearch());
+//         })
+//     })
+
+
 
 
 
 $('table.activityList').on('click',".handle",function(){
-
+	
+	/*
+	 * 状态内容置换
+	 */
+//	var oVal = $(this).text();
+//	console.log(oVal)
+//	$(this).parents("td.edit").siblings("td.state").text(oVal)
+//	parent.location.reload()
+//	$(".refresh").load(location.href + " .refresh")
+//	console.log(1)
     $('#guid').val($(this).closest('tr').attr('guid'));
     var currentState = $(this).closest('tr').find('td.state').text();
     var matchKey = $(this).text();
+//  console.log(2)
     if (!$(this).text())
     {
         layer.alert("出错了^_^");
@@ -407,7 +691,6 @@ $('table.activityList').on('click',".handle",function(){
     
 	layer.alert("出错了^_^");
 	    
-   
-   
 	
 });
+
