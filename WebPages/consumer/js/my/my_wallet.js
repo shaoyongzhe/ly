@@ -1,4 +1,4 @@
-avalon.ready(function () {
+﻿avalon.ready(function () {
     $('.Wallet_list ul li').on('click', function () {
         $('.Wallet_list ul li').removeClass('on');
         $(this).addClass('on');
