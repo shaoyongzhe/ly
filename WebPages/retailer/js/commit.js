@@ -9,29 +9,33 @@ $(document).ready(function () {
     var _cost = 0;
     var _send = "";
     var _flag = 0;
-    var _year = new Date().getFullYear()
-    var _month = new Date().getMonth() + 1 
-    var _jud=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime();
-    var _day = new Date(new Date().getFullYear(),new Date().getMonth(),28).getTime()+1000*60*60*24;
-    if(_jud-_day<=0){
-    	if(_month<12){
-    		_month=Number(_month)+1;
-    		_month=_month > 10 ? _month : ("0" + _month)
-    		_day=new Date(_day).getDate()
-    	}else{
-    		_year=Number(_year)+1
-    		_month=1;
-    		_month=_month > 10 ? _month : ("0" + _month)
-    	}
+    if(!localStorage.date){
+	    var _year = new Date().getFullYear()
+	    var _month = new Date().getMonth() + 1 
+	    var _jud=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime();
+	    var _day = new Date(new Date().getFullYear(),new Date().getMonth(),28).getTime()+1000*60*60*24;
+	    if(_jud-_day<=0){
+	    	if(_month<12){
+	    		_month=Number(_month)+1;
+	    		_month=_month > 10 ? _month : ("0" + _month)
+	    		_day=new Date(_day).getDate()
+	    	}else{
+	    		_year=Number(_year)+1
+	    		_month=1;
+	    		_month=_month > 10 ? _month : ("0" + _month)
+	    	}
+	    }
+	    _day=_day >= 10 ? _day  : "0" + _day;
+	    $("#beginTime").val(_year + "-" + _month + "-" + _day)
+    }else{
+    	$("#beginTime").val(localStorage.date)
     }
-    _day=_day >= 10 ? _day  : "0" + _day
     var _distrgive = "";
     var _reduce = 0;
     var _discount = 0;
     var _mz = "";
     var _dx = {};
     var _indd = localStorage.index;
-    $("#beginTime").val(_year + "-" + _month + "-" + _day)
     var _index = [];
     var _Id = "";
     var _sub = "";
