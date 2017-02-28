@@ -622,7 +622,7 @@ div.acZige:before{
 .hdc4d1{
 	width: 114px;
     height: 38px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #e4e4e4;
     position: relative;
     vertical-align: bottom;
     /*margin: auto 100px;*/
@@ -666,7 +666,7 @@ div.acZige:before{
     width: 116px;
     height: 40px;
     line-height: 40px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #e4e4e4;
     /*padding: 2px 7px;*/
     box-sizing: border-box;
     color: #84a6d6;
@@ -715,7 +715,7 @@ body.xiugai .subsidyCondition a{
 	/*width:78px;*/
 	width:107px;
 	height:38px;
-	border:1px solid #c0c0c0;
+	border:1px solid #e4e4e4;
 	text-indent: 10px;
 }
 .hdc6 input{
@@ -765,7 +765,7 @@ body.xiugai .subsidyCondition a{
 
 .hdc9{	
     position: relative;
-    top: 10px;
+    top: 6px;
     left: 0;
     width: 77px;
     /* height: 32px; */
@@ -780,7 +780,7 @@ body.xiugai .subsidyCondition a{
 
 
 .btfz{
-	border: 1px solid #ccc;
+	border: 1px solid #e4e4e4;
     border-radius: 2px;
     padding-right: 7px;
     background: #e9f1ff;
@@ -851,6 +851,7 @@ body.xiugai .subsidyCondition a{
     /*top: 0px;*/
     /*left: 0px;*/
     /*background: antiquewhite;*/
+    text-align: center;
 }
 .Yyy2d1 p{
     /*position: absolute;
@@ -937,7 +938,7 @@ body.xiugai .subsidyCondition a{
     width: 92px;
     height: 22px;
     background:#E9F1FF ;    
-        border: 1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 2px;
 }
 .Yyy5d1 input{

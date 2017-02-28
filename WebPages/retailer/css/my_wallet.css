@@ -43,7 +43,8 @@
   padding-top:  .74rem;
   text-align: center;
   color: #fe8636;
-  padding-bottom:  .75rem;
+  /*padding-bottom:  .75rem;*/
+  padding-bottom:  .5rem;
 }
 .WalletBalance h1.on{
   color: #999999;
@@ -287,4 +288,37 @@
   color: #999999;
   margin-top: .32rem;
   padding-bottom: .3rem;
+}
+/*新增*/
+.WalletBalance p{
+  padding-left: .25rem;
+}
+.deposit a{width: 2.2rem;}
+.Wallet_list .incomeDetail{
+  margin:.25rem;
+  color: #333;
+  font-size:.3rem;
+  font-weight: normal;
+}
+.Wallet_list h2{
+  font-weight: normal;
+}
+dl.clearfix{
+  margin-left: .25rem;
+  margin-right: .25rem;
+}
+.Wallet_list h1{
+  border-radius: .2rem .2rem 0 0;
+}
+.invalid a{
+  background: #ccc;
+}
+.valid a{
+  background: #2bc9be;
+}
+.Wallet_sr dl dt h2{
+  padding-left:.22rem;
+}
+.Wallet_sr dl dt p{
+  padding-left: .22rem;
 }

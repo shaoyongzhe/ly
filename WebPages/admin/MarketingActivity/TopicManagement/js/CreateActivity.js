@@ -22,7 +22,6 @@ _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 	
 });
 
-
 function previewImage(file) {
   	
   	var form = new FormData($('form')[0]);
@@ -152,7 +151,7 @@ $('body').on("click",".setRules",function(e){
 
 		type: 1,
 		title: "设置规则-单个<i class='rules-title'>" + butieduixiang + "</i>",
-		area: ['66%',"50%"],
+		area: ['850px',"460px"],
 		maxmin: true,
 		content: $('.layer.set-rules')
 
@@ -250,7 +249,7 @@ $('body').on("click",".setRules",function(e){
 
 	// debugger;
 	// $('.butie-inner-item .sum').text("");
-	$('.butie-inner-item .sum').text($(this).closest('.addSub4').find('.hdc6-1 p').text());
+	$('.butie-inner-item .sum').text($(this).closest('.addSub4').find('.hdc6.fz .acSe14.ba.btfz p').text());
 
 });
 
@@ -329,38 +328,7 @@ $('.rulesok').click(function(){
 
 });
 
-$('.yaoWrap').on('blur',".Yyy3 input", function(){
 
-	var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
-	var y1ygailvInput = Number($(this).val());
-	
-	$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
-	
-	var percentNum = 0;
-	$('.yaoWrap .Yyy3 input').each(function(){
-		percentNum += Number($(this).val());
-	});
-
-	var cishuNum = 0;
-	$('.yaoWrap .Yyy4 input').each(function(){
-		cishuNum += Number($(this).val());
-	});
-
-	if(percentNum != 100){
-		layer.msg('摇一摇概率相加必须等于100');
-		$('.yaook').addClass('disabled');
-		return;
-
-	} else if(cishuNum != shangxiancishu){
-		layer.msg('奖品次数不等于发放上限次数' + shangxiancishu + '次');
-		$('.yaook').addClass('disabled');
-		return;
-
-	} else {
-		$('.yaook').removeClass('disabled');
-	}
-
-});
 // 设置摇一摇、设置轮盘抽奖
 $('body').on("click",".set",function(e){
 
@@ -418,7 +386,7 @@ $('body').on("click",".set",function(e){
 
 				y1yItem.find('.min').val(y1yObj[i].min);
 				y1yItem.find('.max').val(y1yObj[i].max);
-				y1yItem.find('.Yyy3d1 input').val(y1yObj[i].precentage);
+				y1yItem.find('.Yyy3d1 input').val(y1yObj[i].percentage);
 				y1yItem.find('.Yyy4d1 input').val(y1yObj[i].timelimit).keyup();
 				y1yItem.find('.Yyy5-1 input').val(y1yObj[i].applycount);
 
@@ -462,6 +430,10 @@ $('body').on("click",".set",function(e){
 // 设置摇一摇 确定按钮
 $('.yaook').click(function(){
 
+	if($(this).hasClass('disabled')){
+		return;
+	}
+
 	var isProEmpty = true;
 	$('.yaoWrap .Yyy3 input').each(function(){
 
@@ -477,7 +449,7 @@ $('.yaook').click(function(){
 
 	});
 
-	if($(this).hasClass('disabled') || isProEmpty == false){
+	if(isProEmpty == false){
 		return;
 	}
 
@@ -502,7 +474,7 @@ $('.yaook').click(function(){
 				"refund_content": _this.find('.Yyy1 .selected').text(),
 				"min": Number(_this.find('.Yyy2 input:eq(0)').val()),
 				"max": max,
-				"precentage": Number(_this.find('.Yyy3 input').val()),
+				"percentage": Number(_this.find('.Yyy3 input').val()),
 				"timelimit": Number(_this.find('.Yyy4 input').val()),
 				// "applycount": Number(_this.find('.Yyy5-1 input[readonly]').val()),
 				"probability": yaoyiyaogailv
@@ -602,16 +574,15 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	}
 
-
 	$('.setProbability .yaoyiyaogailv').remove();
 
 	layer.open({
 
 		type: 1,
 		title: '设置概率',
-		area: ['1320px',"55%"],
+		area: ['90%',"60%"],
 		maxmin: true,
-		content: $('.layer.setProbability'),
+		content: $('.layer.setProbability')
 
 	});
 
@@ -984,7 +955,7 @@ $('body').on('input','input',function(e){
 	}
 
 	if($(this).closest('.dianhua').length == 1){return;}
-	if($(this).closest('.butie-inner-item.money').length == 1 || 
+	if($(this).closest('.butie-inner-item:contains(元)').length == 1 || 
 	   $(this).closest('.input_a').length == 1 ||
 	   $(this).closest('.hdc4d1').length == 1 || 
 	   $(this).closest('.Yyy2d1').length == 1 ||
@@ -1147,7 +1118,7 @@ $('.btn.edit').click(function(){
 
 		type: 1,
 		title: "编辑"+ _this.parent().find('.heading-title').text() +"宣传资料",
-		area: ['1110px',"80%"],
+		area: ['1000px',"auto"],
 		maxmin: true,
 		content: edit,
 
@@ -1587,7 +1558,8 @@ $("body").on("click","li.option",function(e){
 				$(this).closest('.addSub4').find('.hdc6.fz .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.hdc6 .acSe14 input').val("");
 				$(this).closest('.addSub4').find('.setgailv').removeClass('on');
-				// $(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
+				$(this).parents(".addSub4").find(".btfz p").text('元');//.addClass('vihi');
+				$(this).parents(".addSub4").find("input.sbys + p").text('次');//.addClass('vihi');
 				// shenbaoyusuanInput.addClass('vihi');
 				return;
 			}
@@ -2175,13 +2147,14 @@ $('.butieSec').on('blur','.acSe13 input',function(){
 
 		layer.msg('请重新设置摇一摇概率');
 		$('.yaoyiyao .Yyy3 input').val("0");
+		$('.yaoyiyao .Yyy3 input').first().blur().focus();
 		$('.yaoyiyao .Yyy4 input').val("0");
 		$('.yaoyiyao .Yyy5 input').val("0");
 		$('.layer.yao .cash').text("0");
 
 		var y1yArr = JSON.parse(addSub4_val);
 		for(var i in y1yArr){
-			y1yArr[i]['precentage'] = "";
+			y1yArr[i]['percentage'] = "";
 			y1yArr[i]['timelimit'] = "";
 		}
 		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4));
@@ -2216,11 +2189,21 @@ $('.butieSec').on('blur','.acSe13 input',function(){
 
 }).on('keyup','.sbys',function(){
 
+	// if(){
+		if(Number($(this).val()) > Number($(this).closest('.addSub4').find('.acSe13 input').val())){
+			layer.tips('申报预算 不可以大于 发放上限次数', $(this));
+			this.value = 0;
+			return;
+		}
+	// }
+
 	var ysCount = 0;
 	$('.hdc6-1:contains(元) input').each(function(){
 		// if($(this).val() == ""){return false;}
 		ysCount += Number($(this).val());
 	});
+
+	
 
 	$('.sec.rule .hdsbys_text.yuan').text(ysCount.toFixed(2));
 
@@ -2268,7 +2251,7 @@ var butiefz = function(){
 // 计算摇一摇补贴峰值
 // $('.yaoyiyao .Yyy4 .Yyy4d1 input').keyup(function(){
 $('.yaoWrap').off('keyup');
-$('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
+$('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 
 	// debugger;
 	var _this = $(this);
@@ -2311,11 +2294,59 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){
 	// 	_this.keyup();
 	// });
 
-}).on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.min',function(){ // 最小值
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
 
-}).on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){
+}).on('keyup','.yaoyiyao .Yyy2d1 input.max',function(){ // 最大值
 	$(this).closest('.yaoyiyao').find('.Yyy4d1 input').keyup();
+
+}).on('blur',".Yyy3 input", function(){ // 摇一摇概率
+
+	var shangxiancishu = Number($('.addSub4').eq(y1yindex-1).find('.hdc5 input').val());
+	var y1ygailvInput = Number($(this).val());
+	
+	$(this).closest('.yaoyiyao').find('.Yyy4 input').val(Math.round(shangxiancishu * (y1ygailvInput / 100))).keyup();
+	
+	var percentNum = 0;
+	$('.yaoWrap .Yyy3 input').each(function(){
+		percentNum += Number($(this).val());
+});
+
+	var cishuNum = 0;
+	$('.yaoWrap .Yyy4 input').each(function(){
+		cishuNum += Number($(this).val());
+	});
+
+	// 计算申报预算
+	var shenbaoys = Number($('.addSub4').eq(y1yindex-1).find('.hdc6-1 input.sbys').val());
+	
+	var m = 0;
+	if($(this).closest('.addSub5').find('input.max').css('display') == 'inline-block'){
+		m = $(this).closest('.addSub5').find('input.max').val();
+	} else {
+		m = $(this).closest('.addSub5').find('input.min').val();
+	}
+
+	$(this).closest('.addSub5').find('.Yyy5-1 input').val(shenbaoys * (y1ygailvInput / 100) * m);
+
+
+
+	if(percentNum != 100){
+		layer.msg('摇一摇概率相加必须等于100');
+		$('.yaook').addClass('disabled');
+		return;
+
+	} else if(cishuNum != shangxiancishu) {
+		layer.msg('奖品次数不等于发放上限次数' + shangxiancishu + '次');
+		$('.yaook').addClass('disabled');
+		return;
+
+	} else {
+		$('.yaook').removeClass('disabled');
+	}
+
+	
+
 });
 
 // 摇一摇补贴峰值
@@ -2979,7 +3010,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 			if(begintimeInput == '不限' || begintimeInput == ''){
 				begintime = '';
-			} else {				
+			} else {
 				begintime = new Date((new Date(begintimeInput) * 1)).toLocaleDateString().replace(/\//g, '-');
 			}
 
@@ -3071,7 +3102,6 @@ $('.saveToDb, .shenhe').click(function(){
 	    // if(max == undefined){
 	    // 	delete item['max'];
 	    // }
-
 	    acArr.push(item);
 	}
 
@@ -3273,8 +3303,8 @@ function _ajax(type, url, data, tip, success) {
         url: url,
         dataType: "json",
         data: data,
-        complete: function () {},
-        timeout: function () {},
+        complete: function () { },
+        timeout: function () { },
         success: function (json) {
             success(json);
         },

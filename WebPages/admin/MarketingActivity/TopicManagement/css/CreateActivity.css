@@ -784,10 +784,12 @@ span.tip.warn{
     margin-top: 15px;
 }
 
+.area.edit .content{
+	width: 80%;
+}
 
 
-
-.heading{.haibao-wrap
+.heading{
 	margin-bottom: 20px;
 }
 
@@ -797,7 +799,7 @@ span.tip.warn{
 }
 
 .heading .heading-line{
-    width: 90%;
+    width: 88%;
     height: 1px;
     margin: 0 10px;
     background-color: #999;
@@ -823,7 +825,7 @@ span.tip.warn{
 }
 
 .area .item > span{
-    /*max-width: 660px;*/
+    max-width: 660px;
     vertical-align: middle;
 }
 
@@ -1130,7 +1132,7 @@ label.condition{
 .tip.wx,
 .tip.biaoyu{
 	bottom: 9px;
-	right: 8px;
+	right: -75px;
 }
 
 textarea.wxtw{
@@ -1138,6 +1140,7 @@ textarea.wxtw{
     height: 60px;
     box-sizing: border-box;
 }
+
 
 textarea{
     padding: 6px;
@@ -1392,7 +1395,7 @@ textarea{
 
 
 .sec.tuWen{
-	width: 1100px;
+	width: 1000px;
 	margin: 0 auto;
 }
 
@@ -1440,6 +1443,11 @@ textarea{
 /* .addSub2 .member > div{
 	float: left;
 } */
+
+
+.section2{
+	overflow-x: auto;
+}
 
 
 
