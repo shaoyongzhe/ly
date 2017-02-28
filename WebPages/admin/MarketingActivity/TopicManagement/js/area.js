@@ -77,7 +77,7 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 		type: 1,
 		// skin: 'layui-layer-lan', //加上边框
 		skin: 'layui-layer', //加上边框
-		area: ['845px', '785px'], //宽高
+		area: ['845px', '596px'], //宽高
 		shadeClose: true, //点击这招是否关闭 true,false
 		time: 0, //默认关闭时间 0
 		// anim: 5, //动画
