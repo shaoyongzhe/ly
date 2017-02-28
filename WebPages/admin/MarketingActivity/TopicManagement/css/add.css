@@ -727,7 +727,7 @@ div.acZige:before{
 
 .hdc9{	
     position: relative;
-    top: 10px;
+    top: 6px;
     left: 0;
     width: 77px;
     /* height: 32px; */
@@ -813,6 +813,7 @@ div.acZige:before{
     /*top: 0px;*/
     /*left: 0px;*/
     /*background: antiquewhite;*/
+    text-align: center;
 }
 .Yyy2d1 p{
     /*position: absolute;
@@ -899,7 +900,7 @@ div.acZige:before{
     width: 92px;
     height: 22px;
     background:#E9F1FF ;    
-        border: 1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 2px;
 }
 .Yyy5d1 input{
