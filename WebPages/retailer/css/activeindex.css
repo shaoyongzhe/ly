@@ -112,3 +112,74 @@ footer{height: 50px;background: #333;color: #fff;}
 
 
 #zhezao{width: 100%;height: 100%;background: rgba(200,200,200,0);position: fixed;top:0;right: 0;z-index: 100;display: none;}
+.tishi{
+	display: flex;flex-direction:column
+}
+.tishi div:nth-child(1) {
+    position: relative;padding:6px 8px;font-size: 0.4rem;
+}
+
+    .tishi div:nth-child(1):after{
+        content: "";
+        pointer-events: none; /* 防止点击触发 */
+        box-sizing: border-box;
+        position: absolute;
+        width: 100%;
+        height: 200%;
+        left: 0;
+        top: 0;
+        border-bottom:1px solid #aaa;
+        -webkit-transform:scaleY(0.5);
+        -webkit-transform-origin: 0 0;
+        transform:scaleY(0.5);
+        transform-origin: 0 0;
+    }
+.tishi div:nth-child(2) {
+    position: relative;height:68%;font-size: 0.2rem;
+}
+
+    .tishi div:nth-child(2):after{
+        content: "";
+        pointer-events: none; /* 防止点击触发 */
+        box-sizing: border-box;
+        position: absolute;
+        width: 100%;
+        height: 200%;
+        left: 0;
+        top: 0;
+        border-bottom:1px solid #aaa;
+        -webkit-transform:scaleY(0.5);
+        -webkit-transform-origin: 0 0;
+        transform:scaleY(0.5);
+        transform-origin: 0 0;
+    }
+   .tishi div:nth-child(3){
+   		flex:1;
+   }
+.cfm{
+	display:block;padding:1% 2%;background:#009f96;position:absolute;right:5%;bottom:15%;font-size: 0.4rem;text-align: center;color:#fff
+}
+.ms{
+	display: block;width:75%;height:80%;overflow:hidden;float:left;margin-top:5%;font-size: 0.5rem;margin-left: 5px;
+}
+.tishi{
+	width:80%;height:35%;background:#fff;position: fixed;left:10%;top:20%;color：#aaa;
+}
+    .tishi:after{
+        content: "";
+        pointer-events: none; /* 防止点击触发 */
+        box-sizing: border-box;
+        position: absolute;
+        width: 100%;
+        height: 200%;
+        left: 0;
+        top: 0;
+        border:1px solid #ccc;
+        -webkit-transform:scaleY(0.5);
+        -webkit-transform-origin: 0 0;
+        transform:scaleY(0.5);
+        transform-origin: 0 0;
+    }
+.tsh{
+	width:100%;position:absolute;left:0;top:0;z-index:2000;background:rgba(255,255,255,0);display: none;
+}

@@ -22,8 +22,8 @@
         var yearScroll=null,monthScroll=null,dayScroll=null;
         var HourScroll=null,MinuteScroll=null,SecondScroll=null;
         $.fn.date.defaultOptions = {
-            beginyear:1900,                 //日期--年--份开始
-            endyear:nowdate.getFullYear()+50,                   //日期--年--份结束
+            beginyear:nowdate.getFullYear(),                 //日期--年--份开始
+            endyear:nowdate.getFullYear()+2,                   //日期--年--份结束
             beginmonth:1,                   //日期--月--份结束
             endmonth:12,                    //日期--月--份结束
             beginday:1,                     //日期--日--份结束
@@ -118,12 +118,14 @@
                 $("#datePage").hide(); 
                 $("#dateshadow").hide();
                 $("html").css({overflow:"auto"})
+                localStorage.date=$("#beginTime").val()
             });
             $("#datecancle").click(function () {
                 $("#datePage").hide();
 				$("#dateshadow").hide();
                 Ncallback=false;
                 $("html").css({overflow:"auto"})
+                localStorage.date=$("#beginTime").val()
             });
         }		
         function extendOptions(){
@@ -151,7 +153,7 @@
                   }});
               dayScroll = new iScroll("daywrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function () {
-                      indexD = Math.floor((this.y/41)*(-1))+1;
+                      indexD = Math.floor((this.y/40)*(-1))+1;
                   }});
         }
         function showdatetime(){
@@ -272,9 +274,12 @@
         }
         //创建 --日-- 列表
         function createDAY_UL(){
-              $("#daywrapper ul").html("");
+            $("#daywrapper ul").html("");
             var str="<li>&nbsp;</li>";
-                for(var i=opts.beginday;i<=opts.endday;i++){
+            for(var i=opts.beginday;i<=opts.endday;i++){
+                if(i<10){
+                    i="0"+i
+                }
                 str+='<li>'+i+'日</li>'
             }
             return str+"<li>&nbsp;</li>";                     

@@ -85,7 +85,7 @@ function fngetlist() {
                         "<div class='main-r'>" +
                             "<div class='main-rt'>" +
                                 "<div class='namejia left'>" +
-                                    "<a href='activeindex.html'>" +
+                                    "<a>" +
                                         "<h3>"+ceng1["distributorname"]+"</h3>" +
                                     "</a>" +
                                     "<p>起送价 ￥<strong>"+ceng1["cutgift"]+"</strong>元</p>" +
