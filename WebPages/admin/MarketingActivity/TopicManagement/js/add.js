@@ -506,8 +506,7 @@ function addAjax(){
 						if($(this).text()==emText){
 							nameValue=$(this).attr("name");
 						}
-					})
-
+					})					
 					$(this).click();
 					$(this).find('.option').last().click();
 					$(this).click();
@@ -516,6 +515,8 @@ function addAjax(){
 					$(this).click();
 					$(this).find(".option[name='"+nameValue+"']").last().click();
 					$(this).closest(".hdc1").next().find("em").text(subsidyConditionArr[num]);
+					$(this).closest(".hdc1").next().find(".subsidyCondition a").text(subsidyConditionArr[num]);//0228
+					$(this).closest(".hdc1").next().find(".subsidyCondition a").attr("statistic",JSON.stringify(statisticArr[num]));//0228
 				})
 
 				
