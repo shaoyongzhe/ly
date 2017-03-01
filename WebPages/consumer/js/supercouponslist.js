@@ -74,7 +74,6 @@ var vm = avalon.define({
     },
     jsondataReadered: function (e) {
         qrcode.href()
-        console.log(tmdropme);
         if (tmdropme != null)
             tmdropme.resetload();
     },

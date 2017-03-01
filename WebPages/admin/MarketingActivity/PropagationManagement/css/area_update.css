@@ -30,7 +30,7 @@ td {
 
 body {
     font-family: "Microsoft Yahei", "ËÎÌå", arial;
-    min-width: 1200px;
+    min-width: 1062px;
 }
 
 fieldset,
@@ -564,7 +564,7 @@ ul li a {
 
 .region-wrap{
     margin-left: 100px;
-    width: 90%;
+    /* width: 90%; */
     /* background: antiquewhite; */
     /* height: 140px; */
     margin-top:10px;
@@ -689,6 +689,25 @@ input,select{
     text-align: center;
     float: left;
     margin: 8px 35%;
+}
+
+.btn_a {
+    width: 128px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    display: block;
+    float: left;
+}
+.btn_a.clear {
+    background-color: #ccc;
+    margin-right: 5px;
+}
+.btn_a.save {
+    background-color: #ff6032;
+    margin-right: 5px;
 }
 .ui-widget-content{
         border :none;

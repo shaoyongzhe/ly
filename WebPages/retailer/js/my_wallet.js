@@ -27,6 +27,7 @@ var vm = avalon.define({
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             success: function (json) {
+                console.log(json)
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
                     toasterextend.showtips(json.error, "error");

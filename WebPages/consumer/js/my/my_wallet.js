@@ -8,7 +8,7 @@
 
     vm.getAssetFlow(1, null)
 
-    qrcode.href();
+    setTimeout(function () { qrcode.href(); }, 500)
 })
 
 var tmdropme = null;
@@ -32,6 +32,7 @@ var vm = avalon.define({
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             success: function (json) {
+                console.log(json)
                 common.loading.hide();
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
@@ -76,11 +77,11 @@ var vm = avalon.define({
         var paging = { pageindex: index, current: {} }
         if (index > 1) {
             if (vm.category == "all") {//全部
-                paging = $.extend({}, vm.alllist.paging, { pageindex: index });
+                paging = $.extend({}, vm.alllist.paging.$model, { pageindex: index });
             } else if (vm.category == "income") {//收入
-                paging = $.extend({}, vm.incomelist.paging, { pageindex: index });
+                paging = $.extend({}, vm.incomelist.paging.$model, { pageindex: index });
             } else {
-                paging = $.extend({}, vm.expendlist.paging, { pageindex: index });
+                paging = $.extend({}, vm.expendlist.paging.$model, { pageindex: index });
             }
 
         }
@@ -132,7 +133,7 @@ var vm = avalon.define({
                                 vm.alllist.array.push(v)
                             }
                         });
-
+                        vm.alllist.paging = json.paging
                     } else if (vm.category == "income") {//收入
                         var filterarray = $.grep(vm.incomelist.array, function (item) {
                             return item.summaryperiod != undefined;//筛选出每月统计
@@ -148,8 +149,8 @@ var vm = avalon.define({
                                 vm.incomelist.array.push(v)
                             }
                         });
+                        vm.incomelist.paging = json.paging
                     } else {
-
                         var filterarray = $.grep(vm.expendlist.array, function (item) {
                             return item.summaryperiod != undefined;//筛选出每月统计
                         });
@@ -164,6 +165,7 @@ var vm = avalon.define({
                                 vm.expendlist.array.push(v)
                             }
                         });
+                        vm.expendlist.paging = json.paging
                     }
 
                 } else {
