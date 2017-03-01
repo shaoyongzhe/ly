@@ -149,10 +149,15 @@ a:hover{
 		background: #4c83db;
 	}
 	.adda{
+		background:#ff6032;
 		display: inline-block;
-		width: 150px;
+		width: 130px;
 		line-height: 30px;
 		text-align: center;
+		font-weight: normal;
+	}
+	.adda:hover{
+		background:#ff6032; 
 	}
 
 
@@ -193,8 +198,6 @@ a:hover{
 	    width: calc( 99.9% - 1em )
 
 	}
-
-
 	.finished{
 		position: absolute;
 	  top: 540px;
