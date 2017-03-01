@@ -274,8 +274,9 @@ $(function(){
 				//活动编号
 					activityNumber();
 					function activityNumber(i){
-						var topid=window.location.search;
-						var topids=topid.split('=')[1].split(',');
+						var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
+						/*var topid=window.location.search;
+						var topids=topid.split('=')[1].split(',');*/
 						for (var i = 0; i <topids.length ; i++) {
 							if(i==0){
 								$('.activesmallpic').attr({
