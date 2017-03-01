@@ -49,7 +49,7 @@
                     <div id="list_1" v-if="category=='all'">
                         <div class="Wallet_sr ">
                             <div v-for="item in alllist.array">
-                                <h1 v-if="item.summaryperiod!=undefined"><span>{{mydetail[0].summaryperiod}}</span> <b>收入￥{{mydetail[0].recv}}</b><b>支出￥{{mydetail[0].expend}}</b></h1>
+                                <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
                                 <dl v-if="item.summaryperiod==undefined" class="clearfix">
                                     <dt>
                                         <h2>{{item.tradingtag}}</h2>
@@ -70,7 +70,7 @@
                         <div>
                             <div class="Wallet_sr ">
                                 <div v-for="item in incomelist.array">
-                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{mydetail[0].summaryperiod}}</span> <b>收入￥{{mydetail[0].recv}}</b><b>支出￥{{mydetail[0].expend}}</b></h1>
+                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
                                     <dl class="clearfix">
                                         <dt>
                                             <h2>{{item.tradingtag}} </h2>
@@ -92,7 +92,7 @@
                         <div>
                             <div class="Wallet_sr ">
                                 <div v-for="item in expendlist.array">
-                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{mydetail[0].summaryperiod}}</span> <b>收入￥{{mydetail[0].recv}}</b><b>支出￥{{mydetail[0].expend}}</b></h1>
+                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
                                     <dl class="clearfix">
                                         <dt>
                                             <h2>{{item.tradingtag}} </h2>
