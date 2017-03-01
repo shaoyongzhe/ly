@@ -356,8 +356,9 @@ $(function(){
 					//活动编号
 					activityNumber();
 					function activityNumber(i){
-						var topid=window.location.search;
-						var topids=topid.split('=')[1].split(',');
+						var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
+						/*var topid=window.location.search;
+						var topids=topid.split('=')[1].split(',');*/
 						for (var i = 0; i <topids.length ; i++) {
 							if(i==0){
 								$('.activesmallpic').attr({
@@ -421,7 +422,6 @@ $(function(){
 					    //allowSwipeToPrev : true, //禁止向左滑动
 					    //swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
-					     console.log(1)
 					      //currentindex++;
 					       //alert(currentindex); //切换结束时，告诉我现在是第几个slide
 					       // if(currentindex<new_arr.length)

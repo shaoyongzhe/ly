@@ -2,7 +2,7 @@
 //切换
 $("nav span").click(function () {
     var cur = $(this).index();
-    $(this).addClass("on").siblings().removeClass('on');
+    $(this).addClass("light").siblings().removeClass('light');
     $('.sec').eq(cur).show().siblings('.sec').hide();
 });
 // 点击遮罩关闭
@@ -91,8 +91,8 @@ function getList(curr, handle, searchForm) {
         // $("table.notify tbody").empty();
         //console.log(JSON.stringify(data, null, 4));
         // alert(data.content.length)
-        var isSet = "<span class='btn setDefault'>设为默认</span><span class='btn del' title='删除'>删除</span>",
-        autoW = "210",//75
+        var isSet = "<span class='btn1 btn2 setDefault'>设为默认</span><span class='btn1 del' title='删除'>删除</span>",
+        autoW = "132",//75
         tr = "",
         td = data.content;
         var templateListThead = '';//表格Thead
@@ -138,7 +138,7 @@ function getList(curr, handle, searchForm) {
             + "</td><td title='" + content + "'><span class='content templatecontent'>" + content
             + "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
             + "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
-            + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+            + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'><img src='images/iconss1.png'/></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn1 modify'>修改</span><span class='arrow-right'></span></div></div></div></td></tr>";
         }
         $(".templateList tbody").append(tr);
         $('td span.content').each(function () {
@@ -188,7 +188,7 @@ function getModulePeopleList(curr, handle, searchForm) {
 
         $("table.modulePeople tbody").empty();
         var isSet = "";
-        var autoW = "75";//75
+        var autoW = "35";//75
         var modulePeopleThead = '';//表格Thead
         modulePeopleThead += '<tr>'
        + '<th>负责模块</th>'
@@ -201,7 +201,7 @@ function getModulePeopleList(curr, handle, searchForm) {
 
         var tr = "<tr class='text-c'><td><input type='hidden' class='guid' value'notification'>" + "通知"
              + "</td><td ><span class='content templatecontent'>" + contentFormat
-             + " </span></td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'>&#xe61d;</div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn modify'>修改</span></div></div></div></td></tr>";
+             + " </span></td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'><img src='images/iconss1.png'/></div><div class='handle-btns-wrap_fuzeren handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn1 modify'>修改</span><span class='arrow-right'></span></div></div></div></td></tr>";
 
         $("table.modulePeople tbody").append(tr);
         if (handle) {
