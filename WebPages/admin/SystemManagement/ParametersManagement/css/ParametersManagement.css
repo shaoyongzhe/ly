@@ -105,17 +105,18 @@ a:hover{
 	    display: table;
 	}	
 	.handle-btns-wrap {
-	    display: none;
-	    padding: 0 10px;
-	    /*width: 277px;*/
-	    height: 43px;
-	    line-height: 40px;
-	    background-color: #bbb;
-	    transition: .6s;
 	    position: absolute;
-	    top: -9px;
-	    right: 105%;
-	    box-sizing: border-box;
+		z-index: 2;
+		right: 33%;
+		top: 36px;
+		background: #C4E4EF;
+		height: 34px;
+		line-height: 34px;
+		display: inline-block;
+		word-wrap: normal;
+		word-break: keep-all;
+		padding: 0px 5px; 
+		display: none;
 	}	
 	.handle-btns{
 	    text-align: left;
@@ -125,12 +126,13 @@ a:hover{
 	    vertical-align: -5px;
 	}	
 	.handle-btns .arrow-right {
-	    display: inline-block;
 	    position: absolute;
-	    border: 6px solid transparent;
-	    border-left-color: #bbb;
-	    right: -12px;
-	    top: 14px;
+		top: -8px;
+		right: 9px;
+		border-top: 0px;
+		border-bottom: 8px solid #C4E4EF;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
 	}
 	/*cg编辑按钮结束，cg****/
 	.seleHid{display: none;}
@@ -144,9 +146,21 @@ a:hover{
 	}
 	.btn{/*1214添加，用于隐藏启用按钮的时候宽度可以自适应。配合注释掉.handle-btns-wrap的277px以及js生成的handle-btns-wrap的186px*/
 		display: inline;
+		background: #C4E4EF;
 	}
-	.btn:hover{
-		background: #4c83db;
+	.btn1:hover{
+		color: #f60;
+	}
+	.btn1{
+		width: 35px;
+		border-right: 1px solid #8abdcf;
+		display: inline-block;
+		height: 12px;
+		line-height: 12px;
+		text-align: center;
+	}
+	.del{
+		border-right: none;
 	}
 	.adda{
 		background:#ff6032;

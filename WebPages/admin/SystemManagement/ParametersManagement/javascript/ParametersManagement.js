@@ -11,7 +11,6 @@
 	     dataEnd.min = datas; //开始日选好后，重置结束日的最小日期
 	     dataEnd.start = datas //将结束日的初始值设定为开始日
 	  }
-
 	};
 
 	var dataEnd = {
@@ -583,17 +582,17 @@ function ajaxQueryBtn(_pageindex,_pagesize,curr){
 				if(data.readonly==1){
 					tr+="<td></td>"
 				}else{
-					tr+="<td><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>&#xe67f;</i></div><div class='handle-btns-wrap' style='";
+					tr+="<td><div class='handle'><div class='handle-icon'><img src='images/iconss1.png'/></div><div class='handle-btns-wrap' style='";
 					if(kkk=="未启用"){//目前先指定死宽度
-						tr+="width:182px"
+						tr+="width:108px"
 					}else{
-						tr+="width:128px"
+						tr+="width:72px"
 					}					
-					tr+="'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn modify'>修改</span>"
+					tr+="'><div class='handle-btns'><span class='btn' style='display:none'>详细</span><span class='btn1 modify'>修改</span>"
 					if(kkk=="未启用"){
-						tr+="<span class='btn open'>启用</span>"
+						tr+="<span class='btn1 open'>启用</span>"
 					}					
-					tr+="<span class='btn del' title='删除'>删除</span><span class='arrow-right'></span></div></div></div></td>"
+					tr+="<span class='btn1 del' title='删除'>删除</span><span class='arrow-right'></span></div></div></div></td>"
 				}			
 				tr+="</tr>";
 			}
