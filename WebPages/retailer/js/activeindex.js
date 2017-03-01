@@ -54,10 +54,8 @@ function fnpricenum() {
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            if(textStatus == "timeout") {
-                console.log("请求超时")
-                XMLHttpRequest.abort();
-            }
+			$(".tsh").show();
+			$(".ms").text("网络异常")
         },
         success: function(data) {
             console.log(data)

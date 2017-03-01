@@ -22,8 +22,8 @@
         var yearScroll=null,monthScroll=null,dayScroll=null;
         var HourScroll=null,MinuteScroll=null,SecondScroll=null;
         $.fn.date.defaultOptions = {
-            beginyear:nowdate.getFullYear()-1,                 //日期--年--份开始
-            endyear:nowdate.getFullYear()+50,                   //日期--年--份结束
+            beginyear:nowdate.getFullYear(),                 //日期--年--份开始
+            endyear:nowdate.getFullYear()+2,                   //日期--年--份结束
             beginmonth:1,                   //日期--月--份结束
             endmonth:12,                    //日期--月--份结束
             beginday:1,                     //日期--日--份结束

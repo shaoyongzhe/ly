@@ -17,15 +17,17 @@ $(document).ready(function () {
 	    if(_jud-_day<=0){
 	    	if(_month<12){
 	    		_month=Number(_month)+1;
-	    		_month=_month > 10 ? _month : ("0" + _month)
-	    		_day=new Date(_day).getDate()
 	    	}else{
 	    		_year=Number(_year)+1
 	    		_month=1;
-	    		_month=_month > 10 ? _month : ("0" + _month)
 	    	}
+	    	_day=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getDate()
+	    }else{
+	    	_day=new Date().getDate()+1
 	    }
 	    _day=_day >= 10 ? _day  : "0" + _day;
+	    _month=_month > 10 ? _month : ("0" + _month)
+	    console.log(_month)
 	    $("#beginTime").val(_year + "-" + _month + "-" + _day)
     }else{
     	$("#beginTime").val(localStorage.date)
