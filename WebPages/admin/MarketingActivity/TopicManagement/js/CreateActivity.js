@@ -958,6 +958,7 @@ $('body').on('input','input',function(e){
 	if($(this).closest('.butie-inner-item:contains(元)').length == 1 || 
 	   $(this).closest('.input_a').length == 1 ||
 	   $(this).closest('.hdc4d1').length == 1 || 
+	   ($(this).closest('.requestnumber').length == 1&&$(this).closest('.requestnumber').next().find(".unit").text()=="元") || 
 	   $(this).closest('.Yyy2d1').length == 1 ||
 	   $(this).closest('.btfz').length == 1){
 		

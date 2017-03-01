@@ -1689,11 +1689,11 @@ textarea{
 	background-color: white;
 	margin-left: -1px;
 	border-radius: 3px;
-	padding-left: 6px;
+	padding-left: 2px;
 }
 .addSubSubsidyPolicy .unitContent input{
 	/*line-height: 27px;*/
-	width:22px;
+	width:27px;
 	text-align: center;
 	outline: none;
 	border: hidden;
@@ -1701,6 +1701,7 @@ textarea{
 	background: transparent;
 	/*background: red;*/
 	vertical-align: top;
+	text-indent: 1px;
 }
 .addSubSubsidyPolicy .unitContent span{
 	font-size: 14px;
