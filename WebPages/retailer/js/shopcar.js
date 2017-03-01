@@ -51,6 +51,9 @@
 			_qu=0
 			
 				$(".commit").click(function(){
+					if($(".intr").css("display")=="flex"){
+						localStorage.mz=$(".intr").prop("outerHTML")
+					}
 					if(_qu==0){
 						localStorage.Id=_Id.join(",").replace(/\,+$/g,"").replace(/^\,+/,"")
 						location.href="commit.html"

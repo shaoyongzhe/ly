@@ -52,7 +52,6 @@ $(document).ready(function () {
         _sub = "&submitids=" + _Id
     }
     console.log(_Id)
-
 	//获取提交订单数据
     $.ajax({
         url: "/webapi/distributor/" + getRetailerid() + "/orderform/items?distributor_id=" + localStorage.disId + _sub,
@@ -317,7 +316,7 @@ $(document).ready(function () {
 
 
             $(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(1))
-            $(".shoplist").html(_list)
+            $(".shoplist").html(localStorage.mz+_list)
             if (_distrgive != "") {
                 $("#sp3").text(_zz + Number($(".gifty").text().replace("x", "")))
             } else {
@@ -361,6 +360,7 @@ $(document).ready(function () {
                     console.log(_Id)
                     console.log(data)
                     if (data.result == true) {
+                    	localStorage.removeItem("date")
                         $(".loads2").css({ display: "none" })
                         $(".loads2 div").text("提交中...")
                         window.location = "myorder.html"
