@@ -1,4 +1,4 @@
-﻿avalon.ready(function () {
+avalon.ready(function () {
     $('.Wallet_list ul li').on('click', function () {
         $('.Wallet_list ul li').removeClass('on');
         $(this).addClass('on');
@@ -269,12 +269,11 @@ var vm = avalon.define({
             tmdropme3.resetload();
     },
     userwithdraw: function () {//用户提现
-
-        // if (vm.Moneys.count > 0)
+        if (vm.Moneys.balance > 0)
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { count: vm.Moneys.count },
+                data: { count: vm.Moneys.balance },
             url: '/webapi/consumer/mine/consumer/withdraw',
             beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
             success: function (json) {
