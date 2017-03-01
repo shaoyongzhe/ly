@@ -1,4 +1,8 @@
 
+.wrapBig{
+  min-width: 1080px;
+}
+.on
 .search-area
 {
     width: 80%;
@@ -107,7 +111,7 @@ td .templatecontent{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 122px;
+    width: 94%;
 }
 
 
@@ -237,7 +241,7 @@ td .templatecontent{
     -webkit-animation: rotate 0.75s linear infinite;
     animation: rotate 0.75s linear infinite;
 }
-.on
+.light
 {
     background-color: burlywood;
 }
@@ -399,7 +403,9 @@ table.notify tr td:nth-child(11){width: 3%;}
     height: 20px;
     background-color: #bbb;
 }
-
+.Hui-iconfont img{
+  cursor: pointer;
+}
     .handle-icon.on + .handle-btns-wrap
     {
         display: block;
@@ -412,17 +418,42 @@ table.notify tr td:nth-child(11){width: 3%;}
 
 .handle-btns-wrap
 {
-    display: none;
-    width: 277px;
-    height: 43px;
-    line-height: 40px;
-    padding: 0 10px;
-    background-color: #bbb;
-    box-sizing: border-box;
     position: absolute;
-    right: 105%;
-    top: -9px;
-    transition: .6s;
+    z-index: 2;
+    right: 36%;
+    top: 36px;
+    background: #C4E4EF;
+    height: 34px;
+    line-height: 34px;
+    display: inline-block;
+    word-wrap: normal;
+    word-break: keep-all;
+    padding: 0px 5px; 
+    display: none;
+    cursor: pointer;
+}
+.handle-btns-wrap_fuzeren{
+  right: 46%;
+  top: 36px;
+}
+
+.btn1:hover{
+    color: #f60;
+  }
+.btn1{
+  width: 35px;
+  border-right: 1px solid #8abdcf;
+  display: inline-block;
+  height: 12px;
+  line-height: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+.btn2{
+  width: 60px;
+}
+.modify{
+  border-right: none;
 }
 
 
@@ -431,23 +462,24 @@ table.notify tr td:nth-child(11){width: 3%;}
     text-align: left;
 }
 
-    .handle-btns a
-    {
-        display: inline-block;
-        vertical-align: -5px; /*    background: red;
-    width: 20px;
-    height: 20px;*/
-    }
+.handle-btns a
+{
+    display: inline-block;
+    vertical-align: -5px; /*    background: red;
+width: 20px;
+height: 20px;*/
+}
 
-    .handle-btns .arrow-right
-    {
-        display: inline-block;
-        position: absolute;
-        border: 6px solid transparent;
-        border-left-color: #bbb;
-        right: -12px;
-        top: 14px;
-    }
+.handle-btns .arrow-right
+{
+  position: absolute;
+  top: -8px;
+  right: 9px;
+  border-top: 0px;
+  border-bottom: 8px solid #C4E4EF;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
 
 
 .w72
@@ -468,15 +500,15 @@ nav
     margin-bottom: 20px;
 }
 
-    nav span
-    {
-        border: 1px solid #eee;
-        background: #ccc;
-        padding: 10px 20px;
-        line-height: 40px;
-        cursor: pointer;
-        border-radius: 10px;
-    }
+nav span
+{
+    border: 1px solid #eee;
+    background: #ccc;
+    padding: 10px 20px;
+    line-height: 40px;
+    cursor: pointer;
+    border-radius: 10px;
+}
 
 .addForm
 {
