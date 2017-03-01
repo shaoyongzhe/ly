@@ -99,30 +99,10 @@ function acAdB() {
 		}
 
 		// $('.red').last().css({"visibility": "hidden"});
-//		$('.red').last().addClass('vihi');
+		// $('.red').last().addClass('vihi');
 		$('.red').not(':first').addClass("vihi");
 		$(".addSub2").last().find(".acAd2").removeClass("hi");
-
-
-
-		var d = new Date();
-        var dates = d.toLocaleDateString().replace(/\//g, '-');
-        $('.time_y').click(function(e){
-            // e.stopPropagation();
-            // var id = $(this).attr('id');
-            laydate({
-                // elem: id,
-                event: 'focus',
-                format: 'YYYY/MM/DD',
-                // format: 'YYYY-MM-DD',
-                // istime: true,
-                max: dates
-                /*choose: function(dates){
-                    layer.msg(dates);
-                },*/
-            });
-        });
-
+		
 	});
 
 	$(".addSub3:last .acAd3").css({"visibility": "hidden"});
@@ -137,6 +117,7 @@ function acAdC() {
 	$("body").on("click", ".acZige .acAd3", function(e) {
 		if ($(this).closest(".acZige").find(".addSub3").length <= 1) {
 			alert("至少需要一个"); //等待修改该模块
+
 		} else {
 			if ($(this).closest(".addSub3").next().hasClass("yyy")) {
 				$(this).closest(".acZige").find(".addSub3:last").prev().find(".acAd4").removeClass("hi");
@@ -179,7 +160,9 @@ function acAdC() {
 			"visibility": "visible",
 			"cursor": "pointer"
 		});
-		$(this).closest(".acZige").append($('<div class="yyy singleselection"><span class="radio" name="0">以上条件满足其一</span><span class="radio on" name="1">以上条件需全部满足</span></div>'));
+
+		$(this).closest(".acZige").append('<div class="yyy singleselection"><span class="radio" name="1">以上条件满足其一</span><span class="radio" name="0">以上条件需全部满足</span></div>');
+
 		$(this).closest(".acZige").find(".yyy").not(':last').remove();
 		$(this).addClass("hi");
 		$(this).closest('.acZige').addClass('on');
@@ -196,8 +179,6 @@ $("body").on("click", ".acMeD2", function(e) {
 	e.stopPropagation();
 
 	// $(this).parents(".addSub2").find(".acZige").toggleClass("hi");
-
-
 	$(this).closest('.addSub2').find('.acZige').toggle();
 	
 });
@@ -525,8 +506,7 @@ function addAjax(){
 						if($(this).text()==emText){
 							nameValue=$(this).attr("name");
 						}
-					})
-
+					})					
 					$(this).click();
 					$(this).find('.option').last().click();
 					$(this).click();
@@ -535,6 +515,8 @@ function addAjax(){
 					$(this).click();
 					$(this).find(".option[name='"+nameValue+"']").last().click();
 					$(this).closest(".hdc1").next().find("em").text(subsidyConditionArr[num]);
+					$(this).closest(".hdc1").next().find(".subsidyCondition a").text(subsidyConditionArr[num]);//0228
+					$(this).closest(".hdc1").next().find(".subsidyCondition a").attr("statistic",JSON.stringify(statisticArr[num]));//0228
 				})
 
 				

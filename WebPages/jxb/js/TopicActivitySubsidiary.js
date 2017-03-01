@@ -79,27 +79,27 @@ function Cajax(m,a,b){
 //				layer.alert("数据为空，请重试", {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			if(data.content==undefined){
 //				layer.alert('数据结构变化，请通知管理员', {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			if(data.content==[]){
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			if(data.content.length==0){
 //				layer.alert('数据为空', {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			console.log(data);
@@ -121,7 +121,7 @@ function Cajax(m,a,b){
 //			layer.alert('通讯异常:错误'+data.status, {icon: 5});
 			popupsFn(function(){					
 				Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-			},null,"259px","149px")
+			},null,"259px","138px")
 		},
 		complete:function(data){
 			linshi2=data;

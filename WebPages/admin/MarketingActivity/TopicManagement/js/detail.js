@@ -24,8 +24,9 @@ function render(detailData){
 	// 1.活动基础信息
 	var first = $('.item.first');
 	var activity = detailData.activity;
-	first.find('.guid').text(activity.activitycode);
+	//first.find('.guid').text(activity.activitycode);
 	// first.find('.guid').text(activity.guid);
+	first.find('.guid').html(activity.activitycode + "<i style='color:#fff'>"+ activity.guid +"</i>");
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
@@ -128,14 +129,6 @@ function render(detailData){
 
 	}
 
-	/*<ul class="select" style="display: none;">
-	<li class="option" name="ticket_verify" type="ticket_verify">核销次数</li>
-	<li class="option" name="verify_person_count" type="verify_person_count">核销人数</li>
-	<li class="option" name="fans_range" type="fans_range">惠粉数</li>
-	<li class="option" name="activityfanspercentage" type="activityfanspercentage">粉丝留存率</li>
-	<li class="option" name="member_time" type="member_time">会员时长</li>
-	<li class="option" name="level" type="level">会员等级</li></ul>*/
-
 	// 参与会员
 	// debugger
 	var distributor = detailData.distributor_condition;
@@ -153,15 +146,12 @@ function render(detailData){
 		canyuHy(retailer, "门店");
 	}
 
-
-
 	function canyuHy(type, txt){
-		// debugger
+
 		if(type.number_range){
-			// alert(2)
 			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ type.number_range.min +" - "+ type.number_range.max +"</td><td></td></tr>");
+
 		} else {
-			// alert(1)
 			$('table.canyu').append("<tr singleselection="+ type.singleselection +"><td width='80'>"+ txt +"</td><td width='80'>"+ '' +" - "+ '' +"</td><td></td></tr>");
 		} 
 
@@ -259,11 +249,11 @@ function render(detailData){
 		    case "retaileremployee": btduixiang = '门店店员'; break;
 		    case "retailer_employee": btduixiang = '门店店员'; break;
 		    case "consumer": btduixiang = '消费者'; break;
+
 		}
 
 		/*var btCond = "";
 		switch(butie[i].event){
-
 			case "distributorinviteretailer": btCond = '门店签约分销商'; break;
 			case "register": btCond = '注册'; break;
 			case "invitefan": btCond = '成功邀请朋友关注'; break;
@@ -279,7 +269,6 @@ function render(detailData){
 	
 		/*var btType = "";
 		switch(butie[i].refund_content){
-
 			case "randompoints": btType = '随机积分'; break;
 			case "fixedpoints": btType = '固定积分'; break;
 			case "fixedmoney": btType = '固定金额'; break;
@@ -294,25 +283,30 @@ function render(detailData){
 		var danwei = "";
 		if(butie[i].refund_content.indexOf('积分') != -1){
 			danwei = "分";
-		} else if(butie[i].refund_content.indexOf('金额') != -1 || butie[i].refund_content.indexOf('红包') != -1){
+		} else if(butie[i].refund_content.indexOf('金额') != -1 || 
+			butie[i].refund_content.indexOf('红包') != -1 || 
+			butie[i].refund_content == '摇一摇'){
 			danwei = "元";
-		}
+		} 
 
-		var rangeStr = "<span class='fl'>"+ butie[i].min +"-"+ butie[i].max +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ butie[i].max * butie[i].ceiling +"</i><i>"+ danwei +"</i></td>";
+		var rangeStr = "<span class='fl'>"+ butie[i].min +"-"+ butie[i].max +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].max * butie[i].ceiling) +"</i><i>"+ danwei +"</i></td>";
 		
 		// debugger;
 		if(!butie[i].max || butie[i].max == ""){
-			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ butie[i].min * butie[i].ceiling +"</i><i>"+ danwei +"</i></td>";
+			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].min * butie[i].ceiling) +"</i><i>"+ danwei +"</i></td>";
 		}
 
 	    // debugger
 		var pointIndex = butie[i].applycount.indexOf('.');
 		var applycount = pointIndex == -1 ? butie[i].applycount : butie[i].applycount.substring(0, pointIndex + 3);
 		// debugger;
-		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='ell fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ applycount +"</i><i>"+ danwei +"</i></td></tr>");
+		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ applycount +"</i><i>"+ danwei +"</i></td></tr>");
 	}
 
-	// debugger
+	// $('table.butie tr:contains(摇一摇) td.sbys i:eq(1)').text('次');
+	$('table.butie tr:contains(摇一摇)').find('td.sbys i:eq(1)').text('次');
+
+	// debugger;
 	var yuan = 0;
 	$('td.btfz:contains(元) .valTxt').each(function(){
 		if($(this).text() == ""){return false;}

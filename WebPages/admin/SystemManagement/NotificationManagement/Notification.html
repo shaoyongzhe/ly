@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
@@ -194,125 +194,118 @@
 </head>
 <body>
 
-    <div class="page-container" style="padding-bottom: 0;">
+    <div class="wrap">
         <div class="bread-crumb">系统管理<span> > </span>通知管理</div>
-        <nav>
+        <nav style="margin-left: 14px;">
             <span class="">通知管理</span>
             <span class="">负责人管理</span>
         </nav>
-        <div class="sec">
-            <div class="search-wrap">
-                <div class="search-area">
-                    <div class="input-contorl">
-                        <label>使用场景</label>
-                        <select name="" id="" class="first-type">
-                            <option value="" data-key="">-- 请选择 --</option>
-                        </select>
-                    </div>
-                    <div class="input-contorl">
-                        <label>事件</label>
-                        <select name="" id="" class="second-type">
-                            <option value="" data-key="">-- 请选择 --</option>
-                        </select>
-                    </div>
-                    <div class="input-contorl">
-                        <label>发送途径</label>
-                        <select name="" id="" class="third-type">
-                            <option value="" data-key="">-- 请选择 --</option>
-                        </select>
-                    </div>
-                    <div class="input-contorl">
-                        <label>组名</label>
-                        <select name="" id="" class="fourth-type">
-                            <option value="" data-key="">-- 请选择 --</option>
-                        </select>
-                    </div>
-                    <div class="input-contorl">
-                        <label>状态查询</label>
-                        <select name="" id="" class="fifth-type">
-                            <option value="" data-key="">--  全部  --</option>
-                            <option value="Normal">正常状态</option>
-                            <option value="Draft">新增待编辑</option>
-                        </select>
-                    </div>
-                    <div class="input-contorl">
-                        <label>推送区域</label>
-                        <input type="text" value="" class="input-text area">
-                    </div>
-                    <div class="input-contorl">
-                        <label>外部模板编号</label>
-                        <input type="text" value="" class="input-text gateway_templateid">
-                    </div>
-                    <div class="input-contorl">
-                        <label>缺省查询</label>
-                        <label class="switch-btn">
-                            <input class="checked-switch inra" type="checkbox" />
-                            <span class="text-switch" data-yes="显示缺省" data-no="显示全部" style="width:110px;"></span>
-                            <span class="toggle-btn"></span>
-                        </label>
-                    </div>
+    </div>
+    <div class="sec">
+        <div class="search-wrap" style="margin-left: 17px;">
+            <div class="search-area">
+                <div class="input-contorl">
+                    <label>使用场景</label>
+                    <select name="" id="" class="first-type">
+                        <option value="" data-key="">-- 请选择 --</option>
+                    </select>
                 </div>
-                <input type="button" value="重置" class="reset-btn" />
-                <input type="button" value="查询" class="search-btn" />
-            </div>
-            <div class="cl pd-5 bg-1 bk-gray mt-20">
-                <!-- <span class="btn btn-primary radius batchDel">
-                    批量删除
-                </span> -->
-                <span class="btn btn-danger radius ml-20 mr-20 add">
-                    <i class="Hui-iconfont">&#xe6e1;</i>新增
-                </span>
-                <span class="btn btn-danger radius ml-20 mr-20 float_right setDefaultGroup">
-                    设置默认分组
-                </span>
-                <select name="" id="" class="float_right group_type">
-                    <option value="" data-key="">-- 请选择 --</option>
-                </select>
-            </div>
-
-            <table class="notify table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20" style="position: relative;margin-bottom: 5px;">
-                <thead style="width: 100%;float: left;">
-                    <tr class="text-c" style="width: 100%;display: flex;">
-                        <!-- <th><input type="checkbox" name="" value=""></th> -->
-                        <th style="width: 18%">使用场景</th>
-                        <th style="width: 8%">事件</th>
-                        <th style="width: 6%">发送途径</th>
-                        <th style="width: 6%">组名</th>
-                        <th style="width: 3%">区域</th>
-                        <th style="width: 12%">描述</th>
-                        <th style="width: 18%">外部模板编号</th>
-                        <th style="width: 14%">内容</th>
-                        <th style="width: 6%">状态</th>
-                        <th style="width: 6%">是否默认</th>
-                        <th style="width: 4.1%">操作</th>
-                    </tr>
-                </thead>
-                <tbody style="float:left;height: 500px;overflow-y:scroll;width: 100%;" class="pagesTbodyLong content_drop tbody-c"></tbody>
-            </table>
-
-                 
-            <!-- 分页 -->
-             <div class="loading" style="width: 100%;height: 40px;"></div>
-            <!-- <div class="text-c pager-wrap">
-                <div class="text-l">
-                    共有数据：
-                    <strong class='totalcount'></strong> 条
+                <div class="input-contorl">
+                    <label>事件</label>
+                    <select name="" id="" class="second-type">
+                        <option value="" data-key="">-- 请选择 --</option>
+                    </select>
                 </div>
-                <div id="pager"></div>
-                <ul id="datalist"></ul>
-            </div> -->
+                <div class="input-contorl">
+                    <label>发送途径</label>
+                    <select name="" id="" class="third-type">
+                        <option value="" data-key="">-- 请选择 --</option>
+                    </select>
+                </div>
+                <div class="input-contorl">
+                    <label>组名</label>
+                    <select name="" id="" class="fourth-type">
+                        <option value="" data-key="">-- 请选择 --</option>
+                    </select>
+                </div>
+                <div class="input-contorl">
+                    <label>状态查询</label>
+                    <select name="" id="" class="fifth-type">
+                        <option value="" data-key="">--  全部  --</option>
+                        <option value="Normal">正常状态</option>
+                        <option value="Draft">新增待编辑</option>
+                    </select>
+                </div>
+                <div class="input-contorl">
+                    <label>推送区域</label>
+                    <input type="text" value="" class="input-text area">
+                </div>
+                <div class="input-contorl">
+                    <label>外部模板编号</label>
+                    <input type="text" value="" class="input-text gateway_templateid">
+                </div>
+                <div class="input-contorl">
+                    <label>缺省查询</label>
+                    <label class="switch-btn">
+                        <input class="checked-switch inra" type="checkbox" />
+                        <span class="text-switch" data-yes="显示缺省" data-no="显示全部" style="width:110px;"></span>
+                        <span class="toggle-btn"></span>
+                    </label>
+                </div>
+            </div>
+            <input type="button" value="重置" class="reset-btn" />
+            <input type="button" value="查询" class="search-btn" />
         </div>
-        <div class="sec">
-            负责人管理
-            <table class="modulePeople table table-border table-bordered table-bg table-hover table-sort mt-10 mb-20" style="overflow:hidden;width:100%;display: block;">
-                <thead style="width: 100%;float: left;">
-                    <tr class="text-c">
-                        <th style="width: 15%">负责模块</th>
-                        <th style="width: 70%">联系人信息</th>
-                        <th style="width: 15%">操作</th>
+        <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <!-- <span class="btn btn-primary radius batchDel">
+                批量删除
+            </span> -->
+            <span class="btn btn-danger radius ml-20 mr-20 add">
+                <i class="Hui-iconfont">&#xe6e1;</i>新增
+            </span>
+            <span class="btn btn-danger radius ml-20 mr-20 float_right setDefaultGroup">
+                设置默认分组
+            </span>
+            <select name="" id="" class="float_right group_type">
+                <option value="" data-key="">-- 请选择 --</option>
+            </select>
+        </div>
+        <div class="table_wrap">
+            <table height="543px" border="1" cellspacing="0" cellpadding="2" bordercolor="#e4e4e4" class="templateList">
+                <thead>
+                    <tr>
+                        <!-- <th><input type="checkbox" name="" value=""></th> -->
+                        <th>使用场景</th>
+                        <th>事件</th>
+                        <th>发送途径</th>
+                        <th>组名</th>
+                        <th>区域</th>
+                        <th>描述</th>
+                        <th>外部模板编号</th>
+                        <th>内容</th>
+                        <th>状态</th>
+                        <th>是否默认</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
-                <tbody style="float:left;height: 510px;overflow-y:scroll;width: 100%;" class="ResponseManagement"></tbody>
+                <tbody class="refresh"></tbody>
+            </table>
+            <div class="loaded"><span class='loading'></div>
+            <div class="finished">数据已加载完</div>
+        </div>
+    </div>
+    </div>
+    <div class="sec">
+        <div class="table_wrap">
+            <table class="modulePeople">
+                <thead>
+                    <tr>
+                        <th>负责模块</th>
+                        <th>联系人信息</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody class="ResponseManagement"></tbody>
             </table>
         </div>
     </div>
@@ -405,19 +398,6 @@
                 </div>
             </div>
         </div>
-        <!-- 新增e -->
-        <!-- <div class="input-contorl">
-            <label>影响省份</label>
-            <select class="form-control" id="loc_province" name="loc_province"></select>
-        </div>
-        <div class="input-contorl">
-            <label>影响地级市</label>
-            <select class="form-control" id="loc_city" name="loc_city"></select>
-        </div>
-        <div class="input-contorl">
-            <label>影响市、县、区</label>
-            <select class="form-control" id="loc_county" name="loc_county"></select>
-        </div> -->
         <div class="input-contorl">
             <label>内容</label>
             <textarea name="" id="" class="content"></textarea>

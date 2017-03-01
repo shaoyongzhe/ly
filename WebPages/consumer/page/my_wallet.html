@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,8 +34,8 @@
         <section>
             <div class="WalletBalance">
                 <p>钱包余额</p>
-                <h1>￥{{Moneys.count}}</h1>
-                <a href="javascript:void(0)" ms-attr-class="{{Moneys.count==0?'on':''}}" ms-click="userwithdraw">提 现</a>
+                <h1>￥{{Moneys.balance}}</h1>
+                <a href="javascript:void(0)" ms-attr-class="{{Moneys.balance==0?'on':''}}" ms-click="userwithdraw">提 现</a>
             </div>
             <div class="Wallet_nav mt46">
                 <p class="border_dashed mb15"></p>
@@ -126,5 +126,6 @@
     </div>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
     <script src="/consumer/js/my/my_wallet.js"></script>
+    <script src="../../js/sdk/sdk.js"></script>
 </body>
 </html>
