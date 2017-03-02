@@ -16,8 +16,7 @@ function fnpinpai() {
     	}
     	
         
-    });
-    $(".titlestyle").on("click", "ul>li", function() {
+    }).on("click", "ul>li", function() {
         $(".titlestyle>span").html($(this).html());
         $(".titlestyle>ul").hide();
     });
@@ -83,6 +82,7 @@ function fnpricenum() {
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
 			$(".tsh").show();
 			$(".ms").text("网络异常")
         },
@@ -120,7 +120,7 @@ function fnclick() {
         var submenu = this.el.find('.submenu');
         //品牌下的一级分类点击
         submenu.on("click", "li", function() {
-            $(this).parent().parent().parent().parent().prev().find("h4").html("某一子类<i> > </i>")
+            $(this).parent().parent().parent().parent().prev().find("h4").html("全部子类型<i> > </i>")
             submenu.find("li").removeClass("col1");
             $(this).addClass("col1");
             if($(this).find(".hide1").length > 0) {
@@ -166,10 +166,11 @@ function fnclick() {
 //菜单点击事件
 function fnmenuclick() {
     var thetext = "";
-    fnhqactive();
-    $("#cgl-menu").on("click", ".link", function() {
+
+    $("#cgl-menu").off("click").on("click", ".link", function() {
         thetext = $(this).text();
         if(thetext == "我的预存货") {
+            $("#cgl-menu").find("li").show();
             fnyucun();
             $(".cgl-contlist").off("scroll");
         } else if(thetext == "促销活动") {
@@ -177,16 +178,14 @@ function fnmenuclick() {
             $(".cgl-contlist").off("scroll");
         } else {
             var ckid = $(this).parents("li").attr("id");
-            if($("#cgl-contlist").find(">ul>li." + ckid).length > 0) {} else {
-                var odata = {
-                    "filter": "",
-                    "filtertype": 0,
-                    "supplierid": ckid,
-                    "lastcount": 0,
-                    "pagecount": 5000
-                }
-                fnlist2(odata);
+            var odata = {
+                "filter": "",
+                "filtertype": 0,
+                "supplierid": ckid,
+                "lastcount": 0,
+                "pagecount": 5000
             }
+            fnlist2(odata);
         }
     });
 }
@@ -233,11 +232,11 @@ function fnmenu() {
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/itemtypegroups",
-        //url: "../../data/menu.json",
         data: "",
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
             if(textStatus == "timeout") {
                 console.log("请求超时")
                 XMLHttpRequest.abort();
@@ -249,32 +248,36 @@ function fnmenu() {
             if(data.result == false) {
                 console.log(data.error)
             } else {
-                var oli = "";
-                for(var k1 in data) {
-                    oli += "<li id='" + data[k1]["supplierid"] + "'>" +
-                        "<div class='link'>" + data[k1]["suppliername"];
-                    if(data[k1]["itemcategory"].length > 0) {
-                        oli += "<i></i>";
-                    }
-                    oli += "</div>" +
-                        "<ul class='submenu'> ";
-                    for(var k2 in data[k1]["itemcategory"]) {
-                        oli += "<li id='" + data[k1]["itemcategory"][k2]["itemcategory"] + "'>" + data[k1]["itemcategory"][k2]["itemcategoryname"] + "<i> > </i><ul class='hide1' style='display: none;'>";
-                        for(var k3 in data[k1]["itemcategory"][k2]["itemsubcategory"]) {
-                            oli += "<li id='" + data[k1]["itemcategory"][k2]["itemsubcategory"][k3]["itemsubcategory"] + "'>" + data[k1]["itemcategory"][k2]["itemsubcategory"][k3]["itemsubcategoryname"] + "</li>";
-                        }
-                        oli += "</ul></li>";
-                    }
-                    oli += "</ul>" +
-                        "</li>";
-                }
-                $("#cgl-menu").append(oli);
-                fnclick();
-                fnmenuclick();
-                fnmenuhei(); //动态设置菜单右侧高度
+                xuanrmenu(data);
             }
         }
     });
+}
+//菜单列表渲染
+function xuanrmenu(data) {
+    var oli = "";
+    for(var k1 in data) {
+        oli += "<li id='" + data[k1]["supplierid"] + "'>" +
+            "<div class='link'>" + data[k1]["suppliername"];
+        if(data[k1]["itemcategory"].length > 0) {
+            oli += "<i></i>";
+        }
+        oli += "</div>" +
+            "<ul class='submenu'> ";
+        for(var k2 in data[k1]["itemcategory"]) {
+            oli += "<li id='" + data[k1]["itemcategory"][k2]["itemcategory"] + "'>" + data[k1]["itemcategory"][k2]["itemcategoryname"] + "<i> > </i><ul class='hide1' style='display: none;'>";
+            for(var k3 in data[k1]["itemcategory"][k2]["itemsubcategory"]) {
+                oli += "<li id='" + data[k1]["itemcategory"][k2]["itemsubcategory"][k3]["itemsubcategory"] + "'>" + data[k1]["itemcategory"][k2]["itemsubcategory"][k3]["itemsubcategoryname"] + "</li>";
+            }
+            oli += "</ul></li>";
+        }
+        oli += "</ul>" +
+            "</li>";
+    }
+    $("#cgl-menu").append(oli);
+    fnclick();
+    fnmenuclick();
+    fnmenuhei(); //动态设置菜单右侧高度
 }
 //预存货列表
 function fnyucun() {
@@ -289,6 +292,7 @@ function fnyucun() {
         timeout: "2000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
             $("#loading").hide();
             if(textStatus == "timeout") {
                 console.log("请求超时")
@@ -325,7 +329,7 @@ function fnychxr(data) {
             itemprice: 0,
             isyucun: 1
         }
-        oli += "<li>" +
+        oli += "<li yucun='yucun'>" +
             "<div class='cgl-top hori'> " +
             "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
             "<div class='the-xiangxi'> " +
@@ -346,7 +350,6 @@ function fnychxr(data) {
             "</li>";
     }
     $("#cgl-contlist").find("ul").html(oli);
-	console.log(oli)
 	$("#loading").hide();
 }
 //获取促销活动列表
@@ -364,6 +367,7 @@ function fnhqactive() {
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
             if(textStatus == "timeout") {
                 console.log("请求超时")
                 XMLHttpRequest.abort();
@@ -405,7 +409,7 @@ function fncuxiao(data) {
             oli += data[k1]["itemname"] + "</h3>" +
                 "<p>" + (data[k1]["specification"] == null ? "1*24" : data[k1]["specification"]) + " | " + (data[k1]["packagetypename"] == null ? "箱" : data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-                "<span>￥<i>" + Number(data[k1]["discountprice"]).toFixed(1) + "0</i></span>" +
+                "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(1) + "0</i></span>" +
                 "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -413,7 +417,7 @@ function fncuxiao(data) {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
             oli += "</div>" +
-                " </div><del>￥" + Number(data[k1]["originalprice"]).toFixed(1) + "0</del></div>" +
+                " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(1) + "0</del></div>" +
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
@@ -478,6 +482,7 @@ function fnlist(odata) {
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
             if(textStatus == "timeout") {
                 $("#loading img").remove();
                 $("#loading div").text("请求超时");
@@ -506,7 +511,7 @@ function fnyibanlist(data) {
         if(data[k1]["itemslist"]) {
             if(data[k1]["itemslist"].length > 1) {
                 //多种包装情况下包装大于1时
-                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
+                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
                 for(var k2 in data[k1]["itemslist"]) {
                     dataid = {
                         distributorid: fnurl().distributor_id,
@@ -540,7 +545,7 @@ function fnyibanlist(data) {
                         itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(1),
                         isyucun: 0
                     }
-                    oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+                    oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                         "<div class='cgl-top hori'> " +
                         "<img src='" + data[k1]["itemslist"][k3]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
@@ -564,8 +569,8 @@ function fnyibanlist(data) {
                 itemid: data[k1]["itemid"],
                 itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
                 isyucun: 0
-            }
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            };
+            oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -597,19 +602,20 @@ function fnlist2(odata) {
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
             if(textStatus == "timeout") {
                 $("#loading img").remove();
                 $("#loading div").text("请求超时");
-                console.log("请求超时")
+                console.log("请求超时");
                 XMLHttpRequest.abort();
             }
         },
         success: function(data) {
-            console.log(data)
+            console.log(data);
             $("#loading").hide();
             $("#zhezao").hide();
             if(data.result == false) {
-                console.log(data.error)
+                console.log(data.error);
                 $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data)
@@ -632,7 +638,7 @@ function fnyibanlist2(data) {
         }
         //折扣和降价活动时
         if(data[k1]["itemkind"] == "折扣" || data[k1]["itemkind"] == "降价") {
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li active='active' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -643,7 +649,7 @@ function fnyibanlist2(data) {
             oli += data[k1]["itemname"] + "</h3>" +
                 "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"]+" | ") + (data[k1]["packagetypename"] == undefined ? "" : data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-                "<span>￥<i>" + Number(data[k1]["discountprice"]).toFixed(1) + "0</i></span>" +
+                "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(1) + "0</i></span>" +
                 "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -651,7 +657,7 @@ function fnyibanlist2(data) {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
             oli += "</div>" +
-                " </div><del>￥" + Number(data[k1]["originalprice"]).toFixed(1) + "0</del></div>" +
+                " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(1) + "0</del></div>" +
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
@@ -661,7 +667,7 @@ function fnyibanlist2(data) {
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
             //有礼和买赠活动时
             dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li active='active' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -694,7 +700,7 @@ function fnyibanlist2(data) {
         }else if(data[k1]["itemslist"]) {
             if(data[k1]["itemslist"].length > 1) {
                 //多种包装情况下包装大于1时
-                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
+                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
                 for(var k2 in data[k1]["itemslist"]) {
                     dataid = {
                         distributorid: fnurl().distributor_id,
@@ -728,7 +734,7 @@ function fnyibanlist2(data) {
                         itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(1),
                         isyucun: 0
                     }
-                    oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+                    oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                         "<div class='cgl-top hori'> " +
                         "<img src='" + data[k1]["itemslist"][k3]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
@@ -753,7 +759,7 @@ function fnyibanlist2(data) {
                 itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
                 isyucun: 0
             }
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -828,11 +834,6 @@ function fncarnum(data) {
             }
             $(".price>i").html(($(".price>i").html()-$(this).parent().prev().find("i").html()).toFixed(1));
         }
-//		if(num>=){
-//			$(".price>i").html((Number($(".price>i").html())-(Number($(this).next().html())-num)*Number($(this).parent().prev().find("i").html())).toFixed(1));
-//		}
-
-
         fnaddcar(this, $(this).next().html() - 0);
     }).on("click", ".add", function() {
         var num = Number($(this).prev().html());
@@ -881,6 +882,7 @@ function fnaddcar(that, a) {
         type: "post",
         timeout: "9000",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
             if(textStatus == "timeout") {
                 console.log("请求超时")
                 XMLHttpRequest.abort();
@@ -953,7 +955,7 @@ function fncontscroll() {
     arr.each(function(i) {
         n += fngethei(arr.eq(i).attr("id"));
         heiarr[i] = [arr.eq(i).attr("id")] + "=" + n;
-    })
+    });
     //console.log(heiarr);
 
     $(".cgl-contlist").off("scroll").scroll(function() {
@@ -988,6 +990,17 @@ function fnserach() {
             "margin-top": "0"
         }, 300);
         $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
+        if($(".titlestyle>span").html() == "品牌") {
+            odata.filtertype = 1;
+        } else {
+            odata.filtertype = 0;
+        }
+/*
+        $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
+        $("#cgl-contlist").find("ul").animate({
+            "margin-top": "0"
+        }, 300);
+        $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
 
         odata.filter = $(".content").val();
         if($(".titlestyle>span").html() == "品牌") {
@@ -1000,7 +1013,137 @@ function fnserach() {
             fnmenuhei();
         });
         $("#cgl-menu").find(">li").removeClass("clion").find(".link>i").show();
+*/
+        odata.filter = $(".content").val();
+        if(odata.filter==0){
+            $("#cgl-menu").find("li:gt(1)").remove();
+            $("#cgl-menu").find("li:eq(1)").show();
+            $("#cgl-menu").find("li").removeClass("clion");
+            $(".sale ").addClass("clion");
+            fnmenu(); //获取菜单列表
+            fnhqactive();//获取促销活动列表
+        }else if($(">li:eq(0)","#cgl-menu").attr("class")=="clion"){
+            var ycdata={
+                "filter": odata.filter,
+                "filtertype": odata.filtertype
+            }
+            $("#cgl-menu").off("click").find("li:gt(1)").remove();
+            $("#cgl-menu").find("li:eq(1)").hide();
+            $("#yucun").off("click").on("click",function () {
+                $(">ul>li","#cgl-contlist").show();
+            });
+            fnsearchyc(ycdata);//预存货搜索
+
+        }else{
+
+            if($(".titlestyle>span").html() == "品牌") {
+                odata.filtertype = 1;
+            } else {
+                odata.filtertype = 0;
+            }
+            fnserchapi(odata);
+
+        }
     });
+}
+
+//预存货搜索
+function fnsearchyc(odata) {
+    $("#cgl-contlist").find("ul").html("");
+    $("#loading").show();
+    $("#zhezao").show();
+    $.ajax({
+        type: "get",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
+        //url: "../../data/activeindex.json",
+        data: odata,
+        timeout: "2000",
+        dataType: "json",
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
+            $("#loading").hide();
+            if(textStatus == "timeout") {
+                console.log("请求超时")
+                XMLHttpRequest.abort();
+            }
+        },
+        success: function(data) {
+            $("#zhezao").hide();
+            if(data.length==0){
+                /*var _lli="<img src=\"../../image/shop/icon_cry.png\" style=\"width:1.6rem;height:1.6rem;position:relative;left:44%;top:25%\">"+
+                    "<p style=\"position: relative;top: 30%;text-align: center;color：#333333\">您暂无与 <b style='color: red;'>\""+odata["filter"]+"\"</b> 相关预存货~</p>"
+                $("#cgl-contlist").html(_lli);*/
+            }else{
+                fnychxr(data);
+            }
+
+            //sessionStorage.setItem("yucunhuo", JSON.stringify(data));
+        }
+    });
+
+}
+//搜索功能ajax请求
+function fnserchapi(odata) {
+    $("#cgl-contlist").find("ul").html("");
+    $("#loading").show();
+    $("#zhezao").show();
+    $.ajax({
+        type: "get",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+        data: odata,
+        timeout: "9000",
+        dataType: "json",
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
+            if(textStatus == "timeout") {
+                $("#loading img").remove();
+                $("#loading div").text("请求超时");
+                //console.log("请求超时");
+                XMLHttpRequest.abort();
+            }
+        },
+        success: function(data) {
+            console.log(data);
+            $("#loading").hide();
+            $("#zhezao").hide();
+            menusx(data["groupdata"]);
+            $(".sale ").addClass("clion");
+            if(data.result == false) {
+                console.log(data.error);
+                $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
+            } else {
+                fnyibanlist2(data["datalist"]);
+            }
+        }
+    });
+}
+function menusx(data) {
+    var putli=$("#cgl-menu").find("li:gt(1)");
+    putli.remove();
+    xuanrmenu(data);
+    $("#cgl-menu").off("click").find(">li").on("click",function () {
+        var theid=$(this).attr("id");
+        fnmclick(theid,"class")
+    });
+    $("#cgl-menu").find(">li:eq(0)").on("click",function () {
+        $(".cgl-contlist").find(">ul>li").hide();
+    });
+
+}
+//搜索功能下品牌筛选
+function fnmclick(theid,idd) {
+    var n1=$(".cgl-contlist").find(">ul>li");
+
+    for(var i=0;i<n1.length;i++){
+        if(theid=="active" && n1.eq(i).attr("active")=="active"){
+            n1.eq(i).show();
+        }else if(n1.eq(i).attr(idd)==theid){
+            n1.eq(i).show();
+        }else{
+            n1.eq(i).hide();
+        }
+    }
+    $("#cgl-contlist").scrollTop(0);
 }
 $(function() {
     if(localStorage.reload==1){
@@ -1013,6 +1156,7 @@ $(function() {
             fnxrym(); //通过参数渲染页面
             fnscroll(); //打电话显示与隐藏
             fnmenu(); //获取菜单列表
+            fnhqactive();//获取促销活动列表
             fnerji(); //遮罩点击
             fnggmore(); //商品规格点击切换
             //商品数量加减
@@ -1029,6 +1173,7 @@ $(function() {
         fnxrym(); //通过参数渲染页面
         fnscroll(); //打电话显示与隐藏
         fnmenu(); //获取菜单列表
+        fnhqactive();//获取促销活动列表
         fnerji(); //遮罩点击
         fnggmore(); //商品规格点击切换
         //商品数量加减
