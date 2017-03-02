@@ -441,7 +441,7 @@ $('.yaook').click(function(){
 
 	var isMinEmpty = true;
 	$('.yaoWrap .Yyy2 input.min').each(function(){
-		if($(this).val() == ""){
+		if($(this).val() == "" && $(this).closest('.addSub5').find('.select-wrap.acSe15 .selected').text() != '谢谢参与'){
 			layer.tips('请先输入最小范围', $(this));
 			isMinEmpty = false;
 			return false;
@@ -451,7 +451,7 @@ $('.yaook').click(function(){
 	if(isMinEmpty == false){return}
 	var isMaxEmpty = true;
 	$('.yaoWrap .Yyy2 input.max').each(function(){
-		if($(this).css('display') != "none"){
+		if($(this).css('display') != "none" && $(this).closest('.addSub5').find('.select-wrap.acSe15 .selected').text() != '谢谢参与'){
 			if($(this).val() == ""){
 				layer.tips('请先输入最大范围', $(this));
 				isMaxEmpty = false;
@@ -518,7 +518,10 @@ $('.yaook').click(function(){
 			y1yArr.push(y1yObj);
 			fengzhi += Number(_this.find('.fz input').val());
 			yao_yuan += Number(_this.find('.Yyy5-1 input').val());
+
+			if(y1yObj.refund_content != "谢谢参与"){
 			refund_content += y1yObj.refund_content + ';<br>';
+			}
 
 		});
 
@@ -2170,42 +2173,42 @@ $('.subsidyPolicy .cancel').click(function(){
 var focusVal = "";
 $('.butieSec').on('focus','.acSe13 input',function(){
 	// if($(this).closest('.addSub4').find('.selected[showtype=compose]').text() == "摇一摇"){
-	focusVal = $(this).val();
+		focusVal = $(this).val();
 	// }
 
 }).on('blur','.acSe13 input',function(){
 
 	// if($(this).closest('.addSub4').find('.selected[showtype=compose]').text() == "摇一摇"){
 
-	var _this = $(this);
-	var thisVal = _this.val();
-	if(thisVal == focusVal){return}
-	if(isNaN(thisVal)){
-		thisVal = 0;
-	}
+		var _this = $(this);
+		var thisVal = _this.val();
+		if(thisVal == focusVal){return}
+		if(isNaN(thisVal)){
+			thisVal = 0;
+		}
 
 		// var yao_yuan = _this.closest('.addSub4').find('.hdc6-2 input').val();
 		// $('.hdsbys_text').text(Number($('.hdsbys_text').text()) - Number(yao_yuan));
 
-	var addSub4 = _this.closest('.addSub4'),
-		addSub4_val = addSub4.find('.y1y').val();
-	if(addSub4_val != "" && addSub4_val != undefined){
-		addSub4.find('.set').click();
+		var addSub4 = _this.closest('.addSub4'),
+			addSub4_val = addSub4.find('.y1y').val();
+		if(addSub4_val != "" && addSub4_val != undefined){
+			addSub4.find('.set').click();
 
-		layer.msg('请重新设置摇一摇概率');
+			layer.msg('请重新设置摇一摇概率');
 			$('.yaoyiyao .Yyy3 input').val("0").blur();
 			$('.yaoyiyao .Yyy3 input').first().focus();
-		$('.yaoyiyao .Yyy4 input').val("0");
-		$('.yaoyiyao .Yyy5 input').val("0");
-		$('.layer.yao .cash').text("0");
+			$('.yaoyiyao .Yyy4 input').val("0");
+			$('.yaoyiyao .Yyy5 input').val("0");
+			$('.layer.yao .cash').text("0");
 
-		var y1yArr = JSON.parse(addSub4_val);
-		for(var i in y1yArr){
-			y1yArr[i]['percentage'] = "";
-			y1yArr[i]['timelimit'] = "";
+			var y1yArr = JSON.parse(addSub4_val);
+			for(var i in y1yArr){
+				y1yArr[i]['percentage'] = "";
+				y1yArr[i]['timelimit'] = "";
+			}
+			addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4));
 		}
-		addSub4.find('.y1y').val(JSON.stringify(y1yArr,null,4));
-	}
 	// }
 
 	var m = 0;
@@ -2236,7 +2239,7 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 
 }).on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
 	if($(this).closest('.addSub4').find('.selected[showtype=compose]').text() == "摇一摇"){
-	$('.addSub4').find('.acSe13 input').blur();
+		$('.addSub4').find('.acSe13 input').blur();
 	}
 }).on('keyup','.sbys',function(){
 
@@ -2260,7 +2263,7 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 		// alert(ysCount)
 	});
 	// alert(ysCount);
-	
+
 	$('.sec.rule .hdsbys_text.yuan').text(Number(ysCount));
 
 
@@ -2373,7 +2376,7 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 		cishuNum += Number($(this).val());
 	});
 
-	
+
 	// 计算摇一摇申报预算
 	var shenbaoys = Number($('.addSub4').eq(y1yindex-1).find('.hdc6-1 input.sbys').val());
 	var m = 0;
