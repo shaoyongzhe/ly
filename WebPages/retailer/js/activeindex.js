@@ -398,7 +398,7 @@ function fncuxiao(data) {
             activityitemid: data[k1]["activityitem_id"],
             remark:"",
             itemquality: data[k1]["itemquality"],
-            itemprice: Number(data[k1]["discountprice"]).toFixed(1),
+            itemprice: Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(1),
             isyucun: 0
         }
         //折扣和降价活动时
@@ -638,7 +638,7 @@ function fnyibanlist2(data) {
             activityitemid: data[k1]["activityitem_id"],
             remark:"",
             itemquality: data[k1]["itemquality"],
-            itemprice: Number(data[k1]["discountprice"]).toFixed(1),
+            itemprice: Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(1),
             isyucun: 0
         }
         //折扣和降价活动时
@@ -984,7 +984,6 @@ function fncontscroll() {
 function fnserach() {
 	var _ti=1;
     $(".clear").on("click", function() {
-        
         if($(".content").val()!="" && _ti!=1){
             $("#cgl-menu").find("li:gt(1)").remove();
             $("#cgl-menu").find("li:eq(1)").show();

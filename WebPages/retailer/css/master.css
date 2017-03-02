@@ -218,7 +218,7 @@ section .remarks{
 	width:auto;float:left;font-size: 1.6rem;
 }
 .shop-tit img{
-	float:left
+	float:left;margin-right: 3px;
 }
 .shop-con{
 	width:100%;display:flex;
@@ -275,7 +275,19 @@ section .remarks{
 	font-size: 1.4rem;padding:12px;border-bottom: 10px solid #f1f2f6;
 }
 .gg{
-	display: inline-block;width:10%
+	display: inline-block;width:10%;color:#494a4a
+}
+#dd>div:nth-child(1){
+	color:#000
+}
+#dd>div:nth-child(2){
+	color:#f00
+}
+#vv>div:nth-child(1){
+	color:#000
+}
+#vv>div:nth-child(2){
+	color:#f00
 }
 .kind{
 	display: inline-block;width:100%
@@ -293,7 +305,7 @@ section .remarks{
 	float:right;color:#666
 }
 .gif{
-	padding-left:4px;color:red
+	padding-left:4px;color:#a7a8aa
 }
 .gif span{
 	float:right;color:#666
@@ -324,10 +336,10 @@ section .remarks{
 	width:100%;height:25px;display: flex;padding:10px 0;border-bottom: 1px solid #f1f2f6;line-height: 25px;
 }
 .same div:nth-child(1){
-	width:50%;font-size: 1.4rem;height:25px;padding-left:12px
+	width:50%;font-size: 1.4rem;height:25px;padding-left:12px;color:#a9aaac
 }
 .same div:nth-child(2){
-	flex:1;font-size: 1.4rem;text-align: right;display:inline-block;height:25px;padding-right: 8px;
+	flex:1;font-size: 1.4rem;text-align: right;display:inline-block;height:25px;padding-right: 8px;color:#a9aaac
 }
 #ss{
 	border-bottom: 10px solid #f1f2f6;
