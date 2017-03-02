@@ -126,7 +126,7 @@ var vm = avalon.define({
                             if (filterarray.length > 0) {
                                 var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    bl = !compare(item, v)
+                                    bl = !compare(item.$model, v)
                                 })
                                 if (bl)
                                     vm.alllist.array.push(v)
@@ -145,7 +145,7 @@ var vm = avalon.define({
                               
                                 var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    bl = !compare(item, v)
+                                    bl = !compare(item.$model, v)
                                 })
                                 if (bl)
                                     vm.incomelist.array.push(v)
@@ -162,7 +162,7 @@ var vm = avalon.define({
                             if (filterarray.length > 0) {
                                 var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    bl = !compare(item, v)
+                                    bl = !compare(item.$model, v)
                                 })
                                 if (bl)
                                     vm.expendlist.array.push(v)
