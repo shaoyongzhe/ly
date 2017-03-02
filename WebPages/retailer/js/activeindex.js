@@ -331,6 +331,7 @@ function fnychxr(data) {
             itemid: data[k1]["itemid"],
             itemquality: data[k1]["itemquality"],
             itemprice: 0,
+            prepayid:data[k1]["prepayid"],
             isyucun: 1
         }
         oli += "<li yucun='yucun'>" +
@@ -874,6 +875,8 @@ function fnaddcar(that, a) {
     var dataid = JSON.parse($(that).parents(".c-price").attr("dataid"));
     dataid.itemcount = a;
     dataid.versiontime = formaty();
+    
+    
     console.log(dataid)
     $("#zhezao").show();
     $.ajax({

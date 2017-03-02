@@ -351,7 +351,17 @@ $(document).ready(function () {
                     submitids: _Id,
                     manzeng: _dx == "" ? "" : JSON.stringify(_dx)
                 },
-                error: function () { },
+                error: function () {
+                    	$(".ms").text("网络异常");
+//                      $(".loads2 div").text(data.error + "...")
+                        $(".loads2").css({ display: "none" })
+                        $(".tsh").css({display:"block"})
+                        $(".cfm").click(function(){
+                            $(".tsh").css({display:"none"})
+                            $(".submit").text("提交订单")
+                            $("body").css({ overflow: "auto" })                        	
+                        })                	
+                },
                 success: function (data) {
                     console.log(_Id)
                     console.log(data)
