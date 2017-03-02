@@ -23,10 +23,14 @@
     <script src="/js/jquery/dropload.min.js"></script>
     <script src="/js/shelter/shelter.js"></script>
     <!-- <script src="/retailer/js/my_wallet_s.js"></script> -->
-
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="wrap" id="wrap">
+    <div class="wrap" id="wrap" v-cloak>
         <header></header>
         <section>
             <div class="WalletBalance">
@@ -63,7 +67,7 @@
                             <!--<p><a href="javascript:void(0)">更多明细</a></p>-->
                         </div>
                         <div class="Wallet_fail" v-if="alllist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无我的核销收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无流水记录哦！</span></p>
                         </div>
                     </div>
                     <div id="list_2" v-if="category=='income'">
@@ -85,7 +89,7 @@
                             </div>
                         </div>
                         <div class="Wallet_fail" v-if="incomelist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无自助核销收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无收入流水记录哦！</span></p>
                         </div>
                     </div>
                     <div id="list_3" v-if="category=='expend'">
@@ -107,7 +111,7 @@
                             </div>
                         </div>
                         <div class="Wallet_fail" v-if="expendlist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无自助核销收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无支出流水记录哦！</span></p>
                         </div>
                     </div>
                 </div>
