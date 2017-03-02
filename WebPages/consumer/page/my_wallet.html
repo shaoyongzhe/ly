@@ -62,7 +62,7 @@
 
                     <div id="list_1" class="Wallet_sr " ms-if="category=='all'">
                         <div ms-repeat="alllist.array" data-repeat-rendered="jsondataReadered">
-                            <h1 ms-if="el.summaryperiod!=undefined"><span>本月</span> <b>收入￥{{el.recv}}</b><b>支出￥{{el.expend}}</b></h1>
+                            <h1 ms-if="el.summaryperiod!=undefined"><span>{{el.summaryperiod}}</span> <b>收入￥{{el.recv}}</b><b>支出￥{{el.expend}}</b></h1>
                             <dl ms-if="el.summaryperiod==undefined" class="clearfix">
                                 <dt>
                                     <h2>{{el.tradingtag}}</h2>
@@ -126,5 +126,6 @@
     </div>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
     <script src="/consumer/js/my/my_wallet.js"></script>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>
