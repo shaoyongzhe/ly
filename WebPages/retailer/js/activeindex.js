@@ -85,6 +85,10 @@ function fnpricenum() {
             $("#zhezao").hide();
 			$(".tsh").show();
 			$(".ms").text("网络异常")
+			$(".cfm").click(function(){
+				$(".tsh").hide();
+				location.reload()
+			})
         },
         success: function(data) {
             console.log(data)
