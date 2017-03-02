@@ -23,10 +23,11 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             url: '/webapi/asset/member/my/asset',
-            data: { assettype: '现金', withemployer: false },
+            data: { assettype: '现金', withemployer: true },
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             success: function (json) {
+                console.log(json)
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
                     toasterextend.showtips(json.error, "error");
@@ -73,7 +74,8 @@ var vm = avalon.define({
         var data = {
             paging: JSON.stringify(paging),
             myemployer: vm.showType == 0 ? false : true,
-            category: vm.showType == 0 ? vm.individual.category : vm.retail.category
+            category: vm.showType == 0 ? vm.individual.category : vm.retail.category,
+            assettype: "现金"
         }
 
         $.ajax({
@@ -100,18 +102,44 @@ var vm = avalon.define({
 
                 if (index != 1) {
                     if (vm.showType == 0) {//个人
+                        var filterarray = $.grep(vm.individual.array, function (item) {
+                            return item.summaryperiod != undefined;//筛选出每月统计
+                        });
                         $.each(json.content, function (i, v) {
-                            vm.individual.array.push(v)
+                            if (filterarray.length > 0) {
+                                $.each(filterarray, function (i, item) {
+                                    if (!compare(item.$model, v)) {
+                                        vm.individual.array.push(v)
+                                    }
+                                })
+                            } else {
+                                vm.individual.array.push(v)
+                            }
                         });
 
-                    } else {//门店，公共收入
+                    }
+                    else {//门店，公共收入
+
+                        var filterarray = $.grep(vm.retail.array, function (item) {
+                            return item.summaryperiod != undefined;//筛选出每月统计
+                        });
+
                         $.each(json.content, function (i, v) {
-                            vm.retail.array.push(v)
+
+                            if (filterarray.length > 0) {
+                                $.each(filterarray, function (i, item) {
+                                    if (!compare(item.$model, v)) {
+                                        vm.retail.array.push(v)
+                                    }
+                                })
+                            } else {
+                                vm.retail.array.push(v)
+                            }
                         });
                         vm.retail.current = json.paging.current
                     }
-
-                } else {
+                }
+                else {
                     if (vm.showType == 0) {//个人
                         vm.individual.array = json.content
                         vm.individual.paging = json.paging
@@ -263,4 +291,22 @@ var vm = avalon.define({
 
 function toNumner(str) {
     return str == undefined ? 0 : str
+}
+
+
+function compare(Obj_1, Obj_2) {
+    for (var key in Obj_1) {
+        if (typeof (Obj_2[key]) === 'undefined') {
+            return false;
+        } else {
+            if (typeof (Obj_1[key]) === 'object') {
+                compare(Obj_1[key], Obj_2[key]);
+            } else {
+                if (Obj_1[key] !== Obj_2[key]) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
 }

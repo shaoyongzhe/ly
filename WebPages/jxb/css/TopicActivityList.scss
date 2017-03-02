@@ -242,7 +242,7 @@ header img:nth-of-type(2){
 .conImg span:nth-of-type(2){
     color:#ffffff;
     font-family: "微软雅黑";
-    font-size:16px;////////////rem(16);//;
+    font-size:15px;////////////rem(16);//;
     font-weight: bold;
     bottom:0;
     right:0;
@@ -530,7 +530,9 @@ vertical-align: middle;
     width: 145px;
     height: 80px;
     left: 739px;//
-    top: 9px; }//
+    top: 9px; 
+    display: none;
+    }//
 
   .returnToList p {
     width: 126px;//
@@ -577,8 +579,8 @@ vertical-align: middle;
     height: 14px; }
 
   .conImg span:nth-of-type(2) {
-    font-size: 14px;/*16*/
-    width: 100px;/*120*/
+    font-size: 13px;
+    width: 104px;
     height: 37px;
     line-height: 37px;
     text-align: center; }
