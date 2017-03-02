@@ -94,16 +94,17 @@
 	}
 	.user_box{
 		width: 351px;
-		height: 338px;
+		height: 380px;
 		background: #fff;
 		float: right;
-		margin-top: 100px;
+		margin-top: 80px;
 		border-radius: 3px;
 	}
 	.user_center{
 		width: 307px;
-		height: 338px;
+		height: 100%;
 		margin:0 auto;
+		/*display: none;*/
 	}
 	.uesr_login{
 		font-size: 14px;
@@ -190,7 +191,7 @@
 		font-size: 16px;
 		line-height: 40px;
 		text-align: center;
-		margin:60px auto 0;
+		margin:40px auto 0;
 		letter-spacing: 1.5px;
 		cursor: pointer;
 	}
@@ -205,3 +206,96 @@
 		display: block;
 		font-size: 14px;
 	}
+
+	.line{
+		width: 300px;
+		margin: 20px auto 0;
+		border-bottom:1px dashed #cfcfcf; 
+	}
+	.loginOther{
+		line-height: 40px;
+		color: #666;
+		font-size: 12px;
+	}
+	.phone{
+		width: 56px;
+		height: 18px;
+		line-height: 18px;
+		word-wrap: break-word;
+		color: #666;
+		cursor: pointer;
+		font-size: 12px;
+	}
+	.phone img{
+		float: left;
+		margin-right: 5px;
+	}
+	.phone:hover{
+		color: #ff6032;
+	}
+	.phone_cener{
+		width: 307px;
+		height: 100%;
+		margin:0 auto;
+		display: none;
+	}
+	.phone_login{
+		font-size: 14px;
+		line-height: 61px;
+		font-weight: bold;
+		color: #666;
+	}
+	.phone_login span{
+		cursor: pointer;
+	}
+	.phone_login span:hover{
+		color: #ff6032;
+	}
+	.phone_login img{
+		margin-right: 5px;
+	}
+	.font1{
+		line-height: 30px;
+		text-align: center;
+		font-size: 16px;
+		margin-bottom: 30px;
+	}
+	.phone_input input{
+		width: 285px;
+		height: 40px;
+		border: 1px solid #cfcfcf;
+		border-radius: 3px;
+		padding:0 10px;
+		margin-bottom: 20px;
+	}
+	.code_input{
+		width: 120px;
+		height: 40px;
+		border: 1px solid #cfcfcf;
+		border-radius: 3px;
+		padding:0 10px;
+	}
+	.code_get{
+		width: 130px;
+		height: 40px;
+		border: 1px solid #cfcfcf;
+		border-radius: 3px;
+		padding: 0 10px;
+		float: right;
+		cursor: pointer;
+	}
+	.logining{
+		display: block;
+		width: 300px;
+		height: 40px;
+		border-radius: 2px;
+		background: #ff6032;
+		color: #fff;
+		font-size: 16px;
+		line-height: 40px;
+		text-align: center;
+		margin:40px auto 0;
+		letter-spacing: 1.5px;
+		cursor: pointer;
+	}
+
