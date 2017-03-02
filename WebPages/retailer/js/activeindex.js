@@ -1031,7 +1031,7 @@ function fnserach() {
             $("#cgl-menu").find("li:eq(1)").hide();
             $("#yucun").off("click").on("click",function () {
                 $(">ul>li","#cgl-contlist").show();
-            },300);
+            });
             fnsearchyc(ycdata);//预存货搜索
 
         }else{
@@ -1069,7 +1069,14 @@ function fnsearchyc(odata) {
         },
         success: function(data) {
             $("#zhezao").hide();
-            fnychxr(data);
+            if(data.length==0){
+                /*var _lli="<img src=\"../../image/shop/icon_cry.png\" style=\"width:1.6rem;height:1.6rem;position:relative;left:44%;top:25%\">"+
+                    "<p style=\"position: relative;top: 30%;text-align: center;color：#333333\">您暂无与 <b style='color: red;'>\""+odata["filter"]+"\"</b> 相关预存货~</p>"
+                $("#cgl-contlist").html(_lli);*/
+            }else{
+                fnychxr(data);
+            }
+
             //sessionStorage.setItem("yucunhuo", JSON.stringify(data));
         }
     });
