@@ -441,7 +441,7 @@ $('.yaook').click(function(){
 
 	var isMinEmpty = true;
 	$('.yaoWrap .Yyy2 input.min').each(function(){
-		if($(this).val() == ""){
+		if($(this).val() == "" && $(this).closest('.addSub5').find('.select-wrap.acSe15 .selected').text() != '谢谢参与'){
 			layer.tips('请先输入最小范围', $(this));
 			isMinEmpty = false;
 			return false;
@@ -451,7 +451,7 @@ $('.yaook').click(function(){
 	if(isMinEmpty == false){return}
 	var isMaxEmpty = true;
 	$('.yaoWrap .Yyy2 input.max').each(function(){
-		if($(this).css('display') != "none"){
+		if($(this).css('display') != "none" && $(this).closest('.addSub5').find('.select-wrap.acSe15 .selected').text() != '谢谢参与'){
 			if($(this).val() == ""){
 				layer.tips('请先输入最大范围', $(this));
 				isMaxEmpty = false;
@@ -518,7 +518,10 @@ $('.yaook').click(function(){
 			y1yArr.push(y1yObj);
 			fengzhi += Number(_this.find('.fz input').val());
 			yao_yuan += Number(_this.find('.Yyy5-1 input').val());
-			refund_content += y1yObj.refund_content + ';<br>';
+
+			if(y1yObj.refund_content != "谢谢参与"){
+				refund_content += y1yObj.refund_content + ';<br>';
+			}
 
 		});
 
