@@ -118,14 +118,12 @@
                 $("#datePage").hide(); 
                 $("#dateshadow").hide();
                 $("html").css({overflow:"auto"})
-                localStorage.date=$("#beginTime").val()
             });
             $("#datecancle").click(function () {
                 $("#datePage").hide();
 				$("#dateshadow").hide();
                 Ncallback=false;
                 $("html").css({overflow:"auto"})
-                localStorage.date=$("#beginTime").val()
             });
         }		
         function extendOptions(){

@@ -26,14 +26,15 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .proTitleInfol>span{color: #e0dede;width: 2.3rem;display: inline-block;line-height: 0.9rem;}
 .proTitleInfor img{width: 1.5rem;height: 1.5rem;}
 /**************活动***************/
-.proDetailBox{padding:0.2rem 2.1rem 0.2rem 0.5rem;background: #33b2ab;color: #eefefd; font-size: 0.5rem;}
+.proDetailBox{padding:0.2rem 2.1rem 0.2rem 0.5rem;background: #33b2ab;color: #eefefd; font-size: 0.5rem;height:1.9rem}
 .proDetailBox>div>p{line-height: 0.9rem;padding: 0 0.13rem 0.13rem 1.1rem;background: url("../image/shop/icon_zhuan.png") no-repeat left 0.15rem;background-size: 0.75rem;}
 .proDetailBox>div>p:nth-of-type(2){background-image:url("../image/shop/icon_jian.png");}
 .proDetailBox>div{border-right: 1px solid #61c0bb;height:1.9rem}
 /**************搜索***************/
-.proSearch{margin: 0.5rem;padding: 0.3rem; border: 1px solid #c6c6c6;border-radius:0.125rem;position: relative;}
+.proSearch{margin: 0.5rem;padding: 0.3rem; border: 1px solid #c6c6c6;border-radius:0.125rem;position: relative;clear:both}
 .titlestyle{width:2rem;height: 0.85rem;background-size:50%;position: relative;}
-.titlestyle>ul{display: none;border: 1px solid #c6c6c6;position: absolute;top: 1.25rem;left: -0.3rem;width: 100%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;box-shadow: 0 0 5px #aaa;}
+.titlestyle>span{padding:2px 3px}
+.titlestyle>ul{display: none;border: 1px solid #c6c6c6;position: absolute;top: 1.25rem;left: -0.3rem;width: 100%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;}
 .titlestyle>ul>li{margin: 0 0.3rem;border-bottom:1px solid #C6C6C6 ;}
 .titlestyle>ul>li:last-of-type{border: 0;}
 .inputbox{-webkit-box-flex: 1;position: relative;}
@@ -163,7 +164,7 @@ footer{height: 50px;background: #333;color: #fff;}
 	display: block;width:75%;height:80%;overflow:hidden;float:left;margin-top:5%;font-size: 0.5rem;margin-left: 5px;
 }
 .tishi{
-	width:80%;height:35%;background:#fff;position: fixed;left:10%;top:20%;color：#aaa;
+	width:80%;height:35%;background:#fff;position: fixed;left:10%;top:20%;color:#aaa;
 }
     .tishi:after{
         content: "";
