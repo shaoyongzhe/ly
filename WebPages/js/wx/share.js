@@ -140,8 +140,10 @@
                     delete share2Opention[name];
             });
 
-        var sharelink = wxjssharelink($.extend({}, share2Opention, options), false);
-
+        var sharelink = wxjsconfigtemp.sharelink;
+        if (sharelink == '' || sharelink == undefined) {
+            sharelink = wxjssharelink($.extend({}, share2Opention, options), false);
+        }
         var menushare = {
             title: sharetitle,
             desc: sharedesc,//wxjssharedesc,
