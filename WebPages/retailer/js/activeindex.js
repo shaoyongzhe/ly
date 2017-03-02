@@ -1029,7 +1029,7 @@ function fnserach() {
             }
             $("#cgl-menu").off("click").find("li:gt(1)").remove();
             $("#cgl-menu").find("li:eq(1)").hide();
-            $("#yucun").off("click").on("click",function () {
+            $("#cgl-menu").find(">li:eq(0)").off("click").on("click",function () {
                 $(">ul>li","#cgl-contlist").show();
             });
             fnsearchyc(ycdata);//预存货搜索
