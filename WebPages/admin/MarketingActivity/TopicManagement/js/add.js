@@ -187,13 +187,14 @@ $("body").on("click", ".acMeD2", function(e) {
 
 
 // 控件4的添加删除
-acAdD();
+// acAdD();
 
-function acAdD() {
+// function acAdD() {
 	$("body").on("click", ".addSub4 .acAd1", function(e) {
 		// $(".addSub4 .acAd1").click(function(){
 		if ($(".addSub4").length <= 1) {
-			alert("至少需要一个"); //等待修改该模块
+			layer.msg("至少需要一个");
+
 		} else {
 			$(this).parents(".addSub4").remove();
 			if ($(".addSub4").length <= 1) {
@@ -209,9 +210,9 @@ function acAdD() {
 			"cursor": "pointer"
 		}); //新修改
 
-
 		butiefz();
 		$('.butieSec .sbys').keyup();
+
 
 	})
 
@@ -219,6 +220,12 @@ function acAdD() {
 		// $(".section3 .addSub4 .acAd2").click(function(){
 		// alert(1)
 		// debugger;
+
+		if($(this).closest('.addSub4').find('input[type=hidden].y1y').val() == ''){
+			layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
+			return
+		}
+
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",
 			"cursor": "pointer"
@@ -246,11 +253,11 @@ function acAdD() {
 		// hdc4d1
 		// $('.addSub4').last().find('.hdc4d1 input').removeAttr('style');
 	})
-}
+// }
 
-acAdE();
+// acAdE();
 
-function acAdE() {
+// function acAdE() {
 	$("body").on("click", ".addSub5 .acAd1", function(e) {
 		// $(".addSub5 .acAd1").click(function(){				
 		if ($(".addSub5").length <= 1) {
@@ -284,11 +291,12 @@ function acAdE() {
 		$(".addSub5").last().find('input').val('');
 
 	});
-}
+// }
 //控件6轮盘抽奖的添加删除
-acAdF();
+// acAdF();
 
-function acAdF() {
+// function acAdF() {
+
 	$("body").on("click", ".addSub6 .acAd1", function(e) {
 		// $(".addSub6 .acAd1").click(function(){				
 		if ($(".addSub6").length <= 1) {
@@ -319,7 +327,7 @@ function acAdF() {
 		$(".addSub5").last().find('input').val('');
 
 	})
-}
+// }
 
 if(window.location.href.indexOf("CreateActivity")!=-1){
 	addAjax();
