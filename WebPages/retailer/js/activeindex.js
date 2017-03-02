@@ -982,8 +982,18 @@ function fncontscroll() {
 }
 //搜索
 function fnserach() {
+	var _ti=1;
     $(".clear").on("click", function() {
-        $(".content").val("");
+        
+        if($(".content").val()!="" && _ti!=1){
+            $("#cgl-menu").find("li:gt(1)").remove();
+            $("#cgl-menu").find("li:eq(1)").show();
+            $("#cgl-menu").find("li").removeClass("clion");
+            $(".sale ").addClass("clion");
+            fnmenu(); //获取菜单列表
+            fnhqactive();//获取促销活动列表
+        }
+           $(".content").val("");
     });
     var odata = {
         "filter": "",
@@ -992,6 +1002,7 @@ function fnserach() {
         "pagecount": 5000
     };
     $(".searchbtn").on("click", function() {
+    	_ti=0;
         $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
         $("#cgl-contlist").find("ul").animate({
             "margin-top": "0"
@@ -1002,25 +1013,6 @@ function fnserach() {
         } else {
             odata.filtertype = 0;
         }
-/*
-        $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
-        $("#cgl-contlist").find("ul").animate({
-            "margin-top": "0"
-        }, 300);
-        $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
-
-        odata.filter = $(".content").val();
-        if($(".titlestyle>span").html() == "品牌") {
-            odata.filtertype = 1;
-        } else {
-            odata.filtertype = 0;
-        }
-        fnlist2(odata);
-        $("#cgl-menu").find(">li").removeClass("clion").find(">ul").slideUp(300,function () {
-            fnmenuhei();
-        });
-        $("#cgl-menu").find(">li").removeClass("clion").find(".link>i").show();
-*/
         odata.filter = $(".content").val();
         if(odata.filter==0){
             $("#cgl-menu").find("li:gt(1)").remove();
