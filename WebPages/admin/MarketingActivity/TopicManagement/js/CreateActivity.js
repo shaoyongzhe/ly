@@ -1619,7 +1619,7 @@ $("body").on("click","li.option",function(e){
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').show();
 			$(this).closest('.addSub4').find('.setgailv').addClass('on');
 		} else {
-			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(112);
+			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').css('width','82px!important');
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 span').hide();
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').hide();
 			$(this).closest('.addSub4').find('.setgailv').removeClass('on');
