@@ -1735,8 +1735,9 @@ var Statistic={
 	"time": 12, 
 	"object": "门店|消费者|分销商", 
 	"method": "按各分销商分别统计|按所有分销商汇总统计" , 
-	"type": "累计核销次数|累计核销金额|累计有核销日|累计假核销金额", 
-	"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",
+	"type": "累计核销次数|累计核销金额|累计有核销日|假核销金额", 
+//	"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",
+	"reqesttag": "地区排名|全国排名|等于|大于|大于等于|小于等于|小于",
     "requestnumber": 10
 }
 addSubSubsidyPolicy();
@@ -1871,8 +1872,8 @@ function addSubSubsidyPolicy(){
 		e.stopPropagation();
 		//s5跟着动
 		$(".addSubSubsidyPolicy .s5 .selectedL").text("请选择");//重置		
-		if($(this).text()=="累计假核销金额"){
-			selectFn('s5','=|>|>=','');
+		if($(this).text()=="假核销金额"){
+			selectFn('s5','等于|大于|大于等于|小于等于|小于','');
 		}else{
 			selectFn('s5',Statistic.reqesttag,'');
 		}
