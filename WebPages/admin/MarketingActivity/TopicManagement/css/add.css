@@ -581,7 +581,7 @@ div.acZige:before{
 }
 .hdc2 .select-wrap{
 	width:128px;
-	/*box-sizing: border-box;*//*啦啦啦*/	
+	/*box-sizing: border-box;*//*啦啦啦*/		
 	display: none;	
 }
 /*body.xiugai .hdc2 .select-wrap{
@@ -644,7 +644,7 @@ div.acZige:before{
     height: 36px;
     border: 1px solid transparent;
     /*text-indent: 10px;*/
-    /*text-align: center;*/
+    text-align: center;
     position: absolute;
     left: 42px;
     top: 0px;
