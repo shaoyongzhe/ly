@@ -237,6 +237,7 @@ input.time{
 	margin-left: 16px;
 }
 
+
 /* .check{
     margin-left: 32px;
 	cursor: pointer;
@@ -1334,7 +1335,7 @@ textarea{
 
 
 .butieSec{
-	width: 1020px;
+	width: 1050px;
     margin: 0 auto;
     padding: 7px 0px;
     margin-top: 10px;
@@ -1449,6 +1450,300 @@ textarea{
 }
 
 
-.Yyy5-1{
+
+/*通用*/
+.hi{
+	display: none;
+}
+/*补贴政策页面*/
+.subsidyPolicy{			
+	width:848px;
+	margin-top: 40px;
+}
+/*.addSubSubsidyPolicy内模拟下�?/
+.addSubSubsidyPolicy .selectWrapL ul{
+	list-style: none;
+	padding: 0;
 	
+}
+.addSubSubsidyPolicy .selectWrapL{
+	width: 150px;/*将由调用出覆�?决定selectL的宽�?/
+    border: 1px solid #e4e4e4;
+    border-radius: 3px;
+    line-height: 27px;/*设置这里调整下拉的高�?/
+    height:27px;
+    cursor: pointer;
+    position: relative;
+    background:white;
+    box-sizing: border-box;
+}							
+.addSubSubsidyPolicy .selectWrapL .selectedL{
+	display: inline-block;
+	/*text-indent: 10px;*//*不想要就不要*/
+	text-align: center;/*不想要就不要*/
+	font-style: normal;
+	/*background:yellow;*/
+	width:79%;
+	word-break: keep-all;
+	word-wrap: normal;
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+
+.addSubSubsidyPolicy .selectWrapL .arrowL{
+	width: 24px;/*i的宽度，可以调整竖线以及箭头这个整体距离右侧距离的参�?，如果仅仅想调箭头的位置，请去调其定�?/
+	/*height:100%;*/
+    position: absolute;
+    height: 15px;/*调整竖线高度*/
+    right: 0;/*调整竖线以及箭头这个整体距离右侧距离的参�?，如果仅仅想调箭头的位置，请去调其定�?/
+    top: 5px;/*调整竖线top*/
+    border-left: 1px solid #ccc;
+    /*background:orange;*/			   
+}
+
+.addSubSubsidyPolicy .selectWrapL .arrowL:before{
+	content: "";
+    width: 8px;/*调整箭头，与height同时�?/
+    height: 8px;/*调整箭头，width同时�?/
+    border-right: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    transform: rotate(45deg);
+    display: inline-block;
+    margin: 0 0 7px 10px;
+    position:absolute;/*龙加，用以调整箭头的位置*/
+    left:-3px;/*龙加，用以调整箭头的位置*/
+    top: 0px;/*龙加，用以调整箭头的位置*/
+}
+
+.addSubSubsidyPolicy .selectWrapL .selectL{/*即ul*/
+    display: none; 			
+    width: 100%;
+    padding: 0 6px;
+    background-color: #efefef;
+    border: 1px solid #ccc;
+    border-top: 0;
+    text-align: center; 
+    box-sizing: border-box; 
+    position: absolute;
+    top: 26px;/*调整所有optionL距离selectL的距�?/
+    /*line-height:42px ;龙加，用于调整optionL的高度，也可以用inherit继承*/
+    /*z-index: 1;*/
+    /*font-size: 14px;*/
+    /*font-family: "微软雅黑";*/
+}				
+.addSubSubsidyPolicy .selectWrapL ul li + li{
+	border-top: 1px solid #ddd;
+}
+
+.addSubSubsidyPolicy .disabled{
+	background-color: #faf9f9;
+}			
+/*"仅限选择一种补贴条�?文字*/
+.subsidyConditionWarn{
+	color:#ff4242;
+	font-size: 14px;
+	/*font-family: "微软雅黑";*/
+	/*background:yellow;*/
+	/*margin-top:50px;*/
+	margin-bottom: 17px;
+	font-weight: lighter;
+}
+
+/*通用样式*/
+.dib{
+	display: inline-block;
+}
+.fl{
+	float: left;
+}
+
+/*补贴项目容器*/
+.subsidyConditionContent:after{
+	content: " ";
+	display: block;
+	width: 0;
+	height: 0;
+	clear: both;
+}
+/*补贴项目，如"开头会员系统，拉粉�?*/
+.subsidyConditionItem{
+	width:202px;
+	height:50px;
+	background:#f1f1f1;
+	cursor: pointer;
+	line-height: 50px;
+	text-align: center;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	margin-right: 10px;
+	float: left;
+	border-radius: 3px;
+	margin-bottom: 10px;
+}
+.subsidyConditionItem.on{
+	background:#4778c7;
+	color:white;
+}
+/*补贴政策控件*/
+.addSubSubsidyPolicy{
+	/*overflow:auto;*/				
+	background:#fef6f4 ;
+	padding:6px ;		
+	margin-top: 2px;		
+	border:1px solid #fbc2b1;
+	width:838px;
+	position:relative;
+	box-sizing: border-box;
+	display: none;
+}
+.addSubSubsidyPolicy:before{
+	content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #fef6f4;
+    border-top: 1px solid #f8a78f;
+    border-right: 1px solid #f8a78f;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: -6px;
+    left: 94px;
+}
+.addSubSubsidyPolicy .content{
+	padding: 0;
+}
+.addSubSubsidyPolicy .content:after{
+	content: " ";
+	display: block;
+	width: 0;
+	height: 0;
+	clear: both;
+}
+.addSubSubsidyPolicy .content .selectWrapL{
+	float:left;
+}
+.addSubSubsidyPolicy .title span{
+	display: inline-block;
+}
+.addSubSubsidyPolicy .s1,.addSubSubsidyPolicy .t1{
+	width:188px;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	/*margin-left: 5px;*/
+}			
+.addSubSubsidyPolicy .days{
+	width:62px;
+	height: 27px;
+	box-sizing: border-box;
+	border:1px solid #ccc;
+	/*border-left: 1px solid transparent;*/
+	background-color: white;
+	margin-left: -1px;
+	border-radius: 3px;
+}
+.addSubSubsidyPolicy  .days input{
+	line-height: 27px;
+	width:42px;
+	text-align: center;
+	outline: none;
+	border: hidden;
+	height: 25px;
+	background: transparent;
+	/*background: red;*/
+	vertical-align: top;
+}
+.addSubSubsidyPolicy  .days span{
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color:#CCCCCC;
+}
+.addSubSubsidyPolicy span{
+	line-height: 27px;
+}
+.addSubSubsidyPolicy .s2,.addSubSubsidyPolicy .t2{
+	font-size: 14px;
+	font-family: "微软雅黑";
+	width:95px;			
+	margin-left: 8px;	
+}
+.addSubSubsidyPolicy .s3,.addSubSubsidyPolicy .t3{
+	font-size: 14px;
+	font-family: "微软雅黑";
+	width:170px;
+	margin-left: 8px;
+}
+.addSubSubsidyPolicy .s4,.addSubSubsidyPolicy .t4{
+	font-size: 14px;
+	font-family: "微软雅黑";
+	width:121px;
+	margin-left: 8px;
+}
+.addSubSubsidyPolicy .s5{
+	width:102px;
+	margin-left: -1px;
+}
+.addSubSubsidyPolicy .unitContent{/*把unitContent换成别的*/
+	width:62px;
+	height: 27px;
+	box-sizing: border-box;
+	border:1px solid #ccc;
+	background-color: white;
+	margin-left: -1px;
+	border-radius: 3px;
+	padding-left: 6px;
+}
+.addSubSubsidyPolicy .unitContent input{
+	/*line-height: 27px;*/
+	width:22px;
+	text-align: center;
+	outline: none;
+	border: hidden;
+	/*height: 25px;*/
+	background: transparent;
+	/*background: red;*/
+	vertical-align: top;
+}
+.addSubSubsidyPolicy .unitContent span{
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color:#CCCCCC;
+	vertical-align: top;
+}
+/*取消确定按钮*/
+.buttons{
+	/*width:812px;*/
+	text-align: center;
+	margin-top:300px;
+	width:838px;
+	margin-top: 120px;
+	color: #fff;
+	position: fixed;
+    /* top: 0; */
+    bottom: 40px;
+}
+
+.buttons span{
+	border-radius: 2px;
+}
+.buttons .cancel{
+	width:130px;
+	height: 32px;
+	line-height: 32px;
+	background:#aaaaaa;
+	text-align: center;
+	display: inline-block;
+	cursor:pointer;
+}
+.buttons .ok{
+	width:130px;
+	height: 32px;
+	line-height: 32px;
+	background:#ff6032;
+	text-align: center;
+	margin-left:10px;
+	display: inline-block;
+	cursor:pointer;
+}
+
+.addSubSubsidyPolicy .title{
+	padding-left: 3px;
 }

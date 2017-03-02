@@ -1,4 +1,5 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
+var statisticArr=[];
 function GetUrlParam() {
     
     var url = location.search; 
@@ -226,9 +227,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        activitytype_suited_unit='%';
 	    }
 	    /*优惠力度条件*/
-	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
+	     $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
-	    else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
+        else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
+	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
 	//  //买赠类型（略）
@@ -551,24 +553,26 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    for (key in obj){
 
 	        switch(key){//等待补充case
-	            case '核销次数' : activityManger_addSub3HtmlFn('核销次数');break;
-	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数');break;
-	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数');break;
-	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率');break;
-	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长');break;
-	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级');break;
-	            // case '' : activityManger_addSub3HtmlFn('核销次数');break;//别忘去掉。
-
+	        	case '核销次数' : activityManger_addSub3HtmlFn('核销次数',"次");break;
+	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数',"名");break;
+	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数',"名");break;
+	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率',"%");break;
+	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长',"天");break;
+	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级',"天");break;
                 case '分销商类型' : activityManger_addSub3HtmlFn('分销商类型');break; //0218
 
 	        }
-	        function activityManger_addSub3HtmlFn(a){
+	        function activityManger_addSub3HtmlFn(a,unitType){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
 
 	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
+	            /*
+	             * 修改页单位显示问题修复
+	             */
+	            $('.addSub3Mange:last').find(".acZige1Tab   p.dib").text(unitType);
 	            /*统计范围*/
 	            $('.addSub3Mange:last .acZige2tab').addClass("hi");//0119把.acZige2tab.n2改为.acZige2tab
 	            //两种类型，至今或者活动开始前
@@ -717,6 +721,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '<em class="selected"></em>'
 	        +                   '<ul class="select"></ul>'
 	        +               '</div>'
+			+				'<div class="dib subsidyCondition link">'
+			+					'<a href="#" class="dib ver btCond">请选择补贴条件</a>'
+			+					'<input type="hidden" name="" class="btCondHidden">'
+			+				'</div>'	        
 	        +           '</div>'
 	        +           '<!--等待更改下面的类名acTy-->'
 	        +           '<div class="dib hdc3 ver re">'
@@ -791,7 +799,27 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '</div>'
 	        +       '</div>';
 	for(i=0;i<activityManger_addSub4Data.length;i++){
+		subsidyConditionArr.push(activityManger_addSub4Data[i].event);
+		statisticArr.push(activityManger_addSub4Data[i].statistic);//如果有statistic就插入，没有就插入undefined
 	    $('.addSub4:last').before(activityManger_addSub4Html);
+	       // $('.subsidyCondition a.btCond').hide()
+		/*临时数据*/	 
+		//临时数据开始
+//		activityManger_addSub4Data[i].statistic= {
+//              "timetag": "主题活动结束时",
+//              "time": "",
+//              "object": "门店",
+//              "method": "按各分销商分别统计",
+//              "type": "累计核销次数",
+//              "reqesttag": "地区排名",
+//              "requestnumber": "7"
+//          }
+//		activityManger_addSub4Data[i].refund_to="distributor_employee";	
+//		activityManger_addSub4Data[i].event="达到统计指标";	
+		//临时数据结束	    
+	    
+	    
+	    	    
 	    /*补贴对象补贴条件补贴形式翻译*/
 	    var btduixiang = "";
 	    // debugger;
@@ -802,7 +830,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            break;
 	
 	        case "distributor_employee":
-	            btduixiang = '分销商业务员';
+	            btduixiang = '分销商人员';
 	            break;
 	
 	        case "retailer":
@@ -917,7 +945,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang)
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
-	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
+//	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
 		// debugger
 	    /*debugger
         $('nav span:eq(2)').click();
@@ -929,9 +957,21 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
         */
 
 	    /*补贴条件*/
-//	 	$(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
-	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);
-	    subsidyConditionArr.push(btCond);
+	//  $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
+//	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);//0216去掉
+		$(".addSub4Mange:last").find(".subsidyCondition a").text(btCond);
+	    if(activityManger_addSub4Data[i].statistic){
+	    	var addSub4MangeStatistic=JSON.stringify(activityManger_addSub4Data[i].statistic, null, 4);
+		    $(".addSub4Mange:last").find(".subsidyCondition a").attr("statistic",addSub4MangeStatistic);	    	
+	    }
+	    
+	    //*************************************0216删除此注释掉的内容**************************************
+//	    if(activityManger_addSub4Data[i].probability){//prize_content
+//	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
+//	    		$(".addSub4Mange:last").find(".hdc7 .gl").val(addSub4MangeProbability);   
+//	    }
+//	    $(".addSub4Mange:last").find(".hdc7 .gl").addClass("glHidden"+(i+1));
+	    //***************************************************************************	    
 	
 	    /*补贴形式*/
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
