@@ -514,7 +514,7 @@ function addAjax(){
 						if($(this).text()==emText){
 							nameValue=$(this).attr("name");
 						}
-					})					
+					})
 					$(this).click();
 					$(this).find('.option').last().click();
 					$(this).click();

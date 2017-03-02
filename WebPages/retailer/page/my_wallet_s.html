@@ -14,6 +14,7 @@
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <link type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" rel="stylesheet" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script src="/retailer/js/common-buttom-nav.js"></script>
@@ -23,10 +24,14 @@
     <script src="/js/jquery/dropload.min.js"></script>
     <script src="/js/shelter/shelter.js"></script>
     <!-- <script src="/retailer/js/my_wallet_s.js"></script> -->
-
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="wrap" id="wrap">
+    <div class="wrap" id="wrap" v-cloak>
         <header></header>
         <section>
             <div class="WalletBalance">
@@ -63,7 +68,7 @@
                             <!--<p><a href="javascript:void(0)">更多明细</a></p>-->
                         </div>
                         <div class="Wallet_fail" v-if="alllist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无我的核销收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无流水记录哦！</span></p>
                         </div>
                     </div>
                     <div id="list_2" v-if="category=='income'">
@@ -71,7 +76,7 @@
                             <div class="Wallet_sr ">
                                 <div v-for="item in incomelist.array">
                                     <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
-                                    <dl class="clearfix">
+                                    <dl class="clearfix" v-if="item.summaryperiod==undefined">
                                         <dt>
                                             <h2>{{item.tradingtag}} </h2>
                                             <p>{{item.issuetime}}</p>
@@ -85,7 +90,7 @@
                             </div>
                         </div>
                         <div class="Wallet_fail" v-if="incomelist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无自助核销收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无收入流水记录哦！</span></p>
                         </div>
                     </div>
                     <div id="list_3" v-if="category=='expend'">
@@ -93,7 +98,7 @@
                             <div class="Wallet_sr ">
                                 <div v-for="item in expendlist.array">
                                     <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
-                                    <dl class="clearfix">
+                                    <dl class="clearfix" v-if="item.summaryperiod==undefined">
                                         <dt>
                                             <h2>{{item.tradingtag}} </h2>
                                             <p>{{item.issuetime}}</p>
@@ -107,7 +112,7 @@
                             </div>
                         </div>
                         <div class="Wallet_fail" v-if="expendlist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无自助核销收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无支出流水记录哦！</span></p>
                         </div>
                     </div>
                 </div>
@@ -234,11 +239,12 @@
                                     });
                                     $.each(json.content, function (i, v) {
                                         if (filterarray.length > 0) {
+                                            var bl = false;
                                             $.each(filterarray, function (i, item) {
-                                                if (!compare(item, v)) {//如果每月统计object相同，不插入到array
-                                                    vm.alllist.array.push(v)
-                                                }
+                                                bl = !compare(item, v)
                                             })
+                                            if (bl)
+                                                vm.alllist.array.push(v)
                                         } else {
                                             vm.alllist.array.push(v)
                                         }
@@ -251,11 +257,12 @@
                                     });
                                     $.each(json.content, function (i, v) {
                                         if (filterarray.length > 0) {
+                                            var bl = false;
                                             $.each(filterarray, function (i, item) {
-                                                if (!compare(item, v)) {//如果每月统计object相同，不插入到array
-                                                    vm.incomelist.array.push(v)
-                                                }
+                                                bl = !compare(item, v)
                                             })
+                                            if (bl)
+                                                vm.incomelist.array.push(v)
                                         } else {
                                             vm.incomelist.array.push(v)
                                         }
@@ -267,11 +274,12 @@
                                     });
                                     $.each(json.content, function (i, v) {
                                         if (filterarray.length > 0) {
+                                            var bl = false;
                                             $.each(filterarray, function (i, item) {
-                                                if (!compare(item, v)) {//如果每月统计object相同，不插入到array
-                                                    vm.expendlist.array.push(v)
-                                                }
+                                                bl = !compare(item, v)
                                             })
+                                            if (bl)
+                                                vm.expendlist.array.push(v)
                                         } else {
                                             vm.expendlist.array.push(v)
                                         }
