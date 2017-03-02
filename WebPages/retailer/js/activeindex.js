@@ -4,14 +4,14 @@
 //品牌商品搜索下拉事件
 function fnpinpai() {
 	var _tg=1;
-    $(".titlestyle").on("click", "span", function() {
+    $(".titlestyle").on("click", function() {
     	if(_tg==1){
-    		$(this).next().css({transform:"rotate(90deg)",transitionDuration:"0.2s"})
-    		$(this).next().next().show()
+    		$(this).find("img").css({transform:"rotate(90deg)",transitionDuration:"0.2s"})
+    		$(this).find("ul").show()
     		_tg=0
     	}else{
-     		$(this).next().css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
-    		$(this).next().next().hide()
+     		$(this).find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
+    		$(this).find("ul").hide()
     		_tg=1  		
     	}
     	
@@ -47,7 +47,7 @@ function fnxrym() {
         $("#contactperson").html(url1.contactperson);
         $("#cutgift").html("￥" + url1.cutgift + "元");
         $(".num").html($(".ammount").html());
-        $(".proDetailBox").html("<div>"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.jpg\" style=\"    position: fixed;top: 18%;left: 91%;width: 0.8rem;height: 0.5rem;\">");
+        $(".proDetailBox").html("<div style=\"float:left\">"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.jpg\" style=\"float:right;margin-top:6%;margin-right: -11%;width: 0.8rem;height: 0.5rem;\">");
         $(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
         $(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);
         $(".footerl>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id);
@@ -57,10 +57,12 @@ function fnxrym() {
 	        if($(".proDetailBox>div>p:nth-child(2)").height()>20){
 	        	if(_hh==1){
 	        		$(".proDetailBox>div").height("auto");
+	        		$(".proDetailBox").height($(".proDetailBox>div").height());
 	        		$(".imgg").css({transform:"rotate(180deg)",transitionDuration:"0.2s"})
 	        		_hh=0;
 	        	}else{
 	        		$(".proDetailBox>div").height("1.9rem");
+	        		$(".proDetailBox").height("1.9rem");
 	        		$(".imgg").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
 	        		_hh=1;
 	        	}
