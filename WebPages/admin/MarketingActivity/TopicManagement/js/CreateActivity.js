@@ -404,8 +404,6 @@ $('body').on("click",".set",function(e){
 
 		}
 
-		
-
 	} else if( type == '轮盘抽奖'){
 		$(this).next('.lp').remove();
 		$(this).after('<input type="hidden" class="lp lpHidden'+ index +'">');
@@ -2788,6 +2786,14 @@ $('.saveToDb, .shenhe').click(function(){
 					return false;
 				}*/
 
+				if(_this.find('.subsidyCondition a').text() == "请选择补贴条件"){
+					// debugger
+					$("nav span").eq(2).click();
+					layer.tips('请先选择补贴条件', _this.find('.subsidyCondition a'));
+					// _this.find('.selected').focus();
+					finished = false;
+					return false;
+				}
 				if(_this.find('.select-wrap.acSe11 .selected').text() == ""){
 					// debugger
 					$("nav span").eq(2).click();
