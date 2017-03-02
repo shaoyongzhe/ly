@@ -137,10 +137,11 @@ function fnclick() {
 //菜单点击事件
 function fnmenuclick() {
     var thetext = "";
-    fnhqactive();
-    $("#cgl-menu").on("click", ".link", function() {
+
+    $("#cgl-menu").off("click").on("click", ".link", function() {
         thetext = $(this).text();
         if(thetext == "我的预存货") {
+            $("#cgl-menu").find("li").show();
             fnyucun();
             $(".cgl-contlist").off("scroll");
         } else if(thetext == "促销活动") {
@@ -291,7 +292,7 @@ function fnychxr(data) {
             itemprice: 0,
             isyucun: 1
         }
-        oli += "<li>" +
+        oli += "<li yucun='yucun'>" +
             "<div class='cgl-top hori'> " +
             "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
             "<div class='the-xiangxi'> " +
@@ -473,7 +474,7 @@ function fnyibanlist(data) {
         if(data[k1]["itemslist"]) {
             if(data[k1]["itemslist"].length > 1) {
                 //多种包装情况下包装大于1时
-                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
+                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
                 for(var k2 in data[k1]["itemslist"]) {
                     dataid = {
                         distributorid: fnurl().distributor_id,
@@ -507,7 +508,7 @@ function fnyibanlist(data) {
                         itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(1),
                         isyucun: 0
                     }
-                    oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+                    oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                         "<div class='cgl-top hori'> " +
                         "<img src='" + data[k1]["itemslist"][k3]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
@@ -532,7 +533,7 @@ function fnyibanlist(data) {
                 itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
                 isyucun: 0
             };
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -600,7 +601,7 @@ function fnyibanlist2(data) {
         }
         //折扣和降价活动时
         if(data[k1]["itemkind"] == "折扣" || data[k1]["itemkind"] == "降价") {
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li active='active' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -629,7 +630,7 @@ function fnyibanlist2(data) {
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
             //有礼和买赠活动时
             dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li active='active' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -662,7 +663,7 @@ function fnyibanlist2(data) {
         }else if(data[k1]["itemslist"]) {
             if(data[k1]["itemslist"].length > 1) {
                 //多种包装情况下包装大于1时
-                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' index='" + data[k1].index + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
+                oli += "<li class='cgl-ggmore " + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>";
                 for(var k2 in data[k1]["itemslist"]) {
                     dataid = {
                         distributorid: fnurl().distributor_id,
@@ -696,7 +697,7 @@ function fnyibanlist2(data) {
                         itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(1),
                         isyucun: 0
                     }
-                    oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+                    oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                         "<div class='cgl-top hori'> " +
                         "<img src='" + data[k1]["itemslist"][k3]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
@@ -721,7 +722,7 @@ function fnyibanlist2(data) {
                 itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
                 isyucun: 0
             }
-            oli += "<li index='" + data[k1].index + "' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -796,11 +797,6 @@ function fncarnum(data) {
             }
             $(".price>i").html(($(".price>i").html()-$(this).parent().prev().find("i").html()).toFixed(1));
         }
-//		if(num>=){
-//			$(".price>i").html((Number($(".price>i").html())-(Number($(this).next().html())-num)*Number($(this).parent().prev().find("i").html())).toFixed(1));
-//		}
-
-
         fnaddcar(this, $(this).next().html() - 0);
     }).on("click", ".add", function() {
         var num = Number($(this).prev().html());
@@ -952,6 +948,16 @@ function fnserach() {
         "pagecount": 5000
     };
     $(".searchbtn").on("click", function() {
+        $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
+        $("#cgl-contlist").find("ul").animate({
+            "margin-top": "0"
+        }, 300);
+        $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
+        if($(".titlestyle>span").html() == "品牌") {
+            odata.filtertype = 1;
+        } else {
+            odata.filtertype = 0;
+        }
 /*
         $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
         $("#cgl-contlist").find("ul").animate({
@@ -972,20 +978,65 @@ function fnserach() {
         $("#cgl-menu").find(">li").removeClass("clion").find(".link>i").show();
 */
         odata.filter = $(".content").val();
-        if($(">li:eq(0)","#cgl-menu").attr("class")=="clion"){
-            alert(1)
-        }else if(odata.filter==0){
-            //fnlist2(odata);
+        if(odata.filter==0){
+            $("#cgl-menu").find("li:gt(1)").remove();
+            $("#cgl-menu").find("li:eq(1)").show();
+            $("#cgl-menu").find("li").removeClass("clion");
+            $(".sale ").addClass("clion");
+            fnmenu(); //获取菜单列表
+            fnhqactive();//获取促销活动列表
+        }else if($(">li:eq(0)","#cgl-menu").attr("class")=="clion"){
+            var ycdata={
+                "filter": odata.filter,
+                "filtertype": odata.filtertype
+            }
+            $("#cgl-menu").off("click").find("li:gt(1)").remove();
+            $("#cgl-menu").find("li:eq(1)").hide();
+            $("#yucun").off("click").on("click",function () {
+                console.log(1)
+            })
+            fnsearchyc(ycdata);//预存货搜索
+
         }else{
+
             if($(".titlestyle>span").html() == "品牌") {
                 odata.filtertype = 1;
             } else {
                 odata.filtertype = 0;
             }
             fnserchapi(odata);
-        }
 
+        }
     });
+}
+
+//预存货搜索
+function fnsearchyc(odata) {
+    $("#cgl-contlist").find("ul").html("");
+    $("#loading").show();
+    $("#zhezao").show();
+    $.ajax({
+        type: "get",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
+        //url: "../../data/activeindex.json",
+        data: odata,
+        timeout: "2000",
+        dataType: "json",
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#zhezao").hide();
+            $("#loading").hide();
+            if(textStatus == "timeout") {
+                console.log("请求超时")
+                XMLHttpRequest.abort();
+            }
+        },
+        success: function(data) {
+            $("#zhezao").hide();
+            fnychxr(data);
+            //sessionStorage.setItem("yucunhuo", JSON.stringify(data));
+        }
+    });
+
 }
 //搜索功能ajax请求
 function fnserchapi(odata) {
@@ -1011,7 +1062,8 @@ function fnserchapi(odata) {
             console.log(data);
             $("#loading").hide();
             $("#zhezao").hide();
-            xuanrmenu(data["groupdata"]);
+            menusx(data["groupdata"]);
+            $(".sale ").addClass("clion");
             if(data.result == false) {
                 console.log(data.error);
                 $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
@@ -1020,6 +1072,34 @@ function fnserchapi(odata) {
             }
         }
     });
+}
+function menusx(data) {
+    var putli=$("#cgl-menu").find("li:gt(1)");
+    putli.remove();
+    xuanrmenu(data);
+    $("#cgl-menu").off("click").find(">li").on("click",function () {
+        var theid=$(this).attr("id");
+        fnmclick(theid,"class")
+    });
+    $("#cgl-menu").find(">li:eq(0)").on("click",function () {
+        $(".cgl-contlist").find(">ul>li").hide();
+    });
+
+}
+//搜索功能下品牌筛选
+function fnmclick(theid,idd) {
+    var n1=$(".cgl-contlist").find(">ul>li");
+
+    for(var i=0;i<n1.length;i++){
+        if(theid=="active" && n1.eq(i).attr("active")=="active"){
+            n1.eq(i).show();
+        }else if(n1.eq(i).attr(idd)==theid){
+            n1.eq(i).show();
+        }else{
+            n1.eq(i).hide();
+        }
+    }
+    $("#cgl-contlist").scrollTop(0);
 }
 $(function() {
     if(localStorage.reload==1){
@@ -1032,6 +1112,7 @@ $(function() {
             fnxrym(); //通过参数渲染页面
             fnscroll(); //打电话显示与隐藏
             fnmenu(); //获取菜单列表
+            fnhqactive();//获取促销活动列表
             fnerji(); //遮罩点击
             fnggmore(); //商品规格点击切换
             //商品数量加减
@@ -1048,6 +1129,7 @@ $(function() {
         fnxrym(); //通过参数渲染页面
         fnscroll(); //打电话显示与隐藏
         fnmenu(); //获取菜单列表
+        fnhqactive();//获取促销活动列表
         fnerji(); //遮罩点击
         fnggmore(); //商品规格点击切换
         //商品数量加减
