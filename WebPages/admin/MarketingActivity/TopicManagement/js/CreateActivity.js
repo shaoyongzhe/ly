@@ -2787,6 +2787,7 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}*/
+
 				if(_this.find('.select-wrap.acSe11 .selected').text() == ""){
 					// debugger
 					$("nav span").eq(2).click();
@@ -2794,6 +2795,22 @@ $('.saveToDb, .shenhe').click(function(){
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
+				}
+
+				if(_this.find('.subsidyCondition a').text() == "请选择补贴条件"){
+					// debugger
+					$("nav span").eq(2).click();
+					layer.tips('请先选择补贴条件', _this.find('.subsidyCondition a'));
+					// _this.find('.selected').focus();
+					finished = false;
+					return false;
+				}
+
+				if($(this).closest('.addSub4').find('.hdc4dB').text() == '次'){
+					$("nav span").eq(2).click();
+					layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
+					finished = false;
+					return
 				}
 
 				var isShake = false;

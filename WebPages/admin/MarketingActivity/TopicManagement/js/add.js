@@ -221,10 +221,7 @@ $("body").on("click", ".acMeD2", function(e) {
 		// alert(1)
 		// debugger;
 
-		if($(this).closest('.addSub4').find('input[type=hidden].y1y').val() == ''){
-			layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
-			return
-		}
+		
 
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",
