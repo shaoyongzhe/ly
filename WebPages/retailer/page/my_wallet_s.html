@@ -24,8 +24,6 @@
     <script src="/js/shelter/shelter.js"></script>
     <!-- <script src="/retailer/js/my_wallet_s.js"></script> -->
 
-
-
 </head>
 <body>
     <div class="wrap" id="wrap">
@@ -36,7 +34,7 @@
                 <h1>
                     ￥{{mymoney.balance}}
                 </h1>
-                <div v-bind:class="[ mymoney.balance>0 ? 'valid' : 'invalid', 'deposit']"><a href="javascript:void(0)">提现</a></div>
+                <div v-bind:class="[mymoney.balance>0 ? 'valid' : 'invalid', 'deposit']"><a href="javascript:void(0)">提现</a></div>
             </div>
             <div class="Wallet_nav mt46">
                 <p class="border_efeef4"></p>
@@ -48,68 +46,67 @@
                         <a v-on:Click="categoryChange('income')" v-bind:class="[category == 'income' ? 'on' : '']">收入</a>
                         <a v-on:Click="categoryChange('expend')" v-bind:class="[category == 'expend' ? 'on' : '']">支出</a>
                     </p>
-                    <div id="list_1" ms-if="category=='all'">
+                    <div id="list_1" v-if="category=='all'">
                         <div class="Wallet_sr ">
                             <div v-for="item in alllist.array">
-                                <h1 v-if="item.summaryperiod!=undefined"><span>{{mydetail[0].summaryperiod}}</span> <b>收入￥{{mydetail[0].recv}}</b><b>支出￥{{mydetail[0].expend}}</b></h1>
+                                <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
                                 <dl v-if="item.summaryperiod==undefined" class="clearfix">
                                     <dt>
                                         <h2>{{item.tradingtag}}</h2>
                                         <p>{{item.issuetime}}</p>
                                     </dt>
                                     <dd>
-                                        <span v-bind:class="[color == '收入'?'':'on']">{{income == '收入'?'+':'-'}}{{item.count}}</span>
+                                        <span v-bind:class="[item.flowing_direction == '收入'?'':'on']">{{item.flowing_direction == '收入'?'+':'-'}}{{item.count}}</span>
                                     </dd>
                                 </dl>
                             </div>
                             <!--<p><a href="javascript:void(0)">更多明细</a></p>-->
                         </div>
-                        <div class="Wallet_fail">
+                        <div class="Wallet_fail" v-if="alllist.array.length==0">
                             <p><img src="/retailer/image/fail_icon.png"><span>暂无我的核销收入流水记录哦！</span></p>
                         </div>
                     </div>
-                    <div id="list_2" ms-if="category=='income'">
-
+                    <div id="list_2" v-if="category=='income'">
                         <div>
                             <div class="Wallet_sr ">
                                 <div v-for="item in incomelist.array">
-                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{mydetail[0].summaryperiod}}</span> <b>收入￥{{mydetail[0].recv}}</b><b>支出￥{{mydetail[0].expend}}</b></h1>
+                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
                                     <dl class="clearfix">
                                         <dt>
                                             <h2>{{item.tradingtag}} </h2>
                                             <p>{{item.issuetime}}</p>
                                         </dt>
                                         <dd>
-                                            <span v-bind:class="[color == '收入'?'':'on']">{{income == '收入'?'+':'-'}}{{item.count}}</span>
+                                            <span v-bind:class="[item.flowing_direction == '收入'?'':'on']">{{item.flowing_direction == '收入'?'+':'-'}}{{item.count}}</span>
                                         </dd>
                                     </dl>
                                 </div>
                                 <!-- <p><a href="javascript:void(0)">更多明细</a></p> -->
                             </div>
                         </div>
-                        <div class="Wallet_fail">
+                        <div class="Wallet_fail" v-if="incomelist.array.length==0">
                             <p><img src="/retailer/image/fail_icon.png"><span>暂无自助核销收入流水记录哦！</span></p>
                         </div>
                     </div>
-                    <div id="list_2" ms-if="category=='expend'">
+                    <div id="list_3" v-if="category=='expend'">
                         <div>
                             <div class="Wallet_sr ">
                                 <div v-for="item in expendlist.array">
-                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{mydetail[0].summaryperiod}}</span> <b>收入￥{{mydetail[0].recv}}</b><b>支出￥{{mydetail[0].expend}}</b></h1>
+                                    <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
                                     <dl class="clearfix">
                                         <dt>
                                             <h2>{{item.tradingtag}} </h2>
                                             <p>{{item.issuetime}}</p>
                                         </dt>
                                         <dd>
-                                            <span v-bind:class="[color == '收入'?'':'on']">{{income == '收入'?'+':'-'}}{{item.count}}</span>
+                                            <span v-bind:class="[item.flowing_direction == '收入'?'':'on']">{{item.flowing_direction == '收入'?'+':'-'}}{{item.count}}</span>
                                         </dd>
                                     </dl>
                                 </div>
                                 <!-- <p><a href="javascript:void(0)">更多明细</a></p> -->
                             </div>
                         </div>
-                        <div class="Wallet_fail">
+                        <div class="Wallet_fail" v-if="expendlist.array.length==0">
                             <p><img src="/retailer/image/fail_icon.png"><span>暂无自助核销收入流水记录哦！</span></p>
                         </div>
                     </div>
@@ -129,6 +126,7 @@
             el: "#wrap",
             data: {
                 mymoney: {},
+                array: [],
                 category: "all",
                 alllist: { array: [], paging: {}, pageIndex: 1 },//全部
                 incomelist: { array: [], paging: {}, pageIndex: 1 },//收入
@@ -170,15 +168,18 @@
                         }
                     })
                 },
-                categoryChange: function (e) {
-                    vm.category = e
+                categoryChange: function (type) {
+                    vm.category = type
+                    if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
+                        vm.getAssetFlow(1, null)
+                    }
                 },
                 getAssetFlow: function (index, me) {
                     var paging = { pageindex: index, current: {} }
                     if (index > 1) {
-                        if (vm.activecss == "all") {//全部
+                        if (vm.category == "all") {//全部
                             paging = $.extend({}, vm.alllist.paging, { pageindex: index });
-                        } else if (vm.activecss == "income") {//收入
+                        } else if (vm.category == "income") {//收入
                             paging = $.extend({}, vm.incomelist.paging, { pageindex: index });
                         } else {
                             paging = $.extend({}, vm.expendlist.paging, { pageindex: index });
@@ -188,10 +189,9 @@
                     var data = {
                         paging: JSON.stringify(paging),
                         myemployer: false,
-                        // category: vm.category,
+                        category: vm.category,
                         assettype: "现金"
                     }
-
 
                     $.ajax({
                         type: 'GET',
@@ -199,22 +199,20 @@
                         url: '/webapi/asset/member/my/asset/flowing',
                         data: data,
                         success: function (json) {
-                            console.log(JSON.stringify(json, null, 4))
                             var mydetailArr = [];
                             if (json.content.length > 0) {
 
                                 for (var i = 0; i < json.content.length; i++) {
                                     mydetailArr.push(json.content[i]);
-                                    //return mydetail;
                                 }
 
                                 vm.mydetail = mydetailArr;
                                 // console.log(mydetail)
                             }
 
-                            if (vm.activecss == "all") {
+                            if (vm.category == "all") {
                                 tmdropme = me
-                            } else if (vm.activecss == "income") {
+                            } else if (vm.category == "income") {
                                 tmdropme2 = me
                             } else
                                 tmdropme3 = me
@@ -230,15 +228,14 @@
                                 return;
                             }
                             if (index != 1) {
-                                if (vm.activecss == "all") {//全部
+                                if (vm.category == "all") {//全部
                                     var filterarray = $.grep(vm.alllist.array, function (item) {
                                         return item.summaryperiod != undefined;//筛选出每月统计
                                     });
-
                                     $.each(json.content, function (i, v) {
                                         if (filterarray.length > 0) {
                                             $.each(filterarray, function (i, item) {
-                                                if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
+                                                if (!compare(item, v)) {//如果每月统计object相同，不插入到array
                                                     vm.alllist.array.push(v)
                                                 }
                                             })
@@ -247,14 +244,15 @@
                                         }
                                     });
                                     vm.alllist.paging = json.paging
-                                } else if (vm.activecss == "income") {//收入
+
+                                } else if (vm.category == "income") {//收入
                                     var filterarray = $.grep(vm.incomelist.array, function (item) {
                                         return item.summaryperiod != undefined;//筛选出每月统计
                                     });
                                     $.each(json.content, function (i, v) {
                                         if (filterarray.length > 0) {
                                             $.each(filterarray, function (i, item) {
-                                                if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
+                                                if (!compare(item, v)) {//如果每月统计object相同，不插入到array
                                                     vm.incomelist.array.push(v)
                                                 }
                                             })
@@ -270,7 +268,7 @@
                                     $.each(json.content, function (i, v) {
                                         if (filterarray.length > 0) {
                                             $.each(filterarray, function (i, item) {
-                                                if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
+                                                if (!compare(item, v)) {//如果每月统计object相同，不插入到array
                                                     vm.expendlist.array.push(v)
                                                 }
                                             })
@@ -282,10 +280,10 @@
                                 }
 
                             } else {
-                                if (vm.activecss == "all") {//全部
+                                if (vm.category == "all") {//全部
                                     vm.alllist.array = json.content
                                     vm.alllist.paging = json.paging
-                                } else if (vm.activecss == "income") {//收入
+                                } else if (vm.category == "income") {//收入
                                     vm.incomelist.array = json.content
                                     vm.incomelist.paging = json.paging
                                 } else {
@@ -293,10 +291,19 @@
                                     vm.expendlist.paging = json.paging
                                 }
                             }
+
+                            //这样可以，nextTick里面的代码会在DOM更新后执行
+                            Vue.nextTick(function () {
+                                if (vm.category == "all") {
+                                    vm.jsondataReadered()
+                                } else if (vm.category == "income") {
+                                    vm.jsondataReadered2()
+                                } else
+                                    vm.jsondataReadered3()
+                            })
                             if (json.content.length == 0) {
                                 dealdropme(me);
                                 $(".dropload-down").remove()
-
                                 return;
                             }
                         },
@@ -378,6 +385,61 @@
                     }
                     if (tmdropme3 != null)
                         tmdropme3.resetload();
+                },
+                userwithdraw: function () {//用户提现
+                    if (vm.mymoney.balance > 0)
+                        $.ajax({
+                            type: 'GET',
+                            dataType: 'json',
+                            data: { count: vm.Moneys.balance },
+                            url: '/webapi/consumer/mine/consumer/withdraw',
+                            beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
+                            success: function (json) {
+                                shelter.close()
+                                json = json || {};   /* 统一加这句话 */
+                                if (json.error) {
+                                    shelter.init({
+                                        title: json.error,
+                                        icos: "/js/shelter/image/ico_warn.png",
+                                        autoClear: 5,
+                                        shadeClose: true
+                                    })
+                                    return;
+                                }
+                                if (json.user_notification != undefined) {
+                                    shelter.init({
+                                        title: json.user_notification,
+                                        icos: "/js/shelter/image/ico_warn.png",
+                                        autoClear: 5,
+                                        shadeClose: true
+                                    })
+                                    return;
+                                }
+
+                                ///提现成功，重新加载余额记录
+                                vm.getMyMoney()
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                shelter.close();//隐藏转圈动画
+                                var errormsg = "访问异常";
+                                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                                    var json = JSON.parse(XMLHttpRequest.responseText);
+                                    if (json.error != undefined && json.error != null) {
+                                        errormsg = json.error + (json.user_notification != undefined ? json.user_notification : "")
+                                    } else
+                                        errormsg = JSON.parse(json.Message).error;
+                                    if (errormsg == undefined || errormsg == '')
+                                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                                }
+
+                                shelter.init({
+                                    title: errormsg,
+                                    icos: "/js/shelter/image/ico_error.png",
+                                    autoClear: 5,
+                                    shadeClose: true
+                                })
+                            }
+                        });
                 }
             }
         })
@@ -401,7 +463,7 @@
         }
         $(document).ready(function () {
             vm.getMyMoney();
-            vm.getAssetFlow()
+            vm.getAssetFlow(1, null)
         })
     </script>
 </body>

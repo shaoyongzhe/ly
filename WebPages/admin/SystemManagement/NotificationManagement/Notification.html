@@ -193,237 +193,238 @@
     </style>
 </head>
 <body>
+    <div class="wrapBig">
+        <div class="wrap">
+            <div class="bread-crumb">系统管理<span> > </span>通知管理</div>
+                <nav style="margin-left: 14px;">
+                    <span class="">通知管理</span>
+                    <span class="">负责人管理</span>
+                </nav>
+        </div>
+        <div class="sec">
+            <div class="search-wrap" style="margin-left: 17px;">
+                <div class="search-area">
+                    <div class="input-contorl">
+                        <label>使用场景</label>
+                        <select name="" id="" class="first-type">
+                            <option value="" data-key="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>事件</label>
+                        <select name="" id="" class="second-type">
+                            <option value="" data-key="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>发送途径</label>
+                        <select name="" id="" class="third-type">
+                            <option value="" data-key="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>组名</label>
+                        <select name="" id="" class="fourth-type">
+                            <option value="" data-key="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>状态查询</label>
+                        <select name="" id="" class="fifth-type">
+                            <option value="" data-key="">--  全部  --</option>
+                            <option value="Normal">正常状态</option>
+                            <option value="Draft">新增待编辑</option>
+                        </select>
+                    </div>
+                    <div class="input-contorl">
+                        <label>推送区域</label>
+                        <input type="text" value="" class="input-text area">
+                    </div>
+                    <div class="input-contorl">
+                        <label>外部模板编号</label>
+                        <input type="text" value="" class="input-text gateway_templateid">
+                    </div>
+                    <div class="input-contorl">
+                        <label>缺省查询</label>
+                        <label class="switch-btn">
+                            <input class="checked-switch inra" type="checkbox" />
+                            <span class="text-switch" data-yes="显示缺省" data-no="显示全部" style="width:110px;"></span>
+                            <span class="toggle-btn"></span>
+                        </label>
+                    </div>
+                </div>
+                <input type="button" value="重置" class="reset-btn" />
+                <input type="button" value="查询" class="search-btn" />
+            </div>
+            <div class="cl pd-5 bg-1 bk-gray mt-20">
+                <!-- <span class="btn btn-primary radius batchDel">
+                    批量删除
+                </span> -->
+                <span class="btn btn-danger radius ml-20 mr-20 add">
+                    <i class="Hui-iconfont">&#xe6e1;</i>新增
+                </span>
+                <span class="btn btn-danger radius ml-20 mr-20 float_right setDefaultGroup">
+                    设置默认分组
+                </span>
+                <select name="" id="" class="float_right group_type">
+                    <option value="" data-key="">-- 请选择 --</option>
+                </select>
+            </div>
+            <div class="table_wrap">
+                <table height="543px" border="1" cellspacing="0" cellpadding="2" bordercolor="#e4e4e4" class="templateList">
+                    <thead>
+                        <tr>
+                            <!-- <th><input type="checkbox" name="" value=""></th> -->
+                            <th>使用场景</th>
+                            <th>事件</th>
+                            <th>发送途径</th>
+                            <th>组名</th>
+                            <th>区域</th>
+                            <th>描述</th>
+                            <th>外部模板编号</th>
+                            <th>内容</th>
+                            <th>状态</th>
+                            <th>是否默认</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="refresh"></tbody>
+                </table>
+                <div class="loaded"><span class='loading'></div>
+                <div class="finished">数据已加载完</div>
+            </div>
+        </div>
+        
+        <div class="sec">
+            <div class="table_wrap">
+                <table class="modulePeople">
+                    <thead>
+                        <tr>
+                            <th>负责模块</th>
+                            <th>联系人信息</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="ResponseManagement"></tbody>
+                </table>
+            </div>
+        </div>
 
-    <div class="wrap">
-        <div class="bread-crumb">系统管理<span> > </span>通知管理</div>
-        <nav style="margin-left: 14px;">
-            <span class="">通知管理</span>
-            <span class="">负责人管理</span>
-        </nav>
+        <div class="addForm">
+
+            <div class="input-contorl">
+                <label>外部模板编号</label>
+                <input type="text" value="" class="input-text gateway_templateid" placeholder="&nbsp;必要时可为空直接发送内容!">
+            </div>
+
+            <div class="input-contorl">
+                <label>使用场景</label>
+                <div class="select-wrap">
+                    <i></i>
+                    <!--<em class="selected">shaoyongzhe</em>-->
+                    <input type="text" name="name" value="" class="category_input" />
+                    <ul class="select template_category select_template"></ul>
+                </div>
+            </div>
+
+            <!--<div class="input-contorl">
+                <label>新增场景</label>
+                <input type="text" value="使用场景" class="input-text firsttypeInput" placeholder="&nbsp;可为空，为空使用选择的场景">
+            </div>-->
+
+            <div class="input-contorl">
+                <label>事件</label>
+                <div class="select-wrap">
+                    <i></i>
+                    <!--<em class="selected">shaoyongzhe</em>-->
+                    <input type="text" name="name" value="" class="event_input" />
+                    <ul class="select template_event select_template"></ul>
+                </div>
+            </div>
+
+            <!--<div class="input-contorl">
+                <label>新增事件</label>
+                <input type="text" value="新增事件" class="input-text secondtypeInput" placeholder="&nbsp;可为空，为空使用选择的事件">
+            </div>-->
+
+            <div class="input-contorl">
+                <label>发送途径</label>
+                <div class="select-wrap">
+                    <i></i>
+                    <input type="text" name="name" value="" class="sendway_input" />
+                    <ul class="select template_sendway select_template"></ul>
+                </div>
+
+            </div>
+
+            <div class="input-contorl">
+                <label>组名</label>
+                <div class="select-wrap">
+                    <i></i>
+                    <!--<em class="selected">shaoyongzhe</em>-->
+                    <input type="text" name="name" value="" class="group_input" />
+                    <ul class="select template_group"></ul>
+                </div>
+            </div>
+
+            <!--<div class="input-contorl">
+                <label>新增组名</label>
+                <input type="text" value="" class="input-text fourthtypeInput" placeholder="&nbsp;可为空，为空使用选择的组名">
+            </div>-->
+            <!-- 新增s -->
+            <div class="regionAll">
+                <div class="regionAll_left">
+                    <p>影响区域</p>
+                </div>
+                <div class="regionall_right">
+                    <div class="gf-select" id="province">
+                        <span><em>省份</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+                        <ul>
+                            <li data-value="">省份</li>
+                        </ul>
+                    </div>
+                    <div class="gf-select" id="city">
+                        <span><em>城市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+                        <ul>
+                            <li data-value="">城市</li>
+                        </ul>
+                    </div>
+                    <div class="gf-select" id="area">
+                        <span><em>区县</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+                        <ul>
+                            <li data-value="">区县</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="input-contorl">
+                <label>内容</label>
+                <textarea name="" id="" class="content"></textarea>
+            </div>
+
+            <div class="input-contorl">
+                <label>描述</label>
+                <textarea name="" id="" class="description" placeholder="&nbsp;可为空"></textarea>
+            </div>
+            <!-- 区域 -->
+            <div class="input-contorl">
+                <label>是否默认</label>
+                <select name="" id="" class="isDefault">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+            <span class="add-btn">确定</span>
+        </div>
+        <input type="hidden" name="" id="trIndex">
+        <input type="hidden" name="" id="add">
+        <input type="hidden" name="" id="opType">
+        <input type="hidden" name="" id="refresh">
+        <!--不允许通过打开窗口设置默认模板-->
+        <input type="hidden" name="" id="isDefault">
+        <input type="hidden" name="" id="curr">
     </div>
-    <div class="sec">
-        <div class="search-wrap" style="margin-left: 17px;">
-            <div class="search-area">
-                <div class="input-contorl">
-                    <label>使用场景</label>
-                    <select name="" id="" class="first-type">
-                        <option value="" data-key="">-- 请选择 --</option>
-                    </select>
-                </div>
-                <div class="input-contorl">
-                    <label>事件</label>
-                    <select name="" id="" class="second-type">
-                        <option value="" data-key="">-- 请选择 --</option>
-                    </select>
-                </div>
-                <div class="input-contorl">
-                    <label>发送途径</label>
-                    <select name="" id="" class="third-type">
-                        <option value="" data-key="">-- 请选择 --</option>
-                    </select>
-                </div>
-                <div class="input-contorl">
-                    <label>组名</label>
-                    <select name="" id="" class="fourth-type">
-                        <option value="" data-key="">-- 请选择 --</option>
-                    </select>
-                </div>
-                <div class="input-contorl">
-                    <label>状态查询</label>
-                    <select name="" id="" class="fifth-type">
-                        <option value="" data-key="">--  全部  --</option>
-                        <option value="Normal">正常状态</option>
-                        <option value="Draft">新增待编辑</option>
-                    </select>
-                </div>
-                <div class="input-contorl">
-                    <label>推送区域</label>
-                    <input type="text" value="" class="input-text area">
-                </div>
-                <div class="input-contorl">
-                    <label>外部模板编号</label>
-                    <input type="text" value="" class="input-text gateway_templateid">
-                </div>
-                <div class="input-contorl">
-                    <label>缺省查询</label>
-                    <label class="switch-btn">
-                        <input class="checked-switch inra" type="checkbox" />
-                        <span class="text-switch" data-yes="显示缺省" data-no="显示全部" style="width:110px;"></span>
-                        <span class="toggle-btn"></span>
-                    </label>
-                </div>
-            </div>
-            <input type="button" value="重置" class="reset-btn" />
-            <input type="button" value="查询" class="search-btn" />
-        </div>
-        <div class="cl pd-5 bg-1 bk-gray mt-20">
-            <!-- <span class="btn btn-primary radius batchDel">
-                批量删除
-            </span> -->
-            <span class="btn btn-danger radius ml-20 mr-20 add">
-                <i class="Hui-iconfont">&#xe6e1;</i>新增
-            </span>
-            <span class="btn btn-danger radius ml-20 mr-20 float_right setDefaultGroup">
-                设置默认分组
-            </span>
-            <select name="" id="" class="float_right group_type">
-                <option value="" data-key="">-- 请选择 --</option>
-            </select>
-        </div>
-        <div class="table_wrap">
-            <table height="543px" border="1" cellspacing="0" cellpadding="2" bordercolor="#e4e4e4" class="templateList">
-                <thead>
-                    <tr>
-                        <!-- <th><input type="checkbox" name="" value=""></th> -->
-                        <th>使用场景</th>
-                        <th>事件</th>
-                        <th>发送途径</th>
-                        <th>组名</th>
-                        <th>区域</th>
-                        <th>描述</th>
-                        <th>外部模板编号</th>
-                        <th>内容</th>
-                        <th>状态</th>
-                        <th>是否默认</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody class="refresh"></tbody>
-            </table>
-            <div class="loaded"><span class='loading'></div>
-            <div class="finished">数据已加载完</div>
-        </div>
-    </div>
-    </div>
-    <div class="sec">
-        <div class="table_wrap">
-            <table class="modulePeople">
-                <thead>
-                    <tr>
-                        <th>负责模块</th>
-                        <th>联系人信息</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody class="ResponseManagement"></tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="addForm">
-
-        <div class="input-contorl">
-            <label>外部模板编号</label>
-            <input type="text" value="" class="input-text gateway_templateid" placeholder="&nbsp;必要时可为空直接发送内容!">
-        </div>
-
-        <div class="input-contorl">
-            <label>使用场景</label>
-            <div class="select-wrap">
-                <i></i>
-                <!--<em class="selected">shaoyongzhe</em>-->
-                <input type="text" name="name" value="" class="category_input" />
-                <ul class="select template_category select_template"></ul>
-            </div>
-        </div>
-
-        <!--<div class="input-contorl">
-            <label>新增场景</label>
-            <input type="text" value="使用场景" class="input-text firsttypeInput" placeholder="&nbsp;可为空，为空使用选择的场景">
-        </div>-->
-
-        <div class="input-contorl">
-            <label>事件</label>
-            <div class="select-wrap">
-                <i></i>
-                <!--<em class="selected">shaoyongzhe</em>-->
-                <input type="text" name="name" value="" class="event_input" />
-                <ul class="select template_event select_template"></ul>
-            </div>
-        </div>
-
-        <!--<div class="input-contorl">
-            <label>新增事件</label>
-            <input type="text" value="新增事件" class="input-text secondtypeInput" placeholder="&nbsp;可为空，为空使用选择的事件">
-        </div>-->
-
-        <div class="input-contorl">
-            <label>发送途径</label>
-            <div class="select-wrap">
-                <i></i>
-                <input type="text" name="name" value="" class="sendway_input" />
-                <ul class="select template_sendway select_template"></ul>
-            </div>
-
-        </div>
-
-        <div class="input-contorl">
-            <label>组名</label>
-            <div class="select-wrap">
-                <i></i>
-                <!--<em class="selected">shaoyongzhe</em>-->
-                <input type="text" name="name" value="" class="group_input" />
-                <ul class="select template_group"></ul>
-            </div>
-        </div>
-
-        <!--<div class="input-contorl">
-            <label>新增组名</label>
-            <input type="text" value="" class="input-text fourthtypeInput" placeholder="&nbsp;可为空，为空使用选择的组名">
-        </div>-->
-        <!-- 新增s -->
-        <div class="regionAll">
-            <div class="regionAll_left">
-                <p>影响区域</p>
-
-            </div>
-            <div class="regionall_right">
-                <div class="gf-select" id="province">
-                    <span><em>省份</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
-                    <ul>
-                        <li data-value="">省份</li>
-                    </ul>
-                </div>
-                <div class="gf-select" id="city">
-                    <span><em>城市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
-                    <ul>
-                        <li data-value="">城市</li>
-                    </ul>
-                </div>
-                <div class="gf-select" id="area">
-                    <span><em>区县</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
-                    <ul>
-                        <li data-value="">区县</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="input-contorl">
-            <label>内容</label>
-            <textarea name="" id="" class="content"></textarea>
-        </div>
-
-        <div class="input-contorl">
-            <label>描述</label>
-            <textarea name="" id="" class="description" placeholder="&nbsp;可为空"></textarea>
-        </div>
-        <!-- 区域 -->
-        <div class="input-contorl">
-            <label>是否默认</label>
-            <select name="" id="" class="isDefault">
-                <option value="0">否</option>
-                <option value="1">是</option>
-            </select>
-        </div>
-        <span class="add-btn">确定</span>
-    </div>
-    <input type="hidden" name="" id="trIndex">
-    <input type="hidden" name="" id="add">
-    <input type="hidden" name="" id="opType">
-    <input type="hidden" name="" id="refresh">
-    <!--不允许通过打开窗口设置默认模板-->
-    <input type="hidden" name="" id="isDefault">
-    <input type="hidden" name="" id="curr">
+    
 
 
 </body>
@@ -432,7 +433,7 @@
 <script type="text/javascript" src="../../static/h-ui/js/H-ui.js"></script>
 <script type="text/javascript" src="../../lib/layer/2.1/layer.js"></script>
 <!-- <script type="text/javascript" src="../../lib/laypage-v1.3/laypage/laypage.js"></script> -->
-<script src="../../../MarketingActivity/PropagationManagement/js/dropload.js"></script>
+<!-- <script src="../../../MarketingActivity/PropagationManagement/js/dropload.js"></script> -->
 <script type="text/javascript" src="Notification.js"></script>
 <script src="../../lib/district/ipaloma_location.js"></script>
 <script type="text/javascript" src="/admin/lib/district/js/cityLink.js"></script>
