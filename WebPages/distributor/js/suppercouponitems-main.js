@@ -49,6 +49,14 @@ var vm = avalon.define({
         });
 
         location.href = "../page/active.html?topicid=" + topicid.substring(1)
+    },
+    getheadcount: function (el) {
+        var headcount = 0;
+        $.each(el, function (i, v) {
+            headcount += v.headcount
+        })
+
+        return headcount
     }
 })
 

@@ -1,5 +1,5 @@
-﻿  var common = {};
- common.loading = {
+﻿     var common = {};
+    common.loading = {
         show: function () {
             $("body").append('<div id="loading" class="pin-spinner"><div class="pin-spinner-container pin-spinner-container1"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container2"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container3"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div></div>');
         },
@@ -81,6 +81,23 @@ $(function(){
 			         this.closePath();
 			         return this;
 			     }
+			     function fontAnglecanvas1(){
+			     	if($('.Mark_chart1 a').text().length==1){
+		    			$('.Pie_chart1 a').css('left','44%');
+		    		}else if($('.Pie_chart1 a').text().length==2){
+		    			$('.Pie_chart1 a').css('left','44%');
+		    		}else if($('.Pie_chart1 a').text().length==3){
+		    			$('.Pie_chart1 a').css('left','39%');
+		    		}else if($('.Pie_chart1 a').text().length==4){
+		    			$('.Pie_chart1 a').css('left','35%');
+		    		}else if($('.Pie_chart1 a').text().length==5){
+		    			$('.Pie_chart1 a').css('left','32%');
+		    		}else if($('.Pie_chart1 a').text().length==6){
+		    			$('.Pie_chart1 a').css('left','29%');
+		    		}else if($('.Pie_chart1 a').text().length==7){
+		    			$('.Pie_chart1 a').css('left','25%');
+		    		}
+			     }
 			    if(data.activitycount.unmatchedtopic>data.activitycount.matchedtopic){
 		    		var maxnum=data.activitycount.unmatchedtopic;     
 			     	var minnum=data.activitycount.matchedtopic;  
@@ -92,21 +109,8 @@ $(function(){
 		    			$('.Activity_ri_text').css({"color":"#787878","marginTop":"1.5rem"});
 		    		}
 		    		$('.Activity_ri_text span').html(minnum);
-		    		if($('.Mark_chart1 a').text().length==1){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==2){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==3){
-		    			$('.Pie_chart1 a').css('left','39%');
-		    		}else if($('.Pie_chart1 a').text().length==4){
-		    			$('.Pie_chart1 a').css('left','35%');
-		    		}else if($('.Pie_chart1 a').text().length==5){
-		    			$('.Pie_chart1 a').css('left','32%');
-		    		}else if($('.Pie_chart1 a').text().length==6){
-		    			$('.Pie_chart1 a').css('left','29%');
-		    		}else if($('.Pie_chart1 a').text().length==7){
-		    			$('.Pie_chart1 a').css('left','25%');
-		    		}
+		    		fontAnglecanvas1()
+		    		
 		    	}else{
 		    		var maxnum=data.activitycount.matchedtopic;     
 			     	var minnum=data.activitycount.unmatchedtopic;  
@@ -114,21 +118,9 @@ $(function(){
 		    		ctx.sector(50,50,50,0,c,"#acd171","#73ba2c").fill();   //调用原型方法sector 补充参数
 		    		$('.Pie_chart1 a').html(maxnum);
 		    		$('.Activity_ri_text span').html(minnum);
-		    		if($('.Mark_chart1 a').text().length==1){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==2){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==3){
-		    			$('.Pie_chart1 a').css('left','39%');
-		    		}else if($('.Pie_chart1 a').text().length==4){
-		    			$('.Pie_chart1 a').css('left','35%');
-		    		}else if($('.Pie_chart1 a').text().length==5){
-		    			$('.Pie_chart1 a').css('left','32%');
-		    		}else if($('.Pie_chart1 a').text().length==6){
-		    			$('.Pie_chart1 a').css('left','29%');
-		    		}else if($('.Pie_chart1 a').text().length==7){
-		    			$('.Pie_chart1 a').css('left','25%');
-		    		}
+		    		fontAnglecanvas1()
+		    		
+
 		    	}
 				
 				
@@ -174,8 +166,28 @@ $(function(){
 			         this.closePath();
 			         return this;
 			     }	
-			    //for(var i = 0;i<data.marketsale.length;i++){
-			     	if(data.marketsale.length==1||data.marketsale.length==0){
+			    // for(var i = 0;i<data.marketsale.length;i++){
+			    	// if(data.marketsale.length==1||data.marketsale.length==0){
+			    	// console.log(data)
+		    		function fontAnglecanvas2(){
+			    		if($('.Mark_chart1 a').text().length==1){
+			    			$('.Mark_chart1 a').css('left','44%');
+			    		}else if($('.Mark_chart1 a').text().length==2){
+			    			$('.Mark_chart1 a').css('left','44%');
+			    		}else if($('.Mark_chart1 a').text().length==3){
+			    			$('.Mark_chart1 a').css('left','39%');
+			    		}else if($('.Mark_chart1 a').text().length==4){
+			    			$('.Mark_chart1 a').css('left','35%');
+			    		}else if($('.Mark_chart1 a').text().length==5){
+			    			$('.Mark_chart1 a').css('left','32%');
+			    		}else if($('.Mark_chart1 a').text().length==6){
+			    			$('.Mark_chart1 a').css('left','26%');
+			    		}else if($('.Mark_chart1 a').text().length==7){
+			    			$('.Mark_chart1 a').css('left','25%');
+			    		}
+			    	}
+			     	if(data.marketsale.length==0){
+
 				      	var maxnum=0;            //获取到的后台数据
 				    	var minnum=0;
 				     	$('.Mark_chart1 a').html(0);
@@ -183,9 +195,20 @@ $(function(){
 				     	$('.Market_cost_ri_text').css({"color":"#787878","marginTop":"1.5rem"})
 				     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 			    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
-			    		$('.Mark_chart1 a').html(maxnum)
+			    		$('.Mark_chart1 a').html(maxnum)  //canvas中心数字
 			    		$('.Mark_chart1 a').css('left','44%');
 				    		
+				    }else if(data.marketsale.length==1){
+				    	for(var y=0;y<data.marketsale.length;y++){
+					    	if(data.marketsale[y].type=='tblipalomaactivity'){
+					    		var maxnum=data.marketsale[y].sale;   
+					     		var c=maxnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
+					     		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
+					     		$('.Mark_chart1 a').html(data.marketsale[y].sale)
+				    			$('.fir_span').html('￥'+maxnum)  //其中
+				    			fontAnglecanvas2()
+					    	}
+				    	}
 				    }else{
 				    	if(data.marketsale[1].sale>data.marketsale[0].sale){
 				    		var maxnum=data.marketsale[1].sale;     
@@ -193,21 +216,7 @@ $(function(){
 					     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 				    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
 				    		$('.Mark_chart1 a').html(data.marketsale[1].sale)
-				    		if($('.Mark_chart1 a').text().length==1){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==2){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==3){
-				    			$('.Mark_chart1 a').css('left','39%');
-				    		}else if($('.Mark_chart1 a').text().length==4){
-				    			$('.Mark_chart1 a').css('left','35%');
-				    		}else if($('.Mark_chart1 a').text().length==5){
-				    			$('.Mark_chart1 a').css('left','32%');
-				    		}else if($('.Mark_chart1 a').text().length==6){
-				    			$('.Mark_chart1 a').css('left','29%');
-				    		}else if($('.Mark_chart1 a').text().length==7){
-				    			$('.Mark_chart1 a').css('left','25%');
-				    		}
+				    		fontAnglecanvas2()
 				    		$('.fir_span').html('￥'+minnum)  //其中
 				    		//$('.three_span').html('￥'+minnum) //第一名
 
@@ -216,22 +225,7 @@ $(function(){
 					     	var minnum=data.marketsale[1].sale;  
 					     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 				    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
-				    		$('.Mark_chart1 a').html(data.marketsale[0].sale)
-				    		if($('.Mark_chart1 a').text().length==1){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==2){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==3){
-				    			$('.Mark_chart1 a').css('left','39%');
-				    		}else if($('.Mark_chart1 a').text().length==4){
-				    			$('.Mark_chart1 a').css('left','35%');
-				    		}else if($('.Mark_chart1 a').text().length==5){
-				    			$('.Mark_chart1 a').css('left','32%');
-				    		}else if($('.Mark_chart1 a').text().length==6){
-				    			$('.Mark_chart1 a').css('left','29%');
-				    		}else if($('.Mark_chart1 a').text().length==7){
-				    			$('.Mark_chart1 a').css('left','25%');
-				    		}
+				    		fontAnglecanvas2()
 				    		$('.fir_span').html('￥'+minnum)  //其中
 				    		//$('.three_span').html('￥'+minnum) //第一名
 				    	}
