@@ -1269,16 +1269,6 @@ function fnwgjlzt(putdata) {
 				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
 			}
 			if(data["succeed"]) {
-				/*var guidarr = putdata.anticheatingids.split(",");
-				 for(var i = 0; i < guidarr.length; i++) {
-				 $("tr").each(function(n) {
-				 if($(this).attr("gu-id") == guidarr[i]) {
-				 $(this).find(".cgl-td12").html(putdata.dealtstate);
-				 $(this).remove();
-				 $(".stateon").find("i").text($(".stateon").find("i").text() - 1);
-				 }
-				 });
-				 }*/
 				$(".cgl-zhezao").hide();
 				state["lastindex"] = 0;
 				fnshijian(state);
@@ -1480,8 +1470,6 @@ function fnpaixu(data, order) {
         }
         $(".table2").find("tbody").html(cont);
 	}
-
-
 	//同名同色
     if(order!="order1"){
         var alltr = $(".table2 tr");
@@ -1495,7 +1483,6 @@ function fnpaixu(data, order) {
             }
         }
     }
-
 }
 //三种排序
 function fnshaixuan(data) {
