@@ -3,8 +3,19 @@
  */
 //品牌商品搜索下拉事件
 function fnpinpai() {
-    $(".titlestyle").on("click", "span", function() {
-        $(this).next().toggle().show;
+	var _tg=1;
+    $(".titlestyle").on("click", function() {
+    	if(_tg==1){
+    		$(this).find("img").css({transform:"rotate(90deg)",transitionDuration:"0.2s"})
+    		$(this).find("ul").show()
+    		_tg=0
+    	}else{
+     		$(this).find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
+    		$(this).find("ul").hide()
+    		_tg=1  		
+    	}
+    	
+        
     }).on("click", "ul>li", function() {
         $(".titlestyle>span").html($(this).html());
         $(".titlestyle>ul").hide();
@@ -35,11 +46,29 @@ function fnxrym() {
         $("#contactperson").html(url1.contactperson);
         $("#cutgift").html("￥" + url1.cutgift + "元");
         $(".num").html($(".ammount").html());
-        $(".proDetailBox").html(url1.active);
+        $(".proDetailBox").html("<div style=\"float:left\">"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.jpg\" style=\"float:right;margin-top:6%;margin-right: -11%;width: 0.8rem;height: 0.5rem;\">");
         $(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
         $(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);
         $(".footerl>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id);
         $(".footerr>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id)
+        var _hh=1;
+        $(".imgg").click(function(){
+	        if($(".proDetailBox>div>p:nth-child(2)").height()>20){
+	        	if(_hh==1){
+	        		$(".proDetailBox>div").height("auto");
+	        		$(".proDetailBox").height($(".proDetailBox>div").height());
+	        		$(".imgg").css({transform:"rotate(180deg)",transitionDuration:"0.2s"})
+	        		_hh=0;
+	        	}else{
+	        		$(".proDetailBox>div").height("1.9rem");
+	        		$(".proDetailBox").height("1.9rem");
+	        		$(".imgg").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
+	        		_hh=1;
+	        	}
+	        	
+	        }
+        })
+
     }
 }
 //获取购物车总金额和总数量
@@ -271,8 +300,16 @@ function fnyucun() {
             }
         },
         success: function(data) {
-            $("#zhezao").hide();
-            fnychxr(data);
+        	$("#zhezao").hide();
+        	if(data.length==0){
+        		$("#loading").hide()
+        		var _lli="<img src=\"../../image/shop/icon_cry.png\" style=\"width:1.6rem;height:1.6rem;position:relative;left:44%;top:25%\">"+
+        		"<p style=\"position: relative;top: 30%;text-align: center;color：#333333\">您暂无预存货，看看其他商品吧~</p>"
+        		$("#cgl-contlist").html(_lli)
+        	}else{
+	            fnychxr(data);        		
+        	}
+
             //sessionStorage.setItem("yucunhuo", JSON.stringify(data));
         }
     });

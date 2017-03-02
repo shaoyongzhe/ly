@@ -18,7 +18,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 
 .main-rt{border-bottom: 1px solid #d4d4d4;height: 2.1rem;}
 .namejia{width: 9.6rem;}
-.namejia h3{font-size: 0.7rem;font-weight: 100;color: #333333;line-height: 1;}
+.namejia h3{font-size: 0.7rem;font-weight: 100;color: #333333;line-height: 1;white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
 .namejia>p{color: #999;line-height: 1.45rem;}
 .namejia>p>strong{font-weight: 100;}
 .joincar{width: 1.5rem;height: 1.5rem;background: url("../image/shop/buycar.png") no-repeat center;background-size:1.5rem; }
