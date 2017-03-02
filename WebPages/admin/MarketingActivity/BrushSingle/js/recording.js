@@ -1297,7 +1297,6 @@ function fnfenxi(num) {
     }else{
         num1=num;
     }
-    console.log(num1)
     return num1;
 }
 //违规原因核销记录
