@@ -523,7 +523,8 @@ function registeractivity() {
 
             },
             success: function (msg) {
-                if (msg.error == "登录失败") {
+                //if (msg.error == "登录失败") {
+                if (msg.succeed == "登录失败") {
                     alert("用户未登录，跳转至登录页面");
                     window.location.href = "../html/login.html";
                     return;
@@ -532,11 +533,12 @@ function registeractivity() {
                     $("#checkSubmitBtn").css("background","#249cfa");
                     $("#checkSubmitBtn").html("是");
                 $(".showMes").remove();
-                if(msg.error=="该活动可能已通过审核，或已被撤销审核。请刷新重试！"){
+                //if (msg.error == "该活动可能已通过审核，或已被撤销审核。请刷新重试！") {
+                if (msg.succeed == "activity_faild") {
                     alert("该活动可能已通过审核，或已被撤销审核！");
                     $(".delete-lan-w").fadeOut();
-
-                     // window.location.href = "sh-tongji.html";
+                    window.location.href = "../html/sh-tongji.html";
+                    return;
                 }
                 if (msg != null && msg.succeed == 'succeed') {
                     alert("提交审核通过成功！");
