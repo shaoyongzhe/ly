@@ -1437,9 +1437,11 @@ $("body").on("click","li.option",function(e){
 		// debugger;
 		// alert(_this.attr('name'))
 		if(text == _this.parent().prev().text()){
-			_this.parent().hide().prev().text(text);
-			_this.parent().hide().prev().attr("name",_this.attr('name'));
+			_this.parent().hide().prev().text(text).attr("name",_this.attr('name'));
 			return;
+
+		} else {
+			$(this).closest('.addSub4').find('.subsidyCondition a').text("请选择补贴条件").removeAttr('statistic title');
 		}
 		// var d = true;
 		// var thisSelected = $('.addSub4 .butie-select-wrap .selected');
@@ -1468,6 +1470,7 @@ $("body").on("click","li.option",function(e){
 			}
 			//结束********************************************************************************************
 		// }
+		$(this).closest('.addSub4').find('.subsidyCondition a').show();
 		return;
 	}
 
@@ -1727,6 +1730,432 @@ $("body").on("click","li.option",function(e){
 
 });
 
+/*通用下拉点击事件*/
+//注，特定下拉点击事件见****处
+$(".addSubSubsidyPolicy").on("click",".selectWrapL",function(e){
+//$('.selectWrapL').click(function(e){
+	e.stopPropagation();
+
+	if($(this).hasClass('s2')){
+		if($('.days.s1-1').css('display') == 'block'){				
+			if($('#days').val() == ""){
+				layer.tips('请先填写天数', $('#days'));
+				return;
+			}
+
+		} else {
+			if($(this).closest('.content').find(".selectedL:first").text() == '请选择'){
+				layer.tips('请先填写天数', $(this).closest('.content').find(".selectedL"));
+				return;
+			}
+		}
+
+	}
+
+	if($(this).prev().find(".selectedL").text().indexOf("请选择")!=-1){
+		layer.tips('请先选择',$(this).prev());
+		return;
+	}
+
+	$(this).find('.selectL').toggle();//用于切换ul的显示隐藏
+	$(".selectWrapL").not(this).find('.selectL').hide();//点此关别		
+	
+});
+
+$(".addSubSubsidyPolicy").on("click",".selectL .optionL",function(e){
+//$('.selectL .optionL').click(function(e){//点击li
+	e.stopPropagation();
+	$(this).parent().hide().prev().text($(this).text());//把li的内容放入em
+});
+
+$(document).click(function(){
+	// debugger;
+	$('.selectL').hide();
+});
+
+var Statistic={
+	"timetag": "主题活动周期内|主题活动结束时|主题活动周期内的前 X 天",
+	"time": 12, 
+	"object": "门店|消费者|分销商", 
+	"method": "按各分销商分别统计|按所有分销商汇总统计" , 
+	"type": "累计核销次数|累计核销金额|累计有核销日|累计假核销金额", 
+	"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",
+    "requestnumber": 10
+}
+addSubSubsidyPolicy();
+function addSubSubsidyPolicy(){
+	/*控件初始化*/
+	if($.isEmptyObject(Statistic)==false&&Statistic!=undefined){
+		$(".addSubSubsidyPolicy .content").empty();
+		var html=''
+		+	'<!--下面类名s1，s2等稍后换-->'
+		//"timetag": "周期内|结束时|周期内的前 X 天",s1
+		if(Statistic.timetag!=""&&Statistic.timetag!=" "&&Statistic.timetag!=undefined){
+			var arr=Statistic.timetag.split("|");	
+			var optionLs='';
+			for(i=0;i<arr.length;i++){
+				optionLs+='<li class="optionL">'+arr[i]+'</li>'
+			}
+			html+=''
+			+	'<div class="selectWrapL s1">'
+			+		'<span class="arrowL"></span>'
+			+		'<span class="selectedL timetag">请选择</span>'
+			+		'<ul class="selectL s1_select">'
+			+			optionLs
+			+		'</ul>'
+			+	'</div>';					
+		}
+		//"time": 12, days
+		if(Statistic.time!=""&&Statistic.time!=" "&&Statistic.time!=undefined){
+			html+=''
+			+	'<div class="days s1-1 fl hi">'					
+			+		'<input type="text" id="days" value="'+Statistic.time+'" class="time"/><label for="days"><span>天</span></label>'
+			+	'</div>'	
+		}
+		//object": "门店|消费者|分销商", s2
+		if(Statistic.object!=""&&Statistic.object!=" "&&Statistic.object!=undefined){
+			var arr=Statistic.object.split("|");	
+			var optionLs='';
+			for(i=0;i<arr.length;i++){
+				optionLs+='<li class="optionL">'+arr[i]+'</li>'
+			}
+			html+=''
+			+	'<div class="selectWrapL s2">'
+			+		'<span class="arrowL"></span>'
+			+		'<span class="selectedL object">请选择</span>'
+			+		'<ul class="selectL">'
+			+			optionLs
+			+		'</ul>'
+			+	'</div>'						
+		}
+		html+=''
+		//"method": "各分销商分别统计|所有分销商汇总统计" , s3
+		if(Statistic.method!=""&&Statistic.method!=" "&&Statistic.method!=undefined){
+			var arr=Statistic.method.split("|");	
+			var optionLs='';
+			for(i=0;i<arr.length;i++){
+				optionLs+='<li class="optionL">'+arr[i]+'</li>'
+			}
+			html+=''
+			+	'<div class="selectWrapL s3">'
+			+		'<span class="arrowL"></span>'
+			+		'<span class="selectedL method">请选择</span>'
+			+		'<ul class="selectL s3_select">'
+			+			optionLs
+			+		'</ul>'
+			+	'</div>'	
+		}
+		//"type": "累计核销次数|累计核销金额|累计有核销日|累计假核销金额", s4
+		if(Statistic.type!=""&&Statistic.type!=" "&&Statistic.type!=undefined){
+			var arr=Statistic.type.split("|");	
+			var optionLs='';
+			for(i=0;i<arr.length;i++){
+				optionLs+='<li class="optionL">'+arr[i]+'</li>'
+			}
+			html+=''	
+			+	'<div class="selectWrapL s4">'
+			+		'<span class="arrowL"></span>'
+			+		'<span class="selectedL type">请选择</span>'
+			+		'<ul class="selectL s4_select">'
+			+			optionLs
+			+		'</ul>'
+			+	'</div>'	
+		}
+		//"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",s5
+		if(Statistic.reqesttag!=""&&Statistic.reqesttag!=" "&&Statistic.reqesttag!=undefined){
+			var arr=Statistic.reqesttag.split("|");	
+			var optionLs='';
+			for(i=0;i<arr.length;i++){
+				optionLs+='<li class="optionL">'+arr[i]+'</li>'
+			}
+			html+=''		
+			+	'<div class="selectWrapL s5">'
+			+		'<span class="arrowL"></span>'
+			+		'<span class="selectedL reqesttag">请选择</span>'
+			+		'<ul class="selectL s5_select">'
+			+			optionLs
+			+		'</ul>'
+			+	'</div>'	
+		}
+		//"requestnumber": 10,unitContent
+		if(Statistic.requestnumber!=""&&Statistic.requestnumber!=" "&&Statistic.requestnumber!=undefined){
+			html+=''		
+			+	'<div class="unitContent fl s5-1">'
+			+		'<label for="unitNumber"><span class="unitBefore">前</span></label><input type="text" id="unitNumber" class="requestnumber"/><label for="unitNumber"><span class="unit">名</span></label>'						
+			+	'</div>';					
+		}
+		$(".addSubSubsidyPolicy .content").append(html)
+	}else{
+		console.log('Statistic为空')
+		return;
+	}
+	/*控件局部联动变化*/	
+	//注意，前提是，上面已有通用下拉点击事件
+	//s1的联动	
+	$(".addSubSubsidyPolicy").on("click",".selectL.s1_select .optionL",function(e){	
+		e.stopPropagation();
+		//s1-1跟着动
+		if($(this).text()=="主题活动周期内的前 X 天"){
+			$(".addSubSubsidyPolicy .days").show();
+			$(".addSubSubsidyPolicy .t2").css({
+				marginLeft:'71px'
+			})
+		}else{
+			$(".addSubSubsidyPolicy .days").hide();
+			$(".addSubSubsidyPolicy .t2").css({
+				marginLeft:'8px'
+			})
+		}
+		$(this).parent().prev().text($(this).text().substr(0,9));//把li的内容放入em
+		$(this).parent().hide();//点击li的时候隐藏ul	
+	});
+	//s4的联动	
+	$(".addSubSubsidyPolicy").on("click",".selectL.s4_select .optionL",function(e){	
+		e.stopPropagation();
+		//s5跟着动
+		$(".addSubSubsidyPolicy .s5 .selectedL").text("请选择");//重置		
+		if($(this).text()=="累计假核销金额"){
+			selectFn('s5','=|>|>=','');
+		}else{
+			selectFn('s5',Statistic.reqesttag,'');
+		}
+		//s5-1跟着动
+		var preText=$(this).text();
+		var unit="";
+		if(preText.indexOf("次数")!=-1){
+			unit="次";
+		}else if(preText.indexOf("金额")!=-1){
+			unit="元";
+		}else if(preText.indexOf("核销日")!=-1){
+			unit="天";
+		}		
+		$(".addSubSubsidyPolicy .s5-1 .unit").text(unit);//重置
+//		$(this).parent().prev().text($(this).text());//把li的内容放入em
+//		$(this).parent().hide();//点击li的时候隐藏ul	
+	});
+	//s5的联动
+	$(".addSubSubsidyPolicy").on("click",".selectL.s5_select .optionL",function(e){	
+		e.stopPropagation();
+		var preText=$(this).closest(".selectWrapL").prev(".selectWrapL").find(".selectedL").text();
+		var unit="";
+		if(preText.indexOf("次数")!=-1){
+			unit="次";
+		}else if(preText.indexOf("金额")!=-1){
+			unit="元";
+		}else if(preText.indexOf("核销日")!=-1){
+			unit="天";
+		}
+		$(".s5-1").empty();
+		// console.log($(this).text())
+		if($(this).text()=="地区排名"||$(this).text()=="全国排名"){
+			$(".s5-1").append('<label for="unitNumber"><span class="unitBefore">前</span></label><input type="text" id="unitNumber" class="requestnumber"/><label for="unitNumber"><span class="unit">名</span></label>');
+		}else{
+			$(".s5-1").append('<input type="text" id="unitNumber" style="width:40px;" class="requestnumber"/><label for="unitNumber"><span class="unit">'+unit+'</span></label>');
+		}
+//		$(this).parent().prev().text($(this).text());//把li的内容放入em
+//		$(this).parent().hide();//点击li的时候隐藏ul	
+	});	
+}
+
+/*下拉封装*/
+function selectFn(className,StatisticKey,shuxing){//eg:,StatisticKey为Statistic.type或字符串,class为模拟下拉整体类名如s1,shuxing为字符串，如style="width:555px"
+	if(StatisticKey!=""&&StatisticKey!=" "&&StatisticKey!=undefined){
+		var arr=StatisticKey.split("|");	
+		var optionLs='';
+		for(i=0;i<arr.length;i++){
+			optionLs+='<li class="optionL" '+shuxing+'>'+arr[i]+'</li>'
+		}
+		$(".addSubSubsidyPolicy ."+className).find(".selectL").empty();
+		$(".addSubSubsidyPolicy ."+className).find(".selectL").append(optionLs);
+	}	
+}
+/*项目点击*/
+$(".subsidyConditionContent").on("click",".subsidyConditionItem",function(e){
+
+	if($(this).text().indexOf("达到统计指标") != -1){
+		$(".addSubSubsidyPolicy").toggle();
+		// return
+	} else {
+		$(".addSubSubsidyPolicy").hide();
+	}
+
+	$(".subsidyConditionItem").each(function(){
+		$(this).text($(this).text().replace("✔",""));
+		$(this).removeClass("on");
+//		console.log($(this));
+	})	
+//	$(".subsidyConditionItem").text($(this).text().replace("✔",""))
+//	$(".subsidyConditionItem").not(this).text($(this).text().replace("✔",""))
+//	$(this).text($(this).text().replace("✔",""))
+//	console.log($(this))
+	$(this).text("✔"+$(this).text());
+	$(this).addClass("on");
+})
+
+
+var addSub4_i = 0;
+$('.butieSec').on('click','.subsidyCondition a', function(){
+
+	var _this = $(this);
+	var addSub4 = _this.closest('.addSub4');
+	addSub4_i = _this.closest('.addSub4').index();
+
+	if(addSub4.find('.butie-select-wrap .selected').text() == ""){
+		layer.tips('请先完善补贴条件', addSub4.find('.butie-select-wrap .selected'));
+		return;
+	}
+
+	_this.addClass("btCond" + addSub4_i);
+
+
+	$('.addSubSubsidyPolicy').hide();
+	$('.subsidyConditionContent').empty();
+	var butieCond = _this.parent().prev();
+	butieCond.find('li[class=option]').each(function(){
+		$('.subsidyConditionContent').append("<li class='subsidyConditionItem'>"+ $(this).text() +"</li>");
+	});
+
+
+	layer.open({
+
+		type: 1,
+		title: "设置<i class='rules-title'>" + _this.closest('.addSub4').find('.butie-select-wrap .selected').text() + "</i>",
+		area: ['86%',"60%"],
+		maxmin: true,
+		content: $('.subsidyPolicy')
+
+	});
+
+
+	$('.subsidyConditionItem').each(function(){
+		if($(this).text() == _this.text()){
+			$(this).click();
+		}
+	});
+
+
+	// 处理相同补贴对象下的补贴条件是否相同
+	/*var this_duixiang_txt = _this.closest('.addSub4').find('.butie-select-wrap .selected').text();
+	$('.addSub4 .butie-select-wrap .selected').each(function(){
+
+		if($(this).text() == this_duixiang_txt){
+
+			$(this).closest('.addSub4').find('.butieCond .selected').each(function(){
+
+				if($(this).text() == _this.text()){
+					layer.msg(_this.text() + " 已选");
+					selected = true;
+				}
+			});
+		}
+
+	});*/
+
+	var dxName = _this.closest('.addSub4').find('.butie-select-wrap .selected').attr('name');
+	$(".addSub4 .butie-select-wrap .selected[name="+ dxName +"]").each(function(){
+		var exsitCond = $(this).closest('.addSub4').find('.subsidyCondition a').text();
+		$('.subsidyConditionItem').each(function(){
+			if($(this).text() == exsitCond){
+				$(this).hide(1000);
+			}
+		});
+	})
+
+
+
+
+
+	/*{
+	    "timetag": "主题活动周期内",
+	    "time": "",
+	    "object": "消费者",
+	    "method": "按各分销商分别统计",
+	    "type": "累计核销次数",
+	    "reqesttag": "请选择",
+	    "requestnumber": "12"
+	}*/
+
+	// $('.subsidyConditionItem.on')
+	$('.addSubSubsidyPolicy .content .selectedL').text("请选择");
+	$('.addSubSubsidyPolicy .content input').val("");
+	if($('.subsidyConditionItem.on').text() == '✔达到统计指标'){
+		var savedData = JSON.parse($(this).attr('statistic'));
+		var content = $('.addSubSubsidyPolicy .content');
+		content.find('.s1 .timetag').text(savedData.timetag);
+		content.find('.s1-1 .time').val(savedData.time);
+		content.find('.s2 .object').text(savedData.object);
+		content.find('.s3 .method').text(savedData.method);
+		content.find('.s4 .type').text(savedData.type);
+		content.find('.s5 .reqesttag').text(savedData.reqesttag);
+		content.find('.s5-1 .requestnumber').val(savedData.requestnumber);
+	}
+
+});
+
+
+$('.subsidyPolicy .ok').click(function(){
+
+	/*Statistic:{
+		"timetag": "周期内",
+		"time": 12, 
+		"object": "门店|消费者|分销商", 
+		"method": "各分销商分别统计|所有分销商汇总统计" , 
+		"type": "累计核销次数|累计核销金额|累计有核销日|累计假核销金额", 
+		"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",
+		"requestnumber": 10
+	}*/
+
+	if($('.subsidyConditionItem.on').length == 0){
+		layer.msg('请先选择补贴条件');
+		return;
+	}
+
+
+	var Statistic = {};
+	if($('.addSubSubsidyPolicy').css('display') == "block"){
+
+		var content = $('.addSubSubsidyPolicy .content');
+		var time = content.find('.days.s1-1').css('display') == 'block' ? content.find('.time').val() : "";	
+		Statistic = {
+			"timetag": content.find('.timetag').text(),
+			"time": time,
+			"object": content.find('.object').text(), 
+			"method": content.find('.method').text(),
+			"type": content.find('.type').text(),
+			"reqesttag": content.find('.reqesttag').text(),
+			"requestnumber": content.find('.requestnumber').val()
+		}
+
+		var distime = "";
+		if(Statistic.time == ""){
+			distime = Statistic.time;
+			if(content.find('.days.s1-1').css('display') == 'block'){
+				layer.tips('请填写天数', content.find('.days.s1-1'));
+				return;
+			}
+
+		} else {
+			distime = Statistic.time + $('.days.s1-1 span').text();
+		}
+
+		var word = Statistic.timetag + distime + Statistic.object + Statistic.method + Statistic.type + Statistic.reqesttag + Statistic.requestnumber + content.find('.unit').text();
+		$('a.btCond' + addSub4_i).text($('.subsidyConditionItem.on').text().replace("✔",""))
+		.attr({ 'Statistic': JSON.stringify(Statistic, null, 4), "title": word });
+
+	} else {
+		$('a.btCond' + addSub4_i).text($('.subsidyConditionItem.on').text().replace("✔",""));
+	}
+
+
+	$('.layui-layer-close').click();
+
+});
+
+
+
+$('.subsidyPolicy .cancel').click(function(){
+	$('.layui-layer-close').click();
+});
 
 
 /*$('.butieCond .selected').click(function(){
@@ -1940,7 +2369,7 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 	var percentNum = 0;
 	$('.yaoWrap .Yyy3 input').each(function(){
 		percentNum += Number($(this).val());
-	});
+});
 
 	var cishuNum = 0;
 	$('.yaoWrap .Yyy4 input').each(function(){
@@ -2350,18 +2779,18 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}
-				if(_this.find('.select-wrap.acSe10 .selected').text() == ""){
+				/*if(_this.find('.select-wrap.acSe10 .selected').text() == ""){
 					// debugger
 					$("nav span").eq(2).click();
 					layer.tips('请先完善补贴条件', _this.find('.select-wrap.acSe10'));
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
-				}
+				}*/
 				if(_this.find('.select-wrap.acSe11 .selected').text() == ""){
 					// debugger
 					$("nav span").eq(2).click();
-					layer.tips('请先完善补贴条件', _this.find('.select-wrap.acSe11'));
+					layer.tips('请先完善补贴形式', _this.find('.select-wrap.acSe11'));
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
@@ -2635,6 +3064,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 			// 判断时间--单位  天、月
 			begintimeInput = _self.parents('.addSub3').find('.time_y').val();
+
 			if(begintimeInput == '不限' || begintimeInput == ''){
 				begintime = '';
 			} else {
@@ -2769,13 +3199,20 @@ $('.saveToDb, .shenhe').click(function(){
 			max = addSub4.find('.hdc4 .hdc4d1 .hdc4In2').val();
 			// alert(max);
 		}
-		if(addSub4.find('.hdc3 .selected').text() == '摇一摇'){
+		//2选1
+		/*if(addSub4.find('.hdc3 .selected').text() == '摇一摇'){
 			min = 1; max = 1;
 		} else {
 			min = addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val();
-		}
+		}*/
+		//2选1
+		try {
+			var statistic = JSON.parse(addSub4.find('a.btCond').attr('statistic'));
+		} catch(e) {}
 
-		subsidyItem = {
+
+		//2选1
+		/*subsidyItem = {
 			// "guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
 			"state": "active",
             "refund_to": _this.attr("name"),
@@ -2786,7 +3223,24 @@ $('.saveToDb, .shenhe').click(function(){
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
             "applycount": addSub4.find('.hdc6-1 input').val(),
+        }*/
+		//2选1
+		subsidyItem = {
+//			"guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
+			"state": "active",
+            // "guid": "",
+            "refund_to": _this.attr("name"),
+            // "event": addSub4.find('.hdc2 .selected').text(),
+            "event": addSub4.find('a.btCond').text(),
+            "statistic": statistic,
+            "refund_content": addSub4.find('.hdc3 .selected').text(),
+            "min": addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val(),
+            "max": max,
+            "ceiling": addSub4.find('.hdc5 input').val(),
+            "applycount": addSub4.find('.hdc6-1 input').val()
         }
+
+
 
 		if(location.href.indexOf("activityModify.html")!=-1){
 			subsidyItem.guid = addSub4.find('.acSe9 .selected').attr("guid");//0124添加
@@ -2880,7 +3334,7 @@ $('.saveToDb, .shenhe').click(function(){
 	            	}
 	            	function done(sucText){
 	            		layer.msg(sucText, {shift: -1},  function() {
-		            		window.location.href = "/admin/MarketingActivity/topicmanagement/ActivityList.html";
+		            		window.location.href = "/admin/MarketingActivity/TopicManagement/ActivityList.html";
 						});
 	            	}
 	            } else {

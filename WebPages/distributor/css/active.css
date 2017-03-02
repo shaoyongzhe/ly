@@ -475,3 +475,9 @@
 		font-size: 0.4rem;
 		float: left;
 	}
+	/*2-28改动*/
+	.Focus_box,.Focus_box_left,.Focus_box_right{
+		min-height: 6.2rem;
+		height:auto;
+		overflow: hidden;
+	}

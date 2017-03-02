@@ -469,3 +469,9 @@
 		text-indent: 0.3rem;
 		display: block;
 	}
+	/*2-28改动*/
+	.Focus_box,.Focus_box_left,.Focus_box_right{
+		min-height: 6.2rem;
+		height:auto;
+		overflow: hidden;
+	}
