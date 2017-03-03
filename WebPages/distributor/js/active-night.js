@@ -240,7 +240,7 @@ $(function(){
 								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + str + '</a>'
 								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;" class="rulerestrict">'
 							if(subsidyparameter[i].ruledescription.length != 0){
-								li+='1个'+keyg(key) +'在一个'+ subsidyparameter[i].rulerestrict +'活动中:'+'<br/>';
+								li+= subsidyparameter[i].rulerestrict +'：'+'<br/>';
 							}
 								var textson = subsidyparameter[i].ruledescription;
 								for( var y = 0; y < textson.length; y++ ){
@@ -341,6 +341,7 @@ $(function(){
 					    speed:1200,
 					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
 						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
+						autoHeight:true,
 					    //allowSwipeToPrev : true, //禁止向左滑动
 					    // swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
