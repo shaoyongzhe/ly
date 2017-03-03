@@ -400,11 +400,6 @@ function getactivityitem(sandbox, approveresult, activityid) {
                             jiangjia+="</div>";
                             jiangjia+="</div>";
                             jiangjia+="</div>";
-                            // $("#activitytitle_jj").text(itemjsoncontentObj.activitytitle);
-                            // $("#originalprice_jj").text("￥" + itemjsoncontentObj.originalprice);
-                            // $("#discountprice_jj").text("￥" + itemjsoncontentObj.discountprice);
-                            // $("#discount_jj").text(itemjsoncontentObj.discount + "折");
-                            // // 齐枭飞添加
                             $("#jiangjia").html(jiangjia);
                             // $("#itemPic_jj").attr("src", itemPic);
                             // 齐枭飞添加备注标题
@@ -419,7 +414,6 @@ function getactivityitem(sandbox, approveresult, activityid) {
                         if (itemjsoncontent != null && itemjsoncontent != "") {
                             var itemjsoncontentObj = JSON.parse(itemjsoncontent);
                             // 齐枭飞添加
-                            // 
                              itemjsoncontentObj.ruledesc=itemjsoncontentObj.ruledesc||"备注:";
                             linqi+="<div class='prolist' id='linqi'>";
                             linqi+="<div class='biaoqian'>临期</div>";
@@ -447,26 +441,21 @@ function getactivityitem(sandbox, approveresult, activityid) {
                             linqi+="</div>";
                             linqi+="</div>";
                             linqi+="</div>";
-                            // $("#activitytitle_lq").text(itemjsoncontentObj.activitytitle);
-                            // $("#originalprice_lq").text("￥" + itemjsoncontentObj.originalprice);
-                            // $("#discountprice_lq").text("￥" + itemjsoncontentObj.discountprice);
-                            // $("#discount_lq").text(itemjsoncontentObj.discount + "折");
-                            // 齐枭飞添加
                             
                             $("#linqi").html(linqi);
-                            // $("#itemPic_lq").attr("src", itemPic);
-                            // 齐枭飞添加备注标题
-                            // if(!itemjsoncontentObj.ruledesc){
-                            //     $(".box-info21").html("备注：");
-                            // }  
-                            
-                            // $("#ruledesc_lq").html(itemjsoncontentObj.ruledesc); 
+
                         }
                     }
                 }
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
@@ -638,6 +627,12 @@ function getcheckactivityshistory() {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
