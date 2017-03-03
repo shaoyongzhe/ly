@@ -81,8 +81,14 @@ function getcheckrule(){
             console.log(msg);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-                if (XMLHttpRequest.readyState == 4)
-                	alert("网络异常");
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
+            if (XMLHttpRequest.readyState == 4)
+                alert("网络异常");
         }
     });
 }
@@ -104,6 +110,12 @@ function updatecheckrule(checkrule){
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
                 if (XMLHttpRequest.readyState == 4)
                 	alert("网络异常");
         }
@@ -322,9 +334,16 @@ function getcheckactivitys(){
                 $("#activity_list_data").html("无有效数据");
             }
         },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                if (XMLHttpRequest.readyState == 4)
-                	alert("网络异常");
+        error: function (XMLHttpRequest, textStatus, errorThrown) {           
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败")
+            {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
+            if (XMLHttpRequest.readyState == 4)
+                alert("网络异常");
         }
     });
 
