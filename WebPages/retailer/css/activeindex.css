@@ -50,21 +50,25 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .sale:after{content: "";width: 1rem;height: 1rem;position: absolute;top: 0;right: 0;background: url("../image/shop/sale.png") no-repeat;background-size: 1rem;}
 .submenu{display: none;background: #fff;}
 .submenu>li{border-top: 1px solid #ddd;text-indent: 0.5rem;position: relative;}
-.submenu>li>i{position: absolute;right: 5px; top: 1px;font-style: normal;font-family: serif;}
+.submenu>li>i{display: none; position: absolute;right: 5px; top: 0.75rem;width: 0.25rem;height: 0.45rem; font-style: normal;font-family: serif;background:url("../image/shop/hssanjiao.png") no-repeat 0 0;background-size: 0.25rem;}
 .col1{color: #f7af01;}
 .link{position: relative;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .link>i{display: block;width: 0.55rem;height: 0.55rem;background: url(../image/shop/mor1.png) no-repeat;background-size:0.55rem ;position: absolute;right: 0;bottom: 0;}
-#loading{position: fixed;width: 75%;height: 100%;display: none;}
-#loading>img{width: 2.1rem;height: 2.1rem;margin: 4rem auto 0.1rem;}
+#loading{min-height: 18.6rem; display: none;}
+#loading>p{height: 4rem;}
+#loading>img{width: 2.1rem;height: 2.1rem;margin: 0 auto 0.1rem;}
 #loading>div{text-align: center;}
+
+#zongloading{width: 100%;height: 100%;background: #fff;position: fixed;z-index: 10000;top: 0;left: 0;}
+#zongloading>img{width: 2.0rem;position: absolute;left: 50%;top: 40%;margin-left: -0.5rem}
 
 
 .cgl-contlist{overflow-y:auto;width: 73.5%;padding-right: 10px;margin-right: -10px;padding-left:0.32rem ;background: #fff;}
 .cgl-contlist::-webkit-scrollbar{width:0;}
-.sanji{display: none;width: 81.1%;height: 1.95rem;text-align: center;line-height: 1.95rem;position: absolute;top: 2.05rem;right: -0.55rem;}
-.sanji>h4{font-weight: 100;height: 1.925rem;background: #fff;border-bottom: 1px solid #ddd;overflow: hidden;}
-.sanji>h4>i{font-style: normal;font-family: serif;transform: rotateZ(90deg);display: inline-block;position: relative;left: 8px;}
-.sanji-zi{display: none; background: rgba(0,0,0,0.2);height: 16.6rem;margin-top: -1px;}
+.sanji{display: none;width: 81.1%;height: 1.95rem;text-align: center;line-height: 1.95rem;position: absolute;top: 2.07rem;right: -0.55rem;}
+.sanji>h4{font-weight: 100;height: 1.9rem;background: #fff;border-bottom: 1px solid #ddd;overflow: hidden;}
+.sanji>h4>i{width: 0.25rem;height: 0.45rem; transform: rotateZ(90deg);display: inline-block;position: relative;left: 8px;background: url("../image/shop/ra.jpg") no-repeat center;background-size:0.25rem; }
+.sanji-zi{display: none; background: rgba(0,0,0,0.2);margin-top: -1px;}
 .sanji-zi>ul{background: #f5f5f5;margin-top: 1px;overflow: hidden;padding: 0.65rem 0.3rem;}
 .sanji-zi>ul>li{float: left;width: 3.5rem;height: 1.2rem; line-height: 1.2rem; border:1px solid #C6C6C6;border-radius: 3px;color: #999; background: #fff;margin-left: 0.2rem;}
 
@@ -91,7 +95,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .del:after{content: "";width: 100%;height: 1px;position: absolute;top: 50%;left: 0; background: #999;}
 .cgl-syu{color: #bbb;font-size: 0.6rem;}
 .cgl-active{color: #009f96;margin: 0.1rem 0 0.2rem;}
-.cgl-active>span{display: inline-block;padding: 0.1rem; border: 1px solid #009f96;border-radius: 0.15rem;line-height: 1;margin-right: 0.15rem;}
+.cgl-active>span{display: inline-block;padding: 0.1rem 0.1rem 0.13rem 0.1rem; border: 1px solid #009f96;border-radius: 0.15rem;line-height: 1;margin-right: 0.15rem;}
 .youligift{margin: -0.85rem 0.5rem 0 1.75rem;}
 .cgl-beizhu{color: #999;}
 
