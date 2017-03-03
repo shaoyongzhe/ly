@@ -181,7 +181,7 @@
 							}
 						}
 						$("#pp span").text(_discount.toFixed(1))
-						if(_data1[_indd]["specialprice"]!==0){
+						if(_data1[_indd]["specialprice"] && _data1[_indd]["specialprice"]!==0){
 		        			$("#vv").css({display:"flex"})
 		        			_discount+=Number(_data1[_indd]["specialprice"])
 		        			$("#vv span").text(_data1[_indd]["specialprice"].toFixed(1))

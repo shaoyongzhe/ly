@@ -147,7 +147,7 @@
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
-						_discount+=(data1[i]["originalprice"]-data1[i]["price"])*data1[i]["itemcount"] || data1[i]
+						_discount+=((data1[i]["originalprice"]-data1[i]["price"])*data1[i]["itemcount"]) || (data1[i]["price"]-data1[i]["price"]*data1[i]["discount"]*0.1)*data1[i]["itemcount"]
 						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["discountprice"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["originalprice"]+"</span></p></p></div></div></div><div class="+"\"disc\""+
 						"><span>降价</span><span> "+data1[i]["discount"]+" 折</span></div>"+_remark+"<div class="+
 						"\"set\""+"style="+
@@ -158,7 +158,7 @@
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
-						_discount+=(data1[i]["originalprice"]-data1[i]["price"])*data1[i]["itemcount"]
+						_discount+=((data1[i]["originalprice"]-data1[i]["price"])*data1[i]["itemcount"]) || (data1[i]["price"]-data1[i]["price"]*data1[i]["discount"]*0.1)*data1[i]["itemcount"]
 						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]*data1[i]["discount"]*0.1+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["price"]+"</span></p></p></div></div></div><div class="+"\"disc\""+" id="+"\"disc\""+
 						"><span>折扣</span><span>"+data1[i]["discount"]+" 折</span></div>"+_remark+"<div class="+
 						"\"set\""+"style="+
@@ -344,7 +344,8 @@
 							}
 							if(data1[_id]["salestop"]==0 && $("#"+_id).find(".gouxuan").attr("flag")==1){
 								console.log(_id)
-								_price-=Number(data1[_id]["price"])*Number(_dll)
+								alert(_dll)
+								_price-=Number($("#"+_id).find(".pp1").text().replace("￥",""))*Number(_dll)
 								console.log(_price)
 								$(".amountBig span").text(_price.toFixed(1))
 
@@ -352,7 +353,7 @@
 							if(data1[_id]["itemkind"]=="降价" || data1[_id]["itemkind"]=="折扣"){
 									_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
 									if($("#"+_id).find(".gouxuan").attr("flag")==1){
-										_discount-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
+										_discount-=(data1[_id]["originalprice"]-data1[_id]["price"])*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
 										$(".ab span:nth-child(2)").text(_discount.toFixed(1))										
 									}
 								}
@@ -536,7 +537,7 @@
 										_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
 										$(".amountBig span").text(_price.toFixed(1))
 									}
-									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价"){
+									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 										_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
 										if($(tht).parent().parent().parent().prev().attr("flag")==1){
 											_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
@@ -584,7 +585,7 @@
 									_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
 									$(".amountBig span").text(_price.toFixed(1))
 								}
-								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价"){
+								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 									_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
 									if($(tht).parent().parent().parent().prev().attr("flag")==1){
 										_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
@@ -649,7 +650,7 @@
 									$(".amountBig span").text(_price.toFixed(1))
 								}
 								console.log($(th).parent().parent().parent().parent().next().find("span:nth-child(1)"))
-								if($(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价"){
+								if($(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 									_dis+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
 									if($(th).parent().parent().parent().prev().attr("flag")==1){
 										_discount+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
