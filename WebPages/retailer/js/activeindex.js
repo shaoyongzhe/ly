@@ -831,9 +831,7 @@ function fncarnum(data) {
                 $(".num").html($(".ammount").html())
                 $(this).next().html(Number($(this).next().html())-1)
             }
-
         }else{
-
             if(num <= 1) {
                 $(this).hide().next().hide().html(0);
                 $(".ammount").html($(".ammount").html() - 1);
@@ -848,7 +846,6 @@ function fncarnum(data) {
         fnaddcar(this, $(this).next().html() - 0);
     }).on("click", ".add", function() {
         var num = Number($(this).prev().html());
-        
         var xian = Number($(this).parents(".the-xiangxi").find(".cgl-syu>span").html());
 		console.log($(this).prev().text())
         if(xian && Number($(this).prev().text())>=xian) {
@@ -866,13 +863,9 @@ function fncarnum(data) {
 	            $(this).prev().html(num + 1).show().prev().show();
 	            $(".price>i").html((Number($(".price>i").html())+Number($(this).parent().prev().find("i").html())).toFixed(2));
 	        }
-
             $(".num").html($(".ammount").html());
-
-
             fnaddcar(this, $(this).prev().html() - 0);
         }
-
     });
 }
 //添加购物车
@@ -881,8 +874,6 @@ function fnaddcar(that, a) {
     var dataid = JSON.parse($(that).parents(".c-price").attr("dataid"));
     dataid.itemcount = a;
     dataid.versiontime = formaty();
-    
-    
     console.log(dataid)
     $("#zhezao").show();
     $("#nono").hide();
@@ -907,7 +898,6 @@ function fnaddcar(that, a) {
             $("#zhezao").hide();
         }
     })
-
 }
 //生成当前时间
 function formaty() {
