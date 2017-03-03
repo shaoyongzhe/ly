@@ -224,7 +224,7 @@ function fnmclick2 () {
     $(".sanji-zi").on("click","ul>li",function () {
         var id3=$(this).attr("id");
         fnmclick1(id3,"itemsubcategory");
-        $(this).parent().parent().prev().html($(this).text()+"<i> > </i>")
+        $(this).parent().parent().prev().html($(this).text()+"<i></i>")
         $(this).css({background:"#e7fefd",color:"#009f96",borderColor:"#35beb6"})
         $(this).siblings().css({background:"#fff",color:"#acadad",borderColor:"#C6C6C6"})
     });
