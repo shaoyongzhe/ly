@@ -392,7 +392,7 @@
 					_ges-=Number($(this).next().children().children().find(".amount").text())
 					_price-=Number($(this).parent().find(".pp1").text().replace("￥",""))*Number($(this).next().find(".amount").text())
 					if($(this).parent()){
-						if($(this).parent().next().find("span:nth-child(1)").text()=="降价"){
+						if($(this).parent().next().find("span:nth-child(1)").text()=="降价" || $(this).parent().next().find("span:nth-child(1)").text()=="折扣"){
 							_discount-=(Number($(this).next().children().find(".intail").find("span").text().replace("￥",""))-Number($(this).next().children().find(".pp1").text().replace("￥","")))*Number($(this).next().find(".change").find(".amount").text())
 							$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 						}
@@ -404,7 +404,7 @@
 //					}
 				}else{
 					if($(this).parent()){
-						if($(this).parent().next().find("span:nth-child(1)").text()=="降价"){
+						if($(this).parent().next().find("span:nth-child(1)").text()=="降价" || $(this).parent().next().find("span:nth-child(1)").text()=="折扣"){
 							_discount+=(Number($(this).next().children().find(".intail").find("span").text().replace("￥",""))-Number($(this).next().children().find(".pp1").text().replace("￥","")))*Number($(this).next().find(".change").find(".amount").text())
 							$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 						}

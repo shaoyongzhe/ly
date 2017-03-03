@@ -137,12 +137,12 @@ $(document).ready(function () {
 								_data[i]["giftcount"] + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) +(_data[i]["giftitemquality"]==="0"?"(临期)":"")+ "</div></div>" + _remark + "</li>"
                             } else if (_data[i]["itemkind"] == "折扣") {
                                 _zz += Number(_data[i]["itemcount"])
-                                _price += _data[i]["price"] * _data[i]["itemcount"];
-                                _discount+=((_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]) || (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
+                                _price += _data[i]["price"]*data[i]["discount"]*0.1 * _data[i]["itemcount"];
+                                _discount+= (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["discount"]*0.1).toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
-                            ">" + _data[i]["discount"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">备注：</div><div class=" + "\"give-con\"" + ">" + _data[i]["ruledesc"] + "</div></div></li>"
+                            ">" + _data[i]["discount"] + " 折</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">备注：</div><div class=" + "\"give-con\"" + ">" + _data[i]["ruledesc"] + "</div></div></li>"
                             }
                         } else {
                             if (_data[i]["activityitem_id"] == "") {
@@ -179,12 +179,12 @@ $(document).ready(function () {
 								_data[i]["giftcount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) +(_data[i]["giftitemquality"]==="0"?"(临期)":"")+ "</div></div>" + _remark + "</li>"
                             } else if (_data[i]["itemkind"] == "折扣") {
                                 _zz += Number(_data[i]["itemcount"])
-                                _price += _data[i]["price"] * _data[i]["itemcount"];
-                                _discount += (_data[i]["originalprice"] - _data[i]["price"]) * _data[i]["itemcount"]
+                                _price += _data[i]["price"]*data[i]["discount"]*0.1 * _data[i]["itemcount"];
+                                _discount += (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["discount"]*0.1).toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
-                            ">" + _data[i]["discount"] + "</span></div>" + _remark + "</li>"
+                            ">" + _data[i]["discount"] + " 折</span></div>" + _remark + "</li>"
                             }
                         }
                     } else {
@@ -220,11 +220,11 @@ $(document).ready(function () {
 							_data[i]["giftcount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"])+(_data[i]["giftitemquality"]==="0"?"(临期)":"") + "</div></div>" + _remark + "</li>"
                         } else if (_data[i]["itemkind"] == "折扣") {
                             _zz += Number(_data[i]["itemcount"])
-                            _discount += (_data[i]["originalprice"] - _data[i]["price"]) * _data[i]["itemcount"]
+                            _discount += (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                             _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                        ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                        ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["disocunt"]*0.1).toFixed(1) + "</div><div class=" + "\"number\"" +
                         "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
-                        ">" + _data[i]["discount"] + "</span></div>" + _remark + "</li>"
+                        ">" + _data[i]["discount"] + " 折</span></div>" + _remark + "</li>"
                         }
                     }
                     _image = ""
@@ -239,11 +239,9 @@ $(document).ready(function () {
                 if (data[_indd]["activityitem_id"] != "") {
 
                     if (data[_indd]["promotionactivity"]) {
-                        var maxmoeysum = 0;
                         for (var t = 0; t < data[_indd]["promotionactivity"]["details"].length; t++) {
                             var curvalue = Number(data[_indd]["promotionactivity"]["details"][t]["moneysum"]);
-                            if (_price >= curvalue && curvalue > maxmoeysum) {
-                                maxmoeysum = curvalue;
+                            if (_price >= curvalue) {
                                 _mz = data[_indd]["promotionactivity"]["details"][t]["giftitems"]
                                 _dx["activityitem_id"] = data[_indd]["activityitem_id"]
                             }
