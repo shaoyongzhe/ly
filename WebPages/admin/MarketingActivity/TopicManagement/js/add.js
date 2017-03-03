@@ -140,13 +140,13 @@ function acAdC() {
 
 		$(this).closest(".acZige").append(addsub3HTML);
 		$(this).closest(".addSub2").find('.member-type .option').each(function(){//根据按钮向上找到控件2，然后以此向下找到控件2中的option
-			//下面代码和createActivity1中完全一致
-//			debugger;
+			// 下面代码和createActivity1中完全一致
+			// debugger;
 			if($(this).closest(".addSub2").find(".acSe4 em").text()==$(this).text()){
 				var arr=$(this).attr("conditiontype").split(',');
 				var li =$(this).closest('.addSub2').find('.acZige1 .option');
 				$(li).each(function(){
-					// console.log($(this).text());			
+					// console.log($(this).text());	
 					$(this).hide();
 					for(i=0;i<arr.length;i++){
 						if($(this).text()==arr[i]){
@@ -161,7 +161,7 @@ function acAdC() {
 			"cursor": "pointer"
 		});
 
-		$(this).closest(".acZige").append('<div class="yyy singleselection"><span class="radio" name="1">以上条件满足其一</span><span class="radio" name="0">以上条件需全部满足</span></div>');
+		$(this).closest(".acZige").append('<div class="yyy singleselection"><span class="radio" name="1">以上条件满足其一</span><span class="radio on" name="0">以上条件需全部满足</span></div>');
 
 		$(this).closest(".acZige").find(".yyy").not(':last').remove();
 		$(this).addClass("hi");
@@ -219,6 +219,9 @@ function acAdD() {
 		// $(".section3 .addSub4 .acAd2").click(function(){
 		// alert(1)
 		// debugger;
+
+		
+
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",
 			"cursor": "pointer"
@@ -279,7 +282,6 @@ function acAdE() {
 		});
 		$(".yaoWrap").append(addsub5HTML);
 		$(this).addClass("hi");
-		// $(".addSub5").not(":first").find(".deleP").remove();//解决p标签bug
 		$(".addSub5").last().find('.selected').text('');
 		$(".addSub5").last().find('input').val('');
 
@@ -289,6 +291,7 @@ function acAdE() {
 acAdF();
 
 function acAdF() {
+
 	$("body").on("click", ".addSub6 .acAd1", function(e) {
 		// $(".addSub6 .acAd1").click(function(){				
 		if ($(".addSub6").length <= 1) {
