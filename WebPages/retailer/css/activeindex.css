@@ -1,6 +1,6 @@
 body,h1,h2,h3,h4,ul,li,p{padding: 0;margin: 0;}
 ul,li{list-style: none;}
-body{font-family: "微软雅黑", Arial,serif;font-size: 0.6rem;}
+body{font-family: "Microsoft YaHei", Arial,serif;font-size: 0.6rem;}
 html,body{height: 100%;background: #fff;display: -webkit-box;-webkit-box-orient:vertical;}
 img{display: block;}
 em{font-style: normal;}
@@ -12,7 +12,7 @@ input{outline: none;}
 a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:transparent;}
 /**************吸顶***************/
 .container{-webkit-box-flex: 1;overflow-y: scroll;}
-.dealer-header{height: 40px;background: #009f96;display: none;position: fixed;top: 0;width: 100%;z-index: 10;font-family: "微软雅黑", Arial,serif;}
+.dealer-header{height: 40px;background: #009f96;display: none;position: fixed;top: 0;width: 100%;z-index: 10;font-family: "Microsoft YaHei", Arial,serif;}
 .dealer-header>i{display:inline-block; font-style: normal;padding-left: 10px;color: #fff;font-size: 14px;line-height: 40px;width: 80%;overflow: hidden;}
 .dealer-header>a{float: right;width: 40px;height: 40px;text-align: center;}
 .dealer-header>a>img{display: inline-block; width: 18px;padding-top: 12px;}
@@ -95,7 +95,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .del:after{content: "";width: 100%;height: 1px;position: absolute;top: 50%;left: 0; background: #999;}
 .cgl-syu{color: #bbb;font-size: 0.6rem;}
 .cgl-active{color: #009f96;margin: 0.1rem 0 0.2rem;}
-.cgl-active>span{display: inline-block;padding: 0.1rem 0.1rem 0.13rem 0.1rem; border: 1px solid #009f96;border-radius: 0.15rem;line-height: 1;margin-right: 0.15rem;}
+.cgl-active>span{display: inline-block;padding: 0.1rem 0.1rem 0.11rem 0.1rem; border: 1px solid #009f96;border-radius: 0.15rem;line-height: 1;margin-right: 0.15rem;}
 .youligift{margin: -0.85rem 0.5rem 0 1.75rem;}
 .cgl-beizhu{color: #999;}
 

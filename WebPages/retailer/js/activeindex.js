@@ -123,7 +123,7 @@ function fnclick() {
         submenu.on("click", "li", function() {
             $("i",".submenu").hide();
             $("i",this).show();
-            $(this).parent().parent().parent().parent().prev().find("h4").html("全部子类型<i></i>")
+            $(".sanji").find("h4").html("全部子类型<i></i>");
             submenu.find("li").removeClass("col1");
             $(this).addClass("col1");
             if($(this).find(".hide1").length > 0) {
@@ -151,9 +151,15 @@ function fnclick() {
         $("#cgl-contlist").find("ul").animate({
             "margin-top": 0
         }, 300);
-        $next.stop().slideToggle(300,function () {
+        $next.stop().slideDown(300,function () {
+            $("i",".submenu").hide();
             fnmenuhei();
         });
+
+        var scrh=$(".proTitleBox").outerHeight()+$(".proDetailBox").outerHeight()-$(".dealer-header").outerHeight();
+        if($(".container")[0].scrollTop > scrh ){
+            $(".container")[0].scrollTop=scrh
+        }
         $el.find(">li").removeClass('clion');
         $this.parent().addClass('clion');
         $el.find(".link>i").show();
