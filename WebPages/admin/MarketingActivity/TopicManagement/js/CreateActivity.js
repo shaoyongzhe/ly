@@ -371,6 +371,38 @@ $('.yaook').click(function(){
 		return;
 	}
 
+	var isTypeEmpty = true;
+	$('.yaoWrap .Yyy1 .selected').each(function(){
+		if($(this).text() == ""){
+			layer.tips('请先选择奖品类型', $(this).parent());
+			isTypeEmpty = false;
+			return false;
+		}
+	});
+
+	if(isTypeEmpty == false){return}
+	var isMinEmpty = true;
+	$('.yaoWrap .Yyy2 input.min').each(function(){
+		if($(this).val() == "" && $(this).closest('.addSub5').find('.select-wrap.acSe15 .selected').text() != '谢谢参与'){
+			layer.tips('请先输入最小范围', $(this));
+			isMinEmpty = false;
+			return false;
+		}
+	});
+
+	if(isMinEmpty == false){return}
+	var isMaxEmpty = true;
+	$('.yaoWrap .Yyy2 input.max').each(function(){
+		if($(this).css('display') != "none" && $(this).closest('.addSub5').find('.select-wrap.acSe15 .selected').text() != '谢谢参与'){
+			if($(this).val() == ""){
+				layer.tips('请先输入最大范围', $(this));
+				isMaxEmpty = false;
+				return false;
+			}
+		}
+	});
+
+	if(isMaxEmpty == false){return}
 	var isProEmpty = true;
 	$('.yaoWrap .Yyy3 input').each(function(){
 
@@ -413,7 +445,7 @@ $('.yaook').click(function(){
 				"max": max,
 				"percentage": Number(_this.find('.Yyy3 input').val()),
 				"timelimit": Number(_this.find('.Yyy4 input').val()),
-				// "applycount": Number(_this.find('.Yyy5-1 input[readonly]').val()),
+				"applycount": Number(_this.find('.Yyy5-1 input').val()),
 				"probability": yaoyiyaogailv
 			}
 
@@ -1513,7 +1545,7 @@ $("body").on("click","li.option",function(e){
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').show();
 			$(this).closest('.addSub4').find('.setgailv').addClass('on');
 		} else {
-			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(112);
+			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').css('width','82px!important');
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 span').hide();
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').hide();
 			$(this).closest('.addSub4').find('.setgailv').removeClass('on');
@@ -1946,15 +1978,15 @@ $('.butieSec').on('click','.subsidyCondition a', function(){
 
 	});*/
 
-	var dxName = _this.closest('.addSub4').find('.butie-select-wrap .selected').attr('name');
-	$(".addSub4 .butie-select-wrap .selected[name="+ dxName +"]").each(function(){
-		var exsitCond = $(this).closest('.addSub4').find('.subsidyCondition a').text();
-		$('.subsidyConditionItem').each(function(){
-			if($(this).text() == exsitCond){
-				$(this).hide(1000);
-			}
-		});
-	})
+	// var dxName = _this.closest('.addSub4').find('.butie-select-wrap .selected').attr('name');
+	// $(".addSub4 .butie-select-wrap .selected[name="+ dxName +"]").each(function(){
+	// 	var exsitCond = $(this).closest('.addSub4').find('.subsidyCondition a').text();
+	// 	$('.subsidyConditionItem').each(function(){
+	// 		if($(this).text() == exsitCond){
+	// 			$(this).hide(1000);
+	// 		}
+	// 	});
+	// })
 
 
 
@@ -2669,6 +2701,16 @@ $('.saveToDb, .shenhe').click(function(){
 					finished = false;
 					return false;
 				}*/
+
+				if(_this.find('.subsidyCondition a').text() == "请选择补贴条件"){
+					// debugger
+					$("nav span").eq(2).click();
+					layer.tips('请先选择补贴条件', _this.find('.subsidyCondition a'));
+					// _this.find('.selected').focus();
+					finished = false;
+					return false;
+				}
+
 				if(_this.find('.select-wrap.acSe11 .selected').text() == ""){
 					// debugger
 					$("nav span").eq(2).click();
@@ -2676,6 +2718,14 @@ $('.saveToDb, .shenhe').click(function(){
 					// _this.find('.selected').focus();
 					finished = false;
 					return false;
+				}
+
+
+				if($(this).closest('.addSub4').find('.hdc4dB').text() == '次'){
+					$("nav span").eq(2).click();
+					layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
+					finished = false;
+					return
 				}
 
 				var isShake = false;
@@ -2822,8 +2872,6 @@ $('.saveToDb, .shenhe').click(function(){
 	if(finished == false){return}
 	if($(this).hasClass('disabled')){return}
 
-
-	// 拼数据
 	// 1.活动基础信息
 	var basic = $('.basic-msg'),
 		servicephone = basic.find('.quhao').val() + "-" + basic.find('.tel').val(),
@@ -2832,6 +2880,8 @@ $('.saveToDb, .shenhe').click(function(){
 			singleselection = 1;
 		} else {
 			singleselection = 0;
+		} else {
+			singleselection = 1;
 		}
 	
 	data = {
@@ -3258,6 +3308,7 @@ function c(sth){
 	console.log(JSON.stringify(sth, null, 4));
 }
 
+// 清除缓存
 function ClearSessionStorage()
 {
 	// 清除缓存
