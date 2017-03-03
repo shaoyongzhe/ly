@@ -95,7 +95,7 @@ function fnpricenum() {
             $("#zhezao").hide();
             $(".ammount").html(data.itemcount);
             $(".num").html(data.itemcount);
-            $(".price>i").html(data["moneycount"].toFixed(1));
+            $(".price>i").html(data["moneycount"].toFixed(2));
             fnqisong();
         }
     })
@@ -233,6 +233,7 @@ function fnmenuhei() {
 //获取菜单列表
 function fnmenu() {
     $("#zhezao").show();
+    $("#nono").hide();
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/itemtypegroups",
@@ -288,6 +289,7 @@ function fnyucun() {
     $("#cgl-contlist").find("ul").html("");
     $("#loading").show();
     $("#zhezao").show();
+    $("#nono").hide();
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
@@ -305,6 +307,7 @@ function fnyucun() {
         },
         success: function(data) {
         	$("#zhezao").hide();
+            $("#loading").hide();
         	if(data.length==0){
         		$("#loading").hide()
         		var _lli="<img src=\"../../image/shop/icon_cry.png\" style=\"width:1.6rem;height:1.6rem;position:relative;left:44%;top:25%\">"+
@@ -347,7 +350,7 @@ function fnychxr(data) {
         } else {
             oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
         }
-        oli += "</div><span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(1) + "0<i></i></span>" +
+        oli += "</div><span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(2) + "<i></i></span>" +
             " </div>" +
             "<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
         oli += "</div>" +
@@ -362,6 +365,7 @@ function fnhqactive() {
     $("#cgl-contlist").find("ul").html("");
     $("#zhezao").show();
     $("#loading").show();
+    $("#nono").hide();
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/activity",
@@ -398,7 +402,7 @@ function fncuxiao(data) {
             activityitemid: data[k1]["activityitem_id"],
             remark:"",
             itemquality: data[k1]["itemquality"],
-            itemprice: Number(data[k1]["discountprice"]).toFixed(1),
+            itemprice: Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(2),
             isyucun: 0
         }
         //折扣和降价活动时
@@ -412,9 +416,9 @@ function fncuxiao(data) {
                 oli += "<span class='cgl-linqi'></span>";
             }
             oli += data[k1]["itemname"] + "</h3>" +
-                "<p>" + (data[k1]["specification"] == null ? "1*24" : data[k1]["specification"]) + " | " + (data[k1]["packagetypename"] == null ? "箱" : data[k1]["packagetypename"]) + "</p>" +
+                "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"] + " | ") + (data[k1]["packagetypename"] == null ? "" : data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-                "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(1) + "0</i></span>" +
+                "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(2) + "</i></span>" +
                 "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -422,7 +426,7 @@ function fncuxiao(data) {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
             oli += "</div>" +
-                " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(1) + "0</del></div>" +
+                " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(2) + "</del></div>" +
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
@@ -431,7 +435,7 @@ function fncuxiao(data) {
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
             //有礼和买赠活动时
-            dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
+            dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2);
             oli += "<li id=\""+k1+"\">" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
@@ -441,9 +445,9 @@ function fncuxiao(data) {
                 oli += "<span class='cgl-linqi'></span>";
             }
             oli += data[k1]["itemname"] + "</h3>" +
-                "<p style=\"height:16px\">" + (data[k1]["specification"]==null?"":data[k1]["specification"]+" | ") + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + "</p>" +
+                "<p>" + (data[k1]["specification"]==null?"":data[k1]["specification"]+" | ") + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-                "<span>￥<i>" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1) + "0</i></span>" +
+                "<span>￥<i>" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2) + "</i></span>" +
                 "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -480,6 +484,7 @@ function fnlist(odata) {
     $("#cgl-contlist").find("ul").html("");
     $("#loading").show();
     $("#zhezao").show();
+    $("#nono").hide();
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
@@ -522,7 +527,7 @@ function fnyibanlist(data) {
                         distributorid: fnurl().distributor_id,
                         itemquality: data[k1]["itemquality"],
                         itemid: data[k1]["itemslist"][k2]["guid"],
-                        itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
+                        itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(2),
                         isyucun: 0
                     }
                     oli += "<div class='cgl-top hori'> " +
@@ -547,7 +552,7 @@ function fnyibanlist(data) {
                         distributorid: fnurl().distributor_id,
                         itemquality: data[k1]["itemquality"],
                         itemid: data[k1]["itemslist"][k3]["guid"],
-                        itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(1),
+                        itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(2),
                         isyucun: 0
                     }
                     oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
@@ -555,7 +560,7 @@ function fnyibanlist(data) {
                         "<img src='" + data[k1]["itemslist"][k3]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
                         "<h3><span></span>" + data[k1]["itemslist"][k3]["itemname"] + "</h3>" +
-                        "<p style=\"height:16px\">" + (data[k1]["itemslist"][k3]["specification"]==null?"":data[k1]["itemslist"][k3]["specification"]+" | ") + (data[k1]["itemslist"][k3]["packagetypename"]==undefined?"":data[k1]["itemslist"][k3]["packagetypename"]) + "</p>" +
+                        "<p>" + (data[k1]["itemslist"][k3]["specification"]==null?"":data[k1]["itemslist"][k3]["specification"]+" | ") + (data[k1]["itemslist"][k3]["packagetypename"]==undefined?"":data[k1]["itemslist"][k3]["packagetypename"]) + "</p>" +
                         "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k3]["price"] + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemcount"] <= 0) {
@@ -572,7 +577,7 @@ function fnyibanlist(data) {
                 distributorid: fnurl().distributor_id,
                 itemquality: data[k1]["itemquality"],
                 itemid: data[k1]["itemid"],
-                itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
+                itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2),
                 isyucun: 0
             };
             oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
@@ -600,6 +605,7 @@ function fnlist2(odata) {
     $("#cgl-contlist").find("ul").html("");
     $("#loading").show();
     $("#zhezao").show();
+    $("#nono").hide();
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
@@ -638,7 +644,7 @@ function fnyibanlist2(data) {
             activityitemid: data[k1]["activityitem_id"],
             remark:"",
             itemquality: data[k1]["itemquality"],
-            itemprice: Number(data[k1]["discountprice"]).toFixed(1),
+            itemprice: Number(data[k1]["discountprice"]).toFixed(2),
             isyucun: 0
         }
         //折扣和降价活动时
@@ -654,7 +660,7 @@ function fnyibanlist2(data) {
             oli += data[k1]["itemname"] + "</h3>" +
                 "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"]+" | ") + (data[k1]["packagetypename"] == undefined ? "" : data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-                "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(1) + "0</i></span>" +
+                "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(2) + "</i></span>" +
                 "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -662,7 +668,7 @@ function fnyibanlist2(data) {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
             oli += "</div>" +
-                " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(1) + "0</del></div>" +
+                " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(2) + "</del></div>" +
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
@@ -671,7 +677,7 @@ function fnyibanlist2(data) {
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
             //有礼和买赠活动时
-            dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1);
+            dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2);
             oli += "<li active='active' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
@@ -683,7 +689,7 @@ function fnyibanlist2(data) {
             oli += data[k1]["itemname"] + "</h3>" +
                 "<p>" + (data[k1]["specification"]==null?"":data[k1]["specification"]+" | ") + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
-                "<span>￥<i>" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1) + "0</i></span>" +
+                "<span>￥<i>" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2) + "</i></span>" +
                 "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -711,7 +717,7 @@ function fnyibanlist2(data) {
                         distributorid: fnurl().distributor_id,
                         itemquality: data[k1]["itemquality"],
                         itemid: data[k1]["itemslist"][k2]["guid"],
-                        itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(1),
+                        itemprice: Number(data[k1]["itemslist"][k2]["price"]).toFixed(2),
                         isyucun: 0
                     }
                     oli += "<div class='cgl-top hori'> " +
@@ -736,7 +742,7 @@ function fnyibanlist2(data) {
                         distributorid: fnurl().distributor_id,
                         itemquality: data[k1]["itemquality"],
                         itemid: data[k1]["itemslist"][k3]["guid"],
-                        itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(1),
+                        itemprice: Number(data[k1]["itemslist"][k3]["price"]).toFixed(2),
                         isyucun: 0
                     }
                     oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
@@ -744,7 +750,7 @@ function fnyibanlist2(data) {
                         "<img src='" + data[k1]["itemslist"][k3]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
                         "<h3><span></span>" + data[k1]["itemslist"][k3]["itemname"] + "</h3>" +
-                        "<p style=\"height:16px\">" + (data[k1]["itemslist"][k3]["specification"]==null?"":data[k1]["itemslist"][k3]["specification"]+" | ") + (data[k1]["itemslist"][k3]["packagetypename"]==undefined?"":data[k1]["itemslist"][k3]["packagetypename"]) + "</p>" +
+                        "<p>" + (data[k1]["itemslist"][k3]["specification"]==null?"":data[k1]["itemslist"][k3]["specification"]+" | ") + (data[k1]["itemslist"][k3]["packagetypename"]==undefined?"":data[k1]["itemslist"][k3]["packagetypename"]) + "</p>" +
                         "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k3]["price"] + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemslist"][k3]["itemcount"] <= 0) {
@@ -761,7 +767,7 @@ function fnyibanlist2(data) {
                 distributorid: fnurl().distributor_id,
                 itemquality: data[k1]["itemquality"],
                 itemid: data[k1]["itemid"],
-                itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(1),
+                itemprice: Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2),
                 isyucun: 0
             }
             oli += "<li class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
@@ -817,10 +823,10 @@ function fncarnum(data) {
                 $(".ammount").html($(".ammount").html() - num);
                 $(".num").html($(".ammount").html())
                 num=0
-                $(".price>i").html((Number($(".price>i").html())-(Number($(this).next().html())-num)*Number($(this).parent().prev().find("i").html())).toFixed(1));
+                $(".price>i").html((Number($(".price>i").html())-(Number($(this).next().html())-num)*Number($(this).parent().prev().find("i").html())).toFixed(2));
                 $(this).hide().next().hide().html(0);
             }else{
-                $(".price>i").html((Number($(".price>i").html())-Number($(this).parent().prev().find("i").html())).toFixed(1));
+                $(".price>i").html((Number($(".price>i").html())-Number($(this).parent().prev().find("i").html())).toFixed(2));
                 $(".ammount").html($(".ammount").html() - 1);
                 $(".num").html($(".ammount").html())
                 $(this).next().html(Number($(this).next().html())-1)
@@ -837,7 +843,7 @@ function fncarnum(data) {
                 $(".ammount").html($(".ammount").html() - 1);
                 $(".num").html($(".ammount").html());
             }
-            $(".price>i").html(($(".price>i").html()-$(this).parent().prev().find("i").html()).toFixed(1));
+            $(".price>i").html(($(".price>i").html()-$(this).parent().prev().find("i").html()).toFixed(2));
         }
         fnaddcar(this, $(this).next().html() - 0);
     }).on("click", ".add", function() {
@@ -850,7 +856,7 @@ function fncarnum(data) {
         } else {
 	        if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id") && data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
 	            num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])
-	            var _l=(Number($(".price>i").html())+(num-Number($(this).prev().html()))*Number($(this).parent().prev().find("i").html())).toFixed(1)
+	            var _l=(Number($(".price>i").html())+(num-Number($(this).prev().html()))*Number($(this).parent().prev().find("i").html())).toFixed(2)
 	            $(".ammount").html(Number($(".ammount").html()) +num);
 	            $(this).prev().html(Number($(this).prev().html())+num).show().prev().show();
 	            $(".price>i").html(_l);
@@ -858,7 +864,7 @@ function fncarnum(data) {
 	        }else{
 	            $(".ammount").html(Number($(".ammount").html()) +1);
 	            $(this).prev().html(num + 1).show().prev().show();
-	            $(".price>i").html((Number($(".price>i").html())+Number($(this).parent().prev().find("i").html())).toFixed(1));
+	            $(".price>i").html((Number($(".price>i").html())+Number($(this).parent().prev().find("i").html())).toFixed(2));
 	        }
 
             $(".num").html($(".ammount").html());
@@ -879,6 +885,7 @@ function fnaddcar(that, a) {
     
     console.log(dataid)
     $("#zhezao").show();
+    $("#nono").hide();
     $.ajax({
         url: "/webapi/distributor/" + localStorage.retaler + "/shoppingcart",
         contentType: "application/json; charset=utf-8",
@@ -936,7 +943,7 @@ function formaty() {
 }
 //起送价
 function fnqisong() {
-    $(".footerr>span>i").html(Number(fnurl().cutgift - $(".price>i").html()).toFixed(1));
+    $(".footerr>span>i").html(Number(fnurl().cutgift - $(".price>i").html()).toFixed(2));
     if($(".price>i").html() >= fnurl().cutgift) {
         $(".footerr>span").hide();
         $(".footerr>a").show();
@@ -980,11 +987,22 @@ function fncontscroll() {
 
     });
 }
+//输入框后的叉号隐显
+function fnyinxian() {
+    $(".content").keyup(function () {
+        if($(this).val().length>0){
+            $(".clear").show();
+        }else {
+            $(".clear").hide();
+        }
+
+    });
+}
 //搜索
 function fnserach() {
+    fnyinxian();
 	var _ti=1;
     $(".clear").on("click", function() {
-        
         if($(".content").val()!="" && _ti!=1){
             $("#cgl-menu").find("li:gt(1)").remove();
             $("#cgl-menu").find("li:eq(1)").show();
@@ -993,7 +1011,8 @@ function fnserach() {
             fnmenu(); //获取菜单列表
             fnhqactive();//获取促销活动列表
         }
-           $(".content").val("");
+        $(".content").val("");
+        $(".clear").hide();
     });
     var odata = {
         "filter": "",
@@ -1002,47 +1021,53 @@ function fnserach() {
         "pagecount": 5000
     };
     $(".searchbtn").on("click", function() {
-    	_ti=0;
-        $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
-        $("#cgl-contlist").find("ul").animate({
-            "margin-top": "0"
-        }, 300);
-        $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
-        if($(".titlestyle>span").html() == "品牌") {
-            odata.filtertype = 1;
-        } else {
-            odata.filtertype = 0;
+        if($(".content").val()==0){
+            $(".content").val("");
+            $(".clear").hide();
         }
-        odata.filter = $(".content").val();
-        if(odata.filter==0){
-            $("#cgl-menu").find("li:gt(1)").remove();
-            $("#cgl-menu").find("li:eq(1)").show();
-            $("#cgl-menu").find("li").removeClass("clion");
-            $(".sale ").addClass("clion");
-            fnmenu(); //获取菜单列表
-            fnhqactive();//获取促销活动列表
-        }else if($(">li:eq(0)","#cgl-menu").attr("class")=="clion"){
-            var ycdata={
-                "filter": odata.filter,
-                "filtertype": odata.filtertype
-            }
-            $("#cgl-menu").off("click").find("li:gt(1)").remove();
-            $("#cgl-menu").find("li:eq(1)").hide();
-            $("#cgl-menu").find(">li:eq(0)").off("click").on("click",function () {
-                $(">ul>li","#cgl-contlist").show();
-            });
-            fnsearchyc(ycdata);//预存货搜索
-
-        }else{
-
+            _ti=0;
+            $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
+            $("#cgl-contlist").find("ul").animate({
+                "margin-top": "0"
+            }, 300);
+            $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
             if($(".titlestyle>span").html() == "品牌") {
                 odata.filtertype = 1;
             } else {
                 odata.filtertype = 0;
             }
-            fnserchapi(odata);
+            odata.filter = $(".content").val();
+            if(odata.filter==0){
+                $("#cgl-menu").find("li:gt(1)").remove();
+                $("#cgl-menu").find("li:eq(1)").show();
+                $("#cgl-menu").find("li").removeClass("clion");
+                $(".sale ").addClass("clion");
+                fnmenu(); //获取菜单列表
+                fnhqactive();//获取促销活动列表
+            }else if($(">li:eq(0)","#cgl-menu").attr("class")=="clion"){
+                var ycdata={
+                    "filter": odata.filter,
+                    "filtertype": odata.filtertype
+                }
+                $("#cgl-menu").off("click").find("li:gt(1)").remove();
+                $("#cgl-menu").find("li:eq(1)").hide();
+                $("#cgl-menu").find(">li:eq(0)").off("click").on("click",function () {
+                    $(">ul>li","#cgl-contlist").show();
+                });
+                fnsearchyc(ycdata);//预存货搜索
 
-        }
+            }else{
+
+                if($(".titlestyle>span").html() == "品牌") {
+                    odata.filtertype = 1;
+                } else {
+                    odata.filtertype = 0;
+                }
+                fnserchapi(odata);
+
+            }
+
+
     });
 }
 
@@ -1051,6 +1076,7 @@ function fnsearchyc(odata) {
     $("#cgl-contlist").find("ul").html("");
     $("#loading").show();
     $("#zhezao").show();
+    $("#nono").hide();
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
@@ -1067,11 +1093,14 @@ function fnsearchyc(odata) {
             }
         },
         success: function(data) {
+            console.log(data)
             $("#zhezao").hide();
+            $("#loading").hide();
             if(data.length==0){
                 /*var _lli="<img src=\"../../image/shop/icon_cry.png\" style=\"width:1.6rem;height:1.6rem;position:relative;left:44%;top:25%\">"+
                     "<p style=\"position: relative;top: 30%;text-align: center;color：#333333\">您暂无与 <b style='color: red;'>\""+odata["filter"]+"\"</b> 相关预存货~</p>"
                 $("#cgl-contlist").html(_lli);*/
+                $("#nono").show();
             }else{
                 fnychxr(data);
             }
@@ -1086,6 +1115,7 @@ function fnserchapi(odata) {
     $("#cgl-contlist").find("ul").html("");
     $("#loading").show();
     $("#zhezao").show();
+    $("#nono").hide();
     $.ajax({
         type: "get",
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
@@ -1120,23 +1150,36 @@ function menusx(data) {
     var putli=$("#cgl-menu").find("li:gt(1)");
     putli.remove();
     xuanrmenu(data);
-    $("#cgl-menu").off("click").find(">li").on("click",function () {
-        var theid=$(this).attr("id");
-        fnmclick(theid,"class")
+    $("#cgl-menu").off("click").find(">li>.link").on("click",function () {
+        var theid=$(this).parent().attr("id");
+        fnmclick(theid,"class");
     });
-    $("#cgl-menu").find(">li:eq(0)").on("click",function () {
-        $(".cgl-contlist").find(">ul>li").hide();
+    $("#cgl-menu").find(">li:eq(0)").off("click").on("click",function () {
+        $(".content").val("");
+        $(".clear").hide();
+        fnmenu(); //获取菜单列表
+        fnyucun();
+    });
+    $("#cgl-menu").find(">li:eq(1)").off("click").on("click",function () {
+        $(".content").val("");
+        $(".clear").hide();
+        $("#cgl-menu").find("li:gt(1)").remove();
+        //$("#cgl-menu").find("li:eq(1)").show();
+        $("#cgl-menu").find("li").removeClass("clion");
+        $(".sale ").addClass("clion");
+        fnmenu(); //获取菜单列表
+        fnhqactive();//获取促销活动列表
     });
 
 }
 //搜索功能下品牌筛选
 function fnmclick(theid,idd) {
     var n1=$(".cgl-contlist").find(">ul>li");
-
     for(var i=0;i<n1.length;i++){
-        if(theid=="active" && n1.eq(i).attr("active")=="active"){
+        /*if(theid=="active" && n1.eq(i).attr("active")=="active"){
             n1.eq(i).show();
-        }else if(n1.eq(i).attr(idd)==theid){
+        }else */
+        if(n1.eq(i).attr(idd)==theid){
             n1.eq(i).show();
         }else{
             n1.eq(i).hide();
