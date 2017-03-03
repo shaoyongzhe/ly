@@ -1001,7 +1001,8 @@ function fnyinxian() {
     });
 }
 function keyLogin(){
-    $("body").keydown(function () {
+    $("body").off().on("keydown",function (event) {
+        event = event || window.event;
         if (event.keyCode==13){
             $(".searchbtn").click();
         }
