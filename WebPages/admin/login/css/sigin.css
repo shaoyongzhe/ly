@@ -266,7 +266,18 @@
 		border: 1px solid #cfcfcf;
 		border-radius: 3px;
 		padding:0 10px;
-		margin-bottom: 20px;
+		/*margin-bottom: 20px;*/
+	}
+	.phone_input span{
+		height: 20px;
+		line-height: 20px;
+		font-size: 12px;
+		color: #f00;
+		display: inline-block;
+	}
+	.opacity{
+		filter:alpha(opacity=0);
+		opacity: 0;
 	}
 	.code_input{
 		width: 120px;

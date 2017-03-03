@@ -413,13 +413,9 @@ function btnAdd(){
 	*/
 
 	$(".table tbody").scroll(function() {
-		console.log($(this).scrollTop());
-		console.log($(this).prop("scrollHeight"));
 		if($(this).scrollTop() >= ($(this).prop("scrollHeight") - 570)) {
-			console.log(0);
 			queryPagesNum++;
 			ajaxQueryBtn(queryPagesNum,queryPagesCount)
-		//		console.log(condition)
 		}
 	});
 
