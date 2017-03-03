@@ -11,9 +11,12 @@ $(function () {
                 console.log(msg);
                 if (msg.error != "") {
                     alert(msg.error);
-                } else {
-
+                }
+                else if (msg.result){
                     window.location.href = "/auditplatform/html/hd-shenhe.html";
+                }
+                else {
+                    alert("用户或密码有错误,请重新输入!");
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
