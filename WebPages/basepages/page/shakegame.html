@@ -34,7 +34,7 @@
                     <p>￥<span>{{winMoney}}</span>元</p>
                     恭喜你获得<br>现金红包大奖
                 </div>
-                <div class="red-tc-btn" ms-click="againClick">
+                <div class="red-tc-btn" v-on:click.stop.prevent="againClick($event)">
                     <button>我知道了</button>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <!--<div class="red-tc-btn" onclick="closeWindow()">
                     <button>返回主页</button>
                 </div>-->
-                <div class="red-tc-btn" ms-click="againClick">
+                <div class="red-tc-btn" v-on:click.stop.prevent="againClick($event)">
                     <button>再摇一次</button>
                 </div>
             </div>
