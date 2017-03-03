@@ -111,7 +111,7 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
             url: '/webapi/asset/member/my/asset',
-            data: { assettype: '现金' },
+            data: { assettype: '现金', withemployer: false },
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             success: function (json) {
@@ -119,7 +119,7 @@ var vm = avalon.define({
                 if (json.error) {
                     toasterextend.showtips(json.error, "error");
                     return;
-    }
+                }
                 if (json.user_notification != undefined) {
                     toasterextend.showtips(json.user_notification, "info");
                     return;
@@ -146,7 +146,7 @@ var vm = avalon.define({
             }
         });
 
-      
+
     }
 })
 

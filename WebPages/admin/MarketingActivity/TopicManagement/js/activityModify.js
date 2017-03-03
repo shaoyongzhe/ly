@@ -1,5 +1,7 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
 var statisticArr=[];
+
+
 function GetUrlParam() {
     
     var url = location.search; 
@@ -17,6 +19,7 @@ function GetUrlParam() {
     }
 
     return thisParam;
+    
 }
 
 
@@ -70,7 +73,7 @@ function render(resdata){
     basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
 
 
-    if(activity.singleselection == 1){
+    if(activity.singleselection == 0){
         $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
     } else {
         $('.radio:contains(否)').addClass('on').siblings().removeClass('on');
