@@ -240,6 +240,7 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 				console.warn(JSON.stringify(dataprov.error, null, 4));
 				return;
 			}
+			
 			sessionStorage.setItem("shengfzr", JSON.stringify(dataprov, null, 4));
 			fillProvinceCharge();
 			sessionStorage.setItem("allcharge", JSON.stringify(dataprov.allcharge, null, 4));
