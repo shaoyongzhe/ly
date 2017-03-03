@@ -222,8 +222,8 @@ function fnmclick2 () {
         var id3=$(this).attr("id");
         fnmclick1(id3,"itemsubcategory");
         $(this).parent().parent().prev().html($(this).text()+"<i> > </i>")
-        $(this).css({background:"#e7fefd",color:"#009f96"})
-        $(this).siblings().css({background:"#fff",color:"#acadad"})
+        $(this).css({background:"#e7fefd",color:"#009f96",borderColor:"#35beb6"})
+        $(this).siblings().css({background:"#fff",color:"#acadad",borderColor:"#C6C6C6"})
     });
 }
 //动态设置cgl-cont的高度
@@ -644,7 +644,7 @@ function fnyibanlist2(data) {
             activityitemid: data[k1]["activityitem_id"],
             remark:"",
             itemquality: data[k1]["itemquality"],
-            itemprice: Number(data[k1]["discountprice"]).toFixed(2),
+            itemprice: Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(2),
             isyucun: 0
         }
         //折扣和降价活动时

@@ -95,7 +95,7 @@ function fngetlist() {
                             "<div class='cgl-manj'>"+
 	                            "<p>微信下单立减<span>"+ceng1["specialprice"]+"</span>元</p>";
 	                            if(ceng1["itemkind"]=="满赠"){
-	                            	oli+="<p style='background-image:url(../../image/shop/icon_zeng.png);'>";
+	                            	oli+="<p style='background-image:url(../../image/shop/zeng.png);'>";
 	                            	for(var k2 in ceng1["promotionactivity"]["details"]){
 		                            	ceng2=ceng1['promotionactivity']['details'][k2];
 		                            	oli+="满"+ceng2["moneysum"]+"元赠";
