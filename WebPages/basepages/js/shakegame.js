@@ -39,10 +39,12 @@ var vm = new Vue({
 
                     if (result.error && result.state == undefined) {
                         toasterextend.showtips(result.error, "error");
+                        loadShakeNum()
                         return;
                     }
                     if (result.user_notification != undefined && result.state == undefined) {
                         toasterextend.showtips(result.user_notification, "info");
+                        loadShakeNum()
                         return;
                     }
                     if (result.state != undefined) {
