@@ -113,7 +113,7 @@ $(document).ready(function () {
                             } else if (_data[i]["itemkind"] == "降价") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
-                                _discount += (_data[i]["originalprice"] - _data[i]["price"]) * _data[i]["itemcount"]
+                                _discount+=((_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]) || (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                             ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">降价</div><span class=" + "\"discount-con\"" +
@@ -138,7 +138,7 @@ $(document).ready(function () {
                             } else if (_data[i]["itemkind"] == "折扣") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
-                                _discount += (_data[i]["originalprice"] - _data[i]["price"]) * _data[i]["itemcount"]
+                                _discount+=((_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]) || (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                             ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
@@ -155,7 +155,7 @@ $(document).ready(function () {
                             } else if (_data[i]["itemkind"] == "降价") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
-                                _discount += (_data[i]["originalprice"] - _data[i]["price"]) * _data[i]["itemcount"]
+                                _discount+=((_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]) || (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                             ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">降价</div><span class=" + "\"discount-con\"" +
