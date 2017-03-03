@@ -20,13 +20,4 @@
 });
 sa.quick('autoTrack');
 
-window._pt_lt = new Date().getTime();
-window._pt_sp_2 = [];
-_pt_sp_2.push('setAccount,7fa27880');
-var _protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-(function () {
-    var atag = document.createElement('script'); atag.type = 'text/javascript'; atag.async = true;
-    atag.src = _protocol + 'js.ptengine.cn/7fa27880.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(atag, s);
-})();
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261404981'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1261404981' type='text/javascript'%3E%3C/script%3E"));
