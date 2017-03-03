@@ -34,13 +34,13 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .proSearch{margin: 0.5rem;padding: 0.3rem; border: 1px solid #c6c6c6;border-radius:0.125rem;position: relative;clear:both}
 .titlestyle{width:2rem;height: 0.85rem;background-size:50%;position: relative;}
 .titlestyle>span{padding:2px 3px}
-.titlestyle>ul{display: none;border: 1px solid #c6c6c6;position: absolute;top: 1.25rem;left: -0.3rem;width: 100%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;}
+.titlestyle>ul{display: none;border: 1px solid #c6c6c6;position: absolute;top: 1.25rem;left: -0.3rem;width: 112%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;}
 .titlestyle>ul>li{margin: 0 0.3rem;border-bottom:1px solid #C6C6C6 ;}
 .titlestyle>ul>li:last-of-type{border: 0;}
 .inputbox{-webkit-box-flex: 1;position: relative;}
 .inputbox input{border: 0;width: 100%;height: 100%;font-size: 0.6rem;line-height: 0.8rem;}
 .searchbtn{display: block;width: 1.2rem;height: 0.85rem;background: url("../image/shop/icon_zoom.png") no-repeat right center; background-size:0.85rem;border-left: 1px solid #c6c6c6;}
-.clear{position: absolute;top: 0;right: 5px;width:0.8rem ;height:0.8rem ;background: url(../image/shop/icon_delete.png) no-repeat center;background-size: 0.8rem;}
+.clear{display: none; position: absolute;top: 0;right: 5px;width:0.8rem ;height:0.8rem ;background: url(../image/shop/icon_delete.png) no-repeat center;background-size: 0.8rem;}
 /**************中间主要内容***************/
 #cgl-cont{border-top: 1px solid #ddd;min-height:18.6rem;overflow-x: hidden;background: #f5f5f5;}
 .cgl-menu{width: 3.875rem;min-height: 18.6rem; background: #f5f5f5;}
@@ -77,14 +77,14 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .the-xiangxi{-webkit-box-flex: 1;}
 .cgl-linqi{display: inline-block;width:0.75rem;height: 0.75rem; background: url("../image/shop/icon_lin.png") no-repeat center;background-size:0.75rem ;margin:0 0.1rem -0.1rem 0;}
 .the-xiangxi>h3{font-weight: 100;color: #333;font-size: 0.65rem;}
-.the-xiangxi>p{color: #999;font-size: 0.5rem;}
+.the-xiangxi>p{color: #999;font-size: 0.5rem;height: 0.8rem;}
 .c-price span:nth-child(1){color: red;font-size: 0.7rem;}
 .c-price .del{margin-left: 5px;}
 .c-price>div{padding-right: 0.5rem;margin-top: -0.2rem;}
 .c-price>div>span{float: left;}
 .jian,.add{display: inline-block; width: 1.32rem;height: 1.32rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.32rem;}
 .add{background-image: url("../image/shop/add.png");}
-.price-z{display: inline-block;height: 1.32rem;padding: 0 0.15rem;line-height: 1.32rem;}
+.price-z{display: inline-block;height: 1.32rem;line-height: 1.32rem;width:1.3rem;text-align: center;font-size: 0.55rem;}
 .the-xiangxi>del,.del{color: #bbb;font-size: 0.5rem;}
 .del{position: relative;}
 .del>i{display: inline-block;width: 0.7rem;height: 0.7rem;background: url("../image/shop/yucun.png") no-repeat center;background-size: 0.7rem;margin:0 2px -0.1rem 2px;}
@@ -161,7 +161,7 @@ footer{height: 50px;background: #333;color: #fff;}
 	display:block;padding:1% 2%;background:#009f96;position:absolute;right:5%;bottom:15%;font-size: 0.4rem;text-align: center;color:#fff
 }
 .ms{
-	display: block;width:75%;height:80%;overflow:hidden;float:left;margin-top:5%;font-size: 0.5rem;margin-left: 5px;
+	display: block;width:75%;height:80%;overflow:hidden;float:left;margin-top:5%;font-size: 0.7rem;margin-left: 5px;
 }
 .tishi{
 	width:80%;height:35%;background:#fff;position: fixed;left:10%;top:20%;color:#aaa;

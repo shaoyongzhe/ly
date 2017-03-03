@@ -109,7 +109,7 @@ function shopList(pg){
 				   				}
 				   				_price=0;
 			   				for(var z=0;z<data["content"][j]["details"].length;z++){
-											if(data["content"][j]["details"][z]["itemtype"]!=3 && data["content"][j]["details"][z]["billid_class"]=="tblbillpofromcustomer"){
+											if(data["content"][j]["details"][z]["itemgifttype"]!=3 && data["content"][j]["details"][z]["billid_class"]=="tblbillpofromcustomer"){
 												_price+=Number(data["content"][j]["details"][z]["itemunitcost"])*Number(data["content"][j]["details"][z]["itemcount"])
 											}
 								}
