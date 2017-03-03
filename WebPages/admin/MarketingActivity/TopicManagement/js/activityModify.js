@@ -4,7 +4,7 @@ var statisticArr=[];
 
 function GetUrlParam() {
     
-    var url = location.search; 
+    var url = location.search;
     var thisParam = {};
 
     if (url.indexOf("?") != -1) {
@@ -19,7 +19,7 @@ function GetUrlParam() {
     }
 
     return thisParam;
-    
+
 }
 
 
@@ -44,7 +44,6 @@ if(!$.isEmptyObject(GetUrlParam())){
 } else {
     layer.alert("跳转到修改失败了");
 }
-
 
 function render(resdata){
 
