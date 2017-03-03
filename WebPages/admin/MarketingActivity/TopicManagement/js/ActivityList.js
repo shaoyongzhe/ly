@@ -245,8 +245,8 @@ function basicQuery(resetQueryCondition){
 		url:"/webapi/ipaloma/topic/list/query",
 		async:true,
 		data:condition,
-		success: function (data) {
-			// console.log(data)
+		success: function (data) {			
+			 console.log(data)
 		    // console.log(data.content.length);
 			// console.log(data)
 			$(".loaded").fadeOut();
@@ -314,8 +314,15 @@ function basicQuery(resetQueryCondition){
 		error:function(data){
 //			console.log(data)
 			linshi=data;
-			layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
-			$(".loaded").fadeOut();
+			if(data.status=='403'){
+                sessionStorage.status = false;
+				sessionStorage.url = "/admin/login/signin.html";
+				location.reload();
+             }else{
+               	layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
+				$(".loaded").fadeOut();
+             }
+			
 
 		}
 	});
@@ -459,10 +466,6 @@ function statusAjax(){
 //			console.log(data)
 			linshiStatus=data;
 			statusData=data;
-//			window.location.href = "/admin/login/signin.html";
-//			localStorage.url = "/admin/login/signin.html"
-			
-//			console.log(data)
 			var chargeHtml="";//用于拼接
 			for(i=0;i<data.length;i++){
 				chargeHtml+='<li class="optionL">'+data[i].state+'</li>'
@@ -473,12 +476,14 @@ function statusAjax(){
 		error:function(data){
 			console.log(data)
 			linshiCharge=data;
-//			console.log(data.status)
-//			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
-//			window.location.href = "/admin/login/signin.html";
-			sessionStorage.status = false;
-			sessionStorage.url = "/admin/login/signin.html"
-			location.reload()
+			 if(data.status=='403'){
+                sessionStorage.status = false;
+				sessionStorage.url = "/admin/login/signin.html"
+				location.reload()
+             }else{
+               console.log(data.status)
+				layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+             }
 		}
 	});
 }
