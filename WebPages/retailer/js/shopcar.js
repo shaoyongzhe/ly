@@ -344,7 +344,6 @@
 							}
 							if(data1[_id]["salestop"]==0 && $("#"+_id).find(".gouxuan").attr("flag")==1){
 								console.log(_id)
-								alert(_dll)
 								_price-=Number($("#"+_id).find(".pp1").text().replace("￥",""))*Number(_dll)
 								console.log(_price)
 								$(".amountBig span").text(_price.toFixed(1))
