@@ -161,7 +161,7 @@ function acAdC() {
 			"cursor": "pointer"
 		});
 
-		$(this).closest(".acZige").append('<div class="yyy singleselection"><span class="radio" name="1">以上条件满足其一</span><span class="radio" name="0">以上条件需全部满足</span></div>');
+		$(this).closest(".acZige").append('<div class="yyy singleselection"><span class="radio" name="1">以上条件满足其一</span><span class="radio on" name="0">以上条件需全部满足</span></div>');
 
 		$(this).closest(".acZige").find(".yyy").not(':last').remove();
 		$(this).addClass("hi");
