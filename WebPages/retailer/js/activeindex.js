@@ -222,8 +222,8 @@ function fnmclick2 () {
         var id3=$(this).attr("id");
         fnmclick1(id3,"itemsubcategory");
         $(this).parent().parent().prev().html($(this).text()+"<i> > </i>")
-        $(this).css({background:"#e7fefd",color:"#009f96"})
-        $(this).siblings().css({background:"#fff",color:"#acadad"})
+        $(this).css({background:"#e7fefd",color:"#009f96",borderColor:"#35beb6"})
+        $(this).siblings().css({background:"#fff",color:"#acadad",borderColor:"#C6C6C6"})
     });
 }
 //动态设置cgl-cont的高度

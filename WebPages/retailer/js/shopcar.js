@@ -67,7 +67,7 @@
 					function zz(){//起送价显示
 						if(_price<_tt[_indd]["cutgift"]){
 							_qu=1;
-							$(".commit").css({background:"#ccc",width:"auto",padding:"0 3px"})
+							$(".commit").css({background:"#54504f",width:"auto",padding:"0 3px"})
 							$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price).toFixed(1)+" 元起送")
 						}else{
 							aa()
