@@ -356,6 +356,10 @@ $(function(){
 						})
 					}
 
+					//分享隐藏补贴信息
+					if(common.getUrlParam("sharekind") != ''){
+						$('.enjoy').hide()
+					}
 					//活动编号
 					activityNumber();
 					function activityNumber(i){
