@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
     <link href="/retailer/css/weixintips.css" rel="stylesheet" />
     <link href="/retailer/css/my_info.css" rel="stylesheet" />
-    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
+    <script type="text/javascript" src="/js/wx/md5.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <link type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css" rel="stylesheet" />
@@ -37,8 +38,8 @@
                 </div>
             </div>
             <div class="weui-panel__bd wallet_money">
-                <div class="weui-media-box__bd">
-                    <p style="font-size:22px">￥ <a href="/retailer/page/my_wallet.html">{{Money}}</a></p>
+                <div class="weui-media-box__bd" onclick="location.href = '/retailer/page/my_wallet_s.html'">
+                    <p style="font-size:22px">￥ {{Money}}</p>
                     <p style="font-size:13px">我的钱包</p>
                 </div>
             </div>
@@ -90,7 +91,7 @@
                         <div class="g-title">留存率</div>
                         <div>{{contribute.percentageretained}}</div>
                     </div>
-                    <div class="o-item" >
+                    <div class="o-item">
                         <b>{{getNumeric(contribute.distributorsharecount) }}</b><br />商家超惠分享
                     </div>
                     <div class="o-item" style="margin-left:2%">
@@ -142,5 +143,6 @@
     <div id="bottom-nav"></div>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
     <script src="/retailer/js/myinfo.js"></script>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>

@@ -431,6 +431,12 @@ function getAndSetActivityitem(checkedObj) {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
@@ -479,6 +485,12 @@ function checknosubmit() {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var obj = JSON.parse(XMLHttpRequest.responseText);
+                if (obj["error"] == "登录失败") {
+                    alert("用户未登录，跳转至登录页面");
+                    window.location.href = "../html/login.html";
+                    return;
+                }
                 if (XMLHttpRequest.readyState == 4)
                     alert("网络异常");
             }
@@ -532,11 +544,11 @@ function registeractivity() {
                     $("#checkSubmitBtn").css("background","#249cfa");
                     $("#checkSubmitBtn").html("是");
                 $(".showMes").remove();
-                if(msg.error=="该活动可能已通过审核，或已被撤销审核。请刷新重试！"){
+                if (msg.succeed == "activity_faild") {
                     alert("该活动可能已通过审核，或已被撤销审核！");
                     $(".delete-lan-w").fadeOut();
-
-                     // window.location.href = "sh-tongji.html";
+                    window.location.href = "../html/sh-tongji.html";
+                    return;
                 }
                 if (msg != null && msg.succeed == 'succeed') {
                     alert("提交审核通过成功！");
@@ -545,6 +557,12 @@ function registeractivity() {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var obj = JSON.parse(XMLHttpRequest.responseText);
+                if (obj["error"] == "登录失败") {
+                    alert("用户未登录，跳转至登录页面");
+                    window.location.href = "../html/login.html";
+                    return;
+                }
                 if (XMLHttpRequest.readyState == 4)
                      $(".showMes").remove();
                     alert("网络异常");
@@ -597,6 +615,12 @@ function checkactivityfailed() {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var obj = JSON.parse(XMLHttpRequest.responseText);
+                if (obj["error"] == "登录失败") {
+                    alert("用户未登录，跳转至登录页面");
+                    window.location.href = "../html/login.html";
+                    return;
+                }
                 if (XMLHttpRequest.readyState == 4)
                     alert("网络异常");
             }

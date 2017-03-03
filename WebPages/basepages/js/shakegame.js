@@ -39,10 +39,12 @@ var vm = new Vue({
 
                     if (result.error && result.state == undefined) {
                         toasterextend.showtips(result.error, "error");
+                        loadShakeNum()
                         return;
                     }
                     if (result.user_notification != undefined && result.state == undefined) {
                         toasterextend.showtips(result.user_notification, "info");
+                        loadShakeNum()
                         return;
                     }
                     if (result.state != undefined) {
@@ -68,7 +70,9 @@ var vm = new Vue({
                 }
             });
         },
-        againClick: function () {//再摇一次
+        againClick: function (e) {//再摇一次
+            e.preventDefault();
+            $('.red-tc').css('display', 'none');
             vm.IsShake = false;
             vm.winMoney = 0;
             vm.shakeStatus = 0;

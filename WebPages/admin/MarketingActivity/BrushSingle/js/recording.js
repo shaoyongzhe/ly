@@ -65,7 +65,7 @@ function fnxuanran(data) {
 			"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 			"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 			"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-			"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看详情</a></td>" +
+			"<td class='cgl-td7'><p title='"+odata[k1]["breakrulescause"]+"'>" + odata[k1]["breakrulescause"] + "</p><a href='javascript:;'>查看详情</a></td>" +
 			"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 			"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 			"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
@@ -110,7 +110,6 @@ function fnmore() {
 			$("#cgl-more").find("span").html("没有更多数据")
 		} else {
 			$(".cgl-jzz").html("加载中，请稍后···").show();
-			console.log(state.lastindex)
 			$.ajax({
 				type: "get",
 				url: "/webapi/earlywarningmanage/anticheating/getlist",
@@ -120,13 +119,12 @@ function fnmore() {
 				},
 				success: function(data) {
 					$(".cgl-jzz").hide();
-					console.log(state)
+					//console.log(state)
 					var odata = data.data;
 					var otr = "",
 						viplx = "";
 					for(var k1 in odata) {
 						otr += "<tr gu-id='" + odata[k1]["guid"] + "' ";
-						console.log(odata[k1]["description"])
 						if(odata[k1]["description"] == "shensu") {
 							otr += "shensu='true'><td class='cgl-td1' style='background: url(../img/fuxuank.png) no-repeat center;'></td>";
 						} else {
@@ -141,19 +139,18 @@ function fnmore() {
 							"<td class='cgl-td41'>" + odata[k1]["issuetime"] + "</td>" +
 							"<td class='cgl-td5'><span>" + odata[k1]["breakrulescount"] + "</span>次</td>" +
 							"<td class='cgl-td6'>" + odata[k1]["breakruleslevel"] + "</td>" +
-							"<td class='cgl-td7'>" + odata[k1]["breakrulescause"] + "<br/><a href='javascript:;'>查看详情</a></td>" +
+                            "<td class='cgl-td7'><p title='"+odata[k1]["breakrulescause"]+"'>" + odata[k1]["breakrulescause"] + "</p><a href='javascript:;'>查看详情</a></td>" +
 							"<td class='cgl-td8'>" + odata[k1]["measures"] + "</td>" +
 							"<td class='cgl-td9'><span>" + odata[k1]["starttime"] + "<br></span><span>" + odata[k1]["endtime"] + "</span></td>" +
 							"<td class='cgl-td10'>" + odata[k1]["ordermoney"] + "</td>" +
 							"<td class='cgl-td11'>" + odata[k1]["amount"] + "</td>" +
 							"<td class='cgl-td12'>" + $(".stateon>span",".xzcont>div:visible").text() + "</td>";
 						if(state.state == "已结束" || odata[k1]["description"] == "shensu") {
-							otr += "<td class='cgl-td13 td13bgk'><a href='javascript:'>详情</a>";
+							otr += "<td class='cgl-td13 td13bgk'><a href='javascript:'>详情</a></td>";
 						} else {
-							otr += "<td class='cgl-td13'><ul></ul>";
+							otr += "<td class='cgl-td13'><ul></ul></td>";
 						}
-						otr += "</td>" +
-							"</tr>";
+						otr +="</tr>";
 					}
 					$("#cgl-tbody").append(otr);
 					if(data["shuadanjine"]) {
@@ -170,7 +167,7 @@ function fnmore() {
 //违规记录维度
 function fndengji(data) {
 	var odata = data[0];
-	console.log(odata)
+	//console.log(odata)
 	if(odata){
 		$(".weiqueren").find("i").text(odata["weichuli"]);
 		$(".shensuz").find("i").text(odata["shensuzhong"]);
@@ -196,7 +193,6 @@ function fnshijian(state) {
 			//console.log(data)
 			$(".cgl-jzz").hide();
 			if(data["allcount"] == 0) {
-
 				$(".cgl-jzz").html("暂无数据").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
 				$("#cgl-tbody").html("");
 				$("#shua").text(data["shuadanjine"].toFixed(2));
@@ -210,11 +206,10 @@ function fnshijian(state) {
 				$("#cgl-tablebox").animate({
 					scrollTop: 0
 				}, 0);
-				$("#cgl-more").find("span").html("点击加载更多");
 				$("#cgl-more").hide(function() {
 					$("#cgl-more").css({
 						"display": "none"
-					});
+					}).find("span").html("点击加载更多");
 				});
 			}
 
@@ -274,9 +269,9 @@ function fnjilu() {
 	if(state.compare == "等于") {
 		$("#cgl-xzf").val("等于");
 	} else {
-		for(var i = 0; i < $("#cgl-xzf option").length; i++) {
-			if($("#cgl-xzf option").eq(i).html() == state.compare) {
-				$("#cgl-xzf option").eq(i).attr("selected", true)
+		for(var i = 0; i < $("option","#cgl-xzf").length; i++) {
+			if($("option","#cgl-xzf").eq(i).html() == state.compare) {
+                $("option","#cgl-xzf").eq(i).attr("selected", true)
 			}
 		}
 	}
@@ -291,9 +286,9 @@ function fnjilu() {
 		$("#cgl-wgdj").css({
 			"color": "#333"
 		});
-		for(var j = 1; j < $("#cgl-wgdj option").length; j++) {
-			if($("#cgl-wgdj option").eq(j).html() == state.level) {
-				$("#cgl-wgdj option").eq(j).attr("selected", true)
+		for(var j = 1; j < $("option","#cgl-wgdj").length; j++) {
+			if($("option","#cgl-wgdj").eq(j).html() == state.level) {
+                $("option","#cgl-wgdj").eq(j).attr("selected", true)
 			}
 		}
 	}
@@ -304,8 +299,7 @@ function fnxze1() {
 		$(this).addClass("clicon").siblings().removeClass("clicon");
 
 
-		$(".xzcont>div>div").removeClass("stateon");
-		$(".xzcont>div>div").each(function(i) {
+		$(".xzcont>div>div").removeClass("stateon").each(function(i) {
 			if($(this).attr("state") == $(this).parent().attr("state")) {
 				$(this).addClass("stateon");
 			}
@@ -349,7 +343,7 @@ function fndate() {
 			issure: false,
 			choose: function(dates) {
 				//layer.msg(dates);
-				var isxy = $('#cgl-cxdata1').val().replace(/-/g, "") - $('#cgl-cxdata').val().replace(/-/g, "")
+				var isxy = $('#cgl-cxdata1').val().replace(/-/g, "") - $('#cgl-cxdata').val().replace(/-/g, "");
 				//console.log(isxy)
 				if($('#cgl-cxdata').val() == state["querybegindate"] && $('#cgl-cxdata1').val() == state["queryenddate"]) {
 					return false;
@@ -644,7 +638,7 @@ function article_add(that) {
 		"<ul id='cgl-li4ul'>" +
 		"<li><h4>近半年</h4><p>" + $(".cgl-td5", parents).html() + "</p></li>" +
 		"<li><h4>违规级别</h4><p>" + $(".cgl-td6", parents).text() + "</p></li>" +
-		"<li><h4>违规原因</h4><p>" + $(".cgl-td7", parents).text() + "</p></li>" +
+		"<li><h4>违规原因</h4><p>" + $(".cgl-td7>p", parents).text() + "<br/><a class='xqckxq' style='color: #5380cb;' href='javascript:'>查看详情</a></p></li>" +
 		"<li><h4>处罚措施</h4><p>" + $(".cgl-td8", parents).text() + "</p></li>" +
 		"<li><h4>处罚周期</h4><p class='cgl-xxcfzq'>" + $(".cgl-td9", parents).html() + "</p></li>" +
 		"<li><h4>刷单金额</h4><p>￥ " + Number($(".cgl-td10", parents).text()).toFixed(2) + "</p></li>" +
@@ -669,6 +663,9 @@ function article_add(that) {
 		content: cont
 	});
 	layer.full(index);
+	$(".xqckxq").on("click",function () {
+        parents.find(".cgl-td7>a").click();
+    });
 	//操作记录
 	var guid = parents.attr("gu-id");
 	$.ajax({
@@ -1290,12 +1287,24 @@ function fnwgjlzt(putdata) {
 		}
 	});
 }
+
+function fnfenxi(num) {
+    var num1=null,
+        arr1=[];
+    if(String(num).indexOf("e")>0){
+        arr1=String(num).split("e");
+        num1=Number(arr1[0]).toFixed(6)+" e"+arr1[1];
+    }else{
+        num1=num;
+    }
+    return num1;
+}
 //违规原因核销记录
 function fnweigyy() {
 	$("#cgl-tbody").on("click", ".cgl-td7>a", function() {
 		var cont = "",
-			cha = null;
-		var oparent = $(this).parents("tr");
+			cha = null,
+			oparent = $(this).parents("tr");
 		$(".cgl-zhezao").show();
 		$.ajax({
 			type: "get",
@@ -1307,8 +1316,15 @@ function fnweigyy() {
 			success: function(data) {
 				console.log(data)
 				cont = "<div class='yycont'>" +
-					"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>" +
-					"<h3 class='wgdjc'>违规等级</h3>" +
+					"<h2>" + oparent.find(".cgl-td2>p").text() + "</h2>"+
+                    "<h3>违规描述</h3>" +
+                    "<div style='padding: 0 0 6px;'>";
+                if(oparent.find(".cgl-td7>p").text()!=""){
+                    cont+=oparent.find(".cgl-td7>p").text();
+                }else{
+                    cont+="暂无原因";
+                }
+					cont+="</div><h3 class='wgdjc'>违规等级</h3>" +
 					"<div class='djms'>最终评定" + oparent.find(".cgl-td6").text() + "，原始评定" + data["original_level"] + "，";
 				cha = oparent.find(".cgl-td6").text().replace(/[^0-9]/ig, "") - data["original_level"].replace(/[^0-9]/ig, "");
 				if(cha >= 0) {
@@ -1316,56 +1332,84 @@ function fnweigyy() {
 				} else {
 					cont += "降低" + -cha + "级";
 				}
-				cont += "</div>" +
+
+				cont+="</div>" +
 					"<h3>与提升相关的违规记录</h3>" +
-
-					"<div>" +
-					"<table border='1'>" +
-					"<tr>" +
-					"<th width='182'>违规时间</th>" +
-					"<th width='89'>违规等级</th>" +
-					"<th>处罚措施</th>" +
-					"</tr></table></div>" +
-
+					"<div>";
+				if(data["breakrulesrecord"]){
+                    if(data["breakrulesrecord"].length==0){
+                        cont+="暂无记录";
+                    }else{
+                        cont+="<table border='1'>" +
+                            "<tr>" +
+                            "<th width='182'>违规时间</th>" +
+                            "<th width='89'>违规等级</th>" +
+                            "<th>处罚措施</th>" +
+                            "</tr>" +
+                            "</table>";
+                    }
+				}else{
+                    cont+="暂无记录";
+				}
+				cont+="</div>" +
 					"<div class='table1'><table border='1'>";
 				for(var k1 in data["breakrulesrecord"]) {
 					cont += "<tr><td class='djtd1'>" + data["breakrulesrecord"][k1]["issuetime"] + "</td><td class='djtd2'>" + data["breakrulesrecord"][k1]["breakruleslevel"] + "</td><td class='djtd3'>" + data["breakrulesrecord"][k1]["measures"] + "</td></tr>";
 				}
 				cont += "</table></div>" +
-					"<h3 class='tianpfx'>天平分析</h3>" +
-					"<ul class='fxcont'>" +
-						"<li><h4>消费者集中</h4><span>" + data["arithmetic"]["value1"] + "</span><p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
-						"<li><h4>经济学模型重尾分布</h4><span>" + data["arithmetic"]["value2"] + "</span><p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
-						"<li><h4>单人多券</h4><span>" + data["arithmetic"]["value3"] + "</span><p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
-						"<li><h4>T分布统计</h4><span>" + data["arithmetic"]["value4"] + "</span><p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
-						"<li><h4>Grosbby异常检测</h4><span>" + data["arithmetic"]["value5"] + "</span><p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
-						"<li><h4>粗糙集分类统计</h4><span>" + data["arithmetic"]["value6"] + "</span><p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
-						"<li><h4>门店密集核销</h4><span>" + data["arithmetic"]["value7"] + "</span><p>核销间隔过短，一段时间内频率过高的情况</p></li>" +
-					"</ul>" +
-					"<div class='hxjl'>" +
-					"<h3>核销记录</h3>" +
-					"</div>" +
-					"<div class='hxjlpx'>" +
-					"<span class='onck'>密集核销</span>" +
-					"<span>消费者集中</span>" +
-					"<span>一人多券</span>" +
-					"</div>" +
-					"<div><table border='1'><thead>" +
-					"<tr>" +
-					"<th width='60'>消费者</th>" +
-					"<th width='90'>门店</th>" +
-					"<th width='99'>活动名称</th>" +
-					"<th width='67'>超惠券类型</th>" +
-					"<th width='86'>优惠内容</th>" +
-					"<th width='77'>门店核销金额</th>" +
-					"<th width='77'>双方位置距离</th>" +
-					"<th width='77'>是否在店核销</th>" +
-					"<th width='72'>核销时间</th>" +
-					"<th>密集程度</th>" +
-					"</tr></thead></table></div>" +
-					"<div class='table2'><table border='1'><tbody>";
-				cont += "</tbody></table></div>" +
-					"<div class='cgl-yyclose'>" +
+                                "<h3 class='tianpfx'>天平分析</h3>" +
+                                "<ul class='fxcont'>" +
+                                    "<li>" +
+                                        "<h4>消费者集中</h4><span>" + fnfenxi(data["arithmetic"]["value1"]) + "</span>" +
+                                        "<p>消费者过于集中在固定的人群，新粉增加少的情况</p></li>" +
+                                    "<li>" +
+                                        "<h4>经济学模型重尾分布</h4><span>" + fnfenxi(data["arithmetic"]["value2"]) + "</span>" +
+                                        "<p>从经济学分布角度统计各券各核销次数对应人数分布中的异常程度</p></li>" +
+                                    "<li>" +
+                                        "<h4>单人多券</h4><span>" + fnfenxi(data["arithmetic"]["value3"]) + "</span>" +
+                                        "<p>一个消费者一次进点核销该店所有或过多超惠券的情况</p></li>" +
+                                    "<li>" +
+                                        "<h4>T分布统计</h4><span>" + fnfenxi(data["arithmetic"]["value4"]) + "</span>" +
+                                        "<p>从概率统计分布角度统计各券各人核销次数分布中的异常程度</p></li>" +
+                                    "<li>" +
+                                        "<h4>Grosbby异常检测</h4><span>" + fnfenxi(data["arithmetic"]["value5"]) + "</span>" +
+                                        "<p>从样本统计学角度统计各券各人核销次数的离群严重程度</p></li>" +
+                                    "<li>" +
+                                        "<h4>粗糙集分类统计</h4><span>" + fnfenxi(data["arithmetic"]["value6"]) + "</span>" +
+                                        "<p>通过对券、消费者、核销次数、核销时间等多维度进行数学分类，统计在各种分类下的异常程度</p></li>" +
+                                    "<li>" +
+                                        "<h4>门店密集核销</h4><span>" + fnfenxi(data["arithmetic"]["value7"]) + "</span>" +
+                                        "<p>核销间隔过短，一段时间内频率过高的情况</p>" +
+                    "               </li>" +
+                                "</ul>" +
+                                "<div class='hxjl'>" +
+                                "<h3>核销记录</h3>" +
+					"</div>";
+					if(data["verifylist"]){
+                        cont+="<div class='hxjlpx'>" +
+                            "<span class='onck'>密集核销</span>" +
+                            "<span>消费者集中</span>" +
+                            "<span>一人多券</span>" +
+                            "</div>" +
+                            "<div><table border='1'><thead>" +
+                            "<tr>" +
+                            "<th width='60'>消费者</th>" +
+                            "<th width='90'>门店</th>" +
+                            "<th width='99'>活动名称</th>" +
+                            "<th width='67'>超惠券类型</th>" +
+                            "<th width='86'>优惠内容</th>" +
+                            "<th width='77'>门店核销金额</th>" +
+                            "<th width='77'>双方位置距离</th>" +
+                            "<th width='77'>是否在店核销</th>" +
+                            "<th width='72'>核销时间</th>" +
+                            "<th>密集程度</th>" +
+                            "</tr></thead></table></div>" +
+                            "<div class='table2'><table border='1'><tbody>";
+                        cont += "</tbody></table></div>";
+					}else{
+						cont+="<p>暂无记录</p>";
+					}
+					cont+="<div class='cgl-yyclose'>" +
 					"<span class='cgl-close'>关闭</span>" +
 					"</div>" +
 					"</div>";
@@ -1377,7 +1421,10 @@ function fnweigyy() {
 				});
 				layer.full(index);
 				fnclose(index);
-				fnshaixuan(data["verifylist"]);
+				if(data["verifylist"]){
+                    fnshaixuan(data["verifylist"]);
+				}
+
 				$(".cgl-zhezao").hide();
 			}
 		});
@@ -1389,48 +1436,51 @@ function fnpaixu(data, order) {
 	var cont = "",
 		cn = null;
 	var colorarr = ["#f00", "#ff4a4a", "#ff6e6e", "#ff8585", "#ffc1c1", "#ffd9d9", "#ffe1e1", "#fff1f1"];
-	for(var i = 0; i < data.length; i++) {
-		for(var j = 0; j < data.length; j++) {
-			if(data[j][order] == i) {
-				cont += "<tr>" +
-					"<td class='jltd1'>" + data[j]["consumername"] + "</td>" +
-					"<td class='jltd2'>" + data[j]["retailername"] + "</td>" +
-					"<td class='jltd3'>" + data[j]["activitytitle"] + "</td>" +
-					"<td class='jltd4'>" + data[j]["itemkind"] + "</td>" +
-					"<td class='jltd5'>" + data[j]["ruletext"] + "</td>" +
-					"<td class='jltd6'>" + data[j]["verifymoney"] + "</td>" +
-					"<td class='jltd7'>暂无</td>" +
-					"<td class='jltd8'>暂无</td>" +
-					"<td class='jltd9'>" + data[j]["issuetime"] + "</td>" +
-					"<td class='jltd10' ";
-				if(parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]) < 0) {
-					cont += "style='background:#fff'";
-				} else {
-					cn = parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]);
-					if(cn < 30) {
-						cont += "style='background:" + colorarr[0] + "'";
-					} else if(cn < 60) {
-						cont += "style='background:" + colorarr[1] + "'";
-					} else if(cn < 150) {
-						cont += "style='background:" + colorarr[2] + "'";
-					} else if(cn < 300) {
-						cont += "style='background:" + colorarr[3] + "'";
-					} else if(cn < 600) {
-						cont += "style='background:" + colorarr[4] + "'";
-					} else if(cn < 1800) {
-						cont += "style='background:" + colorarr[5] + "'";
-					} else if(cn < 3600) {
-						cont += "style='background:" + colorarr[6] + "'";
-					} else {
-						cont += "style='background:" + colorarr[7] + "'";
-					}
-				}
-				cont += "></td>" +
-					"</tr>";
-			}
-		}
+	if(data){
+        for(var i = 0; i < data.length; i++) {
+            for(var j = 0; j < data.length; j++) {
+                if(data[j][order] == i) {
+                    cont += "<tr>" +
+                        "<td class='jltd1'>" + data[j]["consumername"] + "</td>" +
+                        "<td class='jltd2'>" + data[j]["retailername"] + "</td>" +
+                        "<td class='jltd3'>" + data[j]["activitytitle"] + "</td>" +
+                        "<td class='jltd4'>" + data[j]["itemkind"] + "</td>" +
+                        "<td class='jltd5'>" + data[j]["ruletext"] + "</td>" +
+                        "<td class='jltd6'>" + data[j]["verifymoney"] + "</td>" +
+                        "<td class='jltd7'>暂无</td>" +
+                        "<td class='jltd8'>暂无</td>" +
+                        "<td class='jltd9'>" + data[j]["issuetime"] + "</td>" +
+                        "<td class='jltd10' ";
+                    if(parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]) < 0) {
+                        cont += "style='background:#fff'";
+                    } else {
+                        cn = parseInt(data[j]["timespan" + order.replace(/[^0-9]/ig, "")]);
+                        if(cn < 30) {
+                            cont += "style='background:" + colorarr[0] + "'";
+                        } else if(cn < 60) {
+                            cont += "style='background:" + colorarr[1] + "'";
+                        } else if(cn < 150) {
+                            cont += "style='background:" + colorarr[2] + "'";
+                        } else if(cn < 300) {
+                            cont += "style='background:" + colorarr[3] + "'";
+                        } else if(cn < 600) {
+                            cont += "style='background:" + colorarr[4] + "'";
+                        } else if(cn < 1800) {
+                            cont += "style='background:" + colorarr[5] + "'";
+                        } else if(cn < 3600) {
+                            cont += "style='background:" + colorarr[6] + "'";
+                        } else {
+                            cont += "style='background:" + colorarr[7] + "'";
+                        }
+                    }
+                    cont += "></td>" +
+                        "</tr>";
+                }
+            }
+        }
+        $(".table2").find("tbody").html(cont);
 	}
-	$(".table2").find("tbody").html(cont);
+
 
 	//同名同色
     if(order!="order1"){

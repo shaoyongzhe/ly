@@ -47,10 +47,10 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 			console.log('活动列表为空，无法展示指定活动');
 			return;
 		}		
-		ajaxSucFn(allActivity.content[0]);
+		ajaxSucFn(allActivity.content[0],"first");
 		topicactivity_id=allActivity.content[0].guid;
 		$(".CcButieRight").hide();
-		if(data.content.length<=1){
+		if(allActivity.content.length<=1){
 			$(".CcButieLeft").hide();
 		}
 		UpdateMatchedTopicsBol=false;		
@@ -61,13 +61,13 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 function Cajax(m,a,b){
 	console.log("ajax开始")
 	$.ajax({
-		type:"get",//0121更新为post
+		type:"post",//0121更新为post
 		dataType:'json',	
 		url:"/webapi/ipaloma/topic/jingxiaobao/activity/"+m+"/",//
 //		url:"/webapi/ipaloma/topic/jingxiaobao/activity/",
 		data:{
-			"activityid": a, // 对应的活动id
-   			"retailerids": b// 对应的门店id，以逗号分割
+		    "activityid": a == undefined ? "" : a, // 对应的活动id
+		    "retailerids": b == undefined ? "" : b// 对应的门店id，以逗号分割
 		},
 		async:true,
 		beforeSend:function(){
@@ -79,27 +79,27 @@ function Cajax(m,a,b){
 //				layer.alert("数据为空，请重试", {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			if(data.content==undefined){
 //				layer.alert('数据结构变化，请通知管理员', {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			if(data.content==[]){
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			if(data.content.length==0){
 //				layer.alert('数据为空', {icon: 5});
 				popupsFn(function(){					
 					Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-				},null,"259px","149px")
+				},null,"259px","138px")
 				return;
 			}
 			console.log(data);
@@ -121,7 +121,7 @@ function Cajax(m,a,b){
 //			layer.alert('通讯异常:错误'+data.status, {icon: 5});
 			popupsFn(function(){					
 				Cajax(UrlKeyValueData.distributor_id,UrlKeyValueData.activity_id);
-			},null,"259px","149px")
+			},null,"259px","138px")
 		},
 		complete:function(data){
 			linshi2=data;
@@ -132,7 +132,7 @@ function Cajax(m,a,b){
 
 
 
-function ajaxSucFn(info){//ajax成功回调里调用
+function ajaxSucFn(info,switcher){//ajax成功回调里调用
 //	debugger;
 	linshiInfo=info;
 	if(info.match){//处理不规范的后台数据,
@@ -143,7 +143,7 @@ function ajaxSucFn(info){//ajax成功回调里调用
 	
 	//如果是创建优惠券的时候
 	if(UrlKeyValueData.type!=undefined){		
-		if(UrlKeyValueData.type=="creat"){
+		if(UrlKeyValueData.type=="creat"&&switcher==undefined){
 			$(".CbdD2P1").text("您所在的地区正在如火");
 			$(".CbdD2P2").text("如荼的进行此活动！");
 			if(info.matched){
@@ -151,6 +151,16 @@ function ajaxSucFn(info){//ajax成功回调里调用
 			}else{
 				$(".Cccondition").show();
 			}
+		}else if(UrlKeyValueData.type=="creat"&&switcher!=undefined){
+			if(info.matched){
+				$(".CbdD2P1").text("您已达到活动条件");
+				$(".CbdD2P2").text("马上可以赚补贴喽！");
+				$(".Cccondition").hide();//1228加入
+			}else{
+				$(".CbdD2P1").text("您差一点点");
+				$(".CbdD2P2").text("就可以赚补贴喽");
+				$(".Cccondition").show();
+			}			
 		}else if(UrlKeyValueData.type=="modify"){
 			if(info.matched){
 				$(".CbdD2P1").text("您已达到活动条件");
@@ -367,7 +377,7 @@ var allActivityNum=0;
 $(".CcButieLeft").click(function(){	
 	if(allActivityNum<allActivity.content.length-1){
 		allActivityNum++;
-		ajaxSucFn(allActivity.content[allActivityNum]);
+		ajaxSucFn(allActivity.content[allActivityNum],"left");
 		topicactivity_id=allActivity.content[allActivityNum].guid;
 //	}else{
 //		$(".CcButieLeft").hide();
@@ -384,7 +394,7 @@ $(".CcButieLeft").click(function(){
 $(".CcButieRight").click(function(){	
 	if(allActivityNum>0){
 		allActivityNum--;
-		ajaxSucFn(allActivity.content[allActivityNum]);
+		ajaxSucFn(allActivity.content[allActivityNum],"right");
 		topicactivity_id=allActivity.content[allActivityNum].guid;
 //	}else{
 //		$(".CcButieRight").hide();

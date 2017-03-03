@@ -44,7 +44,6 @@ var vm = avalon.define({
     //maxNum: 10,//最大可核销数量
     hxNum: 1,
     qrkey: "",
-
     jsondata: {},
     pageStep: 0,//控制页面展示
     activityitem_id: common.getUrlParam("activityitem_id"),
@@ -335,7 +334,7 @@ var vm = avalon.define({
 
                         if (result.data.length > 0) {
                             // $('#dowebok').show();
-                       
+
                             vm.topicdata = result.data
                             if (result.data.length > 1) {
                                 $('.share_pop2').remove();
@@ -351,7 +350,8 @@ var vm = avalon.define({
                                 }
                             }
                         }
-                    } else {
+                    }
+                    else {
                         $(".msg,#QRCode").hide()
                         Msg.show(1, result.message)
                     }
