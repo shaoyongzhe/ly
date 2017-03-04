@@ -108,7 +108,7 @@ var vm = avalon.define({
                 try {
                     if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                         var json = JSON.parse(XMLHttpRequest.responseText);
-                        errormsg = JSON.parse(json.Message).error;
+                        errormsg = json.Message != undefined ? JSON.parse(json.Message).error : json.error;
                         if (errormsg == undefined || errormsg == '')
                             errormsg = "Http error: " + XMLHttpRequest.statusText;
                     }
@@ -116,10 +116,12 @@ var vm = avalon.define({
 
                 }
 
-                Msg.show(4, errormsg, "查不到超惠券信息，请重试！")
-                $(".btn").hide()
-                $("#btn_2").show()//返回
-                $("#btn_3").show()//返回
+                Msg.show(4, errormsg, errormsg == "登录失败" ? "请退出重新登录" : "查不到超惠券信息，请重试！")
+                if (errormsg != "登录失败") {
+                    $(".btn").hide()
+                    $("#btn_2").show()//返回
+                    $("#btn_3").show()//返回
+                }
             }
         });
     },
@@ -171,7 +173,7 @@ var vm = avalon.define({
                     try {
                         if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                             var json = JSON.parse(XMLHttpRequest.responseText);
-                            errormsg = JSON.parse(json.Message).error;
+                            errormsg = json.Message != undefined ? JSON.parse(json.Message).error : json.error;
                             if (errormsg == undefined || errormsg == '')
                                 errormsg = "Http error: " + XMLHttpRequest.statusText;
                         }
@@ -181,13 +183,13 @@ var vm = avalon.define({
                     if (errormsg.indexOf('网络') >= 0) {
                         Msg.show(4, errormsg, "核销失败，请重试")
                     } else {
-                        Msg.show(2, errormsg, "核销失败，请重试")
+                        Msg.show(2, errormsg, errormsg == "登录失败" ? "请退出重新登录" : "核销失败，请重试")
                     }
-
-
-                    $(".btn").hide()
-                    $("#btn_2").show()//返回
-                    $("#btn_4").show()//重试
+                    if (errormsg != "登录失败") {
+                        $(".btn").hide()
+                        $("#btn_2").show()//返回
+                        $("#btn_4").show()//重试
+                    }
                     vm.IsVerifycard = false
                 }
             });
@@ -266,6 +268,7 @@ var vm = avalon.define({
                 } catch (e) {
 
                 }
+                $(".msg").show()
                 if (errormsg.indexOf('网络') >= 0) {
                     Msg.show(4, errormsg)
                 } else {
