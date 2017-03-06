@@ -93,7 +93,7 @@ function getList(isEnd, handle, searchForm) {
             return;
             //layer.msg('已全部加载完毕');
         }
-
+        console.log(data.content.length+"pppp");
         $(".totalcount").text(data.totalcount);
         // $("table.notify tbody").empty();
         //console.log(JSON.stringify(data, null, 4));
@@ -583,6 +583,7 @@ $('table.modulePeople')
 
 $("#refresh").click(function () {
     isBottom = false;
+    initPageData();
     getList(false, 'refresh', getSearchForm());
 });
 
