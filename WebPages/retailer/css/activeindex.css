@@ -5,6 +5,18 @@ html,body{height: 100%;background: #fff;display: -webkit-box;-webkit-box-orient:
 img{display: block;}
 em{font-style: normal;}
 input{outline: none;}
+/*
+--清除谷歌浏览器下的 search 叉号
+*/
+input::-webkit-search-cancel-button{
+    display: none;
+}
+/*
+--清除IE下的 search 叉号
+*/
+input[type=search]::-ms-clear{
+    display: none;
+}
 .left{float: left;}
 .right{float: right;}
 .hori{display: -webkit-box;-webkit-box-orient:horizontal;}
@@ -86,7 +98,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .c-price>span:nth-child(1){color: red;font-size: 0.7rem;}
 .c-price .del{margin-left: 5px;}
 .c-price>div{padding-right: 0.5rem;margin-top: -0.2rem;}
-.addjian>span{float: left;}
+.c-price>div:nth-of-type(1)>span{float: left;}
 .jian,.add{display: inline-block; width: 1.32rem;height: 1.32rem;background: url("../image/shop/sub.png") no-repeat center;background-size: 1.32rem;}
 .add{background-image: url("../image/shop/add.png");}
 .cgl-syu{padding: 5px 0 0;}

@@ -218,6 +218,7 @@ function fnmclick1(theid,idd) {
             n1.eq(i).hide();
         }
     }
+    console.log($(this))
     $("#cgl-contlist").scrollTop(0);
 }
 //品牌下二级分类筛选
@@ -333,7 +334,7 @@ function fnychxr(data) {
             distributorid: fnurl().distributor_id,
             itemid: data[k1]["itemid"],
             itemquality: data[k1]["itemquality"],
-            itemprice: 0,
+            itemprice: data[k1]["itemunitcost"],
             prepayid:data[k1]["prepayid"],
             isyucun: 1
         }
