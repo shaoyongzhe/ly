@@ -181,10 +181,19 @@
 							}
 						}
 						$("#pp span").text(_discount.toFixed(1))
-						if(_data1[_indd]["specialprice"] && _data1[_indd]["specialprice"]!==0){
+						if(data["content"][commodity]["iswechatdiscount"]==true){
 		        			$("#vv").css({display:"flex"})
-		        			_discount+=Number(_data1[_indd]["specialprice"])
-		        			$("#vv span").text(_data1[_indd]["specialprice"].toFixed(1))
+		        			if(data["content"][commodity]["openflag"]==1){
+		        				if(_data1[_indd]["specialprice"]){
+			        				_discount+=Number(_data1[_indd]["specialprice"])
+			        				$("#vv span").text(_data1[_indd]["specialprice"].toFixed(1))		        					
+		        				}
+
+		        			}else{
+			        				_discount+=Number(data["content"][commodity]["wechatdiscount"])
+			        				$("#vv span").text(data["content"][commodity]["wechatdiscount"].toFixed(1))			        				
+		        			}
+
 		        		}
 						console.log(_get)
 						
