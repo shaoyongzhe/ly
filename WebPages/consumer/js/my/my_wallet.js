@@ -124,11 +124,13 @@ var vm = avalon.define({
 
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
+                                var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
-                                        vm.alllist.array.push(v)
-                                    }
+                                    bl = !compare(item.$model, v)
                                 })
+                                if (bl)
+                                    vm.alllist.array.push(v)
+
                             } else {
                                 vm.alllist.array.push(v)
                             }
@@ -140,11 +142,13 @@ var vm = avalon.define({
                         });
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
+                              
+                                var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
-                                        vm.incomelist.array.push(v)
-                                    }
+                                    bl = !compare(item.$model, v)
                                 })
+                                if (bl)
+                                    vm.incomelist.array.push(v)
                             } else {
                                 vm.incomelist.array.push(v)
                             }
@@ -156,11 +160,13 @@ var vm = avalon.define({
                         });
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
+                                var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
-                                        vm.expendlist.array.push(v)
-                                    }
+                                    bl = !compare(item.$model, v)
                                 })
+                                if (bl)
+                                    vm.expendlist.array.push(v)
+
                             } else {
                                 vm.expendlist.array.push(v)
                             }
@@ -274,7 +280,7 @@ var vm = avalon.define({
             type: 'GET',
             dataType: 'json',
                 data: { count: vm.Moneys.balance },
-            url: '/webapi/consumer/mine/consumer/withdraw',
+            url: '/webapi/consumer/mine/withdraw',
             beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
             success: function (json) {
                 shelter.close()

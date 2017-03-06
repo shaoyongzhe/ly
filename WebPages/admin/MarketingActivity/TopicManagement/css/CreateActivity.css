@@ -237,6 +237,7 @@ input.time{
 	margin-left: 16px;
 }
 
+
 /* .check{
     margin-left: 32px;
 	cursor: pointer;
@@ -1459,17 +1460,17 @@ textarea{
 	width:848px;
 	margin-top: 40px;
 }
-/*.addSubSubsidyPolicy内模拟下�?/
+/*.addSubSubsidyPolicy内模拟下拉*/
 .addSubSubsidyPolicy .selectWrapL ul{
 	list-style: none;
 	padding: 0;
 	
 }
 .addSubSubsidyPolicy .selectWrapL{
-	width: 150px;/*将由调用出覆�?决定selectL的宽�?/
+	width: 150px;/*将由调用出覆盖,决定selectL的宽度*/
     border: 1px solid #e4e4e4;
     border-radius: 3px;
-    line-height: 27px;/*设置这里调整下拉的高�?/
+    line-height: 27px;/*设置这里调整下拉的高度*/
     height:27px;
     cursor: pointer;
     position: relative;
@@ -1490,11 +1491,11 @@ textarea{
 }
 
 .addSubSubsidyPolicy .selectWrapL .arrowL{
-	width: 24px;/*i的宽度，可以调整竖线以及箭头这个整体距离右侧距离的参�?，如果仅仅想调箭头的位置，请去调其定�?/
+	width: 24px;/*i的宽度，可以调整竖线以及箭头这个整体距离右侧距离的参数1，如果仅仅想调箭头的位置，请去调其定位*/
 	/*height:100%;*/
     position: absolute;
     height: 15px;/*调整竖线高度*/
-    right: 0;/*调整竖线以及箭头这个整体距离右侧距离的参�?，如果仅仅想调箭头的位置，请去调其定�?/
+    right: 0;/*调整竖线以及箭头这个整体距离右侧距离的参数2，如果仅仅想调箭头的位置，请去调其定位*/
     top: 5px;/*调整竖线top*/
     border-left: 1px solid #ccc;
     /*background:orange;*/			   
@@ -1502,8 +1503,8 @@ textarea{
 
 .addSubSubsidyPolicy .selectWrapL .arrowL:before{
 	content: "";
-    width: 8px;/*调整箭头，与height同时�?/
-    height: 8px;/*调整箭头，width同时�?/
+    width: 8px;/*调整箭头，与height同时调*/
+    height: 8px;/*调整箭头，width同时调*/
     border-right: 2px solid #ccc;
     border-bottom: 2px solid #ccc;
     transform: rotate(45deg);
@@ -1524,7 +1525,7 @@ textarea{
     text-align: center; 
     box-sizing: border-box; 
     position: absolute;
-    top: 26px;/*调整所有optionL距离selectL的距�?/
+    top: 26px;/*调整所有optionL距离selectL的距离*/
     /*line-height:42px ;龙加，用于调整optionL的高度，也可以用inherit继承*/
     /*z-index: 1;*/
     /*font-size: 14px;*/
@@ -1537,7 +1538,7 @@ textarea{
 .addSubSubsidyPolicy .disabled{
 	background-color: #faf9f9;
 }			
-/*"仅限选择一种补贴条�?文字*/
+/*"仅限选择一种补贴条件"文字*/
 .subsidyConditionWarn{
 	color:#ff4242;
 	font-size: 14px;
@@ -1564,7 +1565,7 @@ textarea{
 	height: 0;
 	clear: both;
 }
-/*补贴项目，如"开头会员系统，拉粉�?*/
+/*补贴项目，如"开头会员系统，拉粉等"*/
 .subsidyConditionItem{
 	width:202px;
 	height:50px;
@@ -1688,11 +1689,11 @@ textarea{
 	background-color: white;
 	margin-left: -1px;
 	border-radius: 3px;
-	padding-left: 6px;
+	padding-left: 2px;
 }
 .addSubSubsidyPolicy .unitContent input{
 	/*line-height: 27px;*/
-	width:22px;
+	width:27px;
 	text-align: center;
 	outline: none;
 	border: hidden;
@@ -1700,6 +1701,7 @@ textarea{
 	background: transparent;
 	/*background: red;*/
 	vertical-align: top;
+	text-indent: 1px;
 }
 .addSubSubsidyPolicy .unitContent span{
 	font-size: 14px;
