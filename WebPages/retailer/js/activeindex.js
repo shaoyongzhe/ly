@@ -26,9 +26,8 @@ function fnpinpai() {
 }
 //获取地址栏参数
 function fnurl() {
-    var ourl = decodeURI(window.location.search.replace("?", ""));
+    var ourl = sessionStorage.getItem("fenxiao");
     if(ourl != "") {
-        //console.log(JSON.parse(ourl))
         var url1 = JSON.parse(ourl);
         return url1;
     }

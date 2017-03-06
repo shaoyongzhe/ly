@@ -143,8 +143,8 @@ function fngetlist() {
             	var thissp1=JSON.parse($(this).attr("data-xx"));
             	thissp1.active=$(this).find(".cgl-manj").html();
             	//console.log(thissp)
-            	window.location="activeindex.html?"+JSON.stringify(thissp1);
-            	
+                sessionStorage.setItem("fenxiao",JSON.stringify(thissp1))
+            	window.location="activeindex.html";
             });  
             
         }
