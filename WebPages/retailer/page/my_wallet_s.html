@@ -39,7 +39,7 @@
                 <h1>
                     ￥{{mymoney.balance}}
                 </h1>
-                <div v-bind:class="[mymoney.balance>0 ? 'valid' : 'invalid', 'deposit']"><a href="javascript:void(0)">提现</a></div>
+                <div v-bind:class="[mymoney.balance>0 ? 'valid' : 'invalid', 'deposit']" v-on:click="userwithdraw()"><a href="javascript:void(0)">提现</a></div>
             </div>
             <div class="Wallet_nav mt46">
                 <p class="border_efeef4"></p>
@@ -68,7 +68,7 @@
                             <!--<p><a href="javascript:void(0)">更多明细</a></p>-->
                         </div>
                         <div class="Wallet_fail" v-if="alllist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无我的核销流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无流水记录哦！</span></p>
                         </div>
                     </div>
                     <div id="list_2" v-if="category=='income'">
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                         <div class="Wallet_fail" v-if="incomelist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无我的核销收入流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无收入流水记录哦！</span></p>
                         </div>
                     </div>
                     <div id="list_3" v-if="category=='expend'">
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         <div class="Wallet_fail" v-if="expendlist.array.length==0">
-                            <p><img src="/retailer/image/fail_icon.png"><span>暂无我的核销支出流水记录哦！</span></p>
+                            <p><img src="/retailer/image/fail_icon.png"><span>暂无支出流水记录哦！</span></p>
                         </div>
                     </div>
                 </div>
@@ -399,8 +399,8 @@
                         $.ajax({
                             type: 'GET',
                             dataType: 'json',
-                            data: { count: vm.Moneys.balance },
-                            url: '/webapi/consumer/mine/consumer/withdraw',
+                            data: { count: vm.mymoney.balance, type: "account" },
+                            url: '/webapi/retailer/mine/withdraw',
                             beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
                             success: function (json) {
                                 shelter.close()

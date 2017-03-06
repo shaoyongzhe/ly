@@ -35,7 +35,7 @@ function render(detailData){
 	first.find('.state').text(activity.state);
 	first.find('.activitytitle').text(activity.activitytitle);
 	first.find('.servicephone').text(activity.servicephone);
-	first.find('.choice').text(activity.singleselection == 1 ? "是" : "否");
+	first.find('.choice').text(activity.singleselection == 0 ? "是" : "否");
 
 	
 	// 2.参与活动条件
