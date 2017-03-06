@@ -315,9 +315,7 @@ function fnyucun() {
             $("#loading").hide();
             if(data.length==0){
                 $("#loading").hide()
-                var _lli="<img src=\"../../image/shop/icon_cry.png\" style=\"width:1.6rem;height:1.6rem;position:relative;left:44%;top:25%\">"+
-                    "<p style=\"position: relative;top: 30%;text-align: center;color：#333333\">您暂无预存货，看看其他商品吧~</p>"
-                $("#cgl-contlist").html(_lli)
+                $("#nono").show();
             }else{
                 fnychxr(data);
             }
@@ -341,22 +339,23 @@ function fnychxr(data) {
             isyucun: 1
         }
         oli += "<li yucun='yucun'>" +
-            "<div class='cgl-top hori'> " +
-            "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
-            "<div class='the-xiangxi'> " +
-            "<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
-            "<p>" + (data[k1]["specification"]==null?"":(data[k1]["specification"] + " | ")) + (data[k1]["packagetypename"]==null?"":data[k1]["packagetypename"]) + "</p>" +
-            "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>0</i></span>";
-        oli += "<div class='right'>";
-        if(data[k1]["itemcount"] <= 0) {
-            oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-        } else {
-            oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
-        }
-        oli += "</div><span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(2) + "<i></i></span>" +
-            " </div>" +
-            "<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
-        oli += "</div>" +
+                "<div class='cgl-top hori'> " +
+                    "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
+                        "<div class='the-xiangxi'> " +
+                        "<h3><span class='yucunicon'></span>" + data[k1]["itemname"] + "</h3>" +
+                        "<p>" + (data[k1]["specification"]==null?"":(data[k1]["specification"] + " | ")) + (data[k1]["packagetypename"]==null?"":data[k1]["packagetypename"]) + "</p>" +
+                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
+                            "<span>￥<i>"+Number(data[k1]["itemunitcost"]).toFixed(2)+"</i></span>";
+                    oli += "<div class='addjian right'>";
+                            if(data[k1]["itemcount"] <= 0) {
+                                oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+                            } else {
+                                oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
+                            }
+                             /*"<span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(2) + "<i></i></span>"*/
+                    oli +="</div>" +
+                        "<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
+                oli += "</div>" +
             "</div> " +
             "</li>";
     }
