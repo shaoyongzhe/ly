@@ -84,14 +84,12 @@
 		$(".phone_input input,.code_input").blur(function(){
 			$(this).css("border","1px solid #cfcfcf")
 		})
-
 		$(".code_get").click(function(){
 			sendCode();
 		})
 		$(".logining").click(function(){
 			phoneAjax();
 		})
-
 		$(".phone_input input").blur(function(){
 			var reg = /^1[3|4|5|7|8][0-9]{9}$/; //手机正则
 			var phoneTest = $(this).val();
@@ -99,12 +97,10 @@
 				$(".phone_input span").addClass("opacity");
 			}else{
 				$(".phone_input span").removeClass("opacity");
+				console.log(222)
+				return false;
 			}
 		})
-		
-
-
-
 		$('.Remember_username').click(function() {
 			$(this).toggleClass('checked');
 		});
@@ -169,14 +165,20 @@
 		}
 
 /********************************手机登录*********************************************/
-
 		var InterValObj; //timer变量，控制时间
-        var count = 60; //间隔函数，1秒执行
+        var count = 4; //间隔函数，1秒执行
         var curCount;//当前剩余秒数
+        var code = ""; //验证码
+        var codeLength = 6;//验证码长度
         function sendCode() {
             curCount = count;
             var phone=$(".phone_input input").val();
-            if( phone ){           	
+            var reg = /^1[3|4|5|7|8][0-9]{9}$/; //手机正则
+            if( reg.test(phone) ){
+            	//产生验证码
+                for (var i = 0; i < codeLength; i++) {
+                    code += parseInt(Math.random() * 9).toString();
+                }
                 $(".code_get").attr("disabled", "true");
                 $(".code_get").val("重新发送(" + curCount + ")");
                 InterValObj = window.setInterval(SetRemainTime, 1000);
@@ -184,8 +186,8 @@
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    // url: 'Login.ashx', 
-                    data: "phone=" + phone,
+                    // url: 'Login.ashx',
+                    data: "phone=" + phone+ "&code=" + code,
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                     	// alert("发送错误");
                     },
@@ -193,7 +195,7 @@
 
                     }
                 });
-            }else{               
+            }else{
                 $(".phone_input input").val("");
             }
         }
@@ -203,13 +205,14 @@
                 window.clearInterval(InterValObj);
                 $(".code_get").removeAttr("disabled");
                 $(".code_get").val("重新发送验证码");
+                code = ""; //清除验证码。
             }
             else {
                 curCount--;
                 $(".code_get").val("重新发送(" + curCount + ")");
             }
         }
-		/*手机登录Ajax*/	
+		/*手机登录Ajax*/
 		function phoneAjax (){
 			$.ajax({
 					type:'post',
@@ -221,7 +224,6 @@
 						"host":"membership-dev.ipaloma.com"
 					},
 					success:function(data){
-							
 							if( sessionStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
 								console.log(8)
 				                $('#account').val( sessionStorage["account"] );
