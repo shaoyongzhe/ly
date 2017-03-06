@@ -134,6 +134,7 @@
                 prepareData["isdefault"] = parent.$('#isDefault').val();
                 prepareData['content'] = JSON.stringify(prepareData.content);
                 parent.layer.msg('保存中', { shade: 0.3 })
+
                 $.ajax({
                     type: 'put',
                     url: '/webapi/operation/notification/template',
@@ -144,9 +145,15 @@
                         parent.$('.layui-layer-close').click();
                         parent.$('#opType').val("");
                     },
-                    error: function () {
-                        layer.msg("编辑失败!");
-                        console.warn("编辑 error");
+                    error: function (data) {
+                        // parent.layer.msg("编辑失败!");
+                        if(JSON.parse(data.responseText).Message !='')
+                        {
+                            parent.layer.msg("保存失败!"+ JSON.parse(data.responseText).Message);
+                        }else
+                        {
+                            parent.layer.msg("保存失败!");
+                        }
                     }
                 });
             } else {
@@ -161,9 +168,14 @@
                         parent.$("#refresh").click();
                         parent.$('.layui-layer-close').click();
                     },
-                    error: function () {
-                        layer.msg("保存失败!");
-                        console.warn("编辑 error");
+                    error: function (data) {
+                        if(JSON.parse(data.responseText).Message !='')
+                        {
+                            parent.layer.msg("保存失败!"+ JSON.parse(data.responseText).Message);
+                        }else
+                        {
+                            parent.layer.msg("保存失败!");
+                        }
                     }
                 });
             }
