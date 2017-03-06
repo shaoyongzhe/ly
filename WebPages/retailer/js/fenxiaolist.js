@@ -39,18 +39,25 @@ function fngetlist() {
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
         	if(textStatus=="timeout"){
-        		console.log("请求超时")
+        		console.log("请求超时");
         		XMLHttpRequest.abort();
         	}
         },
         success: function(data){
         	localStorage.retaler=data.retalerid;
             console.log(data);
-            localStorage.retalerdata=JSON.stringify(data)
+            localStorage.retalerdata=JSON.stringify(data);
             if(data.data.result==false){
             	return false;
             }
-            data=data.data
+
+            if(data.data.length<1){
+            	$(".noone").show();
+			}else {
+                $(".noone").hide();
+			}
+
+            data=data.data;
             var oli="";
             var ceng1=null;
             var ceng2=null;
@@ -80,7 +87,7 @@ function fngetlist() {
             	
             	oli+="<li id='"+k1+"' class='hori' data-xx='"+JSON.stringify(thissp)+"'>" +
                         "<div class='main-l'>" +
-                                "<img src='"+ceng1["distributorimg"]+"'>" +
+							"<img src='"+ceng1["distributorimg"]+"'>" +
                         "</div>" +
                         "<div class='main-r'>" +
                             "<div class='main-rt'>" +
@@ -126,7 +133,7 @@ function fngetlist() {
 	                            	}
 	                          		oli=oli.substring(0,oli.length-1)+"</p>";
 	                            }
-                            oli+="</div>";
+                            oli+="</div>"+
                         "</div>" +
                     "</li>";
             }
