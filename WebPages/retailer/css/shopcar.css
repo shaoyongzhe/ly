@@ -3,13 +3,13 @@ body{color:#888; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin
 div,dl,dd,dt,ul,li,ol,caption,table,tbody,thead,tfoot,th,td,tr,form,button,input,select,textarea,legend,a,p,big,small,span,strong,sub,sup,b,em,i,h1,h2,h3,h4,h5,h6,cite,q,samp,pre,code,tt,br,hr,address,img,area,map,object,del,s,header,footer{ border:none; padding:0; margin:0; list-style:none;font-style:normal;-webkit-text-size-adjust:none; vertical-align: baseline;/* chrome */ }
 img,fieldset,table,input,textarea,button{border:none;}
 .shop-title{
-	width:100%;display: flex;font-size: 1.6rem;border-bottom: 10px solid #f1f2f6;
+	width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-size: 1.6rem;border-bottom: 10px solid #f1f2f6;
 }
 .shop-title div:nth-child(1){
 	padding:12px 0 12px 10px;width:50%
 }
 .shop-title div:nth-child(2){
-	flex: 1;text-align:right;padding:10px 5px 10px 0;
+	-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;text-align:right;padding:10px 5px 10px 0;
 }
 #edit{
 	padding:5px;line-height:1.9rem;
@@ -21,7 +21,7 @@ img,fieldset,table,input,textarea,button{border:none;}
 	width:4rem;background:url(../image/shop/arr.jpg) no-repeat right;background-size: 0.8rem 1rem;display: inline-block;padding-left: 5px;margin-top: 3px;
 }
 .gouxuan{
-	width:1.4rem ;height:1.4rem ;display: inline-block;background: url(../image/shop/crect1.jpg) no-repeat center center;background-size: 1.4rem 1.4rem;margin:33px 5px 0 0px;border:1px solid #fff;border-radius: 1.4rem;
+	width:1.4rem ;height:1.4rem;float:left;background: url(../image/shop/crect1.jpg) no-repeat center center;background-size: 1.4rem 1.4rem;margin:33px 5px 0 0px;border:1px solid #fff;border-radius: 1.4rem;
 }
 .gouxuan2{
 	width:1.4rem ;height:1.4rem ;display: inline-block;background: url(../image/shop/crect2.jpg) no-repeat center center;background-size: 1.4rem 1.4rem;margin:33px 5px 0 0px;border: 1px solid #ccc;border-radius: 1.4rem;
@@ -33,22 +33,22 @@ img,fieldset,table,input,textarea,button{border:none;}
 	width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 1.4rem;color:#ff0000;
 }
 .intr div:nth-child(2){
-	padding-left: 5px;flex: 1;line-height: 1.8rem;
+	padding-left: 5px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;line-height: 1.8rem;
 }
 .intr div:nth-child(3){
 	clear:both;padding:5px 12px
 }
 .list{
-	padding:10px;display: flex;
+	padding:10px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex
 }
 .conh{
-	flex:1
+	-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;
 }
 .img1{
 	width:70px;height:70px;float:left;margin-right: 1rem;border-radius: 5px;
 }
 .yuu{
-	flex:1;padding:5px 5px 0 5px;font-size: 1.4rem;
+	-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;;padding:5px 5px 0 5px;font-size: 1.4rem;
 }
 .img2{
 	width:1.8rem;height:1.8rem;position: relative;top: 3px;margin-right: 1px;
@@ -57,13 +57,13 @@ img,fieldset,table,input,textarea,button{border:none;}
 	width:100%;font-size: 1.8rem;line-height: 2.4rem;
 }
 .yuu p{
-	line-height: 1.7rem;
+	line-height: 1.7rem;padding-left:82px
 }
 .pp1{
 	font-size: 1.8rem;color:#ff0000
 }
 .disc{
-	padding-left:10%;padding-top:3px;padding-bottom: 5px;color:#009f96;
+	padding-left:3rem;padding-top:3px;padding-bottom: 5px;color:#009f96;
 }
 section li{
 	clear:both
@@ -75,10 +75,10 @@ section li{
 	font-size: 1.4rem;
 }
 .giveTo{
-	padding:5px 0 5px 10%;font-size: 1.4rem;background: #effdfc;
+	padding:5px 0 5px 3rem;font-size: 1.4rem;background: #effdfc;
 }
 .giveTo b{
-	width:10%;font-weight: normal;display: block;float: left;
+	width:3rem;font-weight: normal;display: block;float: left;
 }
 .giveTo div{
 	width:85%
@@ -87,7 +87,7 @@ section li{
 	margin-left:5px
 }
 .disc2{
-	padding-top:5px;padding-bottom:5px;padding-left:10%;color:#009f96;
+	padding-top:5px;padding-bottom:5px;padding-left:3rem;color:#009f96;
 }
 .disc span:nth-child(1){
 	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;padding:0 2px;font-size: 1.2rem;float: left;margin-right: 5px;
@@ -167,7 +167,7 @@ section li{
 	width:76%;margin-left:12%;height:3.4rem;display: flex;
 }
 .ifDelt div:nth-child(2) span{
-	display:block;flex:1;text-align: center;line-height: 3.4rem;font-size: 12px;
+	display:block;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;;text-align: center;line-height: 3.4rem;font-size: 12px;
 }
 .ifDelt div:nth-child(2) span:nth-child(1){
 	background:#fff;border-radius: 0 0 0 8px;
@@ -176,7 +176,7 @@ section li{
 	background:#009f96;border-radius: 0 0 8px 0;
 }
 .loads{
-	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff
+	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff;display:none
 }
 .giveto{
 	font-size: 1.4rem;padding:12px;

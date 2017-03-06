@@ -26,6 +26,7 @@
 		var _ly="";
 		var _zengg="";
 		var _lln="";
+		var _yucun=0;
 		console.log(pg)
 		console.log(_data1[pg]["distributor_id"])
 		console.log(commodity)
@@ -67,6 +68,7 @@
 //								"</div></div></div></div><div class="+
 //								"\"discount\""+"></li>";
 						if(data["content"][commodity]["details"][i]["itemgifttype"]!=3){
+							_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 						if(!data["content"][commodity]["details"][i]["activityitem_id"]){
 		       			//_price+=data[i]["price"]*data[i]["itemcount"];
 		       			//_get+=Number(Number(data["content"][commodity]["details"][i]["itemunitcost"])*Number(data["content"][commodity]["details"][i]["itemcount"]))
@@ -74,7 +76,7 @@
 //			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemobj"]["itemunitcost"]+"</div><div class="+"\"number\""+
 //			       		"><div></div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div><span class="+"\"pi\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
 //							">预</span></span><p>可提"+data["content"][commodity]["details"][i]["prepaycount"]+data[i]["packagetypename"]+"</p></div></div></li>"
-								_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
+								
 								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+/*_image+*/"<div class="+"\"shop-tit\""+"><span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]).toFixed(1)+
 								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+(data["content"][commodity]["details"][i]["itemobj"]["specification"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | ")+
 								(data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["packagetypename"])+"</div><div>x"+data["content"][commodity]["details"][i]["itemcount"]+
@@ -82,7 +84,6 @@
 								"\"discount\""+">"+_remark+"</li>";
 			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="降价"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
-			       			_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 			       			_discount+=(data["content"][commodity]["details"][i]["itemoriginalcost"]-data["content"][commodity]["details"][i]["itemunitcost"])*data["content"][commodity]["details"][i]["itemcount"]
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
@@ -93,7 +94,7 @@
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
 			       			for(var r=0;r<data["content"][commodity]["details"].length;r++){
 			       				if(data["content"][commodity]["details"][r]["billid_class"]==="tblbillgift" && data["content"][commodity]["details"][r]["promotionno"]==data["content"][commodity]["details"][i]["guid"]){
-									_zengg=data["content"][commodity]["details"][r]["itemobj"]["itemname"]+data["content"][commodity]["details"][r]["itemcount"]+(data["content"][commodity]["details"][r]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][r]["itemobj"]["packagetypename"])
+									_zengg=data["content"][commodity]["details"][r]["itemobj"]["itemname"]+data["content"][commodity]["details"][r]["itemobj"]["specification"]+"<span style=\"float:right\">"+data["content"][commodity]["details"][r]["itemcount"]+(data["content"][commodity]["details"][r]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][r]["itemobj"]["packagetypename"])+"</span>"
 								}
 			       				if(data["content"][commodity]["details"][r]["toexpirecount"]>0){
 									_lln="(临期)"
@@ -101,7 +102,6 @@
 									_lln=""
 								}
 			       			}
-			       			_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div style="+"\"text-align:left\">"+(data["content"][commodity]["details"][i]["itemobj"]["specification"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | ")+
@@ -111,7 +111,7 @@
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
 			       			for(var r=0;r<data["content"][commodity]["details"].length;r++){
 			       				if(data["content"][commodity]["details"][r]["billid_class"]==="tblbillgift" && data["content"][commodity]["details"][r]["promotionno"]==data["content"][commodity]["details"][i]["guid"]){
-									_zengg=data["content"][commodity]["details"][r]["itemobj"]["itemname"]+data["content"][commodity]["details"][r]["itemcount"]+(data["content"][commodity]["details"][r]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][r]["itemobj"]["packagetypename"])
+									_zengg=data["content"][commodity]["details"][r]["itemobj"]["itemname"]+data["content"][commodity]["details"][r]["itemobj"]["specification"]+"<span style=\"float:right\">"+data["content"][commodity]["details"][r]["itemcount"]+(data["content"][commodity]["details"][r]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][r]["itemobj"]["packagetypename"])+"</span>"
 								}
 			       				if(data["content"][commodity]["details"][r]["toexpirecount"]>0){
 									_lln="(临期)"
@@ -119,7 +119,6 @@
 									_lln=""
 								}
 			       			}
-			       			_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 			       			    _list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
 			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
 			       		"><div style="+"\"text-align:left\">"+(data["content"][commodity]["details"][i]["itemobj"]["specification"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | ")+
@@ -128,15 +127,16 @@
 								data["content"][commodity]["details"][i]["giftcount"]+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]+data["content"][commodity]["details"][i]["giftitemobj"]["itemname"]+"</span></div><div class="+"\"give\""+"><div class="+"\"give-tit\""+">赠品：</div><div class="+"\"give-con\""+">"+_zengg+_lln+"</div></div>"+_remark+"</li>"
 			       		}else if(data["content"][commodity]["details"][i]["itemkind"]=="折扣"){
 			       			//_price+=data[i]["price"]*data[i]["itemcount"];
-			       			_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 			       			_discount+=(data["content"][commodity]["details"][i]["itemoriginalcost"]-data["content"][commodity]["details"][i]["itemunitcost"])*data["content"][commodity]["details"][i]["itemcount"]
 			       			_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
-			       		">"+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
-			       		"><div></div><div>×"+data[i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">折扣</div><span class="+"\"discount-con\""+
-			       		">"+data["content"][commodity]["details"][i]["discount"]+"</span></div>"+_remark+"</li>"   			
+			       		">"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+_img+"</div><div class="+"\"shop-body\""+">￥"+data["content"][commodity]["details"][i]["itemunitcost"].toFixed(1)+"</div><div class="+"\"number\""+
+			       		"><div style="+"\"text-align:left\">"+(data["content"][commodity]["details"][i]["itemobj"]["specification"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | ")+
+								(data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["packagetypename"])+"</div><div>×"+data["content"][commodity]["details"][i]["itemcount"]+"</div></div></div></div><div class="+"\"discount\""+"><div class="+"\"discount-tit\""+">折扣</div><span class="+"\"discount-con\""+
+			       		">"+data["content"][commodity]["details"][i]["discount"]+" 折</span></div>"+_remark+"</li>"   			
 			       		}
 			       		}else{
-			       			
+			       			_yucun+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
+			       			_get+=data["content"][commodity]["details"][i]["itemunitcost"]*data["content"][commodity]["details"][i]["itemcount"]
 								_list+="<li><div class="+"\"shop-con\""+"><img src="+data["content"][commodity]["details"][i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+/*_image+*/"<div class="+"\"shop-tit\""+">"+_image+"<span>"+data["content"][commodity]["details"][i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(data["content"][commodity]["details"][i]["itemunitcost"]).toFixed(1)+
 								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+(data["content"][commodity]["details"][i]["itemobj"]["specification"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["specification"]+" | ")+
 								(data["content"][commodity]["details"][i]["itemobj"]["packagetypename"]==null?"":data["content"][commodity]["details"][i]["itemobj"]["packagetypename"])+"</div><div>x"+data["content"][commodity]["details"][i]["itemcount"]+
@@ -170,8 +170,8 @@
 							}
 							console.log(i)
 							if(data["content"][commodity]["details"][i]["billid_class"]=="tblbillgift" && data["content"][commodity]["details"][i]["itemkind"]=="满赠"){
-											_ll=data["content"][commodity]["details"][i]["itemobj"]["itemname"];
-											_kk=Number(data["content"][commodity]["details"][i]["itemcount"])
+											_ll=data["content"][commodity]["details"][i]["itemobj"]["itemname"]+" "+data["content"][commodity]["details"][i]["itemobj"]["specification"];
+											_kk=Number(data["content"][commodity]["details"][i]["itemcount"])+data["content"][commodity]["details"][i]["itemobj"]["packagetypename"];
 											if(_flag==1){
 												_give+="<li><div class="+"\"gg\""+">满赠</div><span class="+"\"gif\""+">"+_ll+"<span>×"+_kk+"</span></span></li>"
 												_flag++
@@ -241,9 +241,9 @@
 						}else{
 							$("#same-ss").css({display:"none"})
 						}
-						
+						$("#ee span").text(_yucun.toFixed(1))
 						$(".amountBig").next().find("span").text(_discount.toFixed(1))
-						$(".amountBig span").text(_get.toFixed(1))
+						$(".amountBig span").text((_get-_yucun).toFixed(1))
 				console.log($("section").css("height"))
 				console.log($("body").css("height"))
 				if(Number($("section").css("height").replace("px",""))<=Number($("body").css("height").replace("px",""))){

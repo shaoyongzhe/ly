@@ -1,14 +1,13 @@
 //解析URL
 
 
-
-
-$(document).ready(function () {
-    var pg = 0;//门店        后续需要加js！！！！！！！！！！！！！
+function oJz(_Id){
+	    var pg = 0;//门店        后续需要加js！！！！！！！！！！！！！
     var _list = "";
     var _cost = 0;
     var _send = "";
     var _flag = 0;
+    var _yucun=0;
 	    var _year = new Date().getFullYear()
 	    var _month = new Date().getMonth() + 1 
 	    var _jud=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime();
@@ -35,14 +34,10 @@ $(document).ready(function () {
     var _dx = {};
     var _indd = localStorage.index;
     var _index = [];
-    var _Id = "";
+    
     var _sub = "";
     var _url = location.href;
-    if (localStorage.Id) {
-        _Id = localStorage.Id
-    } else if (location.search == "") {
-        window.history.go(-1)
-    }
+
 
     if (_Id !== "") {
         _sub = "&submitids=" + _Id
@@ -100,7 +95,7 @@ $(document).ready(function () {
                     }
                     _remark = "";
                     if (_data[i]["remark"] != "") {
-                        _remark = "<div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
+                        _remark = "<div class=" + "\"give liuy\"" + "><div class=\"give-tit\">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
                     }
                     if (_data[i]["isyucun"] === 0) {
                         if (!_data[i]["itemslist"]) {
@@ -142,7 +137,7 @@ $(document).ready(function () {
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                             ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["discount"]*0.1).toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
-                            ">" + _data[i]["discount"] + " 折</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">备注：</div><div class=" + "\"give-con\"" + ">" + _data[i]["ruledesc"] + "</div></div></li>"
+                            ">" + _data[i]["discount"] + " 折</span></div>"+_remark+"</li>"
                             }
                         } else {
                             if (_data[i]["activityitem_id"] == "") {
@@ -150,8 +145,7 @@ $(document).ready(function () {
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemslist"][_data[i]["selectedindex"]]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                                 ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
-                                "><div>" + _ltr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><span class=" + "\"pi\"" + ">￥" + _data[i]["itemslist"][_data[i]["selectedindex"]]["price"].toFixed(2) + "<span style=" + "\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\"" +
-                                    ">预</span></span><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
+                                "><div>" + _ltr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
                             } else if (_data[i]["itemkind"] == "降价") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
@@ -190,11 +184,11 @@ $(document).ready(function () {
                     } else {
                         if (_data[i]["activityitem_id"] == "") {
                             _zz += Number(_data[i]["itemcount"])
-                            _price += _data[i]["price"] * _data[i]["itemcount"];
+                            _price += _data[i]["itemunitcost"] * _data[i]["itemcount"];
+                            _yucun+=_data[i]["itemunitcost"] * _data[i]["itemcount"]
                             _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
-                            "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><span class=" + "\"pi\"" + ">￥" + _data[i]["itemunitcost"].toFixed(2) + "<span style=" + "\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\"" +
-                                    ">预</span></span><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["itemunitcost"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
                         } else if (_data[i]["itemkind"] == "降价") {
                             _zz += Number(_data[i]["itemcount"])
                             _price += _data[i]["price"] * _data[i]["itemcount"];
@@ -215,7 +209,7 @@ $(document).ready(function () {
                             _zengprice += (Number(_data[i]["giftprice"]) * (Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"])))
                             _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
 		       		">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
-		       		"><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">满赠</div><span class=" + "\"discount-con\"" +
+		       		"><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">有礼</div><span class=" + "\"discount-con\"" +
 		       		">购买" + _data[i]["salecount"] + _data[i]["packagetypename"] + _data[i]["itemname"] + "赠送" +
 							_data[i]["giftcount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"])+(_data[i]["giftitemquality"]==="0"?"(临期)":"") + "</div></div>" + _remark + "</li>"
                         } else if (_data[i]["itemkind"] == "折扣") {
@@ -255,7 +249,7 @@ $(document).ready(function () {
                     }
                     console.log(_dx)
                     if (data[_indd]["specialprice"]) {
-                        $("#vv").css({ display: "flex" })
+                        $("#vv").css({ display: "-webkit-box" })
                         $("#vv span").text(data[_indd]["specialprice"].toFixed(1))
                     } else {
                         $("#vv").css({ display: "none" })
@@ -275,8 +269,7 @@ $(document).ready(function () {
                             _zengprice += (Number(_mz[c]["price"]) * Number(_mz[c]["count"]))
 
                             _distrgive += "<div style=" + "\"padding-left:11%\"" + ">" + _mz[c]["itemname"] + 
-                            "<span style=" + "\"margin-left:15px\"" + ">" + _mz[c]["count"] + _mz[c]["unit"] +
-                             "</span><span class=" + "\"gifty\"" + ">x" + _mz[c]["count"] + "</span></div>"
+                            "<span style=" + "\"margin-left:15px\"" + "></span><span class=" + "\"gifty\"" + ">x" + _mz[c]["count"]+ _mz[c]["unit"] + "</span></div>"
 
                         }
                     }
@@ -286,14 +279,14 @@ $(document).ready(function () {
                     }
                 }
                 $("#ss div:nth-child(2)").text("￥" + _zengprice.toFixed(1))
+                $(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
                 $(".loads").css({ display: "none" })
-                $(".amountBig span").text((_price - data[_indd]["specialprice"]).toFixed(1))
             }
 
             console.log(_discount)
             $("#cc div:nth-child(2)").text("￥" + _discount.toFixed(1))
             $("#kk div:nth-child(2)").text("￥" + _price.toFixed(1))
-
+			$("#ee div:nth-child(2)").text("￥" + _yucun.toFixed(1))
             if (JSON.parse(localStorage.retalerdata).data["itemkind"] == "满减") {
                 if (_price >= 100 && _price < 500) {
                     $("#same-ss div:nth-child(3)").text("￥10.0")
@@ -311,8 +304,9 @@ $(document).ready(function () {
 
             $(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(1))
             $(".shoplist").html((localStorage.mz?localStorage.mz:"")+_list)
+            $(".liuy").height($(".liuy>.give-con").height())
             if (_distrgive != "") {
-                $("#sp3").text(_zz + Number($(".gifty").text().replace("x", "")))
+                $("#sp3").text(_zz + Number($(".gifty").text().match(/\d/g)))
             } else {
                 $("#sp3").text(_zz)
             }
@@ -333,6 +327,8 @@ $(document).ready(function () {
     //ajax结束
     if (localStorage.Id != "") {//判断存储id是否存在
         $(".submit").click(function () {//提交订单函数触发
+        	localStorage.removeItem("tx");
+        	localStorage.removeItem("add");
             $("body").css({ overflow: "hidden" })
             console.log(_Id)
             console.log(localStorage.disId)
@@ -398,6 +394,38 @@ $(document).ready(function () {
 
     });
 
+}
+
+$(document).ready(function () {
+	var _Id = "";
+	if (localStorage.Id) {
+		_Id = localStorage.Id
+		if(!localStorage.tx){
+		localStorage.tx=1;
+		localStorage.add=0;
+		$(".loads").show();
+	}else if(localStorage.add!=0){
+		$(".loads").hide()
+		$(".ifDelt").show()
+		$(".ifDelt>div:nth-child(2)>span:nth-child(1)").click(function(){
+			$(".ifDelt").hide()
+			localStorage.tx=1;
+			localStorage.add=0;
+		})
+		$(".ifDelt>div:nth-child(2)>span:nth-child(2)").click(function(){
+			localStorage.removeItem("tx")
+			history.back()
+		})
+		
+	}
+	oJz(_Id)
+       
+   } else if (location.search == "") {
+   		$(".loads").show();
+        window.history.go(-1)
+    }
+
+	
 
 
 }); //document结束

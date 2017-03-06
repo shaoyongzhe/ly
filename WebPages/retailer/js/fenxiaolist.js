@@ -76,6 +76,7 @@ function fngetlist() {
             
             for(var k1 in data){
             	if(data[k1]["openshipping"]==1){
+            	$(".toorder").show()
             	ceng1=data[k1];
             	thissp.distributor_id=ceng1["distributor_id"];
             	thissp.distributorname=ceng1["distributorname"];

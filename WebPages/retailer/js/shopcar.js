@@ -1,5 +1,14 @@
 	$(document).ready(function(){
+			localStorage.add=1;
+			var _uil=location.href;
+			var _jYu=setInterval(function(){
+				if(localStorage.tx==1){
+					history.forward()
+					clearInterval(_jYu)
+				}
+			},0.001)
 			localStorage.reload=1;
+			$(".loads").show()
 			asd()
 	})
 	function asd(){//购物车页起始调用函数
@@ -104,8 +113,22 @@
 					_image+="<img class="+"\"img2\" "+"src="+"../../image/shop/temp.jpg"+" />"
 				}
 				console.log(_image)
-
-					_remark="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div>留言：<input readonly=\"true\" style=\";outline:none;width:80%;font-size:1.6rem\" value="+(data1[i]["remark"]==""?"":data1[i]["remark"])+"></div></div>"
+				var _wt=$("body").width()*0.72;
+				var _line=1;
+				var _gf=0;
+				console.log(data1[i]["remark"].length)
+					for(var jk=0;jk<data1[i]["remark"].length;jk++){
+						if(data1[i]["remark"].charAt(jk).match(/[a-zA-Z0-9]*/g)!=","){
+							_gf+=7;
+						}else{
+							_gf+=14;
+						}
+					}
+					console.log(_gf)
+					var _line=Math.ceil(_gf/_wt)
+					console.log(_line)
+					_remark="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div style=\"position:relative\"><span style=\"position:absolute;top:8%\">留言：</span><textarea readonly=\"true\" style=\"margin-left:4rem;overflow-y:hidden;resize:none;outline:none;width:80%;font-size:14px;height:"
+					+(_line*2)+"rem;line-height:2rem\">"+(data1[i]["remark"]==""?"":data1[i]["remark"])+"</textarea></div></div>"
 				_intr="";
 				if(data1[i]["salestop"]==0){
 					if(!data1[i]["itemslist"]){
@@ -190,8 +213,7 @@
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p><span class="+"\"pi\""+">￥"+data1[i]["itemunitcost"].toFixed(2)+"<span style="+"\"display:inline-block;width:1.4rem;height:1.4rem;border-radius:50%;text-align:center;border:1px solid #ccc\""+
-						">预</span></span><p class=\"hp\" style="+"\"padding-left:82px\""+">可提<span>"+data1[i]["remaincount"]+"</span>"+data1[i]["packagetypename"]+"</p></p></div></div></div>"+_remark+"<div class="+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["itemunitcost"]+"</p><p class=\"hp\">可提<span>"+data1[i]["remaincount"]+"</span>"+data1[i]["packagetypename"]+"</p></p></div></div></div>"+_remark+"<div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
 					}else if(data1[i]["salestop"]==1){
 						_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
@@ -268,25 +290,51 @@
 				})
 				$(".ly").click(function(){
 					$(this).parent().parent().find(".disc2").css({display:"block"})
-					console.log($(this).parent().parent().find(".disc2>div>input"))
-					$(this).parent().parent().find(".disc2>div>input").attr("readonly",false);
-					$(this).parent().parent().find(".disc2>div>input").focus()
-			        var result=$(this).parent().parent().find(".disc2>div>input").val();//对input取值
-			        $(this).parent().parent().find(".disc2>div>input").val("")//使input的值为空
-			        $(this).parent().parent().find(".disc2>div>input").val(result);//重新负值
-			        $(this).parent().parent().find(".disc2>div>input")[0].scrollLeft=700;//这里我对文本框的属性做了一个猜想，应该是有混动条的属性的，所以进行一个偏移
-
+					console.log($(this).parent().parent().find(".disc2>div>textarea"))
+					$(this).parent().parent().find(".disc2>div>textarea").attr("readonly",false);
+					$(this).parent().parent().find(".disc2>div>textarea").focus()
+			        var result=$(this).parent().parent().find(".disc2>div>textarea").val();//对input取值
+			        $(this).parent().parent().find(".disc2>div>textarea").val("")//使input的值为空
+			        $(this).parent().parent().find(".disc2>div>textarea").val(result);//重新负值
+			        $(this).parent().parent().find(".disc2>div>textarea")[0].scrollLeft=700;//这里我对文本框的属性做了一个猜想，应该是有混动条的属性的，所以进行一个偏移
+					$(this).parent().parent().find(".disc2>div>textarea")[0].scrollTop=700;
 				})		
-				$(".disc2>div>input").blur(function(){
+				$(".disc2>div>textarea").blur(function(){
 					$(this).attr("readonly",true)
 					if($(this).val()==""){
 						$(this).parent().parent().css({display:"none"})
 					}
 				})
-				$(".disc2>div>input").on("input propertychange",function(){
+				
+				
+				$(".disc2>div>textarea").on("input propertychange",function(){
+					var _wz=0;
+					var _h=0;
+					var _we=$(this).width();
+					var _lin=$(this).height()/24;
 					console.log($(this).parent().parent().parent().find(".amount").text())
 					var oThat=this;
+					
 					var _ind=$(this).parent().parent().parent().attr("id");
+					for(var jj=0;jj<$(oThat).val().length;jj++){
+						console.log($(oThat).val().charAt(jj))
+						if($(oThat).val().charAt(jj).match(/[a-zA-Z0-9]*/g)!=","){
+							_wz+=7;
+						}else{
+							_wz+=14;
+						}
+					}
+					console.log(_wz)
+					if(_wz>=_we*_lin-14){
+						_lin++;
+						$(".disc2>div>textarea").height(_lin*2+"rem")
+					}
+					if(_lin!=1){
+						if(_wz<_we*(_lin-1)-14){
+							_lin--;
+							$(".disc2>div>textarea").height(_lin*2+"rem")
+						}
+					}
 					$.ajax({
 						type:"post",
 						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
@@ -414,7 +462,7 @@
 					_arr.splice($(this).parent().parent().attr("ip"),1,parseInt($(this).parent().parent().attr("id")))
 					console.log(_arr)
 					$(this).attr("flag","1")
-					$(this).css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
+					$(this).css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#fff"});
 					_count+=1
 					_ges+=Number($(this).next().children().children().find(".amount").text())
 					_price+=Number($(this).parent().find(".pp1").text().replace("￥",""))*Number($(this).next().find(".amount").text())
@@ -428,7 +476,7 @@
 
 				if(_count==_save){
 					$(".gg").attr("flag","1")
-					$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
+					$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#3a3635"});
 				}else{
 					$(".gg").attr("flag","0")
 					$(".gg").css({"background":"none",borderColor:"#fff"});
@@ -476,10 +524,10 @@
 					$(".commit span").text("("+_ges+")")
 					$(".summ").text(_ges)
 					$(this).attr("flag","1")
-					$(this).css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
+					$(this).css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#3a3635"});
 						for(var j=0;j<$(".list i").length;j++){
 						
-							$(".list i")[j].setAttribute("style","background:url(../../image/shop/crect1.jpg) no-repeat center center;background-size:1.4rem 1.4rem;borderColor:#fff;flag:1")
+							$(".list i")[j].setAttribute("style","background:url(../../image/shop/crect1.jpg) no-repeat center center;background-size:1.6rem 1.6rem;borderColor:#fff;flag:1")
 							$(".list i")[j].setAttribute("flag","1")
 							//$(".list i")[j].css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
 										
@@ -524,7 +572,7 @@
 								isyucun:data1[_ind]["isyucun"],
 								activityitemid:data1[_ind]["activityitem_id"],
 								versiontime:formaty(),
-								remark:$(tht).parents(".list").parent().find(".disc2>div>input").val()
+								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val()
 							},
 							error:function(){},
 							success:function(data){
@@ -574,7 +622,7 @@
 								isyucun:data1[_ind]["isyucun"],
 								activityitemid:data1[_ind]["activityitem_id"],
 								versiontime:formaty(),
-								remark:$(tht).parents(".list").parent().find(".disc2>div>input").val()	
+								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val()	
 							},
 							error:function(){},
 							success:function(data){
@@ -634,7 +682,7 @@
 							isyucun:data1[_ind]["isyucun"],
 							activityitemid:data1[_ind]["activityitem_id"],
 							versiontime:formaty(),
-							remark:$(th).parents(".list").parent().find(".disc2>div>input").val()
+							remark:$(th).parents(".list").parent().find(".disc2>div>textarea").val()
 						},
 						error:function(){},
 						success:function(data){

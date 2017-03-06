@@ -96,9 +96,9 @@ a,input{
 	padding:5px 12px;font-size: 1.5rem;
 }
 #conn{
-	display:flex
+	display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
 }
-.container{ flex:1; max-width:640px;overflow-y: scroll;}
+.container{ -webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1; max-width:640px;overflow-y: scroll;}
 .top-header{ width:100%; margin:0 auto; padding:10px 0 0 0; overflow:hidden;}
 .nav-header{width:100%; margin:0 auto;  background:#282828; color:#fff;font-size:1.8rem; overflow:hidden; text-align:left;position: fixed;height:46px;line-height: 4.5rem;}
 .nav-header i a{font-family:"iconfont" !important;float:left;font-size:1.8rem;padding:0px 10px ;height:100%;margin-top:0.2rem}
@@ -134,10 +134,10 @@ section{
 	width:100%;padding-bottom:5.2rem;background:#fff;overflow:hidden
 }
 section .saleTm{
-	height:45px;width:100%;display: flex;line-height:45px;border-bottom: 1px solid #ECECEC;
+	height:45px;width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;line-height:45px;border-bottom: 1px solid #ECECEC;
 }
 section .remarks{
-	height:45px;width:100%;display: flex;line-height:45px;border-bottom: 10px solid #f1f2f6;
+	height:45px;width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;line-height:45px;border-bottom: 10px solid #f1f2f6;
 }
 .saleTm-tit{
 	width:30%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
@@ -146,7 +146,7 @@ section .remarks{
 	white-space:nowrap; overflow:hidden; text-overflow:ellipsis;max-width: 80%;
 }
 .saleTm-con{
-	height:100%;text-align: right;line-height: 45px;flex: 1;
+	height:100%;text-align: right;line-height: 45px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;
 }
 .saleTm-con img{
 	width:auto;height:45px;float:right
@@ -164,7 +164,7 @@ section .remarks{
 	color:#ccc	
 }
 .introd{
-	width:100%;height:40px;background:#f8f8f8;display: flex;line-height: 40px;
+	width:100%;height:40px;background:#f8f8f8;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;line-height: 40px;
 }
 .introd .saleTm-tit{
 	width:70%;height:100%;font-size: 18px;padding-left:12px;font-weight:600;
@@ -221,7 +221,7 @@ section .remarks{
 	float:left;margin-right: 3px;
 }
 .shop-con{
-	width:100%;display:flex;
+	width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
 }
 .shop-con img{
 	border-radius: 5px;
@@ -230,19 +230,19 @@ section .remarks{
 	float:right;font-size: 1.6rem;
 }
 .shop-con-bd{
-	flex: 1;font-size:1.5rem;padding-left:10px;color: #000;
+	-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;font-size:1.5rem;padding-left:10px;color: #000;
 }
 .shop-con-bd .shop-tit img{
 	width:1.5rem;height:1.5rem
 }
 .number{
-	width:100%;clear:both;font-size: 1.4rem;padding:3px 0;display: flex;padding-top: 7px;
+	width:100%;clear:both;font-size: 1.4rem;padding:3px 0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding-top: 7px;
 }
 .number div:nth-child(1){
 	width:60%;color:#d0d0d0
 }
 .number div:nth-child(2){
-	flex:1;text-align: right;color:#d0d0d0
+	-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;text-align: right;color:#d0d0d0
 }
 .discount{
 	width:100%;padding: 5px 0;
@@ -260,13 +260,13 @@ section .remarks{
 	font-size: 1.3rem;line-height:24px;color:#009f96;padding-left:5px
 }
 .give{
-	width:100%;font-size: 1.4rem;height:1.8rem;clear:both
+	width:100%;font-size: 1.4rem;height:1.8rem;clear:both;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
 }
 .give-tit{
 	padding:3px 1px;float:left
 }
 .give-con{
-	color:#8c8d90;float:left;padding:3px 6px
+	color:#8c8d90;float:left;padding:3px 6px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;
 }
 .give p{
 	width:3rem;float:right;padding:5px 0;text-align: right;
@@ -295,11 +295,17 @@ section .remarks{
 #kk>div:nth-child(2){
 	color:#f00
 }
+#ee>div:nth-child(1){
+	color:#000
+}
+#ee>div:nth-child(2){
+	color:#f00
+}
 .kind{
 	display: inline-block;width:100%
 }
 .loads{
-	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff
+	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff;display:none
 }
 .kind li{
 	width:100%;
@@ -339,19 +345,19 @@ section .remarks{
 	font-size: 1.4rem;color:#b6b6b6 	
 }
 .same{
-	width:100%;height:25px;display: flex;padding:10px 0;border-bottom: 1px solid #f1f2f6;line-height: 25px;
+	width:100%;height:25px;display:-ms-flexbox;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:10px 0;border-bottom: 1px solid #f1f2f6;line-height: 25px;
 }
 .same div:nth-child(1){
 	width:50%;font-size: 1.4rem;height:25px;padding-left:12px;color:#a9aaac
 }
 .same div:nth-child(2){
-	flex:1;font-size: 1.4rem;text-align: right;display:inline-block;height:25px;padding-right: 8px;color:#a9aaac
+	-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;font-size: 1.4rem;text-align: right;height:25px;padding-right: 8px;color:#a9aaac
 }
 #ss{
 	border-bottom: 10px solid #f1f2f6;
 }
 #same-ss{
-	line-height: 20px;display: flex;padding:5px;padding:3px 0 17px 0;height:25px;font-size: 1.4rem;
+	line-height: 20px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding:5px;padding:3px 0 17px 0;height:25px;font-size: 1.4rem;
 }
 #same-ss div:nth-child(1){
 	width:2.8rem;padding:0 0 5px 12px;padding-top:0.2rem
@@ -360,7 +366,7 @@ section .remarks{
 	width:50%;text-align: left;margin-top:0.2rem
 }
 #same-ss div:nth-child(3){
-	flex:1;text-align: right;padding-right: 8px;line-height: 35px;
+	-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;text-align: right;padding-right: 8px;line-height: 35px;
 }
 .slider{display:none; width:100%; margin:0 auto}/*用于获取更加体验*/
 .focus{ text-align:center; width:100%; text-align:center}
@@ -624,13 +630,13 @@ section .remarks{
  .proTitleshortBox .proTitleshortBoxr img{margin:0 0px; padding:0px 0px; vertical-align:middle;  display:inline-block;max-width: 40px !important; height: auto !important;}
  
 .intr{
-	padding:0.6rem 5px 0.6rem 10px;font-size: 1.4rem;border:1px solid #d8d8d8;display: flex;
+	padding:0.6rem 5px 0.6rem 10px;font-size: 1.4rem;border:1px solid #d8d8d8;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
 }
 .intr div:nth-child(1){
 	width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 1.4rem;color:#ff0000;
 }
 .intr div:nth-child(2){
-	padding-left: 5px;flex: 1;line-height: 1.8rem;
+	padding-left: 5px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;line-height: 1.8rem;
 }
 .intr div:nth-child(3){
 	clear:both;padding:5px 12px
@@ -698,7 +704,7 @@ section .remarks{
 	width:25%;overflow-y: scroll;margin-right: -15px;padding-right: 15px;
 }
 .select ul{
-	width:100%;height:50%
+	width:100%;height:100%
 }
 .select li{
 	padding:5px;font-size: 14px;height:36px;  
@@ -726,7 +732,7 @@ color:#666;background:#f5f5f5;
 .orderlistbox .iconbox img{width: 1.7rem;
     margin-top: -1px;}
 .orderlistbox .imagebox img{width:55px;height:55px;padding:0; margin:0; }
-.orderlistbox .dectitlebox{flex:1; color:#333; float:left; padding:5px 0px 0 0; margin:0px; font-size:18px; background:#fff; }
+.orderlistbox .dectitlebox{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1; color:#333; float:left; padding:5px 0px 0 0; margin:0px; font-size:18px; background:#fff; }
 .orderlistbox .dectitlebox a{padding:0px 0px 1.2rem 0; margin:0px;font-size: 1.6rem;}
 .orderlistbox .dectitlebox i{ float:right; padding-right:5px; color:#999; font-size:1.6rem;background:url(../image/shop/arrow_right2.png) right center no-repeat; padding-right:1.4rem; }
 .orderlistbox .descbox{width:100%; padding:5px 0px; background:#f6f6f6;font-size:1.4rem;  border-bottom:2px #d8d8d8 solid; clear:both; }
@@ -756,7 +762,7 @@ color:#666;background:#f5f5f5;
 	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:rgba(204,204,204,0.5);display: none;
 }
 .tishi{
-	display: flex;flex-direction:column
+	display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;flex-direction:column
 }
 .tishi div:nth-child(1) {
     position: relative;padding:6px 8px;font-size: 1.6rem;
@@ -797,7 +803,7 @@ color:#666;background:#f5f5f5;
         transform-origin: 0 0;
     }
    .tishi div:nth-child(3){
-   		flex:1;
+   		-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;
    }
 .cfm{
 	display:block;padding:1% 2%;background:#009f96;position:absolute;right:5%;bottom:15%;font-size: 1.4rem;text-align: center;color:#fff
@@ -825,4 +831,19 @@ color:#666;background:#f5f5f5;
     }
 .tsh{
 	width:100%;position:absolute;left:0;top:0;z-index:2000;background:rgba(255,255,255,0);display: none;
+}
+.ifDelt div:nth-child(1){
+	border-radius: 8px 8px 0 0;
+}
+.ifDelt div:nth-child(2){
+	width:76%;margin-left:12%;height:3.4rem;display: flex;
+}
+.ifDelt div:nth-child(2) span{
+	display:block;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;;text-align: center;line-height: 3.4rem;font-size: 12px;
+}
+.ifDelt div:nth-child(2) span:nth-child(1){
+	background:#fff;border-radius: 0 0 0 8px;
+}
+.ifDelt div:nth-child(2) span:nth-child(2){
+	background:#009f96;border-radius: 0 0 8px 0;
 }
