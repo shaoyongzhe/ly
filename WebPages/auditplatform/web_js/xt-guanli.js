@@ -241,6 +241,12 @@ function getshortcutinfo() {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
@@ -311,6 +317,12 @@ function updateshortcutinfo(shortcutinfoId) {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
@@ -339,6 +351,12 @@ function deleteshortcutinfo(guid) {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
@@ -442,6 +460,12 @@ $(function () {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var obj = JSON.parse(XMLHttpRequest.responseText);
+                if (obj["error"] == "登录失败") {
+                    alert("用户未登录，跳转至登录页面");
+                    window.location.href = "../html/login.html";
+                    return;
+                }
                 if (XMLHttpRequest.readyState == 4)
                     alert("网络异常");
             }

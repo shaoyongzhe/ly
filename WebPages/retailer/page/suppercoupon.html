@@ -168,7 +168,7 @@
                                 </div>
                                 <div style='line-height: 2em;position: relative;bottom: -6px;'>
                                     <div class='userNew'>{{item.fansinhistorycount}}</div>
-                                    <div class='timeNew'>{{item.begintimeandendtime}}</div>
+                                    <div class='timeNew'>{{ item.begintime + "至" + item.endtime}}</div>
                                 </div>
                             </div>
                         </div>
@@ -478,5 +478,6 @@
 
 
     </script>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>
