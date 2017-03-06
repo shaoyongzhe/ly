@@ -229,11 +229,11 @@ function basicQuery(resetQueryCondition){
             });
 	}
 //	console.log(condition)
-    $.each(condition, function(key, value){
-    if (value === "" || value === null){
-        delete condition[key];
-    }
-    });
+    //$.each(condition, function(key, value){
+    //if (value === "" || value === null){
+    //    delete condition[key];
+    //}
+    //});
 
 	if(statusData==""){
 		layer.alert('数据加载中，请稍后重试', {icon: 1});
