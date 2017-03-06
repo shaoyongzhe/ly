@@ -141,7 +141,7 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 	$(".CbdD .CbdD1 img").attr("src",CbdDimgArr[info.matched]);//看看哲哥用的是matched还是match
 //	console.log(info.matched);
 	
-	//如果是创建优惠券的时候
+/*	//如果是创建优惠券的时候//0306注释掉，因为不区分是不是创建状态了，所以无需type。同时提示语不再仅仅由match决定，而由match和areamatch共同决定。
 	if(UrlKeyValueData.type!=undefined){		
 		if(UrlKeyValueData.type=="creat"&&switcher==undefined){
 			$(".CbdD2P1").text("您所在的地区正在如火");
@@ -185,9 +185,22 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 			$(".CbdD2P2").text("就可以赚补贴喽");
 			$(".Cccondition").show();
 		}		
-	}	
+	}	*/
+	if(info.matched){
+		$(".CbdD2P1").text("您已达到活动条件");
+		$(".CbdD2P2").text("马上可以赚补贴喽！");
+		$(".Cccondition").hide();
+	}else if(info.matched==0&&info.areamatch==0){
+		$(".CbdD2P1").text("一大波补贴正在附近发放，");
+		$(".CbdD2P2").text("下次就等你来赚！");
+//		$(".Cccondition").hide();
+	}else if(info.matched==0&&info.areamatch==1){
+		$(".CbdD2P1").text("您所在的地区正在如火");
+		$(".CbdD2P2").text("如荼的进行此活动！");
+//		$(".Cccondition").hide();
+	}
 	$(".CcBigTitle").text(info.post);
-	$(".CcSmallTitle").text(info.activitytitle);
+	$(".CcSmallTitle").text(info.activitytitle);	
 	//*******数据规范后考虑删除开始
 	if(info.budget==undefined&&info.budget==null){
 		info.budget={};
