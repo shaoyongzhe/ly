@@ -1,8 +1,10 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
 var statisticArr=[];
+
+
 function GetUrlParam() {
     
-    var url = location.search; 
+    var url = location.search;
     var thisParam = {};
 
     if (url.indexOf("?") != -1) {
@@ -17,8 +19,8 @@ function GetUrlParam() {
     }
 
     return thisParam;
-}
 
+}
 
 
 // debugger
@@ -41,7 +43,6 @@ if(!$.isEmptyObject(GetUrlParam())){
 } else {
     layer.alert("跳转到修改失败了");
 }
-
 
 function render(resdata){
 
@@ -70,7 +71,7 @@ function render(resdata){
     basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
 
 
-    if(activity.singleselection == 1){
+    if(activity.singleselection == 0){
         $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
     } else {
         $('.radio:contains(否)').addClass('on').siblings().removeClass('on');
@@ -789,6 +790,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '<p class="dib ">元</p><!--即将被替代为别的单位-->'
 	        +               '</div>'
 	        +           '</div>'
+			+	     	'<div class="dib hdc6-2 ver re" style="display: none;">'
+			+				'<input type="text" class="">'
+			+				'<span class="dib">元</span>'
+			+			'</div>'
 	        +           '<div class="dib hdc7 setgailv">设置<br>概率<input type="hidden" class="gl" value=""></div>'//第1个就加类名glHidden1,把json串存入value中
 	        +           '<div class="dib hdc8 setRules">设置<br>规则<input type="hidden" class="gz" value=""></div>'//第1个就加类名gzHidden1,把json串存入value中
 	        +           '<!--添加删除按钮-->'
@@ -1015,7 +1020,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
-	        $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次")
+	        // $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次");
 	    }
 	
 	    /*发放上限*/
@@ -1029,14 +1034,40 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*申报预算*/
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) input").val(activityManger_addSub4Data[i].applycount); 
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) p").text(activityManger_addSub4Data[i].unit);//单位
+
+
 			/*设置摇一摇*/
 			if(activityManger_addSub4Data[i].prize_content){
 				var addSub4MangeYaoyiyao=JSON.stringify(activityManger_addSub4Data[i].prize_content, null, 4);
 				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao); 
 
 	    		$(".addSub4Mange:last").find(".fz p").text('元');//单位  
+
+
+
+	    		var yaoText = "";
+	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){
+	    			yaoText += item.refund_content + ";<br>";
+	    		});
+	    		$(".addSub4Mange:last").find(".hdc4dB").addClass("set").html(yaoText).css({
+					'lineHeight': 'normal',
+					'overflow': 'hidden',
+					'padding': '3px'
+				});
+
+	    		var yaoSbys = 0;
+	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){
+	    			yaoSbys += item.applycount;
+	    		});
+	    		$(".addSub4Mange:last").find(".hdc6-2 input").val(yaoSbys);
+
+
+
+
 			}
 			 $(".addSub4Mange:last").find(".hdc4d2 .y1y").addClass("y1yHidden"+(i+1));
+
+
 	    /*设置概率*/
 	    if(activityManger_addSub4Data[i].probability){//prize_content
 	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
