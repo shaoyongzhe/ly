@@ -247,10 +247,10 @@ $(function(){
 							}
 							li += '<li style="text-indent: 0.3rem;border-left: 1px solid #ffcccc;" class="swiper-slide">';
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
-								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + str + '</a>'
+								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + str + '</a>'
 								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">'
 							if(subsidyparameter[i].ruledescription.length != 0){
-								li+='1个'+keyg(key) +'在一个'+ subsidyparameter[i].rulerestrict +'活动中:'+'<br/>';
+								li+= subsidyparameter[i].rulerestrict +'：'+'<br/>';
 							}
 								
 								var textson = subsidyparameter[i].ruledescription;
@@ -356,6 +356,10 @@ $(function(){
 						})
 					}
 
+					//分享隐藏补贴信息
+					if(common.getUrlParam("sharekind") != ''){
+						$('.enjoy').hide()
+					}
 					//活动编号
 					activityNumber();
 					function activityNumber(i){
@@ -422,6 +426,7 @@ $(function(){
 					    speed:1200,
 					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
 						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
+						autoHeight:true,
 					    //allowSwipeToPrev : true, //禁止向左滑动
 					    //swipeHandler : '.swipe-handler', //作用域
 					    onProgress: function(swiper){
