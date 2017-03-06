@@ -138,6 +138,7 @@ function fnclick() {
                 }, 300);
             }
             fnmclick1($(this).attr("id"),"itemcategory");
+
         })
     }
     Accordion.prototype.dropdown = function(e) {
@@ -197,6 +198,10 @@ function fnmenuclick() {
         }
     });
 }
+//品牌下一级分类请求
+function yijiajax() {
+
+}
 //二级菜单遮罩上部点击事件
 function fnerji() {
     $(".sanji").on("click", function() {
@@ -218,7 +223,6 @@ function fnmclick1(theid,idd) {
             n1.eq(i).hide();
         }
     }
-    console.log($(this))
     $("#cgl-contlist").scrollTop(0);
 }
 //品牌下二级分类筛选
