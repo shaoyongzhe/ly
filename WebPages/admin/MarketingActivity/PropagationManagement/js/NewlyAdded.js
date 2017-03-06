@@ -240,13 +240,13 @@ $('.mode1_fa').find('div:eq(0) img').addClass('xiyin_son');
                 });
             return;
         }
-        if(contentHtml.length>4000){
-            layer.tips('填写内容过多','.mode', {
-                  tips: [1, '#F22525'],
-                  time: 4000
-                });
-            return;
-        }
+        // if(contentHtml.length>4000){
+        //     layer.tips('填写内容过多','.mode', {
+        //           tips: [1, '#F22525'],
+        //           time: 4000
+        //         });
+        //     return;
+        // }
 
         var index = layer.open({
             type: 1,
