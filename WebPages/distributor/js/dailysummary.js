@@ -99,20 +99,20 @@ $(function(){
 		    		}
 			     }
 			    if(data.activitycount.unmatchedtopic>data.activitycount.matchedtopic){
-		    		var maxnum=data.activitycount.unmatchedtopic;     
+			    	var maxnum = data.activitycount.unmatchedtopic + data.activitycount.matchedtopic;
 			     	var minnum=data.activitycount.matchedtopic;  
 			     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 		    		ctx.sector(50,50,50,0,c,"#acd171","#73ba2c").fill();   //调用原型方法sector 补充参数
 		    		$('.Pie_chart1 a').html(maxnum);
 		    		if(data.activitycount.matchedtopic==0){
-		    			$('.Activity_number_right .Activity_ri_text').html('暂为获得平台补贴');
+		    			$('.Activity_number_right .Activity_ri_text').html('暂未获得平台补贴');
 		    			$('.Activity_ri_text').css({"color":"#787878","marginTop":"1.5rem"});
 		    		}
 		    		$('.Activity_ri_text span').html(minnum);
 		    		fontAnglecanvas1()
 		    		
 		    	}else{
-		    		var maxnum=data.activitycount.matchedtopic;     
+			    	var maxnum = data.activitycount.matchedtopic + data.activitycount.unmatchedtopic;
 			     	var minnum=data.activitycount.unmatchedtopic;  
 			     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 		    		ctx.sector(50,50,50,0,c,"#acd171","#73ba2c").fill();   //调用原型方法sector 补充参数
@@ -191,7 +191,7 @@ $(function(){
 				      	var maxnum=0;            //获取到的后台数据
 				    	var minnum=0;
 				     	$('.Mark_chart1 a').html(0);
-				     	$('.Market_cost_right .Market_cost_ri_text').html('暂为获得平台补贴');
+				     	$('.Market_cost_right .Market_cost_ri_text').html('暂未获得平台补贴');
 				     	$('.Market_cost_ri_text').css({"color":"#787878","marginTop":"1.5rem"})
 				     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 			    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
