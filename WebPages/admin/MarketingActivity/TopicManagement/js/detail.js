@@ -26,7 +26,7 @@ function render(detailData){
 	var activity = detailData.activity;
 	//first.find('.guid').text(activity.activitycode);
 	// first.find('.guid').text(activity.guid);
-	first.find('.guid').html(activity.activitycode + "<i style='color:#fff'>"+ activity.guid +"</i>");
+	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;visibility: hidden;'>"+ activity.guid +"</i>");
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
@@ -289,11 +289,11 @@ function render(detailData){
 			danwei = "元";
 		} 
 
-		var rangeStr = "<span class='fl'>"+ butie[i].min +"-"+ butie[i].max +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].max * butie[i].ceiling) +"</i><i>"+ danwei +"</i></td>";
+		var rangeStr = "<span class='fl'>"+ butie[i].min +"-"+ butie[i].max +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].max * butie[i].ceiling).toFixed(2) +"</i><i>"+ danwei +"</i></td>";
 		
 		// debugger;
 		if(!butie[i].max || butie[i].max == ""){
-			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].min * butie[i].ceiling) +"</i><i>"+ danwei +"</i></td>";
+			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].min * butie[i].ceiling).toFixed(2) +"</i><i>"+ danwei +"</i></td>";
 		}
 
 	    // debugger
@@ -310,10 +310,10 @@ function render(detailData){
 	var yuan = 0;
 	$('td.btfz:contains(元) .valTxt').each(function(){
 		if($(this).text() == ""){return false;}
-		yuan += parseInt($(this).text());
+		yuan += parseFloat($(this).text());
 	});
 
-	$('.totalYuan').text(yuan);
+	$('.totalYuan').text(Number(yuan).toFixed(2));
 
 //	var fen = 0;
 //	$('td.btfz:contains(分) .valTxt').each(function(){
@@ -327,10 +327,10 @@ function render(detailData){
 	var sbysYuan = 0;
 	$('td.sbys:contains(元) .valTxt').each(function(){
 		if($(this).text() == ""){return false;}
-		sbysYuan += parseInt($(this).text());
+		sbysYuan += parseFloat($(this).text());
 	});
 
-	$('.totalSbysYuan').text(sbysYuan);
+	$('.totalSbysYuan').text(Number(sbysYuan).toFixed(2));
 
 
 //	var sbysFen = 0;
