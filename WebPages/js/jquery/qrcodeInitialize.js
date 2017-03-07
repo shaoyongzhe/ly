@@ -264,8 +264,7 @@
                 "x": 0,
                 "y": 490
             }
-        }
-        ,
+        },
         "inviteretailertitle": {
             "nav": {
                 "type": "image",

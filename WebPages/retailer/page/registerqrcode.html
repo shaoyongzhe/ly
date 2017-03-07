@@ -18,23 +18,7 @@
 
     <script type="text/javascript" src="/js/lib/common.js"></script>
 
-    <script type="text/javascript">
-	 var src = "/webapi/retailer/weixin/register_generate_code?qrtype=11";	 
-     src += window.location.search.replace("?","&");
-     var qrcode = qrcodeconfig["retailer"];
-     if (common.getUrlParam("titletype") != null && common.getUrlParam("titletype") == "textflag")
-     {
-         draw(qrcode, "inviteretailertitle", qrcodeconfig["retailer"]["logo"]);
-         $(".savepic").html("扫一扫上面的二维码，成为店员");
-     }
-     else
-     {
-         draw(qrcode, "inviteretailer", qrcodeconfig["retailer"]["logo"]);
-     }
-
-     qrcode["inviteretailer"]["url"] = src;
-   
-	</script>
+  
 </head>
 
 <body>
@@ -44,7 +28,7 @@
                 <img id="QRCode_img" style="width:80%" alt="店铺二维码" />
 
                 <p>
-                    <div class="savepic" style="color:#c2c2c2;font-family:微软雅黑;">
+                    <div  class="savepic" style="color:#c2c2c2;font-family:微软雅黑;">
                         长按二维码可保存，可用于制作扫码牌
                     </div>
                 </p><div id="qrcodediv" hidden></div>
@@ -54,5 +38,26 @@
     </div>
 
     <script src="/js/sdk/sdk.js"></script>
+
+    <script type="text/javascript">
+	 var src = "/webapi/retailer/weixin/register_generate_code?qrtype=11";
+     src += window.location.search.replace("?","&");
+     var qrcode = qrcodeconfig["retailer"];
+
+     if (common.getUrlParam("titletype") != null && common.getUrlParam("titletype") == "textflag")
+     {
+         qrcode["inviteretailertitle"]["url"] = src;
+         draw(qrcode, "inviteretailertitle", qrcodeconfig["retailer"]["logo"]);
+         $(".savepic").html("扫一扫上面的二维码，成为店员");
+     }
+     else
+     {
+         qrcode["inviteretailer"]["url"] = src;
+         draw(qrcode, "inviteretailer", qrcodeconfig["retailer"]["logo"]);
+     }
+
+
+
+    </script>
 </body>
 </html>
