@@ -1064,7 +1064,6 @@ function getmore() {
 $(function() {
     if(localStorage.reload==1){
         var _tt=setInterval(function(){
-            localStorage.reload=0;
             fnpinpai(); //品牌下拉点击事件
             fnurl(); //获取地址栏参数
             fnpricenum(); //获取购物车总金额和总数量

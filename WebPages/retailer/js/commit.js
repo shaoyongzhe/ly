@@ -1,13 +1,25 @@
-//解析URL
+//解析URL      	mui.init();
+var old_back = mui.back;
+mui.back = function(){
+  var btn = ["确定","取消"];
+  mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
+    if(e.index==0){
+    	//执行mui封装好的窗口关闭逻辑；
+    	alert(121)
+    	plus.runtime.quit(); 
+    }
+  });
+}
 
 
-function oJz(_Id){
+function oJz(){
 	    var pg = 0;//门店        后续需要加js！！！！！！！！！！！！！
     var _list = "";
     var _cost = 0;
     var _send = "";
     var _flag = 0;
     var _yucun=0;
+    var _mzg=0;
 	    var _year = new Date().getFullYear()
 	    var _month = new Date().getMonth() + 1 
 	    var _jud=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime();
@@ -37,7 +49,16 @@ function oJz(_Id){
     
     var _sub = "";
     var _url = location.href;
+	var _Id = "";
+	if (localStorage.Id) {
+		_Id = localStorage.Id
 
+	
+       
+   } else if (location.search == "") {
+   		$(".loads").show();
+        window.history.go(-1)
+    }
 
     if (_Id !== "") {
         _sub = "&submitids=" + _Id
@@ -251,6 +272,9 @@ function oJz(_Id){
                     if (data[_indd]["specialprice"] && _price-_yucun>0) {
                         $("#vv").css({ display: "-webkit-box" })
                         $("#vv span").text(data[_indd]["specialprice"].toFixed(1))
+                        if(_price-_yucun-data[_indd]["specialprice"]>0){
+                			$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
+               			}
                     } else {
                         $("#vv").css({ display: "none" })
                     }
@@ -270,7 +294,7 @@ function oJz(_Id){
 
                             _distrgive += "<div style=" + "\"padding-left:11%\"" + ">" + _mz[c]["itemname"] + 
                             "<span style=" + "\"margin-left:15px\"" + "></span><span class=" + "\"gifty\"" + ">x" + _mz[c]["count"]+ _mz[c]["unit"] + "</span></div>"
-
+							_mzg+=Number(_mz[c]["count"])
                         }
                     }
                     if (_distrgive != "") {
@@ -279,9 +303,7 @@ function oJz(_Id){
                     }
                 }
                 $("#ss div:nth-child(2)").text("￥" + _zengprice.toFixed(1))
-                if(_price-_yucun>0){
-                	$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
-                }
+
                 
                 $(".loads").css({ display: "none" })
             }
@@ -311,7 +333,7 @@ function oJz(_Id){
             $(".shoplist").html((localStorage.mz?localStorage.mz:"")+_list)
             $(".liuy").height($(".liuy>.give-con").height())
             if (_distrgive != "") {
-                $("#sp3").text(_zz + Number($(".gifty").text().match(/\d/g)))
+                $("#sp3").text(_zz + _mzg)
             } else {
                 $("#sp3").text(_zz)
             }
@@ -402,35 +424,17 @@ function oJz(_Id){
 }
 
 $(document).ready(function () {
-	var _Id = "";
-	if (localStorage.Id) {
-		_Id = localStorage.Id
-		if(!localStorage.tx){
-		localStorage.tx=1;
-		localStorage.add=0;
-		$(".loads").show();
-	}else if(localStorage.add!=0){
-		$(".loads").hide()
-		$(".ifDelt").show()
-		$(".ifDelt>div:nth-child(2)>span:nth-child(1)").click(function(){
-			$(".ifDelt").hide()
-			localStorage.tx=1;
-			localStorage.add=0;
-		})
-		$(".ifDelt>div:nth-child(2)>span:nth-child(2)").click(function(){
-			localStorage.removeItem("tx")
-			history.back()
-		})
+
+			
+				
 		
-	}
-	oJz(_Id)
-       
-   } else if (location.search == "") {
-   		$(".loads").show();
-        window.history.go(-1)
-    }
+	
+
 
 	
+
+
+	oJz()
 
 
 }); //document结束

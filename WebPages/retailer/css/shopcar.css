@@ -2,6 +2,14 @@ html { font-size:0.6rem;}
 body{color:#888; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin:0; -webkit-text-size-adjust:none; padding:0; line-height:1.6em;}  
 div,dl,dd,dt,ul,li,ol,caption,table,tbody,thead,tfoot,th,td,tr,form,button,input,select,textarea,legend,a,p,big,small,span,strong,sub,sup,b,em,i,h1,h2,h3,h4,h5,h6,cite,q,samp,pre,code,tt,br,hr,address,img,area,map,object,del,s,header,footer{ border:none; padding:0; margin:0; list-style:none;font-style:normal;-webkit-text-size-adjust:none; vertical-align: baseline;/* chrome */ }
 img,fieldset,table,input,textarea,button{border:none;}
+[contenteditable = "true"], input, textarea {
+    -webkit-user- select: auto!important;
+    -khtml-user-select: auto!important;
+    -moz-user-select: auto!important;
+    -ms-user-select: auto!important;
+    -o-user-select: auto!important;
+    user-select: auto!important;
+}
 .shop-title{
 	width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-size: 1.6rem;border-bottom: 10px solid #f1f2f6;
 }
@@ -176,7 +184,7 @@ section li{
 	background:#009f96;border-radius: 0 0 8px 0;
 }
 .loads{
-	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff;display:none
+	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff;
 }
 .giveto{
 	font-size: 1.4rem;padding:12px;
@@ -196,3 +204,4 @@ section li{
 ul li{
 	border-bottom: 1px solid #d8d8d8;
 }
+

@@ -1,14 +1,4 @@
 	$(document).ready(function(){
-			localStorage.add=1;
-			var _uil=location.href;
-			var _jYu=setInterval(function(){
-				if(localStorage.tx==1){
-					history.forward()
-					clearInterval(_jYu)
-				}
-			},0.001)
-			localStorage.reload=1;
-			$(".loads").show()
 			asd()
 	})
 	function asd(){//购物车页起始调用函数
@@ -60,7 +50,7 @@
 			_qu=0
 			
 				$(".commit").click(function(){
-					if($(".intr").css("display")=="flex"){
+					if($(".intr").css("display")!="none"){
 						localStorage.mz=$(".intr").prop("outerHTML")
 					}else if(localStorage.mz){
 						localStorage.removeItem("mz")
@@ -125,9 +115,11 @@
 						}
 					}
 					console.log(_gf)
-					var _line=Math.ceil(_gf/_wt)
+					if(_gf/_wt>0){
+						_line=Math.ceil(_gf/_wt)
+					}
 					console.log(_line)
-					_remark="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div style=\"position:relative\"><span style=\"position:absolute;top:8%\">留言：</span><textarea readonly=\"true\" style=\"margin-left:4rem;overflow-y:hidden;resize:none;outline:none;width:80%;font-size:14px;height:"
+					_remark="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div style=\"position:relative\"><span style=\"position:absolute;\">留言：</span><textarea readonly=\"true\" style=\"margin-left:4rem;overflow-y:hidden;resize:none;outline:none;width:80%;font-size:14px;height:"
 					+(_line*2)+"rem;line-height:2rem\">"+(data1[i]["remark"]==""?"":data1[i]["remark"])+"</textarea></div></div>"
 				_intr="";
 				if(data1[i]["salestop"]==0){
@@ -139,7 +131,7 @@
 						}else if(data1[i]["specification"]!==null && data1[i]["packagetypename"]!==null){
 							_intr=data1[i]["specification"]+" | "+data1[i]["packagetypename"]
 						}else{
-							intr=""
+							_intr=""
 						}					
 					}else{
 						if(data1[i]["itemslist"][data1[i]["selectedindex"]]["specification"]==null && data1[i]["itemslist"][data1[i]["selectedindex"]]["packagetypename"]!==null){
@@ -149,7 +141,7 @@
 						}else if(data1[i]["itemslist"][data1[i]["selectedindex"]]["specification"]!==null && data1[i]["itemslist"][data1[i]["selectedindex"]]["packagetypename"]!==null){
 							_intr=data1[i]["itemslist"][data1[i]["selectedindex"]]["specification"]+" | "+data1[i]["itemslist"][data1[i]["selectedindex"]]["packagetypename"]
 						}else{
-							intr=""
+							_intr=""
 						}					
 					}
 				}
@@ -486,65 +478,68 @@
 				fg()
 			});
 			$(".all").on('click','.gg',function(){
-				if($(this).attr("flag")==1){
-					_count=0;
-					_ges=0
-					$(".commit span").text("("+_ges+")")
-					$(".summ").text(_ges)
-					$(this).attr("flag","0")
-					$(this).css({"background":"none",borderColor:"#fff"});
-					for(var k=0;k<$(".list i").length;k++){
-						
-							$(".list i")[k].setAttribute("style","background:none;border-color:#5d5c5c;")
-							$(".list i")[k].setAttribute("flag","0")
-//							$(".list i")[k].style.background="none";
-//							$(".list i")[k].style.borderColor
-							//$(".list i")[j].css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
-										
+				if(_ct!=0){
+					if($(this).attr("flag")==1){
+						_count=0;
+						_ges=0
+						$(".commit span").text("("+_ges+")")
+						$(".summ").text(_ges)
+						$(this).attr("flag","0")
+						$(this).css({"background":"none",borderColor:"#fff"});
+						for(var k=0;k<$(".list i").length;k++){
+							
+								$(".list i")[k].setAttribute("style","background:none;border-color:#5d5c5c;")
+								$(".list i")[k].setAttribute("flag","0")
+	//							$(".list i")[k].style.background="none";
+	//							$(".list i")[k].style.borderColor
+								//$(".list i")[j].css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
+											
+						}
+						_count=0
+						$(".amountBig span").text("0.0")
+						_price=0
+						zz()
+						_discount=0
+						$(".amountBig").next().find("span:nth-child(2)").text("0.0")
+	//					if(_count==0){
+	//						$(".yj").css({display:"block"})
+	//					}
+						for(var c=0;c<_Id.length;c++){
+							_Id[c]=""
+						}
+						console.log(_Id)
+					}else{
+						_price=_pp
+						zz()
+						_discount=_dis
+						_count=_ct
+						_ges=_cun
+						$(".commit span").text("("+_ges+")")
+						$(".summ").text(_ges)
+						$(this).attr("flag","1")
+						$(this).css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#3a3635"});
+							for(var j=0;j<$(".list i").length;j++){
+							
+								$(".list i")[j].setAttribute("style","background:url(../../image/shop/crect1.jpg) no-repeat center center;background-size:1.6rem 1.6rem;borderColor:#fff;flag:1")
+								$(".list i")[j].setAttribute("flag","1")
+								//$(".list i")[j].css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
+											
+						}
+						_count=_save
+						$(".amountBig span").text(_price.toFixed(1))
+						$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+	//					if(_count>0){
+	//						$(".yj").css({display:"none"})
+	//					}
+						console.log(_sv)
+						for(var f=0;f<_sv.length;f++){
+							_Id[f]=_sv[f]
+						}
+						console.log(_Id)
 					}
-					_count=0
-					$(".amountBig span").text("0.0")
-					_price=0
-					zz()
-					_discount=0
-					$(".amountBig").next().find("span:nth-child(2)").text("0.0")
-//					if(_count==0){
-//						$(".yj").css({display:"block"})
-//					}
-					for(var c=0;c<_Id.length;c++){
-						_Id[c]=""
-					}
-					console.log(_Id)
-				}else{
-					_price=_pp
-					zz()
-					_discount=_dis
-					_count=_ct
-					_ges=_cun
-					$(".commit span").text("("+_ges+")")
-					$(".summ").text(_ges)
-					$(this).attr("flag","1")
-					$(this).css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#3a3635"});
-						for(var j=0;j<$(".list i").length;j++){
-						
-							$(".list i")[j].setAttribute("style","background:url(../../image/shop/crect1.jpg) no-repeat center center;background-size:1.6rem 1.6rem;borderColor:#fff;flag:1")
-							$(".list i")[j].setAttribute("flag","1")
-							//$(".list i")[j].css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
-										
-					}
-					_count=_save
-					$(".amountBig span").text(_price.toFixed(1))
-					$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
-//					if(_count>0){
-//						$(".yj").css({display:"none"})
-//					}
-					console.log(_sv)
-					for(var f=0;f<_sv.length;f++){
-						_Id[f]=_sv[f]
-					}
-					console.log(_Id)
+					fg()					
 				}
-				fg()
+
 			});
 		}
 		function change(data1){//购物车数量改变
@@ -781,7 +776,7 @@
 						if(_active==""){
 							$(".intr").css({display:"none"})
 						}else{
-							$(".intr").css({display:"flex"})
+							$(".intr").css({display:"flex",display:"-webkit-box"})
 						}
 						$(".intr div:nth-child(1)").text(_nm)
 						$(".intr div:nth-child(2) span:nth-child(1)").text(_jies)
