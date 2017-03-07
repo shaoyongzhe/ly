@@ -7,7 +7,7 @@ $(function(){
 	//时间插件
 		var start = {
 		  elem: '#start',
-		  format: 'YYYY/MM/DD ',
+		  format: 'YYYY-MM-DD ',
 		  //min: laydate.now(), //设定最小日期为当前日期
 		  max: '2099-06-16 23:59:59', //最大日期
 		  istime: false,
@@ -220,7 +220,7 @@ $(function(){
 			pagingJson.pageindex++;
 		    var searchForm = {
 				purpose_id :regin_purpose_id,//预算事由13
-	            purpose_class:"tblipalomaactivity",//
+	            purpose_class:"tblipalomaactivity",//必带参数
 	            area_province:$('#province span em').text(),//省
 	            area_city:$('#city span em').text(),//市
 	            area_district:$('#area span em').text(),//区
@@ -528,6 +528,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 
 		        	//判断名字
 	        		function keyg(keyy){
+
 						if(keyy=='distributor'){
 					 		keyy='分销商'
 					 	}else if(keyy=='retailer'){
@@ -540,6 +541,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 					 		keyy='门店店员'
 						 	}
 						return keyy;
+
 					}
 					// 判断内容
 	        		function judgeEvent(keys){
@@ -785,7 +787,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 			  //弹出框
 			  layer.open({ 
 				  //anim:1,
-				  type: 1,
+				  type: 1, 
 				  title:'追加缩减预算',
 				  area: ['714px', '55%'],
 				  shadeClose: false, //点击遮罩关闭
@@ -793,7 +795,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 			  });
 
 			  $('.cancel').on('click',function(){
-			  	$(this).closest('.layui-layer').find('.layui-layer-close').click()
+			  	$(this).closest('.layui-layer').find('.layui-layer-close').click();
 			  	$('.add_redd li').parent('.add_redd').slideUp();
 			  });
 			  $.ajax({
@@ -1000,11 +1002,11 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 						$('.table4 tbody').html(str+str2);
 			        },
 			        error:function(){
-
+			        	alert('去审批弹出框请求失败');
 			        }
 			  })
 			  $('.Reject').on('click',function(){
-			  	$(this).closest('.layui-layer').find('.layui-layer-close').click()
+			  	$(this).closest('.layui-layer').find('.layui-layer-close').click();
 			  });
 
 			});	
@@ -1067,10 +1069,6 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 	        }
 	    });
 	}
-
-
-         
-
 
 
 
