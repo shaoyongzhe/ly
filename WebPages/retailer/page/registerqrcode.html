@@ -15,13 +15,25 @@
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
     <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
     <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
-    
+
+    <script type="text/javascript" src="/js/lib/common.js"></script>
+
     <script type="text/javascript">
 	 var src = "/webapi/retailer/weixin/register_generate_code?qrtype=11";	 
      src += window.location.search.replace("?","&");
-    var qrcode = qrcodeconfig["retailer"];
-    qrcode["inviteretailer"]["url"] = src;
-    draw(qrcode, "inviteretailer", qrcodeconfig["retailer"]["logo"]);
+     var qrcode = qrcodeconfig["retailer"];
+     if (common.getUrlParam("titletype") != null && common.getUrlParam("titletype") == "textflag")
+     {
+         draw(qrcode, "inviteretailertitle", qrcodeconfig["retailer"]["logo"]);
+         $(".savepic").html("扫一扫上面的二维码，成为店员");
+     }
+     else
+     {
+         draw(qrcode, "inviteretailer", qrcodeconfig["retailer"]["logo"]);
+     }
+
+     qrcode["inviteretailer"]["url"] = src;
+   
 	</script>
 </head>
 
