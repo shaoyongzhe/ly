@@ -135,7 +135,7 @@ function Cajax(m,a,b){
 function ajaxSucFn(info,switcher){//ajax成功回调里调用
 //	debugger;
 	linshiInfo=info;
-	if(info.match){//处理不规范的后台数据,
+	if(info.match!=undefined){//处理不规范的后台数据,
 		info.matched=info.match;		
 	}	
 	$(".CbdD .CbdD1 img").attr("src",CbdDimgArr[info.matched]);//看看哲哥用的是matched还是match
@@ -186,7 +186,7 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 			$(".Cccondition").show();
 		}		
 	}	*/
-	if(info.matched){
+	if(info.matched==1){
 		$(".CbdD2P1").text("您已达到活动条件");
 		$(".CbdD2P2").text("马上可以赚补贴喽！");
 		$(".Cccondition").hide();
