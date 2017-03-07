@@ -1,7 +1,7 @@
 ﻿var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
-var pageindex=0;
+var pageindex=1;
 var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
 var autoLoad = true;
