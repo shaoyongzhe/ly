@@ -182,7 +182,7 @@
 						}
 						$("#pp span").text(_discount.toFixed(1))
 						if(data["content"][commodity]["iswechatdiscount"]==true){
-		        			$("#vv").css({display:"flex"})
+		        			$("#vv").css({display:"flex",display:"-webkit-box"})
 		        			if(data["content"][commodity]["openflag"]==1){
 		        				if(_data1[_indd]["specialprice"]){
 			        				_discount+=Number(_data1[_indd]["specialprice"])

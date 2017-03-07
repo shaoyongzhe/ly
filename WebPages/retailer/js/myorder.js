@@ -23,11 +23,6 @@
 			 var _historyList="";
 			 var _d=new Date().getTime();
 			 var _data1="";
-			if(localStorage.reload){
-				if(localStorage.reload==1){
-					localStorage.reload=0
-				}
-			}
 			if(localStorage.retalerdata && JSON.parse(localStorage.retalerdata).data.result!=false){
 							data1=JSON.parse(localStorage.retalerdata).data;
 	        		_data1=data1;
