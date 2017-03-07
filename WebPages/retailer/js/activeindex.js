@@ -955,7 +955,6 @@ function fnsearchyc(odata) {
                 fnychxr(data);
             }
             $("#zhezao").hide();
-            //sessionStorage.setItem("yucunhuo", JSON.stringify(data));
         }
     });
 }
