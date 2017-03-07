@@ -920,7 +920,6 @@ function fnserach() {
             } else {
                 odata.filtertype = 0;
             }
-
             fnserchapi(odata);
         }
     });
@@ -983,7 +982,9 @@ function fnserchapi(odata) {
             console.log(data);
             $("#loading").hide();
             menusx(data["groupdata"]);
-            //$(".sale ").next().find("link").click();
+            $(".cgl-menu").find("li").removeClass("clion");
+            $(".sale").next().addClass("clion").find("i").hide();
+            $(".sale").next().find(".submenu").slideDown(300);
             if(data.result == false) {
                 console.log(data.error);
                 $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
@@ -1050,6 +1051,12 @@ function fnmclick(theid,idd) {
     }
     $("#cgl-contlist").scrollTop(0);
 }
+//加载更多
+function getmore() {
+    $("#cgl-contlist").scroll(function () {
+        console.log($(this)[0].scrollTop,$(this)[0].scrollHeight-$(this).outerHeight())
+    });
+}
 $(function() {
     if(localStorage.reload==1){
         var _tt=setInterval(function(){
@@ -1067,6 +1074,7 @@ $(function() {
             fnserach(); //搜索
             fnmclick2 ();
             clearInterval(_tt);
+            getmore();
         },100)
     }else{
         localStorage.reload=1;
@@ -1082,5 +1090,6 @@ $(function() {
         //商品数量加减
         fnserach(); //搜索
         fnmclick2 ();
+        getmore();
     }
 });
