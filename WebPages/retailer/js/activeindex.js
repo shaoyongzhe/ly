@@ -198,10 +198,7 @@ function fnmenuclick() {
         }
     });
 }
-//品牌下一级分类请求
-function yijiajax() {
 
-}
 //二级菜单遮罩上部点击事件
 function fnerji() {
     $(".sanji").on("click", function() {

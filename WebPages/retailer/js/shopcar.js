@@ -208,7 +208,7 @@
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
 					}else if(data1[i]["isyucun"]==1 && data1[i]["salestop"]==0){
 						console.log(1)
-						_price+=Number(data1[i]["price"])*Number(data1[i]["itemcount"]);
+						_price+=Number(data1[i]["itemunitcost"])*Number(data1[i]["itemcount"]);
 						_count++;
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)

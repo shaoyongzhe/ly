@@ -169,7 +169,10 @@ function shopList(pg){
 					 			}
 								
 				   	}
-				   	_historyList="<dt>历史订单</dt>"+_historyList;
+				   	if(_historyList!=""){
+				   		_historyList="<dt>历史订单</dt>"+_historyList;
+				   	}
+				   	
 				   	_shopList="<dt>进行中的</dt>"+_shopList;
 						$("#dl2").html(_historyList)
 						$("#dl1").html(_shopList);
@@ -283,6 +286,9 @@ function shopList(pg){
 	//				   			_historyList+="<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>"
 	//				   			_fg=0
 	//				   		}
+							if(_historyList!=""){
+								$("#dl2").html("<dt>历史订单</dt>")
+							}
 							$("#dl2").html($("#dl2").html()+_historyList)
 							$("#dl1").html($("#dl1").html()+_shopList);
 							_historyList="";
