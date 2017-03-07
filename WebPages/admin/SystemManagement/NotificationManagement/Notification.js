@@ -202,8 +202,7 @@ function getModulePeopleList(curr, handle, searchForm) {
        + '<th>联系人信息</th>'
        + '<th>操作</th>'
        + '</tr>';
-        $(".modulePeople thead").empty();
-        $(".modulePeople thead").append(modulePeopleThead);
+        $(".modulePeople thead").html(modulePeopleThead);
         var contentFormat = JSON.stringify(data, null, 4);
 
         var tr = "<tr class='text-c'><td><input type='hidden' class='guid' value'notification'>" + "通知"
