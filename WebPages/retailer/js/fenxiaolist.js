@@ -1,16 +1,6 @@
 /**
  * Created by Administrator on 2016/12/30.
  */
-
-
-
-//获取Id
-
-
-function getid(){
-	return "57839d2ad6424786bd3c319585f2088e";
-}
-
 //底部菜单点击效果
 function fnfooterclick() {
     $("footer").on("click","div",function () {
@@ -64,7 +54,7 @@ function fngetlist() {
             var ceng3=null;
             var thissp={
             	distributor_id:null,
-            	shopid:getid(),
+            	shopid:localStorage.getItem("retaler"),
             	distributorname:null,
             	distributorimg:null,
             	contactperson:null,
