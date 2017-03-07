@@ -18,6 +18,7 @@ $('.selectL').on("click",".optionL",function(e){
 //$('.selectL .optionL').click(function(e){
 	e.stopPropagation();
 	$(this).parent().prev().text($(this).text());//把li的内容放入em
+	$(this).parent().prev().attr("guid-data",$(this).attr("guid"))
 	$(this).parent().hide();//点击li的时候隐藏ul
 });	
 $(document).click(function(){
@@ -161,7 +162,8 @@ function basicQuery(resetQueryCondition){
 	if($(".qC_principal .selectLedL").text()=="请选择"){
 		charge="";
 	}else{
-		charge=$(".qC_principal .selectLedL").text();
+//		charge=$(".qC_principal .selectLedL").text();
+		charge=$(".qC_principal .selectLedL").attr("guid-data");
 	}
 	//活动时间
 	var times="";
