@@ -1053,8 +1053,12 @@ function fnmclick(theid,idd) {
 }
 //加载更多
 function getmore() {
+    var hcha=null;
     $("#cgl-contlist").scroll(function () {
-        console.log($(this)[0].scrollTop,$(this)[0].scrollHeight-$(this).outerHeight())
+        hcha=$(this)[0].scrollHeight-$(this).outerHeight()-$(this)[0].scrollTop;
+        if(hcha==0){
+            alert(1)
+        }
     });
 }
 $(function() {
