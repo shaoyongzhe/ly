@@ -347,7 +347,7 @@ function fnychxr(data) {
             itemid: data[k1]["itemid"],
             itemquality: data[k1]["itemquality"],
             itemprice: data[k1]["itemunitcost"],
-            prepayid:data[k1]["prepayid"],
+            prepayid:data[k1]["guid"],
             isyucun: 1
         }
         if(data[k1]["remaincount"]>0){
@@ -865,12 +865,9 @@ function fnserach() {
     var _ti=1;
     $(".clear").on("click", function() {
         if($(".content").val()!="" && _ti!=1){
-            $("#cgl-menu").find("li:gt(1)").remove();
-            $("#cgl-menu").find("li:eq(1)").show();
-            $("#cgl-menu").find("li").removeClass("clion");
-            $(".sale ").addClass("clion");
-            fnmenu(); //获取菜单列表
-            fnhqactive();//获取促销活动列表
+            $(".content").val("");
+            $(".searchbtn").click();
+            _ti=1;
         }
         $(".content").val("");
         $(".clear").hide();
@@ -898,10 +895,11 @@ function fnserach() {
             odata.filtertype = 0;
         }
         odata.filter = $(".content").val();
+
         if(odata.filter==0){
             $("#cgl-menu").find("li:gt(1)").remove();
             $("#cgl-menu").find("li:eq(1)").show();
-            $("#cgl-menu").find("li").removeClass("clion");
+            $(".cgl-menu").find("li").removeClass("clion");
             $(".sale ").addClass("clion");
             fnmenu(); //获取菜单列表
             fnhqactive();//获取促销活动列表
@@ -922,6 +920,7 @@ function fnserach() {
             } else {
                 odata.filtertype = 0;
             }
+
             fnserchapi(odata);
         }
     });
@@ -985,7 +984,7 @@ function fnserchapi(odata) {
             console.log(data);
             $("#loading").hide();
             menusx(data["groupdata"]);
-            $(".sale ").addClass("clion");
+            //$(".sale ").next().find("link").click();
             if(data.result == false) {
                 console.log(data.error);
                 $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
@@ -1016,7 +1015,7 @@ function menusx(data) {
         $(".clear").hide();
         $("#cgl-menu").find("li:gt(1)").remove();
         $("#cgl-menu").find("li").removeClass("clion");
-        $(".sale ").addClass("clion");
+        //$(".sale ").next().find("link").click();
         fnmenu(); //获取菜单列表
         fnhqactive();//获取促销活动列表
     });
