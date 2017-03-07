@@ -1,4 +1,5 @@
-﻿     var common = {};
+﻿    //loading加载
+    var common = {};
     common.loading = {
         show: function () {
             $("body").append('<div id="loading" class="pin-spinner"><div class="pin-spinner-container pin-spinner-container1"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container2"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container3"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div></div>');
@@ -22,8 +23,7 @@ $(function(){
 			{
 				common.loading.show();
 			},
-			complete:function()
-			{
+			complete:function(){
 				 if (common.loading)
                        common.loading.hide();
 			},			
@@ -31,17 +31,17 @@ $(function(){
 				if (common.loading)
                        common.loading.hide();
 				var arraytime=[];
-				 var Intercept_two=Intercept.split('&');
-				 for(var i=0;i<Intercept_two.length;i++){
+				var Intercept_two=Intercept.split('&');
+				for(var i=0;i<Intercept_two.length;i++){
 				 	var Intercept_three=Intercept_two[i].split('=')
 				 	arraytime.push(Intercept_three[1])
 				 	console.log(arraytime)
-				 }
+				}
 				
-				 $('.Smalltrianglefont .begin_t').html(arraytime[0].split('%')[0]);
+				$('.Smalltrianglefont .begin_t').html(arraytime[0].split('%')[0]);
 			//开始当前时间
-			     var timeranbs=data.timerange.begintime;
-				 $('.this_time').html(arraytime[1].split('%')[0]);
+			    var timeranbs=data.timerange.begintime;
+				$('.this_time').html(arraytime[1].split('%')[0]);
 
 			//饼图开始 运用到canvas
 			canvas1 = function(){
@@ -471,61 +471,68 @@ $(function(){
 
 				Mosaic()
 				function Mosaic(){
+					console.log(JSON.stringify(data,null,4))
 					var verificationnumber=data.activities;
-						console.log(verificationnumber.length);
-						var str='';
-						for(var i = 0;i < verificationnumber.length;i++){
+					console.log(verificationnumber.length);
+					var str='';
+					for(var i = 0;i < verificationnumber.length;i++){
 
-							var str6_1= verificationnumber[i].headcount;
-							var str6_2= verificationnumber[i].verifycount;
-							var str6_3= verificationnumber[i].retailercount;
-							var verifycountsumber_percentage = toPercent3(str6_1/300); 
-							var verifycountcenber_percentage = toPercent3(str6_2/300); 
-							var verifycountbotber_percentage = toPercent3(str6_3/300); 
-							$('.activeson1_right1 a').html(str6_1);
-							$('.activeson1_right2 a').html(str6_2);
-							$('.activeson1_right3 a').html(str6_3);
-							
-							str+="<li>"+
-									"<div class='activeson1'>"+
-										"<div class='activeson1_left'>"+
-											"<a href='javascript:;'>"+ verificationnumber[i].activitytitle +"</a>"+
-											'<input type="hidden" value="'+verificationnumber[i].activityid+'">'+
+						var str6_1= verificationnumber[i].headcount;
+						var str6_2= verificationnumber[i].verifycount;
+						var str6_3= verificationnumber[i].retailercount;
+						var verifycountsumber_percentage = toPercent3(str6_1/300); 
+						var verifycountcenber_percentage = toPercent3(str6_2/300); 
+						var verifycountbotber_percentage = toPercent3(str6_3/300); 
+						$('.activeson1_right1 a').html(str6_1);
+						$('.activeson1_right2 a').html(str6_2);
+						$('.activeson1_right3 a').html(str6_3);
+						var colors=verificationnumber[i].matched==1 ? 'colorif' : '';  //判断颜色
+						str+="<li>"+
+								"<div class='activeson1'>"+
+									"<div class='activeson1_left'>"+
+										"<a class='"+ colors +"' href='javascript:;'>"+ verificationnumber[i].activitytitle +"</a>"+
+										'<input type="hidden" value="'+verificationnumber[i].activityid+'">'+
+									"</div>"+
+									"<div class='line'>"+"</div>"+
+									"<div class='activeson1_right'>"+
+										'<div id="activeson1_right11" class="activeson1_right1" style="width:'+verifycountsumber_percentage+';">'+
+											"<a href='javascript:;'>"+
+												verificationnumber[i].headcount+
+											"</a>"+
 										"</div>"+
-										"<div class='line'>"+"</div>"+
-										"<div class='activeson1_right'>"+
-											'<div id="activeson1_right11" class="activeson1_right1" style="width:'+verifycountsumber_percentage+';">'+
-												"<a href='javascript:;'>"+
-													verificationnumber[i].headcount+
-												"</a>"+
-											"</div>"+
-											'<div id="activeson1_right22" class="activeson1_right2" style="width:'+verifycountcenber_percentage+';">'+
-												"<a href='javascript:;'>"+
-													verificationnumber[i].verifycount+
-												"</a>"+
-											"</div>"+
-											'<div id="activeson1_right33" class="activeson1_right3" style="width:'+verifycountbotber_percentage+';">'+
-												"<a href='javascript:;'>"+
-													verificationnumber[i].retailercount+
-												"</a>"+
-											"</div>"+
+										'<div id="activeson1_right22" class="activeson1_right2" style="width:'+verifycountcenber_percentage+';">'+
+											"<a href='javascript:;'>"+
+												verificationnumber[i].verifycount+
+											"</a>"+
+										"</div>"+
+										'<div id="activeson1_right33" class="activeson1_right3" style="width:'+verifycountbotber_percentage+';">'+
+											"<a href='javascript:;'>"+
+												verificationnumber[i].retailercount+
+											"</a>"+
 										"</div>"+
 									"</div>"+
-								 "</li>"
+								"</div>"+
+							 "</li>"
 
-								
-						}
+						// //判断颜色
+						// if(verificationnumber[i].matched==1){
+						// 	$('.activeson1_left a').removeClass('colorif').addClass('colorif');
+						// }else{
+						// 	$('.activeson1_left a').removeClass('colorif');
+						// }
+
+					}
 						
 
 
-						function toPercent3(point){
-							//var str=Number(point*100).toFixed(0);
-							var str=parseInt(Number(point*10000))/100; //因为四舍五入会超过100%；所以直接取小数点后两位即可
-							str+="%";
-							return str;
-						}
+					function toPercent3(point){
+						//var str=Number(point*100).toFixed(0);
+						var str=parseInt(Number(point*10000))/100; //因为四舍五入会超过100%；所以直接取小数点后两位即可
+						str+="%";
+						return str;
+					}
 
-						$('.Bar_charts').html(str)
+					$('.Bar_charts').html(str)
 
 				}
 			
