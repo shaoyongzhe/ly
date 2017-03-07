@@ -240,7 +240,7 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 				console.warn(JSON.stringify(dataprov.error, null, 4));
 				return;
 			}
-
+			
 			sessionStorage.setItem("shengfzr", JSON.stringify(dataprov, null, 4));
 			fillProvinceCharge();
 			sessionStorage.setItem("allcharge", JSON.stringify(dataprov.allcharge, null, 4));
@@ -716,7 +716,7 @@ function dataLoad() {
 
 			var shifzrObj = {
 				state: "active",
-				shifzr: $('.Select_province1 li.on select').val(),
+				name: $('.Select_province1 li.on select').val(),
 				guid: $('.Select_province1 li.on :selected').attr("guid"),
 				oid: $('.Select_province1 li.on :selected').attr("oid")
 			}

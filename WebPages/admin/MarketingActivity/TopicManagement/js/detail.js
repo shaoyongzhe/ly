@@ -310,10 +310,10 @@ function render(detailData){
 	var yuan = 0;
 	$('td.btfz:contains(元) .valTxt').each(function(){
 		if($(this).text() == ""){return false;}
-		yuan += parseInt($(this).text());
+		yuan += parseFloat($(this).text());
 	});
 
-	$('.totalYuan').text(yuan);
+	$('.totalYuan').text(Number(yuan).toFixed(2));
 
 //	var fen = 0;
 //	$('td.btfz:contains(分) .valTxt').each(function(){
@@ -327,10 +327,10 @@ function render(detailData){
 	var sbysYuan = 0;
 	$('td.sbys:contains(元) .valTxt').each(function(){
 		if($(this).text() == ""){return false;}
-		sbysYuan += parseInt($(this).text());
+		sbysYuan += parseFloat($(this).text());
 	});
 
-	$('.totalSbysYuan').text(sbysYuan);
+	$('.totalSbysYuan').text(Number(sbysYuan).toFixed(2));
 
 
 //	var sbysFen = 0;

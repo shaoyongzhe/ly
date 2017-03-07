@@ -917,7 +917,19 @@ $(".basic-msg .time").blur(function(){
     
 })
 
-
+$('body').on('input','.addSubSubsidyPolicy .s1-1 input',function(e){
+//$(".addSubSubsidyPolicy .s1-1 input").blur(function(){
+	var basic = $('.basic-msg');
+	var begintime = basic.find('.begintime').val().replace(new RegExp("-", "gm"), "/");
+    var endtime = basic.find('.endtime').val().replace(new RegExp("-", "gm"), "/");
+    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+    var activeEnd = (new Date(endtime)).getTime();
+	if($(this).val()>(activeEnd-activeBegin)/86400000){//86400000为一天的毫秒数
+		layer.msg('填写的数字不可以大于或等于整个活动周期的总天数');
+		$(this).val("");
+		return;
+	}
+})
 // 点击导航
 $('nav span').click(function(){
 	$(this).addClass('on').siblings().removeClass('on');
