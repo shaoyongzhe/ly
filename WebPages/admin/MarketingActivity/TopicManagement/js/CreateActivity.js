@@ -2052,7 +2052,7 @@ $('.butieSec').on('click','.subsidyCondition a', function(){
 
 
 	// 处理相同补贴对象下的补贴条件是否相同
-	var this_duixiang_txt = _this.closest('.addSub4').find('.butie-select-wrap .selected').text();
+	/*var this_duixiang_txt = _this.closest('.addSub4').find('.butie-select-wrap .selected').text();
 	$('.addSub4 .butie-select-wrap .selected').each(function(){
 		if($(this).text() == this_duixiang_txt){
 			$(this).closest('.addSub4').find('.butieCond .selected').each(function(){
@@ -2062,20 +2062,22 @@ $('.butieSec').on('click','.subsidyCondition a', function(){
 				}
 			});
 		}
-	});
+	});*/
 
+	var dxName = _this.closest('.addSub4').find('.butie-select-wrap .selected').attr('name');
+	$(".addSub4 .butie-select-wrap .selected[name="+ dxName +"]").each(function(){
+		var exsitCond = $(this).closest('.addSub4').find('.subsidyCondition a').text();
+		$('.subsidyConditionItem').each(function(){
+			if($(this).text() == exsitCond){
+				if(exsitCond != '达到统计指标'){
+					$(this).hide(1000);
+				}
+			}
+		});
+	})
 
-	// var dxName = _this.closest('.addSub4').find('.butie-select-wrap .selected').attr('name');
-	// $(".addSub4 .butie-select-wrap .selected[name="+ dxName +"]").each(function(){
-	// 	var exsitCond = $(this).closest('.addSub4').find('.subsidyCondition a').text();
-	// 	$('.subsidyConditionItem').each(function(){
-	// 		if($(this).text() == exsitCond){
-	// 			$(this).hide(1000);
-	// 		}
-	// 	});
-	// })
-
-	/*{
+	/*
+	{
 	    "timetag": "主题活动周期内",
 	    "time": "",
 	    "object": "消费者",
@@ -2083,7 +2085,8 @@ $('.butieSec').on('click','.subsidyCondition a', function(){
 	    "type": "累计核销次数",
 	    "reqesttag": "请选择",
 	    "requestnumber": "12"
-	}*/
+	}
+	*/
 
 	// $('.subsidyConditionItem.on')
 	$('.addSubSubsidyPolicy .content .selectedL').text("请选择");
@@ -2100,6 +2103,12 @@ $('.butieSec').on('click','.subsidyCondition a', function(){
 		content.find('.s5-1 .requestnumber').val(savedData.requestnumber);
 	}
 
+	/*var selectedArr = [];
+	var selectedObj = {};
+	$('.subsidyCondition a:contains(达到统计指标)').each(function(){
+		selectedArr.push(JSON.parse($(this).attr('statistic')))
+	});
+	c(selectedArr)*/
 });
 
 
@@ -2109,7 +2118,7 @@ $('.subsidyPolicy .ok').click(function(){
 		"timetag": "周期内",
 		"time": 12, 
 		"object": "门店|消费者|分销商", 
-		"method": "各分销商分别统计|所有分销商汇总统计" , 
+		"method": "各分销商分别统计|所有分销商汇总统计",
 		"type": "累计核销次数|累计核销金额|累计有核销日|累计假核销金额", 
 		"reqesttag": "地区排名|全国排名|=|>|>=|<=|<",
 		"requestnumber": 10
