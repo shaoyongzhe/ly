@@ -493,6 +493,12 @@ function getactivityitem(sandbox, activityid) {
                 }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
@@ -565,6 +571,12 @@ function checknosubmit() {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var obj = JSON.parse(XMLHttpRequest.responseText);
+                if (obj["error"] == "登录失败") {
+                    alert("用户未登录，跳转至登录页面");
+                    window.location.href = "../html/login.html";
+                    return;
+                }
                 if (XMLHttpRequest.readyState == 4)
                     alert("网络异常");
             }
@@ -623,6 +635,12 @@ function registeractivity() {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var obj = JSON.parse(XMLHttpRequest.responseText);
+                if (obj["error"] == "登录失败") {
+                    alert("用户未登录，跳转至登录页面");
+                    window.location.href = "../html/login.html";
+                    return;
+                }
                 if (XMLHttpRequest.readyState == 4)
                     alert("网络异常");
                     $("#checkSubmitBtn").attr("disabled", false);
@@ -679,6 +697,12 @@ function checkactivityfailed() {
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+                var obj = JSON.parse(XMLHttpRequest.responseText);
+                if (obj["error"] == "登录失败") {
+                    alert("用户未登录，跳转至登录页面");
+                    window.location.href = "../html/login.html";
+                    return;
+                }
                 if (XMLHttpRequest.readyState == 4)
                     alert("网络异常");
             }
@@ -727,6 +751,12 @@ function getNextPageActivitys() {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }
@@ -775,6 +805,12 @@ function getNewActivitys() {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            var obj = JSON.parse(XMLHttpRequest.responseText);
+            if (obj["error"] == "登录失败") {
+                alert("用户未登录，跳转至登录页面");
+                window.location.href = "../html/login.html";
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
                 alert("网络异常");
         }

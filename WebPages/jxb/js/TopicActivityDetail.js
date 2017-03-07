@@ -651,7 +651,10 @@ function returnToList(){
 		$(".returnToList .p2").hide();
 	}
 	$(".returnToList .p1").click(function(){
-		engine.call('ClosePage',"");
+//		engine.call('ClosePage',"");
+		window.history.back();
+		return false;
+//		location.reload();
 		console.log("返回主题活动列表触发")
 	})
 	$(".returnToList .p2").click(function(){

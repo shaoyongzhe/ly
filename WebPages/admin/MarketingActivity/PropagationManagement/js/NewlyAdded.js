@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2016-11-19 19:58:44
  * @Last Modified by:   Administrator
- * @Last Modified time: 2017-02-21 13:48:46
+ * @Last Modified time: 2017-02-28 16:43:22
  * 注:如有不明白的逻辑找齐枭飞
  */
 
@@ -240,6 +240,13 @@ $('.mode1_fa').find('div:eq(0) img').addClass('xiyin_son');
                 });
             return;
         }
+        // if(contentHtml.length>4000){
+        //     layer.tips('填写内容过多','.mode', {
+        //           tips: [1, '#F22525'],
+        //           time: 4000
+        //         });
+        //     return;
+        // }
 
         var index = layer.open({
             type: 1,
@@ -361,15 +368,7 @@ $('.mode1_fa').find('div:eq(0) img').addClass('xiyin_son');
                 }
 
         $('#count').click();
-        var contentHtml = $('.note-editing-area .panel-body').html();
-        console.log(contentHtml)
-        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
-            layer.tips('请填写内容','.mode', {
-                  tips: [1, '#F22525'],
-                  time: 4000
-                });
-            return;
-        }
+    
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -434,8 +433,10 @@ $('.mode1_fa').find('div:eq(0) img').addClass('xiyin_son');
             return;
         }
 
-        if (form_value.copywriting.length == 2) {
-            // layer.msg('请填写发送内容');
+        
+        var contentHtml = $('.note-editing-area .panel-body').html();
+        console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
             layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
@@ -569,15 +570,7 @@ var guid_val = '';
                 }
 
             $('#count').click();
-        var contentHtml = $('.note-editing-area .panel-body').html();
-        // console.log(contentHtml)
-        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
-            layer.tips('请填写内容','.mode', {
-                  tips: [1, '#F22525'],
-                  time: 4000
-                });
-            return;
-        }
+     
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -644,8 +637,10 @@ var guid_val = '';
         }
         
 
-        if (form_value.copywriting.length==2) {
-            // layer.msg('请填写发送内容');
+       
+           var contentHtml = $('.note-editing-area .panel-body').html();
+        // console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
             layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000
@@ -778,15 +773,7 @@ var guid_val = '';
                 }
 
             $('#count').click();
-    var contentHtml = $('.note-editing-area .panel-body').html();
-        // console.log(contentHtml)
-        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
-            layer.tips('请填写内容','.mode', {
-                  tips: [1, '#F22525'],
-                  time: 4000
-                });
-            return;
-        }
+        var contentHtml = $('.note-editing-area .panel-body').html();
         var pic1_url = $('#preview img').attr('src');
         var srvice_val = JSON.stringify($.trim($('#textarea_value').val()));
         var form_value = {
@@ -853,8 +840,9 @@ var guid_val = '';
         }
         
 
-        if (form_value.copywriting.length==2) {
-            // layer.msg('请填写发送内容');
+          
+        // console.log(contentHtml)
+        if(contentHtml==''||contentHtml=='<p><br></p>'||contentHtml=='&nbsp;'||contentHtml=='<p>&nbsp;&nbsp;</p>'||contentHtml=='<p>&nbsp;</p>'){
             layer.tips('请填写内容','.mode', {
                   tips: [1, '#F22525'],
                   time: 4000

@@ -517,3 +517,9 @@
 	.lification>div:nth-of-type(even){
 		background: #ffd9d9;
 	}
+	/*2-28改动*/
+	.Focus_box,.Focus_box_left,.Focus_box_right{
+		min-height: 6.2rem;
+		height:auto;
+		overflow: hidden;
+	}

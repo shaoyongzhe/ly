@@ -99,30 +99,10 @@ function acAdB() {
 		}
 
 		// $('.red').last().css({"visibility": "hidden"});
-//		$('.red').last().addClass('vihi');
+		// $('.red').last().addClass('vihi');
 		$('.red').not(':first').addClass("vihi");
 		$(".addSub2").last().find(".acAd2").removeClass("hi");
-
-
-
-		var d = new Date();
-        var dates = d.toLocaleDateString().replace(/\//g, '-');
-        $('.time_y').click(function(e){
-            // e.stopPropagation();
-            // var id = $(this).attr('id');
-            laydate({
-                // elem: id,
-                event: 'focus',
-                format: 'YYYY/MM/DD',
-                // format: 'YYYY-MM-DD',
-                // istime: true,
-                max: dates
-                /*choose: function(dates){
-                    layer.msg(dates);
-                },*/
-            });
-        });
-
+		
 	});
 
 	$(".addSub3:last .acAd3").css({"visibility": "hidden"});
@@ -137,6 +117,7 @@ function acAdC() {
 	$("body").on("click", ".acZige .acAd3", function(e) {
 		if ($(this).closest(".acZige").find(".addSub3").length <= 1) {
 			alert("至少需要一个"); //等待修改该模块
+
 		} else {
 			if ($(this).closest(".addSub3").next().hasClass("yyy")) {
 				$(this).closest(".acZige").find(".addSub3:last").prev().find(".acAd4").removeClass("hi");
@@ -159,13 +140,13 @@ function acAdC() {
 
 		$(this).closest(".acZige").append(addsub3HTML);
 		$(this).closest(".addSub2").find('.member-type .option').each(function(){//根据按钮向上找到控件2，然后以此向下找到控件2中的option
-			//下面代码和createActivity1中完全一致
-//			debugger;
+			// 下面代码和createActivity1中完全一致
+			// debugger;
 			if($(this).closest(".addSub2").find(".acSe4 em").text()==$(this).text()){
 				var arr=$(this).attr("conditiontype").split(',');
 				var li =$(this).closest('.addSub2').find('.acZige1 .option');
 				$(li).each(function(){
-					// console.log($(this).text());			
+					// console.log($(this).text());	
 					$(this).hide();
 					for(i=0;i<arr.length;i++){
 						if($(this).text()==arr[i]){
@@ -179,7 +160,9 @@ function acAdC() {
 			"visibility": "visible",
 			"cursor": "pointer"
 		});
-		$(this).closest(".acZige").append($('<div class="yyy singleselection"><span class="radio" name="0">以上条件满足其一</span><span class="radio on" name="1">以上条件需全部满足</span></div>'));
+
+		$(this).closest(".acZige").append('<div class="yyy singleselection"><span class="radio" name="1">以上条件满足其一</span><span class="radio on" name="0">以上条件需全部满足</span></div>');
+
 		$(this).closest(".acZige").find(".yyy").not(':last').remove();
 		$(this).addClass("hi");
 		$(this).closest('.acZige').addClass('on');
@@ -196,8 +179,6 @@ $("body").on("click", ".acMeD2", function(e) {
 	e.stopPropagation();
 
 	// $(this).parents(".addSub2").find(".acZige").toggleClass("hi");
-
-
 	$(this).closest('.addSub2').find('.acZige').toggle();
 	
 });
@@ -206,13 +187,14 @@ $("body").on("click", ".acMeD2", function(e) {
 
 
 // 控件4的添加删除
-acAdD();
+// acAdD();
 
-function acAdD() {
+// function acAdD() {
 	$("body").on("click", ".addSub4 .acAd1", function(e) {
 		// $(".addSub4 .acAd1").click(function(){
 		if ($(".addSub4").length <= 1) {
-			alert("至少需要一个"); //等待修改该模块
+			layer.msg("至少需要一个");
+
 		} else {
 			$(this).parents(".addSub4").remove();
 			if ($(".addSub4").length <= 1) {
@@ -228,9 +210,9 @@ function acAdD() {
 			"cursor": "pointer"
 		}); //新修改
 
-
 		butiefz();
 		$('.butieSec .sbys').keyup();
+
 
 	})
 
@@ -238,6 +220,9 @@ function acAdD() {
 		// $(".section3 .addSub4 .acAd2").click(function(){
 		// alert(1)
 		// debugger;
+
+		
+
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",
 			"cursor": "pointer"
@@ -265,11 +250,11 @@ function acAdD() {
 		// hdc4d1
 		// $('.addSub4').last().find('.hdc4d1 input').removeAttr('style');
 	})
-}
+// }
 
-acAdE();
+// acAdE();
 
-function acAdE() {
+// function acAdE() {
 	$("body").on("click", ".addSub5 .acAd1", function(e) {
 		// $(".addSub5 .acAd1").click(function(){				
 		if ($(".addSub5").length <= 1) {
@@ -303,11 +288,12 @@ function acAdE() {
 		$(".addSub5").last().find('input').val('');
 
 	});
-}
+// }
 //控件6轮盘抽奖的添加删除
-acAdF();
+// acAdF();
 
-function acAdF() {
+// function acAdF() {
+
 	$("body").on("click", ".addSub6 .acAd1", function(e) {
 		// $(".addSub6 .acAd1").click(function(){				
 		if ($(".addSub6").length <= 1) {
@@ -338,7 +324,7 @@ function acAdF() {
 		$(".addSub5").last().find('input').val('');
 
 	})
-}
+// }
 
 if(window.location.href.indexOf("CreateActivity")!=-1){
 	addAjax();
@@ -526,7 +512,6 @@ function addAjax(){
 							nameValue=$(this).attr("name");
 						}
 					})
-
 					$(this).click();
 					$(this).find('.option').last().click();
 					$(this).click();
@@ -535,6 +520,8 @@ function addAjax(){
 					$(this).click();
 					$(this).find(".option[name='"+nameValue+"']").last().click();
 					$(this).closest(".hdc1").next().find("em").text(subsidyConditionArr[num]);
+					$(this).closest(".hdc1").next().find(".subsidyCondition a").text(subsidyConditionArr[num]);//0228
+					$(this).closest(".hdc1").next().find(".subsidyCondition a").attr("statistic",JSON.stringify(statisticArr[num]));//0228
 				})
 
 				

@@ -582,7 +582,12 @@ div.acZige:before{
 .hdc2 .select-wrap{
 	width:128px;
 	/*box-sizing: border-box;*//*啦啦啦*/		
+	display: none;	
 }
+/*body.xiugai .hdc2 .select-wrap{
+    display: block;
+}*/
+
 .hdc3 .select-wrap{
 	width:124px;
 	/*height:42px;*/
@@ -617,7 +622,7 @@ div.acZige:before{
 .hdc4d1{
 	width: 114px;
     height: 38px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #e4e4e4;
     position: relative;
     vertical-align: bottom;
     /*margin: auto 100px;*/
@@ -639,7 +644,7 @@ div.acZige:before{
     height: 36px;
     border: 1px solid transparent;
     /*text-indent: 10px;*/
-    /*text-align: center;*/
+    text-align: center;
     position: absolute;
     left: 42px;
     top: 0px;
@@ -661,11 +666,44 @@ div.acZige:before{
     width: 116px;
     height: 40px;
     line-height: 40px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #e4e4e4;
     /*padding: 2px 7px;*/
     box-sizing: border-box;
     color: #84a6d6;
     border-radius: 2px;
+}
+/*0215新加*/
+.subsidyCondition{
+	width: 165px;
+    height: 40px;
+    border: 1px solid #e4e4e4;
+    line-height: 17px;
+    padding: 2px 7px;
+    box-sizing: border-box;
+    color: #84a6d6;
+    border-radius: 2px;	   
+    font-size: 12px;
+    overflow: hidden;    
+    display: flex;    
+	justify-content: center;
+	align-items:center; 
+	flex-direction:column;
+}
+.subsidyCondition a{
+/*    width: 165px;
+    height: 40px;
+    border: 1px solid #c0c0c0;
+    line-height: 17px;
+    padding: 2px 7px;
+    box-sizing: border-box;
+    border-radius: 2px;    
+    font-size: 12px;*/
+    color: #84a6d6;
+    display: none;
+}
+
+body.xiugai .subsidyCondition a{
+    display: block;
 }
 
 .hdc5{
@@ -677,7 +715,7 @@ div.acZige:before{
 	/*width:78px;*/
 	width:107px;
 	height:38px;
-	border:1px solid #c0c0c0;
+	border:1px solid #e4e4e4;
 	text-indent: 10px;
 }
 .hdc6 input{
@@ -727,7 +765,7 @@ div.acZige:before{
 
 .hdc9{	
     position: relative;
-    top: 10px;
+    top: 6px;
     left: 0;
     width: 77px;
     /* height: 32px; */
@@ -742,7 +780,7 @@ div.acZige:before{
 
 
 .btfz{
-	border: 1px solid #ccc;
+	border: 1px solid #e4e4e4;
     border-radius: 2px;
     padding-right: 7px;
     background: #e9f1ff;
@@ -813,6 +851,7 @@ div.acZige:before{
     /*top: 0px;*/
     /*left: 0px;*/
     /*background: antiquewhite;*/
+    text-align: center;
 }
 .Yyy2d1 p{
     /*position: absolute;
@@ -899,7 +938,7 @@ div.acZige:before{
     width: 92px;
     height: 22px;
     background:#E9F1FF ;    
-        border: 1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 2px;
 }
 .Yyy5d1 input{
@@ -1027,22 +1066,23 @@ div.acZige:before{
     text-align: left;
     /*background: red;*/
     /*color: #999;*/
+    margin-left: -41px;
 }
 .addSub4P68 p:nth-of-type(1){
-    width: 77px;
+    width: 83px;
     /*margin-left: 12px;*/
 }
 .addSub4P68 p:nth-of-type(2){
 	/*color:green;*/
-	width:135px;			
+	width:168px;			
 }
 .addSub4P68 p:nth-of-type(3){
 	/*color:green;*/
-	width:123px;			
+	width:130px;			
 }
 .addSub4P68 p:nth-of-type(4){
 	/*color:green;*/
-	width:120px;			
+	width:114px;			
 }
 .addSub4P68 p:nth-of-type(5){
 	/*color:green;*/

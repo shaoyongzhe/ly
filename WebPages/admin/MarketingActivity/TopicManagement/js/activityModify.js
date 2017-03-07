@@ -1,7 +1,10 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
+var statisticArr=[];
+
+
 function GetUrlParam() {
     
-    var url = location.search; 
+    var url = location.search;
     var thisParam = {};
 
     if (url.indexOf("?") != -1) {
@@ -16,8 +19,8 @@ function GetUrlParam() {
     }
 
     return thisParam;
-}
 
+}
 
 
 // debugger
@@ -40,7 +43,6 @@ if(!$.isEmptyObject(GetUrlParam())){
 } else {
     layer.alert("跳转到修改失败了");
 }
-
 
 function render(resdata){
 
@@ -69,8 +71,7 @@ function render(resdata){
     basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
 
 
-
-    if(activity.singleselection == 1){
+    if(activity.singleselection == 0){
         $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
     } else {
         $('.radio:contains(否)').addClass('on').siblings().removeClass('on');
@@ -122,6 +123,14 @@ function render(resdata){
         }
 
     }
+
+    $('.edit-area.condition span.radio').removeClass('on');
+    $('.edit-area.condition span.radio').each(function(){
+    	if($(this).attr('name') == resdata.sponsor){
+    		$(this).addClass('on');
+    	}
+    })
+
 
     // $("nav span:eq(3)").click();
     for(var i=0; i<resdata.propagation.length; i++){
@@ -219,8 +228,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        activitytype_suited_unit='%';
 	    }
 	    /*优惠力度条件*/
-	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
+	     $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
+        else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
@@ -542,7 +552,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '</div>'
 	        +                   '</div>'    
 	    for (key in obj){
-//	        	debugger;
+
 	        switch(key){//等待补充case
 	        	case '核销次数' : activityManger_addSub3HtmlFn('核销次数',"次");break;
 	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数',"名");break;
@@ -586,15 +596,30 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                obj[key].guid="7097e5b33e0f4944897240d008bb2f81";*/
 	                /*0123添加假数据结束*/
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//活动开始前     
-	                // console.log(_resdata_.activity.begintime,obj[key].begintime)
-	//              debugger
-	                var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
-	                var bgt2_ = new Date(obj[key].begintime) * 1;
+	                // console.log(_resdata_.activity.begintime,obj[key].begintime);
+	                var date1 = _resdata_.activity.begintime;
+	                var date2 = obj[key].begintime;
+
+	                var bgt1_ = new Date(date1) * 1;
+	                var bgt2_ = new Date(date2) * 1;
 	                // console.log(bgt1_,bgt2_)
 	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
-	                var preMonths_=parseInt(preDays_/30);               
+	                var preMonths_=parseInt(preDays_/30);
+
+	                /*var preMonths = function( date1, date2 ){
+						
+						var date1 = date1.split('-');// 拆分年月日
+						date1 = parseInt(date1[0]) * 12 + parseInt(date1[1]);// 得到月数
+						
+						var date2 = date2.split('-');// 拆分年月日
+						date2 = parseInt(date2[0]) * 12 + parseInt(date2[1]);// 得到月数
+
+						var m = Math.abs(date1 - date2);
+						return m;
+	                }*/
+
 	                if(obj[key].begintime!=""){
-		                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
+		                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	
 	                }
 	                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
 	            }else{
@@ -635,10 +660,24 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
                 }
 
 	        }
-	        $('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio' name='0'>以上条件满足其一</span><span class='radio on' name='1'>以上条件需全部满足</span></div>");	        
-	    }   	    
-	}
 
+	    }
+
+        // var isChoosenOne = obj[key].singleselection == '1' ? obj[key].singleselection = "radio on" : obj[key].singleselection = "radio";
+        // console.log(JSON.stringify(obj,null,4))
+        if($('.addSub2Mange:last .acZige .addSub3').length > 1){
+		    if(obj.singleselection == '1'){
+		    	$('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio on' name='1'>以上条件满足其一</span><span class='radio' name='0'>以上条件需全部满足</span></div>");	
+		    } else if(obj.singleselection == '0') {
+		    	$('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio' name='1'>以上条件满足其一</span><span class='radio on' name='0'>以上条件需全部满足</span></div>");
+		    }        	
+        }
+
+    	// console.log(isChoosenOne);
+
+        // $('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio' name='0'>以上条件满足其一</span><span class='radio on' name='1'>以上条件需全部满足</span></div>");	
+        // alert(1)
+	}
     
 
     $('.acZige').each(function(){
@@ -683,6 +722,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '<em class="selected"></em>'
 	        +                   '<ul class="select"></ul>'
 	        +               '</div>'
+			+				'<div class="dib subsidyCondition link">'
+			+					'<a href="#" class="dib ver btCond">请选择补贴条件</a>'
+			+					'<input type="hidden" name="" class="btCondHidden">'
+			+				'</div>'	        
 	        +           '</div>'
 	        +           '<!--等待更改下面的类名acTy-->'
 	        +           '<div class="dib hdc3 ver re">'
@@ -747,6 +790,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '<p class="dib ">元</p><!--即将被替代为别的单位-->'
 	        +               '</div>'
 	        +           '</div>'
+			+	     	'<div class="dib hdc6-2 ver re" style="display: none;">'
+			+				'<input type="text" class="">'
+			+				'<span class="dib">元</span>'
+			+			'</div>'
 	        +           '<div class="dib hdc7 setgailv">设置<br>概率<input type="hidden" class="gl" value=""></div>'//第1个就加类名glHidden1,把json串存入value中
 	        +           '<div class="dib hdc8 setRules">设置<br>规则<input type="hidden" class="gz" value=""></div>'//第1个就加类名gzHidden1,把json串存入value中
 	        +           '<!--添加删除按钮-->'
@@ -757,7 +804,27 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '</div>'
 	        +       '</div>';
 	for(i=0;i<activityManger_addSub4Data.length;i++){
+		subsidyConditionArr.push(activityManger_addSub4Data[i].event);
+		statisticArr.push(activityManger_addSub4Data[i].statistic);//如果有statistic就插入，没有就插入undefined
 	    $('.addSub4:last').before(activityManger_addSub4Html);
+	       // $('.subsidyCondition a.btCond').hide()
+		/*临时数据*/	 
+		//临时数据开始
+//		activityManger_addSub4Data[i].statistic= {
+//              "timetag": "主题活动结束时",
+//              "time": "",
+//              "object": "门店",
+//              "method": "按各分销商分别统计",
+//              "type": "累计核销次数",
+//              "reqesttag": "地区排名",
+//              "requestnumber": "7"
+//          }
+//		activityManger_addSub4Data[i].refund_to="distributor_employee";	
+//		activityManger_addSub4Data[i].event="达到统计指标";	
+		//临时数据结束	    
+	    
+	    
+	    	    
 	    /*补贴对象补贴条件补贴形式翻译*/
 	    var btduixiang = "";
 	    // debugger;
@@ -768,7 +835,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            break;
 	
 	        case "distributor_employee":
-	            btduixiang = '分销商业务员';
+	            btduixiang = '分销商人员';
 	            break;
 	
 	        case "retailer":
@@ -883,8 +950,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang)
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
-	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
-//		debugger
+//	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
+		// debugger
 	    /*debugger
         $('nav span:eq(2)').click();
         $(".addSub4Mange:last").find(".acSe9 ul li").each(function(){
@@ -895,9 +962,21 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
         */
 
 	    /*补贴条件*/
-//	 	$(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
-	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);
-	    subsidyConditionArr.push(btCond);
+	//  $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
+//	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);//0216去掉
+		$(".addSub4Mange:last").find(".subsidyCondition a").text(btCond);
+	    if(activityManger_addSub4Data[i].statistic){
+	    	var addSub4MangeStatistic=JSON.stringify(activityManger_addSub4Data[i].statistic, null, 4);
+		    $(".addSub4Mange:last").find(".subsidyCondition a").attr("statistic",addSub4MangeStatistic);	    	
+	    }
+	    
+	    //*************************************0216删除此注释掉的内容**************************************
+//	    if(activityManger_addSub4Data[i].probability){//prize_content
+//	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
+//	    		$(".addSub4Mange:last").find(".hdc7 .gl").val(addSub4MangeProbability);   
+//	    }
+//	    $(".addSub4Mange:last").find(".hdc7 .gl").addClass("glHidden"+(i+1));
+	    //***************************************************************************	    
 	
 	    /*补贴形式*/
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
@@ -941,7 +1020,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
-	        $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次")
+	        // $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次");
 	    }
 	
 	    /*发放上限*/
@@ -955,12 +1034,40 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*申报预算*/
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) input").val(activityManger_addSub4Data[i].applycount); 
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) p").text(activityManger_addSub4Data[i].unit);//单位
+
+
 			/*设置摇一摇*/
 			if(activityManger_addSub4Data[i].prize_content){
 				var addSub4MangeYaoyiyao=JSON.stringify(activityManger_addSub4Data[i].prize_content, null, 4);
-				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao);   
+				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao); 
+
+	    		$(".addSub4Mange:last").find(".fz p").text('元');//单位  
+
+
+
+	    		var yaoText = "";
+	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){
+	    			yaoText += item.refund_content + ";<br>";
+	    		});
+	    		$(".addSub4Mange:last").find(".hdc4dB").addClass("set").html(yaoText).css({
+					'lineHeight': 'normal',
+					'overflow': 'hidden',
+					'padding': '3px'
+				});
+
+	    		var yaoSbys = 0;
+	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){
+	    			yaoSbys += item.applycount;
+	    		});
+	    		$(".addSub4Mange:last").find(".hdc6-2 input").val(yaoSbys);
+
+
+
+
 			}
 			 $(".addSub4Mange:last").find(".hdc4d2 .y1y").addClass("y1yHidden"+(i+1));
+
+
 	    /*设置概率*/
 	    if(activityManger_addSub4Data[i].probability){//prize_content
 	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
@@ -1210,7 +1317,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	        
 	        
 	/*备注:数据activity_condition下product_category暂时不作处理*/
-	$("*").removeClass("mangeStyle");
+	// $("*").removeClass("mangeStyle");
+	$(".mangeStyle").removeClass("mangeStyle");
 //	$(".addSub4Mange input").removeAttr("disabled");
 //	$(".addSub3Mange input").removeAttr("disabled");
 //	$(".addSub2Mange input").removeAttr("disabled");
@@ -1253,11 +1361,3 @@ $('.butieSec .sbys').keyup();
 
 
 
-
-/*调试用代码*/
-/*
-$("section").removeClass("on");
-$(".section3").addClass("on");
-$(".acZige").removeClass("hi");
-//0123临时注释掉
-*/

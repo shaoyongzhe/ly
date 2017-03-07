@@ -1,4 +1,4 @@
-﻿avalon.ready(function () {
+avalon.ready(function () {
     $('.Wallet_list ul li').on('click', function () {
         $('.Wallet_list ul li').removeClass('on');
         $(this).addClass('on');
@@ -8,7 +8,7 @@
 
     vm.getAssetFlow(1, null)
 
-    qrcode.href();
+    setTimeout(function () { qrcode.href(); }, 500)
 })
 
 var tmdropme = null;
@@ -32,6 +32,7 @@ var vm = avalon.define({
             beforeSend: function () { common.loading.show(); },
             complete: function () { common.loading.hide(); },
             success: function (json) {
+                console.log(json)
                 common.loading.hide();
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
@@ -76,11 +77,11 @@ var vm = avalon.define({
         var paging = { pageindex: index, current: {} }
         if (index > 1) {
             if (vm.category == "all") {//全部
-                paging = $.extend({}, vm.alllist.paging, { pageindex: index });
+                paging = $.extend({}, vm.alllist.paging.$model, { pageindex: index });
             } else if (vm.category == "income") {//收入
-                paging = $.extend({}, vm.incomelist.paging, { pageindex: index });
+                paging = $.extend({}, vm.incomelist.paging.$model, { pageindex: index });
             } else {
-                paging = $.extend({}, vm.expendlist.paging, { pageindex: index });
+                paging = $.extend({}, vm.expendlist.paging.$model, { pageindex: index });
             }
 
         }
@@ -123,47 +124,54 @@ var vm = avalon.define({
 
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
+                                var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
-                                        vm.alllist.array.push(v)
-                                    }
+                                    bl = !compare(item.$model, v)
                                 })
+                                if (bl)
+                                    vm.alllist.array.push(v)
+
                             } else {
                                 vm.alllist.array.push(v)
                             }
                         });
-
+                        vm.alllist.paging = json.paging
                     } else if (vm.category == "income") {//收入
                         var filterarray = $.grep(vm.incomelist.array, function (item) {
                             return item.summaryperiod != undefined;//筛选出每月统计
                         });
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
+                              
+                                var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
-                                        vm.incomelist.array.push(v)
-                                    }
+                                    bl = !compare(item.$model, v)
                                 })
+                                if (bl)
+                                    vm.incomelist.array.push(v)
                             } else {
                                 vm.incomelist.array.push(v)
                             }
                         });
+                        vm.incomelist.paging = json.paging
                     } else {
-
                         var filterarray = $.grep(vm.expendlist.array, function (item) {
                             return item.summaryperiod != undefined;//筛选出每月统计
                         });
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
+                                var bl = false;
                                 $.each(filterarray, function (i, item) {
-                                    if (!compare(item.$model, v)) {//如果每月统计object相同，不插入到array
-                                        vm.expendlist.array.push(v)
-                                    }
+                                    bl = !compare(item.$model, v)
                                 })
+                                if (bl)
+                                    vm.expendlist.array.push(v)
+
                             } else {
                                 vm.expendlist.array.push(v)
                             }
                         });
+                        vm.expendlist.paging = json.paging
                     }
 
                 } else {
@@ -267,13 +275,12 @@ var vm = avalon.define({
             tmdropme3.resetload();
     },
     userwithdraw: function () {//用户提现
-
-        // if (vm.Moneys.count > 0)
+        if (vm.Moneys.balance > 0)
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            data: { count: vm.Moneys.count },
-            url: '/webapi/consumer/mine/consumer/withdraw',
+                data: { count: vm.Moneys.balance },
+            url: '/webapi/consumer/mine/withdraw',
             beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
             success: function (json) {
                 shelter.close()

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -24,8 +24,6 @@
 			<span><i>3</i>活动补贴规则</span>
 			<span><i>4</i>宣传图文资料</span>
 		</nav>
-		<!-- <div class="scroll"> -->
-		
 
 		<!-- 1.活动基础信息 -->
 		<section class='section1 on'>
@@ -225,7 +223,6 @@
 									<li class="option" name=">">高于</li>
 									<li class="option" name="==">等于</li>							
 								</ul>
-
 							</div>
 
 							<div class="dib acCoRa ver">
@@ -288,7 +285,7 @@
 					<span class='radio' name="supplier">厂商</span>
 					<span class='radio on' name="distributor">分销商</span>
 					<span class='radio' name="retailer" >门店</span>
-					<span class='radio' name="retailer" >无</span>
+					<span class='radio' name="consumer" >无</span>
 				</span>
 			</div>
 
@@ -539,6 +536,9 @@
 								<li name="openretailer" class="option  Btcs3">自主开店</li>	 -->
 							</ul>
 						</div>
+						<div class="dib subsidyCondition link">
+							<a href="javascript:;" class="dib ver btCond">请选择补贴条件</a>
+					</div>
 					</div>
 					<!--等待更改下面的类名acTy-->
 					<div class="dib hdc3 ver re">
@@ -581,7 +581,7 @@
 					<div class="dib hdc5 ver re">
 						<!-- <p class="p68 deleP">发放上限次数</p>				 -->
 						<div class="acSe13 ba">						
-							<input type="text" />
+							<input type="text"/>
 						</div>
 					</div>
 					<!--等待更改下面的类名acTy-->
@@ -593,17 +593,19 @@
 						</div>
 					</div>
 					<div class="dib hdc6 hdc6-1 ver re">
-						<!-- <p class="p68 deleP">申报预算</p>				 -->
-						<div class="acSe14 ba btfz ">						
+						<div class="acSe14 ba btfz">						
 							<input type="text" class="sbys"/>
-							<p class="dib">元</p><!--即将被替代为别的单位-->
+							<p class="dib">元</p>
 						</div>
 					</div>
-					<!--<div class="hdmmmm">-->
-						<div class="dib hdc7 setgailv">设置<br>概率</div>
-					<!--</div>-->
-					
+					<div class="dib hdc6-2 ver re" style="display: none;">
+						<input type="text" class=""/>
+						<span class="dib">元</span>
+					</div>
+
+					<div class="dib hdc7 setgailv">设置<br>概率</div>
 					<div class="dib hdc8 setRules">设置<br>规则</div>
+
 					<!--添加删除按钮-->
 					<div class="hdc9 acAd dib">
 						<img src="img/minus.png" alt="" class="acAd1"/>
@@ -646,7 +648,7 @@
 				<div class="yaoWrap">
 					<span class='tip'><i class='pre'>*</i> 摇一摇概率相加等于100%</span>
 					<div class="addSub5P68">
-						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><!-- <p class="p68 deleP dib">申报预算</p> -->				
+						<p class="p68 deleP dib">奖品类型</p><p class="p68 deleP dib">范围/值</p><p class="p68 deleP dib">摇一摇概率</p><p class="p68 deleP dib">奖品次数</p><p class="p68 deleP dib">补贴峰值</p><!-- <p class="p68 deleP dib">申报预算</p>	 -->			
 					</div>
 					<div class="yaoyiyao addSub5 created_l"><!--合并的时候，请修改此名-->
 
@@ -709,16 +711,16 @@
 							</div>
 						</div>
 
-						<!-- <div class="dib Yyy5-1 ver re">
-								<p class="p68 deleP">申报预算</p>
-								<div class="dib -hi Yyy5d1 ver">
-									<input type="text" value="" class="dib"/>						
-									<span class="dib ba">元</span>
-								</div>
-								<div class="dib hi Yyy5d2">	
-									
-								</div>
-							</div> -->	
+						<div class="dib Yyy5-1 ver re" style="display: none">
+							<!-- <p class="p68 deleP">申报预算</p> -->
+							<div class="dib -hi Yyy5d1 ver">
+								<input type="text" value="" class="dib"/>						
+								<span class="dib ba">元</span>
+							</div>
+							<div class="dib hi Yyy5d2">	
+								
+							</div>
+						</div>	
 
 						<div class="dib Yyy6 setgailv">设置概率</div>
 						<!--添加删除按钮-->
@@ -1157,8 +1159,73 @@
             </div>
 
 
-			<div class="layer setCond hide">
-				sdsdsd
+			<!--0213补贴政策subsidyPolicy-->
+			<div class="layer subsidyPolicy setCond hide">
+				<h5 class="subsidyConditionWarn">*仅限选择一种补贴条件</h5>
+				<ul class="subsidyConditionContent">
+					<!--所有项目加上类名Items，选中则加上on-->
+					<!-- <li class="subsidyConditionItem">达到统计指标</li>
+					<li class="subsidyConditionItem on">门店签约分销商</li>
+					<li class="subsidyConditionItem">222</li>
+					<li class="subsidyConditionItem">222</li> -->
+				</ul>
+				<!--控件addSubSubsidyPolicy-->
+				<div class="addSubSubsidyPolicy">
+					<div class="title">
+						<span class="t1">统计周期</span><span class="t2">统计对象</span><span class="t3">统计范围</span><span class="t4">统计指标与要求</span>
+					</div>
+					<div class="content">
+						<!--下面类名s1，s2等稍后换-->
+						<!-- <div class="selectWrapL s1">
+											<span class="arrowL"></span>
+											<span class="selectedL timetag">请选择</span>
+											<ul class="selectL">
+												<li class="optionL">周期内前</li>
+											</ul>
+										</div>	
+										<div class="days s1-1 fl">					
+											<input type="text" id="days" class="time" /><label for="days"><span>天</span></label>
+										</div>	
+										<div class="selectWrapL s2">
+											<span class="arrowL"></span>
+											<span class="selectedL object">请选择</span>
+											<ul class="selectL">
+												<li class="optionL">门店</li>
+											</ul>
+			</div>
+										<div class="selectWrapL s3">
+											<span class="arrowL"></span>
+											<span class="selectedL method">请选择</span>
+											<ul class="selectL">
+												<li class="optionL">各分销商分别统计</li>
+											</ul>
+										</div>	
+										<div class="selectWrapL s4">
+											<span class="arrowL"></span>
+											<span class="selectedL type">请选择</span>
+											<ul class="selectL">
+												<li class="optionL">累计核销次数</li>
+											</ul>
+										</div>
+										<div class="selectWrapL s5">
+											<span class="arrowL"></span>
+											<span class="selectedL reqesttag">请选择</span>
+											<ul class="selectL">
+												<li class="optionL">地区排名</li>
+											</ul>
+										</div>	
+										<div class="unitContent fl s5-5">
+											<label for="unitNumber"><span class="unitBefore">前</span></label><input type="text" id="unitNumber"/><label for="unitNumber"><span class="unit">名</span></label>
+											<span class="unitBefore">前</span><input type="text" /><span class="unit">名</span>
+										</div>		 -->				
+					</div>
+				</div>
+
+				<div class="buttons">
+					<span class="cancel">取消</span>
+					<span class="ok">确定</span>
+		</div>
+				<input type="hidden" name="" class="addSub4_i">
 			</div>
 
 		</div>
@@ -2111,8 +2178,6 @@
 
 		</div>
 		</section>
-
-		<!-- </div> -->
 
 		<div class="footer btn-group">
 			<span class="btn step prev">上一步</span><span class="btn save saveToDb">保存</span><span class="btn step next">下一步</span><span class="btn step shenhe">提交审核</span>
