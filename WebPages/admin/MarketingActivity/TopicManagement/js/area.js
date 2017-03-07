@@ -240,7 +240,7 @@ $('.section2').on('click', '.setAreaBtn, .areaPlus', function() {
 				console.warn(JSON.stringify(dataprov.error, null, 4));
 				return;
 			}
-			
+
 			sessionStorage.setItem("shengfzr", JSON.stringify(dataprov, null, 4));
 			fillProvinceCharge();
 			sessionStorage.setItem("allcharge", JSON.stringify(dataprov.allcharge, null, 4));
@@ -845,17 +845,27 @@ function dataLoad() {
 $('.area-list .save').off('click');
 $('.area-list .save').click(function() {
 
-	var isfzr = true;
-	$('.Select_province select').each(function(){
+	var isShengFzr = true;
+	$('.Select_province li.on select').each(function(){
 		if( $(this).val() == '请选择负责人' && $(this).closest('li').hasClass('on') ){
 			$('.Select_the_province .b').scrollTop($(this).closest('li').index() * $(this).closest('li').outerHeight())
 			layer.tips('请选择负责人', $(this));
-			isfzr = !isfzr;
+			isShengFzr = !isShengFzr;
 			return false
 		}
 	});
 
-	if(isfzr == false){
+	var isShiFzr = true;
+	$('.Select_province1 li.on select').each(function(){
+		if( $(this).val() == '请选择负责人' || $(this).val() == '' && $(this).closest('li').hasClass('on') ){
+			$('.Select_the_province1 .b').scrollTop($(this).closest('li').index() * $(this).closest('li').outerHeight())
+			layer.tips('请选择负责人', $(this));
+			isShiFzr = !isShiFzr;
+			return false
+		}
+	});
+
+	if(isShengFzr == false || isShiFzr == false){
 		return
 	}
 
