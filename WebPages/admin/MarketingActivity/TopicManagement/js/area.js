@@ -716,7 +716,7 @@ function dataLoad() {
 
 			var shifzrObj = {
 				state: "active",
-				shifzr: $('.Select_province1 li.on select').val(),
+				name: $('.Select_province1 li.on select').val(),
 				guid: $('.Select_province1 li.on :selected').attr("guid"),
 				oid: $('.Select_province1 li.on :selected').attr("oid")
 			}
