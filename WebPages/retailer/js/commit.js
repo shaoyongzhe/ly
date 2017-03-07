@@ -1,4 +1,5 @@
-//解析URL      	mui.init();
+//解析URL      	
+mui.init();
 var old_back = mui.back;
 mui.back = function(){
   var btn = ["确定","取消"];
@@ -116,7 +117,7 @@ function oJz(){
                     }
                     _remark = "";
                     if (_data[i]["remark"] != "") {
-                        _remark = "<div class=" + "\"give liuy\"" + "><div class=\"give-tit\">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
+                        _remark = "<div class=" + "\"give\"" + "><div class=\"give-tit\">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
                     }
                     if (_data[i]["isyucun"] === 0) {
                         if (!_data[i]["itemslist"]) {
@@ -331,7 +332,6 @@ function oJz(){
 			}
             
             $(".shoplist").html((localStorage.mz?localStorage.mz:"")+_list)
-            $(".liuy").height($(".liuy>.give-con").height())
             if (_distrgive != "") {
                 $("#sp3").text(_zz + _mzg)
             } else {

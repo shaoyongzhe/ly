@@ -162,14 +162,14 @@
             var strM = $("#monthwrapper ul li:eq("+indexM+")").html().substr(0,$("#monthwrapper ul li:eq("+indexM+")").html().length-1)
               yearScroll = new iScroll("yearwrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function () {
-                       indexY = Math.floor((this.y/41)*(-1))+1;
+                       indexY = Math.floor((this.y/40)*(-1))+1;
                        opts.endday = checkdays(strY,strM);
                           $("#daywrapper ul").html(createDAY_UL());
                            dayScroll.refresh();
                   }});
               monthScroll = new iScroll("monthwrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function (){
-                      indexM = Math.floor((this.y/41)*(-1))+1;
+                      indexM = Math.floor((this.y/40)*(-1))+1;
                       console.log(indexM)
                       opts.endday = checkdays(strY,strM);
                           $("#daywrapper ul").html(createDAY_UL());
@@ -193,17 +193,17 @@
         function init_iScroll_datetime(){
             HourScroll = new iScroll("Hourwrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexH = Math.round((this.y/41)*(-1))+1;
+                    indexH = Math.round((this.y/40)*(-1))+1;
                     HourScroll.refresh();
             }})
             MinuteScroll = new iScroll("Minutewrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexI = Math.round((this.y/41)*(-1))+1;
+                    indexI = Math.round((this.y/40)*(-1))+1;
                     HourScroll.refresh();
             }})
             SecondScroll = new iScroll("Secondwrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexS = Math.round((this.y/41)*(-1));
+                    indexS = Math.round((this.y/40)*(-1));
                     HourScroll.refresh();
             }})
         } 
