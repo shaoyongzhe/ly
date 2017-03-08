@@ -270,14 +270,19 @@ function oJz(){
                         _dx = ""
                     }
                     console.log(_dx)
-                    if (data[_indd]["specialprice"] && _price-_yucun>0) {
+                    if (data[_indd]["specialprice"]) {
                         $("#vv").css({ display: "-webkit-box" })
                         $("#vv span").text(data[_indd]["specialprice"].toFixed(1))
                         if(_price-_yucun-data[_indd]["specialprice"]>0){
-                			$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
+                				$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
+                				$(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(1))
                			}
                     } else {
                         $("#vv").css({ display: "none" })
+                        if(_price-_yucun>0){
+                        	$(".amountBig span").text((_price -_yucun).toFixed(1))
+                        	$(".ab span").text(Number(_discount).toFixed(1))
+                        }
                     }
                     var _yu = 0;
                     if (data[_indd]["promotionactivity"] && data[_indd]["promotionactivity"]["details"].length > 0) {
@@ -327,9 +332,7 @@ function oJz(){
 
 
 
-			if(_price-_yucun>0){
-				$(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(1))
-			}
+
             
             $(".shoplist").html((localStorage.mz?localStorage.mz:"")+_list)
             if (_distrgive != "") {
