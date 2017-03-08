@@ -53,7 +53,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		if(allActivity.content.length<=1){
 			$(".CcButieLeft").hide();
 		}
-		UpdateMatchedTopicsBol=false;		
+//		UpdateMatchedTopicsBol=false;//暂且注释掉，因为会给我发多次		
 	}
 
 }
@@ -193,11 +193,11 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 	}else if(info.matched==0&&info.areamatch==0){
 		$(".CbdD2P1").text("一大波补贴正在附近发放，");
 		$(".CbdD2P2").text("下次就等你来赚！");
-//		$(".Cccondition").hide();
+		$(".Cccondition").show();
 	}else if(info.matched==0&&info.areamatch==1){
 		$(".CbdD2P1").text("您所在的地区正在如火");
 		$(".CbdD2P2").text("如荼的进行此活动！");
-//		$(".Cccondition").hide();
+		$(".Cccondition").show();
 	}
 	$(".CcBigTitle").text(info.post);
 	$(".CcSmallTitle").text(info.activitytitle);	
