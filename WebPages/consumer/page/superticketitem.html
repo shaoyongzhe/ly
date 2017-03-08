@@ -210,7 +210,7 @@
 
         <div class="storelist" ms-repeat="vm.jsondata.retailerdata">
             <div class="store1-w1">
-                <a ms-attr-href="/consumer/page/retaileritems.html?retailer_id={{el.retailer_id}}&type=ticket">
+                <a ms-attr-data-original="/consumer/page/retaileritems.html?retailer_id={{el.retailer_id}}&type=ticket">
                     <div class="store1-left">
                         <div class="storerimg">
                             <img ms-attr-src="el.picture_url">
@@ -224,7 +224,7 @@
                         </div>
                     </div>
                 </a>
-                <a ms-attr-href="tel:{{el.mobilephone}}" ms-if="el.mobilephone!=null&&el.mobilephone.length > 0">
+                <a ms-attr-data-original="tel:{{el.mobilephone}}" ms-if="el.mobilephone!=null&&el.mobilephone.length > 0">
                     <div class="store1-right">
                         <img src="/consumer/image/icon01.png">
                         <br>联系购买

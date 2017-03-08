@@ -420,8 +420,8 @@ button {
 .edit .menu {
   position: absolute;
   z-index: 2;
-  right: 98px;
-  top: 44px;
+  right: 50%;
+  /*top: 44px;*/
   background: #C4E4EF;
   height: 34px;
   line-height: 34px;

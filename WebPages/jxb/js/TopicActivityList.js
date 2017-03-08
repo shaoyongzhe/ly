@@ -308,8 +308,8 @@ function sucessFn(obj,info){
 		if(info.content[i].budget.subsidytotal==undefined){
 			info.content[i].budget.subsidytotal=0;
 		}
-		if(info.content[i].budget.subsidyreleased==undefined){
-			info.content[i].budget.subsidyreleased=0;
+		if(info.content[i].budget.obtained==undefined){
+			info.content[i].budget.obtained=0;
 		}		
 		var budgetSubsidytotal=moneyTransform(info.content[i].budget.subsidytotal);//万，元，单位处理
 		if(info.content[i].poster_url!=undefined&&info.content[i].poster_url!=" "&&info.content[i].poster_url!=""){				
@@ -322,7 +322,7 @@ function sucessFn(obj,info){
 		}else{
 			hanzi="已发放";
 		}					
-		var budgetSubsidyreleased=moneyTransform(info.content[i].budget.subsidyreleased);//万，元，单位处理
+		var budgetSubsidyreleased=moneyTransform(info.content[i].budget.obtained);//万，元，单位处理
 		obj.find(".conImg:last").find("span").eq(1).text(hanzi+budgetSubsidyreleased);
 		if(info.content[i].post==" "){
 			info.content[i].post="暂无标题"
