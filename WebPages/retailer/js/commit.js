@@ -1,5 +1,9 @@
 //解析URL      	
-mui.init();
+mui.init({
+	keyEventBind: {
+            backbutton: true  //打开back按键监听
+        }
+});
 var old_back = mui.back;
 mui.back = function(){
   var btn = ["确定","取消"];

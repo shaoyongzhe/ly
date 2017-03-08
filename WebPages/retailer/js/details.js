@@ -194,27 +194,14 @@
 			        				$("#vv span").text(data["content"][commodity]["wechatdiscount"].toFixed(1))			        				
 		        			}
 
+		        		}else{
+		        			$("#vv").css({display:"none"})
 		        		}
 						console.log(_get)
 						
 						$("#ss span").text(_zeng.toFixed(1))
 						
-//								for(var b=0;b<_data1[pg]["promotionactivity"]["details"].length;b++){
-//									if(_amount>=_data1[pg]["promotionactivity"]["details"][b]["moneysum"]){
-//										console.log(1)
-//										for(var c=0;c<_data1[pg]["promotionactivity"]["details"][b]["giftitems"].length;c++){
-//											_ll=_data1[pg]["promotionactivity"]["details"][b]["giftitems"][c]["itemname"];
-//											_kk=Number(_data1[pg]["promotionactivity"]["details"][b]["giftitems"][c]["count"])
-//											if(_flag==1){
-//												_give+="<li><div class="+"\"gg\""+">满赠</div><span class="+"\"gif\""+">"+_ll+"<span>×"+_kk+"</span></span></li>"
-//												_flag++
-//											}else{
-//												_give+="<li><div class="+"\"gift\""+">"+_ll+"<span>×"+_kk+"</span></div></li>"
-//											}										
-//										}
-//
-//									}
-//								}
+
 						$(".shoplist").html($(".shoplist").html()+_list)
 						if(_list2!=""){
 							$(".gflist").html($(".gflist").html()+_list2)
@@ -251,8 +238,13 @@
 							$("#same-ss").css({display:"none"})
 						}
 						$("#ee span").text(_yucun.toFixed(1))
+						if(_discount<0){
+							_discount=0
+						}
 						$(".amountBig").next().find("span").text(_discount.toFixed(1))
-						$(".amountBig span").text((_get-_yucun).toFixed(1))
+						if(_get-_yucun>=0){
+							$(".amountBig span").text((_get-_yucun).toFixed(1))
+						}
 				console.log($("section").css("height"))
 				console.log($("body").css("height"))
 				if(Number($("section").css("height").replace("px",""))<=Number($("body").css("height").replace("px",""))){
