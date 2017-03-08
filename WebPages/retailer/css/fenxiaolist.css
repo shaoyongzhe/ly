@@ -15,7 +15,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .img-no:after{content: "";width: 11px;height: 11px;background: #009f94;border-radius: 50%;position: absolute;left: 36px;bottom: 18px;}
 .img-no>span{position: absolute;left: 16px;top:28px; width: 18px;height: 6px;background: #009f94;}
 .img-no>span:nth-of-type(2){left: 52px;}
-.noone>p{text-align: center;font-size: 20px;color: #aaa;}
+.noone>p{text-align: center;font-size: 20px;color: #aaa;padding: 0 40px;}
 #cgl-main{-webkit-box-flex: 1;overflow-y: scroll;position: relative;}
 #cgl-main li{padding: 0.5rem;border-bottom: 3px solid #e5e5e5;}
 .main-l{width: 3.1rem;}
@@ -51,3 +51,4 @@ footer>div:nth-of-type(4){background: url("../image/shop/buttom_arrow.png") no-r
 #cgl-huodong>ul.on,#cgl-my>ul.on{display: block;}
 #cgl-my>ul>li{border-right: 0;}
 
+.toorder{display: none;}

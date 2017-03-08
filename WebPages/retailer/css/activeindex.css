@@ -39,7 +39,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .proTitleInfor img{width: 1.5rem;height: 1.5rem;}
 /**************活动***************/
 .proDetailBox{padding:0.2rem 2.1rem 0.1rem 0.5rem;background:url("../image/shop/lvqian.png") no-repeat center;background-size: 100%;opacity: 0.85; color: #eefefd; font-size: 0.5rem;height:1.9rem}
-.proDetailBox>div>p{line-height: 0.9rem;padding: 0 0.13rem 0.13rem 1.1rem;background: url("../image/shop/icon_zhuan.png") no-repeat left 0.15rem;background-size: 0.75rem;}
+.proDetailBox>div>p{line-height: 0.9rem;padding: 0 0.13rem 0.13rem 1.1rem;background: url("../image/shop/icon_zhuan.png") no-repeat left 0.1rem;background-size: 0.75rem;}
 .proDetailBox>div>p:nth-of-type(2){background-image:url("../image/shop/icon_jian.png");}
 .proDetailBox>div{border-right: 1px solid #61c0bb;height:1.9rem;width:100%}
 /**************搜索***************/
@@ -92,7 +92,6 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .cgl-contlist>ul{width: 100%;}
 .mart{padding-top: 1.95rem;}
 .cgl-contlist>ul>li{border-bottom: 1px solid #c7c5c5;padding: 0.5rem 0;}
-.cgl-contlist>ul>li:last-child{border: 0;}
 .cgl-top img{width: 2.5rem;height: 2.5rem;margin-right: 0.4rem;}
 .the-xiangxi{-webkit-box-flex: 1;}
 .cgl-linqi{display: inline-block;width:0.75rem;height: 0.75rem; background: url("../image/shop/icon_lin.png") no-repeat center;background-size:0.75rem ;margin:0 0.1rem -0.1rem 0;}
