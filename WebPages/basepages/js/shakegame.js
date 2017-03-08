@@ -76,6 +76,9 @@ var vm = new Vue({
             vm.IsShake = false;
             vm.winMoney = 0;
             vm.shakeStatus = 0;
+        },
+        closeBJ: function (e) {
+            $('.red-tc').css('display', 'none');
         }
     }
 })

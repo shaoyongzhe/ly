@@ -882,9 +882,9 @@ $('.area-list .save').click(function() {
 		if($('.quanbusheng').is(":checked")){
 
 			provObj = {
+                "state": "active",
 				"charge": JSON.parse(shengfzr),
 				"name": sheng,
-                "state": "active",
 				"city": []
 			}
 

@@ -220,8 +220,12 @@ $("body").on("click", ".acMeD2", function(e) {
 		// $(".section3 .addSub4 .acAd2").click(function(){
 		// alert(1)
 		// debugger;
-
-		
+		if($(this).closest('.addSub4').find('.setgailv').hasClass('on')){
+			if($(this).closest('.addSub4').find('.setgailv.on input').length == 0){
+				layer.tips('请先设置概率',$(this).closest('.addSub4').find('.setgailv.on'));
+				return
+			}
+		}
 
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",
