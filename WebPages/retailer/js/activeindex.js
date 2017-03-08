@@ -47,6 +47,9 @@ function fnxrym() {
         $("#contactperson").html(url1.contactperson);
         $("#cutgift").html("￥" + url1.cutgift + "元");
         $(".num").html($(".ammount").html());
+        if(JSON.parse(sessionStorage.fenxiao)["promotionactivity"]){
+        	
+        }
         $(".proDetailBox").html("<div style=\"float:left\">"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.png\" style=\"float:right;margin-top:6%;margin-right: -11%;width: 0.8rem;height: 0.4rem;\">");
         $(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
         $(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);

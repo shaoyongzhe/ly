@@ -41,6 +41,11 @@
 		        error:function(){},
 		        success:function(data1){
 		        	console.log(data1)
+		        	if(data1.length>0){
+		        		$("#kong").hide()
+		        	}else{
+		        		$("#kong").show()
+		        	}
 		        	show(data1)
 		        }
 			})
@@ -406,6 +411,9 @@
 							$("#"+_id).remove();
 							fg()
 							zz()
+							if(_cun==0){
+								$("#kong").show()
+							}
 						}
 					})
 				})
