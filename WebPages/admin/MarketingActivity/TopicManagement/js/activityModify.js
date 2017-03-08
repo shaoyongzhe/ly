@@ -803,7 +803,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +               '<span class="activityManger_addsub4State activityManger_startStop status hi"></span>'
 	        +           '</div>'
 	        +       '</div>';
+
+
 	for(i=0;i<activityManger_addSub4Data.length;i++){
+	var randfz = 0;
 		subsidyConditionArr.push(activityManger_addSub4Data[i].event);
 		statisticArr.push(activityManger_addSub4Data[i].statistic);//如果有statistic就插入，没有就插入undefined
 	    $('.addSub4:last').before(activityManger_addSub4Html);
@@ -982,13 +985,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
 	    $(".addSub4Mange:last").find(".acSe11 .selected").text(btType);
 	
-	    if(btType.indexOf('随机') != -1){
-	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
-	    }
-
-
-
-	
 	    /*三种类型的范围值*/
 	//  $(".addSub4Mange:last").find(".addsub4_fanweizhi").addClass("hi");  
 	//  if(activityManger_addSub4Data[i].max&&activityManger_addSub4Data[i].min){
@@ -1015,12 +1011,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        if(btType.indexOf("随机")<0){
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4In2").addClass("hi");
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4P1").addClass("hi");
-	            
 	        }       
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
 	        // $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次");
+
+	        // alert(1)
+
 	    }
 	
 	    /*发放上限*/
@@ -1029,8 +1027,29 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*补贴峰值*/
 	    $(".addSub4Mange:last").find(".acSe13 input").val(activityManger_addSub4Data[i].ceiling);
 	    var subsidyTopValue=activityManger_addSub4Data[i].max?activityManger_addSub4Data[i].max:activityManger_addSub4Data[i].min;
-	    $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
-			$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
+
+
+	    if(btType.indexOf('随机') != -1){
+	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
+	        activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
+				randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+			});
+			$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
+	    } else {
+	    	if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
+	    		var yaofz = 0;
+	    		activityManger_addSub4Data[i].prize_content.forEach(function(item, index){
+	    			yaofz += item.applycount;
+	    		});
+	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(yaofz.toFixed(2));
+
+	    	} else {
+	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
+	    	}
+	    }
+
+		$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
+
 	    /*申报预算*/
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) input").val(activityManger_addSub4Data[i].applycount); 
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) p").text(activityManger_addSub4Data[i].unit);//单位
@@ -1042,8 +1061,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao); 
 
 	    		$(".addSub4Mange:last").find(".fz p").text('元');//单位  
-
-
 
 	    		var yaoText = "";
 	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){

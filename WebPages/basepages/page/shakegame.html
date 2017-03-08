@@ -27,7 +27,7 @@
             您还有<span>{{ shakeNum }}</span>次机会
         </div>
 
-        <div class="red-tc">
+        <div class="red-tc" v-on:click.stop.prevent="closeBJ($event)">
             <!-- 已中奖 -->
             <div class="red-yzj" v-if="shakeStatus==1">
                 <div class="red-tc-k">
