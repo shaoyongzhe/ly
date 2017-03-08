@@ -26,7 +26,8 @@ var vm = new Vue({
         winMoney: 0,
     },
     methods: {
-        startShake: function () {//开始摇奖
+        startShake: function () {//开始摇奖】
+
             $.ajax({
                 type: 'post',
                 dataType: 'json',
@@ -71,11 +72,13 @@ var vm = new Vue({
             });
         },
         againClick: function (e) {//再摇一次
-            e.preventDefault();
             $('.red-tc').css('display', 'none');
             vm.IsShake = false;
             vm.winMoney = 0;
             vm.shakeStatus = 0;
+        },
+        closeBJ: function (e) {
+            $('.red-tc').css('display', 'none');
         }
     }
 })
@@ -245,6 +248,7 @@ function deviceMotionHandler(eventData) {
 
 
 function shakeAfter() {
+
     if (!vm.IsShake) {
         vm.IsShake = true
         audio.play();

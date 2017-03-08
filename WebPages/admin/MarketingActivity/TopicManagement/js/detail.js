@@ -334,7 +334,7 @@ function render(detailData){
 		yuan += parseFloat($(this).text());
 	});
 
-	$('.totalYuan').text(yuan.toFixed(2));
+	$('.totalYuan').text(Number(yuan).toFixed(2));
 
 //	var fen = 0;
 //	$('td.btfz:contains(分) .valTxt').each(function(){

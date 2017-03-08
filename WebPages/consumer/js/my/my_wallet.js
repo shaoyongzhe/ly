@@ -142,7 +142,7 @@ var vm = avalon.define({
                         });
                         $.each(json.content, function (i, v) {
                             if (filterarray.length > 0) {
-                              
+
                                 var bl = false;
                                 $.each(filterarray, function (i, item) {
                                     bl = !compare(item.$model, v)
@@ -276,60 +276,61 @@ var vm = avalon.define({
     },
     userwithdraw: function () {//用户提现
         if (vm.Moneys.balance > 0)
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
                 data: { count: vm.Moneys.balance },
-            url: '/webapi/consumer/mine/consumer/withdraw',
-            beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
-            success: function (json) {
-                shelter.close()
-                json = json || {};   /* 统一加这句话 */
-                if (json.error) {
+                url: '/webapi/consumer/mine/withdraw',
+                beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
+                success: function (json) {
+                    shelter.close()
+                    json = json || {};   /* 统一加这句话 */
+                    if (json.error) {
+                        shelter.init({
+                            title: json.error,
+                            icos: "/js/shelter/image/ico_warn.png",
+                            autoClear: 5,
+                            shadeClose: true
+                        })
+                        return;
+                    }
+                    if (json.user_notification != undefined) {
+                        shelter.init({
+                            title: json.user_notification,
+                            icos: "/js/shelter/image/ico_warn.png",
+                            autoClear: 5,
+                            shadeClose: true
+                        })
+                        if (json.state == 1) {
+                            ///提现成功，重新加载余额记录
+                            vm.getMoney()
+                            vm.getAssetFlow(1, null)
+                        }
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    shelter.close();//隐藏转圈动画
+                    var errormsg = "访问异常";
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        if (json.error != undefined && json.error != null) {
+                            errormsg = json.error + (json.user_notification != undefined ? json.user_notification : "")
+                        } else
+                            errormsg = JSON.parse(json.Message).error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+
                     shelter.init({
-                        title: json.error,
-                        icos: "/js/shelter/image/ico_warn.png",
+                        title: errormsg,
+                        icos: "/js/shelter/image/ico_error.png",
                         autoClear: 5,
                         shadeClose: true
                     })
-                    return;
-                }
-                if (json.user_notification != undefined) {
-                    shelter.init({
-                        title: json.user_notification,
-                        icos: "/js/shelter/image/ico_warn.png",
-                        autoClear: 5,
-                        shadeClose: true
-                    })
-                    return;
-                }
 
-                ///提现成功，重新加载余额记录
-                vm.getMoney()
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                shelter.close();//隐藏转圈动画
-                var errormsg = "访问异常";
-                if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
-                    var json = JSON.parse(XMLHttpRequest.responseText);
-                    if (json.error != undefined && json.error != null) {
-                        errormsg = json.error + (json.user_notification != undefined ? json.user_notification : "")
-                    } else
-                        errormsg = JSON.parse(json.Message).error;
-                    if (errormsg == undefined || errormsg == '')
-                        errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    // toasterextend.showtips(errormsg, "error");
                 }
-
-                shelter.init({
-                    title: errormsg,
-                    icos: "/js/shelter/image/ico_error.png",
-                    autoClear: 5,
-                    shadeClose: true
-                })
-
-                // toasterextend.showtips(errormsg, "error");
-            }
-        });
+            });
     }
 })
 
