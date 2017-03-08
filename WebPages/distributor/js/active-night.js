@@ -1,12 +1,5 @@
 $(function(){
-
-	//var url     = 'http://membership.ipaloma.com/webapi/ipaloma/topic/wechat/detail?contributortype=distributor&contributorid=5ce1d14e07534139ae7774d8983f04f3&topicid=bf5708cb24e844a5a3216ffaf96f7247';
-	// var arr_two = url.split('?');  	
-	// var arr_thr = arr_two[1].split('&'); 
-	// var overarr = [arr_thr[0].split('=')[1],arr_thr[1].split('=')[1],arr_thr[2].split('=')[1]];
-	//  overarr[0] == distributor
 	var new_arr=[];
-	//var currentindex=0;
 	replace()
 	function replace(){
 		var topid=window.location.search;
@@ -16,31 +9,15 @@ $(function(){
 			new_arr.push(topids[i]);
 		    console.log(topids[i]);
 		}
-		 // _ajax_paly(new_arr[0]);
 		 for (var index = 0; index <new_arr.length; index++) {
 		 	 _ajax_paly(new_arr[index]);
 		 }
 	}
-
-
-	/* function GetQueryString(name)
-    {
-         var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-         var r = window.location.search.substr(1).match(reg);
-         if(r!=null)return  unescape(r[2]); return null;
-    }
-    GetQueryString("search")*/
-    
 	 function _ajax_paly(topidcont){
-		
-		// for(var k=0;k<topid.length;k++){
-			//var topidval=topid[i];
 			$.ajax({
 				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=distributor&topicid='+topidcont,
-				//url:url,
 				type:'get',
 				dataType:'json',
-				// data:{},
 				success:function(data){ 
 					console.log(data);
 					var str_sum='';
@@ -99,19 +76,6 @@ $(function(){
 												'</a>'+
 											'</p>'+
 										'</div>'+
-										// '<section class="qualification">'+
-										// 	'<div class="qualification_top">'+
-										// 		'<h2>'+'参与资格'+'</h2>'+
-										// 	'</div>'+
-										// 	'<div class="xsp_x">'+
-										// 		'<div class="xsp_x_left">'+
-										// 			'<a href="javascript:;">'+'使用超惠卷'+'</a>'+
-										// 		'</div>'+
-										// 		'<div class="xsp_x_right">'+
-										// 			'<a href="javascript:;">'+'活动开始前23天,大于等于100次'+'</a>'+
-										// 		'</div>'+
-										// 	'</div>'+
-										// '</section>'+
 										'<div class="T_time">'+
 											'<p>'+
 												'<img src="../image/4.png" alt="">'+
@@ -130,19 +94,6 @@ $(function(){
 							 
 					$('.swiper2>.swiper-wrapper').append(str_sum);
 				
-	 					
-	 				// var str_svg='<div class="more_active hidden_page_b">'+
-						// 		 	'<img class="more_active_left" src="../image/6.png" alt="">'+
-						// 		 	'<p class="more_active_cen">'+
-						// 		 		'更多活动'+
-						// 		 	'<p>'+
-						// 		 	'<div class="more_active_right">'+
-						// 		 		'<p>'+ '向左滑' +'</p>'+
-						// 		 	'</div>'+
-						// 		 '</div>'+
-						// 		 '<div class="Popup">'+
-						// 		 '</div>'
-
 				//钱袋
 					var getmoneys=data.budget.obtained; //获取获得
 					var str_small='';
@@ -165,10 +116,9 @@ $(function(){
 					    	return result + '.' + str_cash_decimals;
 					    }
 						}else{
-						    	return result;
-						    }
+					    	return result;
+					    }
 					}
-
 
 				allSubsidy();
 				function allSubsidy(){
@@ -214,15 +164,6 @@ $(function(){
 							 $('.tablecont:last').html(str);	
 						};
 
-					// function composeSubsidyDescription(subsidycontent)
-					// {
-					// 	var subsidyevent = subsidycontent["subsidyevent"];
-					// 		return '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidycontent.subsidyevent + '</a>'
-					// 		+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidycontent.subsidymethod + '</a>'
-					// 		+ '<a style="line-height: 0.8rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:' +
-					// 			subsidycontent.ruledescription+ '...</a>';
-					// }
-
 					function composeSubsidyObject(subsidyparameter)
 					{
 						var li = "";
@@ -251,15 +192,11 @@ $(function(){
 						}
 						li+='</li>';
 						return li;
-					}
-					
+					}				
 				}
-
 
 				swiper2()
 
-
-				//swiper
 				var Swiper1 = new Swiper ('.swiper1', { 
 				    speed:1200,
 					slidesPerView :2,
@@ -283,8 +220,6 @@ $(function(){
 					activityNumber();
 					function activityNumber(i){
 						var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
-						/*var topid=window.location.search;
-						var topids=topid.split('=')[1].split(',');*/
 						for (var i = 0; i <topids.length ; i++) {
 							if(i==0){
 								$('.activesmallpic').attr({
@@ -301,11 +236,8 @@ $(function(){
 									return "活动" + (index+1);
 								})
 							}
-						}
-						
+						}		
 					}
-
-
 				},
 				error:function(jqXHR){
 					console.log('异常');
@@ -329,70 +261,14 @@ $(function(){
 					}
 				}
 			});
-
 	}
-
-
-				function swiper2(){
-				//swiper big
-				// debugger;
-					var Swiper2 = new Swiper ('.swiper2', {
-					    loop: false, //禁止循环 
-					    //paginationClickable: true,
-					    //spaceBetween: 30,	
-					    //centeredSlides: true,
-					    //autoplayDisableOnInteraction: false, 
-					    //effect: 'slide',
-					    speed:1200,
-					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
-						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
-						autoHeight:true,
-					    //allowSwipeToPrev : true, //禁止向左滑动
-					    // swipeHandler : '.swipe-handler', //作用域
-					    onProgress: function(swiper){
-					      //currentindex++;
-					       //alert(currentindex); //切换结束时，告诉我现在是第几个slide
-					       // if(currentindex<new_arr.length)
-					       // {
-					       //     //_ajax_paly(new_arr[currentindex]);
-					       //     console.log(currentindex);
-					       // }
-					       // alert(1)
-					    }
-					})
-				}
-
-
-
-
-
-
-	 //}
-
-		
-	 /*};*/
-	
-
-
-	
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	function swiper2(){
+		var Swiper2 = new Swiper ('.swiper2', {
+		    loop: false, //禁止循环 
+		    speed:1200,
+		    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
+			observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
+			autoHeight:true,
+		})
+	}
 })
