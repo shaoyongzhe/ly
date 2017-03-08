@@ -184,7 +184,7 @@ section li{
 	background:#009f96;border-radius: 0 0 8px 0;
 }
 .loads{
-	width:100%;height:100%;position:absolute;left:0;top:0;z-index:2000;background:#fff;
+	width:100%;height:101%;position:absolute;left:0;top:0;z-index:2000;background:#fff;
 }
 .giveto{
 	font-size: 1.4rem;padding:12px;
@@ -204,4 +204,6 @@ section li{
 ul li{
 	border-bottom: 1px solid #d8d8d8;
 }
-
+body>div:nth-of-type(1){
+	outline: none;min-height: 0!important;
+}

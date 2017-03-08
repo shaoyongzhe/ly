@@ -1,4 +1,5 @@
 	$(document).ready(function(){
+			$("body>div:nth-of-type(2)").remove()
 			asd()
 	})
 	function asd(){//购物车页起始调用函数
@@ -49,7 +50,7 @@
 			console.log(_Id)
 			_qu=0
 			
-				$(".commit").click(function(){
+				$(".commit").tap(function(){
 					if($(".intr").css("display")!="none"){
 						localStorage.mz=$(".intr").prop("outerHTML")
 					}else if(localStorage.mz){
@@ -260,7 +261,7 @@
 		}
 			function deLete(data1){//删除商品
 				var _dl="";
-				$("#edit").click(function(){
+				$("#edit").tap(function(){
 					if($(this).text()=="编辑"){
 						$(this).text("完成")
 					}else{
@@ -272,7 +273,7 @@
 						$(".set").css({display:"none"})
 					}
 				})
-				$(".delete").click(function(){
+				$(".delete").tap(function(){
 					_dll=$(this).parent().parent().find(".amount").text()
 					$(".ifDelt").css({display:"block"})
 					$("html").css({overflow:"hidden"})
@@ -347,11 +348,11 @@
 						success:function(data){}
 					})
 				})
-				$(".ifDelt span:nth-child(1)").click(function(){
+				$(".ifDelt span:nth-child(1)").tap(function(){
 					$(".ifDelt").css({display:"none"})
 					$("html").css({overflow:"auto"})
 				})
-				$(".ifDelt span:nth-child(2)").click(function(){
+				$(".ifDelt span:nth-child(2)").tap(function(){
 					_id=$(this).parent().prev().attr("id").replace("y","");
 					 
 					_dl=data1[_id]["guid"]
@@ -369,11 +370,13 @@
 							_cun-=Number($("#"+_id).find(".amount").text());
 							
 							_pp-=Number(data1[_id]["price"])*Number(_dll)
-							if($("#"+_id).find(".gouxuan").attr("flag")==1){
-								_ges-=Number($("#"+_id).find(".amount").text())
-								$(".summ").text(_ges)
-							}else{
-								_save-=1;
+							if($("#"+_id).find(".gouxuan").attr("flag")){
+								if($("#"+_id).find(".gouxuan").attr("flag")==1){
+									_ges-=Number($("#"+_id).find(".amount").text())
+									$(".summ").text(_ges)
+								}else{
+									_save-=1;
+								}								
 							}
 							console.log(_ges)
 							if(_count==_save && _count!=0){
@@ -387,6 +390,9 @@
 								console.log(_id)
 								_price-=Number($("#"+_id).find(".pp1").text().replace("￥",""))*Number(_dll)
 								console.log(_price)
+								if(_price<0){
+									_price=0
+								}
 								$(".amountBig span").text(_price.toFixed(1))
 
 							}
@@ -421,7 +427,7 @@
 			var _ll=0;
 
 			console.log(_arr)
-			$("section").on('click','.gouxuan',function(){
+			$("section").on('tap','.gouxuan',function(){
 				if($(this).attr("flag")==1){
 					_Id.splice($(this).parent().parent().attr("ip"),1,"")
 					console.log(_Id)
@@ -478,7 +484,7 @@
 				$(".summ").text(_ges)
 				fg()
 			});
-			$(".all").on('click','.gg',function(){
+			$(".all").on('tap','.gg',function(){
 				if(_ct!=0){
 					if($(this).attr("flag")==1){
 						_count=0;
@@ -544,7 +550,8 @@
 			});
 		}
 		function change(data1){//购物车数量改变
-			$(".change").on('click','.reduce',function(){
+			$(".change").on('tap','.reduce',function(e){
+				e.stopPropagation()
 				var tht=this					
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
 				var that=$(this).parent().find(".amount").text()
@@ -653,7 +660,8 @@
 
 				
 			});
-			$(".change").on('click','.increase',function(){
+			$(".change").on('tap','.increase',function(e){
+				e.stopPropagation()
 				var th=this;
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
 				var _xx=$(this).parents(".yuu").find(".hp>span").text();

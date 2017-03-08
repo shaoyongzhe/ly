@@ -18,8 +18,11 @@ function fnpinpai() {
         $(".titlestyle>span").html($(this).html());
         $(".titlestyle>ul").hide();
     });
+
+
     $(document).click(function(e) {
         if(!$(e.target).closest(".titlestyle").length) {
+        	$(".titlestyle").find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
             $(".titlestyle>ul").hide();
         }
     });
