@@ -249,7 +249,7 @@ function basicQuery(resetQueryCondition){
 		async:true,
 		data:condition,
 		success: function (data) {
-			 console.log(data)
+			 console.log(JSON.stringify(data, null, 4));
 		    // console.log(data.content.length);
 			// console.log(data)
 			$(".loaded").fadeOut();
