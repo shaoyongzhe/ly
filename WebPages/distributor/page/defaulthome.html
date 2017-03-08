@@ -14,7 +14,7 @@
     <link href="/distributor/css/weixin.css" rel="stylesheet" type="text/css" />
     <link href="/distributor/css/weixintips.css" rel="stylesheet" type="text/css" />
 
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/distributor\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
 
@@ -127,5 +127,6 @@
 
         </script>
     </div>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>
