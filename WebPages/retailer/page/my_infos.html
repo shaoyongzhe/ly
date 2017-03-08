@@ -33,7 +33,7 @@
                         <p class="weui-media-box__desc">{{retailername}}</p>
                     </div>
                     <div class="weui_cell_ft">
-                        <a href="invite_staff.html?retailer_id=d31712e157cd48c5aa9516ac11f38c38" class="Derwei">
+                        <a ms-attr-href="invite_staff.html?retailer_id={{retailer_id}}" class="Derwei">
                             <img src="/retailer/image/ewm_new.png" style="width:60px;height:auto;" alt="">
                         </a>
                     </div>
@@ -97,14 +97,14 @@
                         <b>{{getNumeric(contribute.distributorsharecount) }}</b><br />商家超惠分享
                     </div>
                     <div class="o-item" style="margin-left:2%">
-                        <b>{{getNumeric(contribute.distributorsharecount)}}</b><br>本店超惠分享
+                        <b>{{getNumeric(contribute.retailersharecount)}}</b><br>本店超惠分享
                     </div>
                 </div>
             </div>
         </div>
         <div class="weui-panel">
             <div class="weui-panel__ft">
-                <a href="/retailer/page/my_retailerinfo.html" class="weui-cell weui-cell_access">
+                <a href="/retailer/page/my_retailer.html" class="weui-cell weui-cell_access">
                     <div class="weui-cell__bd">
                         <h4 class="weui-media-box__title navtitle">我的店铺</h4>
                     </div>

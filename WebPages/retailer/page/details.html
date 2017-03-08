@@ -50,12 +50,12 @@
 
 	<body>
 		
-		<img src="../image/raw_1482292369.png" style="width:100%" />
-        <script src="/js/sdk/sdk.js"></script>
-	</body>
-	<script src="../js/lib/jquery.min.js">
-	</script>
+	<img src="../image/raw_1482292369.png" style="width:100%" />
+    <script src="../js/lib/jquery.min.js"></script>
+	<script src="/js/sdk/sdk.js"></script>
 	<script>
+	$(function(){
+
 		function fnxuanran(data) {
 			var str = "";
 			for(var k1 in data) {
@@ -70,7 +70,7 @@
 
 			$("body").prepend(str);
 		}
-		$(function() {
+		
 			if(window.location.search!="") {
 				var guid = window.location.search.replace("?","").split("=")[1];
 				//console.log(guid);
@@ -87,7 +87,8 @@
 				});
 			}
 
-		});
+	
+	})
 	</script>
-
+	</body>
 </html>
