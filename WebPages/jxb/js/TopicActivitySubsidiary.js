@@ -53,7 +53,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		if(allActivity.content.length<=1){
 			$(".CcButieLeft").hide();
 		}
-		UpdateMatchedTopicsBol=false;		
+//		UpdateMatchedTopicsBol=false;//暂且注释掉，因为会给我发多次		
 	}
 
 }

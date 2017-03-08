@@ -1,38 +1,19 @@
 $(function(){
 
-	//var url     = 'http://membership.ipaloma.com/webapi/ipaloma/topic/wechat/detail?contributortype=distributor&contributorid=5ce1d14e07534139ae7774d8983f04f3&topicid=bf5708cb24e844a5a3216ffaf96f7247';
-	// var arr_two = url.split('?');  	
-	// var arr_thr = arr_two[1].split('&'); 
-	// var overarr = [arr_thr[0].split('=')[1],arr_thr[1].split('=')[1],arr_thr[2].split('=')[1]];
-	//  overarr[0] == distributor
 	var new_arr=[];
-	//var currentindex=0;
 	replace()
 	function replace(){
-		//var topid=window.location.search;
 	    var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
 		for (var i = 0; i <topids.length ; i++) {
 			new_arr.push(topids[i]);
 		    console.log(topids[i]);
 		}
-		 // _ajax_paly(new_arr[0]);
 		 for (var index = 0; index <new_arr.length; index++) {
 		 	 _ajax_paly(new_arr[index]);
 		 	 console.log(new_arr[index])
 		 }
 	}
-	/* function GetQueryString(name)
-    {
-         var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-         var r = window.location.search.substr(1).match(reg);
-         if(r!=null)return  unescape(r[2]); return null;
-    }
-    GetQueryString("search")*/
-
 	 function _ajax_paly(topidcont){
-		
-		// for(var k=0;k<topid.length;k++){
-			//var topidval=topid[i];
 			$.ajax({
 				url:'/webapi/ipaloma/topic/wechat/detail?contributortype=consumer&topicid='+topidcont,
 				//url:url,
@@ -161,22 +142,6 @@ $(function(){
 					    }
 				}
 
-					/*function formatCash1( cash ){
-						var str_cash = cash + "";
-						var ret_cash = "";
-						var counter = 0;
-						for(var i=str_cash.length-1;i>=0;i--){
-							ret_cash = str_cash.charAt(i) + ret_cash;
-							counter++;
-							if(counter==3){
-								counter = 0;
-							if(i!=0)
-								ret_cash = "," + ret_cash;
-							}
-						}
-						return ret_cash;
-					}*/
-
 				allSubsidy();
 				function allSubsidy(){
 					var subsidy=data.subsdiydescription;
@@ -220,19 +185,7 @@ $(function(){
 							 '</div>'	
 							 $('.tablecont:last').html(str);	
 					}
-					/*jQuery.each(str, function(i, val) {  
 
-					    $('.tablecont').html(str[i]);
-					}); */ 
-					// console.log(str);
-					// function composeSubsidyDescription(subsidycontent)
-					// {
-					// 	var subsidyevent = subsidycontent["subsidyevent"];
-					// 		return '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidycontent.subsidyevent + '</a>'
-					// 		+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + subsidycontent.subsidymethod + '</a>'
-					// 		+ '<a style="line-height: 0.8rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;">1个分销商在一个超惠卷主题活动中:' +
-					// 			subsidycontent.ruledescription+ '...</a>';
-					// }
 					function composeSubsidyObject(subsidyparameter)
 					{
 						var li = "";
@@ -364,8 +317,6 @@ $(function(){
 					activityNumber();
 					function activityNumber(i){
 						var topids =  decodeURIComponent(common.getUrlParam("topicid")).split(',');
-						/*var topid=window.location.search;
-						var topids=topid.split('=')[1].split(',');*/
 						for (var i = 0; i <topids.length ; i++) {
 							if(i==0){
 								$('.activesmallpic').attr({
@@ -411,67 +362,13 @@ $(function(){
 			});
 
 	}
-
-
 				function swiper2(){
-				//swiper big
-				// debugger;
 					var Swiper2 = new Swiper ('.swiper2', {
 					    loop: false, //禁止循环 
-					    //paginationClickable: true,
-					    //spaceBetween: 30,	
-					    //centeredSlides: true,
-					    //autoplayDisableOnInteraction: false, 
-					    //effect: 'slide',
 					    speed:1200,
 					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
 						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
 						autoHeight:true,
-					    //allowSwipeToPrev : true, //禁止向左滑动
-					    //swipeHandler : '.swipe-handler', //作用域
-					    onProgress: function(swiper){
-					      //currentindex++;
-					       //alert(currentindex); //切换结束时，告诉我现在是第几个slide
-					       // if(currentindex<new_arr.length)
-					       // {
-					       //     //_ajax_paly(new_arr[currentindex]);
-					       //     console.log(currentindex);
-					       // }
-					     
-					    }
 					})
 				}
-
-
-
-
-
-
-	 //}
-
-		
-	 /*};*/
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 })
