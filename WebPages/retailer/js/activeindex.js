@@ -690,7 +690,7 @@ function fnyibanlist2(data) {
             oli += "</div></div></div></div></li>";
         }
     }
-    $("#cgl-contlist").find("ul").html(oli);
+    $("#cgl-contlist").find("ul").append(oli);
 }
 //商品规格点击切换
 function fnggmore() {
@@ -1072,20 +1072,18 @@ function fnmclick(theid,idd) {
 }
 //加载更多
 var state={
-
-    "lastcount":9,
+    "lastcount":3,
     "pagecount":10,
     "supplierid":"",
     "itemcategory":""
 }
-
+var flag=1;
 function getmore() {
     var hcha=null;
-    var flag=true;
+
     $("#cgl-contlist").scroll(function () {
         hcha=$(this)[0].scrollHeight-$(this).outerHeight()-$(this)[0].scrollTop;
-        if(hcha==0 && state["supplierid"] != "" && flag==true){
-            flag=false;
+        if(hcha==0 && state["supplierid"] != "" && flag==Math.floor(state["lastcount"]/state["pagecount"]+1)){
             $("#getmore").show();
 
             var odata = {
@@ -1102,7 +1100,6 @@ function getmore() {
                 timeout: "9000",
                 dataType: "json",
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    flag=true;
                     if (textStatus == "timeout") {
                         $("#loading img").remove();
                         $("#loading div").text("请求超时");
@@ -1112,10 +1109,15 @@ function getmore() {
                     $("#zhezao").hide();
                 },
                 success: function (data) {
-                    flag=true;
                     $("#zhezao").hide();
-                    //$("#getmore").hide();
-                    console.log(data)
+                    if(data.length>0){
+                        fnyibanlist2(data);
+                        state["lastcount"]+=10;
+                        console.log(flag)
+                    }else{
+                        $("#getmore").hide();
+                    }
+                    flag++;
                 }
             });
         }
