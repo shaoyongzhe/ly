@@ -40,103 +40,105 @@ function fngetlist() {
             if(data.data.result==false){
             	return false;
             }
-
             if(data.data.length<1){
             	$(".noone").show();
+            	$(".toorder").hide();
 			}else {
                 $(".noone").hide();
-			}
+                $(".toorder").show();
+                data=data.data;
+                var oli="";
+                var ceng1=null;
+                var ceng2=null;
+                var ceng3=null;
+                var thissp={
+                    distributor_id:null,
+                    shopid:localStorage.getItem("retaler"),
+                    distributorname:null,
+                    distributorimg:null,
+                    contactperson:null,
+                    mobilephone:null,
+                    cutgift:null,
+                    itemcount:null,
+                    active:null
+                };
 
-            data=data.data;
-            var oli="";
-            var ceng1=null;
-            var ceng2=null;
-            var ceng3=null;
-            var thissp={
-            	distributor_id:null,
-            	shopid:localStorage.getItem("retaler"),
-            	distributorname:null,
-            	distributorimg:null,
-            	contactperson:null,
-            	mobilephone:null,
-            	cutgift:null,
-            	itemcount:null,
-            	active:null
-            };
-            
-            for(var k1 in data){
-            	if(data[k1]["openshipping"]==1){
-            	$(".toorder").show()
-            	ceng1=data[k1];
-            	thissp.distributor_id=ceng1["distributor_id"];
-            	thissp.distributorname=ceng1["distributorname"];
-            	thissp.distributorimg=ceng1["distributorimg"];
-            	thissp.contactperson=ceng1["contactperson"];
-            	thissp.mobilephone=ceng1["mobilephone"];
-            	thissp.cutgift=ceng1["cutgift"];
-            	thissp.itemcount=ceng1["itemcount"];
-            	
-            	oli+="<li id='"+k1+"' class='hori' data-xx='"+JSON.stringify(thissp)+"'>" +
-                        "<div class='main-l'>" +
-							"<img src='"+ceng1["distributorimg"]+"'>" +
-                        "</div>" +
-                        "<div class='main-r'>" +
+                for(var k1 in data){
+                    if(data[k1]["openshipping"]==1){
+                        $(".toorder").show();
+                        ceng1=data[k1];
+                        thissp.distributor_id=ceng1["distributor_id"];
+                        thissp.distributorname=ceng1["distributorname"];
+                        thissp.distributorimg=ceng1["distributorimg"];
+                        thissp.contactperson=ceng1["contactperson"];
+                        thissp.mobilephone=ceng1["mobilephone"];
+                        thissp.cutgift=ceng1["cutgift"];
+                        thissp.itemcount=ceng1["itemcount"];
+
+                        oli+="<li id='"+k1+"' class='hori' data-xx='"+JSON.stringify(thissp)+"'>" +
+                            "<div class='main-l'>" +
+                            "<img src='"+ceng1["distributorimg"]+"'>" +
+                            "</div>" +
+                            "<div class='main-r'>" +
                             "<div class='main-rt'>" +
-                                "<div class='namejia left'>" +
-                                    "<a>" +
-                                        "<h3>"+ceng1["distributorname"]+"</h3>" +
-                                    "</a>" +
-                                    "<p>起送价 ￥<strong>"+ceng1["cutgift"]+"</strong>元</p>" +
-                                "</div>" +
-                                "<a href='shopcar.html?distributor_id="+thissp.distributor_id+"'><span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span></a>" +
+                            "<div class='namejia left'>" +
+                            "<a>" +
+                            "<h3>"+ceng1["distributorname"]+"</h3>" +
+                            "</a>" +
+                            "<p>起送价 ￥<strong>"+ceng1["cutgift"]+"</strong>元</p>" +
+                            "</div>" +
+                            "<a href='shopcar.html?distributor_id="+thissp.distributor_id+"'><span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span></a>" +
                             "</div>" +
                             "<div class='cgl-manj'>"+
-	                            "<p>微信下单立减<span>"+ceng1["specialprice"]+"</span>元</p>";
-	                            if(ceng1["itemkind"]=="满赠"){
-	                            	oli+="<p style='background-image:url(../../image/shop/zeng.png);'>";
-	                            	for(var k2 in ceng1["promotionactivity"]["details"]){
-		                            	ceng2=ceng1['promotionactivity']['details'][k2];
-		                            	oli+="满"+ceng2["moneysum"]+"元赠";
-		                            	for(var k3 in ceng2["giftitems"]){
-		                            		ceng3=ceng2['giftitems'][k3];
-		                            		oli+=ceng3["itemname"]+ceng3["count"]+ceng3["unit"];
-		                            		if(ceng3["itemquality"]==0){
-		                            			oli+="(临期)"
-		                            		}
-		                            		oli+="，";
-		                            	}
-		                            	oli=oli.substring(0,oli.length-1);
-		                            	oli+="；";
-	                            	}
-	                          		oli=oli.substring(0,oli.length-1);
-	                            }
-	                            if(ceng1["itemkind"]=="满减"){
-	                            	oli+="<p>";
-	                            	for(var k2 in ceng1["promotionactivity"]["details"]){
-		                            	ceng2=ceng1['promotionactivity']['details'][k2];
-		                            	oli+="满"+ceng2["moneysum"]+"元赠";
-		                            	for(var k3 in ceng2["giftitems"]){
-		                            		ceng3=ceng2['giftitems'][k3];
-		                            		oli+=ceng3["itemname"]+ceng3["count"]+ceng3["unit"]+"，";
-		                            	}
-		                            	oli=oli.substring(0,oli.length-1);
-		                            	oli+="；";
-	                            	}
-	                          		oli=oli.substring(0,oli.length-1)+"</p>";
-	                            }
-                            oli+="</div>"+
-                        "</div>" +
-                    "</li>";
+                            "<p>微信下单立减<span>"+ceng1["specialprice"]+"</span>元</p>";
+                        if(ceng1["itemkind"]=="满赠"){
+                            oli+="<p style='background-image:url(../../image/shop/zeng.png);'>";
+                            for(var k2 in ceng1["promotionactivity"]["details"]){
+                                ceng2=ceng1['promotionactivity']['details'][k2];
+                                oli+="满"+ceng2["moneysum"]+"元赠";
+                                for(var k3 in ceng2["giftitems"]){
+                                    ceng3=ceng2['giftitems'][k3];
+                                    oli+=ceng3["itemname"]+ceng3["count"]+ceng3["unit"];
+                                    if(ceng3["itemquality"]==0){
+                                        oli+="(临期)"
+                                    }
+                                    oli+="，";
+                                }
+                                oli=oli.substring(0,oli.length-1);
+                                oli+="；";
+                            }
+                            oli=oli.substring(0,oli.length-1);
+                        }
+                        if(ceng1["itemkind"]=="满减"){
+                            oli+="<p>";
+                            for(var k2 in ceng1["promotionactivity"]["details"]){
+                                ceng2=ceng1['promotionactivity']['details'][k2];
+                                oli+="满"+ceng2["moneysum"]+"元赠";
+                                for(var k3 in ceng2["giftitems"]){
+                                    ceng3=ceng2['giftitems'][k3];
+                                    oli+=ceng3["itemname"]+ceng3["count"]+ceng3["unit"]+"，";
+                                }
+                                oli=oli.substring(0,oli.length-1);
+                                oli+="；";
+                            }
+                            oli=oli.substring(0,oli.length-1)+"</p>";
+                        }
+                        oli+="</div>"+
+                            "</div>" +
+                            "</li>";
+                    }
+                }
+                $("#cgl-main").html(oli).on("click","li",function () {
+                    localStorage.index=$(this).attr("id")
+                    var thissp1=JSON.parse($(this).attr("data-xx"));
+                    thissp1.active=$(this).find(".cgl-manj").html();
+                    //console.log(thissp)
+                    sessionStorage.setItem("fenxiao",JSON.stringify(thissp1))
+                    window.location="activeindex.html";
+                });
             }
-           }
-            $("#cgl-main").html(oli).on("click","li",function () {
-            	localStorage.index=$(this).attr("id")
-            	var thissp1=JSON.parse($(this).attr("data-xx"));
-            	thissp1.active=$(this).find(".cgl-manj").html();
-            	//console.log(thissp)
-                sessionStorage.setItem("fenxiao",JSON.stringify(thissp1))
-            	window.location="activeindex.html";
-            });  
+
+
             
         }
     });
