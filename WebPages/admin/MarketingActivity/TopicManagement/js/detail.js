@@ -428,6 +428,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert("上架成功");
                     closeLayer();
 //                  parent.basicQuery();
@@ -458,6 +459,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert(op + " 成功");
                     closeLayer();
                 },
