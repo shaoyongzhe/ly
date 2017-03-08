@@ -273,7 +273,7 @@
 						$(".set").css({display:"none"})
 					}
 				})
-				$(".delete").tap(function(){
+				$(".delete").click(function(){
 					_dll=$(this).parent().parent().find(".amount").text()
 					$(".ifDelt").css({display:"block"})
 					$("html").css({overflow:"hidden"})
@@ -348,11 +348,11 @@
 						success:function(data){}
 					})
 				})
-				$(".ifDelt span:nth-child(1)").tap(function(){
+				$(".ifDelt span:nth-child(1)").click(function(){
 					$(".ifDelt").css({display:"none"})
 					$("html").css({overflow:"auto"})
 				})
-				$(".ifDelt span:nth-child(2)").tap(function(){
+				$(".ifDelt span:nth-child(2)").click(function(){
 					_id=$(this).parent().prev().attr("id").replace("y","");
 					 
 					_dl=data1[_id]["guid"]
