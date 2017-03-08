@@ -340,7 +340,8 @@
 							isyucun:data1[_ind]["isyucun"],
 							activityitemid:data1[_ind]["activityitem_id"],
 							versiontime:formaty(),
-							remark:$(oThat).val()
+							remark:$(oThat).val(),
+							prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
 						},
 						error:function(){},
 						success:function(data){}
@@ -567,7 +568,8 @@
 								isyucun:data1[_ind]["isyucun"],
 								activityitemid:data1[_ind]["activityitem_id"],
 								versiontime:formaty(),
-								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val()
+								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+								prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
 							},
 							error:function(){},
 							success:function(data){
@@ -617,7 +619,8 @@
 								isyucun:data1[_ind]["isyucun"],
 								activityitemid:data1[_ind]["activityitem_id"],
 								versiontime:formaty(),
-								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val()	
+								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+								prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
 							},
 							error:function(){},
 							success:function(data){
@@ -677,7 +680,8 @@
 							isyucun:data1[_ind]["isyucun"],
 							activityitemid:data1[_ind]["activityitem_id"],
 							versiontime:formaty(),
-							remark:$(th).parents(".list").parent().find(".disc2>div>textarea").val()
+							remark:$(th).parents(".list").parent().find(".disc2>div>textarea").val(),
+							prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
 						},
 						error:function(){},
 						success:function(data){
