@@ -44,7 +44,7 @@ function fnxrym() {
         $("#contactperson").html(url1.contactperson);
         $("#cutgift").html("￥" + url1.cutgift + "元");
         $(".num").html($(".ammount").html());
-        $(".proDetailBox").html("<div style=\"float:left\">"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.png\" style=\"float:right;margin-top:6%;margin-right: -11%;width: 0.8rem;height: 0.4rem;\">");
+        $(".proDetailBox").html("<div style=\"float:left\">"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.png\" style=\"float:right;margin-top:6%;margin-right: -11%;width: 16px;height: 8px;\">");
         $(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
         $(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);
         $(".footerl>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id);
@@ -58,8 +58,8 @@ function fnxrym() {
                     $(".imgg").css({transform:"rotate(180deg)",transitionDuration:"0.2s"})
                     _hh=0;
                 }else{
-                    $(".proDetailBox>div").height("1.9rem");
-                    $(".proDetailBox").height("1.9rem");
+                    $(".proDetailBox>div").height("38px");
+                    $(".proDetailBox").height("38px");
                     $(".imgg").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
                     _hh=1;
                 }
@@ -130,7 +130,7 @@ function fnclick() {
             if($(this).find(".hide1").length > 0) {
                 $(".sanji").slideDown(300).find("h4>i").css("transform", "rotateZ(90deg)");
                 $("#cgl-contlist").find("ul").animate({
-                    "margin-top": "1.95rem"
+                    "margin-top": "39px"
                 }, 300);
                 $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
             } else {
@@ -149,27 +149,31 @@ function fnclick() {
             $this = $(this),
             $next = $this.next();
         $next.find("li").removeClass("col1"); //删除橙色字的颜色
-        $(".sanji").hide(); //隐藏一级分类右下角的三角
+        $(".sanji").hide();
         $(".cgl-contlist").find(">ul>li").show();
         $("#cgl-contlist").find("ul").animate({
             "margin-top": 0
         }, 300);
-        $next.stop().slideDown(300,function () {
-            $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
-            fnmenuhei();
+        $next.stop().slideToggle(300,function () {
+
+            //fnmenuhei();
         });
 
         var scrh=$(".proTitleBox").outerHeight()+$(".proDetailBox").outerHeight()-$(".dealer-header").outerHeight();
-        if($(".container")[0].scrollTop > scrh ){
+        /*if($(".container")[0].scrollTop > scrh ){
             $(".container")[0].scrollTop=scrh
-        }
+        }*/
+        $("#cgl-contlist")[0].scrollTop=0;
         $el.find(">li").removeClass('clion');
         $this.parent().addClass('clion');
-        $el.find(".link>i").show();
-        $this.find("i").hide();
+        $el.find(".link>i").removeClass("iclick");
+        $this.find("i").addClass("iclick");
+        $this.next().find(">li:eq(0)").addClass("col1").find("i").css({"background-image":'url("../../image/shop/hssanjiao.png")'});
+        //$this.next().find(">li:eq(0)")
+        console.log(1)
         if(!e.data.multiple) {
             $el.find('.submenu').not($next).slideUp(300,function () {
-                fnmenuhei();
+                //fnmenuhei();
             });
         };
     }
@@ -316,7 +320,7 @@ function xuanrmenu(data) {
     $("#cgl-menu").append(oli);
     fnclick();
     fnmenuclick();
-    fnmenuhei(); //动态设置菜单右侧高度
+    //fnmenuhei(); //动态设置菜单右侧高度
 }
 //预存货列表
 function fnyucun() {
@@ -414,6 +418,7 @@ function fnhqactive() {
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
+            $("#loading").hide();
         },
         success: function(data) {
             console.log(data)
@@ -428,6 +433,7 @@ function fnhqactive() {
         }
     });
 }
+
 //促销活动列表渲染
 function fncuxiao(data) {
     var oli = "",
@@ -536,7 +542,7 @@ function fnlist2(odata) {
             $("#loading").hide();
             if(data.result == false) {
                 console.log(data.error);
-                $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
+                $("#cgl-contlist").find("ul").html("<P style='padding-top:5px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data)
             }
@@ -636,7 +642,7 @@ function fnyibanlist2(data) {
                         "<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
                         "<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
-                        "<div class='ggdiv'><p class='ggborder'>" + (data[k1]["itemslist"][k2]["specification"]==null?"":data[k1]["itemslist"][k2]["specification"]+" | ") + (data[k1]["itemslist"][k2]["packagetypename"]==undefined?"":data[k1]["itemslist"][k2]["packagetypename"]) + " > </p></div>" +
+                        "<div class='ggdiv'><p class='ggborder'>" + (data[k1]["itemslist"][k2]["specification"]==null?"":data[k1]["itemslist"][k2]["specification"]+" | ") + (data[k1]["itemslist"][k2]["packagetypename"]==undefined?"":data[k1]["itemslist"][k2]["packagetypename"]) + "</p></div>" +
                         "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemslist"][k2]["itemcount"] <= 0) {
@@ -1008,7 +1014,7 @@ function fnserchapi(odata) {
             $(".sale").next().find(".submenu").slideDown(300);
             if(data.result == false) {
                 console.log(data.error);
-                $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
+                $("#cgl-contlist").find("ul").html("<P style='padding-top:5px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data["datalist"]);
             }
@@ -1051,7 +1057,7 @@ function menusx(data) {
         if($(this).find(".hide1").length > 0) {
             $(".sanji").slideDown(300).find("h4>i").css("transform", "rotateZ(90deg)");
             $("#cgl-contlist").find("ul").animate({
-                "margin-top": "1.95rem"
+                "margin-top": "39px"
             }, 300);
             $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
         } else {
