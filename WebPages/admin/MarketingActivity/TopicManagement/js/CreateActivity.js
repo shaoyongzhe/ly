@@ -737,7 +737,8 @@ $('.gailvok').click(function(){
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * (percent /100) * cishu;
 
 		} else {
-			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100);
+			var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
+			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu ;
 		}
 
 		if(i == 9){return false}
@@ -2870,7 +2871,8 @@ $('.saveToDb, .shenhe').click(function(){
 				}
 
 
-				if($(this).closest('.addSub4').find('.hdc4dB').text() == '次'){
+				if($(this).closest('.addSub4').find('.hdc4d2.link input').length == 1 && 
+					$(this).closest('.addSub4').find('.hdc4d2.link input').val() == ""){
 					$("nav span").eq(2).click();
 					layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
 					finished = false;

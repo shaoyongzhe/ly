@@ -731,7 +731,7 @@ function dataLoad() {
 					_this.closest('.region-item').find('.allCity').remove();
 					_this.closest('.region-item').find('.cityName:contains('+ selectedshi +')').closest('.city-wrap').remove();
 					
-					_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em guid="+ shifzrObj.guid +" oid="+ shifzrObj.oid +" shifzr='"+ JSON.stringify(shifzrObj, null, 4) +"'>" + shifzrObj.shifzr + "</em><i class='x'>&times;</i></div><div class='district-wrap'>"+ getDistrictHtml() +"</div></div></div>");
+					_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em guid="+ shifzrObj.guid +" oid="+ shifzrObj.oid +" shifzr='"+ JSON.stringify(shifzrObj, null, 4) +"'>" + shifzrObj.name + "</em><i class='x'>&times;</i></div><div class='district-wrap'>"+ getDistrictHtml() +"</div></div></div>");
 
 				}
 
