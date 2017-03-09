@@ -47,7 +47,7 @@
 						for(var i=0;i<data["content"][commodity]["details"].length;i++){
 							if(data["content"][commodity]["details"][i]["description"]){
 								if(data["content"][commodity]["details"][i]["description"]!="" || data["content"][commodity]["details"][i]["description"]!=null){
-									_remark="<div class="+"\"give\""+"><div class="+"\"give-tit\""+">留言：</div><div class="+"\"give-con\""+">"+data["content"][commodity]["details"][i]["description"]+"</div></div>"
+									_remark="<div class="+"\"give\""+" style=\"color:#ffbda3\"><div class="+"\"give-tit\""+" style=\"color:#ffbda3\">留言：</div><div class="+"\"give-con\""+" style=\"color:#ffbda3\">"+data["content"][commodity]["details"][i]["description"]+"</div></div>"
 								}							
 							}else{
 								_remark="";
@@ -238,6 +238,9 @@
 							$("#same-ss").css({display:"none"})
 						}
 						$("#ee span").text(_yucun.toFixed(1))
+						if(_yucun==0){
+							$("#ee").hide()
+						}
 						if(_discount<0){
 							_discount=0
 						}

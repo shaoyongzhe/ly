@@ -577,7 +577,7 @@
 		}
 		function change(data1){//购物车数量改变
 			$(".change").on('tap','.reduce',function(e){
-				e.stopPropagation()
+				e.originalEvent.stopPropagation();
 				var tht=this					
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
 				var that=$(this).parent().find(".amount").text()
@@ -693,7 +693,7 @@
 				
 			});
 			$(".change").on('tap','.increase',function(e){
-				e.stopPropagation()
+				e.originalEvent.stopPropagation();
 				var th=this;
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
 				var _xx=$(this).parents(".yuu").find(".hp>span").text();

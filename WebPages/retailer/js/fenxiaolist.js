@@ -168,13 +168,13 @@ $(function () {
    	
 	
 	if(!localStorage.reload){
-		localStorage.reload=0;
+		localStorage.reload=1;
 		    fnfooterclick();
     		fngetlist();
 	}else if(localStorage.reload==1){
 		var _tt=setInterval(function(){
 			
-				localStorage.reload=0;
+				
 				
 				fnfooterclick();
     			fngetlist();
