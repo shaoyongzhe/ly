@@ -52,8 +52,10 @@ function suppermarketactivitylist(container) {
                 '<div class="assetinfobj">  <a href="${testclick(item.topicdata)}" class="assetcontent">',
                     '<div class="assetimg"> <p>${item.topicdata.budget.subsidytotal}</p></div>',
                     '<div class="asset_left" style="width:calc(100% - 110px)"> ',
-                        '<p style="max-width:calc(100% - 55px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1em;">${item.topicdata.topiclist[0].activitytitle}</p>',
-                        '<span style="width:50px;display:inline-block;font-size:0.7em;font-weight:normal">${(item.topicdata.topiclist.length>1?"等活动":"")}</span>',
+                        '<div class="topictitle" style="max-width:calc(100% - 65px);"><nobr style="font-size:1.1rem;">${item.topicdata.topiclist[0].activitytitle}</nobr></div>',
+                        '<div class="topictitle_1"><small>${(item.topicdata.topiclist.length>1?"等活动":"")}</small></div>',
+                       /* '<p style="max-width:calc(100% - 55px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1em;">${item.topicdata.topiclist[0].activitytitle}</p>',
+                        '<span style="width:50px;display:inline-block;font-size:0.7em;font-weight:normal">${(item.topicdata.topiclist.length>1?"等活动":"")}</span>',*/
                     '</div>',
                 ' </a> </div>',
             '{@/if}',
