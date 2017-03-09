@@ -1,5 +1,6 @@
 	$(document).ready(function(){
 			$("body>div:nth-of-type(2)").remove()
+			$(".addr").css({marginTop:$(".shop-title").height()})
 			asd()
 	})
 	function asd(){//购物车页起始调用函数
@@ -41,6 +42,9 @@
 		        error:function(){},
 		        success:function(data1){
 		        	console.log(data1)
+		        	if(data1){
+		        		$(".loads").css({display:"none"})
+		        	}
 		        	if(data1.length>0){
 		        		$("#kong").hide()
 		        	}else{
@@ -831,6 +835,6 @@
 						 _active=""
 		        }
 					$("html").css({overflow:"auto"})
-					$(".loads").css({display:"none"})
+					
 		}
 		}

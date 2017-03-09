@@ -630,7 +630,7 @@ section .remarks{
  .proTitleshortBox .proTitleshortBoxr img{margin:0 0px; padding:0px 0px; vertical-align:middle;  display:inline-block;max-width: 40px !important; height: auto !important;}
  
 .intr{
-	padding:0.6rem 5px 0.6rem 10px;font-size: 1.4rem;border:1px solid #d8d8d8;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
+	padding:10px 5px 10px 10px;font-size: 1.4rem;border:1px solid #d8d8d8;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;
 }
 .intr div:nth-child(1){
 	width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 1.4rem;color:#ff0000;
