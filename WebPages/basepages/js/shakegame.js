@@ -27,13 +27,11 @@ var vm = new Vue({
     },
     methods: {
         startShake: function () {//开始摇奖】
-
             $.ajax({
                 type: 'post',
                 dataType: 'json',
-                async: false,
                 url: '/webapi/marketingservice/topic/shake',
-                beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif" }) },
+                beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "摇奖中，请等待..." }) },
                 complete: function () { shelter.close() },
                 success: function (result) {
                     shelter.close()
@@ -126,7 +124,6 @@ function loadShakeNum() {
         }
     });
 }
-
 
 //var vm = avalon.define({
 //    $id: "shakegame",
@@ -250,7 +247,6 @@ function deviceMotionHandler(eventData) {
 
 
 function shakeAfter() {
-
     if (!vm.IsShake) {
         vm.IsShake = true
         audio.play();
