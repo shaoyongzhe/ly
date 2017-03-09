@@ -33,11 +33,13 @@ var vm = new Vue({
                 dataType: 'json',
                 async: false,
                 url: '/webapi/marketingservice/topic/shake',
+                beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif" }) },
+                complete: function () { shelter.close() },
                 success: function (result) {
+                    shelter.close()
                     vm.IsShake = false;
                     audio.pause();
                     openAudio.play();//播放音乐
-
                     if (result.error && result.state == undefined) {
                         toasterextend.showtips(result.error, "error");
                         loadShakeNum()
