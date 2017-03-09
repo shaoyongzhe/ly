@@ -90,8 +90,8 @@ function fngetlist() {
                             "</div>" +
                             "<a href='shopcar.html?distributor_id="+thissp.distributor_id+"'><span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span></a>" +
                             "</div>" +
-                            "<div class='cgl-manj'>"+
-                            "<p>微信下单立减<span>"+ceng1["specialprice"]+"</span>元</p>";
+                            "<div class='cgl-manj'>";
+                        if(ceng1["specialprice"]>0){oli+="<p>微信下单立减<span>"+ceng1["specialprice"]+"</span>元</p>";}
                         if(ceng1["itemkind"]=="满赠"){
                             oli+="<p style='background-image:url(../../image/shop/zeng.png);'>";
                             for(var k2 in ceng1["promotionactivity"]["details"]){

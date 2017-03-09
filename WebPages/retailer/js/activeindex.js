@@ -419,8 +419,12 @@ function fnhqactive() {
             console.log(data)
             $("#loading").hide();
             $("#zongloading").hide();
-            fncuxiao(data)
             $("#zhezao").hide();
+            if(data.length>0){
+                fncuxiao(data);
+            }else {
+                $(".cgl-tishi").html("暂无活动商品~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+            }
         }
     });
 }
@@ -722,7 +726,6 @@ function fnggmore() {
 function fncarnum(data) {
     $("#cgl-cont").on("click", ".jian", function() {
         var num = Number($(this).next().html());
-        console.log(num)
         if($(this).parent().parent().parent().parent().parent().attr("id") && num>1){
             if(num==data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
 
@@ -800,7 +803,6 @@ function fnaddcar(that, a) {
             $("#zhezao").hide();
         },
         success: function(data) {
-            console.log(data)
             $("#zhezao").hide();
         }
     })
