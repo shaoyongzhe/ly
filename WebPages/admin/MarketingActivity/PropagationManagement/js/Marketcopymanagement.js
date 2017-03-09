@@ -7,9 +7,6 @@
 
 $('table.notify').on('click', '.handle-icon', function (e) {
     e.stopPropagation();
-
-    // $(this).toggleClass('on').parents('tr').siblings().find('.handle-icon').removeClass('on');
-
     $(this).toggleClass('on');
     $(".handle-icon").not(this).removeClass('on');
 
@@ -36,172 +33,184 @@ $('.resetting').on('click', function () {
 
 $('.mode1').find('div:eq(0) img').addClass('xiyin_son');
 
-function getList(curr, handle, searchForm) {
-    $("table.notify tbody").empty();
-    // alert('我执行了');
-    $('.layui-layer-close').click();
-    // console.log(searchForm)
-    if (curr == undefined || curr == "") {
-        curr = 1;
+
+/*
+* 分页  下拉刷新
+*/
+var queryPagesNum=1;
+var queryPagesCount=10;
+
+$(".table1 tbody").scroll(function() {
+    if($(this).scrollTop() >= ($(this).prop("scrollHeight") - 500) && $(this).prop("scrollHeight") > 500) {
+        queryPagesNum++;
+        getList(queryPagesNum,queryPagesCount,'search',getSearch())
+    //      console.log(condition)
     }
+});
+function qiload(){
+    if($(".table1 tbody").prop("scrollHeight") <= 500){
+        queryPagesNum++;
+        getList(queryPagesNum,queryPagesCount,'search',getSearch())
+    }
+}
+var outload=true;
+$('.search-btn').click(function () {
+    $(".table1 tbody").empty();//清除前页的数据
+    autoLoad = true;
+    queryPagesNum=1;
+    getList(queryPagesNum,queryPagesCount,'search',getSearch());
+})
+
+
+function getList(_pageindex,_pagesize,handle,searchForm) {
+    $('.layui-layer-close').click();
     var df = {};
-    // if(searchForm){
-    // if (handle == 'search') {
     df = searchForm;
-    // 页数
-    var pageindex = 0;
-    // 每页展示15个
-    var pagesize = 25;
-    $('.content_drop .dropload-down').remove();
-    $('.content_drop').Drop_down_loading({
-        gundong: $('tbody'),
-        loadDownFn: function (me) {
-            pageindex++;
-            // 拼接HTML
-            var df = {};
-            df = searchForm;
-            df.pageindex = pageindex;
-            df.pagesize = pagesize;
-            $.ajax({
-                type: "get",
-                // url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
-                url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
-                dataType: "json",
-                beforeSend: function () {
-                    $('.search-btn').css('background', '#8D8B8E');
-                    $('.search-btn').attr('disabled', true);
-                    $('.search-btn2').attr('disabled', true);
-                    $('.search-btn').val('查询中');
-                    $('.dropload-down').fadeIn(100)
-                },
-                success: function (data) {
-                    // console.log(data);
-                    $('.dropload-load').css('display', 'none');
-                    if (data.error) {
-                        layer.msg('暂无数据');
-                        $('.search-btn').css('background', '#009DD9');
-                        $('.search-btn').attr('disabled', false);
-                        $('.search-btn2').attr('disabled', false);
-                        $('.search-btn').val('查询');
-                        return;
+    df.pageindex = _pageindex;
+    df.pagesize = _pagesize;
+    $.ajax({
+        type: "get",
+        url: "/webapi/ipaloma/propagation?parameters=" + JSON.stringify(df),
+        dataType: "json",
+        beforeSend: function () {
+            $('.search-btn').css('background', '#8D8B8E');
+            $('.search-btn').attr('disabled', true);
+            $('.search-btn2').attr('disabled', true);
+            $('.search-btn').val('查询中');
+            $(".loaded").fadeIn();
+        },
+        success: function (data) {
+            
+            // console.log(data);
+            $(".loaded").fadeOut();
+            $('.dropload-load').css('display', 'none');
+            if (data.error) {
+                layer.msg('暂无数据');
+                $('.search-btn').css('background', '#009DD9');
+                $('.search-btn').attr('disabled', false);
+                $('.search-btn2').attr('disabled', false);
+                $('.search-btn').val('查询');
+                return;
+            }
+            $('.search-btn').attr('disabled', false);
+            $('.search-btn2').attr('disabled', false);
+            $('.search-btn').css('background', '#009DD9');
+            $('.search-btn').val('查询');
+            var isSet = "",
+                autoW = "",
+                tr = "",
+                td = data.content;
+            if (td.length > 0) {
+                // $('.tiaoshu').html('当前共有数据'+td.length+'条');
+                for (var i = 0; i < td.length; i++) {
+                    // 状态
+                    if (td[i].state == "draft") {
+                        td[i].draft = "草稿";
+                        isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + '&#xe6f5;' + "</i>" + '详细' + "</a>" + "<a class='ml-5 exm'  title='提交审核'>" + "<input type='hidden' value='draft' />" + "<i class='Hui-iconfont'>" + "&#xe615;" + "</i>" + '提交审核' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
+                        autoW = "335";
+                    } else if (td[i].state == "auditsuccess") {
+                        td[i].auditsuccess = "待发送";
+                        isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
+                        autoW = "75";
+                    } else if (td[i].state == 'auditfail') {
+                        td[i].auditfail = "审核未通过";
+                        isSet = "<a class='ml-5 detailed'title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<input type='hidden' value='auditfail' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
+                        autoW = "220";
+                    } else if (td[i].state == 'toberelease') {
+                        td[i].toberelease = "待发送";
+                        isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<input type='hidden' value='store' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 release' title='立即发送'>" + "<i class='Hui-iconfont'>" + "&#xe68a;" + "</i>" + '立即发送' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
+                        autoW = "335";
+                    } else if (td[i].state == 'audit') {
+                        td[i].audit = "审核中";
+                        isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>" + "<a class='ml-5 Reject'  title='驳回'>" + "<input type='hidden' value='audit' />" + "<i class='Hui-iconfont'>" + "&#xe6a6;" + "</i>" + '驳回' + "</a>" + "<a class='ml-5 adopt' title='审核通过'>" + "<i class='Hui-iconfont'>" + "&#xe6a7;" + "</i>" + '审核通过' + "</a>";
+                        autoW = "407";
+                    } else if (td[i].state == 'released') {
+                        td[i].released = "已发送";
+                        isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
+                        autoW = "75";
                     }
-                    $('.search-btn').attr('disabled', false);
-                    $('.search-btn2').attr('disabled', false);
-                    $('.search-btn').css('background', '#009DD9');
-                    $('.search-btn').val('查询');
-                    var isSet = "",
-                        autoW = "",
-                        tr = "",
-                        td = data.content;
-                    // var i = 0;
-                    if (td.length > 0) {
-                        // $('.tiaoshu').html('当前共有数据'+td.length+'条');
-                        for (var i = 0; i < td.length; i++) {
-                            // 状态
-                            if (td[i].state == "draft") {
-                                td[i].draft = "草稿";
-                                isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + '&#xe6f5;' + "</i>" + '详细' + "</a>" + "<a class='ml-5 exm'  title='提交审核'>" + "<input type='hidden' value='draft' />" + "<i class='Hui-iconfont'>" + "&#xe615;" + "</i>" + '提交审核' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "335";
-                            } else if (td[i].state == "auditsuccess") {
-                                td[i].auditsuccess = "待发送";
-                                isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
-                                autoW = "75";
-                            } else if (td[i].state == 'auditfail') {
-                                td[i].auditfail = "审核未通过";
-                                isSet = "<a class='ml-5 detailed'title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<input type='hidden' value='auditfail' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "220";
-                            } else if (td[i].state == 'toberelease') {
-                                td[i].toberelease = "待发送";
-                                isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify' title='修改'>" + "<input type='hidden' value='store' />" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 release' title='立即发送'>" + "<i class='Hui-iconfont'>" + "&#xe68a;" + "</i>" + '立即发送' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>";
-                                autoW = "335";
-                            } else if (td[i].state == 'audit') {
-                                td[i].audit = "审核中";
-                                isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>" + "<a class='ml-5 modify'  title='修改'>" + "<i class='Hui-iconfont'>" + "&#xe60c;" + "</i>" + '修改' + "</a>" + "<a class='ml-5 del' title='删除'>" + "<i class='Hui-iconfont'>" + "&#xe6e2;" + "</i>" + '删除' + "</a>" + "<a class='ml-5 Reject'  title='驳回'>" + "<input type='hidden' value='audit' />" + "<i class='Hui-iconfont'>" + "&#xe6a6;" + "</i>" + '驳回' + "</a>" + "<a class='ml-5 adopt' title='审核通过'>" + "<i class='Hui-iconfont'>" + "&#xe6a7;" + "</i>" + '审核通过' + "</a>";
-                                autoW = "407";
-                            } else if (td[i].state == 'released') {
-                                td[i].released = "已发送";
-                                isSet = "<a class='ml-5 detailed' title='详细'>" + "<i class='Hui-iconfont'>" + "&#xe6f5;" + "</i>" + '详细' + "</a>";
-                                autoW = "75";
-                            }
 
 
-                            if (td[i].push_consumer == 1) {
-                                var a = td[i].push_consumer = "消费者" + '<br>';
-                            } else {
-                                var a = td[i].push_consumer = ""
+                    if (td[i].push_consumer == 1) {
+                        var a = td[i].push_consumer = "消费者" + '<br>';
+                    } else {
+                        var a = td[i].push_consumer = ""
 
-                            }
-                            if (td[i].push_distributor == 1) {
-                                var b = td[i].push_distributor = "分销商" + '<br>';
-                            } else {
-                                var b = td[i].push_distributor = ""
+                    }
+                    if (td[i].push_distributor == 1) {
+                        var b = td[i].push_distributor = "分销商" + '<br>';
+                    } else {
+                        var b = td[i].push_distributor = ""
 
-                            }
-                            if (td[i].push_retailer == 1) {
-                                var c = td[i].push_retailer = "门店" + '<br>';
-                            } else {
-                                var c = td[i].push_retailer = ""
-                            };
-                            var areastring = "";
-                            var provinces = td[i].area;
-                            var array = [];
-                            if (provinces.length == 1 && provinces[0].name == "fullcountry" || provinces[0].name == '全国') {
-                                areastring = "全国";
-                            } else {
-                                for (var j = 0; j < provinces.length; j++) {
-                                    //process province
-                                    var temp = provinces[j].name + ' ';
-                                    areastring += temp;
-                                    if (provinces[j].city.length > 0) {
-                                        for (var k = 0; k < provinces[j].city.length; k++) {
-                                            //process city
-                                            var citytemp = provinces[j].city[k].name + ' ';
-                                            areastring += citytemp;
-                                            if (provinces[j].city[k].country) {
-                                                //process country
-                                                for (var l = 0; l < provinces[j].city[k].country.length; l++) {
-                                                    var countrytemp = provinces[j].city[k].country[l] + ' ';
-                                                    areastring += countrytemp;
-                                                };
-                                            }
+                    }
+                    if (td[i].push_retailer == 1) {
+                        var c = td[i].push_retailer = "门店" + '<br>';
+                    } else {
+                        var c = td[i].push_retailer = ""
+                    };
+                    var areastring = "";
+                    var provinces = td[i].area;
+                    var array = [];
+                    if (provinces.length == 1 && provinces[0].name == "fullcountry" || provinces[0].name == '全国') {
+                        areastring = "全国";
+                    } else {
+                        for (var j = 0; j < provinces.length; j++) {
+                            //process province
+                            var temp = provinces[j].name + ' ';
+                            areastring += temp;
+                            if (provinces[j].city.length > 0) {
+                                for (var k = 0; k < provinces[j].city.length; k++) {
+                                    //process city
+                                    var citytemp = provinces[j].city[k].name + ' ';
+                                    areastring += citytemp;
+                                    if (provinces[j].city[k].country) {
+                                        //process country
+                                        for (var l = 0; l < provinces[j].city[k].country.length; l++) {
+                                            var countrytemp = provinces[j].city[k].country[l] + ' ';
+                                            areastring += countrytemp;
                                         };
                                     }
-                                }
+                                };
                             }
-
-                            tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td></td><td>" + "<span>" + b + "</span>" + "<span>" + c + "</span>" + "<span>" + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" + ProcessDate1(td[i].pushtime) + "><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
-                            // aaa(i)
                         }
-                        // 如果没有数据
-                    } else {
-                        // 锁定
-                        me.lock();
-                        // 无数据
-                        me.noData(true);
                     }
-                    $("table.notify tbody").append(tr);
-                    $('.tiaoshu').html('当前共有数据' + '<span>' + $('.pagesTbodyLong tr').length + '</span>' + '条');
-                    $('.dropload-down').fadeOut(4000);
-                    me.resetload();
 
-                    // function aaa(i){
-                    // $('tbody tr:eq(4) td:eq(3)').text($('tbody tr:eq(4) td:eq(3)').attr('title'));
-                    // }
-                },
-                error: function () {
-                    console.log('加载出错');
-                    // layer.msg('加载出错');
-                    // 即使加载出错，也得重置
-                    // me.resetload();
-                    $('.loading').remove();
-                    $('.dropload-load').html('没有加载到数据，请重新查询');
-                    $('.search-btn').attr('disabled', false);
-                    $('.search-btn').css('background', '#009DD9');
-                    $('.search-btn').val('查询');
+                    tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td></td><td>" + "<span>" + b + "</span>" + "<span>" + c + "</span>" + "<span>" + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" + ProcessDate1(td[i].pushtime) + "><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
+                    // aaa(i)
                 }
-            });
+                // 如果没有数据
+            } else {
+
+                $(".finished").fadeIn(500).delay(1000).fadeOut(500);
+                return;
+            }
+            $("table.notify tbody").append(tr);
+            // $('.tiaoshu').html('当前共有数据' + '<span>' + $('.pagesTbodyLong tr').length + '</span>' + '条');
+            // $('.dropload-down').fadeOut(4000);
+            // me.resetload();
+
+            // function aaa(i){
+            // $('tbody tr:eq(4) td:eq(3)').text($('tbody tr:eq(4) td:eq(3)').attr('title'));
+            // }
+            if(autoLoad){
+                if($(".table1 tbody").prop("scrollHeight") > 500){
+                    autoLoad = false;
+                }else{
+                    qiload();
+                }       
+            };
+
+        },
+        error: function () {
+            console.log('加载出错');
+
+            $('.search-btn').attr('disabled', false);
+            $('.search-btn').css('background', '#009DD9');
+            $('.search-btn').val('查询');
         }
+
     });
+
 };
 
 function ProcessDate(date) {
@@ -218,28 +227,11 @@ function ProcessDate1(date) {
         return temp;
     }
 }
-// $('.pushtime').val().split(',')[1]
-
-// $(document).on('click', '.search-btn', function() {
-// getList(1, 'search', getSearch());
-// })
-$('.search-btn').click(function () {
-    getList(1, 'search', getSearch());
-})
-
-
-
-
-// 查询
-// $("body").on("click", ".search-btn", function() {
-//     getList(1, 'search', getSearch());
-// });
-
 
 // 查询文案		
 function getSearch() {
     // alert('1');
-    $('.tiaoshu').html('当前共有数据' + '<span>' + 0 + '</span>' + '条');
+    // $('.tiaoshu').html('当前共有数据' + '<span>' + 0 + '</span>' + '条');
     var send_object = $(".text2").find("option:selected").text();
     if (send_object == "分销商") {
         var a = 1;
@@ -392,7 +384,10 @@ $('table.notify').on('click', '.handle-btns .del', function () {
                     }
                 }
             }
-            getList(cur, 'del', getSearch());
+            autoLoad=true;
+            queryPagesNum=1;
+            $(".table1 tbody").empty();//清除前页的数据
+            getList(queryPagesNum,queryPagesCount, 'del', getSearch());
         })
     })
 })
@@ -434,7 +429,10 @@ $('table.notify').on('click', '.exm', function () {
         optype: "audit"
     }
     _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function () {
-        getList(1, 'exm', getSearch());
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'exm', getSearch());
     });
 });
 
@@ -477,7 +475,10 @@ $('table.notify').on('click', '.Reject', function () {
         optype: "auditfail"
     }
     _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '驳回失败', function () {
-        getList(1, 'Reject', getSearch());
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'Reject', getSearch());
     });
 });
 
@@ -518,7 +519,10 @@ $('table.notify').on('click', '.adopt', function () {
         optype: "auditsuccess"
     }
     _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '审核失败', function () {
-        getList(1, 'adopt', getSearch());
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'adopt', getSearch());
     });
 });
 
@@ -559,7 +563,10 @@ $('table.notify').on('click', '.release', function () {
         optype: "release"
     }
     _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function () {
-        getList(1, 'release', getSearch());
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'release', getSearch());
     });
 });
 
@@ -571,8 +578,10 @@ $('table.notify').on('click', '.release', function () {
     });
 
     _ajax("get", "/webapi/ipaloma/propagation/{'" + guid_val + "'}/release", '发布失败', function () {
-        getList(1, 'released', getSearch());
-
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'released', getSearch());
     })
 })
 
@@ -986,7 +995,10 @@ $('.examine1').on('click', function () {
     // form_value.area = JSON.stringify(form_value.area);
     layer.msg('正在提交');
     _ajax('put', '/webapi/ipaloma/propagation/', form_value, '修改失败', function () {
-        getList(1, 'release', getSearch());
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'release', getSearch());
         // $('.layui-layer-close').click();
     })
 })
@@ -1855,7 +1867,10 @@ $(document).on('click', '.D_examine', function () {
         optype: "audit"
     }
     _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '提交失败', function () {
-        getList(1, 'exm', getSearch());
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'exm', getSearch());
     });
 });
 // 详情中的立即发送
@@ -1891,7 +1906,10 @@ $(document).on('click', '.D_send', function () {
         optype: "release"
     }
     _ajax('post', '/webapi/ipaloma/propagation/' + guid + '/op', currentstate, '发送失败', function () {
-        getList(1, 'release', getSearch());
+        autoLoad=true;
+        queryPagesNum=1;
+        $(".table1 tbody").empty();//清除前页的数据
+        getList(queryPagesNum,queryPagesCount, 'release', getSearch());
     });
 });
 // 详情中的修改
