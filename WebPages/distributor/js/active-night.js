@@ -178,7 +178,7 @@ $(function(){
 							
 							li += '<li style="text-indent: 0.3rem;border-left: 1px solid #ffcccc;" class="swiper-slide">';
 							li += '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #fff2f2;">' + subsidyparameter[i].subsidyevent + '</a>'
-								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;">' + str + '</a>'
+								+ '<a style="line-height: 1.1rem;font-size: 0.4rem;display: block;background: #ffe5e5;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">' + str + '</a>'
 								+ '<a style="line-height: 0.66rem;height:4rem;font-size: 0.4rem;display: block;background: #fff2f2;text-indent: 0;float: left;margin-left: 0.3rem;" class="rulerestrict">'
 							if(subsidyparameter[i].ruledescription.length != 0){
 								li+= subsidyparameter[i].rulerestrict +'：'+'<br/>';
