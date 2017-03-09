@@ -403,7 +403,7 @@ function ajaxActivityDetails(a,b){
 			if(data.consumer.length){
 				for(i=0;i<data.consumer.length;i++){
 //					data.consumer[i].localtype=data.consumer[i].type;
-					$(".BDQFd3").append('<p><img class="vis" src="'
+					$(".BDQFd3").append('<p><img class="hi" src="'
 					+BDcyhdRequireDarr[data.consumer[i].matched]
 					+'" class="BDQFdsImg" /><span class="BDQFdsSpan" >'
 					+data.consumer[i].localtype
