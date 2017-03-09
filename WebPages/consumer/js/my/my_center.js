@@ -12,7 +12,7 @@ var vm = avalon.define({
     $id: 'mycenter',
     isShow: false,
     consumer: {},
-    Moneys: { count: 0 },
+    Moneys: { balance: 0 },
     getConsumer: function () {
         $.ajax({
             type: 'GET',

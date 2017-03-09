@@ -1,10 +1,11 @@
 ﻿var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
-var pageindex=0;
+var pageindex=1;
 var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
 var autoLoad = true;
+var flag = 1;
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
 $('.selectLWrapL').click(function(e){	
@@ -249,7 +250,7 @@ function basicQuery(resetQueryCondition){
 		async:true,
 		data:condition,
 		success: function (data) {
-			 console.log(data)
+			//console.log(JSON.stringify(data, null, 4));
 		    // console.log(data.content.length);
 			// console.log(data)
 			$(".loaded").fadeOut();
@@ -310,8 +311,10 @@ function basicQuery(resetQueryCondition){
 					qixiaofeiload();
 				}		
 			};
+			flag = 1;
 		},
 		beforeSend:function(){
+			flag = 0;
 			$(".loaded").fadeIn();
 		},
 		error:function(data){
@@ -326,6 +329,7 @@ function basicQuery(resetQueryCondition){
                	layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
 				$(".loaded").fadeOut();
              }
+             flag = 1;
 		}
 	});
 //	if(autoLoad){
@@ -341,9 +345,11 @@ function basicQuery(resetQueryCondition){
 /*查询按钮*/
 var condition={}
 $(".queryConditionButton .query").click(function () {
-	autoLoad = true;
-    $(".activityList tbody").empty();
-    basicQuery(true);
+	if(flag == 1){
+		autoLoad = true;
+	    $(".activityList tbody").empty();
+	    basicQuery(true);
+   }
 
 });
 
