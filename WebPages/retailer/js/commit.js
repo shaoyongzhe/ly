@@ -294,7 +294,10 @@ function oJz(){
             console.log(_discount)
             $("#cc div:nth-child(2)").text("￥" + _discount.toFixed(1))
             $("#kk div:nth-child(2)").text("￥" + _price.toFixed(1))
-			$("#ee div:nth-child(2)").text("￥" + _yucun.toFixed(1))
+			$("#ee div:nth-child(2) span").text( _yucun.toFixed(1))
+			if(_yucun==0){
+				$("#ee").hide()
+			}
             if (JSON.parse(localStorage.retalerdata).data["itemkind"] == "满减") {
                 if (_price >= 100 && _price < 500) {
                     $("#same-ss div:nth-child(3)").text("￥10.0")
