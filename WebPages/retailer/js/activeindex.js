@@ -141,6 +141,7 @@ function fnclick() {
             }
             menu1ajax($(this),"itemcategory");
             state["lastcount"]=10;
+            flag=1;
         })
     }
     Accordion.prototype.dropdown = function(e) {
@@ -528,7 +529,6 @@ function fnlist2(odata) {
             $("#zhezao").hide();
         },
         success: function(data) {
-            console.log(data);
             $("#loading").hide();
             if(data.result == false) {
                 console.log(data.error);

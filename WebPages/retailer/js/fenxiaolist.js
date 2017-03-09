@@ -29,7 +29,7 @@ function fngetlist() {
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
         	if(textStatus=="timeout"){
-        		console.log("请求超时");
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
         		XMLHttpRequest.abort();
         	}
         },
@@ -40,6 +40,7 @@ function fngetlist() {
             if(data.data.result==false){
             	return false;
             }
+            //data.data.length=0
             if(data.data.length<1){
             	$(".noone").show();
             	$(".toorder").hide();
