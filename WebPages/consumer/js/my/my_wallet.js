@@ -17,7 +17,7 @@ var tmdropme3 = null;
 
 var vm = avalon.define({
     $id: 'mywallet',
-    Moneys: { count: 0 },
+    Moneys: { balance: 0 },
     category: "all",
     //list: { all_array: [], income_array: [], expend_array: [] },
     alllist: { array: [], paging: {}, pageIndex: 1 },//全部
