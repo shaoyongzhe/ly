@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录页</title>
+	<link rel="stylesheet" type="text/css" href="css/sigin.css">
+	<style>
+		.main_wrap{
+			/*perspective: 5000px;*/
+			/*position: relative;*/
+		}
+		.user_box{
+			/*transform:rotateX(0);*/
+			animation: spin 2s ease 0;
+		}
+		@keyframes spin{   
+		    0%{   
+		        opacity: 0;   
+		    }   
+		    50%{   
+		        opacity: .5; 
+		    }
+		    100%{
+		    	opacity: 1;
+		    }   
+		} 				
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<parent-component></parent-component>
+	</div>
+	<template id="wrap">
+		<div class="wrap">
+			<children-component0></children-component0>
+			<children-component1></children-component1>
+			<children-component2></children-component2>	
+		</div>
+	</template>
+
+	<template id="header">
+		<div class="header">
+			<div class="header_wrap">
+				<img src="images/login1.png" height="62" width="112" alt="">
+				<p class="login_text">会员运营平台</p>
+			</div>
+		</div>
+	</template>
+
+	<template id="main-cont">
+		<div class="main-cont">
+			<div class="main_wrap">
+				<div class="user_box">
+					<div class="user_center" v-if="show">
+						<p class="uesr_login">用户登录</p>
+						<div>
+							<input id="account" class="user_name" type="text" v-model="loginModel.username">
+							<img class="user_name_pic" src="images/userpic1.png" height="22" width="21" alt="">
+						</div>
+						<div>
+							<input id="password" class="password" type="password" v-model="loginModel.password">
+							<img class="password_pic" src="images/password1.png" height="23" width="19" alt="">
+						</div>
+						<div>
+							<div id="remember_pass" :class="{'checked':on}" class="Remember_username" @click="checked">
+								<i></i>
+								<a href="javascript:;">记住用户名</a>
+							</div>
+							<!-- <a class="Forget_password" href="javascript:;">忘记密码?</a> -->
+						</div>
+						<input id="enter" type="submit" value="立即登录" class="submit" @click="userLogin">
+						<p class="line"></p>
+						<p class="loginOther">
+							其他登录方式：
+						</p>
+						<div class="phone" @click="userChange">
+							<img src="images/phone.png" alt="">手机
+						</div>
+					</div>	
+				<div class="phone_cener" v-else>
+					<p class="phone_login">
+						<img src="images/turn.png" alt=""><span @click="phoneChange">普通登录</span>
+					</p>
+					<p class="font1">
+						手机快速登录
+					</p>
+					<div class="phone_input">
+						<input type="text" @blur="opacityShow" v-model="loginModel.username">
+						<span :class="{'opacity':opacity}">输入的手机号码有误</span>
+					</div>
+					<div class="identifying_code">
+						<input class="code_input" type="text" placeholder="请输入手机验证码">
+						<input class="code_get" type="button" value="获取手机验证码" @click="sendCode"/>
+						<input class="logining" type="button" value="登 录" @click="phoneLogin">
+					</div>
+				</div>
+		</div>
+			</div>
+		</div>		
+	</template>
+
+	<template id="footer">
+		<div class="footer">
+			<a href="javascript:;">凌云科技版权所有&nbsp;&nbsp;京ICP备14000258号-1</a>
+		</div>
+	</template>
+
+	<script src="js/jquery-1.8.0.min.js"></script>
+	<script src="js/vue.js"></script>
+	<script>
+		Vue.component("parent-component",{
+			template:'#wrap',
+			components:{
+				'children-component0':{
+					template:'#header'
+
+				},
+				'children-component1':{
+					template:'#main-cont',
+					// props:['show'],
+					data:function(){
+						return {
+							on:false,
+							show:true,
+							loginModel:{
+								username:'',
+								password:'',
+								"host":"membership-dev.ipaloma.com"
+							},
+							userName:'',
+							opacity:true,
+					        count : 4, //间隔函数，1秒执行
+					        // curCount : ,//当前剩余秒数
+					        code : '', //验证码
+					        codeLength : 6 //验证码长度	
+							
+						}
+					},
+					ready:function(){
+						this.userName = sessionStorage.getItem("userName")
+					},
+					methods:{
+						checked:function(){
+							this.on = !this.on							
+							// this.on=(this.on==true?false:true);
+						},
+						userChange:function(){
+							this.show=false
+						},
+						phoneChange:function(){
+							this.show=true
+						},
+						userLogin:function(){
+							$.ajax({
+								url:"/webapi/account/login",
+								type:'post',
+								dataType:'json',
+								data:this.loginModel,
+								success:function(data){
+									this.userName = data.userName;
+									sessionStorage.setItem('userName', this.userName);
+
+					                defaultaccount( $('#account').val(),$('#password').val() );
+						            function defaultaccount( account,password ) {   
+						                if( $('#account').val() == "" && $('#password').val() == "" ) {     
+						                    alert('需要您填写账号密码')
+						                    sessionStorage["status"]  = false; 
+						                }else if (data.error==""&&data.result==true){  
+					                        sessionStorage["account"]  = account;    
+					                        sessionStorage["status"]  = true;    
+						                    
+						                    window.location.href="../index.html";
+						                }else{
+						                	alert('账号或者密码错误')
+						                	 sessionStorage["status"]  = false;    
+						                }
+						            }
+
+								},
+								error:this.requestError
+							})
+						},
+						opacityShow:function(){
+							let reg = /^1[3|4|5|7|8][0-9]{9}$/; //手机正则
+							let phoneTest = $(".phone_input input").val();
+							if( (reg.test(phoneTest)) ){
+								this.opacity = true 
+							}else{
+								this.opacity = false
+								// return false;
+							}
+						},
+						sendCode:function(){
+							curCount = this.count;
+				            let phone=$(".phone_input input").val();
+				            let reg = /^1[3|4|5|7|8][0-9]{9}$/; //手机正则
+				            if( reg.test(phone) ){
+				            	//产生验证码 
+				                for (let i = 0; i < this.codeLength; i++) { 
+				                    this.code += parseInt(Math.random() * 9).toString(); 
+				                } 
+				                $(".code_get").attr("disabled", "true"); 
+				                $(".code_get").val("重新发送(" + curCount + ")"); 
+				                InterValObj = window.setInterval(SetRemainTime, 1000); 
+				                //timer处理函数
+						       	function SetRemainTime() {
+						            if (curCount == 0) {
+						                window.clearInterval(InterValObj);
+						                $(".code_get").removeAttr("disabled");
+						                $(".code_get").val("重新发送验证码");
+						                this.code = ""; //清除验证码。
+						            }
+						            else {
+						                curCount--;
+						                $(".code_get").val("重新发送(" + curCount + ")");
+						            }
+						        }					
+
+				                // 向后台发送处理数据 
+				                $.ajax({ 
+				                    type: "POST", 
+				                    dataType: "json", 
+				                    // url: 'Login.ashx', 
+				                    data: "phone=" + phone+ "&code=" + this.code, 
+				                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+				                    	// alert("发送错误");
+				                    },
+				                    success: function (msg){
+
+				                    }
+				                });
+				            }
+
+						},
+						phoneLogin:function(){
+							$.ajax({
+								type:'post',
+								url:'/webapi/account/login',
+								dataType:'json',
+								data:this.loginModel,
+								success:function(data){
+									this.userName = data.userName;
+									sessionStorage.setItem('userName', this.userName);
+
+							        defaultaccount( $('#account').val(),$('#password').val() );
+										//})
+
+						            function defaultaccount( account,password ) {   
+						                if( $('#account').val() == "" && $('#password').val() == "" ) {     
+						                    alert('需要您填写账号密码')
+						                     sessionStorage["status"]  = false; 
+						                }else if (data.error==""&&data.result==true){  
+						                    //if( $('#remember_pass').hasClass('checked') ) {  
+						                         sessionStorage["account"]  = account;    
+						                         sessionStorage["status"]  = true;    
+						                         // localStorage["password"] = password;   
+						                    //}
+						                    
+						                    window.location.href="../index.html";
+						                }else{
+						                	alert('账号或者密码错误')
+						                	sessionStorage["status"]  = false;    
+						                }
+						            }
+								},
+								error:function(){
+									alert('异常')
+									sessionStorage["status"]  = false; 
+								}
+							})
+
+						}
+
+					}
+				},
+				'children-component2':{
+					template:'#footer'
+				}
+			}
+		})
+
+		new Vue({
+			el:"#app",
+			data:{
+
+			}
+
+		})
+
+	</script>
+	
+</body>
+</html>
