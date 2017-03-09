@@ -530,7 +530,7 @@ select::-ms-expand { display: none; }
 
     display:block;
 
-    min-height:75px;
+    height:580px;
 
     overflow-y:scroll;
 

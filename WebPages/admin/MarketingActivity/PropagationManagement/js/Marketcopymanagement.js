@@ -1409,7 +1409,7 @@ $('.examine1_Newly_added').on('click', function () {
 
 
         // 清空输入框里面的内容
-        // $('#textarea_value').val('');
+        $('#textarea_value').val('');
         $('.word').text('0');
         // 清空隐藏域的地区
         $('.area_val ').val('');
