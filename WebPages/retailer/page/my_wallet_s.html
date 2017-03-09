@@ -130,7 +130,7 @@
         var vm = new Vue({
             el: "#wrap",
             data: {
-                mymoney: {},
+                mymoney: { balance: 0 },
                 array: [],
                 category: "all",
                 alllist: { array: [], paging: {}, pageIndex: 1 },//全部
@@ -421,11 +421,12 @@
                                         autoClear: 5,
                                         shadeClose: true
                                     })
-                                    return;
+                                    if (json.state == 1) {
+                                        ///提现成功，重新加载余额记录
+                                        vm.getMyMoney()
+                                        vm.getAssetFlow(1, null)
+                                    }
                                 }
-
-                                ///提现成功，重新加载余额记录
-                                vm.getMyMoney()
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 shelter.close();//隐藏转圈动画

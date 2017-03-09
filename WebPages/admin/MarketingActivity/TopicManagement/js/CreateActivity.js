@@ -297,6 +297,12 @@ $('.rulesok').click(function(){
 		var budgetTime = guize.find('input.budgetTime').val();
 	}
 
+	var xzfw = $('.select-wrap.xzfw .selected');
+	if(xzfw.text() == '请选择' || xzfw.text() == ''){
+		layer.tips('请先选择', xzfw.parent());
+		return;
+	}
+
 	var a = true;
 	$('.butie-inner-item .check.on').next().find('input').each(function(){
 		if($(this).val() == ""){
@@ -310,7 +316,7 @@ $('.rulesok').click(function(){
 
 	limit = {
 		// "count_on": guize.find('.selected').attr("name"),
-		"count_on": guize.find('.selected').text(),
+		"count_on": guize.find('.selected').text().replace('按',''),
         "perday": {
             "sum": perdaySum,
             "time": perdayTime
@@ -344,7 +350,7 @@ $('body').on("click",".set",function(e){
 		y1yindex = addSub4.index();
 
 		var yao_yuan = addSub4.find('.hdc6-2 input').val();
-		$('.hdsbys_text').text(Number($('.hdsbys_text').text()) - Number(yao_yuan));
+		$('.hdsbys_text').text((Number($('.hdsbys_text').text()) - Number(yao_yuan)).toFixed(2));
 
 		layer.open({
 
@@ -355,6 +361,10 @@ $('body').on("click",".set",function(e){
 			content: $('.yao'),
 
 		});
+
+		if($(this).text() != "次"){
+			$('.layui-layer-close').hide();
+		}
 
 		$('.yaoyiyao').not(':last').remove();
 		$('.yaoyiyao').find('.selected').text("");
@@ -531,7 +541,7 @@ $('.yaook').click(function(){
 		});
 
 		$('.addSub4').eq(y1yindex-1).find('.hdc6-2 input').val(yao_yuan.toFixed(2));
-		$('.hdsbys_text').text(Number($('.hdsbys_text').text()) + Number(yao_yuan.toFixed(2)));
+		$('.hdsbys_text').text( (Number($('.hdsbys_text').text()) + Number(yao_yuan)).toFixed(2) );
 
 		$('.addSub4').eq(y1yindex-1).find('.btfz input[disabled]').val(fengzhi);//.keyup();
 		$(".y1yHidden" + y1yindex).val(JSON.stringify(y1yArr, null, 4));
@@ -716,16 +726,16 @@ $('.gailvok').click(function(){
 			"max": $(this).parent().next().find('b').text()
 		}
 		value_curve_arr.push(value_curve_obj);
-
-		/*  设置'随机'补贴峰值
-		*	if(i>9){return;}
-		*	var gl = $('.Probability_value input').eq(i).val();
-		*	fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * gl;
-		*/
-
+		
+		// 设置'随机'补贴峰值  
+		if(i>9){return;}
+		var gl = $('.Probability_value input').eq(i).val();
+		fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100);
+		
 	});
 
-	// $('.addSub4').eq(index-1).find('.fz input[disabled]').val(fz); // 设置'随机'补贴峰值
+	$('.addSub4').eq(index-1).find('.fz input[disabled]').val(fz); // 设置'随机'补贴峰值
+	butiefz();
 
 
 	value_curve_arr.pop();
@@ -1191,7 +1201,7 @@ $('.btn.edit').click(function(){
 
 		type: 1,
 		title: "编辑"+ _this.parent().find('.heading-title').text() +"宣传资料",
-		area: ['1000px',"auto"],
+		area: ['70%',"80%"],
 		maxmin: true,
 		content: edit,
 
@@ -1421,7 +1431,8 @@ $("body").on("click","li.option",function(e){
 			addSub3.find('.range-wrap').addClass('vihi');
 			addSub3.find('.operator-wrap li:not(:last)').hide();
 			addSub3.find('.operator-wrap li:last').show();
-
+			addSub3.find('.operator-wrap').click();
+			addSub3.find('.operator-wrap li:contains(==)').click();
 		} else {
 			addSub3.find('.range-wrap').removeClass('vihi');
 			addSub3.find('.operator-wrap li:not(:last)').show();
@@ -2242,8 +2253,9 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 	var maxInput = addSub4.find('.hdc4 .hdc4d1 input.hdc4In2');
 
 	if(maxInput.css('display') == 'block'){
-		// return
-		m = maxInput.val();
+		maxInput.blur();
+		return
+		// m = maxInput.val();
 	} else {
 		m = minInput.val();
 		minInput.keyup(function(){
@@ -2267,10 +2279,24 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 	butiefz();
 
 	// var yao_val = _this.closest('.addSub4').find('.hdc6-1:eq(1) input').val();
-}).on("input",'.hdc4 .hdc4d1 input.hdc4In2',function(){
-	// if($(this).closest('.addSub4').find('.selected[showtype=compose]').text() == "摇一摇"){
-		$('.addSub4').find('.acSe13 input').blur();
-	// }
+}).on("blur",'.hdc4 input.hdc4In1',function(){ // 最小值
+	var addSub4 = $(this).closest('.addSub4');
+	if(addSub4.find('.hdc4In2').css('display') == 'none'){
+		addSub4.find('.acSe13 input').blur();
+	}
+}).on("blur",'.hdc4 input.hdc4In2',function(){ // 最大值
+	var addSub4 = $(this).closest('.addSub4');
+	/*if(addSub4.find('.selected[showtype=compose]').text() == "摇一摇"){
+		addSub4.find('.acSe13 input').blur();
+	}*/
+	if(addSub4.find('.selected:contains(随机)')){
+		if(addSub4.find('.setgailv.on input[type=hidden]').length == 1){
+			addSub4.find('.setgailv.on').click();
+			layer.msg('请重新设置概率');
+			return;
+		}
+	}
+	// addSub4.find('.acSe13 input').blur();
 
 }).on('keyup','.sbys',function(){
 
@@ -2295,7 +2321,7 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 	});
 	// alert(ysCount);
 	
-	$('.sec.rule .hdsbys_text.yuan').text(Number(ysCount));
+	$('.sec.rule .hdsbys_text.yuan').text(Number(ysCount).toFixed(2));
 
 
 	var ysCountFen = 0;
@@ -2384,7 +2410,7 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 	// 	_this.keyup();
 	// });
 
-}).on('keyup','.yaoyiyao .Yyy2d1 input.min, .yaoyiyao .Yyy2d1 input.max',function(){ // 最小值
+}).on('keyup','.yaoyiyao .Yyy2d1 input.min, .yaoyiyao .Yyy2d1 input.max',function(){ // 摇一摇范围值
 	var addSub5 = $(this).closest('.yaoyiyao');
 	if(addSub5.find('.Yyy3d1 input').val() != ""){
 		addSub5.find('.Yyy3d1 input').blur();
@@ -2407,7 +2433,6 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 		cishuNum += Number($(this).val());
 	});
 
-	
 	// 计算摇一摇申报预算
 	var shenbaoys = Number($('.addSub4').eq(y1yindex-1).find('.hdc6-1 input.sbys').val());
 	var m = 0;
@@ -2600,7 +2625,11 @@ $('.saveToDb, .shenhe').click(function(){
 		// 2.会员活动条件
 		if($('.region-item').length == 0){
 			$("nav span").eq(1).click();
-			layer.tips('请先完善地区', $('.setAreaBtn'));
+			if($('.setAreaBtn').css('display') == 'none'){
+				layer.tips('请先添加地区', $('.areaPlus'));
+			} else {
+				layer.tips('请先设置地区', $('.setAreaBtn'));
+			}
 			return;
 		}
 
@@ -2708,10 +2737,6 @@ $('.saveToDb, .shenhe').click(function(){
 										}
 									}
 								}
-
-
-								// }
-
 
 								if(addSub3.find('.select-wrap.acSe8 .selected').text() == ""){
 									// debugger
@@ -3371,23 +3396,20 @@ $('.saveToDb, .shenhe').click(function(){
 	        	$('.shenhe').addClass('disabled');
 	        },
 	        complete: function () { $('.shenhe').removeClass('disabled'); },
-	        timeout: function () { },
+	        timeout: function () {},
 	        success: function (returnedData) {
-	            if (!returnedData.error) {
-		            console.log(returnedData);
-	            	if($('body').hasClass('xiugai')){
-		                done('修改成功');
-	            	} else {
-		                done('创建成功');
-	            	}
-	            	function done(sucText){
-	            		layer.msg(sucText, {shift: -1},  function() {
-		            		window.location.href = "/admin/MarketingActivity/TopicManagement/ActivityList.html";
-						});
-	            	}
-	            } else {
+	            if (returnedData.error) {
 	                layer.msg(returnedData.error);
+	                return;
 	            }
+
+	            console.log(returnedData);
+            	if($('body').hasClass('xiugai')){
+	                done('修改成功');
+            	} else {
+	                done('创建成功');
+            	}
+
 	        },
 	        error: function (xhr) {
 		    	layer.alert(optype + '失败 ' + xhr.status, {icon: 5});
@@ -3401,14 +3423,20 @@ $('.saveToDb, .shenhe').click(function(){
     
 });
 
+function done(sucText){
+	layer.msg(sucText, {shift: -1},  function() {
+		window.location.href = "/admin/MarketingActivity/TopicManagement/ActivityList.html";
+	});
+}
+
 function _ajax(type, url, data, tip, success) {
     $.ajax({
         type: type,
         url: url,
         dataType: "json",
         data: data,
-        complete: function () { },
-        timeout: function () { },
+        complete: function () {},
+        timeout: function () {},
         success: function (json) {
             success(json);
         },
@@ -3420,12 +3448,11 @@ function _ajax(type, url, data, tip, success) {
 }
 
 function c(sth){
-	console.log(JSON.stringify(sth, null, 4));
+	window.console.log(JSON.stringify(sth, null, 4));
 }
 
 // 清除缓存
-function ClearSessionStorage()
-{
+function ClearSessionStorage(){
 	sessionStorage.removeItem("districtData");
 	sessionStorage.removeItem("choosedData");
 	sessionStorage.removeItem("shengfzr");
