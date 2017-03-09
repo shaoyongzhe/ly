@@ -74,19 +74,19 @@ var vm = avalon.define({
                 jsondata = jsondata || {};
                 if (jsondata.error) {
                     toasterextend.showtips(jsondata.error, "error", false);
-                    qrcode.href();
+                    qrcode.show();
                     return;
                 }
 
                 if (jsondata.user_notification != undefined) {
                     toasterextend.showtips(jsondata.user_notification, "info");
-                    qrcode.href();
+                    qrcode.show();
                     return;
                 }
 
                 if (jsondata.data[0].activitydata == undefined) {
                     toasterextend.showtips("活动已下架", "info");
-                    qrcode.href();
+                    qrcode.show();
                     return;
                 }
 
@@ -131,7 +131,7 @@ var vm = avalon.define({
                     if (errormsg == undefined || errormsg == '')
                         errormsg = "Http error: " + XMLHttpRequest.statusText;
                 }
-                qrcode.href();
+                qrcode.show();
                 toasterextend.showtips(errormsg, "error");
             }
         });
