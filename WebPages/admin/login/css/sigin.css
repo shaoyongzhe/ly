@@ -237,7 +237,7 @@
 		width: 307px;
 		height: 100%;
 		margin:0 auto;
-		display: none;
+		/*display: none;*/
 	}
 	.phone_login{
 		font-size: 14px;

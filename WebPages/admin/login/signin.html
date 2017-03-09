@@ -42,7 +42,7 @@
 						<img src="images/phone.png" alt="">手机
 					</div>
 				</div>
-				<div class="phone_cener">
+				<div class="phone_cener" style="display: none">
 					<p class="phone_login">
 						<img src="images/turn.png" alt=""><span>普通登录</span>
 					</p>
@@ -129,7 +129,7 @@
 						"host":"membership-dev.ipaloma.com"
 					},
 					success:function(data){
-
+						
 							if( sessionStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
 								console.log(8)
 				                $('#account').val( sessionStorage["account"] );
@@ -195,8 +195,6 @@
 
                     }
                 });
-            }else{
-                $(".phone_input input").val("");
             }
         }
         //timer处理函数
