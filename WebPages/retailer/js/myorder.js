@@ -78,7 +78,10 @@ function shopList(pg){
 			  type:"get",
 			  error:function(){},
 			  success:function(data)
-				 {	
+				 {
+				 	if(data){
+				 		$(".onload").css({"display":"none"})
+				 	}
 				 	var _imgs="";
 				 	if(data["error"]==""){
 				 	console.log(data)
@@ -175,7 +178,6 @@ function shopList(pg){
 						_historyList="";
 						_shopList="";
 						_flag=1;
-						$(".onload").css({"display":"none"})
 						$("#container").scrollTop("0")
 						toShop(data,pg)
 						onScroll(data,pg)

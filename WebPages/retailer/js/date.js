@@ -65,9 +65,9 @@
             dayScroll.refresh();
 
             resetInitDete();
-            	yearScroll.scrollTo(0, initY*41, 100, true);
-            	monthScroll.scrollTo(0, initM*41-41, 100, true);
-            	dayScroll.scrollTo(0, initD*41-41, 100, true); 
+            	yearScroll.scrollTo(0, initY*40, 100, true);
+            	monthScroll.scrollTo(0, initM*40-40, 100, true);
+            	dayScroll.scrollTo(0, initD*40-40, 100, true); 
         }
         function refreshTime(){
             HourScroll.refresh();
@@ -177,7 +177,7 @@
                   }});
               dayScroll = new iScroll("daywrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function () {
-                      indexD = Math.floor((this.y/40)*(-1))+1;
+                      indexD = Math.round((this.y/40)*(-1))+1;
                   }});
         }
         function showdatetime(){

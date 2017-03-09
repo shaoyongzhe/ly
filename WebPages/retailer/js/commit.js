@@ -80,6 +80,9 @@ function oJz(){
         success: function (data) {
         	//遍历data，渲染页面
         	console.log(data)
+        	if(data){
+        		$(".loads").css({ display: "none" })
+        	}
             var _list = "";
             var _name = "";
             var _price = 0;
@@ -285,7 +288,7 @@ function oJz(){
                 $("#ss div:nth-child(2)").text("￥" + _zengprice.toFixed(1))
 
                 
-                $(".loads").css({ display: "none" })
+                
             }
 
             console.log(_discount)

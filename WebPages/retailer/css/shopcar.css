@@ -11,7 +11,7 @@ img,fieldset,table,input,textarea,button{border:none;}
     user-select: auto!important;
 }
 .shop-title{
-	width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-size: 1.6rem;border-bottom: 10px solid #f1f2f6;
+	width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-size: 1.6rem;position: fixed;background:#fff;border-bottom: 1px solid #dddddd;
 }
 .shop-title div:nth-child(1){
 	padding:12px 0 12px 10px;width:50%
@@ -23,22 +23,22 @@ img,fieldset,table,input,textarea,button{border:none;}
 	padding:5px;line-height:1.9rem;
 }
 .addr{
-	padding:8px 10px;font-size: 18px;background: #f8f8f8;font-weight: 600;color:#666
+	padding:8px 10px;font-size: 18px;background: #f8f8f8;font-weight: 600;color:#666;border-top:1px solid #d8d8d8;border-top: 10px solid #f1f2f6;
 }
 .addr div{
 	width:4rem;background:url(../image/shop/arr.jpg) no-repeat right;background-size: 0.8rem 1rem;display: inline-block;padding-left: 5px;margin-top: 3px;
 }
 .gouxuan{
-	width:1.6rem ;height:1.6rem;float:left;background: url(../image/shop/crect1.jpg) no-repeat center center;background-size: 1.6rem 1.6rem;margin:33px 5px 0 0px;border:1px solid #fff;border-radius: 1.4rem;
+	width:18px ;height:18px;float:left;background: url(../image/shop/crect1.jpg) no-repeat center center;background-size: 1.6rem 1.6rem;margin:33px 5px 0 0px;border:1px solid #fff;border-radius: 1.4rem;
 }
 .gouxuan2{
-	width:1.6rem ;height:1.6rem ;display: inline-block;background: url(../image/shop/crect2.jpg) no-repeat center center;background-size: 1.6rem 1.6rem;margin:33px 5px 0 0px;border: 1px solid #ccc;border-radius: 1.4rem;
+	width:18px ;height:18px ;display: inline-block;background: url(../image/shop/crect2.jpg) no-repeat center center;background-size: 1.6rem 1.6rem;margin:33px 5px 0 0px;border: 1px solid #ccc;border-radius: 1.4rem;
 }
 .intr{
-	padding:0.6rem 5px 0.6rem 10px;font-size: 1.4rem;border:1px solid #d8d8d8;display: flex;
+	padding:10px 5px 10px 10px;font-size: 1.4rem;border-bottom:1px solid #d8d8d8;display: flex;
 }
 .intr div:nth-child(1){
-	width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 1.4rem;color:#ff0000;
+	width:3rem;border:1px solid #ff0000;font-size: 1.4rem;text-align: center;height:1.6rem;border-radius: 2px;color:#ff0000;
 }
 .intr div:nth-child(2){
 	padding-left: 5px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;line-height: 1.8rem;
