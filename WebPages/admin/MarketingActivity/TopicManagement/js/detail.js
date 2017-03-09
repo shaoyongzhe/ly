@@ -26,7 +26,7 @@ function render(detailData){
 	var activity = detailData.activity;
 	//first.find('.guid').text(activity.activitycode);
 	// first.find('.guid').text(activity.guid);
-	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;position:absolute;display:none'>"+ activity.guid +"</i>");
+	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;position:absolute;display:none;'>"+ activity.guid +"</i>");
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);

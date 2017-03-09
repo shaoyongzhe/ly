@@ -101,6 +101,22 @@
                 .assetinfo .asset_right small {
                     font-size: 11px;
                 }
+                .asset_left .topictitle {
+                    max-width: calc(100% - 40px);
+                    overflow: hidden;
+                    text-wrap: none;
+                    text-overflow: ellipsis;
+                    float: left;
+                }
+
+                .asset_left .topictitle  nobr{
+                    font-size:1.05em;
+                }
+
+                 .asset_left .topictitle_1 {
+                    width: 40px;
+                    float: left;
+                }
     </style>
 </head>
 <body ms-controller="suppercouponitems" class="ms-controller">
@@ -244,9 +260,13 @@
                     <!-- <div class="asset_left">
                         <nobr>{{el.topiclist[0].topictitle}}<span ms-if="el.topiclist.length>1">等活动</span></nobr>
                     </div> -->
-                    <div class="asset_left">
+                    <!-- <div class="asset_left">
                         <p style="max-width:calc(100% - 55px);float:left;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;font-size:1.1em;">{{el.topiclist[0].topictitle}}</p>
-                        <span ms-if="el.topiclist.length>1" style="width:50px;display:inline-block;font-size:0.7em;font-weight:normal">等活动</span>
+                        <span ms-if="el.topiclist.length>1" style="width:50px;display:inline-block;font-size:0.7em;">等活动</span>
+                    </div> -->
+                    <div class="asset_left">
+                        <div class="topictitle"><nobr style="font-size:1.1rem;">{{el.topiclist[0].topictitle}}</nobr></div>
+                        <div class="topictitle_1" ms-if="el.topiclist.length>1" ><small>等活动</small></div>
                     </div>
                     <div class="asset_right">
                         <small>已参加</small>{{vm.getheadcount(el.topiclist)}}<small>人</small>
