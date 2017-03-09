@@ -80,7 +80,7 @@ function fnpricenum() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
 
             $(".tsh").show();
-            $(".ms").text("网络异常")
+            $(".cgl-tishi").html("网络异常~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
             $(".cfm").click(function(){
                 $(".tsh").hide();
                 location.reload()
@@ -140,6 +140,7 @@ function fnclick() {
                 }, 300);
             }
             menu1ajax($(this),"itemcategory");
+            state["lastcount"]=10;
         })
     }
     Accordion.prototype.dropdown = function(e) {
@@ -176,7 +177,9 @@ function fnclick() {
 //菜单点击事件
 function fnmenuclick() {
     var thetext = "";
-    $("#cgl-menu").unbind("click").on("click", ".link", function() {
+    $("#cgl-menu").off("click").on("click", ".link", function() {
+        flag=0;
+        state["lastcount"]=10;
         thetext = $(this).text();
         if(thetext == "我的预存货") {
             state["supplierid"]= "";
@@ -204,6 +207,7 @@ function fnmenuclick() {
             state["itemcategory"]="";
             console.log(state)
             fnlist2(odata);
+            flag=1;
         }
     });
 }
@@ -271,7 +275,7 @@ function fnmenu() {
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             if(textStatus == "timeout") {
-                console.log("请求超时")
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
@@ -329,7 +333,7 @@ function fnyucun() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             $("#loading").hide();
             if(textStatus == "timeout") {
-                console.log("请求超时")
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
@@ -405,7 +409,7 @@ function fnhqactive() {
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             if(textStatus == "timeout") {
-                console.log("请求超时")
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
@@ -518,8 +522,7 @@ function fnlist2(odata) {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             if(textStatus == "timeout") {
                 $("#loading img").remove();
-                $("#loading div").text("请求超时");
-                console.log("请求超时");
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
@@ -534,6 +537,7 @@ function fnlist2(odata) {
                 fnyibanlist2(data)
             }
             $("#zhezao").hide();
+
         }
     });
 }
@@ -790,7 +794,7 @@ function fnaddcar(that, a) {
         timeout: "9000",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             if(textStatus == "timeout") {
-                console.log("请求超时")
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
@@ -955,7 +959,7 @@ function fnsearchyc(odata) {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             $("#loading").hide();
             if(textStatus == "timeout") {
-                console.log("请求超时")
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
@@ -987,8 +991,7 @@ function fnserchapi(odata) {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             if(textStatus == "timeout") {
                 $("#loading img").remove();
-                $("#loading div").text("请求超时");
-                //console.log("请求超时");
+                $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
@@ -1072,27 +1075,21 @@ function fnmclick(theid,idd) {
 }
 //加载更多
 var state={
-    "lastcount":3,
+    "lastcount":10,
     "pagecount":10,
     "supplierid":"",
     "itemcategory":""
 }
-var flag=1;
+var flag=0;
 function getmore() {
     var hcha=null;
 
-    $("#cgl-contlist").scroll(function () {
+    $("#cgl-contlist").delay(300).scroll(function () {
         hcha=$(this)[0].scrollHeight-$(this).outerHeight()-$(this)[0].scrollTop;
-        if(hcha==0 && state["supplierid"] != "" && flag==Math.floor(state["lastcount"]/state["pagecount"]+1)){
+        if(hcha==0 && state["supplierid"] != "" && flag==Math.floor(state["lastcount"]/state["pagecount"]) && $("ul",this).outerHeight()>100){
             $("#getmore").show();
-
-            var odata = {
-                "filter": "",
-                "filtertype": 0,
-                "lastcount": 0,
-                "pagecount": 5000
-            };
             $("#zhezao").show();
+            flag++;
             $.ajax({
                 type: "get",
                 url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
@@ -1102,22 +1099,24 @@ function getmore() {
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     if (textStatus == "timeout") {
                         $("#loading img").remove();
-                        $("#loading div").text("请求超时");
+                        $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                         //console.log("请求超时");
                         XMLHttpRequest.abort();
                     }
                     $("#zhezao").hide();
+                    flag--;
                 },
                 success: function (data) {
                     $("#zhezao").hide();
                     if(data.length>0){
                         fnyibanlist2(data);
                         state["lastcount"]+=10;
-                        console.log(flag)
+
                     }else{
                         $("#getmore").hide();
+                        $(".cgl-tishi").html("没有更多了~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
                     }
-                    flag++;
+                    console.log(flag,Math.floor(state["lastcount"]/state["pagecount"]+1));
                 }
             });
         }
@@ -1135,7 +1134,6 @@ $(function() {
             fnhqactive();//获取促销活动列表
             fnerji(); //遮罩点击
             fnggmore(); //商品规格点击切换
-            //商品数量加减
             fnserach(); //搜索
             fnmclick2 ();
             clearInterval(_tt);
@@ -1152,7 +1150,6 @@ $(function() {
         fnhqactive();//获取促销活动列表
         fnerji(); //遮罩点击
         fnggmore(); //商品规格点击切换
-        //商品数量加减
         fnserach(); //搜索
         fnmclick2 ();
         getmore();
