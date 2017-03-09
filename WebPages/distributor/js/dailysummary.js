@@ -278,46 +278,55 @@ $(function(){
 							 return  insertSort(array,sortField);
 					}
 						  
-					function  insertSort(array,field) {
-						 var i = 0,
-							len = array.length,
-							j, d,e,f;
-							for (; i < len; i++) {
-								for (j = i+1; j < len; j++) {
-									if (array[i][field] < array[j][field]) {
-										d = array[j][field];
-										
-										array[j][field]=array[i][field];
-										if(field=='headcount'){
-											e = array[j]['verifycount'];
-											f = array[j]['retailercount'];
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='verifycount'){
-											e = array[j]['headcount'];
-											f = array[j]['retailercount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='retailercount'){
-											e = array[j]['headcount'];
-											f = array[j]['verifycount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = f
-										}
-										array[i][field] = d;
+					function insertSort(array, field) {
+						var i = 0,
+						len = array.length,
+						j, d, e, f;
+						for (; i < len; i++) {
+							for (j = i + 1; j < len; j++) {
+								if (array[i][field] < array[j][field]) {
+									d = array[j][field];
+									array[j][field] = array[i][field];
+									if (field == 'headcount') {
+										e = array[j]['verifycount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
 									}
+									if (field == 'verifycount') {
+										e = array[j]['headcount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									if (field == 'retailercount') {
+										e = array[j]['headcount'];
+										f = array[j]['verifycount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									array[i][field] = d;
 								}
 							}
-							return array;
+						}
+						return array;
 					}
+
 
 					
 
