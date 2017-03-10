@@ -98,30 +98,19 @@ $(function(){
 		    			$('.Pie_chart1 a').css('left','25%');
 		    		}
 			     }
-			    if(data.activitycount.unmatchedtopic>data.activitycount.matchedtopic){
-		    		var maxnum=data.activitycount.unmatchedtopic;     
-			     	var minnum=data.activitycount.matchedtopic;  
-			     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
+
+			    	var allActivity = data.activitycount.unmatchedtopic + data.activitycount.matchedtopic;
+			     	var matchedActivity=data.activitycount.matchedtopic;  
+			     	var c = allActivity == 0 ? 0 :  matchedActivity / allActivity  * Math.PI * 2;  //  数据比值 在圆中所占的比例
 		    		ctx.sector(50,50,50,0,c,"#acd171","#73ba2c").fill();   //调用原型方法sector 补充参数
-		    		$('.Pie_chart1 a').html(maxnum);
-		    		if(data.activitycount.matchedtopic==0){
-		    			$('.Activity_number_right .Activity_ri_text').html('暂为获得平台补贴');
+		    		$('.Pie_chart1 a').html(allActivity);
+		    		if (matchedActivity == 0) {
+		    			$('.Activity_number_right .Activity_ri_text').html('暂未获得平台补贴');
 		    			$('.Activity_ri_text').css({"color":"#787878","marginTop":"1.5rem"});
 		    		}
-		    		$('.Activity_ri_text span').html(minnum);
+		    		$('.Activity_ri_text span').html(matchedActivity);
 		    		fontAnglecanvas1()
-		    		
-		    	}else{
-		    		var maxnum=data.activitycount.matchedtopic;     
-			     	var minnum=data.activitycount.unmatchedtopic;  
-			     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
-		    		ctx.sector(50,50,50,0,c,"#acd171","#73ba2c").fill();   //调用原型方法sector 补充参数
-		    		$('.Pie_chart1 a').html(maxnum);
-		    		$('.Activity_ri_text span').html(minnum);
-		    		fontAnglecanvas1()
-		    		
-
-		    	}
+		    	
 				
 				
 			}
@@ -191,7 +180,7 @@ $(function(){
 				      	var maxnum=0;            //获取到的后台数据
 				    	var minnum=0;
 				     	$('.Mark_chart1 a').html(0);
-				     	$('.Market_cost_right .Market_cost_ri_text').html('暂为获得平台补贴');
+				     	$('.Market_cost_right .Market_cost_ri_text').html('暂未获得平台补贴');
 				     	$('.Market_cost_ri_text').css({"color":"#787878","marginTop":"1.5rem"})
 				     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 			    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
@@ -289,46 +278,55 @@ $(function(){
 							 return  insertSort(array,sortField);
 					}
 						  
-					function  insertSort(array,field) {
-						 var i = 0,
-							len = array.length,
-							j, d,e,f;
-							for (; i < len; i++) {
-								for (j = i+1; j < len; j++) {
-									if (array[i][field] < array[j][field]) {
-										d = array[j][field];
-										
-										array[j][field]=array[i][field];
-										if(field=='headcount'){
-											e = array[j]['verifycount'];
-											f = array[j]['retailercount'];
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='verifycount'){
-											e = array[j]['headcount'];
-											f = array[j]['retailercount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='retailercount'){
-											e = array[j]['headcount'];
-											f = array[j]['verifycount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = f
-										}
-										array[i][field] = d;
+					function insertSort(array, field) {
+						var i = 0,
+						len = array.length,
+						j, d, e, f;
+						for (; i < len; i++) {
+							for (j = i + 1; j < len; j++) {
+								if (array[i][field] < array[j][field]) {
+									d = array[j][field];
+									array[j][field] = array[i][field];
+									if (field == 'headcount') {
+										e = array[j]['verifycount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
 									}
+									if (field == 'verifycount') {
+										e = array[j]['headcount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									if (field == 'retailercount') {
+										e = array[j]['headcount'];
+										f = array[j]['verifycount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									array[i][field] = d;
 								}
 							}
-							return array;
+						}
+						return array;
 					}
+
 
 					
 
@@ -485,11 +483,11 @@ $(function(){
 							$('.activeson1_right1 a').html(str6_1);
 							$('.activeson1_right2 a').html(str6_2);
 							$('.activeson1_right3 a').html(str6_3);
-							
+							var colors = verificationnumber[i].matched == 1 ? 'colorif' : '';  //判断颜色
 							str+="<li>"+
 									"<div class='activeson1'>"+
 										"<div class='activeson1_left'>"+
-											"<a href='javascript:;'>"+ verificationnumber[i].activitytitle +"</a>"+
+											"<a class='" + colors + "' href='javascript:;'>" + verificationnumber[i].activitytitle + "</a>" +
 											'<input type="hidden" value="'+verificationnumber[i].activityid+'">'+
 										"</div>"+
 										"<div class='line'>"+"</div>"+

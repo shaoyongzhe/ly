@@ -716,7 +716,7 @@ function dataLoad() {
 
 			var shifzrObj = {
 				state: "active",
-				shifzr: $('.Select_province1 li.on select').val(),
+				name: $('.Select_province1 li.on select').val(),
 				guid: $('.Select_province1 li.on :selected').attr("guid"),
 				oid: $('.Select_province1 li.on :selected').attr("oid")
 			}
@@ -731,7 +731,7 @@ function dataLoad() {
 					_this.closest('.region-item').find('.allCity').remove();
 					_this.closest('.region-item').find('.cityName:contains('+ selectedshi +')').closest('.city-wrap').remove();
 					
-					_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em guid="+ shifzrObj.guid +" oid="+ shifzrObj.oid +" shifzr='"+ JSON.stringify(shifzrObj, null, 4) +"'>" + shifzrObj.shifzr + "</em><i class='x'>&times;</i></div><div class='district-wrap'>"+ getDistrictHtml() +"</div></div></div>");
+					_this.closest('.region-item').append("<div class='row city-wrap'><div class='city city-item'><span><em class='cityName'>" + selectedshi + "</em><i class='x'>&times;</i></span></div><div class='charge'><div class='charge-name'><em guid="+ shifzrObj.guid +" oid="+ shifzrObj.oid +" shifzr='"+ JSON.stringify(shifzrObj, null, 4) +"'>" + shifzrObj.name + "</em><i class='x'>&times;</i></div><div class='district-wrap'>"+ getDistrictHtml() +"</div></div></div>");
 
 				}
 
@@ -845,17 +845,27 @@ function dataLoad() {
 $('.area-list .save').off('click');
 $('.area-list .save').click(function() {
 
-	var isfzr = true;
-	$('.Select_province select').each(function(){
+	var isShengFzr = true;
+	$('.Select_province li.on select').each(function(){
 		if( $(this).val() == '请选择负责人' && $(this).closest('li').hasClass('on') ){
 			$('.Select_the_province .b').scrollTop($(this).closest('li').index() * $(this).closest('li').outerHeight())
 			layer.tips('请选择负责人', $(this));
-			isfzr = !isfzr;
+			isShengFzr = !isShengFzr;
 			return false
 		}
 	});
 
-	if(isfzr == false){
+	var isShiFzr = true;
+	$('.Select_province1 li.on select').each(function(){
+		if( $(this).val() == '请选择负责人' || $(this).val() == '' && $(this).closest('li').hasClass('on') ){
+			$('.Select_the_province1 .b').scrollTop($(this).closest('li').index() * $(this).closest('li').outerHeight())
+			layer.tips('请选择负责人', $(this));
+			isShiFzr = !isShiFzr;
+			return false
+		}
+	});
+
+	if(isShengFzr == false || isShiFzr == false){
 		return
 	}
 
@@ -872,9 +882,9 @@ $('.area-list .save').click(function() {
 		if($('.quanbusheng').is(":checked")){
 
 			provObj = {
+                "state": "active",
 				"charge": JSON.parse(shengfzr),
 				"name": sheng,
-                "state": "active",
 				"city": []
 			}
 

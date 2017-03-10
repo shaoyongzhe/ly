@@ -220,8 +220,19 @@ $("body").on("click", ".acMeD2", function(e) {
 		// $(".section3 .addSub4 .acAd2").click(function(){
 		// alert(1)
 		// debugger;
-
+		if($(this).closest('.addSub4').find('.setgailv').hasClass('on')){
+			if($(this).closest('.addSub4').find('.setgailv.on input').length == 0){
+				layer.tips('请先设置概率',$(this).closest('.addSub4').find('.setgailv.on'));
+				return
+			}
+		}
 		
+		if($(this).closest('.addSub4').find('.hdc4dB').text() == '次'){
+			$("nav span").eq(2).click();
+			layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
+			finished = false;
+			return
+		}
 
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",
@@ -524,8 +535,10 @@ function addAjax(){
 					$(this).closest(".hdc1").next().find(".subsidyCondition a").attr("statistic",JSON.stringify(statisticArr[num]));//0228
 				})
 
-				
+			} else {
+				$('.select-wrap.member-type li:contains(分销商)').click()
 			}
+
 		}
 	});
 	

@@ -264,6 +264,72 @@
                 "x": 0,
                 "y": 490
             }
+        },
+        "inviteretailertitle": {
+            "nav": {
+                "type": "image",
+                "url": "/consumer/image/retailer_consumer_nav.png",
+                "width": 384,
+                "height": 81,
+                "single": true,
+                "x": 0,
+                "y": 0
+            },
+            "navtext": {
+                "type": "text",
+                "text": "邀请店员码",
+                "fontsize": 30,
+                "font": "Microsoft YaHei",
+                "fontcolor": "#ffffff",
+                "depend": "nav",
+                "width": 384,
+                "height": 81,
+                "single": false,
+                "textalign": "center",
+                "x": 0,
+                "y": 40
+            },
+            "qrcode": {
+                "type": "qrcode",
+                "depend": "nav",
+                "bordercolor": "#d9d9d9",
+                "width": 348,
+                "height": 348,
+                "single": true,
+                "x": 18,
+                "y": 81
+            },
+            "date": {
+                "type": "text",
+                "depend": "qrcode",
+                "text": "",
+                "fontsize": 20,
+                "font": "Microsoft YaHei",
+                "fontcolor": "#666666",
+                "fillrectcolor": "#e7e7e7",
+                "fillrectwidth": 348,
+                "fillrectheight": 30,
+                "width": 348,
+                "height": 40,
+                "single": true,
+                "textalign": "center",
+                "x": 18,
+                "y": 450
+            },
+            "bottom": {
+                "type": "text",
+                "depend": "qrcode",
+                "text": "长按二维码可保存，可用于制作扫码牌!",
+                "fontsize": 25,
+                "font": "Microsoft YaHei",
+                "fontcolor": "#17a297",
+                "width": 450,
+                "height": 81,
+                "single": true,
+                "textalign": "center",
+                "x": 0,
+                "y": 490
+            }
         }
     },
     "consumer": {

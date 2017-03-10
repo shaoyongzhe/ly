@@ -29,7 +29,7 @@ $(document).click(function () {
 
 $(function () {
     $("nav span").first().click();
-    getList(null, 'search', getSearchForm());
+    getList(false, 'search', getSearchForm());
     getModulePeopleList();
     getOptionsValue();
 });
@@ -50,12 +50,12 @@ function initPageData() {
     };
     return commonPaging;
 }
-
+var isBottom = false;
 // curr = Number($('#curr').val());
 // var isBottom = false;
-function getList(curr, handle, searchForm) {
+function getList(isEnd, handle, searchForm) {
 
-    var isBottom = false;
+
     var df = {};
     if (handle == 'search') {
         df = searchForm;
@@ -70,6 +70,7 @@ function getList(curr, handle, searchForm) {
         initPageData();
         df = searchForm;
     }
+    isBottom = isEnd;  //reset search add delete effect 
     var url = '/webapi/operation/notification/templates';
     _ajax("get", url, df, '刷新列表', function (data) {
         //if (data.error) {
@@ -81,10 +82,16 @@ function getList(curr, handle, searchForm) {
         if (data.content.length == 0) {
             isBottom = true;
             console.log("pageindex:" + commonPaging.pageindex);
+            // commonPaging.current = {
+            //                 "index": 100000,
+            //                 "start": { "oid": 1000000 },
+            //                 "end" : { "oid": 1000000 },
+            //                 "sort": [{ "oid": "asc" }]
+            //             };
+            console.log("end ", JSON.stringfy(commonPaging));
             $(".finished").fadeIn(500).delay(1000).fadeOut(500);
             return;
             //layer.msg('已全部加载完毕');
-            return;
         }
 
         $(".totalcount").text(data.totalcount);
@@ -178,7 +185,7 @@ function getList(curr, handle, searchForm) {
 
 $('#refresh').click(function () {
     initPageData();
-    getList(null, 'search', getSearchForm());
+    getList(false, 'search', getSearchForm());
     getModulePeopleList();
 })
 
@@ -195,8 +202,7 @@ function getModulePeopleList(curr, handle, searchForm) {
        + '<th>联系人信息</th>'
        + '<th>操作</th>'
        + '</tr>';
-        $(".modulePeople thead").empty();
-        $(".modulePeople thead").append(modulePeopleThead);
+        $(".modulePeople thead").html(modulePeopleThead);
         var contentFormat = JSON.stringify(data, null, 4);
 
         var tr = "<tr class='text-c'><td><input type='hidden' class='guid' value'notification'>" + "通知"
@@ -221,7 +227,7 @@ $(".search-btn").click(function () {
 
     $('#curr').val(1);
     initPageData();
-    getList(null, 'search', getSearchForm());
+    getList(false, 'search', getSearchForm());
 
 
 });
@@ -233,7 +239,13 @@ var count = 0;
 $(".templateList tbody").scroll(function () {
     if ($(".templateList tbody").scrollTop() >= ($(".templateList tbody").prop("scrollHeight") - 500) && $(".templateList tbody").prop("scrollHeight") > 500) {
         //console.log($(".templateList tbody").scrollTop()+'-'+$(".templateList tbody").prop("scrollHeight")+'-'+$(".templateList tbody").prop("scrollHeight")+'-'+count++);
-        getList(null, 'page', getSearchForm());
+        if (isBottom) {
+            $(".finished").fadeIn(500).delay(1000).fadeOut(500);
+            return;
+        } else {
+            getList(false, 'page', getSearchForm());
+        }
+
     }
 });
 
@@ -248,7 +260,7 @@ $(".reset-btn").click(function () {
     $('.search-area .area').val("");
     $(".inra").attr("checked", false)
     initPageData();
-    getList();
+    getList(false, 'reset', getSearchForm());
     layer.msg('重置完成...');
 });
 // 获取查询数据
@@ -351,11 +363,11 @@ function getOptionsValue() {
     //设置所有组
     _ajax("get", '/webapi/operation/notification/dict/groupname', null, "获取所有组名", function (data) {
         for (var key in data) {
-            $('.group_type').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
+            $('.template_group_set').append("<li class='option'>" + data[key] + "</li>");
         }
         _ajax("get", '/webapi/operation/notification/template/currentgroup', null, "获取默认分组", function (data) {
-            if (data != "")
-                $('.group_type').find("option[data-key='" + data + "']").attr('selected', true);
+           if (data != "")
+               $('.select-wrap .group_set').val(data);
         });
     });
 }
@@ -455,7 +467,7 @@ $('.add-btn').click(function () {
     console.log(addForm);
     _ajax("POST", "/webapi/operation/notification/template", addForm, '新增', function () {
         initPageData();
-        getList(null, 'add', getSearchForm());
+        getList(false, 'add', getSearchForm());
     });
 });
 
@@ -467,7 +479,7 @@ function getDistrict(province, city, county) {
 }
 //设置默认分组
 $(".setDefaultGroup").click(function () {
-    var groupNameText = $('.group_type :selected').text()
+    var groupNameText = $('.select-wrap .group_set').val();
     if (groupNameText == "-- 请选择 --") {
         layer.msg("请先选择默认分组...");
         return;
@@ -476,11 +488,22 @@ $(".setDefaultGroup").click(function () {
     _ajax("put", '/webapi/operation/notification/template/currentgroup', {
         "groupname": groupNameText
     }, "设置默认分组", function (data) {
-        if (data.error == '') {
-            layer.msg('默认分组设置完成...');
-        } else {
-            layer.msg('默认分组设置失败');
-        }
+          try {
+             if(data!=null)
+             {
+                if (data.error == '') {
+                   layer.msg('默认分组设置完成'); 
+                } else {
+                    layer.msg('默认分组设置失败...');
+                }
+            }else
+            {
+                layer.msg('默认分组设置失败');
+            }
+          } catch (e) {
+                 layer.msg('默认分组设置失败');
+            }
+       
     });
 });
 
@@ -495,7 +518,7 @@ $('table.templateList')
                          _ajax("DELETE", "/webapi/operation/notification/template/" + guid, null, '删除', function () {
                              var cur = $('.laypage_curr').text();
                              initPageData();
-                             getList(null, 'del', getSearchForm());
+                             getList(false, 'del', getSearchForm());
                          });
                      });
                  })// 单行删除
@@ -509,7 +532,7 @@ $('table.templateList')
                          _ajax("put", "/webapi/operation/notification/template/" + guid + "/defaultflag", null, '设置默认模板', function () {
                              var cur = $('.laypage_curr').text();
                              initPageData();
-                             getList(null, 'setDefault', getSearchForm());
+                             getList(false, 'setDefault', getSearchForm());
                          });
                      });
                  })//设为默认
@@ -569,7 +592,8 @@ $('table.modulePeople')
                     });// 单行修改 弹出插件本身
 
 $("#refresh").click(function () {
-    getList(null, 'refresh', getSearchForm());
+    isBottom = false;
+    getList(false, 'refresh', getSearchForm());
 });
 
 // 设置为当前使用模板
@@ -582,7 +606,7 @@ $('table').on('click', '.open', function () {
     _ajax('PUT', '/webapi/notify/template/' + guid, null, "设置为当前使用模板", function (data) {
         if (data.error == "") {
             var cur = $('.laypage_curr').text();
-            getList(cur, 'search', getSearchForm());
+            getList(false, 'search', getSearchForm());
         }
     });
 });
@@ -609,6 +633,7 @@ var _ajax = function (type, url, data, tip, success) {
 
         },
         error: function (ex) {
+            layer.msg("失败");
             console.warn(tip + " error,errMsg is ", ex);
         }
     });

@@ -1,10 +1,11 @@
 ﻿var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
-var pageindex=0;
+var pageindex=1;
 var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
 var autoLoad = true;
+var flag = 1;
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
 $('.selectLWrapL').click(function(e){	
@@ -18,6 +19,7 @@ $('.selectL').on("click",".optionL",function(e){
 //$('.selectL .optionL').click(function(e){
 	e.stopPropagation();
 	$(this).parent().prev().text($(this).text());//把li的内容放入em
+	$(this).parent().prev().attr("guid-data",$(this).attr("guid"))
 	$(this).parent().hide();//点击li的时候隐藏ul
 });	
 $(document).click(function(){
@@ -161,7 +163,8 @@ function basicQuery(resetQueryCondition){
 	if($(".qC_principal .selectLedL").text()=="请选择"){
 		charge="";
 	}else{
-		charge=$(".qC_principal .selectLedL").text();
+//		charge=$(".qC_principal .selectLedL").text();
+		charge=$(".qC_principal .selectLedL").attr("guid-data");
 	}
 	//活动时间
 	var times="";
@@ -231,9 +234,10 @@ function basicQuery(resetQueryCondition){
 //	console.log(condition)
     $.each(condition, function(key, value){
     if (value === "" || value === null){
-        delete condition[key];
+       delete condition[key];
     }
     });
+    condition.fullQuery="fullQuery";
 
 	if(statusData==""){
 		layer.alert('数据加载中，请稍后重试', {icon: 1});
@@ -246,17 +250,18 @@ function basicQuery(resetQueryCondition){
 		async:true,
 		data:condition,
 		success: function (data) {
-			// console.log(data)
+			//console.log(JSON.stringify(data, null, 4));
 		    // console.log(data.content.length);
 			// console.log(data)
 			$(".loaded").fadeOut();
 		    if(data.error)
 		        layer.alert("出错了^_^");
-
-			// console.log('success')
+              
+			 console.log('load : '+ data.content.length);
 			if(data.content.length < 1){
 				// layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
+				flag = 1;
 				return;
 			}
 			linshi=data;
@@ -307,16 +312,25 @@ function basicQuery(resetQueryCondition){
 					qixiaofeiload();
 				}		
 			};
+			flag = 1;
 		},
 		beforeSend:function(){
+			flag = 0;
 			$(".loaded").fadeIn();
 		},
 		error:function(data){
 //			console.log(data)
 			linshi=data;
-			layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
-			$(".loaded").fadeOut();
-
+			if(data.status=='403'){
+				sessionStorage.account = '';
+                sessionStorage.status = false;
+				sessionStorage.url = "/admin/login/signin.html";
+				location.reload();
+             }else{
+               	layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
+				$(".loaded").fadeOut();
+             }
+             flag = 1;
 		}
 	});
 //	if(autoLoad){
@@ -331,10 +345,21 @@ function basicQuery(resetQueryCondition){
 
 /*查询按钮*/
 var condition={}
+$(document).keydown(function(event){
+	console.log(flag)
+   if(event.keyCode == 13 && flag == 1){
+   		autoLoad = true;
+	    $(".activityList tbody").empty();
+	    basicQuery(true);
+   }       
+});
 $(".queryConditionButton .query").click(function () {
-	autoLoad = true;
-    $(".activityList tbody").empty();
-    basicQuery(true);
+	console.log(flag)
+	if(flag == 1){
+		autoLoad = true;
+	    $(".activityList tbody").empty();
+	    basicQuery(true);
+   }
 
 });
 
@@ -459,10 +484,6 @@ function statusAjax(){
 //			console.log(data)
 			linshiStatus=data;
 			statusData=data;
-//			window.location.href = "/admin/login/signin.html";
-//			localStorage.url = "/admin/login/signin.html"
-			
-//			console.log(data)
 			var chargeHtml="";//用于拼接
 			for(i=0;i<data.length;i++){
 				chargeHtml+='<li class="optionL">'+data[i].state+'</li>'
@@ -473,12 +494,15 @@ function statusAjax(){
 		error:function(data){
 			console.log(data)
 			linshiCharge=data;
-//			console.log(data.status)
-//			layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
-//			window.location.href = "/admin/login/signin.html";
-			sessionStorage.status = false;
-			sessionStorage.url = "/admin/login/signin.html"
-			location.reload()
+			if(data.status=='403'){
+				sessionStorage.account = '';
+                sessionStorage.status = false;
+				sessionStorage.url = "/admin/login/signin.html"
+				location.reload()
+             }else{
+               console.log(data.status)
+				layer.alert('获取负责人失败:错误'+data.status, {icon: 5});
+             }
 		}
 	});
 }
@@ -693,4 +717,6 @@ $('table.activityList').on('click',".handle",function(){
 	    
 	
 });
-
+$(function(){
+	$(".qC_aitivityTopic").find("input").focus();
+})
