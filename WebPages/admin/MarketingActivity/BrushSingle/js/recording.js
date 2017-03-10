@@ -756,6 +756,7 @@ function fnfstz(fstz) {
 		type: "post",
 		error: function() {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+            $(".cgl-zhezao").hide();
 		},
 		url: "/webapi/earlywarningmanage/anticheating/sendnotification",
 		data: fstz,
@@ -855,6 +856,7 @@ function tiaozqr(dangq, guid) {
 				data: djjson,
 				error: function() {
 					$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+                    $(".cgl-zhezao").hide();
 				},
 				success: function(data) {
 					//console.log(data);
@@ -1031,6 +1033,7 @@ function fnbohuiapi(putdata) {
 			if(data.error) {
 				$('.layui-layer-close').click();
 				$(".cgl-jzz").html("操作失败").stop(true, true).delay(1000).fadeOut(100);
+                $(".cgl-zhezao").hide();
 			}
 			if(data["succeed"]) {
 				/*var guidarr = [putdata.anticheatingid];
@@ -1098,6 +1101,7 @@ function tiaoz_add(dangq, guid) {
 				data: djjson,
 				error: function() {
 					$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+                    $(".cgl-zhezao").hide();
 				},
 				success: function(data) {
 					//console.log(data);
@@ -1261,6 +1265,7 @@ function fnwgjlzt(putdata) {
 		data: putdata,
 		error: function() {
 			$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+            $(".cgl-zhezao").hide();
 		},
 		success: function(data) {
 			$(".cgl-jzz").hide();
@@ -1302,6 +1307,7 @@ function fnweigyy() {
 			data: "",
 			error: function() {
 				$(".cgl-jzz").html("加载失败").stop(true, true).fadeIn(500).delay(1000).fadeOut(100);
+                $(".cgl-zhezao").hide();
 			},
 			success: function(data) {
 				console.log(data)
