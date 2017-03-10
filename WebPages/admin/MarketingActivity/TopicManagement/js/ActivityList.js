@@ -345,6 +345,14 @@ function basicQuery(resetQueryCondition){
 
 /*查询按钮*/
 var condition={}
+$(document).keydown(function(event){
+	console.log(flag)
+   if(event.keyCode == 13 && flag == 1){
+   		autoLoad = true;
+	    $(".activityList tbody").empty();
+	    basicQuery(true);
+   }       
+});
 $(".queryConditionButton .query").click(function () {
 	console.log(flag)
 	if(flag == 1){
@@ -709,4 +717,6 @@ $('table.activityList').on('click',".handle",function(){
 	    
 	
 });
-
+$(function(){
+	$(".qC_aitivityTopic").find("input").focus();
+})
