@@ -256,23 +256,32 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 		var text1="";
 		for(m=0;m<info.subsidydescription[type].length;m++){
 			var dd=info.subsidydescription[type][m];
-			for(i in dd){					
-				if(typeof(dd[i])!="object"){						
-					text1+=dd[i]+" ";
-				}else{
-					for (j in dd[i]){							
-						text1+=dd[i][j]+" ";
-					}
-				}	
+			/*0310根据bug15577详情页和附属页顺序要匹配所以注释掉for in 改用拼固定的数据*/
+//			for(i in dd){					
+//				if(typeof(dd[i])!="object"){						
+//					text1+=dd[i]+" ";
+//				}else{
+//					for (j in dd[i]){							
+//						text1+=dd[i][j]+" ";
+//					}
+//				}	
+//			}
+			/*0310根据bug15577*/
+			if(dd.subsidyevent!=undefined){
+				text1+=dd.subsidyevent+" "
 			}
+			if(dd.subsidymethod!=undefined){
+				text1+=dd.subsidymethod+" "
+			}
+			if(dd.rulerestrict!=undefined){
+				text1+=dd.rulerestrict+" "
+			}
+			if(dd.ruledescription!=undefined){
+				text1+=dd.ruledescription+" "
+			}
+//			text1+=dd.subsidyevent+" "+dd.subsidymethod+" "+dd.rulerestrict+" "+dd.ruledescription;
 		}
-		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、'+btduixiang(type)+' : </strong><span>'+text1+'</span></p>');		
-		
-		
-		
-		
-		
-		
+		$(".CccDescriptionCon").append('<p><strong>'+typeCounts+'、'+btduixiang(type)+' : </strong><span>'+text1+'</span></p>');				
 	}
 /*	if(info.subsidydescription.distributor){//0217注释掉，因为不再仅仅有3种类型。
 		typeCounts++;
