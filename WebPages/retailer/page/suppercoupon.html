@@ -203,7 +203,7 @@
                                 </p>
                                 <span v-if="item.topicdata.topiclist.length>1" style="width:50px;display:inline-block;font-size:0.8rem;">等活动</span> -->
                                <div class="topictitle" style="max-width:calc(100% - 65px);"><nobr style="font-size:1.1rem;">{{item.topicdata.topiclist[0].activitytitle}}</nobr></div>
-                                <div class="topictitle_1"><small>等活动</small></div>
+                                <div class="topictitle_1" v-if="item.topicdata.topiclist.length>1" ><small style="font-size: 0.8rem">等活动</small></div>
                             </div>
                         </a>
                     </div>
