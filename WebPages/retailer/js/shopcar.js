@@ -218,7 +218,7 @@
 						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["itemunitcost"]+"</p><p class=\"hp\">可提<span>"+data1[i]["remaincount"]+"</span>"+data1[i]["packagetypename"]+"</p></p></div></div></div>"+_remark+"<div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
 					}else if(data1[i]["salestop"]==1){
-						_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
+						_list+="<li id=\""+i+"\" style="+"\"position:relative;z-index:10\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
 						"\"position:absolute;left:0;top:0;width:100%;height:95px;background:#ddd;opacity:0.5\""+"></div><img src="+"\"../../image/shop/shopcart_down.png\""+" style="+"\"position:absolute;width:4rem;right:0;top:0\""+"></li>"
 					}					
@@ -233,7 +233,7 @@
 						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemslist"][_index]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["itemslist"][_index]["price"]+"</p></p></div></div></div>"+_remark+"<div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
 					}else if(data1[i]["salestop"]==1){
-						_list+="<li id=\""+i+"\" style="+"\"position:relative\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemslist"][_index]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
+						_list+="<li id=\""+i+"\" style="+"\"position:relative;z-index:10\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemslist"][_index]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
 						"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
 						"\"position:absolute;left:0;top:0;width:100%;height:100%;background:#ddd;opacity:0.5\""+"></div></li>"
 					}
@@ -258,6 +258,7 @@
 			}
 			$("section ul").html(_list)
 			$(".summ").text(_ges)
+			keepFooter()
 			if(_price==-0){
 				_price=0
 			}
@@ -392,7 +393,7 @@
 							console.log(_ges)
 							if(_count==_save && _count!=0){
 								$(".gg").attr("flag","1")
-								$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#3a3635"});
+								$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
 							}else{
 								$(".gg").attr("flag","0")
 								$(".gg").css({"background":"none",borderColor:"#fff"});
@@ -478,7 +479,7 @@
 					_arr.splice($(this).parent().parent().attr("ip"),1,parseInt($(this).parent().parent().attr("id")))
 					console.log(_arr)
 					$(this).children().attr("flag","1")
-					$(this).children().css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#fff"});
+					$(this).children().css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#fff"});
 					_count+=1
 					_ges+=Number($(this).next().children().children().find(".amount").text())
 					_price+=Number($(this).parent().find(".pp1").text().replace("￥",""))*Number($(this).next().find(".amount").text())
@@ -495,7 +496,7 @@
 
 				if(_count==_save){
 					$(".gg").attr("flag","1")
-					$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#3a3635"});
+					$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
 				}else{
 					$(".gg").attr("flag","0")
 					$(".gg").css({"background":"none",borderColor:"#fff"});
@@ -547,10 +548,10 @@
 						$(".commit span").text("("+_ges+")")
 						$(".summ").text(_ges)
 						$(this).children().attr("flag","1")
-						$(this).children().css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"1.6rem 1.6rem",borderColor:"#3a3635"});
+						$(this).children().css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
 							for(var j=0;j<$(".list i").length;j++){
 							
-								$(".list i")[j].setAttribute("style","background:url(../../image/shop/crect1.jpg) no-repeat center center;background-size:1.6rem 1.6rem;borderColor:#fff;flag:1")
+								$(".list i")[j].setAttribute("style","background:url(../../image/shop/crect1.jpg) no-repeat center center;background-size:20px 20px;borderColor:#fff;flag:1")
 								$(".list i")[j].setAttribute("flag","1")
 								//$(".list i")[j].css({"background":"url(../../image/shop/crect1.jpg) no-repeat center center",backgroundSize:"1.4rem 1.4rem",borderColor:"#fff"});
 											
@@ -838,3 +839,21 @@
 					
 		}
 		}
+	function keepFooter(){
+		
+		var oHeight = $(document).height(); //屏幕当前的高度
+		
+		$(window).resize(function(){
+				console.log(11111)
+		        if($(document).height() < oHeight){
+		
+		        $(".bottomlayout").css("display","none");
+		
+		    }else{
+		
+		        $(".bottomlayout").css("display","block");
+		
+		    } 
+		
+		    });
+	}
