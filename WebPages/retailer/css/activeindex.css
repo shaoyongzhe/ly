@@ -24,12 +24,13 @@ input[type=search]::-ms-clear{
 a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:transparent;}
 /**************吸顶***************/
 .container{-webkit-box-flex: 1;}
-.dealer-header{height: 40px;background: url("../image/shop/lvshen.png") no-repeat center;background-size: 100%; display: none;position: fixed;top: 0;width: 100%;z-index: 10;font-family: "Microsoft YaHei", Arial,serif;}
+.dealer-header{height: 51px; display: none;width: 100%;font-family: "Microsoft YaHei", Arial,serif;}
 .dealer-header>i{display:inline-block; font-style: normal;padding-left: 10px;color: #fff;font-size: 14px;line-height: 40px;width: 80%;overflow: hidden;}
 .dealer-header>a{float: right;width: 40px;height: 40px;text-align: center;}
-.dealer-header>a>img{display: inline-block; width: 18px;padding-top: 12px;}
+.dealer-header>a>img{display: inline-block; width: 18px;padding-top: 12px; }
 /**************详情信息***************/
-.proTitleBox{padding: 10px 11px;background: url("../image/shop/lvshen.png") no-repeat center; background-size:100%; overflow: hidden;}
+.toptop{background: url("../image/shop/lvqian.png") no-repeat center; background-size:100%;overflow: hidden;}
+.proTitleBox{padding: 10px 11px; overflow: hidden;}
 .proTitleBoxl{width: 63px;height: 63px;margin-right: 11px;}
 .proTitleBoxl>img{width: 56px;height: 56px;border-radius: 50%;border: 3px solid #fff;}
 .proTitleBoxr{-webkit-box-flex: 1;}
@@ -38,16 +39,19 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .proTitleInfol>span{color: #e0dede;width: 46px;display: inline-block;line-height: 18px;}
 .proTitleInfor img{width: 30px;height: 30px;}
 /**************活动***************/
-.proDetailBox{padding:4px 42px 2px 10px;background:url("../image/shop/lvqian.png") no-repeat center;background-size: 100%;opacity: 0.85; color: #eefefd; font-size: 10px;height:38px}
-.proDetailBox>div>p{line-height: 18px;padding: 0 2px 2px 22px;background: url("../image/shop/icon_zhuan.png") no-repeat left 2px;background-size: 15px;}
+.proDetailBox{padding:4px 4px 11px 10px;background: rgba(250,250,250,0.2); color: #eefefd; font-size: 10px;}
+.proDetailBox>div>p{line-height: 18px;padding: 0 2px 0 22px;background: url("../image/shop/icon_zhuan.png") no-repeat left 2px;background-size: 15px;}
 .proDetailBox>div>p:nth-of-type(2){background-image:url("../image/shop/icon_jian.png");}
-.proDetailBox>div{border-right: 1px solid #61c0bb;height:38px;width:100%}
+
+.zhankai{margin-top: -11px;position: relative;z-index: 10;}
+.zhankai>span{display: block;margin: 0 auto;width: 59px;height: 11px;background: url("../image/shop/shouqi.png") no-repeat center;background-size: 59px 11px;}
 /**************搜索***************/
 .proSearch{margin:8px 10px;padding: 6px; border: 1px solid #c6c6c6;border-radius:3px;position: relative;clear:both}
 .titlestyle{width:40px;height: 17px;background-size:50%;position: relative;line-height: 17px;}
 .titlestyle>span{padding:2px 3px}
+.titlestyle>img{width:6px;height:10px;position: absolute;top: 4px;right: 4px;}
 .titlestyle>ul{display: none;border: 1px solid #c6c6c6;position: absolute;top: 25px;left: -6px;width: 112%;z-index: 3;background: #fff;text-align: center;line-height: 1.5;}
-.titlestyle>ul>li{margin: 0 6px;border-bottom:1px solid #C6C6C6 ;}
+.titlestyle>ul>li{margin: 0 6px;border-bottom:1px solid #C6C6C6 ;padding: 4px 0;}
 .titlestyle>ul>li:last-of-type{border: 0;}
 .inputbox{-webkit-box-flex: 1;position: relative;}
 .inputbox a{display: none;}

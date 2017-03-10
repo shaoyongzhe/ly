@@ -65,9 +65,9 @@
             dayScroll.refresh();
 
             resetInitDete();
-            	yearScroll.scrollTo(0, initY*41, 100, true);
-            	monthScroll.scrollTo(0, initM*41-41, 100, true);
-            	dayScroll.scrollTo(0, initD*41-41, 100, true); 
+            	yearScroll.scrollTo(0, initY*40, 100, true);
+            	monthScroll.scrollTo(0, initM*40-40, 100, true);
+            	dayScroll.scrollTo(0, initD*40-40, 100, true); 
         }
         function refreshTime(){
             HourScroll.refresh();
@@ -162,14 +162,14 @@
             var strM = $("#monthwrapper ul li:eq("+indexM+")").html().substr(0,$("#monthwrapper ul li:eq("+indexM+")").html().length-1)
               yearScroll = new iScroll("yearwrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function () {
-                       indexY = Math.floor((this.y/41)*(-1))+1;
+                       indexY = Math.floor((this.y/40)*(-1))+1;
                        opts.endday = checkdays(strY,strM);
                           $("#daywrapper ul").html(createDAY_UL());
                            dayScroll.refresh();
                   }});
               monthScroll = new iScroll("monthwrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function (){
-                      indexM = Math.floor((this.y/41)*(-1))+1;
+                      indexM = Math.floor((this.y/40)*(-1))+1;
                       console.log(indexM)
                       opts.endday = checkdays(strY,strM);
                           $("#daywrapper ul").html(createDAY_UL());
@@ -177,7 +177,7 @@
                   }});
               dayScroll = new iScroll("daywrapper",{snap:"li",vScrollbar:false,
                   onScrollEnd:function () {
-                      indexD = Math.floor((this.y/40)*(-1))+1;
+                      indexD = Math.round((this.y/40)*(-1))+1;
                   }});
         }
         function showdatetime(){
@@ -193,17 +193,17 @@
         function init_iScroll_datetime(){
             HourScroll = new iScroll("Hourwrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexH = Math.round((this.y/41)*(-1))+1;
+                    indexH = Math.round((this.y/40)*(-1))+1;
                     HourScroll.refresh();
             }})
             MinuteScroll = new iScroll("Minutewrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexI = Math.round((this.y/41)*(-1))+1;
+                    indexI = Math.round((this.y/40)*(-1))+1;
                     HourScroll.refresh();
             }})
             SecondScroll = new iScroll("Secondwrapper",{snap:"li",vScrollbar:false,
                 onScrollEnd:function () {
-                    indexS = Math.round((this.y/41)*(-1));
+                    indexS = Math.round((this.y/40)*(-1));
                     HourScroll.refresh();
             }})
         } 

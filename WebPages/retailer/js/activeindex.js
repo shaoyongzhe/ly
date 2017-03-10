@@ -18,8 +18,11 @@ function fnpinpai() {
         $(".titlestyle>span").html($(this).html());
         $(".titlestyle>ul").hide();
     });
+
+
     $(document).click(function(e) {
         if(!$(e.target).closest(".titlestyle").length) {
+        	$(".titlestyle").find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
             $(".titlestyle>ul").hide();
         }
     });
@@ -44,27 +47,12 @@ function fnxrym() {
         $("#contactperson").html(url1.contactperson);
         $("#cutgift").html("￥" + url1.cutgift + "元");
         $(".num").html($(".ammount").html());
-        $(".proDetailBox").html("<div style=\"float:left\">"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.png\" style=\"float:right;margin-top:6%;margin-right: -11%;width: 16px;height: 8px;\">");
+        $(".proDetailBox").html("<div>"+url1.active+"</div>");
         $(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
         $(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);
         $(".footerl>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id);
         $(".footerr>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id)
-        var _hh=1;
-        $(".imgg").click(function(){
-            if($(".proDetailBox>div>p:nth-child(2)").height()>20){
-                if(_hh==1){
-                    $(".proDetailBox>div").height("auto");
-                    $(".proDetailBox").height($(".proDetailBox>div").height());
-                    $(".imgg").css({transform:"rotate(180deg)",transitionDuration:"0.2s"})
-                    _hh=0;
-                }else{
-                    $(".proDetailBox>div").height("38px");
-                    $(".proDetailBox").height("38px");
-                    $(".imgg").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
-                    _hh=1;
-                }
-            }
-        })
+
     }
 }
 //获取购物车总金额和总数量
@@ -98,13 +86,23 @@ function fnpricenum() {
     })
 }
 //打电话滚动隐藏与显示
-function fnscroll() {
-    $(".container").scroll(function() {
-        var scrolltop = $(".container").scrollTop();
-        if(scrolltop > 100) {
-            $(".dealer-header").fadeIn();
-        } else if(scrolltop <= 100) {
-            $(".dealer-header").fadeOut();
+function xiala() {
+    var heig=$(".toptop").height();
+    $(".zhankai").on("click","span",function () {
+        if($(".toptop").height()>40){
+            $(".toptop").animate({
+                "height":"40px"
+            },300,function () {
+                $(".dealer-header").show();
+                $(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
+            });
+        }else {
+            $(".dealer-header").hide();
+            $(".toptop").animate({
+                "height":heig
+            },300,function () {
+                $(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
+            });
         }
     });
 }
@@ -412,9 +410,8 @@ function fnhqactive() {
             $("#loading").hide();
             $("#zongloading").hide();
             $("#zhezao").hide();
-            if(data.length>0){
-                fncuxiao(data);
-            }else {
+            fncuxiao(data);
+            if(data.length<=0){
                 $(".cgl-tishi").html("暂无活动商品~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
             }
         }
@@ -499,10 +496,9 @@ function fncuxiao(data) {
         }
     }
     $("#cgl-contlist").find(".alllist").html(oli);
-    if(_flag==1){
+
         fncarnum(data);
-        _flag=0
-    }
+
 }
 
 //一般列表请求
@@ -1124,7 +1120,7 @@ $(function() {
             fnurl(); //获取地址栏参数
             fnpricenum(); //获取购物车总金额和总数量
             fnxrym(); //通过参数渲染页面
-            fnscroll(); //打电话显示与隐藏
+            xiala(); //打电话显示与隐藏
             fnmenu(); //获取菜单列表
             fnhqactive();//获取促销活动列表
             fnerji(); //遮罩点击
@@ -1140,7 +1136,7 @@ $(function() {
         fnurl(); //获取地址栏参数
         fnpricenum(); //获取购物车总金额和总数量
         fnxrym(); //通过参数渲染页面
-        fnscroll(); //打电话显示与隐藏
+        xiala(); //打电话显示与隐藏
         fnmenu(); //获取菜单列表
         fnhqactive();//获取促销活动列表
         fnerji(); //遮罩点击

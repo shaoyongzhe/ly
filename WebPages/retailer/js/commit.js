@@ -1,15 +1,4 @@
-//解析URL      	mui.init();
-var old_back = mui.back;
-mui.back = function(){
-  var btn = ["确定","取消"];
-  mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
-    if(e.index==0){
-    	//执行mui封装好的窗口关闭逻辑；
-    	alert(121)
-    	plus.runtime.quit(); 
-    }
-  });
-}
+
 
 
 function oJz(){
@@ -75,6 +64,9 @@ function oJz(){
         success: function (data) {
         	//遍历data，渲染页面
         	console.log(data)
+        	if(data){
+        		$(".loads").css({ display: "none" })
+        	}
             var _list = "";
             var _name = "";
             var _price = 0;
@@ -116,7 +108,7 @@ function oJz(){
                     }
                     _remark = "";
                     if (_data[i]["remark"] != "") {
-                        _remark = "<div class=" + "\"give liuy\"" + "><div class=\"give-tit\">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
+                        _remark = "<div class=" + "\"give\"" + "><div class=\"give-tit\">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
                     }
                     if (_data[i]["isyucun"] === 0) {
                         if (!_data[i]["itemslist"]) {
@@ -210,36 +202,6 @@ function oJz(){
                             _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
                             ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["itemunitcost"].toFixed(1) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
-                        } else if (_data[i]["itemkind"] == "降价") {
-                            _zz += Number(_data[i]["itemcount"])
-                            _price += _data[i]["price"] * _data[i]["itemcount"];
-                            _discount += (_data[i]["originalprice"] - _data[i]["price"]) * _data[i]["itemcount"]
-                            _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                        ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
-                        "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">降价</div><span class=" + "\"discount-con\"" +
-                        ">" + _data[i]["discount"] + "</span></div></li>"
-                        } else if (_data[i]["itemkind"] == "买赠") {
-                            _zz += Number(_data[i]["itemcount"])
-                            _zengprice += (Number(_data[i]["unitprice"]) * (Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"])))
-                            _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-			       		">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
-			       		"><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">买赠</div><span class=" + "\"discount-con\"" +
-			       		">买" + _data[i]["salecount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["itemname"] + "赠" + _data[i]["giftcount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) +(_data[i]["itemquality"]==="0"?"(临期)":"")+ "</div></div>" + _remark + "</li>"
-                        } else if (_data[i]["itemkind"] == "有礼") {
-                            _zz += Number(_data[i]["itemcount"])
-                            _zengprice += (Number(_data[i]["giftprice"]) * (Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"])))
-                            _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-		       		">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
-		       		"><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">有礼</div><span class=" + "\"discount-con\"" +
-		       		">购买" + _data[i]["salecount"] + _data[i]["packagetypename"] + _data[i]["itemname"] + "赠送" +
-							_data[i]["giftcount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"])+(_data[i]["giftitemquality"]==="0"?"(临期)":"") + "</div></div>" + _remark + "</li>"
-                        } else if (_data[i]["itemkind"] == "折扣") {
-                            _zz += Number(_data[i]["itemcount"])
-                            _discount += (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
-                            _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                        ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["disocunt"]*0.1).toFixed(1) + "</div><div class=" + "\"number\"" +
-                        "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
-                        ">" + _data[i]["discount"] + " 折</span></div>" + _remark + "</li>"
                         }
                     }
                     _image = ""
@@ -269,14 +231,19 @@ function oJz(){
                         _dx = ""
                     }
                     console.log(_dx)
-                    if (data[_indd]["specialprice"] && _price-_yucun>0) {
+                    if (data[_indd]["specialprice"]) {
                         $("#vv").css({ display: "-webkit-box" })
                         $("#vv span").text(data[_indd]["specialprice"].toFixed(1))
                         if(_price-_yucun-data[_indd]["specialprice"]>0){
-                			$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
+                				$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
+                				$(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(1))
                			}
                     } else {
                         $("#vv").css({ display: "none" })
+                        if(_price-_yucun>0){
+                        	$(".amountBig span").text((_price -_yucun).toFixed(1))
+                        	$(".ab span").text(Number(_discount).toFixed(1))
+                        }
                     }
                     var _yu = 0;
                     if (data[_indd]["promotionactivity"] && data[_indd]["promotionactivity"]["details"].length > 0) {
@@ -305,13 +272,16 @@ function oJz(){
                 $("#ss div:nth-child(2)").text("￥" + _zengprice.toFixed(1))
 
                 
-                $(".loads").css({ display: "none" })
+                
             }
 
             console.log(_discount)
             $("#cc div:nth-child(2)").text("￥" + _discount.toFixed(1))
             $("#kk div:nth-child(2)").text("￥" + _price.toFixed(1))
-			$("#ee div:nth-child(2)").text("￥" + _yucun.toFixed(1))
+			$("#ee div:nth-child(2) span").text( _yucun.toFixed(1))
+			if(_yucun==0){
+				$("#ee").hide()
+			}
             if (JSON.parse(localStorage.retalerdata).data["itemkind"] == "满减") {
                 if (_price >= 100 && _price < 500) {
                     $("#same-ss div:nth-child(3)").text("￥10.0")
@@ -326,12 +296,9 @@ function oJz(){
 
 
 
-			if(_price-_yucun>0){
-				$(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(1))
-			}
+
             
             $(".shoplist").html((localStorage.mz?localStorage.mz:"")+_list)
-            $(".liuy").height($(".liuy>.give-con").height())
             if (_distrgive != "") {
                 $("#sp3").text(_zz + _mzg)
             } else {
