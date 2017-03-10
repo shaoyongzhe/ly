@@ -121,13 +121,13 @@ suppermarketactivitylist.prototype.render = function (sharefunction, dropme) {
                 dropme.resetload();
 
         },
-        error: function () {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             common.loading.hide();
             var errormsg = "访问异常";
 
             if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                 var json = JSON.parse(XMLHttpRequest.responseText);
-                errormsg = JSON.parse(json.Message).error;
+                errormsg = json.Message == undefined ? json.error : JSON.parse(json.Message).error;
                 if (errormsg == undefined || errormsg == '')
                     errormsg = "Http error: " + XMLHttpRequest.statusText;
             }
