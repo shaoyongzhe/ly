@@ -16,15 +16,6 @@
 .yhq_data>li:nth-of-type(3)>span{
 	color:#ff0000;
 }
-.yhq_data>li:nth-of-type(4){
-	/*height: 0.48rem;
-	color: #fff;	
-	border-radius: 0.24rem;
-	background-color: #ff8401;	
-	text-align: center;
-	line-height: 0.48rem;
-	-webkit-transform: translateY(-0.1rem);*/
-}
 .yhq_data>li:nth-of-type(4)>i.bntOn{
 	background-color: #ff8401;
 }
