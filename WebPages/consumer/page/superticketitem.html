@@ -51,7 +51,7 @@
 				<img src="/consumer/image/icon09.png">
 			</div>
 		</div>
-		<div class="valBox">
+		<div class="valBox" v-if="isShow">
 			<div v-for="data in items">
 				<!-- 套餐券 -->
 				<div class="bigBox">
@@ -78,8 +78,8 @@
 						<div class="kong_top"><span></span><span></span></div>
 						<div class="kong_down"></div>
 						<ul class="clearfix yhq_data">
-							<li><span>{{data.itemtotalnum}}</span><span>投放</span></li><span> | </span>
-							<li><span>{{data.totalverifynum}}</span><span>已用</span></li><span> | </span>
+							<li><span>{{data.itemtotalnum==null?'0':data.itemtotalnum}}</span><span>投放</span></li><span> | </span>
+							<li><span>{{data.totalverifynum==null?'0':data.totalverifynum}}</span><span>已用</span></li><span> | </span>
 							<li>
 								<span style="color:#ff0000" v-if="data.verifylimit>0">
 									{{data.verifylimit==null?'0':data.verifylimit}}
@@ -90,7 +90,10 @@
 								<span>今日可用</span>
 							</li>
 							<li style="width:1.9rem; ">
-								<i :class="[data.btn_state? 'bntOn':'btnOff']">
+								<i :class="[data.btn_state? 'bntOn':'btnOff']" v-if="data.btn_state == 1" @click="useticket(data.guid)">
+									{{data.btn_text}}
+								</i>
+								<i :class="[data.btn_state? 'bntOn':'btnOff']" v-else>
 									{{data.btn_text}}
 								</i>
 							</li>
@@ -104,12 +107,12 @@
 					<ul v-for="doorData in data.retailerdata">
 						<li class="clearD">
 							<!--<a :data-id="doorData.reatiler_id">-->
-								<dl :data-id="doorData.reatiler_id" class="clearfix">
+								<dl @click="toDoorDetails(doorData.reatiler_id)" class="clearfix">
 									<dt></dt>
 									<dd>
 										<h4>{{doorData.retailername}}</h4>
-										<p><span>活</span>{{doorData.activity_count}}</p>
-										<p><span>券</span>{{doorData.ticket_count}}</p>
+										<p><span>活</span>{{doorData.activity_count==null?'0':doorData.activity_count}}</p>
+										<p><span>券</span>{{doorData.ticket_count==null?'0':doorData.ticket_count}}</p>
 									</dd>
 								</dl>
 							<!--</a>-->
@@ -117,7 +120,7 @@
 								<img src="/consumer/image/icon01_gray.png">
 								<br>联系购买
 							</div>
-							<a :data-original="doorData.mobilephone" v-else class="clearfix" style="float: right;">
+							<a  href="javascript:;" @click="telCall(doorData.mobilephone)" v-else class="clearfix" style="float: right;">
 								<div class="storeCall">
 									<img src="/consumer/image/icon01.png">
 									<br>联系购买
