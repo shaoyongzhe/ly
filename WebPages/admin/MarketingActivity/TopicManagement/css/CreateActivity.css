@@ -1585,6 +1585,7 @@ textarea{
 	position:relative;
 	box-sizing: border-box;
 	display: none;
+	z-index: 1;
 }
 .addSubSubsidyPolicy:before{
 	content: "";
