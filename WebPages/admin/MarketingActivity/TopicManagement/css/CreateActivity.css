@@ -1051,7 +1051,7 @@ label.condition{
 }
 
 .jifen{
-	width: 80px;
+	width: 84px;
 }
 
 .jifen .dw{
@@ -1402,6 +1402,7 @@ textarea{
 
 .yaook.disabled,
 .gailvok.disabled,
+.saveToDb.disabled,
 .shenhe.disabled{
 	background-color: #ccc;
 	cursor: default;
