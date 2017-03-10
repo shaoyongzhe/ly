@@ -50,6 +50,7 @@ function UpdateMatchedTopics(){//经销宝页面传令刷新的过程，就是�
 		ajaxSucFn(allActivity.content[0],"first");
 		topicactivity_id=allActivity.content[0].guid;
 		$(".CcButieRight").hide();
+		$(".CcButieLeft").show();
 		if(allActivity.content.length<=1){
 			$(".CcButieLeft").hide();
 		}
