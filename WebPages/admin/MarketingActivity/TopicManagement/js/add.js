@@ -226,6 +226,13 @@ $("body").on("click", ".acMeD2", function(e) {
 				return
 			}
 		}
+		
+		if($(this).closest('.addSub4').find('.hdc4dB').text() == '次'){
+			$("nav span").eq(2).click();
+			layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
+			finished = false;
+			return
+		}
 
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",
@@ -528,8 +535,10 @@ function addAjax(){
 					$(this).closest(".hdc1").next().find(".subsidyCondition a").attr("statistic",JSON.stringify(statisticArr[num]));//0228
 				})
 
-				
+			} else {
+				$('.select-wrap.member-type li:contains(分销商)').click()
 			}
+
 		}
 	});
 	
