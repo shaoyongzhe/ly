@@ -1,6 +1,6 @@
 
 var qrcode = {};
-
+qrcodeIsShow = false;
 qrcode.covershow = function () {
     $(window).bind("touchmove", function (e) {
         e.preventDefault();
@@ -19,6 +19,7 @@ qrcode.href = function () {
 qrcode.show = function () {
 
     var htmlinterval = setInterval(function () {
+
         if ($("#commonbotton") != undefined) {
             clearInterval(htmlinterval);
             if ("undefined" != typeof (wxjsconfig) && "undefined" != typeof (wxjsconfig.sharekey) && "undefined" != typeof (wxjsconfig.authurl)) {
@@ -66,7 +67,12 @@ qrcode.show = function () {
                         '</div>',
                         '</div><div id="qrcodediv" hidden></div>'
                     ].join('');
-                    $("footer").before(qrtemtemplate);
+
+                    if (!qrcodeIsShow) {
+                        $("footer").before(qrtemtemplate);
+						 qrcodeIsShow = true;
+                    }
+                   
                     var qrcode = qrcodeconfig["consumer"];
                     qrcodeconfig["consumer"]["sharecard"]["url"] = qrcode_url;
                     draw(qrcode, "sharecard", qrcode["logo"]);
@@ -84,7 +90,7 @@ qrcode.show = function () {
                         }
                     });
                 }
-                else {                    
+                else {
                     $("a[data-original]").each(function () {
                         var originalurl = $(this).data("original");
                         $(this).attr("href", originalurl);

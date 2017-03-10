@@ -2532,7 +2532,7 @@ $('.saveToDb, .shenhe').click(function(){
 		}
 	}*/
 	
-	if($(this).text() ==  "提交审核"){
+	// if($(this).text() == "提交审核"){
 
 	    // 获取活动时间与会员参与时间
 	    // 报名时间：默认开始报名时间同活动时间，报名结束时间提前一天，最晚不能超出活动结束时间。
@@ -2542,7 +2542,7 @@ $('.saveToDb, .shenhe').click(function(){
 	    var earliestjointime = basic.find('.earliestjointime').val().replace(new RegExp("-","gm"),"/");
 	    var latestjointime =  basic.find('.latestjointime').val().replace(new RegExp("-","gm"),"/");
 
-	    var activeBegin = (new Date(begintime)).getTime(); //得到毫秒数
+	    var activeBegin = (new Date(begintime)).getTime(); // 得到毫秒数
 	    var activeEnd = (new Date(endtime)).getTime(); 
 	    var joinBegin = (new Date(earliestjointime)).getTime(); 
 	    var joinEnd = (new Date(latestjointime)).getTime(); 
@@ -3017,7 +3017,7 @@ $('.saveToDb, .shenhe').click(function(){
 			return
 		}
 
-	}
+	// }
 	
 
 	if(finished == false){return}
@@ -3058,7 +3058,7 @@ $('.saveToDb, .shenhe').click(function(){
 	}
 	if(location.href.indexOf("activityModify.html")!=-1){
 		data.guid=basic.find('.activityTitle').attr("guid");//0124添加
-	}	
+	}
 
 	// 参与会员（会员类型 + 条件类型）
 	$('.member-type .selected').each(function(){
