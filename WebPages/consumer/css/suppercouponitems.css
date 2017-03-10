@@ -103,7 +103,10 @@
 	border-top: 2px solid #ccc;
 	border-bottom: 1px solid #e6e4e4;
 }
-
+.shop_door dl{
+	width: 5.18rem;
+	float: left;
+}
 .shop_door dt {
 	width: 1.10rem;
 	height: 1.10rem;
@@ -114,7 +117,7 @@
 
 .shop_door dd {
 	float: left;
-	margin-left: 0.18rem;
+	margin-left: 0.16rem;
 	width: 3.90rem;
 	border-right: 1px solid #e6e4e4;
 }
@@ -122,7 +125,7 @@
 .shop_door dd>h4 {
 	font-size: 0.26rem;
 	line-height: 0.47rem;
-	width: 2.50rem;
+	width: 3.50rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

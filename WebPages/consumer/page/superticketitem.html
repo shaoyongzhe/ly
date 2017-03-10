@@ -103,8 +103,8 @@
 					<h3>适用门店<span>({{data.retailerdata.length}})</span></h3>
 					<ul v-for="doorData in data.retailerdata">
 						<li class="clearD">
-							<a :href="ms-attr-data-original="/consumer/page/retaileritems.html?retailer_id='el.retailer_id'&type=ticket">
-								<dl>
+							<!--<a :data-id="doorData.reatiler_id">-->
+								<dl :data-id="doorData.reatiler_id" class="clearfix">
 									<dt></dt>
 									<dd>
 										<h4>{{doorData.retailername}}</h4>
@@ -112,12 +112,12 @@
 										<p><span>券</span>{{doorData.ticket_count}}</p>
 									</dd>
 								</dl>
-							</a>
+							<!--</a>-->
 							<div class="storeCall" style="color:gray" v-if="doorData.mobilephone==null||doorData.mobilephone.length == 0">
 								<img src="/consumer/image/icon01_gray.png">
 								<br>联系购买
 							</div>
-							<a :data-original="doorData.mobilephone" v-else>
+							<a :data-original="doorData.mobilephone" v-else class="clearfix" style="float: right;">
 								<div class="storeCall">
 									<img src="/consumer/image/icon01.png">
 									<br>联系购买
