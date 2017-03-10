@@ -88,6 +88,8 @@ function fnpricenum() {
 //打电话滚动隐藏与显示
 function xiala() {
     var heig=$(".toptop").height();
+/*
+
     $(".zhankai").on("click","span",function () {
         if($(".toptop").height()>80){
             $(".toptop").animate({
@@ -105,6 +107,91 @@ function xiala() {
             });
         }
     });
+*/
+    //禁用手机默认的触屏滚动行为
+    $(".huadong")[0].addEventListener('touchmove', function(event) {
+        event.preventDefault();
+    }, false);
+    //touchstart事件
+    function touchSatrtFunc(evt) {
+        try {
+            //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+            var touch = evt.touches[0]; //获取第一个触点
+            var x = Number(touch.pageX); //页面触点X坐标
+            var y = Number(touch.pageY); //页面触点Y坐标
+            //记录触点初始位置
+            startX = x;
+            startY = y;
+        } catch (e) {
+            console.log('touchSatrtFunc：' + e.message);
+        }
+    }
+
+    //touchmove事件，这个事件无法获取坐标
+    function touchMoveFunc(evt) {
+        try {
+            //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+            var touch = evt.touches[0]; //获取第一个触点
+            var x = Number(touch.pageX); //页面触点X坐标
+            var y = Number(touch.pageY); //页面触点Y坐标
+            //判断滑动方向 上下
+            if (y - startY > 10) {
+                //swipeDown();//你自己的方法 我是用来翻页的一样的
+                $(".huadong")[0].removeEventListener('touchmove', touchMoveFunc, false);
+                $(".dealer-header").hide();
+                $(".toptop").stop().animate({
+                    "height":heig
+                },300,function () {
+                    $(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
+                    $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
+                });
+            } else if(y - startY < -10){
+                //swipeUp();//你自己的方法
+                $(".huadong")[0].removeEventListener('touchmove', touchMoveFunc, false);
+                $(".toptop").stop().animate({
+                    "height":"80px"
+                },300,function () {
+                    $(".dealer-header").show();
+                    $(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
+                    $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
+                });
+            }
+        } catch (e) {
+            console.log('touchMoveFunc：' + e.message);
+        }
+    }
+
+    //touchend事件
+    function touchEndFunc(evt) {
+        try {
+            //evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+        } catch (e) {
+            console.log('touchEndFunc：' + e.message);
+        }
+    }
+    //绑定事件
+    function bindEvent() {
+        $(".huadong")[0].addEventListener('touchstart', touchSatrtFunc, false);
+        $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
+        $(".huadong")[0].addEventListener('touchend', touchEndFunc, false);
+    }
+    bindEvent();
+
+    //判断是否支持触摸事件
+    function isTouchDevice() {
+        //$(".toptop")[0].getElementById("version").innerHTML = navigator.appVersion;
+
+        try {
+            document.createEvent("TouchEvent");
+            //console.log("支持TouchEvent事件！");
+
+            bindEvent(); //绑定事件
+        } catch (e) {
+            console.log("不支持TouchEvent事件！" + e.message);
+        }
+    }
+    isTouchDevice()
+
 }
 
 //菜单(手风琴样式)点击事件
@@ -714,7 +801,7 @@ function fnggmore() {
 }
 //商品数量加减
 function fncarnum(data) {
-    $("#cgl-cont").on("click", ".jian", function() {
+    $("#cgl-cont").off().on("click", ".jian", function() {
         var num = Number($(this).next().html());
         if($(this).parent().parent().parent().parent().parent().attr("id") && num>1){
             if(num==data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
