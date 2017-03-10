@@ -28,14 +28,14 @@
 	        		_data1=data1;
 	        		console.log(_data1)
 		  		 	  for(var i=0;i<_data1.length;i++){
-					 	  		_nameList+="<li id="+i+"><span>"+_data1[i]["distributorname"]+"</span></li>";
+					 	  		_nameList+="<li id="+i+"><p style=\"word-break:break-all;\">"+_data1[i]["distributorname"]+"</p></li>";
 					 	  }
 		  		 	  //_nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
 						  $("#select ul").html(_nameList);
 						  		$("#select li:first-child").addClass("selected")
-					 	  		if($("#select li span").css("width").replace("px","")+14<=$("#select li").css("width")){
+					 	  		if($("#select li p").css("width").replace("px","")+14<=$("#select li").css("width")){
 						  				$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
-						 			}							
+						 			}
 
 
 					   		$("#select li").click(function(){

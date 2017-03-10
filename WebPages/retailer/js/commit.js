@@ -108,7 +108,7 @@ function oJz(){
                     }
                     _remark = "";
                     if (_data[i]["remark"] != "") {
-                        _remark = "<div class=" + "\"give\"" + "><div class=\"give-tit\">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
+                        _remark = "<div class=" + "\"give\"" + "><div class=\"give-tit\">留言：</div><p class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</p></div>"
                     }
                     if (_data[i]["isyucun"] === 0) {
                         if (!_data[i]["itemslist"]) {

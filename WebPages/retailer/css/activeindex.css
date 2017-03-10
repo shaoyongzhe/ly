@@ -46,7 +46,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .proSearch{margin:8px 10px;padding: 6px; border: 1px solid #c6c6c6;border-radius:3px;position: relative;clear:both}
 .titlestyle{width:40px;height: 17px;background-size:50%;position: relative;line-height: 17px;}
 .titlestyle>span{padding:2px 3px}
-.titlestyle>ul{display: none;position: absolute;top: 25px;left: -6px;width: 112%;z-index: 3;background:url(../image/shop/select.png) no-repeat;text-align: center;line-height: 1.5;}
+.titlestyle>ul{;padding-top:5px;display: none;position: absolute;top: 25px;left: -6px;width: 112%;z-index: 3;background:url(../image/shop/select.png) no-repeat;background-size:2.8rem 2.7rem;text-align: center;line-height: 1.5;}
 .titlestyle>ul>li{margin: 0 6px;border-bottom:1px solid #C6C6C6 ;}
 .titlestyle>ul>li:last-of-type{border: 0;}
 .inputbox{-webkit-box-flex: 1;position: relative;}
