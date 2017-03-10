@@ -89,9 +89,9 @@ function fnpricenum() {
 function xiala() {
     var heig=$(".toptop").height();
     $(".zhankai").on("click","span",function () {
-        if($(".toptop").height()>40){
+        if($(".toptop").height()>80){
             $(".toptop").animate({
-                "height":"40px"
+                "height":"80px"
             },300,function () {
                 $(".dealer-header").show();
                 $(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
@@ -106,6 +106,7 @@ function xiala() {
         }
     });
 }
+
 //菜单(手风琴样式)点击事件
 function fnclick() {
     var Accordion = function(el, multiple) {
@@ -121,13 +122,13 @@ function fnclick() {
         submenu.on("click", "li", function() {
             $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
             $("i",this).css({"background-image":'url("../../image/shop/hssanjiao.png")'});
-            $(".sanji").css({"height":"39px"}).find("h4").html("全部子类型<i></i>");
+            $(".sanji").css({"height":"78px"}).find("h4").html("全部子类型<i></i>");
             submenu.find("li").removeClass("col1");
             $(this).addClass("col1");
             if($(this).find(".hide1").length > 0) {
                 $(".sanji").slideDown(300).find("h4>i").css("transform", "rotateZ(90deg)");
                 $(".alllist").animate({
-                    "margin-top": "39px"
+                    "margin-top": "78px"
                 }, 300);
                 $(".sanji-zi").hide().find("ul").html($(this).find(">ul").html());
             } else {
@@ -143,7 +144,7 @@ function fnclick() {
             $this = $(this),
             $next = $this.next();
         $next.find("li").removeClass("col1"); //删除橙色字的颜色
-        $(".sanji").hide().css({"height":"39px"});
+        $(".sanji").hide().css({"height":"78px"});
         $(".cgl-contlist").find(">ul>li").show();
         $next.stop().slideToggle(300);
         $(".alllist").animate({
@@ -209,7 +210,7 @@ function fnerji() {
             $(".sanji").css({"height":"100%"});
         } else {
             $("h4>i", this).css("transform", "rotateZ(90deg)");
-            $(".sanji").css({"height":"39px"});
+            $(".sanji").css({"height":"78px"});
         }
     });
 }
@@ -525,7 +526,7 @@ function fnlist2(odata) {
             $("#loading").hide();
             if(data.result == false) {
                 console.log(data.error);
-                $("#cgl-contlist").find(".alllist").html("<P style='padding-top:5px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
+                $("#cgl-contlist").find(".alllist").html("<P style='padding-top:10px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data)
             }
@@ -997,7 +998,7 @@ function fnserchapi(odata) {
             $(".sale").next().find(".submenu").slideDown(300);
             if(data.result == false) {
                 console.log(data.error);
-                $("#cgl-contlist").find(".alllist").html("<P style='padding-top:5px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
+                $("#cgl-contlist").find(".alllist").html("<P style='padding-top:10px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data["datalist"]);
             }
@@ -1040,7 +1041,7 @@ function menusx(data) {
         if($(this).find(".hide1").length > 0) {
             $(".sanji").slideDown(300).find("h4>i").css("transform", "rotateZ(90deg)");
             $(".alllist","#cgl-contlist").animate({
-                "margin-top": "39px"
+                "margin-top": "78px"
             }, 300);
             $(".sanji-zi").hide().find(">ul").html($(".hide1",this).html());
         } else {
