@@ -1151,5 +1151,19 @@ $(function() {
             clearInterval(_tt);
             getmore();
         },100)
+    }else{
+        localStorage.reload=1;
+        fnpinpai(); //品牌下拉点击事件
+        fnurl(); //获取地址栏参数
+        fnpricenum(); //获取购物车总金额和总数量
+        fnxrym(); //通过参数渲染页面
+        fnscroll(); //打电话显示与隐藏
+        fnmenu(); //获取菜单列表
+        fnhqactive();//获取促销活动列表
+        fnerji(); //遮罩点击
+        fnggmore(); //商品规格点击切换
+        fnserach(); //搜索
+        fnmclick2 ();
+        getmore();
     }
 });
