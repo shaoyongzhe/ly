@@ -404,6 +404,7 @@ $('body').on("click",".set",function(e){
 				y1yItem.find('.Yyy5-1 input').val(y1yObj[i].applycount);
 
 				y1yItem.find('.setgailv.on').click();
+				$('.gailvok').click();
 				$('.value_curve').closest('.layui-layer').find('.layui-layer-close').click();
 
 				y1yItem.find('.setgailv.on input').val(JSON.stringify(y1yObj[i].probability, null, 4));
@@ -496,7 +497,6 @@ $('.yaook').click(function(){
 
 	if(isProEmpty == false){return;}
 
-
 	var y1yArr = [];
 	var y1yObj = {};
 	if($('.addSub5 .selected:eq(0)').text() != ""){
@@ -550,6 +550,8 @@ $('.yaook').click(function(){
 			'overflow': 'hidden',
 			'padding': '3px'
 		});
+
+		butiefz();
 		layer.msg('摇一摇数据已保存');
 
 	} else {
@@ -694,11 +696,11 @@ $('.section3').on('click','.setgailv.on',function(){
 
 		// return;
 		$('.setProbability').append('<i class="yaoyiyaogailv"></i>');
+
 	}
 
 	var btfz = _this.closest('.addSub4').find('.hdc6-1 .btfz p').text();//alert(btfz);
 	$('.value_curve .number_doller em').text(btfz);
-	
 	// console.log(fwmax,fwmin)
 	
 	var each = (fwmax - fwmin)/count;
@@ -733,7 +735,8 @@ $('.gailvok').click(function(){
 		var gl = $('.Probability_value input').eq(i).val();
 		if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){ // 摇一摇中计算单条补贴峰值
 			var percent = $('.addSub5').eq(yglindex-2).find('.Yyy3d1 input').val();
-			var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
+			// var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
+			var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * (percent /100) * cishu;
 
 		} else {
@@ -2871,8 +2874,7 @@ $('.saveToDb, .shenhe').click(function(){
 				}
 
 
-				if($(this).closest('.addSub4').find('.hdc4d2.link input').length == 1 && 
-					$(this).closest('.addSub4').find('.hdc4d2.link input').val() == ""){
+				if($(this).closest('.addSub4').find('.hdc4d2.link').text() == '次'){
 					$("nav span").eq(2).click();
 					layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
 					finished = false;
@@ -3309,7 +3311,7 @@ $('.saveToDb, .shenhe').click(function(){
         }*/
 		//2选1
 		subsidyItem = {
-//			"guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
+			// "guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
 			"state": "active",
             // "guid": "",
             "refund_to": _this.attr("name"),
@@ -3320,6 +3322,7 @@ $('.saveToDb, .shenhe').click(function(){
             "min": addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val(),
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
+            "crest": addSub4.find('.fz input').val(),
             "applycount": addSub4.find('.hdc6-1 input').val()
         }
   
@@ -3411,14 +3414,17 @@ $('.saveToDb, .shenhe').click(function(){
 	                layer.msg(returnedData.error);
 	                return;
 	            }
+	            c(returnedData);
 
-	            console.log(returnedData);
+	            if(data.releaseset.optype == "保存"){
+	            	layer.msg('数据已保存。');
+	            	return;
+	            }
             	if($('body').hasClass('xiugai')){
 	                done('修改成功');
             	} else {
 	                done('创建成功');
             	}
-
 	        },
 	        error: function (xhr) {
 		    	layer.alert(optype + '失败 ' + xhr.status, {icon: 5});
