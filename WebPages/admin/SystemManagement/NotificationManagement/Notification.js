@@ -58,8 +58,8 @@ function getList(isEnd, handle, searchForm) {
 
     var df = {};
     if (handle == 'search') {
-        df = searchForm;
         initPageData();
+        df = searchForm;
         $("table.templateList tbody").empty();
 
     } else if (handle == 'page') {
@@ -591,7 +591,7 @@ $('table.modulePeople')
                         });
                     });// 单行修改 弹出插件本身
 
-$("#refresh").click(function () {
+$("#reset-btn").click(function () {
     isBottom = false;
     getList(false, 'refresh', getSearchForm());
 });
