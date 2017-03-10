@@ -175,7 +175,23 @@ function getList(_pageindex,_pagesize,handle,searchForm) {
                         }
                     }
 
-                    tr += "<tr class='text-c'><input type='hidden' class='guid' value=" + td[i].guid + "><input type='hidden' class='imgUrl' value=" + td[i].poster_url + "><input type='hidden' class='area_json' value=" + JSON.stringify(td[i].area) + "/><td class='td'>" + td[i].propagationsubjectcode + "</td><td title='" + td[i].service + "' class='service'>" + td[i].service + "</td><td title='" + areastring + "'>" + areastring + "</td><td></td><td>" + "<span>" + b + "</span>" + "<span>" + c + "</span>" + "<span>" + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" + ProcessDate1(td[i].pushtime) + "><td>" + ProcessDate(td[i].pushtime) + "</td><td>" + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
+                    tr += "<tr class='text-c'><input type='hidden' class='guid' value=" 
+                        + td[i].guid + "><input type='hidden' class='imgUrl' value=" 
+                        + td[i].poster_url + "><input type='hidden' class='area_json' value=" 
+                        + JSON.stringify(td[i].area) + "/><td class='td'>" 
+                        + td[i].propagationsubjectcode + "</td><td title='" 
+                        + td[i].service + "' class='service'>" 
+                        + td[i].service + "</td><td title='" 
+                        + areastring + "'>" + areastring 
+                        + "</td><td></td><td>" + "<span>" 
+                        + b + "</span>" + "<span>" 
+                        + c + "</span>" + "<span>" 
+                        + a + "</span>" + "</td><input type='hidden' class='pushtime' value=" 
+                        + ProcessDate1(td[i].pushtime) + "><td>" 
+                        + ProcessDate(td[i].pushtime) + "</td><td>" 
+                        + (td[i].draft || td[i].auditsuccess || td[i].auditfail || td[i].toberelease || td[i].audit || td[i].released) + "</td><td class='f-14 td-manage'><div class='handle'><div class='handle-icon'><i class='Hui-iconfont'>" + "</i></div><div class='handle-btns-wrap' style='width:" 
+                        + autoW + "px'><div class='handle-btns'>" 
+                        + isSet + "<span class='arrow-right'></span></div></div></div></td></tr>";
                     // aaa(i)
                 }
                 // 如果没有数据
