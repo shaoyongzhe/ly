@@ -1123,4 +1123,9 @@
 	color:red;
 }
 
+
+
+.activeson1_left>a{
+	word-break: break-word;
+}
 	/*loading e*/
