@@ -2038,16 +2038,23 @@ $(".subsidyConditionContent").on("click",".subsidyConditionItem",function(e){
 
 var addSub4_i = 0;
 $('.butieSec').on('click','.subsidyCondition a', function(){
-
+	addSub4_i++;
 	var _this = $(this);
 	var addSub4 = _this.closest('.addSub4');
-	addSub4_i = _this.closest('.addSub4').index();
+//	addSub4_i = _this.closest('.addSub4').index();
 
 	if(addSub4.find('.butie-select-wrap .selected').text() == ""){
 		layer.tips('请先完善补贴条件', addSub4.find('.butie-select-wrap .selected'));
 		return;
 	}
 
+    _this.removeClass(function(){
+    	var classStr='';
+    	for(i=0;i<addSub4_i;i++){
+    		classStr+='btCond'+i+' '
+    	}
+    	return classStr;
+    })
 	_this.addClass("btCond" + addSub4_i);
 
 
