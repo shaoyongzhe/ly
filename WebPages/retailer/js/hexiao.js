@@ -55,10 +55,12 @@ function writeOff(callback) {
                 _d = new Date();
                 _newTm = _d.getTime();
                 if (_endTm - _newTm <= 0) {
-                    $(".time-down p").text("处罚已结束").hide();
+                    $(".punish").text("处罚结束");
+                    $(".f-p").text("处罚已结束");
                     $(".sp1").text("00");
                     $(".sp2").text("00");
                     $(".sp3").text("00");
+                    $(".f-p").next().hide();
                     clearInterval(_timer);
                     $("#list").hide();
                     $(".f-list").show();
@@ -88,7 +90,6 @@ function writeOff(callback) {
                         $(".sp3").text(_Seconds);
                     }
                     $(".sp4").text(_Day + "天 ");
-                    $(".time-down p").text("处罚中");
                 }
 
             }, 1000)
