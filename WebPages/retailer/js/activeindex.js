@@ -123,8 +123,7 @@ function fnclick() {
         submenu.on("click", "li", function() {
             $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
             $("i",this).css({"background-image":'url("../../image/shop/hssanjiao.png")'});
-            //$("i",this).addClass("hssanj");
-            $(".sanji").find("h4").html("全部子类型<i></i>");
+            $(".sanji").css({"height":"39px"}).find("h4").html("全部子类型<i></i>");
             submenu.find("li").removeClass("col1");
             $(this).addClass("col1");
             if($(this).find(".hide1").length > 0) {
@@ -146,7 +145,7 @@ function fnclick() {
             $this = $(this),
             $next = $this.next();
         $next.find("li").removeClass("col1"); //删除橙色字的颜色
-        $(".sanji").hide();
+        $(".sanji").hide().css({"height":"39px"});
         $(".cgl-contlist").find(">ul>li").show();
         $next.stop().slideToggle(300);
         $(".alllist").animate({
@@ -209,8 +208,10 @@ function fnerji() {
         $(".sanji-zi", this).toggle().show;
         if($(".sanji-zi", this).is(":visible") == true) {
             $("h4>i", this).css("transform", "rotateZ(-90deg)");
+            $(".sanji").css({"height":"100%"});
         } else {
             $("h4>i", this).css("transform", "rotateZ(90deg)");
+            $(".sanji").css({"height":"39px"});
         }
     });
 }
