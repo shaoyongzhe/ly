@@ -26,7 +26,7 @@ function render(detailData){
 	var activity = detailData.activity;
 	//first.find('.guid').text(activity.activitycode);
 	// first.find('.guid').text(activity.guid);
-	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;position:absolute'>"+ activity.guid +"</i>");
+	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;position:absolute;display:none;'>"+ activity.guid +"</i>");
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
@@ -240,7 +240,6 @@ function render(detailData){
 		var randfz = 0;
 		var btduixiang = "";
 		switch(butie[i].refund_to){
-
 		    case "distributor": btduixiang = '分销商'; break;
 		    case "distributor_employee": btduixiang = '分销商业务员'; break;
 		    case "retailer": btduixiang = '门店'; break;
@@ -287,14 +286,7 @@ function render(detailData){
 		}
 
 		var valTxt = "<i class='valTxt'>"+ (butie[i].min * butie[i].ceiling).toFixed(2) +"</i>";
-		if(butie[i].refund_content == '摇一摇'){
-			var yaofz1 = 0;
-			butie[i].prize_content.forEach( function(item, index) {
-				yaofz += Number(item.applycount);
-				yaofz1 += Number(item.applycount);
-			});
-			valTxt = "<i class='valTxt'>"+ Number(yaofz1).toFixed(2) + "</i>";
-		}
+		
 		if(butie[i].refund_content.indexOf('随机') != -1){
 			butie[i].probability.value_curve.forEach( function(item, index) {
 				randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
@@ -303,10 +295,27 @@ function render(detailData){
 		}
 
 		var rangeStr = "";
-		var num = !butie[i].max || butie[i].max == "" ? Number(butie[i].min).toFixed(2) : butie[i].min +"-"+ butie[i].max;
-		rangeStr = "<span class='fl'>"+ num +
-		"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +
-		"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
+		
+
+		if(butie[i].refund_content == '摇一摇'){
+			var yaofz1 = 0;
+			var refund_content = "";
+			butie[i].prize_content.forEach( function(item, index) {
+				yaofz += Number(item.applycount);
+				yaofz1 += Number(item.applycount);
+				refund_content += item.refund_content + '</br>';
+			});
+			valTxt = "<i class='valTxt'>"+ Number(yaofz1).toFixed(2) + "</i>";
+			rangeStr = ""+ refund_content +"</td><td>"+ butie[i].ceiling +
+			"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
+
+		} else {
+			var num = !butie[i].max || butie[i].max == "" ? Number(butie[i].min).toFixed(2) : butie[i].min +"-"+ butie[i].max;
+			rangeStr = "<span class='fl'>"+ num +
+			"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +
+			"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
+		}
+
 
 	    // debugger;
 		var pointIndex = butie[i].applycount.indexOf('.');
@@ -318,9 +327,8 @@ function render(detailData){
 			"'><td>"+ btduixiang +
 			"</td><td><span class='fxs' title='"+ butie[i].event +"'>"+ butie[i].event +
 			"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +
-			"<td class='sbys'><i class='valTxt'>"+ applycount +
+			"</span><td class='sbys'><i class='valTxt'>"+ applycount +
 			"</i><i>"+ danwei +"</i></td></tr>");
-
 
 	}
 
