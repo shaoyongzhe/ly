@@ -431,9 +431,8 @@ function fnhqactive() {
             $("#loading").hide();
             $("#zongloading").hide();
             $("#zhezao").hide();
-            if(data.length>0){
-                fncuxiao(data);
-            }else {
+            fncuxiao(data);
+            if(data.length<=0){
                 $(".cgl-tishi").html("暂无活动商品~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
             }
         }
