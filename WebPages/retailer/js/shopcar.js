@@ -258,6 +258,7 @@
 			}
 			$("section ul").html(_list)
 			$(".summ").text(_ges)
+			keepFooter()
 			if(_price==-0){
 				_price=0
 			}
@@ -838,3 +839,21 @@
 					
 		}
 		}
+	function keepFooter(){
+		
+		var oHeight = $(document).height(); //屏幕当前的高度
+		
+		$(window).resize(function(){
+				console.log(11111)
+		        if($(document).height() < oHeight){
+		
+		        $(".bottomlayout").css("display","none");
+		
+		    }else{
+		
+		        $(".bottomlayout").css("display","block");
+		
+		    } 
+		
+		    });
+	}

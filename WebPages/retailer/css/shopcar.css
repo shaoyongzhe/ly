@@ -10,6 +10,9 @@ img,fieldset,table,input,textarea,button{border:none;}
     -o-user-select: auto!important;
     user-select: auto!important;
 }
+img{
+	z-index: -1;
+}
 .shop-title{
 	width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-size: 1.6rem;position: fixed;background:#fff;border-bottom: 1px solid #dddddd;
 }
