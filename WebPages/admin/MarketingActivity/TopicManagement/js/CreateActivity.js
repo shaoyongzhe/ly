@@ -3311,7 +3311,7 @@ $('.saveToDb, .shenhe').click(function(){
         }*/
 		//2选1
 		subsidyItem = {
-//			"guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
+			// "guid":addSub4.find('.acSe9 .selected').attr("guid"),//0124添加
 			"state": "active",
             // "guid": "",
             "refund_to": _this.attr("name"),
@@ -3322,6 +3322,7 @@ $('.saveToDb, .shenhe').click(function(){
             "min": addSub4.find('.hdc4 .hdc4d1 .hdc4In1').val(),
             "max": max,
             "ceiling": addSub4.find('.hdc5 input').val(),
+            "crest": addSub4.find('.fz input').val(),
             "applycount": addSub4.find('.hdc6-1 input').val()
         }
   
@@ -3387,13 +3388,13 @@ $('.saveToDb, .shenhe').click(function(){
 
 	console.log(JSON.stringify(data, null, 4));
 
-	// if (!$('nav span:last').hasClass('on') && $(this).text() == "保存"){
-	// 	layer.msg('数据已保存');
-	// 	return;
-	// }
+	if (!$('nav span:last').hasClass('on') && $(this).text() == "保存"){
+		layer.msg('数据已保存');
+		return;
+	}
 
     var updateFlag = location.href.indexOf("activityModify.html")!=-1;
-	// if ($('nav span:last').hasClass('on')) {
+	if ($('nav span:last').hasClass('on')) {
 	    $.ajax({
 	        type: updateFlag ? "put" : "post",
 	        url: '/webapi/ipaloma/topic',
@@ -3416,7 +3417,7 @@ $('.saveToDb, .shenhe').click(function(){
 	            c(returnedData);
 
 	            if(data.releaseset.optype == "保存"){
-	            	layer.msg('数据已保存');
+	            	layer.msg('数据已保存。');
 	            	return;
 	            }
             	if($('body').hasClass('xiugai')){
@@ -3431,7 +3432,7 @@ $('.saveToDb, .shenhe').click(function(){
 
     	});
 		
-	// }
+	}
     
 });
 
