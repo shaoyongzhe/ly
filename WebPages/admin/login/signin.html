@@ -1,10 +1,8 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<meta name="renderer" content="webkit"  />
 	<meta charset="UTF-8">
-	<title>登录 页</title>
+	<title>登录页</title>
 	<link rel="stylesheet" type="text/css" href="css/sigin.css">
 </head>
 <body>
@@ -29,14 +27,39 @@
 						<img class="password_pic" src="images/password1.png" height="23" width="19" alt="">
 					</div>
 					<div>
-						<div id="remember_pass" class="Remember_username checked">
+						<div id="remember_pass" class="Remember_username">
 							<i></i>
 							<a href="javascript:;">记住用户名</a>
 						</div>
 						<!-- <a class="Forget_password" href="javascript:;">忘记密码?</a> -->
 					</div>
 					<input id="enter" type="submit" value="立即登录" class="submit">
+					<p class="line"></p>
+					<p class="loginOther">
+						其他登录方式：
+					</p>
+					<div class="phone">
+						<img src="images/phon1e.png" alt="">手机
+					</div>
 				</div>
+				<div class="phone_cener" style="display: none">
+					<p class="phone_login">
+						<img src="images/tur1n.png" alt=""><span>普通登录</span>
+					</p>
+					<p class="font1">
+						手机快速登录
+					</p>
+					<div class="phone_input">
+						<input type="text">
+						<span class="opacity">输入的手机号码有误</span>
+					</div>
+					<div class="identifying_code">
+						<input class="code_input" type="text" placeholder="请输入手机验证码">
+						<input class="code_get" type="button" value="获取手机验证码"/>
+						<input class="logining" type="button" value="登 录">
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -47,92 +70,169 @@
 	<script src="js/jquery-1.8.0.min.js"></script>
 	<script type="text/javascript">
 	$(function(){
-
+		$(".phone").click(function(){
+			$(".user_center").fadeOut(200);
+			$(".phone_cener").delay(200).fadeIn(100);
+		})
+		$(".phone_login span,.phone_login img").click(function(){
+			$(".phone_cener").fadeOut(200);
+			$(".user_center").delay(200).fadeIn(100);
+		})
+		$(".phone_input input,.code_input").focus(function(){
+			$(this).css("border","1px solid #07f")
+		})
+		$(".phone_input input,.code_input").blur(function(){
+			$(this).css("border","1px solid #cfcfcf")
+		})
+		$(".code_get").click(function(){
+			sendCode();
+		})
+		$(".logining").click(function(){
+			phoneAjax();
+		})
+		$(".phone_input input").blur(function(){
+			var reg = /^1[3|4|5|7|8][0-9]{9}$/; //手机正则
+			var phoneTest = $(this).val();
+			if( (reg.test(phoneTest)) ){
+				$(".phone_input span").addClass("opacity");
+			}else{
+				$(".phone_input span").removeClass("opacity");
+				return false;
+			}
+		})
 		$('.Remember_username').click(function() {
 			$(this).toggleClass('checked');
-		});		
-		/*
-		 * 记住用户名bug修复	
-		 */
-		if(localStorage.userName){
-			$(".user_name").val(localStorage.userName);
-		}
-		function rememberUser(){
-			if( $('#remember_pass').hasClass('checked') ) { 
-				localStorage.userName = $(".user_name").val();
-			}else{
-				localStorage.userName = '';
-			}
-		}
+		});
+
 		//用户名登录
 		$('#enter').click(function(){
-			rememberUser();
 			play()
 		})
 		$(document).keydown(function(event){
            if(event.keyCode == 13){
-           		rememberUser();
            		play()
            		//$('#enter').click();
            }       
         });
 
-	function play(){
-		$.ajax({
+     
+
+		function play(){
+			$.ajax({
+					type:'post',
+					url:'/webapi/account/login',
+					dataType:'json',
+					data:{
+						"username": $('#account').val(),
+						"password": $('#password').val(),
+						"host":"membership-dev.ipaloma.com"
+					},
+					success:function(data){
+							debugger;
+							if( sessionStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
+								console.log(8)
+				                $('#account').val( sessionStorage["account"] );
+				                $('#password').val( sessionStorage["password"] );
+				            }
+							//$('#enter').on('click',function () { //  点击登录按钮调用defaultaccount且传账户密码值过去
+				                defaultaccount( $('#account').val(),$('#password').val() );
+							//})
+
+				            function defaultaccount( account,password ) {   
+				                if( $('#account').val() == "" && $('#password').val() == "" ) {     
+				                    alert('需要您填写账号密码')
+				                     sessionStorage["status"]  = false; 
+				                }else if (data.error==""&&data.result==true){  
+				                    //if( $('#remember_pass').hasClass('checked') ) {  
+				                         sessionStorage["account"]  = account;    
+				                         sessionStorage["status"]  = true;    
+				                         // localStorage["password"] = password;   
+				                    //}
+				                   
+				                    window.location.href="../index.html";
+				                }else{
+				                	alert('账号或者密码错误')
+				                	 sessionStorage["status"]  = false;    
+				                }
+				            }
+					},
+					error:function(){
+						alert('异常')
+						 sessionStorage["status"]  = false; 
+					}
+				})
+		}
+
+/********************************手机登录*********************************************/
+		var InterValObj; //timer变量，控制时间
+        var count = 9; //间隔函数，1秒执行
+        var curCount;//当前剩余秒数
+        function sendCode() {
+            curCount = count;
+            var phone=$(".phone_input input").val();
+            var reg = /^1[3|4|5|7|8][0-9]{9}$/; //手机正则
+            if( reg.test(phone) ){
+                $(".code_get").attr("disabled", "true");
+                $(".code_get").val("重新发送(" + curCount + ")");
+                InterValObj = window.setInterval(SetRemainTime, 1000);
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: '/webapi/account/verifycode',
+                    data: {"mobile":phone},
+                    error:function(data, status, err){
+					var errorMsg=JSON.parse(data.responseText).error;
+		            alert(errorMsg);
+				},
+                    success: function (data){
+                    	alert("验证码发送成功");
+                    }
+                });
+            }else{
+                $(".phone_input input").val("");
+            }
+        }
+        //timer处理函数
+        function SetRemainTime() {
+            if (curCount == 0) {
+                window.clearInterval(InterValObj);
+                $(".code_get").removeAttr("disabled");
+                $(".code_get").val("重新发送验证码");
+            }
+            else {
+                curCount--;
+                $(".code_get").val("重新发送(" + curCount + ")");
+            }
+        }
+		/*手机登录Ajax*/
+		function phoneAjax (){
+			$.ajax({
 				type:'post',
-				url:'/webapi/account/login',
-				dataType:'json',
+				url:'/webapi/account/verifycode',
 				data:{
-					"username": $('#account').val(),
-					"password": $('#password').val(),
-					"host":"membership-dev.ipaloma.com"
+					"mobile":$('.phone_input input').val(),
+					"verifycode": $('.code_input').val()
 				},
 				success:function(data){
-
-						if( sessionStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
-							console.log(8)
-			                $('#account').val( sessionStorage["account"] );
-			                $('#password').val( sessionStorage["password"] );
-			            }
-						//$('#enter').on('click',function () { //  点击登录按钮调用defaultaccount且传账户密码值过去
-			                defaultaccount( $('#account').val(),$('#password').val() );
-						//})
-
-			            function defaultaccount( account,password ) {   
-			                if( $('#account').val() == "" && $('#password').val() == "" ) {     
-			                    alert('需要您填写账号密码')
-			                     sessionStorage["status"]  = false; 
-			                }else if (data.error==""&&data.result==true){  
-			                    //if( $('#remember_pass').hasClass('checked') ) {  
-			                         sessionStorage["account"]  = account;    
-			                         sessionStorage["status"]  = true;    
-			                         // localStorage["password"] = password;   
-			                    //}
-			                   
-			                    window.location.href="../index.html";
-			                }else{
-			                	alert('账号或者密码错误')
-			                	 sessionStorage["status"]  = false;    
-			                }
-			            }
-
-
+						alert("登录成功");
+						sessionStorage["status"]  = true;  
+						debugger;
+						window.location.href="../index.html";
+			         
 				},
-				error:function(){
-					alert('异常')
-					 sessionStorage["status"]  = false; 
+				error:function(data, status, err){
+					console.log(data)
+					var errorMsg=JSON.parse(data.responseText).error;
+	            	alert(errorMsg);
+	            	sessionStorage["status"]  = false; 
+					
+					
 				}
-			})
-	}
+			})		
 
-			
-		
+		}
 
 		
-
-
-
-
 
 /*//cookie用法
 $.cookie('the_cookie'); // 获得cookie
