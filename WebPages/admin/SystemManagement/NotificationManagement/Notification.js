@@ -363,11 +363,11 @@ function getOptionsValue() {
     //设置所有组
     _ajax("get", '/webapi/operation/notification/dict/groupname', null, "获取所有组名", function (data) {
         for (var key in data) {
-            $('.group_type').append("<option data-key=" + data[key] + ">" + data[key] + "</option>");
+            $('.template_group_set').append("<li class='option'>" + data[key] + "</li>");
         }
         _ajax("get", '/webapi/operation/notification/template/currentgroup', null, "获取默认分组", function (data) {
-            if (data != "")
-                $('.group_type').find("option[data-key='" + data + "']").attr('selected', true);
+           if (data != "")
+               $('.select-wrap .group_set').val(data);
         });
     });
 }
@@ -479,7 +479,7 @@ function getDistrict(province, city, county) {
 }
 //设置默认分组
 $(".setDefaultGroup").click(function () {
-    var groupNameText = $('.group_type :selected').text()
+    var groupNameText = $('.select-wrap .group_set').val();
     if (groupNameText == "-- 请选择 --") {
         layer.msg("请先选择默认分组...");
         return;
@@ -488,11 +488,22 @@ $(".setDefaultGroup").click(function () {
     _ajax("put", '/webapi/operation/notification/template/currentgroup', {
         "groupname": groupNameText
     }, "设置默认分组", function (data) {
-        if (data.error == '') {
-            layer.msg('默认分组设置完成...');
-        } else {
-            layer.msg('默认分组设置失败');
-        }
+          try {
+             if(data!=null)
+             {
+                if (data.error == '') {
+                   layer.msg('默认分组设置完成'); 
+                } else {
+                    layer.msg('默认分组设置失败...');
+                }
+            }else
+            {
+                layer.msg('默认分组设置失败');
+            }
+          } catch (e) {
+                 layer.msg('默认分组设置失败');
+            }
+       
     });
 });
 
@@ -622,6 +633,7 @@ var _ajax = function (type, url, data, tip, success) {
 
         },
         error: function (ex) {
+            layer.msg("失败");
             console.warn(tip + " error,errMsg is ", ex);
         }
     });
