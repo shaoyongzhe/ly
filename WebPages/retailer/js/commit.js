@@ -1,20 +1,4 @@
-//解析URL      	
-mui.init({
-	keyEventBind: {
-            backbutton: true  //打开back按键监听
-        }
-});
-var old_back = mui.back;
-mui.back = function(){
-  var btn = ["确定","取消"];
-  mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
-    if(e.index==0){
-    	//执行mui封装好的窗口关闭逻辑；
-    	alert(121)
-    	plus.runtime.quit(); 
-    }
-  });
-}
+
 
 
 function oJz(){
