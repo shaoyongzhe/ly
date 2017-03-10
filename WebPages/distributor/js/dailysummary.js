@@ -1,13 +1,13 @@
-﻿    //loading加载
-    var common = {};
-    common.loading = {
-        show: function () {
-            $("body").append('<div id="loading" class="pin-spinner"><div class="pin-spinner-container pin-spinner-container1"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container2"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container3"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div></div>');
-        },
-        hide: function () {
-            $("#loading").remove();
-        }
+﻿//loading加载
+var common = {};
+common.loading = {
+    show: function () {
+        $("body").append('<div id="loading" class="pin-spinner"><div class="pin-spinner-container pin-spinner-container1"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container2"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container3"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div></div>');
+    },
+    hide: function () {
+        $("#loading").remove();
     }
+}
 $(function(){
 
  		var Intercept=window.location.search;
@@ -120,7 +120,7 @@ $(function(){
 		    		$('.Activity_ri_text span').html(minnum);
 		    		fontAnglecanvas1()
 		    		
-
+		    		
 		    	}
 				
 				
@@ -285,50 +285,59 @@ $(function(){
 			//柱形图开始
 				//排序代码
 					function sort(array,sortField,orderType){
-							 if(orderType=='asc')return insertSort(array,sortField).reverse()
-							 return  insertSort(array,sortField);
+							if(orderType=='asc')return insertSort(array,sortField).reverse()
+							return  insertSort(array,sortField);
 					}
 						  
 					function  insertSort(array,field) {
-						 var i = 0,
-							len = array.length,
-							j, d,e,f;
-							for (; i < len; i++) {
-								for (j = i+1; j < len; j++) {
-									if (array[i][field] < array[j][field]) {
-										d = array[j][field];
-										
-										array[j][field]=array[i][field];
-										if(field=='headcount'){
-											e = array[j]['verifycount'];
-											f = array[j]['retailercount'];
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='verifycount'){
-											e = array[j]['headcount'];
-											f = array[j]['retailercount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='retailercount'){
-											e = array[j]['headcount'];
-											f = array[j]['verifycount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = f
-										}
-										array[i][field] = d;
+					 	var i = 0,
+						len = array.length,
+						j, d,e,f;
+						for (;i < len; i++) {
+							for (j = i+1; j < len; j++) {
+								if (array[i][field] < array[j][field]) {
+									d = array[j][field];	
+									array[j][field]=array[i][field];
+									if(field=='headcount'){
+										e = array[j]['verifycount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
 									}
+									if(field=='verifycount'){
+										e = array[j]['headcount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									if(field=='retailercount'){
+										e = array[j]['headcount'];
+										f = array[j]['verifycount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									array[i][field] = d;
 								}
 							}
-							return array;
-					}
+						}
+						return array;
+				   }
+
 
 					
 
@@ -355,26 +364,7 @@ $(function(){
 						Mosaic();
 					}
 				})
-			
-		
-				/*$('.thre_iptn_left').on('click',function(){
-					$('.triangle_left1_top,.triangle_cent_top,.triangle_right_top').removeClass('border-color_red2');
-					$('.triangle_cent_bottom,.triangle_right_bottom').removeClass('border-color_red');
-					$('.triangle_left1_bottom').addClass('border-color_red');
-					var array = data.activities;
-						sort(array,'headcount','desc'); //调用排序 (降序)
-						Mosaic();
-				})
-			
-			
-				$('.triangle_left1_top').on('click',function(event){
-					$('.triangle_left1_bottom').removeClass('border-color_red');
-					$('.triangle_left1_top').addClass('border-color_red2');
-					event.stopPropagation();
-					var array = data.activities;
-						sort(array,'headcount','asc'); //调用排序 (升序)
-						Mosaic();
-				})	*/
+	
 			
 			//人数按钮
 			var flag1=true;
@@ -398,22 +388,7 @@ $(function(){
 					Mosaic();
 				}
 			})
-				/*$('.thre_iptn_cent').on('click',function(){
-					$('.triangle_cent_top,.triangle_left1_top,.triangle_right_top').removeClass('border-color_red2');
-					$('.triangle_left1_bottom,.triangle_right_bottom').removeClass('border-color_red');
-					$('.triangle_cent_bottom').addClass('border-color_red');
-					var array = data.activities;
-					sort(array,'verifycount','desc'); //调用排序(降序)
-					Mosaic();
-				})
-	 			$('.triangle_cent_top').on('click',function(event){
-	 				$('.triangle_cent_bottom').removeClass('border-color_red');
-					$('.triangle_cent_top').addClass('border-color_red2');
-					event.stopPropagation();
-					var array = data.activities;
-					sort(array,'verifycount','asc'); //调用排序 (升序)
-					Mosaic();
-				})*/
+			
 			//门店按钮
 			var flag2=true;
 			$('.thre_iptn_right').click(function(){
@@ -451,27 +426,11 @@ $(function(){
 					$('.triangle_left1_bottom').removeClass('border-color_red');
 					$('.triangle_left1_top').removeClass('border-color_red2');
 				})
-				/*$('.thre_iptn_right').on('click',function(){
-					$('.triangle_right_top,.triangle_left1_top,.triangle_cent_top').removeClass('border-color_red2');
-					$('.triangle_left1_bottom,.triangle_cent_bottom').removeClass('border-color_red');
-					$('.triangle_right_bottom').addClass('border-color_red');
-					var array = data.activities;
-					sort(array,'retailercount','desc'); //调用排序(降序)
-					Mosaic();
-				})
-	 			$('.triangle_right_top ').on('click',function(event){
-	 				$('.triangle_right_bottom').removeClass('border-color_red');
-					$('.triangle_right_top').addClass('border-color_red2');
-					event.stopPropagation();
-					var array = data.activities;
-					sort(array,'retailercount','asc'); //调用排序 (升序)
-					Mosaic();
-				})*/
-
+			
 
 				Mosaic()
 				function Mosaic(){
-					console.log(JSON.stringify(data,null,4))
+					// console.log(JSON.stringify(data,null,4))
 					var verificationnumber=data.activities;
 					console.log(verificationnumber.length);
 					var str='';
