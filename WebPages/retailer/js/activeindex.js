@@ -407,12 +407,14 @@ function fnhqactive() {
         },
         success: function(data) {
             console.log(data)
+            fncarnum(data);
             $("#loading").hide();
             $("#zongloading").hide();
             $("#zhezao").hide();
-            fncuxiao(data);
             if(data.length<=0){
                 $(".cgl-tishi").html("暂无活动商品~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+            }else{
+                fncuxiao(data);
             }
         }
     });
@@ -496,8 +498,6 @@ function fncuxiao(data) {
         }
     }
     $("#cgl-contlist").find(".alllist").html(oli);
-
-        fncarnum(data);
 
 }
 
