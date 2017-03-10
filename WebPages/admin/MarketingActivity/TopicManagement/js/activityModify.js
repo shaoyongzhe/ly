@@ -1015,7 +1015,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    		// activityManger_addSub4Data[i].prize_content.forEach(function(item, index){
 	    		// 	yaofz += item.applycount;
 	    		// });
-	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(yaofz.toFixed(2));
+	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
 	    		
 	    		// $(".addSub4Mange:last").find('.set').click();
 	    		// $('.yaook').click();
