@@ -632,9 +632,12 @@ var _ajax = function (type, url, data, tip, success) {
             success(json);
 
         },
-        error: function (ex) {
-            layer.msg("失败");
-            console.warn(tip + " error,errMsg is ", ex);
+        error: function (xhr) {
+            console.log(xhr)
+            var error = JSON.parse(xhr.responseText);
+            layer.msg("失败" + error.error);
+            $('#refresh').click();
+            console.warn(tip + " error,errMsg is ", xhr.status);
         }
     });
 }
@@ -684,3 +687,5 @@ $('.select').on('click', '.option', function (e) {
 $(document).click(function () {
     $('.select').hide();
 });
+
+

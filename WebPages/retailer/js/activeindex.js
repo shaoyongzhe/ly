@@ -47,30 +47,12 @@ function fnxrym() {
         $("#contactperson").html(url1.contactperson);
         $("#cutgift").html("￥" + url1.cutgift + "元");
         $(".num").html($(".ammount").html());
-        if(JSON.parse(sessionStorage.fenxiao)["promotionactivity"]){
-        	
-        }
-        $(".proDetailBox").html("<div style=\"float:left\">"+url1.active+"</div>"+"<img class=\"imgg\" src=\"../../image/shop/down.png\" style=\"float:right;margin-top:6%;margin-right: -11%;width: 0.8rem;height: 0.4rem;\">");
+        $(".proDetailBox").html("<div>"+url1.active+"</div>");
         $(".proTitleInfor>a").attr("href", "tel:" + url1.mobilephone);
         $(".dealer-header>a").attr("href", "tel:" + url1.mobilephone);
         $(".footerl>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id);
         $(".footerr>a").attr("href", "shopcar.html?distributor_id=" + url1.distributor_id)
-        var _hh=1;
-        $(".imgg").click(function(){
-            if($(".proDetailBox>div>p:nth-child(2)").height()>20){
-                if(_hh==1){
-                    $(".proDetailBox>div").height("auto");
-                    $(".proDetailBox").height($(".proDetailBox>div").height());
-                    $(".imgg").css({transform:"rotate(180deg)",transitionDuration:"0.2s"})
-                    _hh=0;
-                }else{
-                    $(".proDetailBox>div").height("1.9rem");
-                    $(".proDetailBox").height("1.9rem");
-                    $(".imgg").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
-                    _hh=1;
-                }
-            }
-        })
+
     }
 }
 //获取购物车总金额和总数量
@@ -104,13 +86,23 @@ function fnpricenum() {
     })
 }
 //打电话滚动隐藏与显示
-function fnscroll() {
-    $(".container").scroll(function() {
-        var scrolltop = $(".container").scrollTop();
-        if(scrolltop > 100) {
-            $(".dealer-header").fadeIn();
-        } else if(scrolltop <= 100) {
-            $(".dealer-header").fadeOut();
+function xiala() {
+    var heig=$(".toptop").height();
+    $(".zhankai").on("click","span",function () {
+        if($(".toptop").height()>40){
+            $(".toptop").animate({
+                "height":"40px"
+            },300,function () {
+                $(".dealer-header").show();
+                $(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
+            });
+        }else {
+            $(".dealer-header").hide();
+            $(".toptop").animate({
+                "height":heig
+            },300,function () {
+                $(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
+            });
         }
     });
 }
@@ -129,21 +121,17 @@ function fnclick() {
         submenu.on("click", "li", function() {
             $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
             $("i",this).css({"background-image":'url("../../image/shop/hssanjiao.png")'});
-            //$("i",this).addClass("hssanj");
-            $(".sanji").find("h4").html("全部子类型<i></i>");
+            $(".sanji").css({"height":"39px"}).find("h4").html("全部子类型<i></i>");
             submenu.find("li").removeClass("col1");
             $(this).addClass("col1");
             if($(this).find(".hide1").length > 0) {
                 $(".sanji").slideDown(300).find("h4>i").css("transform", "rotateZ(90deg)");
-                $("#cgl-contlist").find("ul").animate({
-                    "margin-top": "1.95rem"
+                $(".alllist").animate({
+                    "margin-top": "39px"
                 }, 300);
-                $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
+                $(".sanji-zi").hide().find("ul").html($(this).find(">ul").html());
             } else {
                 $(".sanji").slideUp(300);
-                $("#cgl-contlist").find("ul").animate({
-                    "margin-top": "0"
-                }, 300);
             }
             menu1ajax($(this),"itemcategory");
             state["lastcount"]=10;
@@ -155,28 +143,21 @@ function fnclick() {
             $this = $(this),
             $next = $this.next();
         $next.find("li").removeClass("col1"); //删除橙色字的颜色
-        $(".sanji").hide(); //隐藏一级分类右下角的三角
+        $(".sanji").hide().css({"height":"39px"});
         $(".cgl-contlist").find(">ul>li").show();
-        $("#cgl-contlist").find("ul").animate({
-            "margin-top": 0
-        }, 300);
-        $next.stop().slideDown(300,function () {
-            $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
-            fnmenuhei();
-        });
-
+        $next.stop().slideToggle(300);
+        $(".alllist").animate({
+            "margin-top":"0"
+        },300);
         var scrh=$(".proTitleBox").outerHeight()+$(".proDetailBox").outerHeight()-$(".dealer-header").outerHeight();
-        if($(".container")[0].scrollTop > scrh ){
-            $(".container")[0].scrollTop=scrh
-        }
+        $("#cgl-contlist")[0].scrollTop=0;
         $el.find(">li").removeClass('clion');
         $this.parent().addClass('clion');
-        $el.find(".link>i").show();
-        $this.find("i").hide();
+        $el.find(".link>i").removeClass("iclick");
+        $this.find("i").addClass("iclick");
+        $this.next().find(">li:eq(0)").addClass("col1").find("i").css({"background-image":'url("../../image/shop/hssanjiao.png")'});
         if(!e.data.multiple) {
-            $el.find('.submenu').not($next).slideUp(300,function () {
-                fnmenuhei();
-            });
+            $el.find('.submenu').not($next).slideUp(300);
         };
     }
     var accordion = new Accordion($('#cgl-menu'), false);
@@ -225,8 +206,10 @@ function fnerji() {
         $(".sanji-zi", this).toggle().show;
         if($(".sanji-zi", this).is(":visible") == true) {
             $("h4>i", this).css("transform", "rotateZ(-90deg)");
+            $(".sanji").css({"height":"100%"});
         } else {
             $("h4>i", this).css("transform", "rotateZ(90deg)");
+            $(".sanji").css({"height":"39px"});
         }
     });
 }
@@ -322,11 +305,11 @@ function xuanrmenu(data) {
     $("#cgl-menu").append(oli);
     fnclick();
     fnmenuclick();
-    fnmenuhei(); //动态设置菜单右侧高度
+    //fnmenuhei(); //动态设置菜单右侧高度
 }
 //预存货列表
 function fnyucun() {
-    $("#cgl-contlist").find("ul").html("");
+    $("#cgl-contlist").find(".alllist").html("");
     $("#loading").show();
     $("#zhezao").show();
     $("#nono").hide();
@@ -396,12 +379,12 @@ function fnychxr(data) {
                 "</li>";
         }
     }
-    $("#cgl-contlist").find("ul").html(oli);
+    $("#cgl-contlist").find(".alllist").html(oli);
     $("#loading").hide();
 }
 //获取促销活动列表
 function fnhqactive() {
-    $("#cgl-contlist").find("ul").html("");
+    $("#cgl-contlist").find(".alllist").html("");
     $("#zhezao").show();
     $("#loading").show();
     $("#nono").hide();
@@ -420,20 +403,23 @@ function fnhqactive() {
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
+            $("#loading").hide();
         },
         success: function(data) {
             console.log(data)
+            fncarnum(data);
             $("#loading").hide();
             $("#zongloading").hide();
             $("#zhezao").hide();
-            if(data.length>0){
-                fncuxiao(data);
-            }else {
+            if(data.length<=0){
                 $(".cgl-tishi").html("暂无活动商品~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+            }else{
+                fncuxiao(data);
             }
         }
     });
 }
+
 //促销活动列表渲染
 function fncuxiao(data) {
     var oli = "",
@@ -511,16 +497,13 @@ function fncuxiao(data) {
             oli += "</li>";
         }
     }
-    $("#cgl-contlist").find("ul").html(oli);
-    if(_flag==1){
-        fncarnum(data);
-        _flag=0
-    }
+    $("#cgl-contlist").find(".alllist").html(oli);
+
 }
 
 //一般列表请求
 function fnlist2(odata) {
-    $("#cgl-contlist").find("ul").html("");
+    $("#cgl-contlist").find(".alllist").html("");
     $("#loading").show();
     $("#zhezao").show();
     $("#nono").hide();
@@ -542,7 +525,7 @@ function fnlist2(odata) {
             $("#loading").hide();
             if(data.result == false) {
                 console.log(data.error);
-                $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
+                $("#cgl-contlist").find(".alllist").html("<P style='padding-top:5px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data)
             }
@@ -642,7 +625,7 @@ function fnyibanlist2(data) {
                         "<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
                         "<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
-                        "<div class='ggdiv'><p class='ggborder'>" + (data[k1]["itemslist"][k2]["specification"]==null?"":data[k1]["itemslist"][k2]["specification"]+" | ") + (data[k1]["itemslist"][k2]["packagetypename"]==undefined?"":data[k1]["itemslist"][k2]["packagetypename"]) + " > </p></div>" +
+                        "<div class='ggdiv'><p class='ggborder'>" + (data[k1]["itemslist"][k2]["specification"]==null?"":data[k1]["itemslist"][k2]["specification"]+" | ") + (data[k1]["itemslist"][k2]["packagetypename"]==undefined?"":data[k1]["itemslist"][k2]["packagetypename"]) + "</p></div>" +
                         "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemslist"][k2]["itemcount"] <= 0) {
@@ -704,7 +687,7 @@ function fnyibanlist2(data) {
             oli += "</div></div></div></div></li>";
         }
     }
-    $("#cgl-contlist").find("ul").append(oli);
+    $("#cgl-contlist").find(".alllist").append(oli);
 }
 //商品规格点击切换
 function fnggmore() {
@@ -911,7 +894,7 @@ function fnserach() {
         }
         _ti=0;
         $(".sanji").slideUp(300).find("h4>i").css("transform", "rotateZ(90deg)");
-        $("#cgl-contlist").find("ul").animate({
+        $("#cgl-contlist").find(".alllist").animate({
             "margin-top": "0"
         }, 300);
         $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
@@ -954,7 +937,7 @@ function fnserach() {
 
 //预存货搜索
 function fnsearchyc(odata) {
-    $("#cgl-contlist").find("ul").html("");
+    $("#cgl-contlist").find(".alllist").html("");
     $("#loading").show();
     $("#zhezao").show();
     $("#nono").hide();
@@ -986,7 +969,7 @@ function fnsearchyc(odata) {
 }
 //搜索功能ajax请求
 function fnserchapi(odata) {
-    $("#cgl-contlist").find("ul").html("");
+    $("#cgl-contlist").find(".alllist").html("");
     $("#loading").show();
     $("#zhezao").show();
     $("#nono").hide();
@@ -1014,7 +997,7 @@ function fnserchapi(odata) {
             $(".sale").next().find(".submenu").slideDown(300);
             if(data.result == false) {
                 console.log(data.error);
-                $("#cgl-contlist").find("ul").html("<P style='padding-top:0.25rem'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
+                $("#cgl-contlist").find(".alllist").html("<P style='padding-top:5px'>暂无与“<b style='color:red'>"+$(".content").val()+"</b>”有关的商品</p>");
             } else {
                 fnyibanlist2(data["datalist"]);
             }
@@ -1056,13 +1039,13 @@ function menusx(data) {
         $(this).addClass("col1");
         if($(this).find(".hide1").length > 0) {
             $(".sanji").slideDown(300).find("h4>i").css("transform", "rotateZ(90deg)");
-            $("#cgl-contlist").find("ul").animate({
-                "margin-top": "1.95rem"
+            $(".alllist","#cgl-contlist").animate({
+                "margin-top": "39px"
             }, 300);
-            $(".sanji-zi").hide().find(">ul").html($(this).find(".hide1").html());
+            $(".sanji-zi").hide().find(">ul").html($(".hide1",this).html());
         } else {
             $(".sanji").slideUp(300);
-            $("#cgl-contlist").find("ul").animate({
+            $("#cgl-contlist").find(".alllist").animate({
                 "margin-top": "0"
             }, 300);
         }
@@ -1137,7 +1120,7 @@ $(function() {
             fnurl(); //获取地址栏参数
             fnpricenum(); //获取购物车总金额和总数量
             fnxrym(); //通过参数渲染页面
-            fnscroll(); //打电话显示与隐藏
+            xiala(); //打电话显示与隐藏
             fnmenu(); //获取菜单列表
             fnhqactive();//获取促销活动列表
             fnerji(); //遮罩点击
@@ -1153,7 +1136,7 @@ $(function() {
         fnurl(); //获取地址栏参数
         fnpricenum(); //获取购物车总金额和总数量
         fnxrym(); //通过参数渲染页面
-        fnscroll(); //打电话显示与隐藏
+        xiala(); //打电话显示与隐藏
         fnmenu(); //获取菜单列表
         fnhqactive();//获取促销活动列表
         fnerji(); //遮罩点击
