@@ -732,7 +732,7 @@ $('.gailvok').click(function(){
 		
 		// 计算'随机'补贴峰值
 		// if(i>9){return false;}
-		i
+//		i
 		var gl = $('.Probability_value input').eq(i).val();
 		if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){ // 摇一摇中设置概率，计算单条补贴峰值
 			var percent = $('.addSub5').eq(yglindex-2).find('.Yyy3d1 input').val();
@@ -951,6 +951,7 @@ $('body').on('input','.addSubSubsidyPolicy .s1-1 input',function(e){
 $('nav span').click(function(){
 	$(this).addClass('on').siblings().removeClass('on');
 	$('section').eq($(this).index()).addClass('on').siblings().removeClass('on');
+	console.log($('section.on').index())
 	stepDis();
 });
 
@@ -2233,14 +2234,14 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 	// }
 
 }).on('blur','.acSe13 input',function(){
-
+	
 	var _this = $(this);
 	var thisVal = _this.val();
 	if(thisVal == focusVal){return}
 	if(isNaN(thisVal)){
 		thisVal = 0;
 	}
-
+	console.log(thisVal)
 	var addSub4 = _this.closest('.addSub4'),
 		addSub4_val = addSub4.find('.y1y').val();
 	if(addSub4_val != "" && addSub4_val != undefined){
@@ -2289,7 +2290,7 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 	var fengz = m * thisVal + '';
 	var pointIndex = fengz.indexOf('.');
 	var	fengz = pointIndex == -1 ? fengz : fengz.substring(0, pointIndex + 3);
-
+	console.log(fengz)
 	addSub4.find('.hdc6.fz .acSe14 input').val(fengz);
 	butiefz();
 
