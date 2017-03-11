@@ -109,9 +109,9 @@ function xiala() {
     });
 */
     //禁用手机默认的触屏滚动行为
-    $(".huadong")[0].addEventListener('touchmove', function(event) {
+   /* $(".huadong")[0].addEventListener('touchmove', function(event) {
         event.preventDefault();
-    }, false);
+    }, false);*/
     //touchstart事件
     function touchSatrtFunc(evt) {
         try {
