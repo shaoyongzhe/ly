@@ -413,7 +413,7 @@ function fnyucun() {
         url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
         //url: "../../data/activeindex.json",
         data: "",
-        timeout: "2000",
+        timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             $("#loading").hide();
