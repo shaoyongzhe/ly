@@ -85,7 +85,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 
 .cgl-contlist{overflow-y:auto;-webkit-box-flex: 1; padding-right: 20px;margin-right: -20px;padding-left:12px ;background: #fff;}
 .cgl-contlist::-webkit-scrollbar{width:0;}
-.sanji{display: none;width:76%;height: 78px;text-align: center;line-height: 78px;position: absolute;top: 0;right: 0;z-index: 2;}
+.sanji{display: none;width:76%;height: 79px;text-align: center;line-height: 79px;position: absolute;top: 0;right: 0;z-index: 2;}
 .sanji>h4{font-weight: 100;height: 76px;background: #fff;border-bottom: 1px solid #ddd;overflow: hidden;}
 .sanji>h4>i{width: 10px;height: 18px; transform: rotateZ(90deg);display: inline-block;position: relative;left: 16px;background: url("../image/shop/ra.jpg") no-repeat center;background-size:10px; }
 .sanji-zi{display: none;height: 100%; background: rgba(0,0,0,0.2);margin-top: -2px;}
@@ -94,7 +94,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 
 
 .cgl-contlist>ul{width: 100%;}
-.mart{padding-top: 78px;}
+.mart{padding-top: 79px;}
 .cgl-contlist>ul>li{border-bottom: 1px solid #c7c5c5;padding: 16px 0;}
 .cgl-top img{width: 100px;height: 100px;margin-right: 16px;}
 .the-xiangxi{-webkit-box-flex: 1;}
