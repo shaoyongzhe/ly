@@ -1,5 +1,5 @@
 html { font-size:0.6rem;}
-body{color:#888; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin:0; -webkit-text-size-adjust:none; padding:0; line-height:1.6em;}  
+body{color:#888; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin:0; -webkit-text-size-adjust:none; padding:0; line-height:1.6em;-webkit-tap-highlight-color:transparent;/*解决灰色闪动*/}  
 div,dl,dd,dt,ul,li,ol,caption,table,tbody,thead,tfoot,th,td,tr,form,button,input,select,textarea,legend,a,p,big,small,span,strong,sub,sup,b,em,i,h1,h2,h3,h4,h5,h6,cite,q,samp,pre,code,tt,br,hr,address,img,area,map,object,del,s,header,footer{ border:none; padding:0; margin:0; list-style:none;font-style:normal;-webkit-text-size-adjust:none; vertical-align: baseline;/* chrome */ }
 img,fieldset,table,input,textarea,button{border:none;}
 [contenteditable = "true"], input, textarea {
@@ -148,7 +148,7 @@ section li{
 }
 
 .change{
-	width:40%;height:20px;float:right
+	width:40%;height:20px;float:right;-webkit-tap-highlight-color:transparent;/*解决灰色闪动*/
 }
 .ab span:nth-child(2){
 	position: absolute;

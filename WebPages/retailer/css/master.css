@@ -269,7 +269,7 @@ section .remarks{
 	padding:3px 1px;position:absolute;
 }
 .give .give-con{
-	color:#8c8d90;padding:3px 6px;margin-left:3rem;word-break: break-all;width: auto;float: none;text-align: left;
+	color:#8c8d90;padding:3px 6px;margin-left:3.2rem;word-break: break-all;width: auto;float: none;text-align: left;
 }
 .give p{
 	width:3rem;float:right;padding:5px 0;text-align: right;
