@@ -87,7 +87,7 @@ function fnpricenum() {
 }
 //打电话滚动隐藏与显示
 function xiala() {
-    var heig=$(".toptop").height();
+    var heig=$(".proTitleBox").outerHeight()+$(".proDetailBox").outerHeight();
 /*
 
     $(".zhankai").on("click","span",function () {
@@ -139,10 +139,10 @@ function xiala() {
                 //swipeDown();//你自己的方法 我是用来翻页的一样的
                 $(".huadong")[0].removeEventListener('touchmove', touchMoveFunc, false);
                 $(".dealer-header").hide();
+                console.log(heig)
                 $(".toptop").stop().animate({
                     "height":heig
                 },200,function () {
-                    //$(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
                     $(".zhankai>span>img").addClass("xuanz");
                     $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
                 });
@@ -153,7 +153,6 @@ function xiala() {
                     "height":"80px"
                 },200,function () {
                     $(".dealer-header").show();
-                    //$(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
                     $(".zhankai>span>img").removeClass("xuanz");
                     $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
                 });
