@@ -295,17 +295,16 @@ function render(detailData){
 		}
 
 		var rangeStr = "";
-		
 
 		if(butie[i].refund_content == '摇一摇'){
 			var yaofz1 = 0;
 			var refund_content = "";
 			butie[i].prize_content.forEach( function(item, index) {
 				yaofz += Number(item.applycount);
-				yaofz1 += Number(item.applycount);
+				// yaofz1 += Number(item.applycount);
 				refund_content += item.refund_content + '</br>';
 			});
-			valTxt = "<i class='valTxt'>"+ Number(yaofz1).toFixed(2) + "</i>";
+			valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
 			rangeStr = ""+ refund_content +"</td><td>"+ butie[i].ceiling +
 			"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
 

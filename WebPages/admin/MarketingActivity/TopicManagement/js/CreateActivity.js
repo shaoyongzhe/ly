@@ -347,7 +347,7 @@ $('body').on("click",".set",function(e){
 
 	if( type == '摇一摇'){
 
-		y1yindex = addSub4.index();
+		y1yindex = addSub4.index(); $('#addSub4Index').val(y1yindex);
 
 		var yao_yuan = addSub4.find('.hdc6-2 input').val();
 		$('.hdsbys_text').text((Number($('.hdsbys_text').text()) - Number(yao_yuan)).toFixed(2));
@@ -650,7 +650,8 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	// debugger;
 	if(_this.closest('.addSub4').length == 1){
-		index = _this.closest('.addSub4').index();
+
+		index = _this.closest('.addSub4').index(); $('addSub4Index').val(_this.closest('.addSub4').index());
 
 		fwmin = parseFloat(_this.closest('.addSub4').find('.hdc4In1').val());
 		fwmax = parseFloat(_this.closest('.addSub4').find('.hdc4In2').val());
@@ -733,7 +734,7 @@ $('.gailvok').click(function(){
 		// if(i>9){return false;}
 		i
 		var gl = $('.Probability_value input').eq(i).val();
-		if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){ // 摇一摇中计算单条补贴峰值
+		if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){ // 摇一摇中设置概率，计算单条补贴峰值
 			var percent = $('.addSub5').eq(yglindex-2).find('.Yyy3d1 input').val();
 			// var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
 			var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
@@ -741,7 +742,7 @@ $('.gailvok').click(function(){
 
 		} else {
 			var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
-			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu ;
+			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu;
 		}
 
 		if(i == 9){return false}
@@ -2642,6 +2643,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 
 		// 2.会员活动条件
+		// 地区
 		if($('.region-item').length == 0){
 			$("nav span").eq(1).click();
 			if($('.setAreaBtn').css('display') == 'none'){
@@ -2652,6 +2654,16 @@ $('.saveToDb, .shenhe').click(function(){
 			return;
 		}
 
+		/*else {
+			$('.region-item').each(function(){
+				if($(this).find('.charge .shengfzr-wrap').length == 0){
+					layer.tips('请先选择负责人',$(this).find('.provice'));
+					finished = false;
+					return false;
+				}
+			});
+		}*/
+
 		if(finished == true){
 			$('.section2 .addSub1').each(function(){
 
@@ -2661,7 +2673,7 @@ $('.saveToDb, .shenhe').click(function(){
 					layer.tips('请先完善活动类型', addSub1.find('.activity .selected'));
 					finished = false;
 					return false;
-				} 
+				}
 				if(addSub1.find('.acSe3 .selected').text() == ""){
 					$("nav span").eq(1).click();
 					layer.tips('请先完善', addSub1.find('.acSe3 .selected'));

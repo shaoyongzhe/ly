@@ -106,15 +106,23 @@ function setChoosedProvinceCharge(_this, _thisProvince, choosedData)
 
 	$.each(choosedData, function(i, item)
 	{
-		if (item.name == _thisProvince && item.charge.guid)
-		{
-			_this.find('select').append('<option guid='+ item.charge.guid +' oid='+ item.charge.oid +' >'+ item.charge.name +'</option>');
-			findChoosedCharge["finded"] = true;
-			findChoosedCharge["chargeid"] = item.charge.guid;
-		}
+		// try {
+
+			if (item.name == _thisProvince && item.charge.guid)
+			{
+				_this.find('select').append('<option guid='+ item.charge.guid +' oid='+ item.charge.oid +' >'+ item.charge.name +'</option>');
+				findChoosedCharge["finded"] = true;
+				findChoosedCharge["chargeid"] = item.charge.guid;
+			}
+
+		// } catch(e) {
+		// 	console.log(e);
+		// }
+
 	});
 	
 	return findChoosedCharge;
+	
 }
 
 function setChoosedCityCharge(_this, _thisProvince, _thisCity, choosedData)
