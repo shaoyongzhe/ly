@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="font-size: 64px;">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="wispanh=device-wispanh, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!--
+    <meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+-->
+    <meta name="viewport" content="width=device-width,initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <title>分销商首页-促销专区</title>
     <link rel="stylesheet" type="text/css" href="../../css/activeindex.css">
@@ -12,43 +18,40 @@
     <script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"  type="text/javascript"></script>
     <script type="text/javascript" src="../../../js/wx/configinit.js"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="../../js/jquery-1.7.2.min.js"></script>
 
 </head>
 
-<body>
+<body style="width: 100%;">
 <div id="zhezao"> </div>
 <div class="container vert">
-
-    <div class="toptop">
-        <div class="dealer-header">
-            <i></i>
-            <a href=""><img src="../../image/shop/icon_tel.png" alt=""></a>
-        </div>
-        <div class="proTitleBox hori">
-            <div class="proTitleBoxl"><img src="" alt=""></div>
-            <div class="proTitleBoxr">
-                <h3 id="distributornameh3"></h3>
-                <div class="proTitleInfo hori">
-                    <div class="proTitleInfol">
-                        <span>联系人</span><span id="contactperson"></span><br/>
-                        <span>起送价</span><span id="cutgift"></span>
-                    </div>
-                    <div class="proTitleInfor">
-                        <a href="">
-                            <img src="../../image/shop/telBtn.png" width="58" height="58" alt="" />
-                        </a>
+    <div class="huadong">
+        <div class="toptop">
+            <div class="dealer-header">
+                <i></i>
+                <a href=""><img src="../../image/shop/icon_tel.png" alt=""></a>
+            </div>
+            <div class="proTitleBox hori">
+                <div class="proTitleBoxl"><img src="" alt=""></div>
+                <div class="proTitleBoxr">
+                    <div id="distributornameh3"></div>
+                    <div class="proTitleInfo hori">
+                        <div class="proTitleInfol">
+                            <span>联系人</span><span id="contactperson"></span><br/>
+                            <span>起送价</span><span id="cutgift"></span>
+                        </div>
+                        <div class="proTitleInfor">
+                            <a href="">
+                                <img src="../../image/shop/telBtn.png" width="58" height="58" alt="" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="proDetailBox"></div>
         </div>
-        <div class="proDetailBox"></div>
+        <div class="zhankai"><span></span></div>
     </div>
-    <div class="zhankai"><span></span></div>
-
-
-
-
     <div class="proSearch hori">
         <div class="titlestyle">
             <span>品牌</span>
@@ -86,8 +89,8 @@
                 <img src="../../image/shop/loading.gif" />
                 <div>加载中...</div>
             </div>
-            <div id="nono" style="display: none;padding-top: 70px;">
-                <img src="../../image/shop/icon_cry.png" style="width:1.6rem;height:1.6rem;position:relative;left:44%;top:25%;"/>
+            <div id="nono" style="display: none;padding-top: 140px;">
+                <img src="../../image/shop/icon_cry.png" style="width:84px;height:84px;margin: 0 auto;"/>
                 <div style="position: relative;top: 30%;text-align:center;color:#333;padding-top: 5px;">没有预存货哦~</div>
             </div>
             <div id="zongloading">
@@ -118,7 +121,7 @@
         <div>提示</div>
         <div>
             <p style="width:90%;height:80%;margin:4% 0 0 5%">
-                <img style="width:1.5rem;height:1.5rem;display:block;float:left;margin: 5% 0 0 5%;" src="../../image/shop/cry.jpg" />
+                <img style="width:60px;height:60px;display:block;float:left;margin: 5% 0 0 5%;" src="../../image/shop/cry.jpg" />
                 <span class="ms"></span>
             </p>
         </div>
@@ -127,7 +130,7 @@
         </div>
     </div>
 </div>
-<div class="cgl-tishi" style="min-width: 100px;height: 40px;font-size: 12px; border-radius: 5px;color: #fff;text-align: center;line-height: 40px; background: rgba(50,50,50,0.8); position: fixed;top: 50%;left: 50%;margin-left: -50px;display: none;">123</div>
+<div class="cgl-tishi" style="min-width: 200px;height: 80px;font-size: 24px; border-radius: 10px;color: #fff;text-align: center;line-height: 80px; background: rgba(50,50,50,0.8); position: fixed;top: 50%;left: 50%;margin-left: -100px;display: none;"></div>
 </body>
 
 <script src="../../js/jrsafari.js"></script>
