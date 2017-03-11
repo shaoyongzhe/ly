@@ -141,8 +141,9 @@ function xiala() {
                 $(".dealer-header").hide();
                 $(".toptop").stop().animate({
                     "height":heig
-                },300,function () {
-                    $(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
+                },200,function () {
+                    //$(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
+                    $(".zhankai>span>img").addClass("xuanz");
                     $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
                 });
             } else if(y - startY < -10){
@@ -150,12 +151,14 @@ function xiala() {
                 $(".huadong")[0].removeEventListener('touchmove', touchMoveFunc, false);
                 $(".toptop").stop().animate({
                     "height":"80px"
-                },300,function () {
+                },200,function () {
                     $(".dealer-header").show();
-                    $(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
+                    //$(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
+                    $(".zhankai>span>img").removeClass("xuanz");
                     $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
                 });
             }
+
         } catch (e) {
             console.log('touchMoveFunc：' + e.message);
         }
@@ -427,7 +430,7 @@ function fnyucun() {
                 $("#loading").hide()
                 $("#nono").show().find("div").html("您暂无预存货，看看其它商品吧~");
             }else{
-                fnychxr(data);
+               fnychxr(data);
             }
             $("#zhezao").hide();
         }
@@ -464,7 +467,6 @@ function fnychxr(data) {
             } else {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
-            /*"<span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(2) + "<i></i></span>"*/
             oli +="</div>" +
                 "<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
             oli += "</div>" +
@@ -505,7 +507,7 @@ function fnhqactive() {
             $("#zongloading").hide();
             $("#zhezao").hide();
             if(data.length<=0){
-                $("#nono").show().find("div").html("暂无促销活动商品唉~");
+                $("#nono").show().find("div").html("暂无促销活动商品哎~");
             }else{
                 fncuxiao(data);
             }
@@ -552,7 +554,7 @@ function fncuxiao(data) {
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
@@ -585,7 +587,7 @@ function fncuxiao(data) {
             }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         }
@@ -666,7 +668,7 @@ function fnyibanlist2(data) {
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
@@ -699,7 +701,7 @@ function fnyibanlist2(data) {
             }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         }else if(data[k1]["itemslist"]) {
@@ -719,7 +721,7 @@ function fnyibanlist2(data) {
                         "<div class='the-xiangxi'> " +
                         "<span><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</span>" +
                         "<div class='ggdiv'><p class='ggborder'>" + (data[k1]["itemslist"][k2]["specification"]==null?"":data[k1]["itemslist"][k2]["specification"]+" | ") + (data[k1]["itemslist"][k2]["packagetypename"]==undefined?"":data[k1]["itemslist"][k2]["packagetypename"]) + "</p></div>" +
-                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
+                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + Number(data[k1]["itemslist"][k2]["price"]).toFixed(2) + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemslist"][k2]["itemcount"] <= 0) {
                         oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
@@ -745,7 +747,7 @@ function fnyibanlist2(data) {
                         "<div class='the-xiangxi'> " +
                         "<span><span></span>" + data[k1]["itemslist"][k3]["itemname"] + "</span>" +
                         "<p>" + (data[k1]["itemslist"][k3]["specification"]==null?"":data[k1]["itemslist"][k3]["specification"]+" | ") + (data[k1]["itemslist"][k3]["packagetypename"]==undefined?"":data[k1]["itemslist"][k3]["packagetypename"]) + "</p>" +
-                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k3]["price"] + "</i></span>" +
+                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + Number(data[k1]["itemslist"][k3]["price"]).toFixed(2) + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemslist"][k3]["itemcount"] <= 0) {
                         oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemslist"][k3]["itemcount"] + "</span><span class='add'></span>";
@@ -770,7 +772,7 @@ function fnyibanlist2(data) {
                 "<div class='the-xiangxi'> " +
                 "<span><span></span>" + data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"]+ " | ") + (data[k1]["packagetypename"] == undefined ? "" : data[k1]["packagetypename"]) + "</p>" +
-                "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</i></span>";
+                "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2) + "</i></span>";
             oli += "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -962,6 +964,7 @@ function keyLogin(){
 function fnserach() {
     fnyinxian();
     keyLogin();
+    $(".content").val("");
     var _ti=1;
     //清空按钮点击
     $(".clear").on("click", function() {
