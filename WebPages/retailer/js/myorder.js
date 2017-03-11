@@ -32,31 +32,31 @@
 					 	  }
 		  		 	  //_nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
 						  $("#select ul").html(_nameList);
+						  
 						  		$("#select li:first-child").addClass("selected")
-					 	  		if($("#select li p").css("width").replace("px","")+14<=$("#select li").css("width")){
+					 	  		if($("#select li p").height()<$("#select li").height()){
 						  				$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
+						 			}else{
+						 				$("#select li").css({"textAlign":"left","lineHeight":"normal"})
 						 			}
 
 
-					   		$("#select li").click(function(){
+					   		$("#select>ul>li").click(function(){
 					   			  localStorage.list=$(this).attr("id")
 								 		$("#select li").removeClass("selected")
 								 		$(this).attr("class","selected");
 								 		that=$(this);
-								 		_timer=setTimeout(function(){
+								 		var _timer=setTimeout(function(){
 								 			
 								 			if(_flag==1){
 								 					_flag=0;
-								 					if(!that.css("border-left")){
+								 					if(that.css("border-left")){
 								 						$(".onload").css({"display":"block"})
 								 							shopList(that.attr("id"))
 								 							
 								 					}else{
 								 						_flag=1
 								 					}
-								 			}else{
-								 					
-								 					_timer()
 								 			}
 								 			
 								 		},10)

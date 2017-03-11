@@ -43,10 +43,10 @@ function fngetlist() {
             //data.data.length=0
             if(data.data.length<1){
             	$(".noone").show();
-            	$(".toorder").hide();
+            	$(".toorder").css({display:"none"});
 			}else {
                 $(".noone").hide();
-                $(".toorder").show();
+                $(".toorder").css({display:"block"});
                 data=data.data;
                 var oli="";
                 var ceng1=null;
