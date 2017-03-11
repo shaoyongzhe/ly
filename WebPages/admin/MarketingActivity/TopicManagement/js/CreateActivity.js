@@ -9,6 +9,7 @@ var addsub4HTML="";
 var addsub5HTML="";
 
 var fzrurl = '/webapi/ipaloma/topic/charge';
+ClearSessionStorage();
 _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
 	// c(fzr)
@@ -3476,4 +3477,5 @@ function ClearSessionStorage(){
 	sessionStorage.removeItem("districtData");
 	sessionStorage.removeItem("choosedData");
 	sessionStorage.removeItem("shengfzr");
+	sessionStorage.removeItem("allcharge");
 }
