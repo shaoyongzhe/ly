@@ -1046,6 +1046,7 @@ function fnsearchyc(odata) {
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
+            $("#loading").hide();
         },
         success: function(data) {
             console.log(data)
@@ -1078,6 +1079,8 @@ function fnserchapi(odata) {
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
+            $("#loading").hide();
+            $("#nono").show().find("div").html("网络出错了~");
         },
         success: function(data) {
             console.log(data);
