@@ -424,7 +424,7 @@ function fnyucun() {
             $("#loading").hide();
             if(data.length==0){
                 $("#loading").hide()
-                $("#nono").show();
+                $("#nono").show().find("div").html("您暂无预存货，看看其它商品吧~");
             }else{
                 fnychxr(data);
             }
@@ -504,7 +504,7 @@ function fnhqactive() {
             $("#zongloading").hide();
             $("#zhezao").hide();
             if(data.length<=0){
-                $(".cgl-tishi").html("暂无活动商品~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+                $("#nono").show().find("div").html("暂无促销活动商品唉~");
             }else{
                 fncuxiao(data);
             }
@@ -1080,7 +1080,7 @@ function fnserchapi(odata) {
             }
             $("#zhezao").hide();
             $("#loading").hide();
-            $("#nono").show().find("div").html("网络出错了~");
+            $("#nono").show().find("div").html("没有查询到销售商品！");
         },
         success: function(data) {
             console.log(data);
