@@ -1,7 +1,7 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
 var statisticArr=[];
 
-
+ClearSessionStorage();
 function GetUrlParam() {
     
     var url = location.search;
