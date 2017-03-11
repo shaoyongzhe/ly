@@ -43,10 +43,10 @@ function fngetlist() {
             //data.data.length=0
             if(data.data.length<1){
             	$(".noone").show();
-            	$(".toorder").hide();
+            	$(".toorder").css({display:"none"});
 			}else {
                 $(".noone").hide();
-                $(".toorder").show();
+                $(".toorder").css({display:"block"});
                 data=data.data;
                 var oli="";
                 var ceng1=null;
@@ -63,9 +63,10 @@ function fngetlist() {
                     itemcount:null,
                     active:null
                 };
-
+                var geshu=0;
                 for(var k1 in data){
                     if(data[k1]["openshipping"]==1){
+                        geshu++;
                         $(".toorder").show();
                         ceng1=data[k1];
                         thissp.distributor_id=ceng1["distributor_id"];
@@ -84,9 +85,9 @@ function fngetlist() {
                             "<div class='main-rt'>" +
                             "<div class='namejia left'>" +
                             "<a>" +
-                            "<h3>"+ceng1["distributorname"]+"</h3>" +
+                            "<div class='listname'>"+ceng1["distributorname"]+"</div>" +
                             "</a>" +
-                            "<p>起送价 ￥<strong>"+ceng1["cutgift"]+"</strong>元</p>" +
+                            "<p>起送价 ￥<i>"+ceng1["cutgift"]+"</i>元</p>" +
                             "</div>" +
                             "<a href='shopcar.html?distributor_id="+thissp.distributor_id+"'><span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span></a>" +
                             "</div>" +
@@ -137,6 +138,10 @@ function fngetlist() {
                     sessionStorage.setItem("fenxiao",JSON.stringify(thissp1))
                     window.location="activeindex.html";
                 });
+                if(geshu==0){
+                    $(".noone").show();
+                    $(".toorder").hide();
+                }
             }
 
 
