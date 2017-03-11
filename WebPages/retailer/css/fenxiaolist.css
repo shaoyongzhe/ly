@@ -24,9 +24,9 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 
 .main-rt{border-bottom: 1px solid #d4d4d4;height: 84px;}
 .namejia{width: 384px;}
-.namejia h3{font-size: 30px;font-weight: 100;color: #333333;line-height: 1;white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
+.listname{font-size: 30px;font-weight: 100;color: #333333;line-height: 1;white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
 .namejia>p{color: #999;line-height: 58px;}
-.namejia>p>strong{font-weight: 100;}
+.namejia>p>i{font-weight: 100;font-style: normal;}
 .joincar{width: 60px;height: 60px;background: url("../image/shop/buycar.png") no-repeat center;background-size:60px; }
 .joincar>em{display: block;width: 56px;height: 56px;border: 1px solid #fff;border-radius: 50%;background: red;color: #fff;float: right;margin:-24px -24px 0 0;text-align: center;line-height: 60px;font-size: 32px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     transform: scale(0.5);

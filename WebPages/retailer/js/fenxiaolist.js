@@ -84,9 +84,9 @@ function fngetlist() {
                             "<div class='main-rt'>" +
                             "<div class='namejia left'>" +
                             "<a>" +
-                            "<h3>"+ceng1["distributorname"]+"</h3>" +
+                            "<div class='listname'>"+ceng1["distributorname"]+"</div>" +
                             "</a>" +
-                            "<p>起送价 ￥<strong>"+ceng1["cutgift"]+"</strong>元</p>" +
+                            "<p>起送价 ￥<i>"+ceng1["cutgift"]+"</i>元</p>" +
                             "</div>" +
                             "<a href='shopcar.html?distributor_id="+thissp.distributor_id+"'><span class='joincar right'><em>"+ceng1["itemcount"]+"</em></span></a>" +
                             "</div>" +

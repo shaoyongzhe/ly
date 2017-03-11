@@ -6,12 +6,12 @@ function fnpinpai() {
     var _tg=1;
     $(".titlestyle").on("click", function() {
         if(_tg==1){
-            $(this).find("img").css({transform:"rotate(90deg)",transitionDuration:"0.2s"})
-            $(this).find("ul").show()
+            $(this).find("img").css({transform:"rotate(90deg)",transitionDuration:"0.2s"});
+            $(this).find("ul").show();
             _tg=0
         }else{
-            $(this).find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
-            $(this).find("ul").hide()
+            $(this).find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"});
+            $(this).find("ul").hide();
             _tg=1
         }
     }).on("click", "ul>li", function() {
@@ -22,7 +22,7 @@ function fnpinpai() {
 
     $(document).click(function(e) {
         if(!$(e.target).closest(".titlestyle").length) {
-        	$(".titlestyle").find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"})
+        	$(".titlestyle").find("img").css({transform:"rotate(0deg)",transitionDuration:"0.2s"});
             $(".titlestyle>ul").hide();
         }
     });
@@ -72,11 +72,11 @@ function fnpricenum() {
             $(".cfm").click(function(){
                 $(".tsh").hide();
                 location.reload()
-            })
+            });
             $("#zhezao").hide();
         },
         success: function(data) {
-            console.log(data)
+            console.log(data);
             $(".ammount").html(data.itemcount);
             $(".num").html(data.itemcount);
             $(".price>i").html(data["moneycount"].toFixed(2));
@@ -207,6 +207,7 @@ function fnclick() {
         var submenu = this.el.find('.submenu');
         //品牌下的一级分类点击
         submenu.on("click", "li", function() {
+            $("#getmore").hide();
             $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
             $("i",this).css({"background-image":'url("../../image/shop/hssanjiao.png")'});
             $(".sanji").css({"height":"78px"}).find("h4").html("全部子类型<i></i>");
@@ -258,17 +259,19 @@ function fnmenuclick() {
         state["lastcount"]=10;
         thetext = $(this).text();
         if(thetext == "我的预存货") {
-            state["supplierid"]= "";
+            state["supplierid"]="";
             state["itemcategory"]="";
             $("#cgl-menu").find("li").show();
             fnyucun();
             $(".cgl-contlist").off("scroll");
+            $("#getmore").hide();
             console.log(state)
         } else if(thetext == "促销活动") {
-            state["supplierid"]= "";
+            state["supplierid"]="";
             state["itemcategory"]="";
             fnhqactive();
             $(".cgl-contlist").off("scroll");
+            $("#getmore").hide();
             console.log(state)
         } else {
             var ckid = $(this).parents("li").attr("id");
@@ -284,6 +287,7 @@ function fnmenuclick() {
             console.log(state)
             fnlist2(odata);
             flag=1;
+            getmore();
         }
     });
 }
@@ -420,7 +424,7 @@ function fnyucun() {
             $("#loading").hide();
             if(data.length==0){
                 $("#loading").hide()
-                $("#nono").show();
+                $("#nono").show().find("div").html("您暂无预存货，看看其它商品吧~");
             }else{
                 fnychxr(data);
             }
@@ -449,7 +453,7 @@ function fnychxr(data) {
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
-                "<h3><span class='yucunicon'></span>" + data[k1]["itemname"] + "</h3>" +
+                "<span><span class='yucunicon'></span>" + data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"]==null?"":(data[k1]["specification"] + " | ")) + (data[k1]["packagetypename"]==null?"":data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
                 "<span>￥<i>"+Number(data[k1]["itemunitcost"]).toFixed(2)+"</i></span>";
@@ -500,7 +504,7 @@ function fnhqactive() {
             $("#zongloading").hide();
             $("#zhezao").hide();
             if(data.length<=0){
-                $(".cgl-tishi").html("暂无活动商品~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+                $("#nono").show().find("div").html("暂无促销活动商品唉~");
             }else{
                 fncuxiao(data);
             }
@@ -528,11 +532,11 @@ function fncuxiao(data) {
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
-                "<h3>";
+                "<span>";
             if(data[k1]["itemquality"] == 0) {
                 oli += "<span class='cgl-linqi'></span>";
             }
-            oli += data[k1]["itemname"] + "</h3>" +
+            oli += data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"] + " | ") + (data[k1]["packagetypename"] == null ? "" : data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
                 "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(2) + "</i></span>" +
@@ -557,11 +561,11 @@ function fncuxiao(data) {
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
-                "<h3>";
+                "<span>";
             if(data[k1]["itemquality"] == 0) {
                 oli += "<span class='cgl-linqi'></span>";
             }
-            oli += data[k1]["itemname"] + "</h3>" +
+            oli += data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"]==null?"":data[k1]["specification"]+" | ") + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
                 "<span>￥<i>" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2) + "</i></span>" +
@@ -642,11 +646,11 @@ function fnyibanlist2(data) {
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
-                "<h3>";
+                "<span>";
             if(data[k1]["itemquality"] == 0) {
                 oli += "<span class='cgl-linqi'></span>";
             }
-            oli += data[k1]["itemname"] + "</h3>" +
+            oli += data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"]+" | ") + (data[k1]["packagetypename"] == undefined ? "" : data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
                 "<span>￥<i>" + Number(data[k1]["discountprice"] || data[k1]["price"]*data[k1]["discount"]*0.1).toFixed(2) + "</i></span>" +
@@ -671,11 +675,11 @@ function fnyibanlist2(data) {
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
-                "<h3>";
+                "<span>";
             if(data[k1]["itemquality"] == 0) {
                 oli += "<span class='cgl-linqi'></span>";
             }
-            oli += data[k1]["itemname"] + "</h3>" +
+            oli += data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"]==null?"":data[k1]["specification"]+" | ") + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'>" +
                 "<span>￥<i>" + Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2) + "</i></span>" +
@@ -712,7 +716,7 @@ function fnyibanlist2(data) {
                     oli += "<div class='cgl-top hori'> " +
                         "<img src='" + data[k1]["itemslist"][k2]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
-                        "<h3><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</h3>" +
+                        "<span><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</span>" +
                         "<div class='ggdiv'><p class='ggborder'>" + (data[k1]["itemslist"][k2]["specification"]==null?"":data[k1]["itemslist"][k2]["specification"]+" | ") + (data[k1]["itemslist"][k2]["packagetypename"]==undefined?"":data[k1]["itemslist"][k2]["packagetypename"]) + "</p></div>" +
                         "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
                         "<div class='right'>";
@@ -738,7 +742,7 @@ function fnyibanlist2(data) {
                         "<div class='cgl-top hori'> " +
                         "<img src='" + data[k1]["itemslist"][k3]["itemimage"] + "' alt=''> " +
                         "<div class='the-xiangxi'> " +
-                        "<h3><span></span>" + data[k1]["itemslist"][k3]["itemname"] + "</h3>" +
+                        "<span><span></span>" + data[k1]["itemslist"][k3]["itemname"] + "</span>" +
                         "<p>" + (data[k1]["itemslist"][k3]["specification"]==null?"":data[k1]["itemslist"][k3]["specification"]+" | ") + (data[k1]["itemslist"][k3]["packagetypename"]==undefined?"":data[k1]["itemslist"][k3]["packagetypename"]) + "</p>" +
                         "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k3]["price"] + "</i></span>" +
                         "<div class='right'>";
@@ -763,7 +767,7 @@ function fnyibanlist2(data) {
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
-                "<h3><span></span>" + data[k1]["itemname"] + "</h3>" +
+                "<span><span></span>" + data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"]+ " | ") + (data[k1]["packagetypename"] == undefined ? "" : data[k1]["packagetypename"]) + "</p>" +
                 "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</i></span>";
             oli += "<div class='right'>";
@@ -1042,6 +1046,7 @@ function fnsearchyc(odata) {
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
+            $("#loading").hide();
         },
         success: function(data) {
             console.log(data)
@@ -1074,6 +1079,8 @@ function fnserchapi(odata) {
                 XMLHttpRequest.abort();
             }
             $("#zhezao").hide();
+            $("#loading").hide();
+            $("#nono").show().find("div").html("没有查询到销售商品！");
         },
         success: function(data) {
             console.log(data);
@@ -1163,7 +1170,7 @@ var flag=0;
 function getmore() {
     var hcha=null;
 
-    $("#cgl-contlist").delay(300).scroll(function () {
+    $("#cgl-contlist").delay(500).off("scroll").on("scroll",function () {
         hcha=$(this)[0].scrollHeight-$(this).outerHeight()-$(this)[0].scrollTop;
         if(hcha==0 && state["supplierid"] != "" && flag==Math.floor(state["lastcount"]/state["pagecount"]) && $("ul",this).outerHeight()>100){
             $("#getmore").show();
