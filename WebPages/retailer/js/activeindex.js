@@ -552,7 +552,7 @@ function fncuxiao(data) {
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
@@ -585,7 +585,7 @@ function fncuxiao(data) {
             }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         }
@@ -666,7 +666,7 @@ function fnyibanlist2(data) {
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
@@ -699,7 +699,7 @@ function fnyibanlist2(data) {
             }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<p class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</p>";
+                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
             }
             oli += "</li>";
         }else if(data[k1]["itemslist"]) {
