@@ -143,9 +143,10 @@ function fngetlist() {
                     $(".toorder").hide();
                 }
             }
+            if($("*",".cgl-manj").length<1){
+                $(".main-rt").css("border","0");
+            }
 
-
-            
         }
     });
 }
@@ -153,24 +154,7 @@ function fngetlist() {
 
 
 $(function () {
-	//location.reload()
-//	$.ajax({
-//      type: "get",
-//    	url: "/webapi/account/login/ozt7Ntwv2IynvKUMokgnelKWCOQQ",
-//      data: "",
-//      timeout:"9000",
-//      dataType:"json",
-//      error:function(XMLHttpRequest, textStatus, errorThrown){
-//      	if(textStatus=="timeout"){
-//      		console.log("请求超时")
-//      		XMLHttpRequest.abort();
-//      	}
-//      },
-//      success: function(data){
-//      	console.log(data)
-//      }
-// });
-   	
+
 	
 	if(!localStorage.reload){
 		localStorage.reload=1;
