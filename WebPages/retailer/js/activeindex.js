@@ -232,6 +232,7 @@ function fnclick() {
             $this = $(this),
             $next = $this.next();
         $next.find("li").removeClass("col1"); //删除橙色字的颜色
+        $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
         $(".sanji").hide().css({"height":"79px"});
         $(".cgl-contlist").find(">ul>li").show();
         $next.stop().slideToggle(300);
@@ -244,7 +245,7 @@ function fnclick() {
         $this.parent().addClass('clion');
         $el.find(".link>i").removeClass("iclick");
         $this.find("i").addClass("iclick");
-        $this.next().find(">li:eq(0)").addClass("col1").find("i").css({"background-image":'url("../../image/shop/hssanjiao.png")'});
+        //$this.next().find(">li:eq(0)").addClass("col1").find("i").css({"background-image":'url("../../image/shop/hssanjiao.png")'});
         if(!e.data.multiple) {
             $el.find('.submenu').not($next).slideUp(300);
         };
