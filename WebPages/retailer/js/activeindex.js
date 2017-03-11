@@ -210,13 +210,13 @@ function fnclick() {
             $("#getmore").hide();
             $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
             $("i",this).css({"background-image":'url("../../image/shop/hssanjiao.png")'});
-            $(".sanji").css({"height":"78px"}).find("h4").html("全部子类型<i></i>");
+            $(".sanji").css({"height":"79px"}).find("h4").html("全部子类型<i></i>");
             submenu.find("li").removeClass("col1");
             $(this).addClass("col1");
             if($(this).find(".hide1").length > 0) {
                 $(".sanji").slideDown(300).find("h4>i").css("transform", "rotateZ(90deg)");
                 $(".alllist").animate({
-                    "margin-top": "78px"
+                    "margin-top": "79px"
                 }, 300);
                 $(".sanji-zi").hide().find("ul").html($(this).find(">ul").html());
             } else {
@@ -232,7 +232,7 @@ function fnclick() {
             $this = $(this),
             $next = $this.next();
         $next.find("li").removeClass("col1"); //删除橙色字的颜色
-        $(".sanji").hide().css({"height":"78px"});
+        $(".sanji").hide().css({"height":"79px"});
         $(".cgl-contlist").find(">ul>li").show();
         $next.stop().slideToggle(300);
         $(".alllist").animate({
@@ -301,7 +301,7 @@ function fnerji() {
             $(".sanji").css({"height":"100%"});
         } else {
             $("h4>i", this).css("transform", "rotateZ(90deg)");
-            $(".sanji").css({"height":"78px"});
+            $(".sanji").css({"height":"79px"});
         }
     });
 }
@@ -1171,41 +1171,44 @@ function getmore() {
     var hcha=null;
 
     $("#cgl-contlist").delay(500).off("scroll").on("scroll",function () {
-        hcha=$(this)[0].scrollHeight-$(this).outerHeight()-$(this)[0].scrollTop;
-        if(hcha==0 && state["supplierid"] != "" && flag==Math.floor(state["lastcount"]/state["pagecount"]) && $("ul",this).outerHeight()>100){
-            $("#getmore").show();
-            $("#zhezao").show();
-            flag++;
-            $.ajax({
-                type: "get",
-                url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
-                data: state,
-                timeout: "9000",
-                dataType: "json",
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    if (textStatus == "timeout") {
-                        $("#loading img").remove();
-                        $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
-                        //console.log("请求超时");
-                        XMLHttpRequest.abort();
-                    }
-                    $("#zhezao").hide();
-                    flag--;
-                },
-                success: function (data) {
-                    $("#zhezao").hide();
-                    if(data.length>0){
-                        fnyibanlist2(data);
-                        state["lastcount"]+=10;
+        if($("li",".alllist").length>=10){
+            hcha=$(this)[0].scrollHeight-$(this).outerHeight()-$(this)[0].scrollTop;
+            if(hcha==0 && state["supplierid"] != "" && flag==Math.floor(state["lastcount"]/state["pagecount"]) && $("ul",this).outerHeight()>100){
+                $("#getmore").show();
+                $("#zhezao").show();
+                flag++;
+                $.ajax({
+                    type: "get",
+                    url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+                    data: state,
+                    timeout: "9000",
+                    dataType: "json",
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        if (textStatus == "timeout") {
+                            $("#loading img").remove();
+                            $(".cgl-tishi").html("请求超时~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+                            //console.log("请求超时");
+                            XMLHttpRequest.abort();
+                        }
+                        $("#zhezao").hide();
+                        flag--;
+                    },
+                    success: function (data) {
+                        $("#zhezao").hide();
+                        if(data.length>0){
+                            fnyibanlist2(data);
+                            state["lastcount"]+=10;
 
-                    }else{
-                        $("#getmore").hide();
-                        $(".cgl-tishi").html("没有更多了~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+                        }else{
+                            $("#getmore").hide();
+                            $(".cgl-tishi").html("没有更多了~").stop(true, true).fadeIn(500).delay(1000).fadeOut(500);
+                        }
+                        console.log(flag,Math.floor(state["lastcount"]/state["pagecount"]+1));
                     }
-                    console.log(flag,Math.floor(state["lastcount"]/state["pagecount"]+1));
-                }
-            });
+                });
+            }
         }
+
     });
 }
 $(function() {

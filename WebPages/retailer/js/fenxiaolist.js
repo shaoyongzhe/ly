@@ -63,9 +63,10 @@ function fngetlist() {
                     itemcount:null,
                     active:null
                 };
-
+                var geshu=0;
                 for(var k1 in data){
                     if(data[k1]["openshipping"]==1){
+                        geshu++;
                         $(".toorder").show();
                         ceng1=data[k1];
                         thissp.distributor_id=ceng1["distributor_id"];
@@ -137,6 +138,10 @@ function fngetlist() {
                     sessionStorage.setItem("fenxiao",JSON.stringify(thissp1))
                     window.location="activeindex.html";
                 });
+                if(geshu==0){
+                    $(".noone").show();
+                    $(".toorder").hide();
+                }
             }
 
 
