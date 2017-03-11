@@ -61,7 +61,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 /**************中间主要内容***************/
 #cgl-cont{border-top: 1px solid #ddd;overflow: hidden;background: #f5f5f5;-webkit-box-flex: 1;position: relative;}
 .cgl-menu{width: 24%; background: #f5f5f5;overflow-y: scroll;-webkit-overflow-scrolling: touch;}
-.cgl-menu>li{line-height: 78px;text-indent: 16px; border-bottom: 1px solid #ddd;font-size: 24px;color: #666;position: relative;}
+.cgl-menu>li{line-height: 78px;text-indent: 16px; border-bottom: 1px solid #ddd;font-size: 26px;color: #666;position: relative;}
 .cgl-menu>li.clion{background: #fff;}
 .clion:before{content: "";width: 10px;height: 78px;background: #f7af01;position: absolute;left: 0;top: 0;}
 .sale:after{content: "";width: 40px;height: 40px;position: absolute;top: 0;right: 0;background: url("../image/shop/sale.png") no-repeat;background-size: 40px;}
@@ -72,8 +72,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .link{position: relative;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;padding-right: 20px;}
 .link>i{display: block;width: 10px;height: 18px;background: url(../image/shop/heisanjiao.png) no-repeat;background-size:10px 18px;position: absolute;right: 8px;bottom: 28px;}
 .link>i.iclick{transform:rotateZ(90deg); }
-#loading{height: 100%; display: none;}
-#loading>p{height: 160px;}
+#loading{height: 100%;padding-top: 55%; display: none;}
 #loading>img{width: 84px;height: 84px;margin: 0 auto 4px;}
 #loading>div{text-align: center;}
 

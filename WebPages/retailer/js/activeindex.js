@@ -427,7 +427,7 @@ function fnyucun() {
                 $("#loading").hide()
                 $("#nono").show().find("div").html("您暂无预存货，看看其它商品吧~");
             }else{
-                fnychxr(data);
+               fnychxr(data);
             }
             $("#zhezao").hide();
         }
@@ -464,7 +464,6 @@ function fnychxr(data) {
             } else {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
-            /*"<span class='del'>￥" + Number(data[k1]["itemunitcost"]).toFixed(2) + "<i></i></span>"*/
             oli +="</div>" +
                 "<div class='cgl-syu'>可提<span> " + data[k1]["remaincount"] + " </span>" + data[k1]["packagetypename"] + "</div>";
             oli += "</div>" +
@@ -505,7 +504,7 @@ function fnhqactive() {
             $("#zongloading").hide();
             $("#zhezao").hide();
             if(data.length<=0){
-                $("#nono").show().find("div").html("暂无促销活动商品唉~");
+                $("#nono").show().find("div").html("暂无促销活动商品哎~");
             }else{
                 fncuxiao(data);
             }
@@ -719,7 +718,7 @@ function fnyibanlist2(data) {
                         "<div class='the-xiangxi'> " +
                         "<span><span></span>" + data[k1]["itemslist"][k2]["itemname"] + "</span>" +
                         "<div class='ggdiv'><p class='ggborder'>" + (data[k1]["itemslist"][k2]["specification"]==null?"":data[k1]["itemslist"][k2]["specification"]+" | ") + (data[k1]["itemslist"][k2]["packagetypename"]==undefined?"":data[k1]["itemslist"][k2]["packagetypename"]) + "</p></div>" +
-                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k2]["price"] + "</i></span>" +
+                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + Number(data[k1]["itemslist"][k2]["price"]).toFixed(2) + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemslist"][k2]["itemcount"] <= 0) {
                         oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemslist"][k2]["itemcount"] + "</span><span class='add'></span>";
@@ -745,7 +744,7 @@ function fnyibanlist2(data) {
                         "<div class='the-xiangxi'> " +
                         "<span><span></span>" + data[k1]["itemslist"][k3]["itemname"] + "</span>" +
                         "<p>" + (data[k1]["itemslist"][k3]["specification"]==null?"":data[k1]["itemslist"][k3]["specification"]+" | ") + (data[k1]["itemslist"][k3]["packagetypename"]==undefined?"":data[k1]["itemslist"][k3]["packagetypename"]) + "</p>" +
-                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + data[k1]["itemslist"][k3]["price"] + "</i></span>" +
+                        "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + Number(data[k1]["itemslist"][k3]["price"]).toFixed(2) + "</i></span>" +
                         "<div class='right'>";
                     if(data[k1]["itemslist"][k3]["itemcount"] <= 0) {
                         oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemslist"][k3]["itemcount"] + "</span><span class='add'></span>";
@@ -770,7 +769,7 @@ function fnyibanlist2(data) {
                 "<div class='the-xiangxi'> " +
                 "<span><span></span>" + data[k1]["itemname"] + "</span>" +
                 "<p>" + (data[k1]["specification"] == null ? "" : data[k1]["specification"]+ " | ") + (data[k1]["packagetypename"] == undefined ? "" : data[k1]["packagetypename"]) + "</p>" +
-                "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + (data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]) + "</i></span>";
+                "<div class='c-price' dataid='" + JSON.stringify(dataid) + "'><span>￥<i>" + Number(data[k1]["originalprice"] || data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2) + "</i></span>";
             oli += "<div class='right'>";
             if(data[k1]["itemcount"] <= 0) {
                 oli += "<span class='jian' style='display:none;'></span><span class='price-z' style='display:none;'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
@@ -962,6 +961,7 @@ function keyLogin(){
 function fnserach() {
     fnyinxian();
     keyLogin();
+    $(".content").val("");
     var _ti=1;
     //清空按钮点击
     $(".clear").on("click", function() {
