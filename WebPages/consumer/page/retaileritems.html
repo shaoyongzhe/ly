@@ -34,7 +34,7 @@
 		<script type="text/javascript" src="/js/wx/configinit.js"></script>
 		<script type="text/javascript" src="/js/wx/share.js"></script>
 		<script type="text/javascript" src="/js/wx/location.js"></script>
-		
+
 		<script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
 		<script type="text/javascript" src="/consumer/js/lib/common.js"></script>
 		<script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
@@ -52,7 +52,7 @@
 		</div>
 		<div class="valBox" v-if="isShowbox">
 			<div v-for="data in items">
-				<!-- baner -->		
+				<!-- baner -->
 				<div class="banner">
 					<img :src="data.picture_url" alt="">
 					<p>
@@ -68,87 +68,149 @@
 						<img src="/consumer/image/icon01_gray.png">
 						<br>联系购买
 					</div>
-					<a  href="javascript:;" @click="telCall(data.mobilephone)" v-else class="clearfix">
+					<a href="javascript:;" @click="telCall(data.mobilephone)" v-else class="clearfix">
 						<div class="storeCall">
 							<img src="/consumer/image/icon01.png">
 							<br>联系购买
 						</div>
 					</a>
-				</div>				
+				</div>
 				<!-- tab -->
 				<div class="tabBox clearfix">
-					<div class="fl textA" :class="[isShow ? '' : 'action_font']" @click="chgleft()">	
+					<div class="fl textA" :class="[isShow ? '' : 'action_font']" @click="chgleft()">
 						超惠活动
 						<span>({{data.activity_count}})</span>
 					</div>
-					<div class="fr textA" :class="[isShow ? 'action_font' : '']" @click="chgright()">	
+					<div class="fr textA" :class="[isShow ? 'action_font' : '']" @click="chgright()">
 						超惠券
 						<span>({{data.ticket_count}})</span>
 					</div>
 					<span class="fl1" :class="[isShow ? '' : 'action_bg']"></span>
 					<span class="fr1" :class="[isShow ? 'action_bg' : '']"></span>
 				</div>
-				
-				<!-- detail -->
-				<div class="detail_box" v-for="ticketData in data.activitydata">
-					<div class="fl_box" v-if="!isShow">
-						<div v-if="ticketData.activitytype == 'activity'" >
-							111111111
-						</div>
+			</div>
+			<!-- detail -->
+			<div class="detail_box">
+				<div class="fl_box" :class="[isShow ? 'acNone' : 'acShow']">
+					<div id="ad_1" class="div_ad" style="display: none;">
+						无门槛，喜欢就来参加吧！
 					</div>
-					<div class="fr_box" v-if="isShow" >
-						<!-- 优惠券公共布局 -->
-						<div class="bigBox" v-if="ticketData.activitytype == 'ticket'">
-							<div class="yhq_box">
-								<div class="yhq_details">
-									<dl class="clearfix">
-										<dt>             
-											<img class="skipPage" :src="ticketData.itempic"/>   
-											<i :class="[ticketData.time_to_end_text.indexOf('开始')!=-1? 'acStart':'acEnd']">{{ticketData.time_to_end_text}}</i>
-										</dt>
-										<dd>
-											<h3 class="skipPage">{{ticketData.ticketcontent}}</h3>
-											<p>￥{{ticketData.unitcost}}</p>
-											<div>
-												<a class="clearfix" href="#">
-													<span :class="[ticketData.cashback.more? 'txtMore':'txtOne']">{{ticketData.cashback.content}}</span>
-													<i :class="[ticketData.cashback.more? 'txtMore':'txtOne']"> 》 </i>
-												</a>
-											</div>
-										</dd>
-									</dl>
-									<div class="trans_box">{{ticketData.activitykind}}券</div>
+					<div v-for="acData in activity">
+						<div class="active-n bgwhite" style="margin-bottom: 0.05rem;">
+							<div class="active-label">
+								<div class="labellist">{{acData.activitykind}}</div>
+							</div>
+							<div class="activebox">
+								<div class="activebox-left">
+									<div class="proname fbold showinline">
+										{{acData.activitytitle}}
+									</div>
+									<div class="giftinfo" v-if="acData.activitykind=='有礼'">
+										<div class="zeng">
+											<img src="/consumer/image/icon05.png">
+										</div>
+										<div class="zproname">{{acData.giftname}}</div>
+									</div>
+									<div class="giftinfo" v-if="acData.activitykind=='赠品'||acData.activitykind=='临期特卖'||acData.activitykind=='临期'">
+										<div class="nowprice">
+											￥
+											<span>{{acData.discountprice}}</span>
+										</div>
+										<div class="preprice">
+											<div class="discount">{{acData.discount}}折</div>
+											<div class="price">￥{{acData.originalprice}}</div>
+										</div>
+									</div>
+									<div class="giftinfo" v-if="acData.activitykind=='买赠'">
+										<div class="nowprice">
+											￥
+											<span>{{acData.unitprice}}</span>
+										</div>
+										<div class="preprice">
+											<div class="gift">买{{acData.buycount}}赠{{acData.giftcount}}</div>
+										</div>
+									</div>
+									<div class="giftinfo" v-if="acData.activitykind=='套餐'">
+										<div class="nowprice">
+											￥
+											<span>{{acData.discountprice}}</span>
+										</div>
+										<div class="preprice">
+											<div class="discount">已节省{{acData.sparevalue}}元</div>
+											<div class="price">￥{{acData.originalprice}}</div>
+										</div>
+									</div>
 								</div>
-								<div class="kong_top"><span></span><span></span></div>
-								<div class="kong_down"></div>
-								<ul class="clearfix yhq_data">
-									<li><span>{{ticketData.itemtotalnum==null?'0':ticketData.itemtotalnum}}</span><span>投放</span></li><span> | </span>
-									<li><span>{{ticketData.totalverifynum==null?'0':ticketData.totalverifynum}}</span><span>已用</span></li><span> | </span>
-									<li>
-										<span style="color:#ff0000" v-if="ticketData.verifylimit>0">
-											{{ticketData.verifylimit==null?'0':ticketData.verifylimit}}
-										</span>
-										<span style="color:#ff6600" v-else>
-											{{ticketData.verifylimit==null?'0':ticketData.verifylimit}}
-										</span>
-										<span>今日可用</span>
-									</li>
-									<li style="width:1.9rem; ">
-										<i :class="[ticketData.btn_state? 'bntOn':'btnOff']" v-if="ticketData.btn_state == 1" @click="useticket(ticketData.guid)">
-											{{ticketData.btn_text}}
-										</i>
-										<i :class="[ticketData.btn_state? 'bntOn':'btnOff']" v-else>
-											{{ticketData.btn_text}}
-										</i>
-									</li>
-									<p>备注：{{ticketData.description}}</p>
-								</ul>
+								<div class="activebox-right">
+									<div class="proimgbox">
+										<div class="img">
+											<img :src="acData.itempic">
+										</div>
+										<div :class="[acData.activity_flag==1?'pname1':'pname2']">{{acData.time_to_end_text}}</div>
+									</div>
+								</div>
 							</div>
 						</div>
+
 					</div>
-					
-				</div>		
+				</div>
+				<div class="fr_box" :class="[isShow ? 'acShow' : 'acNone']">
+					<!-- 优惠券公共布局 -->
+					<div class="bigBox">
+						<div id="ad_2" class="div_ad">
+							即领即用，先用先得，用完为止，路过不要错过
+						</div>
+						<div class="yhq_box" v-for="ticketData in ticket">
+							<div class="yhq_details">
+								<dl class="clearfix">
+									<dt>             
+												<img class="skipPage" :src="ticketData.itempic"/>   
+												<i :class="[ticketData.time_to_end_text.indexOf('开始')!=-1? 'acStart':'acEnd']">{{ticketData.time_to_end_text}}</i>
+											</dt>
+									<dd>
+										<h3 class="skipPage">{{ticketData.ticketcontent}}</h3>
+										<p>￥{{ticketData.unitcost}}</p>
+										<div>
+											<a class="clearfix" href="javascript:;" @click="toTicketDetails(ticketData.activity_id)">
+												<span :class="[ticketData.cashback.more? 'txtMore':'txtOne']">{{ticketData.cashback.content}}</span>
+												<i :class="[ticketData.cashback.more? 'txtMore':'txtOne']"> 》 </i>
+											</a>
+										</div>
+									</dd>
+								</dl>
+								<div class="trans_box">{{ticketData.activitykind}}券</div>
+							</div>
+							<div class="kong_top"><span></span><span></span></div>
+							<div class="kong_down"></div>
+							<ul class="clearfix yhq_data">
+								<li><span>{{ticketData.itemtotalnum==null?'0':ticketData.itemtotalnum}}</span><span>投放</span></li><span> | </span>
+								<li><span>{{ticketData.totalverifynum==null?'0':ticketData.totalverifynum}}</span><span>已用</span></li><span> | </span>
+								<li>
+									<span style="color:#ff0000" v-if="ticketData.verifylimit>0">
+												{{ticketData.verifylimit==null?'0':ticketData.verifylimit}}
+											</span>
+									<span style="color:#ff6600" v-else>
+												{{ticketData.verifylimit==null?'0':ticketData.verifylimit}}
+											</span>
+									<span>今日可用</span>
+								</li>
+								<li style="width:1.9rem; ">
+									<i :class="[ticketData.btn_state? 'bntOn':'btnOff']" v-if="ticketData.btn_state == 1" @click="useticket(ticketData.guid)">
+												{{ticketData.btn_text}}
+											</i>
+									<i :class="[ticketData.btn_state? 'bntOn':'btnOff']" v-else>
+												{{ticketData.btn_text}}
+											</i>
+								</li>
+								<p>备注：{{ticketData.description}}</p>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+
 			</div>
+
 		</div>
 		<footer>
 			<div class="space2"></div>
