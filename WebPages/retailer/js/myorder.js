@@ -30,15 +30,17 @@
 		  		 	  for(var i=0;i<_data1.length;i++){
 					 	  		_nameList+="<li id="+i+"><p style=\"word-break:break-all;\">"+_data1[i]["distributorname"]+"</p></li>";
 					 	  }
-		  		 	  //_nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
+		  		 	  //_nameList="<li id=0><p style=\"word-break:break-all;\">asdsadsad456465465412</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
 						  $("#select ul").html(_nameList);
 						  
 						  		$("#select li:first-child").addClass("selected")
-					 	  		if($("#select li p").height()<$("#select li").height()){
-						  				$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
-						 			}else{
-						 				$("#select li").css({"textAlign":"left","lineHeight":"normal"})
-						 			}
+						  		$("#select li").each(function(){
+						  			if($(this).children().height()<$(this).height()){
+						  				$(this).css({"textAlign":"center","lineHeight":"3rem"})
+						  			}else{
+						  				$(this).css({"textAlign":"left","lineHeight":"normal"})
+						  			}
+						  		})
 
 
 					   		$("#select>ul>li").click(function(){
