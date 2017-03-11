@@ -1,20 +1,4 @@
-//解析URL      	
-mui.init({
-	keyEventBind: {
-            backbutton: true  //打开back按键监听
-        }
-});
-var old_back = mui.back;
-mui.back = function(){
-  var btn = ["确定","取消"];
-  mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
-    if(e.index==0){
-    	//执行mui封装好的窗口关闭逻辑；
-    	alert(121)
-    	plus.runtime.quit(); 
-    }
-  });
-}
+
 
 
 function oJz(){
@@ -124,7 +108,7 @@ function oJz(){
                     }
                     _remark = "";
                     if (_data[i]["remark"] != "") {
-                        _remark = "<div class=" + "\"give\"" + "><div class=\"give-tit\">留言：</div><div class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</div></div>"
+                        _remark = "<div class=" + "\"give\"" + "><div class=\"give-tit\">留言：</div><p class=" + "\"give-con\"" + ">" + _data[i]["remark"] + "</p></div>"
                     }
                     if (_data[i]["isyucun"] === 0) {
                         if (!_data[i]["itemslist"]) {
