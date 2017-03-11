@@ -30,13 +30,13 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .dealer-header>a>img{display: inline-block; width: 36px;padding-top: 24px; }
 /**************详情信息***************/
 .toptop{background: url("../image/shop/lvqian.png") no-repeat center; background-size:100%;overflow: hidden;}
-.proTitleBox{padding: 20px 22px; overflow: hidden;}
-.proTitleBoxl{width: 126px;height: 126px;margin-right: 22px;}
-.proTitleBoxl>img{width: 112px;height: 112px;border-radius: 50%;border: 6px solid #fff;}
+.proTitleBox{padding: 10px 22px; overflow: hidden;}
+.proTitleBoxl{width: 110px;height: 102px;margin-right: 22px;}
+.proTitleBoxl>img{width: 90px;border-radius: 50%;border: 6px solid #fff;}
 .proTitleBoxr{-webkit-box-flex: 1;}
-#distributornameh3{font-size: 28px;color: #fff;line-height: 44px;font-weight: 100;}
+#distributornameh3{font-size: 28px;color: #fff;line-height: 34px;font-weight: 100;}
 .proTitleInfol{-webkit-box-flex: 1;}
-.proTitleInfol>span{color: #e0dede;width: 92px;display: inline-block;line-height: 36px;}
+.proTitleInfol>span{color: #e0dede;width: 92px;display: inline-block;line-height: 34px;}
 .proTitleInfor img{width: 60px;height: 60px;}
 /**************活动***************/
 .proDetailBox{padding:8px 8px 22px 20px;background: rgba(250,250,250,0.2); color: #eefefd; font-size: 24px;}
@@ -60,7 +60,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .clear{display: none; position: absolute;top: 0;right: 10px;width:32px ;height:32px ;background: url(../image/shop/icon_delete.png) no-repeat center;background-size: 32px;}
 /**************中间主要内容***************/
 #cgl-cont{border-top: 1px solid #ddd;overflow: hidden;background: #f5f5f5;-webkit-box-flex: 1;position: relative;}
-.cgl-menu{width: 24%;background: #f5f5f5;overflow-y: scroll;}
+.cgl-menu{width: 24%; background: #f5f5f5;overflow-y: scroll;}
 .cgl-menu>li{line-height: 78px;text-indent: 16px; border-bottom: 1px solid #ddd;font-size: 24px;color: #666;position: relative;}
 .cgl-menu>li.clion{background: #fff;}
 .clion:before{content: "";width: 10px;height: 78px;background: #f7af01;position: absolute;left: 0;top: 0;}
@@ -83,7 +83,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 #getmore{display: none; padding: 4px 0;color: #999;text-align: center;}
 #getmore>img{display: inline-block; width: 28px;margin-bottom: -4px;}
 
-.cgl-contlist{overflow-y:auto;-webkit-box-flex: 1; padding-right: 20px;margin-right: -20px;padding-left:12px ;background: #fff;}
+.cgl-contlist{overflow-y:scroll;-webkit-box-flex: 1; padding-left:12px ;background: #fff;}
 .cgl-contlist::-webkit-scrollbar{width:0;}
 .sanji{display: none;width:76%;height: 79px;text-align: center;line-height: 79px;position: absolute;top: 0;right: 0;z-index: 2;}
 .sanji>h4{font-weight: 100;height: 76px;background: #fff;border-bottom: 1px solid #ddd;overflow: hidden;}
