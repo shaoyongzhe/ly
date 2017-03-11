@@ -44,7 +44,9 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .proDetailBox>div>p:nth-of-type(2){background-image:url("../image/shop/icon_jian.png");}
 
 .zhankai{margin-top: -22px;position: relative;}
-.zhankai>span{display: block;margin: 0 auto;width: 118px;height: 22px;background: url("../image/shop/shouqi.png") no-repeat center;background-size: 118px 22px;}
+.zhankai>span{display: block;margin: 0 auto;width: 118px;height: 22px;background: url("../image/shop/shouqi.png") no-repeat center;background-size: 118px 22px;position: relative;}
+.zhankai>span>img{display: block;position: absolute;top:4px;left: 46px;}
+.zhankai>span>img.xuanz{transform: rotateZ(180deg);}
 /**************搜索***************/
 .proSearch{margin:16px 20px;padding: 12px; border: 1px solid #c6c6c6;border-radius:6px;position: relative;clear:both}
 .titlestyle{width:80px;height: 34px;background-size:50%;position: relative;line-height: 34px;}
