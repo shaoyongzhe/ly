@@ -30,7 +30,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .dealer-header>a{float: right;width: 80px;height: 80px;text-align: center;}
 .dealer-header>a>img{display: inline-block; width: 36px;padding-top: 24px; }
 /**************详情信息***************/
-.toptop{background: url("../image/shop/lvqian.png") no-repeat center; background-size:100%;overflow: hidden;transition: height ease 0.5s;}
+.toptop{background: url("../image/shop/lvqian.png") no-repeat center; background-size:100%;overflow: hidden;}
 .proTitleBox{padding: 10px 22px; overflow: hidden;}
 .proTitleBoxl{width: 110px;height: 102px;margin-right: 22px;}
 .proTitleBoxl>img{width: 90px;border-radius: 50%;border: 6px solid #fff;}

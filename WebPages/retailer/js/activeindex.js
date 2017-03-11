@@ -158,6 +158,7 @@ function xiala() {
                     $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
                 });
             }
+
         } catch (e) {
             console.log('touchMoveFunc：' + e.message);
         }
