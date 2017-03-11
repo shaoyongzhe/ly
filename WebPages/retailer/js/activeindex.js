@@ -141,7 +141,7 @@ function xiala() {
                 $(".dealer-header").hide();
                 $(".toptop").stop().animate({
                     "height":heig
-                },300,function () {
+                },200,function () {
                     //$(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
                     $(".zhankai>span>img").addClass("xuanz");
                     $(".huadong")[0].addEventListener('touchmove', touchMoveFunc, false);
@@ -151,7 +151,7 @@ function xiala() {
                 $(".huadong")[0].removeEventListener('touchmove', touchMoveFunc, false);
                 $(".toptop").stop().animate({
                     "height":"80px"
-                },300,function () {
+                },200,function () {
                     $(".dealer-header").show();
                     //$(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
                     $(".zhankai>span>img").removeClass("xuanz");

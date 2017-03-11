@@ -1,7 +1,7 @@
 body,h1,h2,h3,h4,ul,li,p{padding: 0;margin: 0;}
 ul,li{list-style: none;}
 body{font-family: "Microsoft YaHei", Arial,serif;font-size: 24px;}
-html,body{height: 100%;background: #fff;display: -webkit-box;-webkit-box-orient:vertical;/*解决灰色闪动*/}
+html,body{height: 100%;background: #fff;display: -webkit-box;-webkit-box-orient:vertical; -webkit-tap-highlight-color:transparent;/*解决灰色闪动*/}
 img{display: block;}
 em{font-style: normal;}
 input{outline: none;}
@@ -30,7 +30,7 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .dealer-header>a{float: right;width: 80px;height: 80px;text-align: center;}
 .dealer-header>a>img{display: inline-block; width: 36px;padding-top: 24px; }
 /**************详情信息***************/
-.toptop{background: url("../image/shop/lvqian.png") no-repeat center; background-size:100%;overflow: hidden;}
+.toptop{background: url("../image/shop/lvqian.png") no-repeat center; background-size:100%;overflow: hidden;transition: height ease 0.5s;}
 .proTitleBox{padding: 10px 22px; overflow: hidden;}
 .proTitleBoxl{width: 110px;height: 102px;margin-right: 22px;}
 .proTitleBoxl>img{width: 90px;border-radius: 50%;border: 6px solid #fff;}
