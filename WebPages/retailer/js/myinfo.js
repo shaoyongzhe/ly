@@ -68,8 +68,7 @@ var vm = avalon.define({
         });
     },
     firm: function (el, index) {
-        alert(el.guid)
-        alert(el.retailer_id)
+    
         if (confirm("您确定退出本店吗？")) {
             $.ajax({
                 type: 'GET',

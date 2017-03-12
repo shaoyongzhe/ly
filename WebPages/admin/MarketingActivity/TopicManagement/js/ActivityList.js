@@ -261,6 +261,7 @@ function basicQuery(resetQueryCondition){
 			if(data.content.length < 1){
 				// layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
+				flag = 1;
 				return;
 			}
 			linshi=data;
@@ -344,7 +345,16 @@ function basicQuery(resetQueryCondition){
 
 /*查询按钮*/
 var condition={}
+$(document).keydown(function(event){
+	console.log(flag)
+   if(event.keyCode == 13 && flag == 1){
+   		autoLoad = true;
+	    $(".activityList tbody").empty();
+	    basicQuery(true);
+   }       
+});
 $(".queryConditionButton .query").click(function () {
+	console.log(flag)
 	if(flag == 1){
 		autoLoad = true;
 	    $(".activityList tbody").empty();
@@ -707,4 +717,6 @@ $('table.activityList').on('click',".handle",function(){
 	    
 	
 });
-
+$(function(){
+	$(".qC_aitivityTopic").find("input").focus();
+})
