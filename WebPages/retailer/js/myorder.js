@@ -28,35 +28,37 @@
 	        		_data1=data1;
 	        		console.log(_data1)
 		  		 	  for(var i=0;i<_data1.length;i++){
-					 	  		_nameList+="<li id="+i+"><span>"+_data1[i]["distributorname"]+"</span></li>";
+					 	  		_nameList+="<li id="+i+"><p style=\"word-break:break-all;\">"+_data1[i]["distributorname"]+"</p></li>";
 					 	  }
-		  		 	  //_nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
+		  		 	  //_nameList="<li id=0><p style=\"word-break:break-all;\">asdsadsad456465465412</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
 						  $("#select ul").html(_nameList);
+						  
 						  		$("#select li:first-child").addClass("selected")
-					 	  		if($("#select li span").css("width").replace("px","")+14<=$("#select li").css("width")){
-						  				$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
-						 			}							
+						  		$("#select li").each(function(){
+						  			if($(this).children().height()<$(this).height()){
+						  				$(this).css({"textAlign":"center","lineHeight":"3.5rem"})
+						  			}else{
+						  				$(this).css({"textAlign":"left","lineHeight":"normal"})
+						  			}
+						  		})
 
 
-					   		$("#select li").click(function(){
+					   		$("#select>ul>li").click(function(){
 					   			  localStorage.list=$(this).attr("id")
 								 		$("#select li").removeClass("selected")
 								 		$(this).attr("class","selected");
 								 		that=$(this);
-								 		_timer=setTimeout(function(){
+								 		var _timer=setTimeout(function(){
 								 			
 								 			if(_flag==1){
 								 					_flag=0;
-								 					if(!that.css("border-left")){
+								 					if(that.css("border-left")){
 								 						$(".onload").css({"display":"block"})
 								 							shopList(that.attr("id"))
 								 							
 								 					}else{
 								 						_flag=1
 								 					}
-								 			}else{
-								 					
-								 					_timer()
 								 			}
 								 			
 								 		},10)
@@ -107,7 +109,7 @@ function shopList(pg){
 			   				}
 				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
 		  		_bookTm = (new Date(_bookTm)).getTime();
-		  			_price=_price.toFixed(1)
+		  			_price=_price.toFixed(2)
 		  			var _ggf=0;
 		  			for(var g=0;g<data["content"][j]["details"].length;g++){
 		  				_ggf+=Number(data["content"][j]["details"][g]["itemcount"])
