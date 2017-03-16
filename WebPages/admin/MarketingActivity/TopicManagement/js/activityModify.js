@@ -1002,13 +1002,13 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    var subsidyTopValue=activityManger_addSub4Data[i].max?activityManger_addSub4Data[i].max:activityManger_addSub4Data[i].min;
 
 
-	    if(btType.indexOf('随机') != -1){
-	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
-	        activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
-				randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
-			});
-			$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
-	    } else {
+	  //   if(btType.indexOf('随机') != -1){
+	  //       $(".addSub4Mange:last").find('.setgailv').addClass('on');
+	  //       activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
+			// 	randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+			// });
+			// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
+	  //   } else {
 
 	    	// if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	    		// var yaofz = 0;
@@ -1027,7 +1027,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    	// }
 
 
-	    }
+	    // }
 
 		$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
 
