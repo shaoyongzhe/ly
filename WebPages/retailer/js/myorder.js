@@ -15,6 +15,7 @@
   			console.log(height)
   			
   			$("#select").css("height",height);
+  			$("#select>ul").css("height",height);
   			$("#container").css("height",height)
   	})()
 			 var _nameList="";
@@ -32,16 +33,18 @@
 					 	  }
 		  		 	  //_nameList="<li id=0><p style=\"word-break:break-all;\">asdsadsad456465465412</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
 						  $("#select ul").html(_nameList);
-						  
+						  		
 						  		$("#select li:first-child").addClass("selected")
 						  		$("#select li").each(function(){
-						  			if($(this).children().height()<$(this).height()){
+						  			console.log($(this).children().height())
+						  			console.log($(this).height())
+						  			if($(this).children().height()*2<$(this).height()){
 						  				$(this).css({"textAlign":"center","lineHeight":"3.5rem"})
 						  			}else{
-						  				$(this).css({"textAlign":"left","lineHeight":"normal"})
+						  				$(this).css({"textAlign":"left","lineHeight":"1.8rem"})
 						  			}
 						  		})
-
+									
 
 					   		$("#select>ul>li").click(function(){
 					   			  localStorage.list=$(this).attr("id")
