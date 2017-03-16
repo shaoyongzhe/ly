@@ -1,5 +1,5 @@
 html { font-size:0.6rem;}
-body{color:#888; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin:0; -webkit-text-size-adjust:none; padding:0; line-height:1.6em;}  
+body{color:#888; font-family:"微软雅黑", Arial, Helvetica, sans-serif;margin:0; -webkit-text-size-adjust:none; padding:0; line-height:1.6em;-webkit-tap-highlight-color:transparent;/*解决灰色闪动*/}  
 div,dl,dd,dt,ul,li,ol,caption,table,tbody,thead,tfoot,th,td,tr,form,button,input,select,textarea,legend,a,p,big,small,span,strong,sub,sup,b,em,i,h1,h2,h3,h4,h5,h6,cite,q,samp,pre,code,tt,br,hr,address,img,area,map,object,del,s,header,footer{ border:none; padding:0; margin:0; list-style:none;font-style:normal;-webkit-text-size-adjust:none; vertical-align: baseline;/* chrome */ }
 img,fieldset,table,input,textarea,button{border:none;}
 [contenteditable = "true"], input, textarea {
@@ -107,7 +107,7 @@ section li{
 	color:#ffbda3
 }
 .disc span:nth-child(1){
-	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;padding:0 2px;font-size: 1.2rem;float: left;margin-right: 5px;
+	border:1px solid #a3d3cf;padding: 1px;border-radius: 15%;padding:0 2px;font-size: 1.4rem;float: left;margin-right: 5px;
 }
 .disc span:nth-child(2){
 	font-size: 1.4rem;line-height: 1.9rem;
@@ -138,17 +138,17 @@ section li{
     left: 0;
     background: #999;}
 .all{
-	width:20%;display:block;height:100%;float:left;font-size: 1.6rem;color: #fff;text-align: center;line-height: 5rem;margin-right: 5%;
+	width:20%;display:block;height:100%;float:left;font-size: 1.6rem;color: #fff;text-align: center;line-height: 5.8rem;margin-right: 5%;
 }
 .gg{
 	background:url(../image/shop/crect.jpg) no-repeat center center;background-size: 20px 20px;display:inline-block;position: relative;top:4px
 }
 .all span{
-	line-height: 5rem;
+	line-height: 65px;
 }
 
 .change{
-	width:40%;height:20px;float:right
+	width:40%;height:20px;float:right;-webkit-tap-highlight-color:transparent;/*解决灰色闪动*/
 }
 .ab span:nth-child(2){
 	position: absolute;
@@ -166,7 +166,7 @@ section li{
 	line-height: 22px;line-height: 28px;width:1.5rem;width: 2.5rem;text-align: center;font-size: 1.2rem;
 }
 .set span{
-	padding:4px 10px;border:1px solid #ccc;
+	padding:6px 14px;border:1px solid #ccc;
 }
 .set{
 	line-height: 4rem;text-align: right;display: none;
@@ -181,10 +181,10 @@ section li{
 	border-radius: 8px 8px 0 0;
 }
 .ifDelt div:nth-child(2){
-	width:76%;margin-left:12%;height:3.4rem;display: flex;
+	width:76%;margin-left:12%;height:4rem;display: flex;
 }
 .ifDelt div:nth-child(2) span{
-	display:block;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;;text-align: center;line-height: 3.4rem;font-size: 12px;
+	display:block;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;;text-align: center;line-height: 4rem;font-size: 12px;
 }
 .ifDelt div:nth-child(2) span:nth-child(1){
 	background:#fff;border-radius: 0 0 0 8px;
