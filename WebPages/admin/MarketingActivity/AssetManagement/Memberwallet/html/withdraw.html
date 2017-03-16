@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>会员钱包提现登记</title>
+    <link rel="stylesheet" href="../css/rechargeANDwithdraw.css"/>
+</head>
+<body>
+
+<!--会员钱包提现登记-->
+
+<div class="tx_dialog">
+    <div class="tx_dialog_top">
+        <p>会员钱包提现登记</p>
+    </div>
+    <div class="tx_dialog_mid">
+        <div class="collection">
+            <ul class="collection_top">
+                <li>付款方</li>
+            </ul>
+            <ul class="collection_left">
+                <li class="collection_left_1"><i>*</i>账户类型</li>
+                <li class="collection_left_2"><i>*</i>银行</li>
+                <li class="collection_left_3"><i>*</i>账号</li>
+            </ul>
+            <ul class="collection_right">
+                <li class="non collection_right_1">
+                    <input type="text"/>
+                    <ol class="coll_zh_mold">
+                        <li>银行卡</li>
+                        <li>支付宝</li>
+                        <li>v财付通</li>
+                    </ol>
+                </li>
+                <li class="non collection_right_2"><input type="text"/></li>
+                <li class="non collection_right_3"><input type="text"/></li>
+                <div class="ze"></div>
+            </ul>
+        </div>
+        <div class="xian">
+        </div>
+        <div class="pay">
+            <ul class="pay_top">
+                <li>收款方</li>
+            </ul>
+            <ul class="pay_left">
+                <li class="pay_left_1">会员查询</li>
+                <li class="pay_left_2"></li>
+                <li class="pay_left_3"><i>*</i>会员名称</li>
+                <li class="pay_left_4"><i>*</i>账户类型</li>
+                <li class="pay_left_5"><i>*</i>银行</li>
+                <li class="pay_left_6"><i>*</i>账号</li>
+            </ul>
+            <ul class="pay_right">
+                <div class="pay_right_1">
+                    <div class="gf-select" id="mold">
+                        <span class="non"><em>类型</em><i class="icon-jt"><input type="hidden" name="mold" value=""></i></span>
+                        <ul>
+                            <li data-value="">类型</li>
+                        </ul>
+
+                    </div>
+                    <div class="gf-select" id="province">
+                        <span class="non"><em>省</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+                        <ul>
+                            <li data-value="">省份</li>
+                        </ul>
+                    </div>
+                    <div class="gf-select gf-select_1" id="city">
+                        <span class="non"><em>市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+                        <ul>
+                            <li data-value="">城市</li>
+                        </ul>
+                    </div>
+                    <div class="gf-select" id="area">
+                        <span class="non"><em>区</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+                        <ul>
+                            <li data-value="">区县</li>
+                        </ul>
+                    </div>
+                    <div class="ze"></div>
+                </div>
+                <div class="pay_right_2 non">
+                    <input type="text" value="" placeholder="请输入会员类型关键字"/>
+                </div>
+                <div class="pay_right_3 non1"><p>北京阳光飞华客科技发展有限公司</p></div>
+                <div class="pay_right_4 non">
+                    <input type="text" value="" placeholder="请选择账户类型"/>
+                    <ol class="zh_mold">
+                        <li>银行卡</li>
+                        <li>支付宝</li>
+                        <li>v财付通</li>
+                    </ol>
+                </div>
+                <div class="pay_right_5 non">
+                    <span><input type="text" value="" placeholder="请填写银行全称"/><img src="../images/2.png" alt=""/></span>
+                </div>
+                <div class="pay_right_6 non">
+                    <span><input type="text" value="" placeholder="请输入会员类型关键字"/><img src="../images/2.png" alt=""/></span>
+                </div>
+                <div class="ze"></div>
+            </ul>
+        </div>
+
+    </div>
+    <div class="cz_dialog_bom">
+        <ul class="bom_1">
+            <li><i>*</i>转账流水号</li>
+            <li><i>*</i>充值金额</li>
+            <li><i>*</i>到账时间</li>
+            <li>备注</li>
+        </ul>
+        <ul class="bom_2">
+            <li class="non"><input type="text"/></li>
+            <li class="non"><input type="text"/><span>元</span></li>
+            <li class="non"><input type="text"/><img src="../images/2.png" alt=""/></li>
+            <li class="non1">
+                <textarea id="ar_tx" class="ares" name="are" ></textarea>
+                <p><span id="text-count_tx">100</span>/100</p>
+            </li>
+        </ul>
+        <ul class="bom_3" id="warp">
+            <li>
+                <img src="../images/2.png" id="imgShow_WU_FILE_0" width="240px" height="138px"/>
+                <span>* 图片大小小于500K</span>
+                <a href="#">上传充值凭证<input type="file" id="up_img_WU_FILE_0" /></a>
+            </li>
+            <div class="ze"></div>
+        </ul>
+    </div>
+    <div class="cz_dialog_Btn">
+        <input class="cancel" type="submit" value="取消">
+        <input class="confirm" type="submit" value="确认充值登记"/>
+        <button class="revise">修 改</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../../../lib/jquery/1.9.1/jquery.min.js"></script>
+<script src="../javascript/selectivizr.js"></script>
+<script src="../javascript/cityLink.js"></script>
+<script src="../javascript/uploadPreview.js"></script>
+<script type="text/javascript" src="../javascript/reANDwi.js"></script>
+<script>
+    $(function(){
+        /*付款方--账户类型*/
+        $('.pay_right_4').on('click',function(){
+            $('.zh_mold').stop().slideToggle(200);
+            $(".pay_right_4 input").focus(function(){
+                $(".zh_mold").slideUp();
+            })
+        })
+        $(".pay_right_4 input").blur(function(){
+            $(".zh_mold").slideUp();
+        })
+        $('.zh_mold li').on('click',function(){
+            $('.pay_right_4 input').val($(this).html())
+
+            if($(".pay_right_4 input").val()=="银行卡"){
+                $(".pay_left_5").css("display","block");
+                $(".pay_right_5").css("display","block");
+            }else{
+                $(".pay_left_5").css("display","none");
+                $(".pay_right_5").css("display","none");
+            }
+        })
+
+        /*收款方--账户类型*/
+        $('.collection_right_1').on('click',function(){
+            $('.coll_zh_mold').stop().slideToggle(200);
+            $('.collection_right_1 input').focus(function(){
+                $('.coll_zh_mold').slideUp();
+            })
+        })
+        $('.collection_right_1 input').blur(function(){
+            $('.coll_zh_mold').slideUp();
+        })
+        $('.coll_zh_mold li').on('click',function(){
+            $('.collection_right_1 input').val($(this).html())
+
+            if($(".collection_right_1 input").val()=="银行卡"){
+                $(".collection_right_2").css("display","block");
+                $(".collection_left_2").css("display","block");
+            }else{
+                $(".collection_left_2").css("display","none");
+                $(".collection_right_2").css("display","none");
+            }
+        })
+
+
+
+
+        /*银行类型*/
+//        $('.pay_right_2').on('click',function(){
+//            $(this).find('.zh_bank').stop().slideToggle(200);
+//        })
+//        $('.zh_bank li').on('click',function(){
+//            $('.pay_right_2 span input').attr('value',$(this).text());
+//        })
+//        $('.zh_bank').mouseleave(function(){
+//            $(this).delay(100).fadeOut(300);
+//        })
+
+
+    })
+
+</script>
+
+
+</body>
+</html>
