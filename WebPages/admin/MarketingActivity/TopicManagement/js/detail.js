@@ -26,7 +26,7 @@ function render(detailData){
 	var activity = detailData.activity;
 	//first.find('.guid').text(activity.activitycode);
 	// first.find('.guid').text(activity.guid);
-	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;position:absolute;display:none'>"+ activity.guid +"</i>");
+	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;position:absolute;display:none;'>"+ activity.guid +"</i>");
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
@@ -285,14 +285,14 @@ function render(detailData){
 			danwei = "元";
 		}
 
-		var valTxt = "<i class='valTxt'>"+ (butie[i].min * butie[i].ceiling).toFixed(2) +"</i>";
+		var valTxt = valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
 		
-		if(butie[i].refund_content.indexOf('随机') != -1){
-			butie[i].probability.value_curve.forEach( function(item, index) {
-				randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
-				valTxt = "<i class='valTxt'>"+ Number(randfz).toFixed(2) + "</i>";
-			});
-		}
+		// if(butie[i].refund_content.indexOf('随机') != -1){
+		// 	butie[i].probability.value_curve.forEach( function(item, index) {
+		// 		randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+		// 		valTxt = "<i class='valTxt'>"+ Number(randfz).toFixed(2) + "</i>";
+		// 	});
+		// }
 
 		var rangeStr = "";
 
@@ -304,7 +304,7 @@ function render(detailData){
 				// yaofz1 += Number(item.applycount);
 				refund_content += item.refund_content + '</br>';
 			});
-			valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
+			// valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
 			rangeStr = ""+ refund_content +"</td><td>"+ butie[i].ceiling +
 			"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
 
@@ -456,6 +456,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert("上架成功");
                     closeLayer();
 //                  parent.basicQuery();
@@ -486,6 +487,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert(op + " 成功");
                     closeLayer();
                 },

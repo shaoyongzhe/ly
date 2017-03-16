@@ -107,7 +107,7 @@ function ajaxActivityDetails(a,b){
 			$(".BbigTitle span").text("已参与分销商数:"+data.joinedcount+"人");
 //			$(".BtuwenWenP1").text($.trim(data.content));	
 //			$(".BtuwenWenP1").text(data.content);
-			$(".BtuwenWenP1").html(data.content.replace(" ","&ensp;"));
+			$(".BtuwenWenP1").html(data.content.trim());
 //			console.log($(".BtuwenWenP1").text())
 			//展开收起
 //			debugger;
@@ -403,7 +403,7 @@ function ajaxActivityDetails(a,b){
 			if(data.consumer.length){
 				for(i=0;i<data.consumer.length;i++){
 //					data.consumer[i].localtype=data.consumer[i].type;
-					$(".BDQFd3").append('<p><img class="vis" src="'
+					$(".BDQFd3").append('<p><img class="hi" src="'
 					+BDcyhdRequireDarr[data.consumer[i].matched]
 					+'" class="BDQFdsImg" /><span class="BDQFdsSpan" >'
 					+data.consumer[i].localtype

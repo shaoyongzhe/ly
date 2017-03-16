@@ -1,5 +1,5 @@
 *{margin: 0; padding: 0;}
-body{color: #fff; font-size: 14px; font-size: "微软雅黑";}
+body{ font-size: 14px; font-size: "微软雅黑";}
 .ms-controller {
     visibility: hidden;
 }
@@ -12,7 +12,7 @@ body{color: #fff; font-size: 14px; font-size: "微软雅黑";}
 
 /*.red_bg>div.red-jh{width: 63%; font-size: 14px; border-radius: 5px; height: 44px; line-height: 22px; background: rgba(0,0,0,0.45); margin: 0px auto; padding:5px 0 5px 10px;}
 .red_bg>div.red-jh>span{color: #f3f125; padding: 0px 5px;}*/
-    .red_bg > div.red-jh { width:100%; height:auto; text-align:center
+    .red_bg > div.red-jh { width:100%; height:auto; text-align:center;color: #fff;
     }
 
 .red-jh img { width:70%; margin:0 auto
@@ -21,7 +21,7 @@ body{color: #fff; font-size: 14px; font-size: "微软雅黑";}
 
 /*提示信息*/
 
-.red-tc{background: rgba(0,0,0,0.85); position: absolute; width: calc( 100% - 80px ); padding: 0px 40px; height: 100%; top: 0; display: none;}
+.red-tc{background: rgba(0,0,0,0.85); position: absolute; width: calc( 100% - 80px ); padding: 0px 40px; height: 100%; top: 0; display: none;color: #fff;}
 .red-yzj>.red-tc-k,.red-tc-btn{width: calc( 100% - 40px ); padding: 20px; background-repeat: no-repeat;}
 .red-yzj>.red-tc-k{background: url(/basepages/image/shakegame/red-zj-bg.png); background-size: 100%;  margin-top: 40%; text-align: center; font-size: 16px;}
 .red-yzj>.red-tc-k>img{width: 50%; display: block; margin: 0 auto; padding-bottom: 10px;}

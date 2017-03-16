@@ -131,7 +131,7 @@
             var opType = parent.$('#opType').val();
             if (opType == "notify") {
                 //是否是默认模板
-                prepareData["isdefault"] = parent.$('#isDefault').val();
+                //prepareData["isdefault"] = parent.$('#isDefault').val();
                 prepareData['content'] = JSON.stringify(prepareData.content);
                 parent.layer.msg('保存中', { shade: 0.3 })
 
@@ -141,12 +141,13 @@
                     dataType: "json",
                     data: prepareData,
                     success: function (data) {
-                        parent.$("#refresh").click();
+                        // parent.$("#refresh").click();
                         parent.$('.layui-layer-close').click();
                         parent.$('#opType').val("");
                     },
                     error: function (data) {
                         // parent.layer.msg("编辑失败!");
+                        // parent.$("#refresh").click();
                         if(JSON.parse(data.responseText).Message !='')
                         {
                             parent.layer.msg("保存失败!"+ JSON.parse(data.responseText).Message);
@@ -156,6 +157,7 @@
                         }
                     }
                 });
+                parent.$("#refresh").click();
             } else {
                 parent.layer.msg('保存中', { shade: 0.3 })
                 $.ajax({
@@ -165,10 +167,11 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
-                        parent.$("#refresh").click();
+                        // parent.$("#refresh").click();
                         parent.$('.layui-layer-close').click();
                     },
                     error: function (data) {
+                        // parent.$("#refresh").click();
                         if(JSON.parse(data.responseText).Message !='')
                         {
                             parent.layer.msg("保存失败!"+ JSON.parse(data.responseText).Message);
@@ -178,6 +181,7 @@
                         }
                     }
                 });
+                parent.$("#refresh").click();
             }
         } catch (e) {
             alert("Json数据错误，提交失败！");
