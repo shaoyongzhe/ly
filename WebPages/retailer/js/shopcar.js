@@ -77,7 +77,7 @@
 						if(_price<_tt[_indd]["cutgift"]){
 							_qu=1;
 							$(".commit").css({background:"#54504f",width:"auto",padding:"0 3px"})
-							$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price).toFixed(1)+" 元起送")
+							$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price).toFixed(2)+" 元起送")
 						}else{
 							aa()
 						}						
@@ -130,7 +130,7 @@
 					}
 					console.log(_line)
 					_remark="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div style=\"position:relative\"><span style=\"position:absolute;\">留言：</span><textarea readonly=\"true\" style=\"margin-left:4rem;overflow-y:hidden;resize:none;outline:none;width:80%;font-size:14px;height:"
-					+(_line*2)+"rem;line-height:2rem\">"+(data1[i]["remark"]==""?"":data1[i]["remark"])+"</textarea></div></div>"
+					+(_line*2)+"rem;line-height:1.6rem\">"+(data1[i]["remark"]==""?"":data1[i]["remark"])+"</textarea></div></div>"
 				_intr="";
 				if(data1[i]["salestop"]==0){
 					if(!data1[i]["itemslist"]){
@@ -262,13 +262,13 @@
 			if(_price==-0){
 				_price=0
 			}
-			$(".amountBig span").text(_price.toFixed(1))
+			$(".amountBig span").text(_price.toFixed(2))
 			$(".commit span").text("("+_ges+")")
 			select()
 			change(data1);
 			deLete(data1)
 			console.log(_discount)
-			$(".ab span:nth-child(2)").text(_discount.toFixed(1))
+			$(".ab span:nth-child(2)").text(_discount.toFixed(2))
 			fg()
 		}
 			function deLete(data1){//删除商品
@@ -405,21 +405,21 @@
 								if(_price==-0){
 									_price=0
 								}
-								$(".amountBig span").text(_price.toFixed(1))
+								$(".amountBig span").text(_price.toFixed(2))
 
 							}
 							if(data1[_id]["itemkind"]=="降价"){
 									_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
 									if($("#"+_id).find(".gouxuan").attr("flag")==1){
 										_discount-=(data1[_id]["originalprice"]-data1[_id]["price"])*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
-										$(".ab span:nth-child(2)").text(_discount.toFixed(1))										
+										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
 									}
 								}
 							if(data1[_id]["itemkind"]=="折扣"){
 								_dis-=(Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1))*Number(data1[_id]["itemcount"]);
 									if($("#"+_id).find(".gouxuan").attr("flag")==1){
 										_discount-=((Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1)))*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
-										$(".ab span:nth-child(2)").text(_discount.toFixed(1))										
+										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
 									}
 							}
 							$("#"+_id).remove();
@@ -449,7 +449,7 @@
 			var _ll=0;
 
 			console.log(_arr)
-			$("section").on('tap','.labs',function(){
+			$("section").on('click','.labs',function(){
 				if($(this).children().attr("flag")==1){
 					_Id.splice($(this).parent().parent().attr("ip"),1,"")
 					console.log(_Id)
@@ -470,7 +470,7 @@
 					if(_price==-0){
 						_price=0
 					}
-					$(".amountBig span").text(_price.toFixed(1))
+					$(".amountBig span").text(_price.toFixed(2))
 //					if(_count==0){
 //						$(".yj").css({display:"block"})
 //					}
@@ -493,11 +493,9 @@
 					if(_price==-0){
 						_price=0
 					}
-					$(".amountBig span").text(_price.toFixed(1))
+					$(".amountBig span").text(_price.toFixed(2))
 					zz()
-//					if(_count>0){
-//						$(".yj").css({display:"none"})
-//					}
+
 					
 				}
 
@@ -567,8 +565,8 @@
 						if(_price==-0){
 							_price=0
 						}
-						$(".amountBig span").text(_price.toFixed(1))
-						$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+						$(".amountBig span").text(_price.toFixed(2))
+						$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 	//					if(_count>0){
 	//						$(".yj").css({display:"none"})
 	//					}
@@ -623,13 +621,13 @@
 										if(_price==-0){
 											_price=0
 										}
-										$(".amountBig span").text(_price.toFixed(1))
+										$(".amountBig span").text(_price.toFixed(2))
 									}
 									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 										_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
 										if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
 											_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-											$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+											$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 										}									
 									}
 									fg();
@@ -675,13 +673,13 @@
 									if(_price==-0){
 										_price=0
 									}
-									$(".amountBig span").text(_price.toFixed(1))
+									$(".amountBig span").text(_price.toFixed(2))
 								}
 								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 									_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
 									if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
 										_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 									}									
 								}
 								fg()
@@ -744,14 +742,14 @@
 									if(_price==-0){
 										_price=0
 									}
-									$(".amountBig span").text(_price.toFixed(1))
+									$(".amountBig span").text(_price.toFixed(2))
 								}
 								console.log($(th).parent().parent().parent().parent().next().find("span:nth-child(1)"))
 								if($(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 									_dis+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
 									if($(th).parent().parent().parent().prev().children().attr("flag")==1){
 										_discount+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
-										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 									}									
 								}
 								fg()
