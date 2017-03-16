@@ -7,7 +7,7 @@ $(function(){
 	//时间插件
 		var start = {
 		  elem: '#start',
-		  format: 'YYYY-MM-DD ',
+		  format: 'YYYY/MM/DD ',
 		  //min: laydate.now(), //设定最小日期为当前日期
 		  max: '2099-06-16 23:59:59', //最大日期
 		  istime: false,
@@ -182,7 +182,7 @@ $(function(){
 		$('.query_iptn').click()
 	}
 //下拉滚动加载代码开始 
-		var pagesize = 100;
+		var pagesize = 10;
 		var pageindex = 0;
 		var pagingJson={
 			"pagesize":pagesize,
@@ -528,7 +528,6 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 
 		        	//判断名字
 	        		function keyg(keyy){
-
 						if(keyy=='distributor'){
 					 		keyy='分销商'
 					 	}else if(keyy=='retailer'){
@@ -541,7 +540,6 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 					 		keyy='门店店员'
 						 	}
 						return keyy;
-
 					}
 					// 判断内容
 	        		function judgeEvent(keys){
@@ -619,7 +617,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 										}
 										// money.charAt(3)=='分'?money='分':money='元'
 									}
-									return money
+									return money;
 								}
 
 		    					if(keyall[key]["min"]&&keyall[key]["max"]!==undefined){
@@ -736,6 +734,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 					 	}else if(keyy=='retailer_employee'){
 					 		keyy='门店店员'
 						 	}
+
 						return keyy;
 					}
 					//小表哥
@@ -908,7 +907,6 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 					if(a0.eq(y).find("td:last input").hasClass('')){
 						karay.push(-(a0.eq(y).find("td:last input").val()));
 					}
-
 					karay.push(a0.eq(y).find("td:last input").val());
 					
 				}
@@ -917,13 +915,13 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 				for(var adorreu=0;adorreu<a2.length-1;adorreu++){
 					a2.eq(adorreu).find("td:eq(2)").html(karay[adorreu]);
 				}
-				$(this).closest('.layui-layer').find('.layui-layer-close').click()
+				$(this).closest('.layui-layer').find('.layui-layer-close').click();
 				//求小表格追加/缩减的总和
 				var aorrusumbig=0;
 				for(var aorrusum=0;aorrusum<karay.length;aorrusum++){
 					aorrusumbig+=Number(karay[aorrusum])
 				}	
-				$('.table2 tbody tr:last td:eq(2)').html(aorrusumbig)
+				$('.table2 tbody tr:last td:eq(2)').html(aorrusumbig);
 			})
 			//确定追加或者缩减弹出框
 			// $(document).on('click','.adismusin',function(){
@@ -1001,6 +999,7 @@ $('.table1 tbody').on("click", ".activityAreaAndCharge",function(){
 						 	 '</tr>'
 						$('.table4 tbody').html(str+str2);
 			        },
+
 			        error:function(){
 			        	alert('去审批弹出框请求失败');
 			        }

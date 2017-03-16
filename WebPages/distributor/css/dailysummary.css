@@ -1119,5 +1119,13 @@
         transform: scale(1);
     }
 }
+.colorif{
+	color:red;
+}
 
+
+
+.activeson1_left>a{
+	word-break: break-word;
+}
 	/*loading e*/
