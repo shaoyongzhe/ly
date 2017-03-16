@@ -132,14 +132,14 @@ function oJz(){
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                                ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                                ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
                                 "><div>" + _ltr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div>"+_remark+"</li>"
                             } else if (_data[i]["itemkind"] == "降价") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _discount+=((_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]) || (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">降价</div><span class=" + "\"discount-con\"" +
                             ">" + _data[i]["discount"] + " 折</span></div>" + _remark + "</li>"
                             } else if (_data[i]["itemkind"] == "买赠") {
@@ -147,7 +147,7 @@ function oJz(){
                                 _zengprice += (Number(_data[i]["unitprice"]) * (Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"])))
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">买赠</div><span class=" + "\"discount-con\"" +
                             ">买" + _data[i]["salecount"] + (_data[i]["packagetypename"] == null ? "" : _data[i]["packagetypename"]) + _data[i]["itemname"] + "赠" + _data[i]["giftcount"] + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"])+(_data[i]["itemquality"]==="0"?"(临期)":"") + "</div></div>" + _remark + "</li>"
                             } else if (_data[i]["itemkind"] == "有礼") {
@@ -155,7 +155,7 @@ function oJz(){
                                 _zengprice += (Number(_data[i]["giftprice"]) * (Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"])))
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-			       		">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+			       		">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
 			       		"><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">有礼</div><span class=" + "\"discount-con\"" +
 			       		">购买" + _data[i]["salecount"] + (_data[i]["packagetypename"] == null ? "" : _data[i]["packagetypename"]) + _data[i]["itemname"] + "赠送" +
 								_data[i]["giftcount"] + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) +(_data[i]["giftitemquality"]==="0"?"(临期)":"")+ "</div></div>" + _remark + "</li>"
@@ -164,7 +164,7 @@ function oJz(){
                                 _price += _data[i]["price"]*data[i]["discount"]*0.1 * _data[i]["itemcount"];
                                 _discount+= (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["discount"]*0.1).toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["discount"]*0.1).toFixed(2) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
                             ">" + _data[i]["discount"] + " 折</span></div>"+_remark+"</li>"
                             }
@@ -173,14 +173,14 @@ function oJz(){
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemslist"][_data[i]["selectedindex"]]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                                ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                                ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
                                 "><div>" + _ltr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
                             } else if (_data[i]["itemkind"] == "降价") {
                                 _zz += Number(_data[i]["itemcount"])
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _discount+=((_data[i]["originalprice"]-_data[i]["price"])*_data[i]["itemcount"]) || (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">降价</div><span class=" + "\"discount-con\"" +
                             ">" + _data[i]["discount"] + "</span></div>" + _remark + "</li>"
                             } else if (_data[i]["itemkind"] == "买赠") {
@@ -188,7 +188,7 @@ function oJz(){
                                 _zengprice += (Number(_data[i]["unitprice"]) * (Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"])))
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">买赠</div><span class=" + "\"discount-con\"" +
                             ">买" + _data[i]["salecount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["itemname"] + "赠" + _data[i]["giftcount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"])+(_data[i]["itemquality"]==="0"?"(临期)":"") + "</div></div>" + _remark + "</li>"
                             } else if (_data[i]["itemkind"] == "有礼") {
@@ -196,7 +196,7 @@ function oJz(){
                                 _zengprice += (Number(_data[i]["giftprice"]) * (Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"])))
                                 _price += _data[i]["price"] * _data[i]["itemcount"];
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-			       		">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(1) + "</div><div class=" + "\"number\"" +
+			       		">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["price"].toFixed(2) + "</div><div class=" + "\"number\"" +
 			       		"><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">有礼</div><span class=" + "\"discount-con\"" +
 			       		">购买" + _data[i]["salecount"] + _data[i]["packagetypename"] + _data[i]["itemname"] + "赠送" +
 								_data[i]["giftcount"] + _data[i]["giftitemobj"]["packagetypename"] + _data[i]["giftitemobj"]["itemname"] + "</span></div><div class=" + "\"give\"" + "><div class=" + "\"give-tit\"" + ">赠品：</div><div class=" + "\"give-con\"" + ">" + _data[i]["giftitemobj"]["itemname"] + Math.floor(Number(_data[i]["itemcount"]) / Number(_data[i]["salecount"])) * Number(_data[i]["giftcount"]) + (_data[i]["giftitemobj"]["packagetypename"] == null ? "" : _data[i]["giftitemobj"]["packagetypename"]) +(_data[i]["giftitemquality"]==="0"?"(临期)":"")+ "</div></div>" + _remark + "</li>"
@@ -205,7 +205,7 @@ function oJz(){
                                 _price += _data[i]["price"]*data[i]["discount"]*0.1 * _data[i]["itemcount"];
                                 _discount += (_data[i]["price"]-_data[i]["price"]*_data[i]["discount"]*0.1)*_data[i]["itemcount"]
                                 _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["discount"]*0.1).toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + (data[i]["price"]*data[i]["discount"]*0.1).toFixed(2) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div></div></div><div class=" + "\"discount\"" + "><div class=" + "\"discount-tit\"" + ">折扣</div><span class=" + "\"discount-con\"" +
                             ">" + _data[i]["discount"] + " 折</span></div>" + _remark + "</li>"
                             }
@@ -216,7 +216,7 @@ function oJz(){
                             _price += _data[i]["itemunitcost"] * _data[i]["itemcount"];
                             _yucun+=_data[i]["itemunitcost"] * _data[i]["itemcount"]
                             _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + _data[i]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
-                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["itemunitcost"].toFixed(1) + "</div><div class=" + "\"number\"" +
+                            ">" + _name + _image + "</div><div class=" + "\"shop-body\"" + ">￥" + _data[i]["itemunitcost"].toFixed(2) + "</div><div class=" + "\"number\"" +
                             "><div>" + _intr + "</div><div>×" + _data[i]["itemcount"] + "</div></div><p>可提" + _data[i]["remaincount"] + _data[i]["packagetypename"] + "</p></div></div>"+_remark+"</li>"
                         }
                     }
@@ -249,16 +249,16 @@ function oJz(){
                     console.log(JSON.stringify(_dx))
                     if (data[_indd]["specialprice"]) {
                         $("#vv").css({ display: "-webkit-box" })
-                        $("#vv span").text(data[_indd]["specialprice"].toFixed(1))
+                        $("#vv span").text(data[_indd]["specialprice"].toFixed(2))
                         if(_price-_yucun-data[_indd]["specialprice"]>0){
-                				$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(1))
-                				$(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(1))
+                				$(".amountBig span").text((_price - data[_indd]["specialprice"]-_yucun).toFixed(2))
+                				$(".ab span").text((Number(_discount) + Number(data[_indd]["specialprice"])).toFixed(2))
                			}
                     } else {
                         $("#vv").css({ display: "none" })
                         if(_price-_yucun>0){
-                        	$(".amountBig span").text((_price -_yucun).toFixed(1))
-                        	$(".ab span").text(Number(_discount).toFixed(1))
+                        	$(".amountBig span").text((_price -_yucun).toFixed(2))
+                        	$(".ab span").text(Number(_discount).toFixed(2))
                         }
                     }
                     var _yu = 0;
@@ -285,16 +285,16 @@ function oJz(){
                         $(".gt").html(_distrgive)
                     }
                 }
-                $("#ss div:nth-child(2)").text("￥" + _zengprice.toFixed(1))
+                $("#ss div:nth-child(2)").text("￥" + _zengprice.toFixed(2))
 
                 
                 
             }
 
             console.log(_discount)
-            $("#cc div:nth-child(2)").text("￥" + _discount.toFixed(1))
-            $("#kk div:nth-child(2)").text("￥" + _price.toFixed(1))
-			$("#ee div:nth-child(2) span").text( _yucun.toFixed(1))
+            $("#cc div:nth-child(2)").text("￥" + _discount.toFixed(2))
+            $("#kk div:nth-child(2)").text("￥" + _price.toFixed(2))
+			$("#ee div:nth-child(2) span").text( _yucun.toFixed(2))
 			if(_yucun==0){
 				$("#ee").hide()
 			}
