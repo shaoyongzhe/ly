@@ -254,3 +254,8 @@ function moneyTransform(money,n){
 	newMoney=arr[0]+point+afterPoint;
 	return newMoney+moneyUnit;
 }
+
+/*时间格式化--符号转化*/
+function timeSymbol(time,before,end){
+	return time.split(before).join(end)
+}

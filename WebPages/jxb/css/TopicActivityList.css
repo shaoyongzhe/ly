@@ -91,7 +91,6 @@ header img:nth-of-type(2) {
   float: left;
   list-style: none;
   margin-right: 15px;
-  margin-left: 7px;
   height: 50px;
   line-height: 50px;
   font-family: "微软雅黑";
@@ -401,10 +400,6 @@ header img:nth-of-type(2) {
   vertical-align: middle;
   cursor: pointer; }
 
-.ccfoot2:hover {
-  background: red;
-  color: white; }
-
 .ccNo img {
   position: absolute;
   right: 27px;
@@ -463,7 +458,6 @@ header img:nth-of-type(2) {
 
   .yeNo li {
     margin-right: 15px;
-    margin-left: 7px;
     height: 44px;
     line-height: 44px;
     font-size: 14px;

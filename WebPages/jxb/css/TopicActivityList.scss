@@ -89,7 +89,7 @@ header img:nth-of-type(2){
     float: left;
     list-style: none;
     margin-right:15px;
-    margin-left:7px;
+//  margin-left:7px;
     height:50px;////////////rem(50);//;
     line-height: 50px;////////////rem(50);//;
     font-family: "微软雅黑";
@@ -451,10 +451,10 @@ vertical-align: middle;
     vertical-align: middle;
     cursor:pointer;
 }
-.ccfoot2:hover{
-    background: red;
-    color:white;
-}
+//.ccfoot2:hover{
+//  background: red;
+//  color:white;
+//}
 .ccNo img{//无法参与
     position:absolute;
     right:27px;////////////rem(27);//;
@@ -513,7 +513,7 @@ vertical-align: middle;
 
   .yeNo li {
     margin-right: 15px;
-    margin-left: 7px;
+//  margin-left: 7px;
     height: 44px;//
     line-height: 44px;//
     font-size: 14px;//
