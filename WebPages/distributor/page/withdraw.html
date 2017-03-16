@@ -50,7 +50,7 @@
                 </div>
                 <div class="weui-msg__opr-area">
                     <p class="weui-btn-area">
-                        <a href="javascript:void(0);" ms-attr-class="weui-btn {{vm.Moneys>=1?'activate':'noactivate'}}" ms-click="MoneyWithdraw">提现</a>
+                        <a href="javascript:void(0);" ms-attr-class="weui-btn {{vm.Moneys>=1?'activate':'noactivate'}}" ms-click="userwithdraw">提现</a>
                     </p>
                     <p class="weui-msg__desc" style="margin-top:10px" ms-if="vm.Moneys<1">您的零钱不足1元，无法提现！</p>
                     <p class="weui-msg__desc" style="margin-top:10px; color:#ff6600;" ms-if="vm.Moneys>=1">您提现的金额会直接转账到您的微信零钱</p>
