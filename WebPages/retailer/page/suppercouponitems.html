@@ -159,11 +159,16 @@
                         {@else}
                         <div class="assetinfo">
                             <a href="${testclick(item)}" class="assetcontent">
+                                <!-- <div class="asset_left" style="width: calc(100% - 115px);">
+                                    <div style="max-width: calc(100% - 55px);text-overflow:ellipsis;overflow:hidden;white-space:nowrap;margin-right:5px;float: left;font-size: 1.1rem;">${item.topiclist[0].topictitle}</div>
+                                    <small>${item.topiclist.length>1?'等活动':''}</small>
+                                </div> -->
                                 <div class="asset_left">
-                                    <small>${item.topiclist[0].topictitle + (item.topiclist.length>1?'等活动':'')}</small>
+                                    <div class="topictitle"><nobr style="font-size:1.1rem;">${item.topiclist[0].topictitle}</nobr></div>
+                                    <div class="topictitle_1"><small>${item.topiclist.length>1?'等活动':''}</small></div>
                                 </div>
                                 <div class="asset_right">
-                                    <small>已参加</small>${item.topiclist[0].headcount}<small>人</small>
+                                    <small>已参加</small>${getheadcount(item)}<small>人</small>
                                 </div>
                             </a>
                         </div>
@@ -184,9 +189,7 @@
                             </li>
                             <div class="clear"></div>
                         </ul>
-
                     </div>
-
                     {@/each}
                     {@if data[0].description.length >0}
                     <div class="chdetail-textbox" style="border-top:1px solid #ccc;">
@@ -216,6 +219,15 @@
                 });
                 return "../page/participate.html?topicid=" + topicid.substring(1)
             });
+
+            juicer.register("getheadcount", function (items) {
+                var headcount = 0
+                $.each(items.topiclist, function (index, item, array) {
+                    headcount += item.headcount
+                });
+                return headcount
+            });
+
             var activity_id = "";
             var urlinfo = window.location.href; //获取当前页面的url
 
@@ -474,5 +486,6 @@
         });
     </script>
     <div class="overlay"></div>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>

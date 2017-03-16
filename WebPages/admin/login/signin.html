@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="renderer" content="webkit"  />
 	<meta charset="UTF-8">
 	<title>登录页</title>
 	<link rel="stylesheet" type="text/css" href="css/sigin.css">
@@ -27,7 +29,7 @@
 						<img class="password_pic" src="images/password1.png" height="23" width="19" alt="">
 					</div>
 					<div>
-						<div id="remember_pass" class="Remember_username">
+						<div id="remember_pass" class="Remember_username checked">
 							<i></i>
 							<a href="javascript:;">记住用户名</a>
 						</div>
@@ -48,14 +50,28 @@
 
 		$('.Remember_username').click(function() {
 			$(this).toggleClass('checked');
-		});
-
+		});		
+		/*
+		 * 记住用户名bug修复	
+		 */
+		if(localStorage.userName){
+			$(".user_name").val(localStorage.userName);
+		}
+		function rememberUser(){
+			if( $('#remember_pass').hasClass('checked') ) { 
+				localStorage.userName = $(".user_name").val();
+			}else{
+				localStorage.userName = '';
+			}
+		}
 		//用户名登录
 		$('#enter').click(function(){
+			rememberUser();
 			play()
 		})
 		$(document).keydown(function(event){
            if(event.keyCode == 13){
+           		rememberUser();
            		play()
            		//$('#enter').click();
            }       
@@ -73,10 +89,10 @@
 				},
 				success:function(data){
 
-						if( localStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
+						if( sessionStorage["account"] ) {   // 页面在加载时需要判断本地是否有用户登录信息
 							console.log(8)
-			                $('#account').val( localStorage["account"] );
-			                $('#password').val( localStorage["password"] );
+			                $('#account').val( sessionStorage["account"] );
+			                $('#password').val( sessionStorage["password"] );
 			            }
 						//$('#enter').on('click',function () { //  点击登录按钮调用defaultaccount且传账户密码值过去
 			                defaultaccount( $('#account').val(),$('#password').val() );
@@ -85,18 +101,18 @@
 			            function defaultaccount( account,password ) {   
 			                if( $('#account').val() == "" && $('#password').val() == "" ) {     
 			                    alert('需要您填写账号密码')
-			                     localStorage["status"]  = false; 
+			                     sessionStorage["status"]  = false; 
 			                }else if (data.error==""&&data.result==true){  
 			                    //if( $('#remember_pass').hasClass('checked') ) {  
-			                         localStorage["account"]  = account;    
-			                         localStorage["status"]  = true;    
+			                         sessionStorage["account"]  = account;    
+			                         sessionStorage["status"]  = true;    
 			                         // localStorage["password"] = password;   
 			                    //}
 			                   
 			                    window.location.href="../index.html";
 			                }else{
 			                	alert('账号或者密码错误')
-			                	 localStorage["status"]  = false;    
+			                	 sessionStorage["status"]  = false;    
 			                }
 			            }
 
@@ -104,7 +120,7 @@
 				},
 				error:function(){
 					alert('异常')
-					 localStorage["status"]  = false; 
+					 sessionStorage["status"]  = false; 
 				}
 			})
 	}

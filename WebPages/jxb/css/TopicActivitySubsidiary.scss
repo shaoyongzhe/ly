@@ -1,4 +1,4 @@
-//20170210.9
+//20170221
 //通用样式
 html,body{
     width:100%;
@@ -47,7 +47,7 @@ padding:0;
 //非通用样式
 .Cwrap{
     width: 260px;////////////////rem(260);//;
-    height: 654px;////////////////rem(654);//;
+    height: 718px;////////////////rem(654);//;
 //  background:greenyellow;
     position:relative;
 //  overflow-y: scroll;//原生不好用，还是模拟滚动吧，因为要考虑滚动条尺寸，所以可能要改好多尺寸
@@ -104,7 +104,7 @@ padding:0;
 }
 .Ccontent{
     width: 260px;////////////////rem(260);//;
-    height:534px ;////////////////rem(534);//;
+    height:595px ;////////////////rem(534);//;
 //  margin-top:69px;//躲开固定定位占位
 //  background:beige;
 //  box-sizing: border-box;
@@ -163,7 +163,7 @@ padding:0;
 //  background:red;
     font-family: arial;
     font-weight: bold;
-    font-size: 20px;////////////////rem(20);//;
+    font-size: 18px;////////////////rem(20);//;
     color:#fff;   
     text-align: center;
     transform-origin: left;
@@ -176,14 +176,14 @@ padding:0;
     background-image: url(../img/c9.png);
     position: absolute;
     top: 118px;
-    left: 13px;
+    left: 17px;
     cursor: pointer;
 }
 .CcButieRight{
     @extend .CcButieLeft;
     background-image: url(../img/c10.png);
     top: 118px;
-    left:217px ;
+    left:213px ;
 }
 //参与活动条件
 .CcconditionImg{
@@ -305,6 +305,7 @@ padding:0;
     width: 260px;////////////////rem(260);//;
 //  height:23px;
     padding:10px ;////////////////rem(10);//;//右侧是否需要
+    padding-right: 20px;
     box-sizing: border-box;
     font-family: "微软雅黑";
     font-size: 12px ;////////////////rem(12);//;

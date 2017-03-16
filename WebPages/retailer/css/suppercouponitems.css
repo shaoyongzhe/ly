@@ -429,3 +429,21 @@
 .taocan .tbl_tc tr .tbl_td_right p {
     background-color: #ab7e04;
 }
+/*3-9新增*/
+
+.asset_left .topictitle {
+    max-width: calc(100% - 40px);
+    overflow: hidden;
+    text-wrap: none;
+    text-overflow: ellipsis;
+    float: left;
+}
+
+.asset_left .topictitle  nobr{
+    font-size:1.05em;
+}
+
+ .asset_left .topictitle_1 {
+    width: 40px;
+    float: left;
+}

@@ -1,4 +1,4 @@
-//20170213.1545
+//20170221老大修改了一部分代码
 //alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
@@ -107,7 +107,7 @@ function ajaxActivityDetails(a,b){
 			$(".BbigTitle span").text("已参与分销商数:"+data.joinedcount+"人");
 //			$(".BtuwenWenP1").text($.trim(data.content));	
 //			$(".BtuwenWenP1").text(data.content);
-			$(".BtuwenWenP1").html(data.content.replace(" ","&ensp;"));
+			$(".BtuwenWenP1").html(data.content.trim());
 //			console.log($(".BtuwenWenP1").text())
 			//展开收起
 //			debugger;
@@ -163,6 +163,7 @@ function ajaxActivityDetails(a,b){
 				//不同数量，有无按钮，btsm的宽度各不相同
 				//1.先确定$(".BbtsmRright2Content")宽度
 				var widthNum=0;//$(".BbtsmRright2Content")宽度
+				var textWidth=0;//文本的宽度0218加,用于控制有3列的时候，2种屏幕的宽度。
 				if($(window).width()>1000){				
 					if(Object.keys(data.subsidy_description).length<=3){
 						widthNum=861;
@@ -175,6 +176,7 @@ function ajaxActivityDetails(a,b){
 						width:(widthNum-10*2)/num
 					})*/
 	//				console.log("if")
+					textWidth=214;
 				}else{
 					if(Object.keys(data.subsidy_description).length<=3){
 						widthNum=707;
@@ -187,19 +189,28 @@ function ajaxActivityDetails(a,b){
 						width:(widthNum-10*2)/num
 					})*/
 	//				console.log("else")
+					textWidth=188;
 				}	
 				//生成btsm	
 				for(var key in data.subsidy_description){				
 					$(".BbtsmRright2Content").append(btsmHtml);//生成btsm	
 					
 					$(".BbtsmRright2Content .btsm:last").find(".btsmP1").text(btduixiang(key));//补贴对象
-					var hm=''
-					for(i=0;i<data.subsidy_description[key].length;i++){
+					var hm = ''
+					var subsidyDescriptionSummary = data.subsidy_description[key]
+					for (i = 0; i < subsidyDescriptionSummary.length; i++) {
 						//分享超惠券送固定金额返现2元
 //						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+'</p>';	
 						//分享超惠券送固定金额返现2元
 //						hm+='<p class="btsmPs">'+(i+1)+"、"+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+","+data.subsidy_description[key][i].ruledescription.join("，")+'</p>';	
-						hm+='<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">'+(i+1)+'、</span><span style="display: inline-block;width:214px;vertical-align:top">'+data.subsidy_description[key][i].subsidyevent+data.subsidy_description[key][i].subsidymethod+','+data.subsidy_description[key][i].ruledescription.join("，")+'</span></p>'
+					    var subsidyDescriptionString = subsidyDescriptionSummary[i].subsidyevent + ',' + subsidyDescriptionSummary[i].subsidymethod;
+					    if (subsidyDescriptionSummary[i].ruledescription &&
+                            subsidyDescriptionSummary[i].ruledescription.length > 0 &&
+                            subsidyDescriptionSummary[i].rulerestrict)
+					    {
+					           subsidyDescriptionString += "," + subsidyDescriptionSummary[i].rulerestrict + ',' + subsidyDescriptionSummary[i].ruledescription.join("，");
+					    }
+					    hm += '<p class="btsmPs"><span style="display: inline-block;width:16px;vertical-align:top">' + (i + 1) + '、</span><span style="display: inline-block;width:' + textWidth + 'px;vertical-align:top">' + subsidyDescriptionString + '</span></p>'
 					}
 					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
 //					console.log(hm)
@@ -392,7 +403,7 @@ function ajaxActivityDetails(a,b){
 			if(data.consumer.length){
 				for(i=0;i<data.consumer.length;i++){
 //					data.consumer[i].localtype=data.consumer[i].type;
-					$(".BDQFd3").append('<p><img class="vis" src="'
+					$(".BDQFd3").append('<p><img class="hi" src="'
 					+BDcyhdRequireDarr[data.consumer[i].matched]
 					+'" class="BDQFdsImg" /><span class="BDQFdsSpan" >'
 					+data.consumer[i].localtype
@@ -403,9 +414,9 @@ function ajaxActivityDetails(a,b){
 			}else{
 				$(".BDQFd3").append('<img src="img/b4.png" alt="" class="BDcyhdQualifiedXFZimg"/>')
 			}
-			if($(".BDcyhdCityXianzhi").height()<=144){//后期加上
+			if($(".BDcyhdCityD").height()<=144){//后期加上
 				$(".BDcyhdCityDsMore").addClass("hi");
-			}
+			}   
 			//
 			zksq3();
 //			console.log(8888666)
@@ -640,7 +651,10 @@ function returnToList(){
 		$(".returnToList .p2").hide();
 	}
 	$(".returnToList .p1").click(function(){
-		engine.call('ClosePage',"");
+//		engine.call('ClosePage',"");
+		window.history.back();
+		return false;
+//		location.reload();
 		console.log("返回主题活动列表触发")
 	})
 	$(".returnToList .p2").click(function(){

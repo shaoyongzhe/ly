@@ -1,7 +1,10 @@
+var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
+var statisticArr=[];
 
+ClearSessionStorage();
 function GetUrlParam() {
     
-    var url = location.search; 
+    var url = location.search;
     var thisParam = {};
 
     if (url.indexOf("?") != -1) {
@@ -16,8 +19,8 @@ function GetUrlParam() {
     }
 
     return thisParam;
-}
 
+}
 
 
 // debugger
@@ -41,7 +44,6 @@ if(!$.isEmptyObject(GetUrlParam())){
     layer.alert("跳转到修改失败了");
 }
 
-
 function render(resdata){
 
     var basic = $('.basic-msg');
@@ -64,11 +66,15 @@ function render(resdata){
     
     basic.find('.fzr1 .selected').attr("oid",activity.responsible_id.oid);
     basic.find('.fzr2 .selected').attr("oid",activity.responsible2nd_id.oid);
-    
-    if(activity.singleselection == 1){
-        $('.radio:contains(是)').addClass('on');
+
+    basic.find('.fzr1 .selected').attr("guid",activity.responsible_id.guid);
+    basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
+
+
+    if(activity.singleselection == 0){
+        $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
     } else {
-        $('.radio:contains(否)').addClass('on');
+        $('.radio:contains(否)').addClass('on').siblings().removeClass('on');
     }
 
 
@@ -118,6 +124,14 @@ function render(resdata){
 
     }
 
+    $('.edit-area.condition span.radio').removeClass('on');
+    $('.edit-area.condition span.radio').each(function(){
+    	if($(this).attr('name') == resdata.sponsor){
+    		$(this).addClass('on');
+    	}
+    })
+
+
     // $("nav span:eq(3)").click();
     for(var i=0; i<resdata.propagation.length; i++){
         var xuanchuan = resdata.propagation[i];
@@ -129,8 +143,6 @@ function render(resdata){
 
 }
 
-
-/*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 //addSubJoint()
 function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个函数里，然后上面ajax中调用		
 	var _resdata_="";	
@@ -216,9 +228,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        activitytype_suited_unit='%';
 	    }
 	    /*优惠力度条件*/
-	    $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
+	     $(".addSub1Mange:last").find(".acCoSc .-hi.selectWrap1").text(activitytype_suited_conditon);
 	    if(activityManger_addSub1Data[i].discount.operator==">="){activityManger_addSub1Data[i].discount.operator="不低于"}
-	    //修复详情页面“等于”不现实的bug
+        else if(activityManger_addSub1Data[i].discount.operator=="="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator=="=="){activityManger_addSub1Data[i].discount.operator="等于"}
 	    else if(activityManger_addSub1Data[i].discount.operator==">"){activityManger_addSub1Data[i].discount.operator="高于"}
 	    $(".addSub1Mange:last").find(".acSe3 .selected").text(activityManger_addSub1Data[i].discount.operator);
@@ -247,20 +259,26 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	//$(".addSub2Mange").remove();	
 	if(!$.isEmptyObject(_resdata_.distributor_condition)&&_resdata_.distributor_condition!=undefined){
 	    var activityManger_addSub2Data_distributor=_resdata_.distributor_condition;
-	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家");
+	    /*
+	     * 修复遗漏的模块
+	     */
+	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_distributor,"分销商","家","fxs");
+		$('.acZige').find(".fxs").not(':last').remove();
 	    // console.log('分销商')
 	}
 	if(!$.isEmptyObject(_resdata_.retailer_condition)&&_resdata_.retailer_condition!=undefined){
 	    var activityManger_addSub2Data_retailer=_resdata_.retailer_condition;  
-	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家");
+	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_retailer,"门店","家",'md');
+		$('.acZige').find(".md").not(':last').remove();
 	    // console.log('门店')
 	}
 	if(!$.isEmptyObject(_resdata_.consumer_condition)&&_resdata_.consumer_condition!=undefined){
 	    var activityManger_addSub2Data_consumer=_resdata_.consumer_condition;
-	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_consumer,"消费者","人");
+	    activityManger_addSub2HtmlFn(activityManger_addSub2Data_consumer,"消费者","人",'xfz');
+		$('.acZige').find(".xfz").not(':last').remove();
 	    // console.log('消费者')
 	}
-	function activityManger_addSub2HtmlFn(obj, participants,unit){// participants为参与者，其值为分销商，门店，消费者等    
+	function activityManger_addSub2HtmlFn(obj, participants,unit,object_y){// participants为参与者，其值为分销商，门店，消费者等    
 	    /*开始拼js生成的addSub2Mange*/
 
         // $('nav span:eq(1)').click();
@@ -312,12 +330,13 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '<div class="dib acZige1 ver">'
 	        +                           '<div class="select-wrap acSe5 ba condition-type mangeStyle">'
 	        +                               '<i></i>'
-	        +                               '<em class="selected"></em>'
+	        +                               '<em class="selected condition"></em>'
 	        +                               '<ul class="select"></ul>'
 	        +                           '</div>'                
 	        +                       '</div>'        
 	        +                       '<!--统计范围-->'
-	        +                       '<div class="dib acZige2 ver" style="margin: 0 4px">'
+            +                       '<div class="range-wrap">'
+	        +                       '<div class="dib acZige2 ver" style="margin-right: 4px;">'
 	        +                           '<div class="select-wrap  acSe6 mangeStyle">'                                       
 	        +                               '<i></i>'
 	        +                               '<em class="selected"></em>'
@@ -359,19 +378,21 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib time_y" value="不限"/>'
+	        +                               '<input type="text" class="time time_y dib" value="不限"/>'
 	        +                               '<p class="dib">- 至今</p>'
 	        +                           '</div>'            
+            +                       '</div>'
 	        +                       '</div>'
 	        +                       '<!--条件-->'
 	        +                       '<!--大于或介于-->'
-	        +                       '<div class="dib acZige4 ver" style="margin-left: 8px;">'
-	        +                           '<div class="select-wrap  acSe8 mangeStyle">'                                       
+	        +                       '<div class="dib acZige4 ver" style="margin-left: 0px;">'
+	        +                           '<div class="select-wrap acSe8 mangeStyle operator-wrap">'                                       
 	        +                               '<i></i>'
 	        +                               '<em class="selected"></em>'
 	        +                               '<ul class="select">'
 	        +                                   '<li class="option">>=</li>'
 	        +                                   '<li class="option">介于</li>'
+	        +									'<li class="option hi">==</li>'
 	        +                               '</ul>'
 	        +                           '</div>'                
 	        +                       '</div>'
@@ -384,8 +405,15 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '<!--介于对应的-->'
 	        +                           '<div class="-hi hi acZige5c acZige1Tab acZige4tab mangeStyle">'
 	        +                               '<!--最后一个p标签内容随时变-->'
-	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" disabled/><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
-	        +                           '</div>'                                                            
+	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" /><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
+	        +                           '</div>'  
+            +                           '<div class="select-wrap acZige4tab teyao hi">'
+            +                               '<i></i>'
+            +                               '<em class="selected"></em>'
+            +                               '<ul class="select">'
+            +                                   '<li class="option">特邀联盟</li>'
+            +                               '</ul>'
+            +                           '</div>'                                                  
 	        +                       '</div>'
 	        +                       '<!--添加删除按钮-->'
 	        +                       '<div class="acAdC dib">'
@@ -436,6 +464,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                       '</div>'        
 	        +                       '<!--统计范围-->'
+            +                       '<div class="range-wrap">'
 	        +                       '<div class="dib acZige2 ver" style="margin: 0 4px">'
 	        +                           '<div class="select-wrap  acSe6 mangeStyle">'                                       
 	        +                               '<i></i>'
@@ -478,19 +507,21 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '</div>'
 	        +                           '<!--类型3至今-->'
 	        +                           '<div class="acZige3b hi acZige2tab n2">'
-	        +                               '<input type="text" class="dib time_y" value="不限" />'      
-	        +                               '<p class="dib">- 至今</p>'
+	        +                               '<input type="text" class="time time_y dib" value="不限" />'      
+	        +                               '<p class="dib"> - 至今</p>'
 	        +                           '</div>'            
+            +                       '</div>'
 	        +                       '</div>'
 	        +                       '<!--条件-->'
 	        +                       '<!--大于或介于-->'
-	        +                       '<div class="dib acZige4 ver" style="margin-left: 8px">'
-	        +                           '<div class="select-wrap  acSe8 mangeStyle">'                                       
+	        +                       '<div class="dib acZige4 ver" style="margin-left: 0px">'
+	        +                           '<div class="select-wrap  acSe8 mangeStyle operator-wrap">'                                       
 	        +                               '<i></i>'
 	        +                               '<em class="selected"></em>'
 	        +                               '<ul class="select">'
 	        +                                   '<li class="option">>=</li>'
 	        +                                   '<li class="option">介于</li>'
+	        +									'<li class="option hi">==</li>'
 	        +                               '</ul>'
 	        +                           '</div>'                
 	        +                       '</div>'
@@ -504,7 +535,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                           '<div class="-hi hi acZige5c acZige1Tab acZige4tab mangeStyle">'
 	        +                               '<!--最后一个p标签内容随时变-->'
 	        +                               '<input type="text" class="min jieyu1 mangeStyle" value="" disableds______/><p>-</p><input type="text" class="jieyu2 mangeStyle" value="" disableds______/><p class="dib"></p>'
-	        +                           '</div>'                                                            
+	        +                           '</div>'
+            +                           '<div class="select-wrap acZige4tab teyao hi">'
+            +                               '<i></i>'
+            +                               '<em class="selected"></em>'
+            +                               '<ul class="select">'
+            +                                   '<li class="option">特邀联盟</li>'
+            +                               '</ul>'
+            +                           '</div>'                                                            
 	        +                       '</div>'
 	        +                       '<!--添加删除按钮-->'
 	        +                       '<div class="acAdC dib">'
@@ -514,51 +552,28 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '</div>'
 	        +                   '</div>'    
 	    for (key in obj){
-//	        	debugger;
+
 	        switch(key){//等待补充case
-	            case '核销次数' : activityManger_addSub3HtmlFn('核销次数');break;
-	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数');break;
-	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数');break;
-	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率');break;
-	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长');break;
-	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级');break;
-	            case '' : activityManger_addSub3HtmlFn('核销次数');break;//别忘去掉。
+	        	case '核销次数' : activityManger_addSub3HtmlFn('核销次数',"次");break;
+	            case '核销人数' : activityManger_addSub3HtmlFn('核销人数',"名");break;
+	            case '惠粉数' : activityManger_addSub3HtmlFn('惠粉数',"名");break;
+	            case '粉丝留存率' : activityManger_addSub3HtmlFn('粉丝留存率',"%");break;
+	            case '会员时长' : activityManger_addSub3HtmlFn('会员时长',"天");break;
+	            case '会员等级' : activityManger_addSub3HtmlFn('会员等级',"天");break;
+                case '分销商类型' : activityManger_addSub3HtmlFn('分销商类型');break; //0218
+
 	        }
-	        function activityManger_addSub3HtmlFn(a){
+	        function activityManger_addSub3HtmlFn(a,unitType){
 	            $('.addSub2Mange:last .acZige .addSub3').last().before(activityManger_addSub3Html);
-                
-                var d = new Date();
-                var dates = d.toLocaleDateString().replace(/\//g, '-');
-                $('.time_y').click(function(e){
-                    // e.stopPropagation();
-                    // var id = $(this).attr('id');
-                    laydate({
-                        // elem: id,
-                        event: 'focus',
-                        format: 'YYYY-MM-DD',
-                        // format: 'YYYY-MM-DD',
-                        // istime: true,
-                        max: dates
-                        /*choose: function(dates){
-                            layer.msg(dates);
-                        },*/
-                    });
-                });
 
 	            // console.log(key)
 	            /*条件类型*/
 	            $('.addSub3Mange:last').find(".acSe5 em").text(a);//
-	            
-	            /*
-	             * 粉丝留存率在修改页显示问题，正确显示为 %
-	             */
-	            if(a == "粉丝留存率"){
-	            	$('.addSub3Mange:last').find(".acZige5a  p").text("%");
-	            }
-//	            	$("p.dib")
-					
-	            //}
 	            $('.addSub3Mange:last').find(".acSe5 em").attr("guid",obj[key].guid);//
+	            /*
+	             * 修改页单位显示问题修复
+	             */
+	            $('.addSub3Mange:last').find(".acZige1Tab   p.dib").text(unitType);
 	            /*统计范围*/
 	            $('.addSub3Mange:last .acZige2tab').addClass("hi");//0119把.acZige2tab.n2改为.acZige2tab
 	            //两种类型，至今或者活动开始前
@@ -581,30 +596,32 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                obj[key].guid="7097e5b33e0f4944897240d008bb2f81";*/
 	                /*0123添加假数据结束*/
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//活动开始前     
-	                // console.log(_resdata_.activity.begintime,obj[key].begintime)
-	//              debugger
-					/*
-					 * 修复修改页面input框不能正常显示数字(显示NaN)的bug
-					 * 月份在修改页面正常显示的bug
-					 */
-					if(obj[key].begintime != "不限"){
-						var bgt1_ = new Date(_resdata_.activity.begintime) * 1;
-		                var bgt2_ = new Date(obj[key].begintime) * 1;
-		                // console.log(bgt1_,bgt2_)
-		                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
-		                var preMonths_=Math.ceil(preDays_/30);               
-		                if(obj[key].begintime!=""){
-			                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	                	
-		                }
-		                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
-					}else{
-						/*
-						 * 修复统计范围与条件显示错误的bug
-						 */
-						$('.addSub3Mange:last .acZige3a').find("input").val("");//非数字-->置空	
-						$('.addSub3Mange:last .acZige3a').find(".acSe7 em").text("天");//天/月---->置空
-					}                
-	                
+	                // console.log(_resdata_.activity.begintime,obj[key].begintime);
+	                var date1 = _resdata_.activity.begintime;
+	                var date2 = obj[key].begintime;
+
+	                var bgt1_ = new Date(date1) * 1;
+	                var bgt2_ = new Date(date2) * 1;
+	                // console.log(bgt1_,bgt2_)
+	                var preDays_ = parseInt((bgt1_ - bgt2_) / 86400000);
+	                var preMonths_=parseInt(preDays_/30);
+
+	                /*var preMonths = function( date1, date2 ){
+						
+						var date1 = date1.split('-');// 拆分年月日
+						date1 = parseInt(date1[0]) * 12 + parseInt(date1[1]);// 得到月数
+						
+						var date2 = date2.split('-');// 拆分年月日
+						date2 = parseInt(date2[0]) * 12 + parseInt(date2[1]);// 得到月数
+
+						var m = Math.abs(date1 - date2);
+						return m;
+	                }*/
+
+	                if(obj[key].begintime!=""){
+		                $('.addSub3Mange:last .acZige3a').find("input").val(obj[key].timeunit=="天"?preDays_:preMonths_);//数字	
+	                }
+	                $('.addSub3Mange:last .acZige3a').find(".acSe7 em").text(obj[key].timeunit);//天/月
 	            }else{
 	                $('.addSub3Mange:last .acZige3b').removeClass("hi");        
 	                $('.addSub3Mange:last').find(".acSe6 em").text(obj[key].statisticrange);//至今
@@ -634,10 +651,33 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	                $(".addSub3Mange:last").find(".activityManger_addsub3State").addClass("on");
 	            }
 	            
-	        }
-	    }   
-	}
+                if(a == '分销商类型'){
+                    var distri_type = $('.addSub3 .selected.condition:contains(分销商类型)').closest('.addSub3Mange');
+                    distri_type.find('.range-wrap').addClass('vihi');
+                    // distri_type.find('')
+                    distri_type.find('.acZige4 li:contains(==)').click();
+                    distri_type.find('.teyao .selected').text(obj[key].value);
+                }
 
+	        }
+
+	    }
+
+        // var isChoosenOne = obj[key].singleselection == '1' ? obj[key].singleselection = "radio on" : obj[key].singleselection = "radio";
+        // console.log(JSON.stringify(obj,null,4))
+        if($('.addSub2Mange:last .acZige .addSub3').length > 1){
+		    if(obj.singleselection == '1'){
+		    	$('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio on' name='1'>以上条件满足其一</span><span class='radio' name='0'>以上条件需全部满足</span></div>");	
+		    } else if(obj.singleselection == '0') {
+		    	$('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio' name='1'>以上条件满足其一</span><span class='radio on' name='0'>以上条件需全部满足</span></div>");
+		    }        	
+        }
+
+    	// console.log(isChoosenOne);
+
+        // $('.addSub2Mange:last .acZige .addSub3').last().after("<div class='yyy singleselection "+ object_y +"'><span class='radio' name='0'>以上条件满足其一</span><span class='radio on' name='1'>以上条件需全部满足</span></div>");	
+        // alert(1)
+	}
     
 
     $('.acZige').each(function(){
@@ -682,6 +722,10 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                   '<em class="selected"></em>'
 	        +                   '<ul class="select"></ul>'
 	        +               '</div>'
+			+				'<div class="dib subsidyCondition link">'
+			+					'<a href="#" class="dib ver btCond">请选择补贴条件</a>'
+			+					'<input type="hidden" name="" class="btCondHidden">'
+			+				'</div>'	        
 	        +           '</div>'
 	        +           '<!--等待更改下面的类名acTy-->'
 	        +           '<div class="dib hdc3 ver re">'
@@ -721,7 +765,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +                       '<input type="text" placeholder="" class="hdc4In1 dib" /><span class="dib  ba hdc4P1">-</span><input type="text" placeholder="" class="hdc4In2 dib" /><p class="dib hdc4dA ba hdc4P2"></p><!--即将被替代为别的单位-->'
 	        +                   '</div>'
 	        +                   '<div class="dib hi hdc4d2 link">'
-	        +                       '<a href="#" class="dib hdc4dB ver set"></a>'
+	        +                       '<a href="javascript:;" class="dib hdc4dB ver set"></a>'
 	        +												'<input type="hidden" class="y1y">'
 	        +                   '</div>'
 	        +               '</div>'
@@ -742,10 +786,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +           '<!--申报预算-->'
 	        +           '<div class="dib hdc6 hdc6-1 ver re mangeStyle">'
 	        +               '<div class="acSe14 ba btfz ">'                     
-	        +                   '<input type="text" class="sbys " />'
+	        +                   '<input type="text" class="sbys"/>'
 	        +                   '<p class="dib ">元</p><!--即将被替代为别的单位-->'
 	        +               '</div>'
 	        +           '</div>'
+			+	     	'<div class="dib hdc6-2 ver re" style="display: none;">'
+			+				'<input type="text" class="">'
+			+				'<span class="dib">元</span>'
+			+			'</div>'
 	        +           '<div class="dib hdc7 setgailv">设置<br>概率<input type="hidden" class="gl" value=""></div>'//第1个就加类名glHidden1,把json串存入value中
 	        +           '<div class="dib hdc8 setRules">设置<br>规则<input type="hidden" class="gz" value=""></div>'//第1个就加类名gzHidden1,把json串存入value中
 	        +           '<!--添加删除按钮-->'
@@ -755,8 +803,16 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +               '<span class="activityManger_addsub4State activityManger_startStop status hi"></span>'
 	        +           '</div>'
 	        +       '</div>';
+
+
 	for(i=0;i<activityManger_addSub4Data.length;i++){
+		var randfz = 0;
+		subsidyConditionArr.push(activityManger_addSub4Data[i].event);
+		statisticArr.push(activityManger_addSub4Data[i].statistic);//如果有statistic就插入，没有就插入undefined
 	    $('.addSub4:last').before(activityManger_addSub4Html);
+	    
+	    
+	    	    
 	    /*补贴对象补贴条件补贴形式翻译*/
 	    var btduixiang = "";
 	    // debugger;
@@ -767,7 +823,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	            break;
 	
 	        case "distributor_employee":
-	            btduixiang = '分销商业务员';
+	            btduixiang = '分销商人员';
 	            break;
 	
 	        case "retailer":
@@ -882,19 +938,25 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang)
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
-	    // $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
-	    
+
 	    /*补贴条件*/
-	//  $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
-	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);
+		$(".addSub4Mange:last").find(".subsidyCondition a").text(btCond);
+	    if(activityManger_addSub4Data[i].statistic){
+	    	var addSub4MangeStatistic=JSON.stringify(activityManger_addSub4Data[i].statistic, null, 4);
+		    $(".addSub4Mange:last").find(".subsidyCondition a").attr("statistic",addSub4MangeStatistic);	    	
+	    }
+	    
+	    //*************************************0216删除此注释掉的内容**************************************
+//	    if(activityManger_addSub4Data[i].probability){//prize_content
+//	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
+//	    		$(".addSub4Mange:last").find(".hdc7 .gl").val(addSub4MangeProbability);   
+//	    }
+//	    $(".addSub4Mange:last").find(".hdc7 .gl").addClass("glHidden"+(i+1));
+	    //***************************************************************************	    
 	
 	    /*补贴形式*/
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
 	    $(".addSub4Mange:last").find(".acSe11 .selected").text(btType);
-	
-	    if(btType.indexOf('随机') != -1){
-	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
-	    }
 	
 	    /*三种类型的范围值*/
 	//  $(".addSub4Mange:last").find(".addsub4_fanweizhi").addClass("hi");  
@@ -913,21 +975,23 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	//  }
 	
 	    if(activityManger_addSub4Data[i].refund_content!="摇一摇"){//shake
-	//      debugger
+	     // debugger
 	        $(".addSub4Mange:last").find(".hdc4d1").removeClass('hi');
-	        $(".addSub4Mange:last").find(".hdc4d2").addClass('hi'); 
+	        $(".addSub4Mange:last").find(".hdc4d2").addClass('hi');
 	        $(".addSub4Mange:last").find(".acSe12 .hdc4In1").val(activityManger_addSub4Data[i].min);
 	        $(".addSub4Mange:last").find(".acSe12 .hdc4In2").val(activityManger_addSub4Data[i].max);
 	        $(".addSub4Mange:last").find(".acSe12 .hdc4P2").text(activityManger_addSub4Data[i].unit);
 	        if(btType.indexOf("随机")<0){
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4In2").addClass("hi");
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4P1").addClass("hi");
-	            
 	        }       
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
-	        $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次")
+	        // $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次");
+
+	        // alert(1)
+
 	    }
 	
 	    /*发放上限*/
@@ -936,17 +1000,71 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*补贴峰值*/
 	    $(".addSub4Mange:last").find(".acSe13 input").val(activityManger_addSub4Data[i].ceiling);
 	    var subsidyTopValue=activityManger_addSub4Data[i].max?activityManger_addSub4Data[i].max:activityManger_addSub4Data[i].min;
-	    $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
-			$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
+
+
+	    if(btType.indexOf('随机') != -1){
+	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
+	        activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
+				randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+			});
+			$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
+	    } else {
+
+	    	if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
+	    		// var yaofz = 0;
+	    		// activityManger_addSub4Data[i].prize_content.forEach(function(item, index){
+	    		// 	yaofz += item.applycount;
+	    		// });
+	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(yaofz.toFixed(2));
+	    		
+	    		// $(".addSub4Mange:last").find('.set').click();
+	    		// $('.yaook').click();
+
+
+	    	} else {
+	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
+	    	}
+
+
+	    }
+
+		$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
+
 	    /*申报预算*/
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) input").val(activityManger_addSub4Data[i].applycount); 
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) p").text(activityManger_addSub4Data[i].unit);//单位
+
+
 			/*设置摇一摇*/
 			if(activityManger_addSub4Data[i].prize_content){
 				var addSub4MangeYaoyiyao=JSON.stringify(activityManger_addSub4Data[i].prize_content, null, 4);
-				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao);   
+				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao); 
+
+	    		$(".addSub4Mange:last").find(".fz p").text('元');//单位  
+
+	    		var yaoText = "";
+	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){
+	    			yaoText += item.refund_content + ";<br>";
+	    		});
+	    		$(".addSub4Mange:last").find(".hdc4dB").addClass("set").html(yaoText).css({
+					'lineHeight': 'normal',
+					'overflow': 'hidden',
+					'padding': '3px'
+				});
+
+	    		var yaoSbys = 0;
+	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){
+	    			yaoSbys += item.applycount;
+	    		});
+	    		$(".addSub4Mange:last").find(".hdc6-2 input").val(yaoSbys);
+
+
+
+
 			}
 			 $(".addSub4Mange:last").find(".hdc4d2 .y1y").addClass("y1yHidden"+(i+1));
+
+
 	    /*设置概率*/
 	    if(activityManger_addSub4Data[i].probability){//prize_content
 	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
@@ -973,230 +1091,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(this).toggleClass("on");
 	})
 	
-//	/*增减控件5摇一摇拼接*/
-//	var deng_yaoYiYaoDate={
-//	  "subsidymethod": [
-//	    {
-//	      "localtype": "refund_content",
-//	      "category": "积分",
-//	      "showtype": "random",
-//	      "unit": "分",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定积分",
-//	      "category": "积分",
-//	      "showtype": "fixed",
-//	      "unit": "分",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定金额",
-//	      "category": "现金",
-//	      "showtype": "fixed",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "随机金额",
-//	      "category": "现金",
-//	      "showtype": "random",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "随机微信红包",
-//	      "category": "红包",
-//	      "showtype": "random",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定微信红包",
-//	      "category": "红包",
-//	      "showtype": "fixed",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定金额返现券",
-//	      "category": "返现券",
-//	      "showtype": "fixed",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "随机金额返现券",
-//	      "category": "返现券",
-//	      "showtype": "random",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "摇一摇",
-//	      "category": "摇一摇",
-//	      "showtype": "compose",
-//	      "unit": "次",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    }
-//	  ]
-//	}
-//	//var activityManger_addSub5Data=_resdata_.等待字段;
-//	var activityManger_addSub5Data=deng_yaoYiYaoDate.subsidymethod;//有字段的时候修改这个就ok
-//	var activityManger_addSub5Html=''
-//	        +           '<div class="yaoyiyao addSub5 addSub5Mange">'
-//	        +               '<div class="dib Yyy1 ver re">'                     
-//	        +                   '<div class="select-wrap acSe15 ba">'
-//	        +                       '<i></i>'
-//	        +                       '<em class="selected"></em>'
-//	        +                       '<ul class="select">'
-//	        +                           '<li class="option">静谢谢参与</li>'
-//	        +                           '<li class="option">静微信手气红包</li>'
-//	        +                           '<li class="option">静随机金额返现券</li>'
-//	        +                           '<li class="option">静固定积分</li>'                                 
-//	        +                       '</ul>'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy2 ver re">'
-//	        +                   '<div class="acSe16 ba">'       
-//	        +                       '<div class="dib -hi Yyy2d1 ver">'
-//	        +                           '<input type="text" placeholder="请输入" class="dib min"/>'
-//	        +                           '<span>-</span>'
-//	        +                           '<input type="text" placeholder="请输入" class="dib max"/>'
-//	        +                           '<p class="dib hdc4dA ba fr"></p>'
-//	        +                       '</div>'
-//	        +                       '<div class="dib hi Yyy2d2">'
-//	        +                           '<a href="#" class="dib hdc4dB ver"></a>'
-//	        +                       '</div>'
-//	        +                       '<div class="dib hi Yyy2d3">'
-//	        +                       '</div>'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy3 ver re">'                         
-//	        +                   '<div class="dib Yyy3d1 ver">'
-//	        +                       '<input type="text" value=""/>'
-//	        +                       '<span>%</span>'
-//	        +                   '</div>'
-//	        +               '</div>'    
-//	        +               '<div class="dib Yyy4 ver re">'                         
-//	        +                   '<div class="dib Yyy4d1 ver">'
-//	        +                       '<input type="text" />'
-//	        +                       '<span>次</span>'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy5 ver re">'                         
-//	        +                   '<div class="dib -hi Yyy5d1 ver fz">'
-//	        +                       '<input type="text" value="" class="dib"/>'                     
-//	        +                       '<span class="dib ba"></span>'
-//	        +                   '</div>'
-//	        +                   '<div class="dib hi Yyy5d2">'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy5-1 ver re">'                           
-//	        +                   '<div class="dib -hi Yyy5d1 ver">'
-//	        +                       '<input type="text" value="" class="dib"/>'                     
-//	        +                       '<span class="dib ba">元</span>'
-//	        +                   '</div>'
-//	        +                   '<div class="dib hi Yyy5d2">'                                   
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy6 setgailv">设置概率</div>'
-//	        +               '<!--添加删除按钮-->'
-//	        +               '<div class="dib acAdE Yyy7 ver">'
-//	        +                   '<img src="img/minus.png" height="32" width="32" alt="" class="acAd1"/>'
-//	        +                   '<img src="img/plus.png" height="32" width="32" alt="" class="acAd2 hi" />'             
-//	        +               '</div>'
-//	        +           '</div>';
-//	for(i=0;i<activityManger_addSub5Data.length;i++){   
-//	    if(activityManger_addSub5Data[i].localtype!="摇一摇"){//等待字段更新，可能会是refund_content，shake
-//	        $(".addSub5:last").before(activityManger_addSub5Html);      
-//	        //处理单位  
-//	        if(activityManger_addSub5Data[i].localtype.indexOf("分")>0){
-//	            activityManger_addSub5Data[i].unit="分";
-//	        }else{
-//	            activityManger_addSub5Data[i].unit="元";
-//	        }
-//	        //范围值
-//	        $(".addSub5Mange:last").find(".Yyy2d1").removeClass('hi');
-//	        $(".addSub5Mange:last").find(".Yyy2d2").addClass('hi'); 
-//	        $(".addSub5Mange:last").find(".Yyy2d1 .min").val(activityManger_addSub5Data[i].min);
-//	        $(".addSub5Mange:last").find(".Yyy2d1 .max").val(activityManger_addSub5Data[i].max);
-//	        $(".addSub5Mange:last").find(".Yyy2d1 .hdc4dA").text(activityManger_addSub5Data[i].unit);
-//	        if(activityManger_addSub5Data[i].localtype.indexOf("随机")<0){//处理2种形式的范围值
-//	            $(".addSub5Mange:last").find(".Yyy2d1 .max").addClass("hi");
-//	            $(".addSub5Mange:last").find(".Yyy2d1 span").addClass("hi");            
-//	        }       
-//	    }
-//	
-//	    $(".addSub5Mange:last").find(".acSe15 em").text(activityManger_addSub5Data[i].localtype);
-//	    $(".addSub5Mange:last").find(".acSe16 .min").val(activityManger_addSub5Data[i].min);//范围值
-//	    $(".addSub5Mange:last").find(".acSe16 .max").val(activityManger_addSub5Data[i].max);//范围值
-//	    $(".addSub5Mange:last").find(".Yyy3d1 input").val(activityManger_addSub5Data[i].gailv);//摇一摇概率
-//	    $(".addSub5Mange:last").find(".Yyy4d1 input").val(activityManger_addSub5Data[i].jiangpincishu);//奖品次数
-//	    $(".addSub5Mange:last").find(".Yyy5d1 input").val(activityManger_addSub5Data[i].ceiling);//补贴峰值
-//	    $(".addSub5Mange:last").find(".Yyy5-1 input").val(activityManger_addSub5Data[i].applycount);//申报预算
-//	    
-//	    
-//	}
-//	
-//	        
-	        
-	/*备注:数据activity_condition下product_category暂时不作处理*/
-	$("*").removeClass("mangeStyle");
+	// $("*").removeClass("mangeStyle");
+	$(".mangeStyle").removeClass("mangeStyle");
 //	$(".addSub4Mange input").removeAttr("disabled");
 //	$(".addSub3Mange input").removeAttr("disabled");
 //	$(".addSub2Mange input").removeAttr("disabled");
@@ -1233,17 +1129,13 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	    $(".addSub5Mange:last").find(".acAd1").css("visibility","hidden");//最后一个控件减号隐藏
 	    $(".addSub5Mange:last").find(".acAd2").removeClass("hi");//最后一个控件加号显示       
 	}
-butiefz();
-$('.butieSec .sbys').keyup();
+
+
+
+	butiefz();
+	$('.butieSec .sbys').keyup();
+
 }
 
 
 
-
-/*调试用代码*/
-/*
-$("section").removeClass("on");
-$(".section3").addClass("on");
-$(".acZige").removeClass("hi");
-//0123临时注释掉
-*/

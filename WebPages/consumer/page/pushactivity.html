@@ -237,7 +237,7 @@
                                     <div class="topictitle_1"><small>{{item.topiclist.length>1?'等活动':''}}</small></div>
                                 </div>
                                 <div class="asset_right">
-                                    <small>已参加</small>{{item.topiclist[0].headcount}}<small>人</small>
+                                    <small>已参加</small>{{getheadcount(item.topiclist)}}<small>人</small>
                                 </div>
                             </a>
                         </div>
@@ -253,8 +253,6 @@
                             </li>
                             <li style="border-right:none; ">
                                 &nbsp;
-                                <!--{{item.verifylimit==null?'0':item.verifylimit}}
-                                <p>今日可用</p>-->
                             </li>
                             <li style="width:40%;border-right:none">
                                 <div style="margin-top:9px" ms-attr-class="btn_css {{item.verifylimit>0?'btn_css1':' btn_css2'}}" ms-click="useticket(item)">
@@ -263,7 +261,7 @@
                             </li>
                             <div class="clear"></div>
                         </ul>
-                      
+
                         <hr />
                     </div>
                     <div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; ">
@@ -315,8 +313,8 @@
     <script src="/consumer/js/lib/lib.js" type="text/javascript"></script>
     <script src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
-    <!--<script src="/consumer/js/lib/weixinshare-qrcode.js"></script>-->
-    <script src="/consumer/js/ticket_common.js"></script>
+    <!--<script src="/consumer/js/lib/weixinshare-qrcode.js"></script>
+    <script src="/consumer/js/ticket_common.js"></script>-->
     <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.js"></script>
     <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
@@ -647,8 +645,17 @@
                 });
 
                 location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+            },
+            getheadcount: function (el) {
+                var headcount = 0;
+                $.each(el, function (i, v) {
+                    headcount += v.headcount
+                })
+
+                return headcount
             }
         })
     </script>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>

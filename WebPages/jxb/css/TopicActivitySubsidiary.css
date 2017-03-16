@@ -39,7 +39,7 @@ html, body {
 
 .Cwrap {
   width: 260px;
-  height: 654px;
+  height: 718px;
   position: relative; }
 
 .Cbd {
@@ -82,7 +82,7 @@ html, body {
 
 .Ccontent {
   width: 260px;
-  height: 534px;
+  height: 595px;
   position: absolute;
   top: 70px;
   overflow-y: auto;
@@ -130,7 +130,7 @@ html, body {
   left: 117px;
   font-family: arial;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   color: #fff;
   text-align: center;
   transform-origin: left;
@@ -142,13 +142,13 @@ html, body {
   background-image: url(../img/c9.png);
   position: absolute;
   top: 118px;
-  left: 13px;
+  left: 17px;
   cursor: pointer; }
 
 .CcButieRight {
   background-image: url(../img/c10.png);
   top: 118px;
-  left: 217px; }
+  left: 213px; }
 
 .CcconditionImg {
   background-image: url(../img/c4.png);
@@ -243,6 +243,7 @@ html, body {
 .CccDescriptionCon {
   width: 260px;
   padding: 10px;
+  padding-right: 20px;
   box-sizing: border-box;
   font-family: "微软雅黑";
   font-size: 12px;

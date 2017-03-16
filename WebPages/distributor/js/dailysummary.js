@@ -1,5 +1,5 @@
-﻿  var common = {};
- common.loading = {
+﻿     var common = {};
+    common.loading = {
         show: function () {
             $("body").append('<div id="loading" class="pin-spinner"><div class="pin-spinner-container pin-spinner-container1"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container2"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div><div class="pin-spinner-container pin-spinner-container3"><div class="pin-spinner-circle1"></div><div class="pin-spinner-circle2"></div><div class="pin-spinner-circle3"></div><div class="pin-spinner-circle4"></div></div></div>');
         },
@@ -81,55 +81,36 @@ $(function(){
 			         this.closePath();
 			         return this;
 			     }
-			    if(data.activitycount.unmatchedtopic>data.activitycount.matchedtopic){
-		    		var maxnum=data.activitycount.unmatchedtopic;     
-			     	var minnum=data.activitycount.matchedtopic;  
-			     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
+			     function fontAnglecanvas1(){
+			     	if($('.Mark_chart1 a').text().length==1){
+		    			$('.Pie_chart1 a').css('left','44%');
+		    		}else if($('.Pie_chart1 a').text().length==2){
+		    			$('.Pie_chart1 a').css('left','44%');
+		    		}else if($('.Pie_chart1 a').text().length==3){
+		    			$('.Pie_chart1 a').css('left','39%');
+		    		}else if($('.Pie_chart1 a').text().length==4){
+		    			$('.Pie_chart1 a').css('left','35%');
+		    		}else if($('.Pie_chart1 a').text().length==5){
+		    			$('.Pie_chart1 a').css('left','32%');
+		    		}else if($('.Pie_chart1 a').text().length==6){
+		    			$('.Pie_chart1 a').css('left','29%');
+		    		}else if($('.Pie_chart1 a').text().length==7){
+		    			$('.Pie_chart1 a').css('left','25%');
+		    		}
+			     }
+
+			    	var allActivity = data.activitycount.unmatchedtopic + data.activitycount.matchedtopic;
+			     	var matchedActivity=data.activitycount.matchedtopic;  
+			     	var c = allActivity == 0 ? 0 :  matchedActivity / allActivity  * Math.PI * 2;  //  数据比值 在圆中所占的比例
 		    		ctx.sector(50,50,50,0,c,"#acd171","#73ba2c").fill();   //调用原型方法sector 补充参数
-		    		$('.Pie_chart1 a').html(maxnum);
-		    		if(data.activitycount.matchedtopic==0){
-		    			$('.Activity_number_right .Activity_ri_text').html('暂为获得平台补贴');
+		    		$('.Pie_chart1 a').html(allActivity);
+		    		if (matchedActivity == 0) {
+		    			$('.Activity_number_right .Activity_ri_text').html('暂未获得平台补贴');
 		    			$('.Activity_ri_text').css({"color":"#787878","marginTop":"1.5rem"});
 		    		}
-		    		$('.Activity_ri_text span').html(minnum);
-		    		if($('.Mark_chart1 a').text().length==1){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==2){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==3){
-		    			$('.Pie_chart1 a').css('left','39%');
-		    		}else if($('.Pie_chart1 a').text().length==4){
-		    			$('.Pie_chart1 a').css('left','35%');
-		    		}else if($('.Pie_chart1 a').text().length==5){
-		    			$('.Pie_chart1 a').css('left','32%');
-		    		}else if($('.Pie_chart1 a').text().length==6){
-		    			$('.Pie_chart1 a').css('left','29%');
-		    		}else if($('.Pie_chart1 a').text().length==7){
-		    			$('.Pie_chart1 a').css('left','25%');
-		    		}
-		    	}else{
-		    		var maxnum=data.activitycount.matchedtopic;     
-			     	var minnum=data.activitycount.unmatchedtopic;  
-			     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
-		    		ctx.sector(50,50,50,0,c,"#acd171","#73ba2c").fill();   //调用原型方法sector 补充参数
-		    		$('.Pie_chart1 a').html(maxnum);
-		    		$('.Activity_ri_text span').html(minnum);
-		    		if($('.Mark_chart1 a').text().length==1){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==2){
-		    			$('.Pie_chart1 a').css('left','44%');
-		    		}else if($('.Pie_chart1 a').text().length==3){
-		    			$('.Pie_chart1 a').css('left','39%');
-		    		}else if($('.Pie_chart1 a').text().length==4){
-		    			$('.Pie_chart1 a').css('left','35%');
-		    		}else if($('.Pie_chart1 a').text().length==5){
-		    			$('.Pie_chart1 a').css('left','32%');
-		    		}else if($('.Pie_chart1 a').text().length==6){
-		    			$('.Pie_chart1 a').css('left','29%');
-		    		}else if($('.Pie_chart1 a').text().length==7){
-		    			$('.Pie_chart1 a').css('left','25%');
-		    		}
-		    	}
+		    		$('.Activity_ri_text span').html(matchedActivity);
+		    		fontAnglecanvas1()
+		    	
 				
 				
 			}
@@ -174,18 +155,49 @@ $(function(){
 			         this.closePath();
 			         return this;
 			     }	
-			    //for(var i = 0;i<data.marketsale.length;i++){
-			     	if(data.marketsale.length==1||data.marketsale.length==0){
+			    // for(var i = 0;i<data.marketsale.length;i++){
+			    	// if(data.marketsale.length==1||data.marketsale.length==0){
+			    	// console.log(data)
+		    		function fontAnglecanvas2(){
+			    		if($('.Mark_chart1 a').text().length==1){
+			    			$('.Mark_chart1 a').css('left','44%');
+			    		}else if($('.Mark_chart1 a').text().length==2){
+			    			$('.Mark_chart1 a').css('left','44%');
+			    		}else if($('.Mark_chart1 a').text().length==3){
+			    			$('.Mark_chart1 a').css('left','39%');
+			    		}else if($('.Mark_chart1 a').text().length==4){
+			    			$('.Mark_chart1 a').css('left','35%');
+			    		}else if($('.Mark_chart1 a').text().length==5){
+			    			$('.Mark_chart1 a').css('left','32%');
+			    		}else if($('.Mark_chart1 a').text().length==6){
+			    			$('.Mark_chart1 a').css('left','26%');
+			    		}else if($('.Mark_chart1 a').text().length==7){
+			    			$('.Mark_chart1 a').css('left','25%');
+			    		}
+			    	}
+			     	if(data.marketsale.length==0){
+
 				      	var maxnum=0;            //获取到的后台数据
 				    	var minnum=0;
 				     	$('.Mark_chart1 a').html(0);
-				     	$('.Market_cost_right .Market_cost_ri_text').html('暂为获得平台补贴');
+				     	$('.Market_cost_right .Market_cost_ri_text').html('暂未获得平台补贴');
 				     	$('.Market_cost_ri_text').css({"color":"#787878","marginTop":"1.5rem"})
 				     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 			    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
-			    		$('.Mark_chart1 a').html(maxnum)
+			    		$('.Mark_chart1 a').html(maxnum)  //canvas中心数字
 			    		$('.Mark_chart1 a').css('left','44%');
 				    		
+				    }else if(data.marketsale.length==1){
+				    	for(var y=0;y<data.marketsale.length;y++){
+					    	if(data.marketsale[y].type=='tblipalomaactivity'){
+					    		var maxnum=data.marketsale[y].sale;   
+					     		var c=maxnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
+					     		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
+					     		$('.Mark_chart1 a').html(data.marketsale[y].sale)
+				    			$('.fir_span').html('￥'+maxnum)  //其中
+				    			fontAnglecanvas2()
+					    	}
+				    	}
 				    }else{
 				    	if(data.marketsale[1].sale>data.marketsale[0].sale){
 				    		var maxnum=data.marketsale[1].sale;     
@@ -193,21 +205,7 @@ $(function(){
 					     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 				    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
 				    		$('.Mark_chart1 a').html(data.marketsale[1].sale)
-				    		if($('.Mark_chart1 a').text().length==1){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==2){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==3){
-				    			$('.Mark_chart1 a').css('left','39%');
-				    		}else if($('.Mark_chart1 a').text().length==4){
-				    			$('.Mark_chart1 a').css('left','35%');
-				    		}else if($('.Mark_chart1 a').text().length==5){
-				    			$('.Mark_chart1 a').css('left','32%');
-				    		}else if($('.Mark_chart1 a').text().length==6){
-				    			$('.Mark_chart1 a').css('left','29%');
-				    		}else if($('.Mark_chart1 a').text().length==7){
-				    			$('.Mark_chart1 a').css('left','25%');
-				    		}
+				    		fontAnglecanvas2()
 				    		$('.fir_span').html('￥'+minnum)  //其中
 				    		//$('.three_span').html('￥'+minnum) //第一名
 
@@ -216,22 +214,7 @@ $(function(){
 					     	var minnum=data.marketsale[1].sale;  
 					     	var c=minnum/maxnum*Math.PI*2;  //  数据比值 在圆中所占的比例
 				    		ctx.sector(50,50,50,0,c,"#5b84c2","#97b7e0").fill();   //调用原型方法sector 补充参数
-				    		$('.Mark_chart1 a').html(data.marketsale[0].sale)
-				    		if($('.Mark_chart1 a').text().length==1){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==2){
-				    			$('.Mark_chart1 a').css('left','44%');
-				    		}else if($('.Mark_chart1 a').text().length==3){
-				    			$('.Mark_chart1 a').css('left','39%');
-				    		}else if($('.Mark_chart1 a').text().length==4){
-				    			$('.Mark_chart1 a').css('left','35%');
-				    		}else if($('.Mark_chart1 a').text().length==5){
-				    			$('.Mark_chart1 a').css('left','32%');
-				    		}else if($('.Mark_chart1 a').text().length==6){
-				    			$('.Mark_chart1 a').css('left','29%');
-				    		}else if($('.Mark_chart1 a').text().length==7){
-				    			$('.Mark_chart1 a').css('left','25%');
-				    		}
+				    		fontAnglecanvas2()
 				    		$('.fir_span').html('￥'+minnum)  //其中
 				    		//$('.three_span').html('￥'+minnum) //第一名
 				    	}
@@ -295,46 +278,55 @@ $(function(){
 							 return  insertSort(array,sortField);
 					}
 						  
-					function  insertSort(array,field) {
-						 var i = 0,
-							len = array.length,
-							j, d,e,f;
-							for (; i < len; i++) {
-								for (j = i+1; j < len; j++) {
-									if (array[i][field] < array[j][field]) {
-										d = array[j][field];
-										
-										array[j][field]=array[i][field];
-										if(field=='headcount'){
-											e = array[j]['verifycount'];
-											f = array[j]['retailercount'];
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='verifycount'){
-											e = array[j]['headcount'];
-											f = array[j]['retailercount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['retailercount'] = array[i]['retailercount'];
-											array[i]['retailercount'] = f;
-										}
-										if(field=='retailercount'){
-											e = array[j]['headcount'];
-											f = array[j]['verifycount'];
-											array[j]['headcount'] = array[i]['headcount'];
-											array[i]['headcount'] = e;
-											array[j]['verifycount'] = array[i]['verifycount'];
-											array[i]['verifycount'] = f
-										}
-										array[i][field] = d;
+					function insertSort(array, field) {
+						var i = 0,
+						len = array.length,
+						j, d, e, f;
+						for (; i < len; i++) {
+							for (j = i + 1; j < len; j++) {
+								if (array[i][field] < array[j][field]) {
+									d = array[j][field];
+									array[j][field] = array[i][field];
+									if (field == 'headcount') {
+										e = array[j]['verifycount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
 									}
+									if (field == 'verifycount') {
+										e = array[j]['headcount'];
+										f = array[j]['retailercount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['retailercount'] = array[i]['retailercount'];
+										array[i]['retailercount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									if (field == 'retailercount') {
+										e = array[j]['headcount'];
+										f = array[j]['verifycount'];
+										g = array[j]['activitytitle'];
+										array[j]['headcount'] = array[i]['headcount'];
+										array[i]['headcount'] = e;
+										array[j]['verifycount'] = array[i]['verifycount'];
+										array[i]['verifycount'] = f;
+										array[j]['activitytitle'] = array[i]['activitytitle'];
+										array[i]['activitytitle'] = g;
+									}
+									array[i][field] = d;
 								}
 							}
-							return array;
+						}
+						return array;
 					}
+
 
 					
 
@@ -491,11 +483,11 @@ $(function(){
 							$('.activeson1_right1 a').html(str6_1);
 							$('.activeson1_right2 a').html(str6_2);
 							$('.activeson1_right3 a').html(str6_3);
-							
+							var colors = verificationnumber[i].matched == 1 ? 'colorif' : '';  //判断颜色
 							str+="<li>"+
 									"<div class='activeson1'>"+
 										"<div class='activeson1_left'>"+
-											"<a href='javascript:;'>"+ verificationnumber[i].activitytitle +"</a>"+
+											"<a class='" + colors + "' href='javascript:;'>" + verificationnumber[i].activitytitle + "</a>" +
 											'<input type="hidden" value="'+verificationnumber[i].activityid+'">'+
 										"</div>"+
 										"<div class='line'>"+"</div>"+

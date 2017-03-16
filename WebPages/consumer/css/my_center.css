@@ -281,3 +281,7 @@ box-sizing: border-box;
   margin-top: .32rem;
   padding-bottom: .3rem;
 }
+/*3-1*/
+.Wallet_list h1 b{
+    white-space: nowrap;
+}

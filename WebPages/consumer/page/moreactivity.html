@@ -122,7 +122,7 @@
     <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
     <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script src="/consumer/js/lib/weixinshare-qrcode.js"></script>
-    <script src="/consumer/js/ticket_common.js"></script>
+    
     <script type="text/javascript" src="/consumer/js/cs-danhd-detail.js"></script>
     <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script>
@@ -238,14 +238,16 @@
 
                                 if (item.topiclist != undefined && item.topiclist.length > 0) {
                                     var topicid = ""
+                                    var headcount = 0;
                                     $.each(item.topiclist, function (index, items, array) {
                                         if (index < 20)
                                             topicid += "," + items.topicid
+                                        headcount += items.headcount
                                     });
                                     content += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
-                                    content += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div></div></div>"
+                                    content += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + headcount + "<small>人</small> </div> </a></div></div></div>"
                                 } else {
-                                    content+="<div class=\"whiteblock\"></div>"
+                                    content += "<div class=\"whiteblock\"></div>"
                                 }
 
                                 content += '  <ul class="div-down "> <li>' + (item.itemtotalnum == null ? '0' : item.itemtotalnum) + ' <p>投放</p></li>'
@@ -449,5 +451,6 @@
             location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
         }
     </script>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>

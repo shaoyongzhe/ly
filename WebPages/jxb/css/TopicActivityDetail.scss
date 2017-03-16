@@ -741,16 +741,19 @@ $widhtBwrapDown:1000px;
 //会员参与资格下img(对勾和叉)
 .BDcyhdQualified .BDQFdsImg{
     margin-right:5px;
-    vertical-align: middle;
+    vertical-align: top;
 }
 //会员参与资格下span//粉丝留存率:活动开始前1天,不低于70%
 .BDcyhdQualified .BDQFdsSpan{
     display: inline-block;
     font-family: "微软雅黑";
     font-size: 14px;
-    color:#333;
-    line-height: 24px;
-    height:24px;
+    color: #333;
+    line-height: 19px;
+    /* height: 24px; */
+    /* background: red; */
+    width: 290px;
+    /* vertical-align: top; */
 }
 //会员参与资格下 门店最下面红字内容（如您的投放门店不在平台）
 .BDQFd2_span1{
@@ -1171,7 +1174,7 @@ footer{
     font-size: 14px;
     line-height: 24px;
 //  height: 144px;
-    padding: 3px 15px 4px 15px;
+    padding: 3px 5px 4px 5px;//0218从3 15 4 15改为此
   }
 
   .BwrapDown {
@@ -1276,7 +1279,23 @@ footer{
     margin-top: 10px;
     margin-bottom: 15px;
   }
-
+//会员参与资格下img(对勾和叉)
+    .BDcyhdQualified .BDQFdsImg{
+        margin-right:5px;
+        vertical-align: top;
+    }
+    //会员参与资格下span//粉丝留存率:活动开始前1天,不低于70%
+    .BDcyhdQualified .BDQFdsSpan{
+        display: inline-block;
+        font-family: "微软雅黑";
+        font-size: 14px;
+        color: #333;
+        line-height: 19px;
+        /* height: 24px; */
+        /* background: red; */
+        width: 250px;
+        /* vertical-align: top; */
+    }
   .BDcyhdQualified img {
     margin-right: 5px;
   }

@@ -164,7 +164,7 @@
                     var content = "";
                     for (var i = 0; i < jsondata.data.length; i++) {
                         var obj = jsondata.data[i];
-                        content += '<a  href="/consumer/page/activityitems.html?activitiy_item_guid=' + obj.guid + '">'
+                        content += '<a  data-original="/consumer/page/activityitems.html?activitiy_item_guid=' + obj.guid + '">'
                                + '<div class="prolist">'
                              + '<div class="active-n1 bgwhite"><div class="active-label">'
                              + '<div class="labellist">' + obj.activitykind + '</div></div>'
@@ -242,5 +242,6 @@
         }
 
     </script>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>

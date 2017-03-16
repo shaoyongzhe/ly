@@ -17,5 +17,23 @@
                 $(this).children(".new-sub").slideDown("fast"); //展示当前的二级菜单
             }
         });
+
+        // if (isWeiXin()) {
+        //$(".menu a").each(function (i, item) {
+        //    var domain = "http://" + document.domain;
+        //    var oldhref = $(this).attr("href")
+        //    var wxurl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=##appid##&redirect_uri=##website####jump####herf##&response_type=code&scope=snsapi_base&state=ipaloma#wechat_redirect"
+        //    $(this).attr("href", wxurl.replace("##appid##", wxjsconfig.appid).replace("##website##", domain).replace("##jump##", "/webapi/consumer/weixin/jump?returnUrl=").replace("##herf##", oldhref))
+        //})
+        //  }
     });
 });
+
+//function isWeiXin() {
+//    var ua = window.navigator.userAgent.toLowerCase();
+//    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//}
