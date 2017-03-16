@@ -254,10 +254,11 @@ function basicQuery(resetQueryCondition){
 		    // console.log(data.content.length);
 			// console.log(data)
 			$(".loaded").fadeOut();
-		    if(data.error)
+		    if(data.error){
 		        layer.alert("出错了^_^");
-              
-			 console.log('load : '+ data.content.length);
+		        flag = 1;
+           	}
+			console.log('load : '+ data.content.length);
 			if(data.content.length < 1){
 				// layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
