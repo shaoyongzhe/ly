@@ -254,15 +254,18 @@ function basicQuery(resetQueryCondition){
 		    // console.log(data.content.length);
 			// console.log(data)
 			$(".loaded").fadeOut();
-		    if(data.error)
+		    if(data.error){
 		        layer.alert("出错了^_^");
-              
-			 console.log('load : '+ data.content.length);
+		        flag = 1;
+           	}
+			console.log('load : '+ data.content.length);
 			if(data.content.length < 1){
 				// layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
 				flag = 1;
 				return;
+			}else{
+				flag = 0;
 			}
 			linshi=data;
 
@@ -306,13 +309,15 @@ function basicQuery(resetQueryCondition){
 			pagingJson = data["paging"];
 			if(autoLoad){
 				if($(".activityList tbody").prop("scrollHeight") > 500){
+					flag = 1;
 					autoLoad = false;
 				}else{
 		//			console.log(1)
+					flag = 0;
 					qixiaofeiload();
 				}		
 			};
-			flag = 1;
+//			flag = 1;
 		},
 		beforeSend:function(){
 			flag = 0;
@@ -354,7 +359,7 @@ $(document).keydown(function(event){
    }       
 });
 $(".queryConditionButton .query").click(function () {
-	console.log(flag)
+	console.log(flag);
 	if(flag == 1){
 		autoLoad = true;
 	    $(".activityList tbody").empty();
@@ -424,6 +429,7 @@ function ConstructRecord(contentBody, statusData)
 				+'</tr>';
     }).ToArray();
     return stateHtmlArray.join("\r\n");
+    flag = 1;
 }
 
 function ConstructOpStatus(statusData, state)
