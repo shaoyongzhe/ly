@@ -191,6 +191,7 @@ function ajaxAlready(a){
 				loadintEnd();
 				$(".Awrap").removeClass("initialHi");				
 			}
+			$("body").css({"width":$(window).width(),overflowX:"hidden"});
 		}
 	});	
 }		
@@ -229,6 +230,7 @@ function ajaxNo(a){
 				loadintEnd();
 				$(".Awrap").removeClass("initialHi");				
 			}
+			$("body").css({"width":$(window).width(),overflowX:"hidden"});
 		}
 	});	
 }	

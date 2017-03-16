@@ -465,6 +465,7 @@ function ajaxActivityDetails(a,b){
 		complete:function(data){
 			linshi2=data;
 			loadintEnd();
+			$("body").css({"width":$(window).width(),overflowX:"hidden"});
 		}
 	});//ajax结束
 }
