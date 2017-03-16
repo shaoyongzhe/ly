@@ -75,7 +75,6 @@ function oJz(){
 	        		})
 	        	}        		
         	}
-
             var _list = "";
             var _name = "";
             var _price = 0;
@@ -228,6 +227,7 @@ function oJz(){
                 data = JSON.parse(localStorage.retalerdata).data;
                 console.log(data)
                 console.log(_Id)
+                $("#distributorName>span").text(data[_indd]["distributorname"])
                 $("#phoneto").attr("href", "tel:" + data[_indd]["mobilephone"])
                 if (data[_indd]["activityitem_id"] != "") {
 
