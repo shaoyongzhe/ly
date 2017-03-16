@@ -5479,14 +5479,14 @@
         }).render();
       });
 
-      context.memo('button.codeview', function () {
-        return ui.button({
-          className: 'btn-codeview',
-          contents: ui.icon(options.icons.code),
-          tooltip: lang.options.codeview,
-          click: context.createInvokeHandler('codeview.toggle')
-        }).render();
-      });
+      // context.memo('button.codeview', function () {
+      //   return ui.button({
+      //     className: 'btn-codeview',
+      //     contents: ui.icon(options.icons.code),
+      //     tooltip: lang.options.codeview,
+      //     click: context.createInvokeHandler('codeview.toggle')
+      //   }).render();
+      // });
 
       context.memo('button.redo', function () {
         return ui.button({
@@ -6356,7 +6356,7 @@
 
       var body = [
         '<p class="text-center">',
-        '<a href="javascript:;" >齐枭飞</a> · ',
+        '<a href="javascript:;" >...</a> · ',
         '<a href="javascript:;" >帮助</a> · ',
         '<a href="javascript:;" >介绍</a>',
         '</p>'

@@ -8,6 +8,10 @@ body.details section{
     /*background: aliceblue;*/
 }
 
+body.details section.fourth{
+	overflow-y: hidden;
+}
+
 .detail-wrapper{
 	width: 960px;
 	height: 860px;
@@ -203,5 +207,4 @@ body.details section{
 	width: 830px;
     margin: -20px 0 0 125px;
     vertical-align: top;
-    word-wrap: break-word;
 }

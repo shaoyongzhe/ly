@@ -53,13 +53,13 @@ var vm = avalon.define({
                 jsondata = jsondata || {};
                 if (jsondata.error) {
                     toasterextend.showtips(jsondata.error, "error", false);
-                    qrcode.href();
+                    qrcode.show();
                     return;
                 }
 
                 if (jsondata.user_notification != undefined) {
                     toasterextend.showtips(jsondata.user_notification, "info");
-                    qrcode.href();
+                    qrcode.show();
                     return;
                 }
                 vm.isShow = true
@@ -81,7 +81,7 @@ var vm = avalon.define({
                     if (errormsg == undefined || errormsg == '')
                         errormsg = "Http error: " + XMLHttpRequest.statusText;
                 }
-                qrcode.href();
+                qrcode.show();
                 toasterextend.showtips(errormsg, "error");
             }
         });
@@ -143,5 +143,13 @@ var vm = avalon.define({
         });
 
         location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+    },
+    getheadcount: function (el) {
+        var headcount = 0;
+        $.each(el, function (i, v) {
+            headcount += v.headcount
+        })
+
+        return headcount
     }
 })

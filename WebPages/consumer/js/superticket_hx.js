@@ -44,7 +44,6 @@ var vm = avalon.define({
     //maxNum: 10,//最大可核销数量
     hxNum: 1,
     qrkey: "",
-
     jsondata: {},
     pageStep: 0,//控制页面展示
     activityitem_id: common.getUrlParam("activityitem_id"),
@@ -334,20 +333,25 @@ var vm = avalon.define({
                         Interval = null
 
                         if (result.data.length > 0) {
-                            $('#dowebok').show();
+                            // $('#dowebok').show();
+
                             vm.topicdata = result.data
                             if (result.data.length > 1) {
                                 $('.share_pop2').remove();
                             } else {
                                 $('.share_pop1').remove();
                             }
-                            if (result.share!=undefined) {
+
+                            $('.share_pop').fadeIn(200);
+                            $(".share_hb").hide()
+                            if (result.share != undefined) {
                                 if ($.isFunction(wxjsshare)) {
                                     wxjsshare(result.share || {});
                                 }
                             }
                         }
-                    } else {
+                    }
+                    else {
                         $(".msg,#QRCode").hide()
                         Msg.show(1, result.message)
                     }
@@ -409,7 +413,7 @@ var page2 = avalon.define({
     },
     showUsage: function (type) {
         $("#tab_tishi li").removeClass("acitve")
-        var _hxNum=0
+        var _hxNum = 0
         if (type == 1) {//已核销
             $("#tab_msg").css("border-top", "solid 1px #ff6600")
             _hxNum = vm.yhxNum

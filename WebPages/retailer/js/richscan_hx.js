@@ -1,15 +1,16 @@
 wx.ready(function () {
     //  alert("开始扫一扫")
-    vm.scanwx()
+
+    writeOff(function () {
+        vm.scanwx()
+    });
 });
 
 avalon.ready(function () {
     avalon.scan(document.body, vm)
     //H4sIAAAAAAAEADNOSkpOSjGxsEw1MzWxNDC0TE5LMzI2T0kxTkxJMzIy1DEEAMwE94AiAAAA
-    // vm.cardkey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3Rpdml0eWl0ZW1faWQiOiJiNGQ2MDEyNmZiYjA0MjVmOWE4MDZkNWViZDJkYTgxYiIsInRvdGFsbnVtIjoiMSIsImFjdGl2aXR5X2lkIjoiMTg2NzZlYzI0YmZhNDY4MTg3M2E1M2VlNmY0MDI1YWEiLCJkaXN0cmlidXRvcl9pZCI6IjVjZTFkMTRlMDc1MzQxMzlhZTc3NzRkODk4M2YwNGYzIiwicmFuZG9tIjoiMC4yNzU5MzQwNzY4NTIzODciLCJjb21iaW5laWNvbiI6IlRydWUiLCJjb21iaW5ldGV4dCI6IlRydWUiLCJwaWN0dXJlZm9ybWF0IjoiZ2lmIiwiY29uc3VtZXJfaWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDBlZWVlZTEwMDAwOCIsImdlb2xvYyI6IlBPSU5UICgxMjEuMDkzIDMzLjIyNikiLCJsYXRpdHVkZSI6IjMzLjIyNjAwMTczOTUwMiIsImxvbmdpdHVkZSI6IjEyMS4wOTMwMDIzMTkzMzYiLCJ2ZXJpZnlpcCI6IjEyNy4wLjAuMSIsImV4cGlyYXRpb250aW1lIjoiMjAxNi0xMi0yNyAxNjowNjo0OCJ9.d_CbMb9NgLbrEcEHta44vD4ThA84DdfrCALQYudxIhE"
+    // vm.cardkey = "H4sIAAAAAAAEAEWLQQrDIBBF7zLrLtTJaOxlZKKTItQEmjEQQu_ekE3_6j14_wTOWveqR6oqLb16LfAE5pEizxMHssMsmX1xlgI78QZLnOABuiq_l96uGi_N67L1Jp90_63DgXwYo_mTkXsYDRJ8f-EbdWN5AAAA"
     //vm.GetTicketInfo(vm.cardkey)
-
-  
 })
 
 function isJson(obj) {
@@ -30,7 +31,7 @@ var vm = avalon.define({
     scanwx: function () {//微信扫一扫
         vm.seconds = 8;
         vm.cardkey = "";
-        vm.pageStep = 1
+        vm.pageStep = 1;
         wx.scanQRCode({
             needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
             scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
@@ -43,14 +44,11 @@ var vm = avalon.define({
 
                     $(".btn").hide()
                     $("#btn_1").show()//返回
-                } else
-                {
+                } else {
                     waitloadaddress(function () {
                         vm.GetTicketInfo(res.resultStr, wxlocation.latitude, wxlocation.longitude)
-                        //加载位置
                     });
                 }
-                    
             }
         });
     },
@@ -60,14 +58,11 @@ var vm = avalon.define({
     zengpin: 0,//赠品份数
     seconds: 8,//描述
     IsVerifycard: false,
-    GetTicketInfo: function (cardkey,latitude,longitude) {//加载优惠卷
-
-      
-
+    GetTicketInfo: function (cardkey, latitude, longitude) {//加载优惠卷
         $.ajax({
-            type: 'get',
+            type: 'GET',
             dataType: 'json',
-            data: { cardkey: cardkey, retailergeoloc: longitude +","+latitude },
+            data: { cardkey: cardkey, retailergeoloc: longitude + "," + latitude },
             url: '/webapi/retailer/weixin/verifycardview',
             beforeSend: function () { Msg.show(1, "超惠券信息加载中...") },
             // complete: function () { Msg.hide(); },
@@ -82,18 +77,11 @@ var vm = avalon.define({
                     $(".btn").hide()
                     $("#btn_1").show()//返回
 
-                } else if (jsondata.error != null || jsondata.error != undefined) {
-                    var tishi = jsondata.error.toString().split('~');
-
-                    Msg.show(2, tishi[0], tishi.length > 1 ? ("~" + tishi[1]) : "")
-                    $(".btn").hide()
-                    $("#btn_1").show()//返回
-                }
-                else {
+                } else {
                     Msg.hide()
                     vm.pageStep = 2;
-                    vm.totalnum = jsondata.totalnum
                     vm.jsondata = jsondata.activityitemjson
+                    vm.totalnum = jsondata.totalnum
                     vm.MsgShow(1, "消费者已选择" + result.verifynum + "张超惠券", "请确认")
                     vm.hxNum = result.verifynum
 
@@ -115,10 +103,25 @@ var vm = avalon.define({
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                Msg.show(4, "网络不给力", "查不到超惠券信息，请重试！")
-                $(".btn").hide()
-                $("#btn_2").show()//返回
-                $("#btn_3").show()//返回
+
+                var errormsg = "网络不给力";
+                try {
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = json.Message != undefined ? JSON.parse(json.Message).error : json.error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
+                } catch (e) {
+
+                }
+
+                Msg.show(4, errormsg, errormsg == "登录失败" ? "请退出重新登录" : "查不到超惠券信息，请重试！")
+                if (errormsg != "登录失败") {
+                    $(".btn").hide()
+                    $("#btn_2").show()//返回
+                    $("#btn_3").show()//返回
+                }
             }
         });
     },
@@ -170,7 +173,7 @@ var vm = avalon.define({
                     try {
                         if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
                             var json = JSON.parse(XMLHttpRequest.responseText);
-                            errormsg = JSON.parse(json.Message).error;
+                            errormsg = json.Message != undefined ? JSON.parse(json.Message).error : json.error;
                             if (errormsg == undefined || errormsg == '')
                                 errormsg = "Http error: " + XMLHttpRequest.statusText;
                         }
@@ -180,13 +183,13 @@ var vm = avalon.define({
                     if (errormsg.indexOf('网络') >= 0) {
                         Msg.show(4, errormsg, "核销失败，请重试")
                     } else {
-                        Msg.show(2, errormsg, "核销失败，请重试")
+                        Msg.show(2, errormsg, errormsg == "登录失败" ? "请退出重新登录" : "核销失败，请重试")
                     }
-
-
-                    $(".btn").hide()
-                    $("#btn_2").show()//返回
-                    $("#btn_4").show()//重试
+                    if (errormsg != "登录失败") {
+                        $(".btn").hide()
+                        $("#btn_2").show()//返回
+                        $("#btn_4").show()//重试
+                    }
                     vm.IsVerifycard = false
                 }
             });
@@ -265,6 +268,7 @@ var vm = avalon.define({
                 } catch (e) {
 
                 }
+                $(".msg").show()
                 if (errormsg.indexOf('网络') >= 0) {
                     Msg.show(4, errormsg)
                 } else {
@@ -278,12 +282,9 @@ var vm = avalon.define({
         });
     },
     fun_tautology: function () {//重试
-
         waitloadaddress(function () {
             vm.GetTicketInfo(vm.cardkey, wxlocation.latitude, wxlocation.longitude)
-            //加载位置
         });
-      
     },
     favorable: function (el, num) {
         vm.youhui = 0;

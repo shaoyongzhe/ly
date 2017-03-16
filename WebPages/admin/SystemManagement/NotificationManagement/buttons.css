@@ -129,3 +129,97 @@
     padding: 0;
     width: 14px;
 }
+.modulePeople {
+  background: #f3f1f1;
+  width: 99.1%; 
+  margin: 0 auto;
+}
+.modulePeople tbody .last img {
+  cursor: pointer; }
+
+.modulePeople th {
+  font-weight: bold;
+  font-size: 12px;
+  color: #333;
+  border-top: 1px solid #e4e4e4;
+  border-left: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  height: 40px;
+  text-align: center;
+  background-color: #f3f1f1;
+  }
+
+.modulePeople th.last {
+  border-right: 1px solid #e4e4e4; }
+
+.modulePeople td {
+  font-size: 12px;
+  color: #333;
+  height: 55px;
+  line-height: 22px;
+  border-left: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  text-align: center;
+  /*background-color: #FFFFFF;*/
+  /*display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;*/
+  word-wrap: break-word;
+  }
+
+.ac_tip{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+
+.modulePeople tbody{
+  width: 100%;
+  background: #ffffff;
+  /*overflow-y:scroll;*/
+  height: 500px;
+  float: left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+/*-------单元格样式--------*/
+
+.modulePeople thead,.modulePeople tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.modulePeople thead {
+    width: calc( 99.9% - 0.95em )
+}
+
+
+/*---------------*/
+td .templatecontent{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 94%;
+}
+
+
+
+.modulePeople tbody tr:hover {
+  background: #f1f1f1}
+
+.modulePeople td.last {
+  border-right: 1px solid #e4e4e4; }
+
+.modulePeople .checkBox {
+  width: 15px;
+  height: 15px;
+  margin: 0 auto;
+  background: url("../img/check.png") 100% 100% no-repeat; }
+
+.modulePeople .checkBox {
+  background: url("../img/checked.png") 100% 100% no-repeat; }
+
+.modulePeople .edit {
+  position: relative;
+  font-size: 0px; }
