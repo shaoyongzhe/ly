@@ -20,7 +20,7 @@ $(function(){
 		data: {
 			items: '',
 			isShowbox: false,
-			isShow:true,
+			isShow:false,
 			addressData:addData,
 			consumerId:consumer_id,
 			retailerId:retailerId,
@@ -65,7 +65,7 @@ $(function(){
 				$.ajax({
 					type: 'GET',
 					dataType: 'json',
-//					url: '/webapi/consumer/weixin/retailers/' + retailerId,
+//					url: '/webapi/consumer/weixin/retailers/' + _self.retailerId,
 					url: "/consumer/data/xfzStoreDetails.json",
 //					data: ajaxdata,
 					beforeSend: function() {
@@ -207,6 +207,6 @@ $(function(){
 		type = common.getUrlParam("sharetype")
 	}
 	if(type == "ticket") {
-		myApp.showTicket = true
+		myApp.isShow = true;
 	}
 })
