@@ -36,7 +36,7 @@
 						  		$("#select li:first-child").addClass("selected")
 						  		$("#select li").each(function(){
 						  			if($(this).children().height()<$(this).height()){
-						  				$(this).css({"textAlign":"center","lineHeight":"3rem"})
+						  				$(this).css({"textAlign":"center","lineHeight":"3.5rem"})
 						  			}else{
 						  				$(this).css({"textAlign":"left","lineHeight":"normal"})
 						  			}
@@ -109,7 +109,7 @@ function shopList(pg){
 			   				}
 				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
 		  		_bookTm = (new Date(_bookTm)).getTime();
-		  			_price=_price.toFixed(1)
+		  			_price=_price.toFixed(2)
 		  			var _ggf=0;
 		  			for(var g=0;g<data["content"][j]["details"].length;g++){
 		  				_ggf+=Number(data["content"][j]["details"][g]["itemcount"])

@@ -73,8 +73,8 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .submenu>li>i{position: absolute;left: 10px; top: 30px;width: 10px;height: 18px; font-style: normal;font-family: serif;background:url("../image/shop/heisanjiao.png") no-repeat 0 0;background-size: 10px;}
 .col1{color: #f7af01;}
 .link{position: relative;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;padding-right: 20px;}
-.link>i{display: block;width: 10px;height: 18px;background: url(../image/shop/heisanjiao.png) no-repeat;background-size:10px 18px;position: absolute;right: 8px;bottom: 28px;}
-.link>i.iclick{transform:rotateZ(90deg); }
+.link>i{display: block;width: 20px;height: 20px;background: url(../image/shop/i0.png) no-repeat;background-size:18px 18px;position: absolute;right: 0;bottom: 0;}
+.link>i.iclick{background: url(../image/shop/arrow_up.png) no-repeat;background-size: 20px 16px;bottom: 26px;}
 #loading{height: 100%;padding-top: 55%; display: none;}
 #loading>img{width: 84px;height: 84px;margin: 0 auto 4px;}
 #loading>div{text-align: center;}
@@ -117,10 +117,11 @@ a{text-decoration: none;color: #333;outline: none;-webkit-tap-highlight-color:tr
 .del>i{display: inline-block;width: 28px;height: 28px;background: url("../image/shop/yucun.png") no-repeat center;background-size: 28px;margin:0 4px -4px 4px;}
 .del:after{content: "";width: 100%;height: 1px;position: absolute;top: 50%;left: 0; background: #999;}
 .cgl-syu{color: #bbb;font-size: 24px;}
-.cgl-active{color: #009f96;margin: 4px 0 8px;font-size: 20px;}
-.cgl-active>span{display: inline-block;padding: 6px 4px 4px 4px; border: 1px solid #009f96;border-radius: 6px;line-height: 1;margin-right: 6px;}
+.cgl-active{color: #009f96;margin: 4px 0 8px;font-size: 24px;}
+.cgl-active>span{display: inline-block;padding: 6px 4px 4px 4px;line-height: 1;margin-right: 6px;}
+.cgl-active>span:nth-child(1){border-radius: 6px; border: 1px solid #009f96;}
 .youligift{margin: -34px 20px 0 70px;}
-.cgl-beizhu{color: #999;font-size: 20px;}
+.cgl-beizhu{color: #999;font-size: 24px;max-height: 1rem;}
 
 /**************一般列表***************/
 .ggdiv{overflow: hidden;padding: 4px 0;}
@@ -137,10 +138,10 @@ footer{height: 100px;background: #333;color: #fff;}
     -moz-transform:scale(0.5); 	/* Firefox */
     -webkit-transform:scale(0.5); /* Safari 和 Chrome */
     -o-transform:scale(0.5); 	/* Opera */}
-.price{padding-left: 118px;line-height: 100px;font-size: 26px;}
+.price{padding-left: 118px;line-height: 96px;font-size: 26px;}
 .price>i,.c-price i,.footerr>span>i{font-style: normal;}
 .footerr>a{display:block;color: #fff;background: #009f96;text-align: center;line-height: 100px;font-size: 28px;padding: 0 18px;}
-.footerr>span{display: block;background: #54504f;text-align: center;line-height: 100px;padding: 0 18px;font-size: 28px;}
+.footerr>span{display: block;background: #54504f;text-align: center;line-height: 96px;padding: 0 18px;font-size: 28px;}
 
 
 
