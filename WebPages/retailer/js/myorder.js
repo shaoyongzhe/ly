@@ -36,7 +36,7 @@
 						  		$("#select li:first-child").addClass("selected")
 						  		$("#select li").each(function(){
 						  			if($(this).children().height()<$(this).height()){
-						  				$(this).css({"textAlign":"center","lineHeight":"3rem"})
+						  				$(this).css({"textAlign":"center","lineHeight":"3.5rem"})
 						  			}else{
 						  				$(this).css({"textAlign":"left","lineHeight":"normal"})
 						  			}
