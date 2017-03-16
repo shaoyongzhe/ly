@@ -65,8 +65,17 @@ function oJz(){
         	//遍历data，渲染页面
         	console.log(data)
         	if(data){
-        		$(".loads").css({ display: "none" })
+	        	if(!data.error){
+	        		$(".loads").css({ display: "none" })
+	        	}else{
+	        		$(".tsh").css({displat:"block"});
+	        		$(".ms").text("出错了！")
+	        		$(".cfm").click(function(){
+	        			window.history.go(-1)
+	        		})
+	        	}        		
         	}
+
             var _list = "";
             var _name = "";
             var _price = 0;
@@ -79,6 +88,13 @@ function oJz(){
             var _zz = 0;
             if (_data != "") {
                 for (var i = 0; i < _data.length; i++) {
+                	if(data[i]["info"]=="shoppingcartchanged"){
+                		$(".tsh").css({display:"block"});
+                		$(".ms").text("购物车中的商品已发送变动，请重新提交！")
+                		$(".cfm").click(function(){
+                			window.history.go(-1)
+                		})
+                	}
                     if (_data[i]["isyucun"] == 1) {
                         _image += "<img class=" + "\"img2\" " + "src=" + "../../image/shop/yu.jpg" + " />"
                     }
@@ -358,7 +374,7 @@ function oJz(){
                         $(".loads2").css({ display: "none" })
                         $(".loads2 div").text("提交中...")
                         window.location = "myorder.html"
-                    } else {
+                    } else if(data.result == error){
                     	$(".ms").text(data.error);
 //                      $(".loads2 div").text(data.error + "...")
                         $(".loads2").css({ display: "none" })
@@ -368,6 +384,11 @@ function oJz(){
                             $(".submit").text("提交订单")
                             $("body").css({ overflow: "auto" })                        	
                         })
+                    }else if(data.info=="shoppingcartchanged"){
+                    	$(".ms").text("购物车中的商品已发送变动，请重新提交！");
+                    	$(".cfm").click(function(){
+                    		window.history.go(-1)
+                    	})
                     }
                 }
             })
