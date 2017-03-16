@@ -240,7 +240,7 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 	}
 	/*地区匹配*///0226加入
 	if(info.areamatch!=undefined){
-		$(".CcconditionContent").append('<p class="地区"><img src="'
+		$(".CcconditionContent").prepend('<p class="地区"><img src="'
 			+CimgArr2[info.areamatch]
 			+'" alt="" /><i><span>地区</span></i></p>');
 	}
