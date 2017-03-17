@@ -345,16 +345,18 @@ function oJz(){
             localStorage.removeItem("Id");
             $(".submit").text("提交中...")
             $(".loads2").css({ display: "block" })
-            $.ajax({
-                url: "/webapi/distributor/" + getRetailerid() + "/orderform",
-                type: "post",
-                data: {
+            var _rr={
                     distributor_id: localStorage.disId,
-                    remark: toString($("#inp2").val()),
+                    remark: $("#inp2").val(),
                     deliverdate: $("#beginTime").val(),
                     submitids: _Id,
                     manzeng:_dx == "" ? "" : JSON.stringify(_dx)
-                },
+               };
+            $.ajax({
+                url: "/webapi/distributor/" + getRetailerid() + "/orderform",
+                type: "post",
+                contentType:"application/json; charset=utf-8",
+                data: JSON.stringify(_rr),
                 error: function () {
                     	$(".ms").text("网络异常");
 //                      $(".loads2 div").text(data.error + "...")

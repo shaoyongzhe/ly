@@ -20,7 +20,6 @@ $(document).ready(function () {
     var _zeng = 0;
     var _tuihuo = 0;
     var _get = 0;
-    var _list3 = "";
     var _indd = localStorage.list;
     var _ly = "";
     var _zengg = "";
@@ -32,10 +31,11 @@ $(document).ready(function () {
     console.log(data)
     console.log(data)
     var billdata = data["content"][commodity]["details"];
-    $(".emp li:nth-child(1)").text("订单号：" + billdata["serialnumber"])
-    $(".emp li:nth-child(2)").text("下单时间：" + billdata["issuetime"])
-    $(".emp li:nth-child(3)").text("期望配送时间：" + billdata["billexpecteddelivertime"].split(" ")[0])
-    $(".emp li:nth-child(4)").text("订单备注：" + (billdata["description"] == null ? "" : billdata["description"]))
+    
+    $(".emp li:nth-child(1)").text("订单号：" + data["content"][commodity]["serialnumber"])
+    $(".emp li:nth-child(2)").text("下单时间：" + data["content"][commodity]["issuetime"])
+    $(".emp li:nth-child(3)").text("期望配送时间：" + data["content"][commodity]["billexpecteddelivertime"].split(" ")[0])
+    $(".emp li:nth-child(4)").text("订单备注：" + (data["content"][commodity]["description"] == null ? "" : data["content"][commodity]["description"]))
     $(".emp li:nth-child(5)").text("分销商名称：" + _data1[_indd]["distributorname"])
     $(".emp li:nth-child(6)").text("联系方式：" + _data1[_indd]["mobilephone"])
     //alert(data["content"][7]["details"].length)
@@ -210,8 +210,13 @@ $(document).ready(function () {
     }
     console.log(_get)
 
-    $("#ss span").text(_zeng.toFixed(2))
-
+    $("#ss span").text(_zeng.toFixed(2));
+    if(_tuihuo>0){
+    	$("#th>span").text(_tuihuo.toFixed(2));
+    }else{
+    	$("#th").hide();
+    }
+	
 
     $(".shoplist").html($(".shoplist").html() + _list)
     if (_list2 != "") {
@@ -255,11 +260,35 @@ $(document).ready(function () {
     if (_discount < 0) {
         _discount = 0
     }
-    $(".amountBig").next().find("span").text(_discount.toFixed(2))
-    if (_get - _yucun >= 0) {
-        $(".amountBig span").text((_get - _yucun).toFixed(2))
-    } else {
-        $(".amountBig span").text("0.0")
+    if(billdata["openflag"]==1){
+		$("#ml>span").hide();
+		$("#sy>span").hide();
+	    $(".amountBig").next().find("span").text(_discount.toFixed(2))
+	    if (_get - _yucun >= 0) {
+	        $(".amountBig span:nth-child(2)").text((_get - _yucun).toFixed(2))
+	    } else {
+	        $(".amountBig span:nth-child(2)").text("0.0")
+	    }
+    }else{
+    	if(billdata["shishou"] && billdata["shishou"]>0)
+    	{
+    		$(".amountBig span:nth-child(1)").text("实收合计")
+    		 $(".amountBig span:nth-child(2)").text(data["content"][commodity]["shishou"])
+    	}else if(billdata["shifu"] && billdata["shifu"]>0){
+    		$(".amountBig span:nth-child(1)").text("实付合计")
+    		 $(".amountBig span:nth-child(2)").text(data["content"][commodity]["shifu"])
+    	}else{
+    		$(".amountBig span:nth-child(1)").text("合计")
+    		 $(".amountBig span:nth-child(2)").text((_get - _yucun).toFixed(2))
+    	}
+    	if(billdata["moling"] && billdata["moling"]>0){
+    		$("#ml>span").text(billdata["moling"]);
+    		$("#ml>span").show();
+    	}
+    	if(billdata["yucunkuan"] && billdata["yucunkuan"]>0){
+    		$("#sy>span").text(data["content"][commodity]["yucunkuan"]);
+    		$("#sy>span").show();
+    	}
     }
     console.log($("section").css("height"))
     console.log($("body").css("height"))
