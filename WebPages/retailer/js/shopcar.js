@@ -59,7 +59,7 @@
 			console.log(_Id)
 			_qu=0
 			
-				$(".commit").tap(function(){
+				$(".commit").click(function(){
 					if($(".intr").css("display")!="none"){
 						localStorage.mz=$(".intr").prop("outerHTML")
 					}else if(localStorage.mz){

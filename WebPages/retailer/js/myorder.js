@@ -4,13 +4,16 @@
   	var _flag=0;
   	var _timer="";
   	var _price=0;
+  	var _price2=0;
   	var height=0;
   	var _add=0;
   	var _data2="";
   	var _image="";				 	
   	var _icn="";
   	var _fd=1;
+  	var _pgg=0;
   	localStorage.list=0;
+  	var _cc=1;
   	(function dd(){
   			height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
   			console.log(height)
@@ -76,6 +79,7 @@
 					}
 function shopList(pg){
 			//alert(pg)
+			_cc=1
 			console.log(111)
 		 $.ajax({
 			  url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging=",
@@ -91,8 +95,11 @@ function shopList(pg){
 				 	}
 				 	var _imgs="";
 				 	if(data["error"]==""){
+				 		_pgg=0;
+				 		localStorage.setItem("pg"+_pgg,JSON.stringify(data))
 				 	console.log(data)
 				   	for(var j=0;j<data["content"].length;j++){
+				   		_price=0;
 				   			if(data["content"][j]["details"].length>1){
 				   				if(data["content"][j]["details"].length>3){
 					   				for(var w=0;w<3;w++){
@@ -103,29 +110,36 @@ function shopList(pg){
 					   					_imgs+="<a><img src="+data["content"][j]["details"][q]["itemobj"]["itemimage"]+"></a>";
 					   				}	   					
 				   				}
-				   				_price=0;
+				   				
 			   				for(var z=0;z<data["content"][j]["details"].length;z++){
-											if(data["content"][j]["details"][z]["itemgifttype"]!=3 && data["content"][j]["details"][z]["billid_class"]=="tblbillpofromcustomer"){
+											if(data["content"][j]["details"][z]["itemgifttype"]!=3 && data["content"][j]["details"][z]["itemkind"]!="满赠"){
 												_price+=Number(data["content"][j]["details"][z]["itemunitcost"])*Number(data["content"][j]["details"][z]["itemcount"])
 											}
 								}
-			   				if(_data1[pg]["specialprice"]){
-			   					_price-=_data1[pg]["specialprice"];
-			   					if(_price<0){
-			   						_price=0;
-			   					}
+			   				console.log(_price)
+			   				if(data["content"][j]["iswechatdiscount"]==true){
+			   					if(data["content"][j]["openflag"]==1){
+					   				if(_data1[pg]["specialprice"]){
+					   					_price-=_data1[pg]["specialprice"]
+					   				}			   						
+			   					}else{
+				   					if(data["content"][j]["wechatdiscount"]){
+				   							_price-=data["content"][j]["wechatdiscount"]
+					   				}
+				   				}
 			   				}
-				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
-		  		_bookTm = (new Date(_bookTm)).getTime();
+			   				if(_price<0){
+				   				_price=0;
+				   			}
 		  			_price=_price.toFixed(2)
 		  			var _ggf=0;
 		  			for(var g=0;g<data["content"][j]["details"].length;g++){
 		  				_ggf+=Number(data["content"][j]["details"][g]["itemcount"])
 		  			}
 				   	if(data["content"][j]["openflag"]=="0"){
-				   			_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+_ggf+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+				   			_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+_pgg+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+_ggf+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}else{
-								_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+_ggf+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+								_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+_pgg+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+_ggf+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
 				 		}
 				 		_imgs=""
 					 			}else if(data["content"][j]["details"].length>0 && data["content"][j]["details"].length<=1){
@@ -145,30 +159,38 @@ function shopList(pg){
 					 						_icn+="<img src="+"\"../../image/shop/yu.jpg\""+">"
 					 					}
 						 			}
-					 				if(data["content"][j]["details"][0]["itemobj"]["itemtype"]){
-							 			if(data["content"][j]["details"][0]["itembobj"]["itemtype"]==0){
-					   					_icn+="<img src="+"\"../../image/shop/temp.jpg\""+">"
-					   					console.log(_icn)
-					   				}
-						 			}
 					 				if(data["content"][j]["details"][0]["itemquality"]){
 					 					if(data["content"][j]["details"][0]["itemquality"]==0){
 					 						_icn+="<img src="+"\"../../image/shop/temp.jpg\""+">"
 					 					}
 					 				}
-			   				if(_data1[pg]["specialprice"]){
-			   					_price-=_data1[pg]["specialprice"];
-			   					if(_price<0){
-			   						_price=0;
-			   					}
+									_price+=Number(data["content"][j]["details"][0]["itemunitcost"])*Number(data["content"][j]["details"][0]["itemcount"]);
+									console.log()
+			   				if(data["content"][j]["iswechatdiscount"]==true){
+			   					if(data["content"][j]["openflag"]==1){
+					   				if(_data1[pg]["specialprice"]){
+					   					_price-=_data1[pg]["specialprice"]
+					   				}			   						
+			   					}else{
+				   					if(data["content"][j]["wechatdiscount"]){
+				   							_price-=data["content"][j]["wechatdiscount"]
+					   				}
+				   				}
 			   				}
+			   				if(_price<0){
+				   				_price=0;
+				   			}
 			   				_price=_price.toFixed(2)
+			   				var _ggf=0;
+		  					for(var g=0;g<data["content"][j]["details"].length;g++){
+		  						_ggf+=Number(data["content"][j]["details"][g]["itemcount"])
+		  					}
 					 				if(data["content"][j]["openflag"]=="0"){
-					 						_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
-					 				+" style=\"position:relative\"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i style=\"position:absolute;bottom:0;right:0\">共"+data["content"][j]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 						_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+_pgg+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+					 				+" style=\"position:relative\"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i style=\"position:absolute;bottom:0;right:0\">共"+_ggf+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 					 				}else{
-					 						_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
-					 				+" style=\"position:relative\"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i style=\"position:absolute;bottom:0;right:0\">共"+data["content"][j]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+					 						_shopList+="<dd style="+"\"padding-top:10px;\""+" idd="+_pgg+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+					 				+" style=\"position:relative\"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i style=\"position:absolute;bottom:0;right:0\">共"+_ggf+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
 					 				}
 					 				_icn="";
 					 			}
@@ -199,8 +221,7 @@ function shopList(pg){
 
 	function toShop(data,pg){
 		$(".orderlistbox dd").click(function(){
-				localStorage.pg=$(this).attr("idd")
-				location.href="details.html?pg="+pg+"&index="+$(this).attr("index");
+				location.href="details.html?pg="+$(this).attr("idd")+"&index="+$(this).attr("index");
 		})
 	}
 		
@@ -242,17 +263,23 @@ function shopList(pg){
 									  	console.log(data2)
 									  		$(".loadings").css({display:"none"})
 									  if(data2["error"]==""){
+									  	_pgg++;
+									  	localStorage.setItem("pg"+_pgg,JSON.stringify(data2))
 					   				for(var r=0;r<data2["content"].length;r++){
+					   					_icn=""
+					   					_price2=0;
 					   			if(data2["content"][r]["details"].length>1){
-					   				_price=0;
+					   				
 				   				for(var t=0;t<data2["content"][r]["details"].length;t++){
-												if(data2["content"][r]["details"][t]["itemtype"]!=3){
-													_price+=Number(data2["content"][r]["details"][t]["itemunitcost"])*Number(data2["content"][r]["details"][t]["itemcount"])
+				   					
+												if(data2["content"][r]["details"][t]["itemgifttype"]!=3 && data["content"][r]["details"][t]["itemkind"]!="满赠"){
+													_price2+=Number(data2["content"][r]["details"][t]["itemunitcost"])*Number(data2["content"][r]["details"][t]["itemcount"])
 												}
 									}
+				   				console.log(_price2)
 				   				if(data2["content"][r]["details"].length>3){
-					   				for(var t=0;t<3;t++){
-					   					_img+="<a><img src="+data2["content"][r]["details"][t]["itemobj"]["itemimage"]+"></a>";
+					   				for(var d=0;d<3;d++){
+					   					_img+="<a><img src="+data2["content"][r]["details"][d]["itemobj"]["itemimage"]+"></a>";
 					   				}		
 				   				}else{
 					   				for(var y=0;y<data2["content"][r]["details"].length;y++){
@@ -260,29 +287,79 @@ function shopList(pg){
 					   				}	   					
 				   				}
 								console.log(_img)
-					   	_bookTm=data2["content"][r]["issuetime"].replace(new RegExp("-","gm"),"/");
-			  		_bookTm = (new Date(_bookTm)).getTime();
-			  		_price=_price.toFixed(2)
+			   				if(data2["content"][r]["iswechatdiscount"]==true){
+			   					if(data2["content"][r]["openflag"]==1){
+					   				if(_data1[pg]["specialprice"]){
+					   					_price2-=_data1[pg]["specialprice"]
+					   				}			   						
+			   					}else{
+				   					if(data2["content"][r]["wechatdiscount"]){
+				   							_price2-=data2["content"][r]["wechatdiscount"]
+					   				}
+				   				}
+			   				}
+			   				if(_price2<0){
+				   				_price2=0;
+				   			}
+			  		_price2=_price2.toFixed(2)
+			  		var _gff=0;
+		  			for(var ee=0;ee<data["content"][r]["details"].length;ee++){
+		  				_gff+=Number(data["content"][r]["details"][ee]["itemcount"])
+		  			}
 					   	if(data2["content"][r]["openflag"]=="0"){
-					   			_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";
+					   			_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+_pgg+" index="+r+"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+_gff+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price2+"</span></i></div></dd>";
 					 		}else{
-									_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+data2["content"][r]["details"].length+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>";	
+									_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+_pgg+" index="+r+"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+_gff+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price2+"</span></i></div></dd>";	
 					 		}
 					 		_img="";
 						 			}else if(data2["content"][r]["details"].length>0 && data2["content"][r]["details"].length<=1){
-						 			if(data2["content"][r]["details"][0]["itemobj"]["itemtype"]){
-							 			if(data2["content"][r]["details"][0]["itembobj"]["itemtype"]=="0"){
-					   					_icn="<img src="+"\"../../image/shop/temp.jpg\""+">"
-					   					console.log(_icn)
-					   				}
+						 			if(data2["content"][r]["details"][0]["itemkind"]){
+					 					if(data2["content"][r]["details"][0]["itemkind"]=="买赠"){
+					 						_icn+="<span class=\"icn\">买赠</span>"
+					 					}else if(data2["content"][r]["details"][0]["itemkind"]=="降价"){
+					 						_icn+="<span class=\"icn\">降价</span>"
+					 					}else if(data2["content"][r]["details"][0]["itemkind"]=="折扣"){
+					 						_icn+="<span class=\"icn\">折扣</span>"
+					 					}else if(data2["content"][r]["details"][0]["itemkind"]=="有礼"){
+					 						_icn+="<span class=\"icn\">有礼</span>"
+					 					}
 						 			}
-						 			
+					 				if(data2["content"][r]["details"][0]["itemgifttype"]){
+					 					if(data2["content"][r]["details"][0]["itemgifttype"]==3){
+					 						_icn+="<img src="+"\"../../image/shop/yu.jpg\""+">"
+					 					}
+						 			}
+					 				if(data2["content"][r]["details"][0]["itemquality"]){
+					 					if(data2["content"][r]["details"][0]["itemquality"]==0){
+					 						_icn+="<img src="+"\"../../image/shop/temp.jpg\""+">"
+					 					}
+					 				}
+								_price2+=Number(data2["content"][r]["details"][0]["itemunitcost"])*Number(data2["content"][r]["details"][0]["itemcount"])
+			   				if(data2["content"][r]["iswechatdiscount"]==true){
+			   					if(data2["content"][r]["openflag"]==1){
+					   				if(_data1[pg]["specialprice"]){
+					   					_price2-=_data1[pg]["specialprice"]
+					   				}			   						
+			   					}else{
+				   					if(data2["content"][r]["wechatdiscount"]){
+				   							_price2-=data2["content"][r]["wechatdiscount"]
+					   				}
+				   				}
+			   				}
+			   				if(_price2<0){
+				   				_price2=0;
+				   			}
+						 		_price2=_price2.toFixed(2)
+						var _fgg=0;
+		  			for(var qq=0;qq<data["content"][r]["details"].length;qq++){
+		  				_fgg+=Number(data["content"][r]["details"][qq]["itemcount"])
+		  			}
 						 				if(data2["content"][r]["openflag"]=="0"){
-						 						_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
-						 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+						 						_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+_pgg+" index="+r+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+						 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+_fgg+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price2+"</span></i></div></dd>"
 						 				}else{
-						 						_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+JSON.stringify(data2["paging"])+" index="+r+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
-						 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+data2["content"][r]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
+						 						_shopList+="<dd style="+"\"padding-top:20px;\""+" idd="+_pgg+" index="+r+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
+						 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+_fgg+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price2+"</span></i></div></dd>"
 						 				}
 						 				
 						 			}
@@ -292,8 +369,9 @@ function shopList(pg){
 	//				   			_historyList+="<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>"
 	//				   			_fg=0
 	//				   		}
-							if(_historyList!=""){
+							if(_historyList!="" && _cc==1){
 								$("#dl2").html("<dt>历史订单</dt>")
+								_cc=0
 							}
 							$("#dl2").html($("#dl2").html()+_historyList)
 							$("#dl1").html($("#dl1").html()+_shopList);
