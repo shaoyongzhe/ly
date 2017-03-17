@@ -21,6 +21,6 @@ var myApp = new Vue({
 					_self.items = data.data;
 				}
 			});
-		}
+ 		}
 	}
 })
