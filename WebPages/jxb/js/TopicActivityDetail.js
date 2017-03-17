@@ -166,7 +166,11 @@ function ajaxActivityDetails(a,b){
 				//1.先确定$(".BbtsmRright2Content")宽度，即BbtsmRright12的宽度
 				var widthNum=0;//$(".BbtsmRright12")宽度
 				var textWidth=0;//文本的宽度0218加,用于控制有3列的时候，2种屏幕的宽度。
-				if($(window).width()>1000){				
+				var l=0;//控制变量
+				var l_2=0;//控制变量
+				if($(window).width()>1000){		
+					l=8.5;
+					l_2=0;
 					if(Object.keys(data.subsidy_description).length<=3){
 						widthNum=876;
 					}else{
@@ -180,6 +184,12 @@ function ajaxActivityDetails(a,b){
 	//				console.log("if")
 					textWidth=214;
 				}else{
+					l=11;
+					if(Object.keys(data.subsidy_description).length%3==1){
+						l_2=7;
+					}else if(Object.keys(data.subsidy_description).length%3==2){
+						l_2=3;
+					}
 					if(Object.keys(data.subsidy_description).length<=3){
 						widthNum=725;
 					}else{
@@ -219,16 +229,17 @@ function ajaxActivityDetails(a,b){
 				}	
 				//3.个btsm设置宽度
 				//给每个btsm设置宽度
-				var l=10*2+21;//控制变量
-				$(".btsm").width((widthNum-l)/3);
+//				var l=8.5;//控制变量，7是margin-left，但是发现7不行。然后发现，3列减8，两列减8.5，所以取8.5，//升级
+				$(".btsm").outerWidth(widthNum/3-l);
+				debugger;
 				//最后一行的宽度
 				if(Object.keys(data.subsidy_description).length%3!=0){
 					var n=Object.keys(data.subsidy_description).length%3;
-					$(".btsm").eq(-n).width((widthNum-l)/n);		
-					$(".btsm").eq(-n).nextAll(".btsm").width((widthNum-l)/n);		
+					$(".btsm").eq(-n).outerWidth(widthNum/n-l-l_2);		
+					$(".btsm").eq(-n).nextAll(".btsm").outerWidth(widthNum/n-l-l_2);		
 					//最后一行文本的宽度,-30是左右padding的和，16是序号所在span的宽度，一共2个span，一个是序号一个是文本。
-					$(".btsm").eq(-n).find(".btsmPs").find("span:last").width((widthNum-l)/n-30-16)
-					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").width((widthNum-l)/n-30-16)
+					$(".btsm").eq(-n).find(".btsmPs").find("span:last").outerWidth(widthNum/n-l-2-30-16)
+					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").outerWidth(widthNum/n-l-2-30-16)
 				}
 				//生成滚动条
 				$(".btsm").each(function(i){
