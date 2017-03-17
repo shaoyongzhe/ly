@@ -4,10 +4,10 @@ $(function(){
 	var retailerId = common.getUrlParam("retailer_id");
 	var consumer_id = common.getUrlParam("consumer_id");
 	waitloadaddress(function() {
-//		var longitude = wxlocation.longitude;
-		var longitude = 116.357;
-//		var latitude = wxlocation.latitude;
-		var latitude = 39.94978;
+		var longitude = wxlocation.longitude;
+//		var longitude = 116.357;
+		var latitude = wxlocation.latitude;
+//		var latitude = 39.94978;
 		addData = {
 			'longitude':longitude,
 			'latitude':latitude
@@ -65,9 +65,9 @@ $(function(){
 				$.ajax({
 					type: 'GET',
 					dataType: 'json',
-//					url: '/webapi/consumer/weixin/retailers/' + _self.retailerId,
-					url: "/consumer/data/xfzStoreDetails.json",
-//					data: ajaxdata,
+					url: '/webapi/consumer/weixin/retailers/' + _self.retailerId,
+//					url: "/consumer/data/xfzStoreDetails.json",
+					data: ajaxdata,
 					beforeSend: function() {
 						common.loading.show();
 					},
@@ -131,7 +131,7 @@ $(function(){
 				})
 			},
 			useticket: function(hxGuid) { // 码上用
-//				if(vm.jsondata.verifylimit > 0) { //可用状态，跳转到码上用核销界面
+				if(this.items.verifylimit > 0) { //可用状态，跳转到码上用核销界面
 //					console.log(hxGuid);
 					var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + hxGuid;
 		
@@ -175,7 +175,7 @@ $(function(){
 					} else {
 						location.href = originalurl;
 					}
-//				}
+				}
 			},
 			telCall:function(pNumber){
 				window.location.href = 'tel://'+pNumber+'';

@@ -23,6 +23,38 @@
 		<link href="../css/dropload.css" rel="stylesheet" />
 		<link href="/consumer/css/menustyle.css" rel="stylesheet" />
 		
+		<script type="text/javascript" src="/js/wx/md5.min.js"></script>
+		<script type="text/javascript">
+			document.writeln("<script type=\"text\/javascript\"");
+			document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");
+			document.writeln("<\/script>");
+		</script>
+		<!-- js 0 -->
+		<script src="/consumer/js/lib/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+		<script src="/consumer/js/lib/adaptive.js" type="text/javascript" charset="utf-8"></script>
+		<!-- js 1 -->
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
+		<script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+		<script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
+		<script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
+		<script type="text/javascript" src="/js/jquery/utitlity.js"></script>
+		<script type="text/javascript" src="/js/wx/configinit.js"></script>
+		<script type="text/javascript" src="/js/wx/share.js"></script>
+		<script type="text/javascript" src="/js/wx/location.js"></script>
+
+		<script type="text/javascript" src="/consumer/js/lib/common.js"></script>
+		<script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
+		<script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
+		<script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
+		<script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode.js"></script>
+		<!--<script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>-->
+		<script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
+		<script src="/js/jquery/dropload.min.js"></script>
+		<script type="text/javascript" src="/consumer/js/supercouponslist.js"></script>
+		
 	</head>
 	<style type="text/css">
 		/*
@@ -154,11 +186,11 @@
 			<div class="tip"><img src="/consumer/image/icon09.png" /></div>
 		</div>
 
-		<div class="valBox">
+		<div class="valBox" style="display:none;" v-show='isShow'>
 			<div id="ad_title" style="display: none;">
 				<img src="../image/supercoupons/ad_img.png" /> 好多超惠券，速来围观，即领即用，先用先得！
 			</div>
-			<div id="list" v-show="isShow">
+			<div id="list">
 				<div v-for="data in items">
 					<div class="yhq_box">
 						<div class="yhq_details">
@@ -221,37 +253,6 @@
 			<div id="bottom-nav"></div>
 		</footer>
 		
-		<script type="text/javascript" src="/js/wx/md5.min.js"></script>
-		<script type="text/javascript">
-			document.writeln("<script type=\"text\/javascript\"");
-			document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");
-			document.writeln("<\/script>");
-		</script>
-		<!-- js 0 -->
-		<script src="/consumer/js/lib/vue.js" type="text/javascript" charset="utf-8"></script>
-		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-		<script src="/consumer/js/lib/adaptive.js" type="text/javascript" charset="utf-8"></script>
-		<!-- js 1 -->
-		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-		<script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
-		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-		<script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
-		<script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
-		<script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
-		<script type="text/javascript" src="/js/jquery/utitlity.js"></script>
-		<script type="text/javascript" src="/js/wx/configinit.js"></script>
-		<script type="text/javascript" src="/js/wx/share.js"></script>
-		<script type="text/javascript" src="/js/wx/location.js"></script>
-
-		<script type="text/javascript" src="/consumer/js/lib/common.js"></script>
-		<script type="text/javascript" src="/consumer/js/lib/weixintips.js"></script>
-		<script type="text/javascript" src="/consumer/js/lib/respond.min.js"></script>
-		<script type="text/javascript" src="/consumer/js/lib/jquery-common.js"></script>
-		<script type="text/javascript" src="/consumer/js/lib/weixinshare-qrcode.js"></script>
-		<!--<script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>-->
-		<script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
-		<script src="/js/jquery/dropload.min.js"></script>
-		<script type="text/javascript" src="/consumer/js/supercouponslist.js"></script>
 		
 		<script>
 			(function(para) {

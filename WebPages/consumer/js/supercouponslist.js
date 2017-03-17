@@ -3,12 +3,18 @@ var pageIndex = 1;
 var pageCount = 1;
 var tmdropme;
 var isInit = true;
-
+$(function() {
 	var myApp = new Vue({
 		el: ".valBox",
 		data: {
 			items: [],
 			isShow: false
+		},
+		mounted:function(){
+			waitloadaddress(function() {
+				//      loaddata(wxlocation.longitude, wxlocation.latitude, null);
+				loaddata(116.357, 39.94978, null);
+			});
 		},
 		methods: {
 			useticket: function(hxGuid) { // 码上用
@@ -77,7 +83,7 @@ var isInit = true;
 			}*/
 		}
 	})
-$(function() {
+
 	$('.tip-w').click(function() {
 		$('.tip-w').fadeOut(200);
 	})
@@ -85,10 +91,7 @@ $(function() {
 	$('.share').click(function() {
 		$('.tip-w').fadeIn(200);
 	})
-	waitloadaddress(function() {
-		//      loaddata(wxlocation.longitude, wxlocation.latitude, null);
-		loaddata(116.357, 39.94978, null);
-	});
+	
 
 	function loaddata(longitude, latitude, dropme) {
 
@@ -117,10 +120,10 @@ $(function() {
 		$.ajax({
 			type: 'GET',
 			dataType: 'json',
-//			url: '/webapi/consumer/weixin/nearby/tickets', 
-			url:'/consumer/data/ticketList.json',
+			url: '/webapi/consumer/weixin/nearby/tickets', 
+//			url:'/consumer/data/ticketList.json',
 			// webapi/consumer/weixin/nearby/tickets
-//			data: ajaxdata,
+			data: ajaxdata,
 			beforeSend: function() { 
 				if(pageIndex == 1) { 
 					common.loading.show(); 
@@ -149,7 +152,7 @@ $(function() {
 
 				if (jsondata.user_notification) {
 					toasterextend.showtips(jsondata.user_notification, "info");
-					alert(2)
+//					alert(2)
 					if(pageIndex == 1)
 						$("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
 					qrcode.href();
