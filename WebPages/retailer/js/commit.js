@@ -246,7 +246,7 @@ function oJz(){
                     if (JSON.stringify(_dx) == "{}") {
                         _dx = ""
                     }
-                    console.log(JSON.stringify(_dx))
+                    console.log(_dx)
                     if (data[_indd]["specialprice"]) {
                         $("#vv").css({ display: "-webkit-box" })
                         $("#vv span").text(data[_indd]["specialprice"].toFixed(2))
@@ -353,7 +353,7 @@ function oJz(){
                     remark: $("#inp2").val(),
                     deliverdate: $("#beginTime").val(),
                     submitids: _Id,
-                    manzeng: _dx == "" ? "" : _dx
+                    manzeng: JSON.stringify(_dx)
                 },
                 error: function () {
                     	$(".ms").text("网络异常");
@@ -373,7 +373,7 @@ function oJz(){
                     	localStorage.removeItem("date")
                         $(".loads2").css({ display: "none" })
                         $(".loads2 div").text("提交中...")
-                        window.location = "myorder.html"
+                        //window.location = "myorder.html"
                     } else if(data.result == error){
                     	$(".ms").text(data.error);
 //                      $(".loads2 div").text(data.error + "...")
