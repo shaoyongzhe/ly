@@ -77,7 +77,7 @@
 						if(_price<_tt[_indd]["cutgift"]){
 							_qu=1;
 							$(".commit").css({background:"#54504f",width:"auto",padding:"0 3px"})
-							$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price).toFixed(1)+" 元起送")
+							$(".commit").text("还差 "+(_tt[_indd]["cutgift"]-_price).toFixed(2)+" 元起送")
 						}else{
 							aa()
 						}						
@@ -130,7 +130,7 @@
 					}
 					console.log(_line)
 					_remark="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div style=\"position:relative\"><span style=\"position:absolute;\">留言：</span><textarea readonly=\"true\" style=\"margin-left:4rem;overflow-y:hidden;resize:none;outline:none;width:80%;font-size:14px;height:"
-					+(_line*2)+"rem;line-height:2rem\">"+(data1[i]["remark"]==""?"":data1[i]["remark"])+"</textarea></div></div>"
+					+(_line*2)+"rem;line-height:1.6rem\">"+(data1[i]["remark"]==""?"":data1[i]["remark"])+"</textarea></div></div>"
 				_intr="";
 				if(data1[i]["salestop"]==0){
 					if(!data1[i]["itemslist"]){
@@ -164,7 +164,7 @@
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div>"+_remark+"<div class="+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["price"]).toFixed(2)+"</p></p></div></div></div>"+_remark+"<div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
 					}else if(data1[i]["itemkind"]=="降价" && data1[i]["salestop"]==0){
 						_price+=Number(data1[i]["price"])*Number(data1[i]["itemcount"]);
@@ -173,7 +173,7 @@
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
 						_discount+=((data1[i]["originalprice"]-data1[i]["price"])*data1[i]["itemcount"]) || (data1[i]["price"]-data1[i]["price"]*data1[i]["discount"]*0.1)*data1[i]["itemcount"]
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["discountprice"]+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["originalprice"]+"</span></p></p></div></div></div><div class="+"\"disc\""+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["discountprice"]).toFixed(2)+"</p><p class="+"\"intail\""+"><span>￥"+Number(data1[i]["originalprice"]).toFixed(2)+"</span></p></p></div></div></div><div class="+"\"disc\""+
 						"><span>降价</span><span> "+data1[i]["discount"]+" 折</span></div>"+_remark+"<div class="+
 						"\"set\""+"style="+
 						"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
@@ -184,7 +184,7 @@
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
 						_discount+=((data1[i]["originalprice"]-data1[i]["price"])*data1[i]["itemcount"]) || (data1[i]["price"]-data1[i]["price"]*data1[i]["discount"]*0.1)*data1[i]["itemcount"]
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]*data1[i]["discount"]*0.1+"</p><p class="+"\"intail\""+"><span>￥"+data1[i]["price"]+"</span></p></p></div></div></div><div class="+"\"disc\""+" id="+"\"disc\""+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["price"]*data1[i]["discount"]*0.1).toFixed(2)+"</p><p class="+"\"intail\""+"><span>￥"+Number(data1[i]["price"]).toFixed(2)+"</span></p></p></div></div></div><div class="+"\"disc\""+" id="+"\"disc\""+
 						"><span>折扣</span><span>"+data1[i]["discount"]+" 折</span></div>"+_remark+"<div class="+
 						"\"set\""+"style="+
 						"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
@@ -194,7 +194,7 @@
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+"\"disc\""+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["price"]).toFixed(2)+"</p></p></div></div></div><div class="+"\"disc\""+
 						"><span>有礼</span><span> 购买"+data1[i]["salecount"]+(data1[i]["packagetypename"]==null?"":data1[i]["packagetypename"])+data1[i]["itemname"]+"赠送"+
 							data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+"\"giveTo\""+"><b style="+"\"margin-right:5px\""+">赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span><span class=\"yuj\">"+Math.floor((data1[i]["itemcount"])/Number(data1[i]["salecount"]))*Number(data1[i]["giftcount"])+"</span>"+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+(data1[i]["giftitemquality"]==="0"?"(临期)":"")+"</div></div><div class="+
 						"\"set\""+"style="+
@@ -205,7 +205,7 @@
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
 						_price+=Number(data1[i]["price"])*Number(data1[i]["itemcount"]);
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+"\"disc\""+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["price"]).toFixed(2)+"</p></p></div></div></div><div class="+"\"disc\""+
 						"><span>买赠</span><span> 买"+data1[i]["salecount"]+(data1[i]["packagetypename"]==null?"":data1[i]["packagetypename"])+data1[i]["itemname"]+"赠"+data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+"\"giveTo\""+"><b style="+"\"margin-right:5px\""+">赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span><span class=\"yuj\">"+Math.floor((data1[i]["itemcount"])/Number(data1[i]["salecount"]))*Number(data1[i]["giftcount"])+"</span>"+data1[i]["giftitemobj"]["packagetypename"]+(data1[i]["itemquality"]==="0"?"(临期)":"")+"</div></div><div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
 					}else if(data1[i]["isyucun"]==1 && data1[i]["salestop"]==0){
@@ -215,10 +215,10 @@
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["itemunitcost"]+"</p><p class=\"hp\">可提<span>"+data1[i]["remaincount"]+"</span>"+data1[i]["packagetypename"]+"</p></p></div></div></div>"+_remark+"<div class="+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["itemunitcost"]).toFixed(2)+"</p><p class=\"hp\">可提<span>"+data1[i]["remaincount"]+"</span>"+data1[i]["packagetypename"]+"</p></p></div></div></div>"+_remark+"<div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
 					}else if(data1[i]["salestop"]==1){
-						_list+="<li id=\""+i+"\" style="+"\"position:relative;z-index:10\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
+						_list+="<li id=\""+i+"\" style="+"\"position:relative;z-index:10\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["price"]).toFixed(2)+"</p></p></div></div></div><div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
 						"\"position:absolute;left:0;top:0;width:100%;height:95px;background:#ddd;opacity:0.5\""+"></div><img src="+"\"../../image/shop/shopcart_down.png\""+" style="+"\"position:absolute;width:4rem;right:0;top:0\""+"></li>"
 					}					
@@ -230,10 +230,10 @@
 						_ges+=Number(data1[i]["itemcount"])
 						_arr.push(i)
 						_Id.push(data1[i]["guid"])
-						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemslist"][_index]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["itemslist"][_index]["price"]+"</p></p></div></div></div>"+_remark+"<div class="+
+						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemslist"][_index]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["itemslist"][_index]["price"]).toFixed(2)+"</p></p></div></div></div>"+_remark+"<div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"
 					}else if(data1[i]["salestop"]==1){
-						_list+="<li id=\""+i+"\" style="+"\"position:relative;z-index:10\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemslist"][_index]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+data1[i]["price"]+"</p></p></div></div></div><div class="+
+						_list+="<li id=\""+i+"\" style="+"\"position:relative;z-index:10\""+"><div class="+"\"list\""+"><b class="+"\"gouxuan2\""+"></b><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+data1[i]["itemslist"][_index]["itemname"]+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["price"]).toFixed(2)+"</p></p></div></div></div><div class="+
 						"\"set\""+" style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div><div style="+
 						"\"position:absolute;left:0;top:0;width:100%;height:100%;background:#ddd;opacity:0.5\""+"></div></li>"
 					}
@@ -262,13 +262,13 @@
 			if(_price==-0){
 				_price=0
 			}
-			$(".amountBig span").text(_price.toFixed(1))
+			$(".amountBig span").text(_price.toFixed(2))
 			$(".commit span").text("("+_ges+")")
 			select()
 			change(data1);
 			deLete(data1)
 			console.log(_discount)
-			$(".ab span:nth-child(2)").text(_discount.toFixed(1))
+			$(".ab span:nth-child(2)").text(_discount.toFixed(2))
 			fg()
 		}
 			function deLete(data1){//删除商品
@@ -381,7 +381,7 @@
 							$(".ifDelt").css({display:"none"})
 							_cun-=Number($("#"+_id).find(".amount").text());
 							
-							_pp-=Number(data1[_id]["price"])*Number(_dll)
+							_pp-=Number($("#"+_id).find(".pp1").text().replace("￥",""))*Number(_dll)
 							if($("#"+_id).find(".gouxuan").attr("flag")){
 								if($("#"+_id).find(".gouxuan").attr("flag")==1){
 									_ges-=Number($("#"+_id).find(".amount").text())
@@ -405,16 +405,23 @@
 								if(_price==-0){
 									_price=0
 								}
-								$(".amountBig span").text(_price.toFixed(1))
+								$(".amountBig span").text(_price.toFixed(2))
 
 							}
-							if(data1[_id]["itemkind"]=="降价" || data1[_id]["itemkind"]=="折扣"){
+							if(data1[_id]["itemkind"]=="降价"){
 									_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
 									if($("#"+_id).find(".gouxuan").attr("flag")==1){
 										_discount-=(data1[_id]["originalprice"]-data1[_id]["price"])*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
-										$(".ab span:nth-child(2)").text(_discount.toFixed(1))										
+										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
 									}
 								}
+							if(data1[_id]["itemkind"]=="折扣"){
+								_dis-=(Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1))*Number(data1[_id]["itemcount"]);
+									if($("#"+_id).find(".gouxuan").attr("flag")==1){
+										_discount-=((Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1)))*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
+										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
+									}
+							}
 							$("#"+_id).remove();
 							fg()
 							zz()
@@ -442,7 +449,7 @@
 			var _ll=0;
 
 			console.log(_arr)
-			$("section").on('tap','.labs',function(){
+			$("section").on('click','.labs',function(){
 				if($(this).children().attr("flag")==1){
 					_Id.splice($(this).parent().parent().attr("ip"),1,"")
 					console.log(_Id)
@@ -463,7 +470,7 @@
 					if(_price==-0){
 						_price=0
 					}
-					$(".amountBig span").text(_price.toFixed(1))
+					$(".amountBig span").text(_price.toFixed(2))
 //					if(_count==0){
 //						$(".yj").css({display:"block"})
 //					}
@@ -486,11 +493,9 @@
 					if(_price==-0){
 						_price=0
 					}
-					$(".amountBig span").text(_price.toFixed(1))
+					$(".amountBig span").text(_price.toFixed(2))
 					zz()
-//					if(_count>0){
-//						$(".yj").css({display:"none"})
-//					}
+
 					
 				}
 
@@ -527,11 +532,11 @@
 						if(_price==-0){
 							_price=0
 						}
-						$(".amountBig span").text("0.0")
+						$(".amountBig span").text("0.00")
 						_price=0
 						zz()
 						_discount=0
-						$(".amountBig").next().find("span:nth-child(2)").text("0.0")
+						$(".amountBig").next().find("span:nth-child(2)").text("0.00")
 	//					if(_count==0){
 	//						$(".yj").css({display:"block"})
 	//					}
@@ -560,8 +565,8 @@
 						if(_price==-0){
 							_price=0
 						}
-						$(".amountBig span").text(_price.toFixed(1))
-						$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+						$(".amountBig span").text(_price.toFixed(2))
+						$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 	//					if(_count>0){
 	//						$(".yj").css({display:"none"})
 	//					}
@@ -616,13 +621,13 @@
 										if(_price==-0){
 											_price=0
 										}
-										$(".amountBig span").text(_price.toFixed(1))
+										$(".amountBig span").text(_price.toFixed(2))
 									}
 									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 										_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
 										if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
 											_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-											$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+											$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 										}									
 									}
 									fg();
@@ -668,13 +673,13 @@
 									if(_price==-0){
 										_price=0
 									}
-									$(".amountBig span").text(_price.toFixed(1))
+									$(".amountBig span").text(_price.toFixed(2))
 								}
 								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 									_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
 									if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
 										_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 									}									
 								}
 								fg()
@@ -737,14 +742,14 @@
 									if(_price==-0){
 										_price=0
 									}
-									$(".amountBig span").text(_price.toFixed(1))
+									$(".amountBig span").text(_price.toFixed(2))
 								}
 								console.log($(th).parent().parent().parent().parent().next().find("span:nth-child(1)"))
 								if($(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(th).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
 									_dis+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
 									if($(th).parent().parent().parent().prev().children().attr("flag")==1){
 										_discount+=(Number($(th).parent().next().next().find("span").text().replace("￥",""))-Number($(th).parent().next().text().replace("￥","")))
-										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(1))
+										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 									}									
 								}
 								fg()

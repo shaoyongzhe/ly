@@ -186,10 +186,9 @@ var vm = avalon.define({
                         vm.expendlist.paging = json.paging
                     }
                 }
-                if (json.content.length == 0) {
+                if (json.content.length == 0 || json.content.length < 15) {
                     dealdropme(me);
                     $(".dropload-down").remove()
-
                     return;
                 }
 
