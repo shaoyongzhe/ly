@@ -613,6 +613,7 @@ function getcheckactivityshistory() {
                     }
                     $("#activity_list_data").html(activity_list_data);
                     assemblePage(totalPage);
+                    // $('.pagenum li').eq(currentPage).addClass('pitchOn')
                     showCheckOpinions();
                     /**
                      * 进入重新审核页面
@@ -712,6 +713,7 @@ $(function () {
      * 查查卡按钮
      */
     $("#searchBtn").click(function () {
+        $("#currentPage").val(1)
         getcheckactivityshistory();
     });
 

@@ -198,7 +198,11 @@ function getcheckactivitys(){
         distributorname = queryText;
     }
     var currentdate = new Date();
-    var  sendchecktime = $("#datetimepicker7").val() == undefined ? currentdate.toString("yyyy-MM-dd HH-mm-ss") : $("#datetimepicker7").val();
+    var sendchecktime = $("#datetimepicker7").val() == undefined ? currentdate.toString("yyyy-MM-dd HH-mm-ss") : $("#datetimepicker7").val();
+    // 修改---查询分页
+    // if(queryText!=''){
+    //     var currentPage = 1;
+    // }
     var pageStr = '{"curpage":'+currentPage+',"pagecount":'+defaultPagecount+'}';
     var page = JSON.parse(pageStr);
     //设置当前查询条件
@@ -249,9 +253,10 @@ function getcheckactivitys(){
             $(".showMes").css("display","none");
             $("#activity_list_data").html("");
             if(msg!=null && msg.datacount >= 0){
-                var datacount = msg.datacount;
+                var datacount = msg.datacount;         
                 var pagecount = msg.pagecount;
                 var totalPage = Math.ceil(datacount/pagecount);
+                // assemblePage(totalPage)
                 $(".currenthdnum").find("span").text(datacount);//设置总数量
                 $("#totalPage").text(totalPage);//设置总页数
                 var data = msg.data;
@@ -322,6 +327,13 @@ function getcheckactivitys(){
                     $("#activity_list_data").html(activity_list_data);
                     localStorage.setItem("uncheckActivitys",JSON.stringify(msg));
                     assemblePage(totalPage);
+                    // if(queryText!=''){
+                    //     $('.pagenum li').eq(1).addClass('pitchOn')
+                    // }else{
+                          // var page = parseInt($("#currentPage").val());
+                        // $('.pagenum li').eq(currentPage).addClass('pitchOn')
+                    // }
+                    
                     /**
                      * 进入审核页面
                      */
@@ -403,6 +415,7 @@ $(function(){
      * 点击查询按钮事件
      */
    $("#searchBtn").click(function(){
+            $("#currentPage").val(1);
             getcheckactivitys();
         });
 
