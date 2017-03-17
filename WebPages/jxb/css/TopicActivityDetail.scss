@@ -45,16 +45,6 @@ padding:0;
 .iScrollVerticalScrollbar{
     width:8px!important;
 }
-.BsubsidyAP1S1 .yuan,.BsubsidyAP2S1 .yuan{
-    font-style: normal;
-    font-size: 25px;
-    display: inline-block;
-    font-weight: bold;
-    position: relative;//absolute
-//  margin-left: 6px;
-    right: -6px;
-    top: -3px;
-}
 //非通用样式
 header{
     background: #4e9fee;
@@ -424,7 +414,7 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 //活动补贴说明
     //右边
 .BbtsmR{
-    width:932px;
+    width:923px;
 //  height:100%;//不改变量，因为100%比变量好用！好用在，如果js中高度变化了，这里就不用变，而用变量，js中还需设置此高度。//0210格外注意
 //  background:yellow;
     border-radius: 5px;
@@ -471,14 +461,14 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
     padding:0px 10px;
     box-sizing: border-box;
 //  height:100%;////不改变量，原因同上。
-    width:898px;//924-37px;
+    width:886px;//924-37px;
 //  background:deepskyblue;
 //  overflow: hidden;
     border:1px solid #FFAD33;//后加，所以导致
 }
 //
 .BbtsmRright12{
-    width:837px;
+    width:801px;
 //  height:100%;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
     display: table-cell;
 }
@@ -507,24 +497,22 @@ $heightbt:(222px);//该高度可变，右侧按钮，是展开收起作用，展
 }
 .BbtsmRright2{
 //  background:black;
-    width:100%;
+    width:801px;
 //  height:$heightbt;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
 }
-$btsmMarginLeft:7px;
 .BbtsmRright2Content{
-    width:100%;    
+    width:867-66px;    
     overflow: hidden;
-    margin-left: -$btsmMarginLeft;
 //  background: red;
 //  height:100%;
 }
 .maxHeight180{
-    max-height: 137px;
+    max-height: 180px;
 }
 
 .BbtsmRright3{  
     margin-left:-8px;//处理换行解析
-    width:44px;//因为BbtsmRright加border导致这里变66为64
+    width:62px;//因为BbtsmRright加border导致这里变66为64
     box-sizing: border-box;
     padding-left:10px;
     padding-right:10px;
@@ -537,7 +525,6 @@ $btsmMarginLeft:7px;
 }
 .BbtsmRright3 img{
     width:46px;
-    margin-left: -2px;
     cursor:pointer;
     position: absolute;
     left:57%;//因为BbtsmRright加border导致这里变50为57
@@ -553,7 +540,7 @@ $btsmMarginLeft:7px;
 $width:(801px-10*2)/3;//一行3个的尺寸是，
 //$width:(801px-10*1)/2;//一行2个的尺寸是，
 //$width:(801px-10*0)/1;//一行1个的尺寸是，
-
+//不同的格数加不同的类名
 .btsm{
     width:$width;
     box-sizing: border-box;
@@ -563,7 +550,7 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
 //  height:180px;//为了让BbtsmRright12的高度由其内元素撑开，所以这里注释掉
     margin-bottom: 10px;
 //  background:darkkhaki;
-    margin-left:$btsmMarginLeft;//考虑换行解析的8像素
+    margin-left:10-8px;//考虑换行解析的8像素
 }
 .btsm1{
     margin-left:0px;//第一个不需要左margin
@@ -579,7 +566,7 @@ $width:(801px-10*2)/3;//一行3个的尺寸是，
     background:#ffad33;     
 }
 .btsmD1IscrollCon{
-    height:100px;//不设高度
+    height:144px;//不设高度
     width:100%;
     overflow: hidden;
     position:relative;    
@@ -1076,7 +1063,7 @@ footer{
   }
 
   .Bbtsm {
-    width: 825px;
+    width: 1000px;
 //  height: 222px;
     margin-top: 10px;
 //  background:gold;
@@ -1093,7 +1080,7 @@ footer{
   }
 
   .BbtsmR {
-    width: 768px;//
+//  width: 766px;//
     border-radius: 5px;
   }
 
@@ -1112,13 +1099,13 @@ footer{
 //  margin-left: -8px;
     padding: 0px 7px;
 //  height: 100%;
-    width: 741px;
+    width: 732px;
     border: 1px solid #FFAD33;
 //  background:red;
   }
 
   .BbtsmRright12 {
-    width: 700px;//
+    width: 667px;//
 //   background:green;
   }
 
@@ -1141,17 +1128,17 @@ footer{
   }
 
   .BbtsmRright2 {
-    width: 100%;//801
+    width: auto;//801
 //  background:yellow;
   }
 
-//.BbtsmRright2Content {
-//  width: 100%;//801
+  .BbtsmRright2Content {
+    width: 667px;//801
 //  background:yellowgreen;
-//}
+  }
 
   .BbtsmRright3 {
-    margin-left: -6px;
+        margin-left: -6px;
     width: 47px;
     padding-left: 5px;
     padding-right: 5px;
@@ -1161,8 +1148,7 @@ footer{
 
   .BbtsmRright3 img {
     width: 34px;
-    margin-left: -4px;
-    transform:translate(-50%,-50%);
+     transform:translate(-50%,-50%);
     -ms-transform:translate(-50%,-50%);
     -moz-transform:translate(-50%,-50%);
     -webkit-transform:translate(-50%,-50%);
@@ -1175,7 +1161,7 @@ footer{
     border-radius: 0 30px 0 0;
 //  max-height: 180px;
     margin-bottom: 10px;
-//  margin-left: 4px;
+    margin-left: 2px;
 //  background:red;
   }
 
@@ -1332,13 +1318,7 @@ footer{
     margin-top: 40px;
     margin-left: 45px;
   }
-  .BDQFd2_span1{
-    margin-top: 1px;
-  }
-  .BDQFd2_span2 {
-    width: 251px;
-    margin-top: -2px;
-  }
+
   footer {
     width: 900px;
     padding: 0 39px;
