@@ -350,6 +350,30 @@ $(".footerCkgd").click(function(){
 	engine.call('ShowMoreTopicActivityClick', "");//第一个参数不改，第二参数传空;
 })
 
+/*按下效果，同列表页面*/
+$(".footer div").mousedown(function(){		
+	$(this).css({
+		color:"white",
+		border:"#2580e6",
+		background:"#2580e6",
+	})
+})
+
+/*hover效果，同列表页面*/
+$(".footer div").hover(function(){
+	$(this).css({
+		color:"white",
+		border:"white",
+		background:"#4e9fee",
+	})
+},function(){
+	$(this).css({
+		color:" #4e9fee",
+		border:"1px solid #4e9fee",
+		background:"white",
+	})
+})
+	
 $(document)[0].oncontextmenu=function(event){
 	var event=event||window.event;
 	window.event.returnValue=false;

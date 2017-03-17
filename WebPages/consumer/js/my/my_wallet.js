@@ -70,6 +70,7 @@ var vm = avalon.define({
         vm.category = type
 
         if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
+            $(".dropload-down").remove()
             vm.getAssetFlow(1, null)
         }
     },
