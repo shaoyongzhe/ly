@@ -18,48 +18,51 @@
     <script src="/retailer/js/common-buttom-nav.js"></script>
     <script src="/retailer/js/lib/jquery-common.js"></script>
     <script src="/retailer/js/lib/common.js"></script>
-    
+
     <style type="text/css">
-    	.myWallet{
-    		    padding: 11px 15px;
-    	}
-    	.liucun{
-    		font-size: 13px;
-		    color: #666;
-		    margin: 6px auto 0 auto;
-    	}
-    	.liucun>span{
-    		font-size: 13px;
-    		color: #666;
-    	}
-    	.circle {
-		    width: 60px;
-		    height: 60px;
-		    position: relative;
-		    border-radius: 50%;
-		    background: #e8e7e6;
-		    margin: 4px auto 0 auto;
-		}
-		.pie_left {
-		    clip: rect(0,31px,auto,0);
-		}
-		.pie_left, .pie_right {
-		    width: 60px;
-		    height: 60px;
-		    position: absolute;
-		    border-radius: 50%;
-		    top: 0px;
-		    left: 0px;
-		    transform: rotate(0);
-		    background: #4bcb81;
-		}
-		.pie_right {
-		    clip: rect(0,auto,auto,30px);
-		}
-		.weui-media-box__title {
-		    font-weight: bold;
-		    font-size: 22px;
-    }
+        .myWallet {
+            padding: 11px 15px;
+        }
+
+        .liucun {
+            font-size: 13px;
+            color: #666;
+            margin: 6px auto 0 auto;
+        }
+
+            .liucun > span {
+                font-size: 13px;
+                color: #666;
+            }
+
+        .circle {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            border-radius: 50%;
+            background: #e8e7e6;
+            margin: 4px auto 0 auto;
+        }
+
+        .pie_left {
+            clip: rect(0,30px,auto,0);
+        }
+
+        .pie_left, .pie_right {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            border-radius: 50%;
+            top: 0px;
+            left: 0px;
+            transform: rotate(0);
+            background: #4bcb81;
+        }
+
+        .pie_right {
+            clip: rect(0,auto,auto,30px);
+        }
+       
     </style>
 </head>
 <body ms-controller="myInfo" class="ms-controller">
@@ -81,17 +84,24 @@
                     </div>
                 </div>
             </div>
-            <div class="weui-panel__bd wallet_money" style="background-color: #efeef4;">
-                <div class="weui-media-box__bd clearfix myWallet" style="background-color: #fff;" onclick="location.href = '/retailer/page/my_wallet_s.html'">
-                	<p style="font-size:22px;float: left;color: #000;font-weight: bold;">我的钱包</p>
-                	<p style="font-size:22px;float: right;color: #00a297;font-weight: bold;"> > </p>
-                    <p style="font-size:22px;float: right;margin-right: 10px;color: #f7b357;">￥{{Money}}</p> 
-                    
-                </div>
-            </div>
+        
         </div>
     </div>
-    <div class="page__bd" ms-if="IsShow">
+    <div class="page__bd" ms-if="IsShow" style="margin-top:15px">
+
+        <div class="weui-panel">
+            <div class="weui-panel__ft">
+                <a href="/retailer/page/my_retailer.html" class="weui-cell weui-cell_access">
+                    <div class="weui-cell__bd">
+                        <h4 class="weui-media-box__title navtitle">我的钱包</h4>
+                    </div>
+                    <span class="weui-cell__ft">
+                        <font color="#f7b357">￥{{Money}}</font>
+                    </span>
+                </a>
+            </div>
+        </div>
+
         <div class="weui-panel">
             <div class="weui-panel__ft" ms-click="step(1)">
                 <div class="weui-cell weui-cell_access">
@@ -105,9 +115,9 @@
                 <div class="rmy-box" id="contribute">
                     <ul>
                         <li style="width:36%;text-align: center;">
-  							<p class="liucun">留存率<span>{{contribute.percentageretained}}</span></p>
+                            <p class="liucun">留存率<span>{{contribute.percentageretained}}</span></p>
                             <div class="circle">
-                            	
+
                                 <div class="pie_left" style="transform: rotate(180deg); background: rgb(75, 203, 129);">
                                 </div>
                                 <div class="pie_right" style="transform: rotate(81.8182deg); background: rgb(75, 203, 129);">
