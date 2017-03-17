@@ -176,6 +176,7 @@
                 categoryChange: function (type) {
                     vm.category = type
                     if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
+                        $(".dropload-down").remove()
                         vm.getAssetFlow(1, null)
                     }
                 },
@@ -300,19 +301,21 @@
                                 }
                             }
 
-                            //这样可以，nextTick里面的代码会在DOM更新后执行
-                            Vue.nextTick(function () {
-                                if (vm.category == "all") {
-                                    vm.jsondataReadered()
-                                } else if (vm.category == "income") {
-                                    vm.jsondataReadered2()
-                                } else
-                                    vm.jsondataReadered3()
-                            })
-                            if (json.content.length == 0) {
+
+                            if (json.content.length == 0 || json.content.length < 15) {
                                 dealdropme(me);
                                 $(".dropload-down").remove()
                                 return;
+                            } else {
+                                //这样可以，nextTick里面的代码会在DOM更新后执行
+                                Vue.nextTick(function () {
+                                    if (vm.category == "all") {
+                                        vm.jsondataReadered()
+                                    } else if (vm.category == "income") {
+                                        vm.jsondataReadered2()
+                                    } else
+                                        vm.jsondataReadered3()
+                                })
                             }
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
