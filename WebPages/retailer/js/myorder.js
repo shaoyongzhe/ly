@@ -112,8 +112,11 @@ function shopList(pg){
 				   				}
 				   				
 			   				for(var z=0;z<data["content"][j]["details"].length;z++){
-											if(data["content"][j]["details"][z]["itemgifttype"]!=3 && data["content"][j]["details"][z]["itemkind"]!="满赠"){
-												_price+=Number(data["content"][j]["details"][z]["itemunitcost"])*Number(data["content"][j]["details"][z]["itemcount"])
+											if(data["content"][j]["details"][z]["itemgifttype"]!=3 && data["content"][j]["details"][z]["billid_class"]==="tblbillpofromcustomer"){
+														_price+=Number(data["content"][j]["details"][z]["itemunitcost"])*Number(data["content"][j]["details"][z]["itemcount"])
+																										
+												
+
 											}
 								}
 			   				console.log(_price)
@@ -272,8 +275,8 @@ function shopList(pg){
 					   				
 				   				for(var t=0;t<data2["content"][r]["details"].length;t++){
 				   					
-												if(data2["content"][r]["details"][t]["itemgifttype"]!=3 && data["content"][r]["details"][t]["itemkind"]!="满赠"){
-													_price2+=Number(data2["content"][r]["details"][t]["itemunitcost"])*Number(data2["content"][r]["details"][t]["itemcount"])
+												if(data2["content"][r]["details"][t]["itemgifttype"]!=3 && data2["content"][r]["details"][t]["billid_class"]==="tblbillpofromcustomer"){
+															_price2+=Number(data2["content"][r]["details"][t]["itemunitcost"])*Number(data2["content"][r]["details"][t]["itemcount"])
 												}
 									}
 				   				console.log(_price2)
