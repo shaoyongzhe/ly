@@ -254,3 +254,12 @@ function moneyTransform(money,n){
 	newMoney=arr[0]+point+afterPoint;
 	return newMoney+moneyUnit;
 }
+
+/*时间格式化--符号转化*/
+function timeSymbol(time,before,end){
+	return time.split(before).join(end)
+}
+
+/*去除横向滚动条*/
+//用于处理因为纵向滚动条占宽17px，而导致出现横向滚动条的。可能需要放在ajax的完成里。
+$("body").css({"width":$(window).width(),overflowX:"hidden"});
