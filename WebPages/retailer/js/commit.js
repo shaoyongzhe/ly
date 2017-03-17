@@ -345,6 +345,13 @@ function oJz(){
             localStorage.removeItem("Id");
             $(".submit").text("提交中...")
             $(".loads2").css({ display: "block" })
+//          var postData=new Object({
+//                  distributor_id: localStorage.disId,
+//                  remark: $("#inp2").val(),
+//                  deliverdate: $("#beginTime").val(),
+//                  submitids: _Id
+//              });
+//          postData.manzeng = _dx == "" ? "" : _dx;
             $.ajax({
                 url: "/webapi/distributor/" + getRetailerid() + "/orderform",
                 type: "post",
@@ -353,7 +360,7 @@ function oJz(){
                     remark: $("#inp2").val(),
                     deliverdate: $("#beginTime").val(),
                     submitids: _Id,
-                    manzeng: _dx == "" ? "" : _dx
+                    manzeng: _dx == "" ? "" : JSON.stringify(_dx)
                 },
                 error: function () {
                     	$(".ms").text("网络异常");

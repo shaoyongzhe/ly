@@ -714,7 +714,7 @@ section .remarks{
 -webkit-line-clamp: 2;text-overflow: ellipsis;
 display: -webkit-box;-webkit-box-orient: vertical;
 overflow: hidden;
-color:#666;background:#f5f5f5;
+color:#666;background:#f5f5f5;border-bottom: 1px solid #ddd;
 }
 .select .selected{
 	border-left: 4px solid #f7af01;background: #fff;color:#333;
