@@ -753,7 +753,11 @@ $('.gailvok').click(function(){
 		
 	});
 
-	var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
+	if(location.href.indexOf('activityModify') != -1){
+		var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
+	} else {
+		var cishu = $('.addSub5').eq(index-1).find('.Yyy4 input').val();
+	}
 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
 		$('.addSub5').eq(yglindex-2).find('.fz input[readonly]').val(Number(fz * cishu).toFixed(2)); // 设置摇一摇中'随机'补贴峰值
 		yaoyiyaofengzhi();
@@ -2243,14 +2247,17 @@ $('.subsidyPolicy .cancel').click(function(){
 var focusVal = "";
 $('.butieSec').on('focus','.acSe13 input',function(){
 	// if($(this).closest('.addSub4').find('.selected[showtype=compose]').text() == "摇一摇"){
-	focusVal = $(this).val();
+		focusVal = $(this).val();
 	// }
-
 }).on('blur','.acSe13 input',function(){
 
 	var _this = $(this);
 	var thisVal = _this.val();
-	if(thisVal == focusVal){return}
+	if(thisVal == focusVal){
+		if(_this.closest('.addSub4').find('').text().indexOf('固定') != -1){
+			return;
+		}
+	}
 	if(isNaN(thisVal)){
 		thisVal = 0;
 	}
@@ -3297,7 +3304,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 	$('.areaSave').click();
 	var areaData = $('#area-data').val();
-	// alert(areaData);return;	
+	// alert(areaData);return;
 
 	data["area_condition"] = JSON.parse(areaData);
 	// console.log(JSON.stringify(data, null, 4));
