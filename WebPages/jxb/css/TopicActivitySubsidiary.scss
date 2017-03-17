@@ -5,7 +5,8 @@ html,body{
     height:100%;
 }
 *{
-padding:0;
+    padding:0;
+    font-family: "微软雅黑";
 }
 .fr{
     float:right;
@@ -143,31 +144,33 @@ padding:0;
     position:relative;
 }
 .CcButieMax{
+    font-family: "微软雅黑";
     position:absolute;
     top:104px ;////////////////rem(104);//;
     left:81px ;////////////////rem(81);//;
 //  background:red;
-    font-family: arial;
+//  font-family: arial;
     font-weight: bold;
     font-size: 20px ;////////////////rem(20);//;
     color:#ffff36;
     width: 100px;////////////////rem(100);//;
     height:20px ;////////////////rem(20);//;
-    text-align: center;
+    text-align: center;   
 }
 .CcButieAlready{
+    font-family: "微软雅黑";
     position:absolute;
     width:73px ;////////////////rem(73);//;
     top: 145px;////////////////rem(145);//;
     left: 117px;////////////////rem(117);//;
 //  background:red;
-    font-family: arial;
+//  font-family: arial;
     font-weight: bold;
     font-size: 18px;////////////////rem(20);//;
     color:#fff;   
     text-align: center;
     transform-origin: left;
-    -webkit-transform-origin:left;
+    -webkit-transform-origin:left;   
 //  transform: rotate(-15deg);//稍后补充
 }
 .CcButieLeft{
