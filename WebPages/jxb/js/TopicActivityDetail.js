@@ -131,10 +131,10 @@ function ajaxActivityDetails(a,b){
 				data.budget.obtained=0;
 			}			
 			//最高补贴
-			$(".BsubsidyAP1S1").text(data.budget.subisdytotal+"元");//情形1			
+			$(".BsubsidyAP1S1").html(data.budget.subisdytotal+'<span class="yuan">元</span>');//情形1			
 			$(".BsubsidyBP1").text(data.budget.subisdytotal);//情形2
 			//已发放
-			$(".BsubsidyAP2S1").text(data.budget.subsidyreleased+"元");//情形1	
+			$(".BsubsidyAP2S1").html(data.budget.subsidyreleased+'<span class="yuan">元</span>');//情形1	
 			$(".BsubsidyBP2").text(data.budget.subsidyreleased);//情形2
 			//已享受补贴时间
 			$(".BsubsidyAP3").text(data.budget.days);
@@ -163,16 +163,16 @@ function ajaxActivityDetails(a,b){
 					$(".BbtsmRright3").remove();
 				}
 				//不同数量，有无按钮，btsm的宽度各不相同
-				//1.先确定$(".BbtsmRright2Content")宽度
-				var widthNum=0;//$(".BbtsmRright2Content")宽度
+				//1.先确定$(".BbtsmRright2Content")宽度，即BbtsmRright12的宽度
+				var widthNum=0;//$(".BbtsmRright12")宽度
 				var textWidth=0;//文本的宽度0218加,用于控制有3列的时候，2种屏幕的宽度。
 				if($(window).width()>1000){				
 					if(Object.keys(data.subsidy_description).length<=3){
-						widthNum=861;
-						$(".BbtsmRright2Content").width(861)
+						widthNum=876;
 					}else{
-						widthNum=801;
+						widthNum=837;
 					}
+					$(".BbtsmRright12").width(widthNum)
 /*					console.log(widthNum);
 					$(".btsm").css({					
 						width:(widthNum-10*2)/num
@@ -181,11 +181,11 @@ function ajaxActivityDetails(a,b){
 					textWidth=214;
 				}else{
 					if(Object.keys(data.subsidy_description).length<=3){
-						widthNum=707;
-						$(".BbtsmRright2Content").width(707)
+						widthNum=725;
 					}else{
-						widthNum=667;
+						widthNum=700;
 					}
+					$(".BbtsmRright12").width(widthNum)
 /*					console.log(widthNum);
 					$(".btsm").css({					
 						width:(widthNum-10*2)/num
@@ -193,7 +193,7 @@ function ajaxActivityDetails(a,b){
 	//				console.log("else")
 					textWidth=188;
 				}	
-				//生成btsm	
+				//2.生成btsm	
 				for(var key in data.subsidy_description){				
 					$(".BbtsmRright2Content").append(btsmHtml);//生成btsm	
 					
@@ -217,17 +217,18 @@ function ajaxActivityDetails(a,b){
 					$(".BbtsmRright2Content .btsm:last").find(".btsmD1").html(hm);
 //					console.log(hm)
 				}	
-				//2.最后的一行的宽度
+				//3.个btsm设置宽度
 				//给每个btsm设置宽度
-				$(".btsm").width((widthNum-10*2)/3);
+				var l=10*2+21;//控制变量
+				$(".btsm").width((widthNum-l)/3);
 				//最后一行的宽度
 				if(Object.keys(data.subsidy_description).length%3!=0){
 					var n=Object.keys(data.subsidy_description).length%3;
-					$(".btsm").eq(-n).width((widthNum-10*2)/n);		
-					$(".btsm").eq(-n).nextAll(".btsm").width((widthNum-10*2)/n);		
+					$(".btsm").eq(-n).width((widthNum-l)/n);		
+					$(".btsm").eq(-n).nextAll(".btsm").width((widthNum-l)/n);		
 					//最后一行文本的宽度,-30是左右padding的和，16是序号所在span的宽度，一共2个span，一个是序号一个是文本。
-					$(".btsm").eq(-n).find(".btsmPs").find("span:last").width((widthNum-10*2)/n-30-16)
-					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").width((widthNum-10*2)/n-30-16)
+					$(".btsm").eq(-n).find(".btsmPs").find("span:last").width((widthNum-l)/n-30-16)
+					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").width((widthNum-l)/n-30-16)
 				}
 				//生成滚动条
 				$(".btsm").each(function(i){
