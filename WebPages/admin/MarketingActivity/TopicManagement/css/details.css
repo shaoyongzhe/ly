@@ -8,6 +8,10 @@ body.details section{
     /*background: aliceblue;*/
 }
 
+body.details section.fourth{
+	overflow-y: hidden;
+}
+
 .detail-wrapper{
 	width: 960px;
 	height: 860px;
@@ -68,6 +72,7 @@ body.details section{
 
 .detail-wrapper .region-view {
     margin: 0;
+    padding-bottom: 10px;
 }
 
 /* .detail-wrapper .region-view .region-info{

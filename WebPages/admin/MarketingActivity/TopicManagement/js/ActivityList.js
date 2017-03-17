@@ -1,10 +1,11 @@
 ﻿var linshi = '';
 var linshiCharge="";
 var linshiStatus="";
-var pageindex=0;
+var pageindex=1;
 var pagesize=100;
 var statusData="";//储存statusAjax()返回的数据。
 var autoLoad = true;
+var flag = 1;
 /*模拟下拉*/
 //$('body').on("click",".selectLWrapL",function(e){
 $('.selectLWrapL').click(function(e){	
@@ -18,6 +19,7 @@ $('.selectL').on("click",".optionL",function(e){
 //$('.selectL .optionL').click(function(e){
 	e.stopPropagation();
 	$(this).parent().prev().text($(this).text());//把li的内容放入em
+	$(this).parent().prev().attr("guid-data",$(this).attr("guid"))
 	$(this).parent().hide();//点击li的时候隐藏ul
 });	
 $(document).click(function(){
@@ -161,7 +163,8 @@ function basicQuery(resetQueryCondition){
 	if($(".qC_principal .selectLedL").text()=="请选择"){
 		charge="";
 	}else{
-		charge=$(".qC_principal .selectLedL").text();
+//		charge=$(".qC_principal .selectLedL").text();
+		charge=$(".qC_principal .selectLedL").attr("guid-data");
 	}
 	//活动时间
 	var times="";
@@ -247,18 +250,22 @@ function basicQuery(resetQueryCondition){
 		async:true,
 		data:condition,
 		success: function (data) {
-			 console.log(data)
+			//console.log(JSON.stringify(data, null, 4));
 		    // console.log(data.content.length);
 			// console.log(data)
 			$(".loaded").fadeOut();
-		    if(data.error)
+		    if(data.error){
 		        layer.alert("出错了^_^");
-              
-			 console.log('load : '+ data.content.length);
+		        flag = 1;
+           	}
+			console.log('load : '+ data.content.length);
 			if(data.content.length < 1){
 				// layer.alert('数据已加载完', {icon: 1});
 				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
+				flag = 1;
 				return;
+			}else{
+				flag = 0;
 			}
 			linshi=data;
 
@@ -302,14 +309,18 @@ function basicQuery(resetQueryCondition){
 			pagingJson = data["paging"];
 			if(autoLoad){
 				if($(".activityList tbody").prop("scrollHeight") > 500){
+					flag = 1;
 					autoLoad = false;
 				}else{
 		//			console.log(1)
+					flag = 0;
 					qixiaofeiload();
 				}		
 			};
+//			flag = 1;
 		},
 		beforeSend:function(){
+			flag = 0;
 			$(".loaded").fadeIn();
 		},
 		error:function(data){
@@ -324,6 +335,7 @@ function basicQuery(resetQueryCondition){
                	layer.alert('获取活动列表失败:错误'+data.status, {icon: 5});
 				$(".loaded").fadeOut();
              }
+             flag = 1;
 		}
 	});
 //	if(autoLoad){
@@ -338,10 +350,21 @@ function basicQuery(resetQueryCondition){
 
 /*查询按钮*/
 var condition={}
+$(document).keydown(function(event){
+	console.log(flag)
+   if(event.keyCode == 13 && flag == 1){
+   		autoLoad = true;
+	    $(".activityList tbody").empty();
+	    basicQuery(true);
+   }       
+});
 $(".queryConditionButton .query").click(function () {
-	autoLoad = true;
-    $(".activityList tbody").empty();
-    basicQuery(true);
+	console.log(flag);
+	if(flag == 1){
+		autoLoad = true;
+	    $(".activityList tbody").empty();
+	    basicQuery(true);
+   }
 
 });
 
@@ -406,6 +429,7 @@ function ConstructRecord(contentBody, statusData)
 				+'</tr>';
     }).ToArray();
     return stateHtmlArray.join("\r\n");
+    flag = 1;
 }
 
 function ConstructOpStatus(statusData, state)
@@ -699,4 +723,6 @@ $('table.activityList').on('click',".handle",function(){
 	    
 	
 });
-
+$(function(){
+	$(".qC_aitivityTopic").find("input").focus();
+})

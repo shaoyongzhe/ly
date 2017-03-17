@@ -26,7 +26,7 @@ function render(detailData){
 	var activity = detailData.activity;
 	//first.find('.guid').text(activity.activitycode);
 	// first.find('.guid').text(activity.guid);
-	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;visibility: hidden;'>"+ activity.guid +"</i>");
+	first.find('.guid').html(activity.activitycode + "<i style='color:#fff;position:absolute;display:none;'>"+ activity.guid +"</i>");
 	first.find('.description').text(activity.description);
 	first.find('.begintime').text(activity.begintime);
 	first.find('.endtime').text(activity.endtime);
@@ -43,12 +43,8 @@ function render(detailData){
 	var area = detailData.area_condition;  // 活动地区
 	for(var i=0; i<area.length; i++){
 		$('.province-wrap').append("<div class='province-item'><label class='sheng'>"+ area[i].name +"</label><div class='region-info'><div shengfzr='"+ JSON.stringify(area[i].charge, null, 4) +"'>负责人 "+ area[i].charge.name +"</div><div class='province-item'></div></div></div>");
-
 		for(var j=0; j<area[i].city.length; j++){
-
-			$('.region-info .province-item:last').append("<div class='city'><i shifzr='"+ JSON.stringify(area[i].city[j].charge, null, 4) +"'>"+ area[i].city[j].name +"</i></div><div class='district-wrap'></div>");
-
-
+			$('.region-info .province-item:last').append("<div class='city'><i shifzr='"+ JSON.stringify(area[i].city[j].charge, null, 4) +"'>"+ area[i].city[j].name +"&nbsp;&nbsp;"+ area[i].city[j].charge.name +"</i></div><div class='district-wrap'></div>");
 			for(var k=0; k<area[i].city[j].country.length; k++){
 				// console.log(area[i].city[j].country[k].name);
 				$('.district-wrap:last').append("<i quxian='"+ JSON.stringify(area[i].city[j].country[k], null, 4) +"'>"+ area[i].city[j].country[k].name +"</i>");
@@ -238,18 +234,18 @@ function render(detailData){
 	// 3.活动补贴规则
 	var fourth = $('.item.fourth');
 	var butie = detailData.event_handler_list;
+	var yaofz = 0;
 	for(var i=0; i<butie.length; i++){
 
+		var randfz = 0;
 		var btduixiang = "";
 		switch(butie[i].refund_to){
-
 		    case "distributor": btduixiang = '分销商'; break;
 		    case "distributor_employee": btduixiang = '分销商业务员'; break;
 		    case "retailer": btduixiang = '门店'; break;
 		    case "retaileremployee": btduixiang = '门店店员'; break;
 		    case "retailer_employee": btduixiang = '门店店员'; break;
 		    case "consumer": btduixiang = '消费者'; break;
-
 		}
 
 		/*var btCond = "";
@@ -287,20 +283,52 @@ function render(detailData){
 			butie[i].refund_content.indexOf('红包') != -1 || 
 			butie[i].refund_content == '摇一摇'){
 			danwei = "元";
-		} 
-
-		var rangeStr = "<span class='fl'>"+ butie[i].min +"-"+ butie[i].max +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].max * butie[i].ceiling).toFixed(2) +"</i><i>"+ danwei +"</i></td>";
-		
-		// debugger;
-		if(!butie[i].max || butie[i].max == ""){
-			rangeStr = "<span class='fl'>"+ butie[i].min +"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +"</td><td class='btfz'><i class='valTxt'>"+ (butie[i].min * butie[i].ceiling).toFixed(2) +"</i><i>"+ danwei +"</i></td>";
 		}
 
-	    // debugger
+		var valTxt = valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
+		
+		// if(butie[i].refund_content.indexOf('随机') != -1){
+		// 	butie[i].probability.value_curve.forEach( function(item, index) {
+		// 		randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+		// 		valTxt = "<i class='valTxt'>"+ Number(randfz).toFixed(2) + "</i>";
+		// 	});
+		// }
+
+		var rangeStr = "";
+
+		if(butie[i].refund_content == '摇一摇'){
+			var yaofz1 = 0;
+			var refund_content = "";
+			butie[i].prize_content.forEach( function(item, index) {
+				yaofz += Number(item.applycount);
+				// yaofz1 += Number(item.applycount);
+				refund_content += item.refund_content + '</br>';
+			});
+			// valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
+			rangeStr = ""+ refund_content +"</td><td>"+ butie[i].ceiling +
+			"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
+
+		} else {
+			var num = !butie[i].max || butie[i].max == "" ? Number(butie[i].min).toFixed(2) : butie[i].min +"-"+ butie[i].max;
+			rangeStr = "<span class='fl'>"+ num +
+			"</span><span class='fr dw'><i>"+ danwei +"</i>/次</span></span></td><td>"+ butie[i].ceiling +
+			"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
+		}
+
+
+	    // debugger;
 		var pointIndex = butie[i].applycount.indexOf('.');
 		var applycount = pointIndex == -1 ? butie[i].applycount : butie[i].applycount.substring(0, pointIndex + 3);
+
 		// debugger;
-		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +"'><td>"+ btduixiang +"</td><td><span class='fxs' title='"+ butie[i].event +"'>"+ butie[i].event +"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +"<td class='sbys'><i class='valTxt'>"+ applycount +"</i><i>"+ danwei +"</i></td></tr>");
+		$('table.butie').append("<tr limit='"+ JSON.stringify(butie[i].limit, null, 4) +
+			"' probability='"+ JSON.stringify(butie[i].probability, null, 4) +
+			"'><td>"+ btduixiang +
+			"</td><td><span class='fxs' title='"+ butie[i].event +"'>"+ butie[i].event +
+			"</span></td><td>"+ butie[i].refund_content +"</td><td><span class='clr jifen'>"+ rangeStr +
+			"</span><td class='sbys'><i class='valTxt'>"+ applycount +
+			"</i><i>"+ danwei +"</i></td></tr>");
+
 	}
 
 	// $('table.butie tr:contains(摇一摇) td.sbys i:eq(1)').text('次');
@@ -330,7 +358,7 @@ function render(detailData){
 		sbysYuan += parseFloat($(this).text());
 	});
 
-	$('.totalSbysYuan').text(Number(sbysYuan).toFixed(2));
+	$('.totalSbysYuan').text(Number(sbysYuan + yaofz).toFixed(2));
 
 
 //	var sbysFen = 0;
@@ -428,6 +456,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert("上架成功");
                     closeLayer();
 //                  parent.basicQuery();
@@ -458,6 +487,7 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
+                    parent.$('.query').click();
                     parent.layer.alert(op + " 成功");
                     closeLayer();
                 },

@@ -73,7 +73,7 @@ var vm = avalon.define({
 
     },
     jsondataReadered: function (e) {
-        qrcode.href()
+        qrcode.show()
         if (tmdropme != null)
             tmdropme.resetload();
     },
@@ -139,7 +139,7 @@ function loaddata(longitude, latitude, dropme) {
 
             if (jsondata.error) {
                 toasterextend.showtips(jsondata.error, "error", false);
-                qrcode.href();
+                qrcode.show();
                 dealdropme(dropme);
                 return;
             }
@@ -148,7 +148,7 @@ function loaddata(longitude, latitude, dropme) {
                 toasterextend.showtips(jsondata.user_notification, "info");
                 if (pageIndex == 1)
                     $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
-                qrcode.href();
+                qrcode.show();
                 dealdropme(dropme);
                 return;
             }
@@ -156,7 +156,7 @@ function loaddata(longitude, latitude, dropme) {
             if (jsondata.data == undefined || jsondata.data.length == 0) {
                 if (pageIndex == 1)
                     $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
-                qrcode.href();
+                qrcode.show();
                 dealdropme(dropme);
                 return;
             }
@@ -165,8 +165,10 @@ function loaddata(longitude, latitude, dropme) {
                 $.each(jsondata.data, function (i, v) {
                     vm.jsondata.push(v);
                 });
-            } else
+            } else {
+                qrcode.show()
                 vm.jsondata = jsondata.data;
+            }
 
 
             $("img.lazy").lazyload();
@@ -179,7 +181,7 @@ function loaddata(longitude, latitude, dropme) {
                 if ($.isFunction(wxjsshare)) {
                     wxjsshare(jsondata.share || {});
                 }
-                qrcode.show()
+             
                 setTimeout(function () {
 
                     $('#list').dropload({
@@ -210,7 +212,7 @@ function loaddata(longitude, latitude, dropme) {
                 if (errormsg == undefined || errormsg == '')
                     errormsg = "Http error: " + XMLHttpRequest.statusText;
             }
-            qrcode.href();
+            qrcode.show();
             toasterextend.showtips(errormsg, "error");
             dealdropme(dropme);
         }

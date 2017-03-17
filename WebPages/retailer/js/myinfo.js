@@ -10,6 +10,7 @@ var vm = avalon.define({
     $id: 'myInfo',
     employee: {},//个人信息
     retailername: "",//门店名称
+    retailer_id:"",
     contribute: {},//我的贡献
     coworkers: [],//店员列表
     Money: 0,
@@ -46,7 +47,7 @@ var vm = avalon.define({
                 }
 
                 vm.coworkers = json.coworkers[0].employee
-
+                vm.retailer_id = json.coworkers[0].retailer_id
                 vm.IsShow = true;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -67,6 +68,7 @@ var vm = avalon.define({
         });
     },
     firm: function (el, index) {
+    
         if (confirm("您确定退出本店吗？")) {
             $.ajax({
                 type: 'GET',
@@ -84,6 +86,8 @@ var vm = avalon.define({
                     else {
                         toasterextend.showtips("退出成功", "info");
                         vm.coworkers.splice(index, 1)
+
+                        setTimeout(function () { wx.closeWindow(); }, 2000);
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

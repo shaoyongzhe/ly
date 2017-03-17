@@ -1,7 +1,7 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
 var statisticArr=[];
 
-
+ClearSessionStorage();
 function GetUrlParam() {
     
     var url = location.search;
@@ -803,25 +803,13 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +               '<span class="activityManger_addsub4State activityManger_startStop status hi"></span>'
 	        +           '</div>'
 	        +       '</div>';
+
+
 	for(i=0;i<activityManger_addSub4Data.length;i++){
+		var randfz = 0;
 		subsidyConditionArr.push(activityManger_addSub4Data[i].event);
 		statisticArr.push(activityManger_addSub4Data[i].statistic);//如果有statistic就插入，没有就插入undefined
 	    $('.addSub4:last').before(activityManger_addSub4Html);
-	       // $('.subsidyCondition a.btCond').hide()
-		/*临时数据*/	 
-		//临时数据开始
-//		activityManger_addSub4Data[i].statistic= {
-//              "timetag": "主题活动结束时",
-//              "time": "",
-//              "object": "门店",
-//              "method": "按各分销商分别统计",
-//              "type": "累计核销次数",
-//              "reqesttag": "地区排名",
-//              "requestnumber": "7"
-//          }
-//		activityManger_addSub4Data[i].refund_to="distributor_employee";	
-//		activityManger_addSub4Data[i].event="达到统计指标";	
-		//临时数据结束	    
 	    
 	    
 	    	    
@@ -950,20 +938,8 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang)
 	    .attr('name',activityManger_addSub4Data[i].refund_to)
 	    .attr('guid',activityManger_addSub4Data[i].guid);
-//	    $(".addSub4Mange:last").find(".acSe9 .selected").text(btduixiang);
-		// debugger
-	    /*debugger
-        $('nav span:eq(2)').click();
-        $(".addSub4Mange:last").find(".acSe9 ul li").each(function(){
-            if($(this).val() == btduixiang){
-                $(this).click().parent().prev().attr('guid',activityManger_addSub4Data[i].guid);
-            }
-        });
-        */
 
 	    /*补贴条件*/
-	//  $(".addSub4Mange:last").find(".acSe10 .selected").text(activityManger_addSub4Data[i].event);
-//	    $(".addSub4Mange:last").find(".acSe10 .selected").text(btCond);//0216去掉
 		$(".addSub4Mange:last").find(".subsidyCondition a").text(btCond);
 	    if(activityManger_addSub4Data[i].statistic){
 	    	var addSub4MangeStatistic=JSON.stringify(activityManger_addSub4Data[i].statistic, null, 4);
@@ -982,13 +958,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
 	    $(".addSub4Mange:last").find(".acSe11 .selected").text(btType);
 	
-	    if(btType.indexOf('随机') != -1){
-	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
-	    }
-
-
-
-	
 	    /*三种类型的范围值*/
 	//  $(".addSub4Mange:last").find(".addsub4_fanweizhi").addClass("hi");  
 	//  if(activityManger_addSub4Data[i].max&&activityManger_addSub4Data[i].min){
@@ -1006,21 +975,23 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	//  }
 	
 	    if(activityManger_addSub4Data[i].refund_content!="摇一摇"){//shake
-	//      debugger
+	     // debugger
 	        $(".addSub4Mange:last").find(".hdc4d1").removeClass('hi');
-	        $(".addSub4Mange:last").find(".hdc4d2").addClass('hi'); 
+	        $(".addSub4Mange:last").find(".hdc4d2").addClass('hi');
 	        $(".addSub4Mange:last").find(".acSe12 .hdc4In1").val(activityManger_addSub4Data[i].min);
 	        $(".addSub4Mange:last").find(".acSe12 .hdc4In2").val(activityManger_addSub4Data[i].max);
 	        $(".addSub4Mange:last").find(".acSe12 .hdc4P2").text(activityManger_addSub4Data[i].unit);
 	        if(btType.indexOf("随机")<0){
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4In2").addClass("hi");
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4P1").addClass("hi");
-	            
 	        }       
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
 	        // $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次");
+
+	        // alert(1)
+
 	    }
 	
 	    /*发放上限*/
@@ -1029,8 +1000,37 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    /*补贴峰值*/
 	    $(".addSub4Mange:last").find(".acSe13 input").val(activityManger_addSub4Data[i].ceiling);
 	    var subsidyTopValue=activityManger_addSub4Data[i].max?activityManger_addSub4Data[i].max:activityManger_addSub4Data[i].min;
-	    $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
-			$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
+
+
+	  //   if(btType.indexOf('随机') != -1){
+	  //       $(".addSub4Mange:last").find('.setgailv').addClass('on');
+	  //       activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
+			// 	randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+			// });
+			// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
+	  //   } else {
+
+	    	// if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
+	    		// var yaofz = 0;
+	    		// activityManger_addSub4Data[i].prize_content.forEach(function(item, index){
+	    		// 	yaofz += item.applycount;
+	    		// });
+	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
+	    		
+	    		// $(".addSub4Mange:last").find('.set').click();
+	    		// $('.yaook').click();
+
+
+	    	// } else {
+	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
+	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
+	    	// }
+
+
+	    // }
+
+		$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
+
 	    /*申报预算*/
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) input").val(activityManger_addSub4Data[i].applycount); 
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) p").text(activityManger_addSub4Data[i].unit);//单位
@@ -1042,8 +1042,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao); 
 
 	    		$(".addSub4Mange:last").find(".fz p").text('元');//单位  
-
-
 
 	    		var yaoText = "";
 	    		$.each(activityManger_addSub4Data[i].prize_content,function(i,item){
@@ -1094,229 +1092,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(this).toggleClass("on");
 	})
 	
-//	/*增减控件5摇一摇拼接*/
-//	var deng_yaoYiYaoDate={
-//	  "subsidymethod": [
-//	    {
-//	      "localtype": "refund_content",
-//	      "category": "积分",
-//	      "showtype": "random",
-//	      "unit": "分",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定积分",
-//	      "category": "积分",
-//	      "showtype": "fixed",
-//	      "unit": "分",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定金额",
-//	      "category": "现金",
-//	      "showtype": "fixed",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "随机金额",
-//	      "category": "现金",
-//	      "showtype": "random",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "随机微信红包",
-//	      "category": "红包",
-//	      "showtype": "random",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定微信红包",
-//	      "category": "红包",
-//	      "showtype": "fixed",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "固定金额返现券",
-//	      "category": "返现券",
-//	      "showtype": "fixed",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "随机金额返现券",
-//	      "category": "返现券",
-//	      "showtype": "random",
-//	      "unit": "元",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    },
-//	    {
-//	      "localtype": "摇一摇",
-//	      "category": "摇一摇",
-//	      "showtype": "compose",
-//	      "unit": "次",
-//	      "state": "active",
-//	      "min": "1",
-//	      "max": "3",
-//	      "gailv": "10",
-//	      "jiangpincishu": "10",
-//	      "ceiling": "4",
-//	      "applycount": "23"
-//	    }
-//	  ]
-//	}
-//	//var activityManger_addSub5Data=_resdata_.等待字段;
-//	var activityManger_addSub5Data=deng_yaoYiYaoDate.subsidymethod;//有字段的时候修改这个就ok
-//	var activityManger_addSub5Html=''
-//	        +           '<div class="yaoyiyao addSub5 addSub5Mange">'
-//	        +               '<div class="dib Yyy1 ver re">'                     
-//	        +                   '<div class="select-wrap acSe15 ba">'
-//	        +                       '<i></i>'
-//	        +                       '<em class="selected"></em>'
-//	        +                       '<ul class="select">'
-//	        +                           '<li class="option">静谢谢参与</li>'
-//	        +                           '<li class="option">静微信手气红包</li>'
-//	        +                           '<li class="option">静随机金额返现券</li>'
-//	        +                           '<li class="option">静固定积分</li>'                                 
-//	        +                       '</ul>'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy2 ver re">'
-//	        +                   '<div class="acSe16 ba">'       
-//	        +                       '<div class="dib -hi Yyy2d1 ver">'
-//	        +                           '<input type="text" placeholder="请输入" class="dib min"/>'
-//	        +                           '<span>-</span>'
-//	        +                           '<input type="text" placeholder="请输入" class="dib max"/>'
-//	        +                           '<p class="dib hdc4dA ba fr"></p>'
-//	        +                       '</div>'
-//	        +                       '<div class="dib hi Yyy2d2">'
-//	        +                           '<a href="#" class="dib hdc4dB ver"></a>'
-//	        +                       '</div>'
-//	        +                       '<div class="dib hi Yyy2d3">'
-//	        +                       '</div>'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy3 ver re">'                         
-//	        +                   '<div class="dib Yyy3d1 ver">'
-//	        +                       '<input type="text" value=""/>'
-//	        +                       '<span>%</span>'
-//	        +                   '</div>'
-//	        +               '</div>'    
-//	        +               '<div class="dib Yyy4 ver re">'                         
-//	        +                   '<div class="dib Yyy4d1 ver">'
-//	        +                       '<input type="text" />'
-//	        +                       '<span>次</span>'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy5 ver re">'                         
-//	        +                   '<div class="dib -hi Yyy5d1 ver fz">'
-//	        +                       '<input type="text" value="" class="dib"/>'                     
-//	        +                       '<span class="dib ba"></span>'
-//	        +                   '</div>'
-//	        +                   '<div class="dib hi Yyy5d2">'
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy5-1 ver re">'                           
-//	        +                   '<div class="dib -hi Yyy5d1 ver">'
-//	        +                       '<input type="text" value="" class="dib"/>'                     
-//	        +                       '<span class="dib ba">元</span>'
-//	        +                   '</div>'
-//	        +                   '<div class="dib hi Yyy5d2">'                                   
-//	        +                   '</div>'
-//	        +               '</div>'
-//	        +               '<div class="dib Yyy6 setgailv">设置概率</div>'
-//	        +               '<!--添加删除按钮-->'
-//	        +               '<div class="dib acAdE Yyy7 ver">'
-//	        +                   '<img src="img/minus.png" height="32" width="32" alt="" class="acAd1"/>'
-//	        +                   '<img src="img/plus.png" height="32" width="32" alt="" class="acAd2 hi" />'             
-//	        +               '</div>'
-//	        +           '</div>';
-//	for(i=0;i<activityManger_addSub5Data.length;i++){   
-//	    if(activityManger_addSub5Data[i].localtype!="摇一摇"){//等待字段更新，可能会是refund_content，shake
-//	        $(".addSub5:last").before(activityManger_addSub5Html);      
-//	        //处理单位  
-//	        if(activityManger_addSub5Data[i].localtype.indexOf("分")>0){
-//	            activityManger_addSub5Data[i].unit="分";
-//	        }else{
-//	            activityManger_addSub5Data[i].unit="元";
-//	        }
-//	        //范围值
-//	        $(".addSub5Mange:last").find(".Yyy2d1").removeClass('hi');
-//	        $(".addSub5Mange:last").find(".Yyy2d2").addClass('hi'); 
-//	        $(".addSub5Mange:last").find(".Yyy2d1 .min").val(activityManger_addSub5Data[i].min);
-//	        $(".addSub5Mange:last").find(".Yyy2d1 .max").val(activityManger_addSub5Data[i].max);
-//	        $(".addSub5Mange:last").find(".Yyy2d1 .hdc4dA").text(activityManger_addSub5Data[i].unit);
-//	        if(activityManger_addSub5Data[i].localtype.indexOf("随机")<0){//处理2种形式的范围值
-//	            $(".addSub5Mange:last").find(".Yyy2d1 .max").addClass("hi");
-//	            $(".addSub5Mange:last").find(".Yyy2d1 span").addClass("hi");            
-//	        }       
-//	    }
-//	
-//	    $(".addSub5Mange:last").find(".acSe15 em").text(activityManger_addSub5Data[i].localtype);
-//	    $(".addSub5Mange:last").find(".acSe16 .min").val(activityManger_addSub5Data[i].min);//范围值
-//	    $(".addSub5Mange:last").find(".acSe16 .max").val(activityManger_addSub5Data[i].max);//范围值
-//	    $(".addSub5Mange:last").find(".Yyy3d1 input").val(activityManger_addSub5Data[i].gailv);//摇一摇概率
-//	    $(".addSub5Mange:last").find(".Yyy4d1 input").val(activityManger_addSub5Data[i].jiangpincishu);//奖品次数
-//	    $(".addSub5Mange:last").find(".Yyy5d1 input").val(activityManger_addSub5Data[i].ceiling);//补贴峰值
-//	    $(".addSub5Mange:last").find(".Yyy5-1 input").val(activityManger_addSub5Data[i].applycount);//申报预算
-//	    
-//	    
-//	}
-//	
-//	        
-	        
-	/*备注:数据activity_condition下product_category暂时不作处理*/
 	// $("*").removeClass("mangeStyle");
 	$(".mangeStyle").removeClass("mangeStyle");
 //	$(".addSub4Mange input").removeAttr("disabled");
@@ -1355,8 +1130,12 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 //	    $(".addSub5Mange:last").find(".acAd1").css("visibility","hidden");//最后一个控件减号隐藏
 	    $(".addSub5Mange:last").find(".acAd2").removeClass("hi");//最后一个控件加号显示       
 	}
-butiefz();
-$('.butieSec .sbys').keyup();
+
+
+
+	butiefz();
+	$('.butieSec .sbys').keyup();
+
 }
 
 
