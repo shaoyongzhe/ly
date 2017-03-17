@@ -9,6 +9,7 @@
   	var _data2="";
   	var _image="";				 	
   	var _icn="";
+  	var _fd=1;
   	localStorage.list=0;
   	(function dd(){
   			height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
@@ -39,9 +40,9 @@
 						  			console.log($(this).children().height())
 						  			console.log($(this).height())
 						  			if($(this).children().height()*2<$(this).height()){
-						  				$(this).css({"textAlign":"center","lineHeight":"3.5rem"})
+						  				$(this).css({"textAlign":"center","lineHeight":"3.8rem"})
 						  			}else{
-						  				$(this).css({"textAlign":"left","lineHeight":"1.8rem"})
+						  				$(this).css({"textAlign":"left","lineHeight":"2.2rem"})
 						  			}
 						  		})
 									
@@ -75,6 +76,7 @@
 					}
 function shopList(pg){
 			//alert(pg)
+			console.log(111)
 		 $.ajax({
 			  url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging=",
 			  async:true,
@@ -170,7 +172,10 @@ function shopList(pg){
 				   	_shopList="<dt>进行中的</dt>"+_shopList;
 						$("#dl2").html(_historyList)
 						$("#dl1").html(_shopList);
-						$(".orderlistbox").html($(".orderlistbox").html()+"<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>")
+						if(_fd==1){
+							$(".orderlistbox").html($(".orderlistbox").html()+"<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>")
+							_fd=0
+						}
 						_historyList="";
 						_shopList="";
 						_flag=1;

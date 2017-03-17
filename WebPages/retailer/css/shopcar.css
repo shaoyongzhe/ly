@@ -157,13 +157,13 @@ section li{
 	float:right;
 }
 .increase{
-	width:26px;height:26px;text-align: center;border:1px solid #e0e3e8;color:#009f96;border-radius: 22px;font-weight: bolder;font-size: 24px;line-height: 24px;
+	width:30px;height:30px;text-align: center;border:1px solid #e0e3e8;color:#009f96;border-radius: 50%;font-weight: bolder;font-size: 22px;line-height: 30px;
 }
 .reduce{
-	width:26px;height:26px;text-align: center;border:1px solid #e0e3e8;color:#009f96;border-radius: 22px;font-weight: bolder;font-size: 24px;line-height: 24px;
+	width:30px;height:30px;text-align: center;border:1px solid #e0e3e8;color:#009f96;border-radius: 50%;font-weight: bolder;font-size: 22px;line-height: 30px;
 }
 .change .amount{
-	line-height: 22px;line-height: 28px;width:1.5rem;width: 2.5rem;text-align: center;font-size: 1.2rem;
+	line-height: 22px;line-height: 34px;width:1.5rem;width: 2.5rem;text-align: center;font-size: 1.2rem;
 }
 .set span{
 	padding:6px 14px;border:1px solid #ccc;

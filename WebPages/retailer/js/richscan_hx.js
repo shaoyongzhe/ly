@@ -7,7 +7,7 @@ wx.ready(function () {
 });
 
 avalon.ready(function () {
-	writeOff(function () {
+	    writeOff(function () {
         vm.scanwx()
     });
     avalon.scan(document.body, vm)
