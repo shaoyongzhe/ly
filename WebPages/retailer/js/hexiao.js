@@ -38,6 +38,11 @@ function writeOff(callback) {
     function toggle(data) {//判断用户是否违规
 
     }
+	function newDate(strdate) {  
+		var arr = strdate.split(/[- : \/]/);  
+		date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);  
+		return date;  
+	}
     function cooldown(data) {//违规倒计时
         if(data.endtime && data.endtime!=""){
             var start = data.endtime;
@@ -51,7 +56,8 @@ function writeOff(callback) {
             var _Hour;
             var _Minus;
             var _Seconds;
-            _endTm = (new Date(data.endtime)).getTime();
+            _endTm = (new Date(newDate(data.endtime))).getTime();
+			console.log(_endTm)
             
                 _d = new Date();
                 _newTm = _d.getTime();

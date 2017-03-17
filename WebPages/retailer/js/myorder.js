@@ -110,7 +110,10 @@ function shopList(pg){
 											}
 								}
 			   				if(_data1[pg]["specialprice"]){
-			   					_price-=_data1[pg]["specialprice"]
+			   					_price-=_data1[pg]["specialprice"];
+			   					if(_price<0){
+			   						_price=0;
+			   					}
 			   				}
 				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
 		  		_bookTm = (new Date(_bookTm)).getTime();
@@ -153,7 +156,13 @@ function shopList(pg){
 					 						_icn+="<img src="+"\"../../image/shop/temp.jpg\""+">"
 					 					}
 					 				}
-
+			   				if(_data1[pg]["specialprice"]){
+			   					_price-=_data1[pg]["specialprice"];
+			   					if(_price<0){
+			   						_price=0;
+			   					}
+			   				}
+			   				_price=_price.toFixed(2)
 					 				if(data["content"][j]["openflag"]=="0"){
 					 						_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+JSON.stringify(data["paging"])+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
 					 				+" style=\"position:relative\"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i style=\"position:absolute;bottom:0;right:0\">共"+data["content"][j]["details"].length+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">合计：<span class="+"\"pricstyle\""+">￥"+_price+"</span></i></div></dd>"
