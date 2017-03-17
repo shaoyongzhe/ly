@@ -613,6 +613,7 @@ function getcheckactivityshistory() {
                     }
                     $("#activity_list_data").html(activity_list_data);
                     assemblePage(totalPage);
+                    // $('.pagenum li').eq(currentPage).addClass('pitchOn')
                     showCheckOpinions();
                     /**
                      * 进入重新审核页面
@@ -633,8 +634,16 @@ function getcheckactivityshistory() {
                 window.location.href = "../html/login.html";
                 return;
             }
+            if (obj["error"] == "no data") {
+                alert("未查到数据");
+                $(".showMes").css("display", "none");
+                $("#searchBtn").attr("disabled", false);
+                $("#searchBtn").css("background", "#249cfa");
+                $("#searchBtn").html("查询")
+                return;
+            }
             if (XMLHttpRequest.readyState == 4)
-                alert("网络异常");
+                alert("请求返回异常,请与管理员联系!");
         }
     });
 }
@@ -704,6 +713,7 @@ $(function () {
      * 查查卡按钮
      */
     $("#searchBtn").click(function () {
+        $("#currentPage").val(1)
         getcheckactivityshistory();
     });
 
