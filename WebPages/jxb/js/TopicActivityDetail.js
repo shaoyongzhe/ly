@@ -231,7 +231,7 @@ function ajaxActivityDetails(a,b){
 				//给每个btsm设置宽度
 //				var l=8.5;//控制变量，7是margin-left，但是发现7不行。然后发现，3列减8，两列减8.5，所以取8.5，//升级
 				$(".btsm").outerWidth(widthNum/3-l);
-				debugger;
+//				debugger;
 				//最后一行的宽度
 				if(Object.keys(data.subsidy_description).length%3!=0){
 					var n=Object.keys(data.subsidy_description).length%3;
