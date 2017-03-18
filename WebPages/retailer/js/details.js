@@ -256,7 +256,8 @@ $(document).ready(function () {
     		$(".amountBig span:nth-child(2)").text(Math.abs(heji).toFixed(2));
     	}else if(heji>0){
     		 $(".amountBig span:nth-child(1)").text("应付合计");
-    	     $(".amountBig span:nth-child(2)").text(heji-wechat>0?(heji-wechat).toFixed(2):"0.00");
+    		 var showheji=data["content"][commodity]["iswechatdiscount"] == true?heji-wechat:heji;
+    	     $(".amountBig span:nth-child(2)").text(showheji>0? showheji.toFixed(2):"0.00");
     	}else
     	{
     		 $(".amountBig span:nth-child(1)").text("合计");

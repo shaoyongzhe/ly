@@ -206,7 +206,7 @@
 						_Id.push(data1[i]["guid"])
 						_price+=Number(data1[i]["price"])*Number(data1[i]["itemcount"]);
 						_list+="<li id=\""+i+"\""+" ip="+(_arr.length-1)+" guid="+_dd+"><div class="+"\"list\""+"><label class=\"labs\"><i class="+"\"gouxuan\" flag="+"\"1\""+"></i></label><div class="+"\"conh\""+"><div class="+"\"yuu\""+"><img class="+"\"img1\" "+"src="+data1[i]["itemimage"]+" /><div class="+"\"yoo\""+">"+_image+_name+"</div><p class="+"\"pl\""+">"+_intr+"</p><div class="+"\"change\""+"><span class="+"\"increase\""+">+</span><span class="+"\"amount\""+">"+data1[i]["itemcount"]+"</span><span class="+"\"reduce\" style="+"\"color:"+_color+"\""+">-</span></div><p class="+"\"pp1\""+">￥"+Number(data1[i]["price"]).toFixed(2)+"</p></p></div></div></div><div class="+"\"disc\""+
-						"><span>买赠</span><span> 买"+data1[i]["salecount"]+(data1[i]["packagetypename"]==null?"":data1[i]["packagetypename"])+data1[i]["itemname"]+"赠"+data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+"\"giveTo\""+"><b style="+"\"margin-right:5px\""+">赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span><span class=\"yuj\">"+Math.floor((data1[i]["itemcount"])/Number(data1[i]["salecount"]))*Number(data1[i]["giftcount"])+"</span>"+data1[i]["giftitemobj"]["packagetypename"]+(data1[i]["itemquality"]==="0"?"(临期)":"")+"</div></div><div class="+
+						"><span>买赠</span><span> 买"+data1[i]["salecount"]+(data1[i]["packagetypename"]==null?"":data1[i]["packagetypename"])+data1[i]["itemname"]+"赠"+data1[i]["giftcount"]+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+data1[i]["giftitemobj"]["itemname"]+"</span></div>"+_remark+"<div class="+"\"giveTo\""+"><b style="+"\"margin-right:5px\""+">赠品</b><div><span>"+data1[i]["giftitemobj"]["itemname"]+"</span><span class=\"yuj\">"+Math.floor((data1[i]["itemcount"])/Number(data1[i]["salecount"]))*Number(data1[i]["giftcount"])+"</span>"+(data1[i]["giftitemobj"]["packagetypename"]==null?"":data1[i]["giftitemobj"]["packagetypename"])+(data1[i]["itemquality"]==="0"?"(临期)":"")+"</div></div><div class="+
 						"\"set\""+"style="+"\"width:100%;height:4rem;border-top:1px solid #ededed\""+"><span class=\"ly\">留言</span><span class="+"\"delete\""+">删除</span></div></li>"						
 					}else if(data1[i]["isyucun"]==1 && data1[i]["salestop"]==0){
 						console.log(1)
@@ -365,10 +365,11 @@
 					$("html").css({overflow:"auto"})
 				})
 				$(".ifDelt span:nth-child(2)").click(function(){
+					var _ar=[];
 					_id=$(this).parent().prev().attr("id").replace("y","");
-					 
+					 var _that=$(this)
 					_dl=data1[_id]["guid"]
-					 
+					 alert(_Id)
 					console.log(_dl)
 					$.ajax({
 						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dl,
@@ -379,8 +380,9 @@
 							//$(".delete").remove($(".delete").parent().parent())
 							$("html").css({overflow:"auto"})
 							$(".ifDelt").css({display:"none"})
-							_cun-=Number($("#"+_id).find(".amount").text());
-							
+							_cun-=Number($("#"+_id).find(".amount").text());$(this).parent().prev().attr("ip")
+							_Id.splice(_that.parent().prev().attr("ip"),1)
+							alert(_Id)
 							_pp-=Number($("#"+_id).find(".pp1").text().replace("￥",""))*Number(_dll)
 							if($("#"+_id).find(".gouxuan").attr("flag")){
 								if($("#"+_id).find(".gouxuan").attr("flag")==1){
