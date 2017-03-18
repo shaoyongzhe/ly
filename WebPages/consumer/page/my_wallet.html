@@ -13,7 +13,8 @@
     <link href="/js/shelter/shelter.css" rel="stylesheet" />
     <link href="/consumer/css/my_center.css" rel="stylesheet" />
     <link href="/consumer/css/dropload.css" rel="stylesheet" />
-    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
+    <script type="text/javascript" src="/js/wx/md5.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/jquery/utitlity.js"></script>
@@ -35,7 +36,7 @@
             <div class="WalletBalance">
                 <p>钱包余额</p>
                 <h1>￥{{Moneys.balance}}</h1>
-                <a href="javascript:void(0)" ms-attr-class="{{Moneys.balance<=0?'on':''}}" ms-click="userwithdraw">提 现</a>
+                <a href="javascript:void(0)" ms-attr-class="{{Moneys.balance<1?'on':''}}" ms-click="userwithdraw">提 现</a>
             </div>
             <div class="Wallet_nav mt46">
                 <p class="border_dashed mb15"></p>
