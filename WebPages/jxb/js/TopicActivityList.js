@@ -1,4 +1,4 @@
-//20170210.9
+//20170317
 //loadingStart();
 //$(".contentCont").empty();
 //alert(8)
@@ -107,11 +107,50 @@ $(".contentCont").on("click",".ccfoot2",function(){
 //	localStorage.fromTopicActivityList_ActivityID=$(this).parents(".con").find(".Aguid").text();
 //	location.href="TopicActivityDetail.html";
 //	event.stopPropagation();
-    savePage();
+//  savePage();
 	window.location.assign("TopicActivityDetail.html?" + "switchfrom=toplicactivitylist"+"&distributor_id="+UrlKeyValueData.distributor_id+"&activity_id="+$(this).parents(".con").find(".Aguid").text());
 //	console.log($(this).parents(".con").find(".Aguid").text());
 //	engine.call('OnShowDetailClick', $(this).parents(".con").find(".Aguid").text());		
 })	
+/*按下效果*/
+$(".contentCont").on("mousedown",".ccfoot2",function(){
+	$(this).css({
+		"background":"#e00303",
+		"border":"2px solid #e00303",
+	});	
+})	
+/*$(".contentCont").on("mouseup",".ccfoot2",function(){
+//	$(this).css("background","white");
+	console.log(2)
+})*/
+/*按下效果*/
+$(".returnToList p").mousedown(function(){		
+	$(this).css({
+		color:"white",
+		border:"#2580e6",
+		background:"#2580e6",
+	})
+})
+/*hover效果*/
+$(".contentCont").on("mouseenter mouseout",".ccfoot2",function(event){	
+	if(event.type=="mouseenter"){
+		console.log("调试用查看guid是"+$(this).closest(".alist").find(".Aguid").text());
+		$(this).css({
+			background: "red",
+    		color:"white",
+    		"border":"2px solid #f83232",
+		})	
+	}else if(event.type=="mouseout"){
+		$(this).css({
+			background: "white",
+    		color:"#f83232",
+    		"border":"2px solid #f83232",
+		})	
+	}
+})
+
+
+
 //保存初始的dom,用于生成。
 var initialDom=$(".alist").get(0).outerHTML;
 //清空
@@ -152,6 +191,7 @@ function ajaxAlready(a){
 				loadintEnd();
 				$(".Awrap").removeClass("initialHi");				
 			}
+			$("body").css({"width":$(window).width(),overflowX:"hidden"});
 		}
 	});	
 }		
@@ -190,6 +230,7 @@ function ajaxNo(a){
 				loadintEnd();
 				$(".Awrap").removeClass("initialHi");				
 			}
+			$("body").css({"width":$(window).width(),overflowX:"hidden"});
 		}
 	});	
 }	
@@ -333,7 +374,8 @@ function sucessFn(obj,info){
 		}
 		obj.find(".ccBt:last").text(info.content[i].activitytitle);
 		obj.find(".ccCo:last").text(info.content[i].content);
-		obj.find(".ccTi:last").find(".ccTis1").text(info.content[i].earliestjointime.substr(0,16)+"-"+info.content[i].latestjointime.substr(0,16));//0122将begintime换成earliestjointime，endtime换成latestjointime，
+//		obj.find(".ccTi:last").find(".ccTis1").text(info.content[i].earliestjointime.substr(0,16)+"-"+info.content[i].latestjointime.substr(0,16));
+		obj.find(".ccTi:last").find(".ccTis1").text(timeSymbol(info.content[i].earliestjointime.substr(0,16),"-",".")+"-"+timeSymbol(info.content[i].latestjointime.substr(0,16),"-","."));//0122将begintime换成earliestjointime，endtime换成latestjointime，
 		obj.find(".ccTi:last").find(".ccTis2").eq(0).prev("img").attr("src",src[info.content[i].condition.area_matched]);
 		obj.find(".ccTi:last").find(".ccTis2").eq(2).prev("img").attr("src",src[info.content[i].condition.activity_matched]);//超惠activity_matched
 		obj.find(".ccTi:last").find(".ccTis2").eq(3).prev("img").attr("src",src[info.content[i].condition.condition_matched]);//资格
@@ -459,6 +501,20 @@ function returnToList(){
 	$("header").click(function(){			
 		engine.call('ClosePage',"");
 	})
+	/*hover效果*/
+	$(".returnToList p").hover(function(){
+		$(this).css({
+			color:"white",
+    		border:"white",
+    		background:"#4e9fee",
+		})
+	},function(){
+		$(this).css({
+			color:" #4e9fee",
+    		border:"1px solid #4e9fee",
+    		background:"white",
+		})
+	})
 }
 
 //展开收起函数封装
@@ -499,10 +555,6 @@ function isReceivedID(){
 
 
 
-/*调试用代码*/
-$("body").on("mouseenter",".ccfoot2",function(){
-	console.log("调试用查看guid是"+$(this).closest(".alist").find(".Aguid").text())	
-})
 
 
 /*popupsFn(function(){
@@ -530,19 +582,14 @@ $(".refresh").click(function(){
 	history.go(0);
 })
 /*后退记忆，详情退回列表*/
-function savePage(){  //操作浏览器的历史记录
+/*function savePage(){  //操作浏览器的历史记录
 	history.replaceState('', document.title, location.href.replace(location.hash, "") + "#nowTop=" + $(window).scrollTop()+"nowTop=");
 }
-/*if(location.hash!=""){
-	var  nowTop=Number(location.hash.split("nowTop=")[1]);
-	console.log(nowTop)
-	scrollTo(0, nowTop);	
-}*/
 
 if(location.hash!=""){
 	var nowTop=Number(location.hash.split("nowTop=")[1]);
 }else{
 	var nowTop=0;
 }
-scrollTo(0, nowTop);
-//console.log(88988)
+scrollTo(0, nowTop);*/
+

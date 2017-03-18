@@ -70,6 +70,7 @@ var vm = avalon.define({
         vm.category = type
 
         if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
+            $(".dropload-down").remove()
             vm.getAssetFlow(1, null)
         }
     },
@@ -186,10 +187,9 @@ var vm = avalon.define({
                         vm.expendlist.paging = json.paging
                     }
                 }
-                if (json.content.length == 0) {
+                if (json.content.length == 0 || json.content.length < 15) {
                     dealdropme(me);
                     $(".dropload-down").remove()
-
                     return;
                 }
 

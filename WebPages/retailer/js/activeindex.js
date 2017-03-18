@@ -551,9 +551,9 @@ function fncuxiao(data) {
             oli += "</div>" +
                 " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(2) + "</del></div>" +
                 "</div> " +
-                "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
+                "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span><span>" + data[k1]["discount"] + " 折</span></div> ";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
+                oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
@@ -586,7 +586,7 @@ function fncuxiao(data) {
             }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
+                oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
         }
@@ -665,9 +665,9 @@ function fnyibanlist2(data) {
             oli += "</div>" +
                 " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(2) + "</del></div>" +
                 "</div> " +
-                "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span>" + data[k1]["discount"] + "折 </div> ";
+                "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span><span>" + data[k1]["discount"] + " 折</span></div> ";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
+                oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
@@ -700,7 +700,7 @@ function fnyibanlist2(data) {
             }
             oli += "</p></div>";
             if(data[k1]["ruledesc"] != null) {
-                oli += "<div class='cgl-beizhu'>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</div>";
+                oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
         }else if(data[k1]["itemslist"]) {
@@ -807,7 +807,7 @@ function fnggmore() {
 }
 //商品数量加减
 function fncarnum(data) {
-    $("#cgl-cont").off().on("click", ".jian", function() {
+    $("#cgl-cont").off().on("tap", ".jian", function() {
         var num = Number($(this).next().html());
         if($(this).parent().parent().parent().parent().parent().attr("id") && num>1){
             if(num==data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
@@ -836,7 +836,7 @@ function fncarnum(data) {
             $(".price>i").html(($(".price>i").html()-$(this).parent().prev().find("i").html()).toFixed(2));
         }
         fnaddcar(this, $(this).next().html() - 0);
-    }).on("click", ".add", function() {
+    }).on("tap", ".add", function() {
         var num = Number($(this).prev().html());
         var xian = Number($(this).parents(".the-xiangxi").find(".cgl-syu>span").html());
         console.log($(this).prev().text())
@@ -961,10 +961,23 @@ function keyLogin(){
 }
 //搜索
 function fnserach() {
+	var _height=$("html").height()/2;
+	console.log(_height)
     fnyinxian();
     keyLogin();
     $(".content").val("");
     var _ti=1;
+    $("#searchInp").focus(function(){
+    	$("footer").css({display:"none"})
+    }).blur(function(){
+    	$("footer").css({display:"-webkit-box"})
+    })
+    var _timer=setInterval(function(){
+    	if(($("body").height()/2)<_height){
+    		clearInterval(_timer)
+    		$("footer").css({display:"-webkit-box"})
+    	}
+    },10)
     //清空按钮点击
     $(".clear").on("click", function() {
         if($(".content").val()!="" && _ti!=1){

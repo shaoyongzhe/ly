@@ -1,4 +1,4 @@
-//20170221老大修改了一部分代码
+//20170221老大修改了一部分代码20170317
 //alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
@@ -107,14 +107,15 @@ function ajaxActivityDetails(a,b){
 			$(".BbigTitle span").text("已参与分销商数:"+data.joinedcount+"人");
 //			$(".BtuwenWenP1").text($.trim(data.content));	
 //			$(".BtuwenWenP1").text(data.content);
-			$(".BtuwenWenP1").html(data.content.trim());
+			$(".BtuwenWenP1").html(data.content.trim().replace(" ","&ensp;"));
 //			console.log($(".BtuwenWenP1").text())
 			//展开收起
 //			debugger;
 			$(".BtuwenWenP1").append("<a style='color:red;' class='more' href='#'>展开更多>></a><a style='color:#3FBE00;' class='less' href='#'><<收起</a>");			
 			zksq1();
-//			return;
-			data.time=data.begintime+"-"+data.endtime;
+//			return;			
+//			data.time=data.begintime+"-"+data.endtime;
+			data.time=timeSymbol(data.begintime,"-",".")+"-"+timeSymbol(data.endtime,"-",".");
 			$(".BtuwenWenP2 .BtuwenWenS2").text(data.time);
 			$(".BtuwenWenP3 .BtuwenWenS2").text(data.servicephone);
 			if(data.budget.subisdytotal==undefined){
@@ -141,7 +142,8 @@ function ajaxActivityDetails(a,b){
 			$(".BsubsidyAP4").text(data.budget.obtained);
 			//活动补贴说明开始
 			//0103添加会员参与时间//有结束时间则是范围，没有结束时间则是开始时间
-			$(".BbtsmRright12 span").text(data.latestjointime?data.earliestjointime+'-'+data.latestjointime:data.earliestjointime);			
+//			$(".BbtsmRright12 span").text(data.latestjointime?data.earliestjointime+'-'+data.latestjointime:data.earliestjointime);	
+			$(".BbtsmRright12 span").text(data.latestjointime?timeSymbol(data.earliestjointime,"-",".")+'-'+timeSymbol(data.latestjointime,"-","."):timeSymbol(data.earliestjointime,"-","."));	
 			/*倒计时*/
 			countDownCirculation($(".BsubsidyB span"),data.endtime);
 
@@ -463,6 +465,7 @@ function ajaxActivityDetails(a,b){
 		complete:function(data){
 			linshi2=data;
 			loadintEnd();
+			$("body").css({"width":$(window).width(),overflowX:"hidden"});
 		}
 	});//ajax结束
 }
@@ -652,8 +655,9 @@ function returnToList(){
 	}
 	$(".returnToList .p1").click(function(){
 //		engine.call('ClosePage',"");
-		window.history.back();
-		return false;
+		/*window.history.back();
+		return false;*/
+		history.go(-1);
 //		location.reload();
 		console.log("返回主题活动列表触发")
 	})
@@ -663,6 +667,29 @@ function returnToList(){
 	})
 	$("header").click(function(){			
 		engine.call('ClosePage',"");
+	})
+	/*按下效果，同列表页面*/
+	$(".returnToList p").mousedown(function(){		
+		$(this).css({
+			color:"white",
+    		border:"#2580e6",
+    		background:"#2580e6",
+		})
+	})
+	
+	/*hover效果，同列表页面*/
+	$(".returnToList p").hover(function(){
+		$(this).css({
+			color:"white",
+    		border:"white",
+    		background:"#4e9fee",
+		})
+	},function(){
+		$(this).css({
+			color:" #4e9fee",
+    		border:"1px solid #4e9fee",
+    		background:"white",
+		})
 	})
 }
 

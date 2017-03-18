@@ -72,6 +72,7 @@ body.details section.fourth{
 
 .detail-wrapper .region-view {
     margin: 0;
+    padding-bottom: 10px;
 }
 
 /* .detail-wrapper .region-view .region-info{

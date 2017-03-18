@@ -52,8 +52,8 @@ var vm = avalon.define({
                     return;
                 }
                 vm.IsShow = true;
-                if (json.content.length > 0) {
-                    vm.Moneys = json.content[0]["balance"]
+                if (jsondata.content.length > 0) {
+                    vm.Moneys = jsondata.content[0]["balance"]
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -76,7 +76,7 @@ var vm = avalon.define({
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                data: { count: vm.Moneys.balance },
+                data: { count: vm.Moneys },
                 url: '/webapi/distributor/mine/withdraw',
                 beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "提现中..." }) },
                 success: function (json) {
