@@ -147,18 +147,15 @@ function shopList(pg){
 				   	if(data["content"][j]["openflag"]=="0"){
 				   				if(data["content"][j]["shishou"] && Number(data["content"][j]["shishou"])>0)
 									    	{
-														_heji="实收合计:";
+														_heji="实收:";
 														 _hisprice=Number(data["content"][j]["shishou"]).toFixed(2);
 									    	}else if(data["content"][j]["shifu"] && Number(data["content"][j]["shifu"])>0){
-									    		_heji="实付合计:";
+									    		_heji="实付:";
 									    		 _hisprice=Number(data["content"][j]["shifu"]).toFixed(2);
 									    	}else{
 									    		_heji="合计:";
-									    		if(_price>0){
-									    			_hisprice=_price
-									    		}else{
+									    		
 									    			_hisprice="0.00"
-									    		}
 									    	}
 				   			_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+_pgg+" index="+j+"><div class="+"\"image2box\""+">"+_imgs+"</div><i class="+"\"ammount\""+">共"+_ggf+"件</i><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">"+_heji+"<span class="+"\"pricstyle\""+">￥"+_hisprice+"</span></i></div></dd>";	
 				 		}else{
@@ -230,18 +227,14 @@ function shopList(pg){
 					 				if(data["content"][j]["openflag"]=="0"){
 					 					  if(data["content"][j]["shishou"] && Number(data["content"][j]["shishou"])>0)
 									    	{
-														_heji="实收合计:";
+														_heji="实收:";
 														 _hisprice=Number(data["content"][j]["shishou"]).toFixed(2);
 									    	}else if(data["content"][j]["shifu"] && Number(data["content"][j]["shifu"])>0){
-									    		_heji="实付合计:";
+									    		_heji="实付:";
 									    		 _hisprice=Number(data["content"][j]["shifu"]).toFixed(2);
 									    	}else{
 									    		_heji="合计:";
-									    		if(_price>0){
-									    			_hisprice=_price
-									    		}else{
 									    			_hisprice="0.00"
-									    		}
 									    	}
 					 						_historyList+="<dd style="+"\"padding-top:10px;\""+" idd="+_pgg+" index="+j+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data["content"][j]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
 					 				+" style=\"position:relative\"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data["content"][j]["details"][0]["itemobj"]["itemname"]+"</a><i style=\"position:absolute;bottom:0;right:0\">共"+_ggf+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data["content"][j]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g,"/")+"</i><i class="+"\"ir\""+">"+_heji+"<span class="+"\"pricstyle\""+">￥"+_hisprice+"</span></i></div></dd>"
@@ -396,18 +389,14 @@ function shopList(pg){
 					   	if(data2["content"][r]["openflag"]=="0"){
 					   		if(data2["content"][r]["shishou"] && Number(data2["content"][r]["shishou"])>0)
 									    	{
-														_heji="实收合计:";
+														_heji="实收:";
 														 _hisprice=Number(data2["content"][r]["shishou"]).toFixed(2);
 									    	}else if(data2["content"][r]["shifu"] && Number(data2["content"][r]["shifu"])>0){
-									    		_heji="实付合计:";
+									    		_heji="实付:";
 									    		 _hisprice=Number(data2["content"][r]["shifu"]).toFixed(2);
 									    	}else{
 									    		_heji="合计:";
-									    		if(_price2>0){
-									    			_hisprice=_price2
-									    		}else{
 									    			_hisprice="0.00"
-									    		}
 									    	}
 					   			_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+_pgg+" index="+r+"><div class="+"\"image2box\""+">"+_img+"</div><i class="+"\"ammount\""+">共"+_gff+"件</i><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">"+_heji+"<span class="+"\"pricstyle\""+">￥"+_hisprice+"</span></i></div></dd>";
 					 		}else{
@@ -477,18 +466,14 @@ function shopList(pg){
 						 				if(data2["content"][r]["openflag"]=="0"){
 						 					if(data2["content"][r]["shishou"] && Number(data2["content"][r]["shishou"])>0)
 									    	{
-														_heji="实收合计:";
+														_heji="实收:";
 														 _hisprice=Number(data2["content"][r]["shishou"]).toFixed(2);
 									    	}else if(data2["content"][r]["shifu"] && Number(data2["content"][r]["shifu"])>0){
-									    		_heji="实付合计:";
+									    		_heji="实付:";
 									    		 _hisprice=Number(data2["content"][r]["shifu"]).toFixed(2);
 									    	}else{
-									    		_heji="合计:";
-									    		if(_price2>0){
-									    			_hisprice=_price2
-									    		}else{
+									    			_heji="合计:";
 									    			_hisprice="0.00"
-									    		}
 									    	}
 						 						_historyList+="<dd style="+"\"padding-top:20px;\""+" idd="+_pgg+" index="+r+"><div style=\"display:flex;width:100%\"><div class="+"\"imagebox\""+"><a href="+"\"#\""+"><img src="+data2["content"][r]["details"][0]["itemobj"]["itemimage"]+" ></a></div><div class="+"\"dectitlebox\""
 						 				+"><div class="+"\"iconbox\""+">"+_icn+"</div><a style="+"\"float:left;\""+" href="+"\"#\""+">"+data2["content"][r]["details"][0]["itemobj"]["itemname"]+"</a><i>共"+_fgg+"件</i></div></div><div class="+"\"descbox\""+"><p>订单号："+data2["content"][r]["serialnumber"]+"</p><i class="+"\"il\""+">送货时间："+data2["content"][r]["billexpecteddelivertime"].split(" ")[0]+"</i><i class="+"\"ir\""+">"+_heji+"<span class="+"\"pricstyle\""+">￥"+_hisprice+"</span></i></div></dd>"
