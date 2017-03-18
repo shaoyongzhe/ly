@@ -66,6 +66,11 @@
 						localStorage.removeItem("mz")
 					}
 					if(_qu==0){
+						for(var tc=0;tc<_Id.length;tc++){
+							if(_Id[tc]=="a"){
+								_Id.splice(tc,1)
+							}
+						}
 						localStorage.Id=_Id.join(",").replace(/\,+$/g,"").replace(/^\,+/,"")
 						location.href="commit.html"
 					}
@@ -369,7 +374,6 @@
 					_id=$(this).parent().prev().attr("id").replace("y","");
 					 var _that=$(this)
 					_dl=data1[_id]["guid"]
-					 alert(_Id)
 					console.log(_dl)
 					$.ajax({
 						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dl,
@@ -381,8 +385,7 @@
 							$("html").css({overflow:"auto"})
 							$(".ifDelt").css({display:"none"})
 							_cun-=Number($("#"+_id).find(".amount").text());$(this).parent().prev().attr("ip")
-							_Id.splice(_that.parent().prev().attr("ip"),1)
-							alert(_Id)
+							_Id.splice(_that.parent().prev().attr("ip"),1,"a");
 							_pp-=Number($("#"+_id).find(".pp1").text().replace("￥",""))*Number(_dll)
 							if($("#"+_id).find(".gouxuan").attr("flag")){
 								if($("#"+_id).find(".gouxuan").attr("flag")==1){
