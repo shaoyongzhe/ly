@@ -58,15 +58,15 @@ $(document).ready(function () {
         //							if(billdata[i]["description"]!="" || billdata[i]["description"]!=null){
         //								_ly="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div>留言：<input readonly=\"true\" style=\";outline:none;width:80%;font-size:1.6rem\" value="+(data1[i]["remark"]==""?"":data1[i]["remark"])+"></div></div>"
         //							}
-        if (billdata[i]["billid_class"] === "tblbilldelivery") {
+        if (billdata[i]["billid_class"] == "tblbilldelivery") {
             //								_list+="<li><div class="+"\"shop-con\""+"><img src="+billdata[i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+_image+"<div class="+"\"shop-tit\""+"><span>"+billdata[i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(billdata[i]["itemunitcost"]*billdata[i]["qualitycount"]).toFixed(1)+
             //								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+billdata[i]["itemobj"]["specification"]+" | "+
             //								billdata[i]["itemobj"]["packagetypename"]+"</div><div>x"+billdata[i]["qualitycount"]+
             //								"</div></div></div></div><div class="+
             //								"\"discount\""+"></li>";
-            if (billdata[i]["itemgifttype"] != 3) {
+            if (billdata[i]["itemgifttype"] != 3 ) {
                 _get += billdata[i]["itemunitcost"] * billdata[i]["itemcount"]
-                if (!billdata[i]["activityitem_id"]) {
+                if ((billdata[i]["ruleid"]=="" ||billdata[i]["ruleid"]==null)) {
                     //_price+=data[i]["price"]*data[i]["itemcount"];
                     //_get+=Number(Number(billdata[i]["itemunitcost"])*Number(billdata[i]["itemcount"]))
                     //		       			_list+="<li><div class="+"\"shop-con\""+"><img src="+billdata[i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+"><div class="+"\"shop-tit\""+
@@ -107,7 +107,7 @@ $(document).ready(function () {
                 } else if (billdata[i]["itemkind"] == "有礼") {
                     //_price+=data[i]["price"]*data[i]["itemcount"];
                     for (var r = 0; r < billdata.length; r++) {
-                        if (billdata[r]["billid_class"] === "tblbillgift" && billdata[r]["promotionno"] == billdata[i]["guid"]) {
+                        if (billdata[r]["billid_class"] === "tblbillgift") {
                             _zengg = billdata[r]["itemobj"]["itemname"] + billdata[r]["itemobj"]["specification"] + "<span style=\"float:right\">" + billdata[r]["itemcount"] + (billdata[r]["itemobj"]["packagetypename"] == null ? "" : billdata[r]["itemobj"]["packagetypename"]) + "</span>"
                         }
                         if (billdata[r]["toexpirecount"] > 0) {
