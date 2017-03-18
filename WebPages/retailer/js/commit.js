@@ -356,7 +356,7 @@ function oJz(){
                     remark: $("#inp2").val(),
                     deliverdate: $("#beginTime").val(),
                     submitids: _Id,
-                    manzeng:_dx == "" ? "" : JSON.stringify(_dx)
+                    manzeng:_dx == "" ? "" :_dx
                };
             $.ajax({
                 url: "/webapi/distributor/" + getRetailerid() + "/orderform",

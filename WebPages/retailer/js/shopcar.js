@@ -386,6 +386,7 @@
 							$(".ifDelt").css({display:"none"})
 							_cun-=Number($("#"+_id).find(".amount").text());$(this).parent().prev().attr("ip")
 							_Id.splice(_that.parent().prev().attr("ip"),1,"a");
+							_sv.splice(_that.parent().prev().attr("ip"),1,"a");
 							_pp-=Number($("#"+_id).find(".pp1").text().replace("￥",""))*Number(_dll)
 							if($("#"+_id).find(".gouxuan").attr("flag")){
 								if($("#"+_id).find(".gouxuan").attr("flag")==1){
@@ -456,7 +457,7 @@
 			console.log(_arr)
 			$("section").on('click','.labs',function(){
 				if($(this).children().attr("flag")==1){
-					_Id.splice($(this).parent().parent().attr("ip"),1,"")
+					_Id.splice($(this).parent().parent().attr("ip"),1,"a")
 					console.log(_Id)
 					$(this).children().attr("flag","0")
 					$(this).children().css({"background":"none",borderColor:"#5d5c5c"});
@@ -546,7 +547,7 @@
 	//						$(".yj").css({display:"block"})
 	//					}
 						for(var c=0;c<_Id.length;c++){
-							_Id[c]=""
+							_Id[c]="a"
 						}
 						console.log(_Id)
 					}else{
