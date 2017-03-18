@@ -346,6 +346,11 @@
     z-index: 999999999;
     left: 50%;
     top: 35%;
+     -webkit-transform: translate3d(0, 0, 0); 
+   -moz-transform: translate3d(0, 0, 0); 
+   -ms-transform: translate3d(0, 0, 0); 
+   transform: translate3d(0, 0, 0); 
+  /* Other transform properties here */ 
 }
 
 .pin-spinner-container1 > div, .pin-spinner-container2 > div, .pin-spinner-container3 > div {
