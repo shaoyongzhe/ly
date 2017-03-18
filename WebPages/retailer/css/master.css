@@ -314,10 +314,10 @@ section .remarks{
 	width:100%;
 }
 .gift{
-	float:right;margin-left:5px;width:89%;color:#828487;padding-left: 10%;
+	float:right;margin-left:5px;width:89%;color:#a7a8aa;padding-left: 10%;
 }
 .gift span{
-	float:right;color:#666
+	float:right;color:#a7a8aa
 }
 .gif{
 	padding-left:4px;color:#a7a8aa
@@ -842,4 +842,22 @@ color:#666;background:#f5f5f5;border-bottom: 1px solid #ddd;
 }
 .cfm{
 	border-radius: 0 0 10px 10px;
+}
+#th>div:nth-child(1){
+	color: #000;
+}
+#th>div:nth-child(2){
+	color: #f00;
+}
+#sy>div:nth-child(1){
+	color: #000;
+}
+#sy>div:nth-child(2){
+	color: #f00;
+}
+#ml>div:nth-child(1){
+	color: #000;
+}
+#ml>div:nth-child(2){
+	color: #f00;
 }

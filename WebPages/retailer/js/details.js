@@ -58,7 +58,7 @@ $(document).ready(function () {
         //							if(billdata[i]["description"]!="" || billdata[i]["description"]!=null){
         //								_ly="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div>留言：<input readonly=\"true\" style=\";outline:none;width:80%;font-size:1.6rem\" value="+(data1[i]["remark"]==""?"":data1[i]["remark"])+"></div></div>"
         //							}
-        if (billdata[i]["billid_class"] === "tblbillpofromcustomer") {
+        if (billdata[i]["billid_class"] === "tblbilldelivery") {
             //								_list+="<li><div class="+"\"shop-con\""+"><img src="+billdata[i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+_image+"<div class="+"\"shop-tit\""+"><span>"+billdata[i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(billdata[i]["itemunitcost"]*billdata[i]["qualitycount"]).toFixed(1)+
             //								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+billdata[i]["itemobj"]["specification"]+" | "+
             //								billdata[i]["itemobj"]["packagetypename"]+"</div><div>x"+billdata[i]["qualitycount"]+
@@ -135,13 +135,13 @@ $(document).ready(function () {
             else {
                 _yucun += billdata[i]["itemunitcost"] * billdata[i]["itemcount"]
                 _get += billdata[i]["itemunitcost"] * billdata[i]["itemcount"]
-                _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + billdata[i]["itemobj"]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + ">" +/*_image+*/"<div class=" + "\"shop-tit\"" + ">" +/*_image+*/"<span>" + billdata[i]["itemobj"]["itemname"] + "</span></div><div class=" + "\"shop-body\"" + ">￥" + (billdata[i]["itemunitcost"]).toFixed(2) +
+                _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + billdata[i]["itemobj"]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + ">" +/*_image+*/"<div class=" + "\"shop-tit\"" + ">" +_image+"<span>" + billdata[i]["itemobj"]["itemname"] + "</span></div><div class=" + "\"shop-body\"" + ">￥" + (billdata[i]["itemunitcost"]).toFixed(2) +
                 "</div><div class=" + "\"number\"" + "><div style=" + "\"text-align:left\">" + (billdata[i]["itemobj"]["specification"] == null ? "" : billdata[i]["itemobj"]["specification"] + " | ") +
                 (billdata[i]["itemobj"]["packagetypename"] == null ? "" : billdata[i]["itemobj"]["packagetypename"]) + "</div><div>x" + billdata[i]["itemcount"] +
                 "</div></div></div></div><div class=" +
                 "\"discount\"" + ">" + _remark + "</li>";
             }
-        } else if (billdata[i]["promotionno"] != "mz" && billdata[i]["billid_class"] == "tblbillgift") {
+        } else if (billdata[i]["promotionno"] != "mz" && billdata[i]["billid_class"] == "tblbillgift" && billdata[i]["promotionno"] != null) {
             _zeng += Number(billdata[i]["itemunitcost"] * billdata[i]["itemcount"])
             if (billdata[i]["itemgifttype"] != 3) {
                 _list2 += "<li><div class=" + "\"shop-con\"" + "><img src=" + billdata[i]["itemobj"]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + ">" +/*_image+*/"<div class=" + "\"shop-tit\"" + ">" + _img + "<span>" + billdata[i]["itemobj"]["itemname"] + "</span></div><div class=" + "\"shop-body\"" + ">￥" + (billdata[i]["itemunitcost"]).toFixed(2) +
@@ -163,18 +163,14 @@ $(document).ready(function () {
 
 
         } else if (billdata[i]["billid_class"] == "tblbillreturncustomer") {
-            _tuihuo = Number(billdata[i]["itemunitcost"] * billdata[i]["itemcount"]);
+            _tuihuo += Number(billdata[i]["itemunitcost"] * billdata[i]["itemcount"]);
             _list3 += "<li><div class=" + "\"shop-con\"" + "><img src=" + billdata[i]["itemobj"]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + ">" +/*_image+*/"<div class=" + "\"shop-tit\"" + ">" + _img + "<span>" + billdata[i]["itemobj"]["itemname"] + "</span></div><div class=" + "\"shop-body\"" + ">￥" + (billdata[i]["itemunitcost"]).toFixed(2) +
                 "</div><div class=" + "\"number\"" + "><div style=" + "\"text-align:left\">" + (billdata[i]["itemobj"]["specification"] == null ? "" : billdata[i]["itemobj"]["specification"] + " | ") +
                 (billdata[i]["itemobj"]["packagetypename"] == null ? "" : billdata[i]["itemobj"]["packagetypename"]) + "</div><div>x" + billdata[i]["itemcount"] +
                 "</div></div></div></div><div class=" +
                 "\"discount\"" + "></li>";
         } else {
-            _zeng += Number(billdata[i]["itemunitcost"] * billdata[i]["itemcount"])
-        }
-        console.log(i)
-        if (billdata[i]["billid_class"] == "tblbillgift" && billdata[i]["promotionno"] == "mz") {
-            _ll = billdata[i]["itemobj"]["itemname"] + " " + billdata[i]["itemobj"]["specification"];
+        	_ll = billdata[i]["itemobj"]["itemname"] + " " + billdata[i]["itemobj"]["specification"];
             _kk = Number(billdata[i]["itemcount"]) + billdata[i]["itemobj"]["packagetypename"];
             if (_flag == 1) {
                 _give += "<li><div class=" + "\"gg\"" + ">满赠</div><span class=" + "\"gif\"" + ">" + _ll + "<span>×" + _kk + "</span></span></li>"
@@ -182,23 +178,25 @@ $(document).ready(function () {
             } else {
                 _give += "<li><div class=" + "\"gift\"" + ">" + _ll + "<span>×" + _kk + "</span></div></li>"
             }
+            _zeng += Number(billdata[i]["itemunitcost"] * billdata[i]["itemcount"])
         }
+        console.log(i)
        
     }
     $("#pp span").text(_discount.toFixed(2))
     console.log(_data1)
-    if (billdata["iswechatdiscount"] == true) {
+    if (data["content"][commodity]["iswechatdiscount"] == true) {
         $("#vv").css({ display: "flex", display: "-webkit-box" })
-        if (billdata["openflag"] == 1) {
+        if (data["content"][commodity]["openflag"] == 1) {
             if (_data1[_indd]["specialprice"]) {
                 _discount += Number(_data1[_indd]["specialprice"])
                 $("#vv span").text(Number(_data1[_indd]["specialprice"]).toFixed(2))
             }
 
         } else {
-            if (billdata["wechatdiscount"]) {
-                _discount += Number(billdata["wechatdiscount"])
-                $("#vv span").text(Number(billdata["wechatdiscount"]).toFixed(2))
+            if (data["content"][commodity]["wechatdiscount"] && data["content"][commodity]["wechatdiscount"]>0) {
+                _discount += Number(data["content"][commodity]["wechatdiscount"])
+                $("#vv span").text(Number(data["content"][commodity]["wechatdiscount"]).toFixed(2))
             } else {
                 $("#vv").css({ display: "none" })
             }
@@ -212,7 +210,8 @@ $(document).ready(function () {
 
     $("#ss span").text(_zeng.toFixed(2));
     if(_tuihuo>0){
-    	$("#th>span").text(_tuihuo.toFixed(2));
+    	$("#th>div:nth-child(2)>span").text(_tuihuo.toFixed(2));
+    	$("#th").css({ display: "flex", display: "-webkit-box" });
     }else{
     	$("#th").hide();
     }
@@ -237,22 +236,8 @@ $(document).ready(function () {
         $(".giveto").remove()
     }
     $("#dd span").text(_get.toFixed(2))
-    _get -= Number($("#vv span").text())
-    if (_data1["itemkind"] == "满减") {
-        if (_get >= 100 && _get < 500) {
-            $("#same-ss div:nth-child(3)").text("￥10.0")
-            _get -= 10
-        } else if (_get >= 500) {
-            $("#same-ss div:nth-child(3)").text("￥50.0")
-            _get -= 50
-        } else if (_get < 100) {
-            $("#same-ss div:nth-child(3)").text("￥0.0")
-            $("#same-ss").css({ display: "none" })
-        }
-        _discount += Number($("#same-ss div:nth-child(3)").text().replace("￥", ""))
-    } else {
-        $("#same-ss").css({ display: "none" })
-    }
+   // _get -= Number($("#vv span").text())
+     
     $("#ee span").text(_yucun.toFixed(2))
     if (_yucun == 0) {
         $("#ee").hide()
@@ -260,34 +245,43 @@ $(document).ready(function () {
     if (_discount < 0) {
         _discount = 0
     }
-    if(billdata["openflag"]==1){
-		$("#ml>span").hide();
-		$("#sy>span").hide();
-	    $(".amountBig").next().find("span").text(_discount.toFixed(2))
-	    if (_get - _yucun >= 0) {
-	        $(".amountBig span:nth-child(2)").text((_get - _yucun).toFixed(2))
-	    } else {
-	        $(".amountBig span:nth-child(2)").text("0.0")
-	    }
+    $(".amountBig").next().find("span").text(_discount.toFixed(2))
+    if(data["content"][commodity]["openflag"]==1){
+    	var heji=(_get - _yucun)-_tuihuo;
+    	var wechat=Number(_data1[_indd]["specialprice"]);
+    	if(heji < 0){
+    		//隐藏微信专项
+    		$("#vv").css({ display: "none" })
+    		$(".amountBig span:nth-child(1)").text("应收合计");
+    		$(".amountBig span:nth-child(2)").text(Math.abs(heji).toFixed(2));
+    	}else if(heji>0){
+    		 $(".amountBig span:nth-child(1)").text("应付合计");
+    	     $(".amountBig span:nth-child(2)").text(heji-wechat>0?(heji-wechat).toFixed(2):"0.00");
+    	}else
+    	{
+    		 $(".amountBig span:nth-child(1)").text("合计");
+    		 $(".amountBig span:nth-child(2)").text("0.00");
+    	}
+	     
     }else{
-    	if(billdata["shishou"] && billdata["shishou"]>0)
+    	if(data["content"][commodity]["shishou"] && data["content"][commodity]["shishou"]>0)
     	{
     		$(".amountBig span:nth-child(1)").text("实收合计")
-    		 $(".amountBig span:nth-child(2)").text(data["content"][commodity]["shishou"])
-    	}else if(billdata["shifu"] && billdata["shifu"]>0){
+    		 $(".amountBig span:nth-child(2)").text(Number(data["content"][commodity]["shishou"]).toFixed(2))
+    	}else if(data["content"][commodity]["shifu"] && data["content"][commodity]["shifu"]>0){
     		$(".amountBig span:nth-child(1)").text("实付合计")
-    		 $(".amountBig span:nth-child(2)").text(data["content"][commodity]["shifu"])
+    		 $(".amountBig span:nth-child(2)").text(Number(data["content"][commodity]["shifu"]).toFixed(2))
     	}else{
     		$(".amountBig span:nth-child(1)").text("合计")
-    		 $(".amountBig span:nth-child(2)").text((_get - _yucun).toFixed(2))
+    		 $(".amountBig span:nth-child(2)").text("0.00")
     	}
-    	if(billdata["moling"] && billdata["moling"]>0){
-    		$("#ml>span").text(billdata["moling"]);
-    		$("#ml>span").show();
+    	if(data["content"][commodity]["moling"] && data["content"][commodity]["moling"]>0){
+    		$("#ml>div:nth-child(2)>span").text(Number(data["content"][commodity]["moling"]).toFixed(2));
+    		$("#ml").css({ display: "flex", display: "-webkit-box" });
     	}
-    	if(billdata["yucunkuan"] && billdata["yucunkuan"]>0){
-    		$("#sy>span").text(data["content"][commodity]["yucunkuan"]);
-    		$("#sy>span").show();
+    	if(data["content"][commodity]["yucunkuan"] && data["content"][commodity]["yucunkuan"]>0){
+    		$("#sy>div:nth-child(2)>span").text(Number(data["content"][commodity]["yucunkuan"]).toFixed(2));
+    		$("#sy").css({ display: "flex", display: "-webkit-box" });
     	}
     }
     console.log($("section").css("height"))
