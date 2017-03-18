@@ -26,6 +26,40 @@
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.min.js"></script>
     <script src="/consumer/js/my/my_center.js"></script>
 </head>
+<style type="text/css">
+	.user_wallet {
+	    /* width: 100%; */
+	    height: 1.14rem;
+	    background-color: #fff; 
+	    line-height: 1.14rem;
+	    padding: 0 0 0 .26rem;
+	    /* margin-top: 15px; */
+	}
+	.user_wallet p {
+	    float: left;
+	    text-align: center;
+	    font-size: .3rem;
+	    padding-top: .0;
+	    color: #333333;
+	    line-height: 1.14rem;
+	}
+	.user_wallet h1 {
+	    float: right;
+	    text-align: center;
+	    font-size: .3rem;
+	    color: #ff6600;
+	    padding-top: 0;
+	    line-height: 1.14rem;
+	    font-weight: normal;
+	    margin-right: 10px;
+	}
+	.user_wallet img {
+	    float: right;
+	    margin-top: .43rem;
+	    margin-right: .3rem;
+	    width: .28rem;
+	}
+</style>
 <body ms-controller="mycenter" class="ms-controller">
     <div class="wrap" ms-if="isShow">
         <header></header>
@@ -37,9 +71,11 @@
                     </a>
                     <p>{{consumer.nickname}}</p>
                 </div>
+                <p class="border_efeef4"></p>
                 <div class="user_wallet" onclick="location.href='my_wallet.html'">
-                    <h1>￥{{Moneys.balance}}</h1>
-                    <p>我的钱包</p>
+                	<p>我的钱包</p>
+                	<img src="/consumer/image/my/icon_jt.png">
+                    <h1>￥{{Moneys.balance}}</h1>                    
                 </div>
             </div>
             <div class="welfare">
