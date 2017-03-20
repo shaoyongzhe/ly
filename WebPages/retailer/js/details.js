@@ -85,7 +85,7 @@ $(document).ready(function () {
                 } else if (billdata[i]["itemkind"] == "买赠") {
                     //_price+=data[i]["price"]*data[i]["itemcount"];
                     for (var r = 0; r < billdata.length; r++) {
-                        if (billdata[r]["billid_class"] === "tblbillgift" && billdata[r]["ruleid"] && billdata[r]["ruleid"] ==billdata[i]["ruleid"] ) {
+                        if (billdata[r]["billid_class"] === "tblbillgift" && billdata[r]["itemkind"] && billdata[r]["itemkind"] === "买赠" && billdata[r]["ruleid"] && billdata[r]["ruleid"] ==billdata[i]["ruleid"] ) {
                             _zengg = billdata[r]["itemobj"]["itemname"] + (billdata[r]["itemobj"]["specification"]==null?"":billdata[r]["itemobj"]["specification"]) + "<span style=\"float:right\">" + billdata[r]["itemcount"] + (billdata[r]["itemobj"]["packagetypename"] == null ? "" : billdata[r]["itemobj"]["packagetypename"]) + "</span>"
 	                        if (billdata[r]["toexpirecount"] > 0) {
 	                            _lln = "(临期)"
@@ -102,7 +102,7 @@ $(document).ready(function () {
                 } else if (billdata[i]["itemkind"] == "有礼") {
                     //_price+=data[i]["price"]*data[i]["itemcount"];
                     for (var r = 0; r < billdata.length; r++) {
-                        if (billdata[r]["billid_class"] === "tblbillgift" && billdata[r]["ruleid"] && billdata[r]["ruleid"] ==billdata[i]["ruleid"] ) {
+                        if (billdata[r]["billid_class"] === "tblbillgift" && billdata[r]["itemkind"] && billdata[r]["itemkind"] === "有礼" && billdata[r]["ruleid"] && billdata[r]["ruleid"] ==billdata[i]["ruleid"] ) {
                             _zengg = billdata[r]["itemobj"]["itemname"] + (billdata[r]["itemobj"]["specification"]==null?"":billdata[r]["itemobj"]["specification"]) + "<span style=\"float:right\">" + billdata[r]["itemcount"] + (billdata[r]["itemobj"]["packagetypename"] == null ? "" : billdata[r]["itemobj"]["packagetypename"]) + "</span>"
 	                        if (billdata[r]["toexpirecount"] > 0) {
 	                            _lln = "(临期)"
