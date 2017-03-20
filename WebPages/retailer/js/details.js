@@ -59,11 +59,6 @@ $(document).ready(function () {
         //								_ly="<div class="+"\"disc2\" style="+(data1[i]["remark"]==""?"display:none":"")+"><div>留言：<input readonly=\"true\" style=\";outline:none;width:80%;font-size:1.6rem\" value="+(data1[i]["remark"]==""?"":data1[i]["remark"])+"></div></div>"
         //							}
         if (billdata[i]["billid_class"] == "tblbilldelivery") {
-            //								_list+="<li><div class="+"\"shop-con\""+"><img src="+billdata[i]["itemobj"]["itemimage"]+" /><div class="+"\"shop-con-bd\""+">"+_image+"<div class="+"\"shop-tit\""+"><span>"+billdata[i]["itemobj"]["itemname"]+"</span></div><div class="+"\"shop-body\""+">￥"+(billdata[i]["itemunitcost"]*billdata[i]["qualitycount"]).toFixed(1)+
-            //								"</div><div class="+"\"number\""+"><div style="+"\"text-align:left\">"+billdata[i]["itemobj"]["specification"]+" | "+
-            //								billdata[i]["itemobj"]["packagetypename"]+"</div><div>x"+billdata[i]["qualitycount"]+
-            //								"</div></div></div></div><div class="+
-            //								"\"discount\""+"></li>";
             if (billdata[i]["itemgifttype"] != 3 ) {
                 _get += billdata[i]["itemunitcost"] * billdata[i]["itemcount"]
                 if ((billdata[i]["ruleid"]=="" ||billdata[i]["ruleid"]==null)) {
