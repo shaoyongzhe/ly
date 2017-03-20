@@ -232,7 +232,7 @@ $(document).ready(function () {
                                     _heji = "合计:";
                                     _hisprice = "0.00"
                                 }
-                                _historyList += "<dd style=" + "\"padding-top:10px;\"" + " idd=" + curPageing["pageindex"] + " index=" + j + "><div style=\"display:flex;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data["content"][j]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
+                                _historyList += "<dd style=" + "\"padding-top:10px;\"" + " idd=" + curPageing["pageindex"] + " index=" + j + "><div style=\"display:flex;display:-webkit-box;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data["content"][j]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
                         + " style=\"position:relative\"><div class=" + "\"iconbox\"" + ">" + _icn + "</div><a style=" + "\"float:left;\"" + " href=" + "\"#\"" + ">" + data["content"][j]["details"][0]["itemobj"]["itemname"] + "</a><i style=\"position:absolute;bottom:0;right:0\">共" + _ggf + "件</i></div></div><div class=" + "\"descbox\"" + "><p>订单号：" + data["content"][j]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g, "/") + "</i><i class=" + "\"ir\"" + ">" + _heji + "<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>"
                             } else {
                                 var heji = _price - _tuihuo;
@@ -248,7 +248,7 @@ $(document).ready(function () {
                                     _heji = "合计：";
                                     _hisprice = "0.00";
                                 }
-                                _shopList += "<dd style=" + "\"padding-top:10px;\"" + " idd=" + curPageing["pageindex"] + " index=" + j + "><div style=\"display:flex;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data["content"][j]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
+                                _shopList += "<dd style=" + "\"padding-top:10px;\"" + " idd=" + curPageing["pageindex"] + " index=" + j + "><div style=\"display:flex;display:-webkit-box;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data["content"][j]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
                         + " style=\"position:relative\"><div class=" + "\"iconbox\"" + ">" + _icn + "</div><a style=" + "\"float:left;\"" + " href=" + "\"#\"" + ">" + data["content"][j]["details"][0]["itemobj"]["itemname"] + "</a><i style=\"position:absolute;bottom:0;right:0\">共" + _ggf + "件</i></div></div><div class=" + "\"descbox\"" + "><p>订单号：" + data["content"][j]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data["content"][j]["billexpecteddelivertime"].split(" ")[0].replace(/\-/g, "/") + "</i><i class=" + "\"ir\"" + ">" + _heji + "<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>"
                             }
                             _icn = "";
@@ -455,7 +455,7 @@ $(document).ready(function () {
                                                     _heji = "合计:";
                                                     _hisprice = "0.00"
                                                 }
-                                                _historyList += "<dd style=" + "\"padding-top:20px;\"" + " idd=" + curPageing["pageindex"] + " index=" + r + "><div style=\"display:flex;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data2["content"][r]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
+                                                _historyList += "<dd style=" + "\"padding-top:20px;\"" + " idd=" + curPageing["pageindex"] + " index=" + r + "><div style=\"display:flex;display:-webkit-box;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data2["content"][r]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
                                         + "><div class=" + "\"iconbox\"" + ">" + _icn + "</div><a style=" + "\"float:left;\"" + " href=" + "\"#\"" + ">" + data2["content"][r]["details"][0]["itemobj"]["itemname"] + "</a><i>共" + _fgg + "件</i></div></div><div class=" + "\"descbox\"" + "><p>订单号：" + data2["content"][r]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data2["content"][r]["billexpecteddelivertime"].split(" ")[0] + "</i><i class=" + "\"ir\"" + ">" + _heji + "<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>"
                                             } else {
                                                 var heji = _price2 - _tuihuo;
@@ -470,7 +470,7 @@ $(document).ready(function () {
                                                     _heji = "合计：";
                                                     _hisprice = "0.00";
                                                 }
-                                                _shopList += "<dd style=" + "\"padding-top:20px;\"" + " idd=" + curPageing["pageindex"] + " index=" + r + "><div style=\"display:flex;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data2["content"][r]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
+                                                _shopList += "<dd style=" + "\"padding-top:20px;\"" + " idd=" + curPageing["pageindex"] + " index=" + r + "><div style=\"display:flex;display:-webkit-box;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data2["content"][r]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
                                         + "><div class=" + "\"iconbox\"" + ">" + _icn + "</div><a style=" + "\"float:left;\"" + " href=" + "\"#\"" + ">" + data2["content"][r]["details"][0]["itemobj"]["itemname"] + "</a><i>共" + _fgg + "件</i></div></div><div class=" + "\"descbox\"" + "><p>订单号：" + data2["content"][r]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data2["content"][r]["billexpecteddelivertime"].split(" ")[0] + "</i><i class=" + "\"ir\"" + ">合计：<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>"
                                             }
 
