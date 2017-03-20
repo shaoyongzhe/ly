@@ -1,8 +1,13 @@
 /*
 
 */
+*{
+     box-sizing: content-box;
+}
 body{
-	min-width: 1062px!Important;}
+	min-width: 1062px!Important;
+	 box-sizing: content-box
+}
 .page-container1{
 	background-color: #F2F2F2;
 	padding: 0 20px;
@@ -273,7 +278,7 @@ body{
 }
 ._button{
 	/* padding-left:23%; */
-	width: 680px;
+	width: 750px;
 	margin :60px  auto;
 }
 
