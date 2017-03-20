@@ -648,7 +648,6 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	});
 
-
 	// debugger;
 	if(_this.closest('.addSub4').length == 1){
 
@@ -741,11 +740,15 @@ $('.gailvok').click(function(){
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100);// * (percent /100) * cishu;
 
 		} else {
-			if(location.href.indexOf('activityModify') != -1){
-				var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
-			} else {
-				var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
-			}
+			// if(location.href.indexOf('activityModify') != -1){
+				// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+					var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
+				// } else {
+				// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
+				// }
+			// } else {
+			// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
+			// }
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu;
 		}
 
@@ -753,20 +756,26 @@ $('.gailvok').click(function(){
 		
 	});
 
-	if(location.href.indexOf('activityModify') != -1){
-		var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
-	} else {
-		var cishu = $('.addSub5').eq(index-1).find('.Yyy4 input').val();
-	}
+	// if(location.href.indexOf('activityModify') != -1){
+	// } else {
+		// var cishu = $('.addSub5').eq(index-1).find('.Yyy4 input').val();
+	// }
 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+		var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
 		$('.addSub5').eq(yglindex-2).find('.fz input[readonly]').val(Number(fz * cishu).toFixed(2)); // 设置摇一摇中'随机'补贴峰值
 		yaoyiyaofengzhi();
 		
 	} else {
 		if(location.href.indexOf('activityModify') != -1){
-			$('.addSub4').eq(y1yindex-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(修改页面)
-		} else {
-			$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(新建页面)
+			// if($(this).closest('.yaoyiyao').length ==1){
+			// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+				$('.addSub4').eq(y1yindex-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(修改页面-摇一摇)
+		// 	} else {
+		// 		$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2));
+		// 	}
+
+		// } else {
+		// 	$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(新建页面)
 		}
 		butiefz();
 	}
@@ -798,12 +807,16 @@ $('.gailvok').click(function(){
 
 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
 		$(".yglHidden" + yglindex).val(JSON.stringify(probabilityObj, null, 4))//.parent().text('查看概率').addClass('o');
-	} else {
-		if(location.href.indexOf('activityModify')!=-1){
-			$(".glHidden" + y1yindex).val(JSON.stringify(probabilityObj, null, 4));
-		} else{
-			$(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
-		}
+	} else {	
+		// if(location.href.indexOf('activityModify')!=-1){
+		// 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+				$(".glHidden" + y1yindex).val(JSON.stringify(probabilityObj, null, 4));
+		// 	} else {
+		// 		$(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+		// 	}
+		// } else {
+			// $(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+		// }
 	}
 
 	$(this).closest('.layui-layer').find('.layui-layer-close').click();

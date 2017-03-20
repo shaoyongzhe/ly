@@ -984,7 +984,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        if(btType.indexOf("随机")<0){
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4In2").addClass("hi");
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4P1").addClass("hi");
-	        }       
+	        } else {
+	            $(".addSub4Mange:last").find(".setgailv").addClass("on");
+	        }
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
