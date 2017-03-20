@@ -16,6 +16,7 @@ $(document).ready(function () {
     var _rt = 0;
     localStorage.list = 0;
     var _cc = 1;
+    var pg=0;
     //  var _tuihuo=0;
     (function dd() {
         height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
@@ -64,7 +65,8 @@ $(document).ready(function () {
                     _flag = 0;
                     if (that.css("border-left")) {
                         $(".onload").css({ "display": "block" })
-                        shopList(that.attr("id"))
+                        pg=that.attr("id")
+                        shopList()
 
                     } else {
                         _flag = 1
@@ -78,9 +80,9 @@ $(document).ready(function () {
         //alert(width)
 
 
-        shopList(0)
+        shopList()
     }
-    function shopList(pg) {
+    function shopList() {
         //alert(pg)
         _cc = 1
         console.log(111)
@@ -90,7 +92,7 @@ $(document).ready(function () {
             cache: false,
             dataType: "json",
             type: "get",
-            error: function () { $(".onload").css({ "display": "none" }) },
+            error: function () { _flag=1; $(".onload").css({ "display": "none" }) },
             success: function (data) {
                 if (data) {
                     $(".onload").css({ "display": "none" })
@@ -270,15 +272,15 @@ $(document).ready(function () {
                     _shopList = "";
                     _flag = 1;
                     $("#container").scrollTop("0")
-                    toShop(data, pg)
-                    onScroll(data, pg)
+                    toShop(data)
+                    onScroll(data)
                 }
             }//ajax的success方法结束
         });
     }
     //ajax结束
 
-    function toShop(data, pg) {
+    function toShop(data) {
         $(".orderlistbox dd").click(function () {
             location.href = "details.html?pg=" + $(this).attr("idd") + "&index=" + $(this).attr("index");
         })
@@ -286,7 +288,7 @@ $(document).ready(function () {
     var curPageing = {};
     var hander=false;
         var _ty = 1;
-    function onScroll(data, pg) {
+    function onScroll(data) {
         console.log($(".orderlistbox").css("height"))
         $("#container").scrollTop()
     
@@ -306,7 +308,7 @@ $(document).ready(function () {
 
     }
     
-    function GetPageing(data, pg){
+    function GetPageing(data){
     	  $.ajax({
                             url: "/webapi/distributor/" + getRetailerid() + "/orderforms?distributor_id=" + _data1[pg]["distributor_id"] + "&paging=" + JSON.stringify(curPageing),
                             async: true,
