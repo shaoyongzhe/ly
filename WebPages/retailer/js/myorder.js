@@ -284,27 +284,37 @@ $(document).ready(function () {
         })
     }
     var curPageing = {};
+    var hander=false;
+        var _ty = 1;
     function onScroll(data, pg) {
         console.log($(".orderlistbox").css("height"))
         $("#container").scrollTop()
-        var _fg = 1;
-        var _ty = 1;
+    
         $("#container").scroll(function () {
-            if (_ty == 1) {
-                if ($("#container").scrollTop() >= ($(".orderlistbox").css("height").replace("px", "") - height)) {
+           
+                if ($("#container").scrollTop() >= ($(".orderlistbox").css("height").replace("px", "") - height) && _ty == 1) {
                         _ty = 0
                         curPageing["pageindex"] = curPageing["pageindex"] + 1;
                         console.log("request:"+ JSON.stringify(curPageing));
                         //$("#container").css({overflow:"hidden"})
                         $(".loadings").css({ display: "block" })
-                        
-                        $.ajax({
+                       if(!hander) 
+                       		hander=GetPageing(data, pg);
+                }
+
+        })
+
+    }
+    
+    function GetPageing(data, pg){
+    	  $.ajax({
                             url: "/webapi/distributor/" + getRetailerid() + "/orderforms?distributor_id=" + _data1[pg]["distributor_id"] + "&paging=" + JSON.stringify(curPageing),
                             async: true,
                             cache: false,
                             type: "get",
-                            error: function () { $(".loadings").css({ display: "none" }) },
+                            error: function () { hander=false;$(".loadings").css({ display: "none" }) },
                             success: function (data2) {
+                            	hander=false;
                                 var _img = "";
                                 _data2 = data2
                                 console.log(data2);
@@ -499,10 +509,6 @@ $(document).ready(function () {
                             }
 
                         });
-                     
-                }
-            }
-        })
-
+         return true;            
     }
 }); //document结束
