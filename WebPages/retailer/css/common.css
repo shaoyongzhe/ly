@@ -145,7 +145,7 @@
 }
 
 /*footer cart*/
-.bottomlayout{ width:100%; background:#3a3635; margin:0px; padding:0px 0px;  position: fixed;z-index:99; bottom: 0; overflow:hidden; clear:both;display:-webkit-box; display: flex;}
+.bottomlayout{ width:100%; background:#3a3635; margin:0px; padding:0px 0px;  position: fixed;z-index:99; bottom: 0;height:70px; overflow:hidden; clear:both;display:-webkit-box; display: flex;}
 .bottomlayout .bottompanel{ float:left; width:70%; height:5rem; background:#3a3635;}
 .bottomlayout .bottomsubmit{ float:right; width:30%; height:5rem; line-height:20px; background:#009f96; text-align:center; font-size:20px; color:#fff;}
 
@@ -153,12 +153,12 @@
 .bottomlayout .totalinfo{ float:left;width:70%;color:#fff;  background:#3a3635;}
 
 .bottomlayout .totalsum{-webkit-box-flex:1;-ms-flex:1;-webkit-box-orient:vertical;-ms-flex-orient:vertical;-webkit-box-pack:center;-ms-flex-pack:center;height:10%;width:100%}
-.totalsum p{width:70%;text-align: left;font-size: 1.4rem;color:#fff;line-height: 2.6rem;margin-left: 25%;}
+.totalsum p{width:70%;text-align: left;font-size: 1.4rem;color:#fff;line-height:30px;margin-left: 25%;}
 .totalsum .amountBig{
-	font-size: 1.8rem;line-height: 2.6rem;
+	font-size: 1.8rem;line-height:38px;
 }
 .totalsum div{
-	position:absolute;background:#009f96;right:0;bottom: 0;width:24%;height:100%;line-height: 5rem;font-size: 1.5rem;text-align: center;color:#fff
+	position:absolute;background:#009f96;right:0;bottom: 0;width:24%;height:100%;line-height: 70px;font-size: 1.5rem;text-align: center;color:#fff
 }
 .totalsum div span{
 	font-size: 1.2rem;

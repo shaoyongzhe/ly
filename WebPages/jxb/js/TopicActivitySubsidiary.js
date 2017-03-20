@@ -219,8 +219,7 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 	}else if(info.condition===null||info.condition.length==0){//短路
 		console.log("匹配失败，条件为空");
 		$(".Cccondition").hide();
-	}
-	else{
+	}else{
 		for(i=0;i<info.condition.length;i++){	
 //			debugger;
 			if(info.condition[i].localtype==undefined){
@@ -241,9 +240,12 @@ function ajaxSucFn(info,switcher){//ajax成功回调里调用
 	}
 	/*地区匹配*///0226加入
 	if(info.areamatch!=undefined){
-		$(".CcconditionContent").append('<p class="地区"><img src="'
+		$(".CcconditionContent").prepend('<p class="地区"><img src="'
 			+CimgArr2[info.areamatch]
 			+'" alt="" /><i><span>地区</span></i></p>');
+	}
+	if(info.areamatch!=undefined&&info.areamatch==0){
+		$(".Cccondition").show();
 	}
 	//活动补贴说明具体内容
 	$(".CccDescriptionCon").empty();
@@ -348,6 +350,30 @@ $(".footerCkgd").click(function(){
 	engine.call('ShowMoreTopicActivityClick', "");//第一个参数不改，第二参数传空;
 })
 
+/*按下效果，同列表页面*/
+$(".footer div").mousedown(function(){		
+	$(this).css({
+		color:"white",
+		border:"#2580e6",
+		background:"#2580e6",
+	})
+})
+
+/*hover效果，同列表页面*/
+$(".footer div").hover(function(){
+	$(this).css({
+		color:"white",
+		border:"white",
+		background:"#4e9fee",
+	})
+},function(){
+	$(this).css({
+		color:" #4e9fee",
+		border:"1px solid #4e9fee",
+		background:"white",
+	})
+})
+	
 $(document)[0].oncontextmenu=function(event){
 	var event=event||window.event;
 	window.event.returnValue=false;

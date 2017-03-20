@@ -1,7 +1,7 @@
 var subsidyConditionArr=[];//存储ajax返回的控件4补贴条件
 var statisticArr=[];
 
-
+ClearSessionStorage();
 function GetUrlParam() {
     
     var url = location.search;
@@ -984,7 +984,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        if(btType.indexOf("随机")<0){
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4In2").addClass("hi");
 	            $(".addSub4Mange:last").find(".acSe12 .hdc4P1").addClass("hi");
-	        }       
+	        } else {
+	            $(".addSub4Mange:last").find(".setgailv").addClass("on");
+	        }
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
@@ -1002,31 +1004,32 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    var subsidyTopValue=activityManger_addSub4Data[i].max?activityManger_addSub4Data[i].max:activityManger_addSub4Data[i].min;
 
 
-	    if(btType.indexOf('随机') != -1){
-	        $(".addSub4Mange:last").find('.setgailv').addClass('on');
-	        activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
-				randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
-			});
-			$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
-	    } else {
+	  //   if(btType.indexOf('随机') != -1){
+	  //       $(".addSub4Mange:last").find('.setgailv').addClass('on');
+	  //       activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
+			// 	randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+			// });
+			// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
+	  //   } else {
 
-	    	if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
+	    	// if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	    		// var yaofz = 0;
 	    		// activityManger_addSub4Data[i].prize_content.forEach(function(item, index){
 	    		// 	yaofz += item.applycount;
 	    		// });
-	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(yaofz.toFixed(2));
+	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
 	    		
 	    		// $(".addSub4Mange:last").find('.set').click();
 	    		// $('.yaook').click();
 
 
-	    	} else {
-	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
-	    	}
+	    	// } else {
+	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
+	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
+	    	// }
 
 
-	    }
+	    // }
 
 		$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
 

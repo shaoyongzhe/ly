@@ -9,6 +9,7 @@ var addsub4HTML="";
 var addsub5HTML="";
 
 var fzrurl = '/webapi/ipaloma/topic/charge';
+ClearSessionStorage();
 _ajax("get", fzrurl, {}, '活动负责人', function (fzr){
 
 	// c(fzr)
@@ -347,7 +348,7 @@ $('body').on("click",".set",function(e){
 
 	if( type == '摇一摇'){
 
-		y1yindex = addSub4.index();
+		y1yindex = addSub4.index(); $('#addSub4Index').val(y1yindex);
 
 		var yao_yuan = addSub4.find('.hdc6-2 input').val();
 		$('.hdsbys_text').text((Number($('.hdsbys_text').text()) - Number(yao_yuan)).toFixed(2));
@@ -604,9 +605,9 @@ $('.section3').on('click','.setgailv.on',function(){
 		return false;
 	}
 
-	if(addSub4.find('.sbys').val() == ""){
+	if(addSub4.find('.sbys').eq(1).val() == ""){
 		// debugger
-		layer.tips('请先填写申报预算', addSub4.find('.sbys'));
+		layer.tips('请先填写申报预算', addSub4.find('.sbys').eq(1));
 		// addSub4.find('.selected').focus();
 		finished = false;
 		return false;
@@ -647,10 +648,10 @@ $('.section3').on('click','.setgailv.on',function(){
 
 	});
 
-
 	// debugger;
 	if(_this.closest('.addSub4').length == 1){
-		index = _this.closest('.addSub4').index();
+
+		index = _this.closest('.addSub4').index(); $('addSub4Index').val(_this.closest('.addSub4').index());
 
 		fwmin = parseFloat(_this.closest('.addSub4').find('.hdc4In1').val());
 		fwmax = parseFloat(_this.closest('.addSub4').find('.hdc4In2').val());
@@ -733,26 +734,49 @@ $('.gailvok').click(function(){
 		// if(i>9){return false;}
 		i
 		var gl = $('.Probability_value input').eq(i).val();
-		if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){ // 摇一摇中计算单条补贴峰值
+		if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){ // 摇一摇中设置概率，计算单条补贴峰值
 			var percent = $('.addSub5').eq(yglindex-2).find('.Yyy3d1 input').val();
-			// var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
-			var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
-			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * (percent /100) * cishu;
+			var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
+			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100);// * (percent /100) * cishu;
 
 		} else {
-			var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
-			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu ;
+			// if(location.href.indexOf('activityModify') != -1){
+				// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+					var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
+				// } else {
+				// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
+				// }
+			// } else {
+			// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
+			// }
+			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu;
 		}
 
 		if(i == 9){return false}
 		
 	});
 
+	// if(location.href.indexOf('activityModify') != -1){
+	// } else {
+		// var cishu = $('.addSub5').eq(index-1).find('.Yyy4 input').val();
+	// }
 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
-		$('.addSub5').eq(yglindex-2).find('.fz input[readonly]').val(Number(fz).toFixed(2)); // 设置摇一摇中'随机'补贴峰值
+		var cishu = $('.addSub5').eq(yglindex-2).find('.Yyy4 input').val();
+		$('.addSub5').eq(yglindex-2).find('.fz input[readonly]').val(Number(fz * cishu).toFixed(2)); // 设置摇一摇中'随机'补贴峰值
 		yaoyiyaofengzhi();
+		
 	} else {
-		$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值
+		if(location.href.indexOf('activityModify') != -1){
+			// if($(this).closest('.yaoyiyao').length ==1){
+			// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+				$('.addSub4').eq(y1yindex-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(修改页面-摇一摇)
+		// 	} else {
+		// 		$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2));
+		// 	}
+
+		// } else {
+		// 	$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(新建页面)
+		}
 		butiefz();
 	}
 
@@ -783,8 +807,16 @@ $('.gailvok').click(function(){
 
 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
 		$(".yglHidden" + yglindex).val(JSON.stringify(probabilityObj, null, 4))//.parent().text('查看概率').addClass('o');
-	} else {
-		$(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+	} else {	
+		// if(location.href.indexOf('activityModify')!=-1){
+		// 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+				$(".glHidden" + y1yindex).val(JSON.stringify(probabilityObj, null, 4));
+		// 	} else {
+		// 		$(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+		// 	}
+		// } else {
+			// $(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+		// }
 	}
 
 	$(this).closest('.layui-layer').find('.layui-layer-close').click();
@@ -2228,14 +2260,17 @@ $('.subsidyPolicy .cancel').click(function(){
 var focusVal = "";
 $('.butieSec').on('focus','.acSe13 input',function(){
 	// if($(this).closest('.addSub4').find('.selected[showtype=compose]').text() == "摇一摇"){
-	focusVal = $(this).val();
+		focusVal = $(this).val();
 	// }
-
 }).on('blur','.acSe13 input',function(){
 
 	var _this = $(this);
 	var thisVal = _this.val();
-	if(thisVal == focusVal){return}
+	if(thisVal == focusVal){
+		if(_this.closest('.addSub4').find('').text().indexOf('固定') != -1){
+			return;
+		}
+	}
 	if(isNaN(thisVal)){
 		thisVal = 0;
 	}
@@ -2642,6 +2677,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 
 		// 2.会员活动条件
+		// 地区
 		if($('.region-item').length == 0){
 			$("nav span").eq(1).click();
 			if($('.setAreaBtn').css('display') == 'none'){
@@ -2652,6 +2688,16 @@ $('.saveToDb, .shenhe').click(function(){
 			return;
 		}
 
+		/*else {
+			$('.region-item').each(function(){
+				if($(this).find('.charge .shengfzr-wrap').length == 0){
+					layer.tips('请先选择负责人',$(this).find('.provice'));
+					finished = false;
+					return false;
+				}
+			});
+		}*/
+
 		if(finished == true){
 			$('.section2 .addSub1').each(function(){
 
@@ -2661,7 +2707,7 @@ $('.saveToDb, .shenhe').click(function(){
 					layer.tips('请先完善活动类型', addSub1.find('.activity .selected'));
 					finished = false;
 					return false;
-				} 
+				}
 				if(addSub1.find('.acSe3 .selected').text() == ""){
 					$("nav span").eq(1).click();
 					layer.tips('请先完善', addSub1.find('.acSe3 .selected'));
@@ -2951,9 +2997,9 @@ $('.saveToDb, .shenhe').click(function(){
 				}
 
 				// if(isShake == false){
-					if(_this.find('.sbys').val() == "") {
+					if(_this.find('.sbys').eq(1).val() == "") {
 						$("nav span").eq(2).click();
-						layer.tips('请先填写申报预算', _this.find('.sbys'));
+						layer.tips('请先填写申报预算', _this.find('.sbys').eq(1));
 						finished = false;
 						return false;
 					} else if(_this.find('.sbys').val() == "0") {
@@ -3055,12 +3101,12 @@ $('.saveToDb, .shenhe').click(function(){
 	        "activitytitle"   : basic.find('.activityTitle').val(),
 	        "servicephone"    : servicephone,
 	        "singleselection" : singleselection,
-	        "responsible_id": basic.find('.fzr1 .selected').attr('guid'),
-	        "responsible_oid": parseInt(basic.find('.fzr1 .selected').attr('oid')),
-	        "responsible_name": basic.find('.fzr1 .selected').text(),
-	        "responsible2nd_id": basic.find('.fzr2 .selected').attr('guid'),
-	        "responsible2nd_oid": parseInt(basic.find('.fzr2 .selected').attr('oid')),
-	        "responsible2nd_name": basic.find('.fzr2 .selected').text()
+	        "responsible_id"		: basic.find('.fzr1 .selected').attr('guid'),
+	        "responsible_oid"		: parseInt(basic.find('.fzr1 .selected').attr('oid')),
+	        "responsible_name"		: basic.find('.fzr1 .selected').text(),
+	        "responsible2nd_id"		: basic.find('.fzr2 .selected').attr('guid'),
+	        "responsible2nd_oid"	: parseInt(basic.find('.fzr2 .selected').attr('oid')),
+	        "responsible2nd_name"	: basic.find('.fzr2 .selected').text()
 	    },
 	    "area_condition": [],
 	    "sponsor": $('.edit-area.condition .radio.on').attr("name")
@@ -3271,7 +3317,7 @@ $('.saveToDb, .shenhe').click(function(){
 
 	$('.areaSave').click();
 	var areaData = $('#area-data').val();
-	// alert(areaData);return;	
+	// alert(areaData);return;
 
 	data["area_condition"] = JSON.parse(areaData);
 	// console.log(JSON.stringify(data, null, 4));
@@ -3411,7 +3457,7 @@ $('.saveToDb, .shenhe').click(function(){
 	        contentType: "application/json; charset=utf-8",
 	        beforeSend: function (x) {
 	        	// x.setRequestHeader("contentType", "application/json; charset=utf-8");
-	        	layer.msg('数据正在保存...');
+	        	layer.msg('数据正在保存...',{time:-1});
 	        	$('.saveToDb, .shenhe').addClass('disabled');
 	        },
 	        complete: function () { $('.saveToDb, .shenhe').removeClass('disabled'); },
@@ -3476,4 +3522,5 @@ function ClearSessionStorage(){
 	sessionStorage.removeItem("districtData");
 	sessionStorage.removeItem("choosedData");
 	sessionStorage.removeItem("shengfzr");
+	sessionStorage.removeItem("allcharge");
 }
