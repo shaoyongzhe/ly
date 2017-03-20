@@ -285,27 +285,26 @@ function render(detailData){
 			danwei = "元";
 		}
 
-		var valTxt = "<i class='valTxt'>"+ (butie[i].min * butie[i].ceiling).toFixed(2) +"</i>";
+		var valTxt = valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
 		
-		if(butie[i].refund_content.indexOf('随机') != -1){
-			butie[i].probability.value_curve.forEach( function(item, index) {
-				randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
-				valTxt = "<i class='valTxt'>"+ Number(randfz).toFixed(2) + "</i>";
-			});
-		}
+		// if(butie[i].refund_content.indexOf('随机') != -1){
+		// 	butie[i].probability.value_curve.forEach( function(item, index) {
+		// 		randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
+		// 		valTxt = "<i class='valTxt'>"+ Number(randfz).toFixed(2) + "</i>";
+		// 	});
+		// }
 
 		var rangeStr = "";
-		
 
 		if(butie[i].refund_content == '摇一摇'){
 			var yaofz1 = 0;
 			var refund_content = "";
 			butie[i].prize_content.forEach( function(item, index) {
 				yaofz += Number(item.applycount);
-				yaofz1 += Number(item.applycount);
+				// yaofz1 += Number(item.applycount);
 				refund_content += item.refund_content + '</br>';
 			});
-			valTxt = "<i class='valTxt'>"+ Number(yaofz1).toFixed(2) + "</i>";
+			// valTxt = "<i class='valTxt'>"+ Number(butie[i].crest).toFixed(2) + "</i>";
 			rangeStr = ""+ refund_content +"</td><td>"+ butie[i].ceiling +
 			"</td><td class='btfz'>"+ valTxt +"<i>"+ danwei +"</i></td>";
 

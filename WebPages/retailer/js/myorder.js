@@ -9,12 +9,14 @@
   	var _data2="";
   	var _image="";				 	
   	var _icn="";
+  	var _fd=1;
   	localStorage.list=0;
   	(function dd(){
   			height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
   			console.log(height)
   			
   			$("#select").css("height",height);
+  			$("#select>ul").css("height",height);
   			$("#container").css("height",height)
   	})()
 			 var _nameList="";
@@ -30,33 +32,37 @@
 		  		 	  for(var i=0;i<_data1.length;i++){
 					 	  		_nameList+="<li id="+i+"><p style=\"word-break:break-all;\">"+_data1[i]["distributorname"]+"</p></li>";
 					 	  }
-		  		 	  //_nameList="<li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
+		  		 	  //_nameList="<li id=0><p style=\"word-break:break-all;\">asdsadsad456465465412</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><p style=\"word-break:break-all;\">"+_data1[0]["distributorname"]+"</p></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li><li id=0><span>"+_data1[0]["distributorname"]+"</span></li>"
 						  $("#select ul").html(_nameList);
+						  		
 						  		$("#select li:first-child").addClass("selected")
-					 	  		if($("#select li p").css("width").replace("px","")+14<=$("#select li").css("width")){
-						  				$("#select li").css({"textAlign":"center","lineHeight":"3rem"})
-						 			}
+						  		$("#select li").each(function(){
+						  			console.log($(this).children().height())
+						  			console.log($(this).height())
+						  			if($(this).children().height()*2<$(this).height()){
+						  				$(this).css({"textAlign":"center","lineHeight":"3.8rem"})
+						  			}else{
+						  				$(this).css({"textAlign":"left","lineHeight":"2.2rem"})
+						  			}
+						  		})
+									
 
-
-					   		$("#select li").click(function(){
+					   		$("#select>ul>li").click(function(){
 					   			  localStorage.list=$(this).attr("id")
 								 		$("#select li").removeClass("selected")
 								 		$(this).attr("class","selected");
 								 		that=$(this);
-								 		_timer=setTimeout(function(){
+								 		var _timer=setTimeout(function(){
 								 			
 								 			if(_flag==1){
 								 					_flag=0;
-								 					if(!that.css("border-left")){
+								 					if(that.css("border-left")){
 								 						$(".onload").css({"display":"block"})
 								 							shopList(that.attr("id"))
 								 							
 								 					}else{
 								 						_flag=1
 								 					}
-								 			}else{
-								 					
-								 					_timer()
 								 			}
 								 			
 								 		},10)
@@ -70,6 +76,7 @@
 					}
 function shopList(pg){
 			//alert(pg)
+			console.log(111)
 		 $.ajax({
 			  url:"/webapi/distributor/"+getRetailerid()+"/orderforms?distributor_id="+_data1[pg]["distributor_id"]+"&paging=",
 			  async:true,
@@ -107,7 +114,7 @@ function shopList(pg){
 			   				}
 				   	_bookTm=data["content"][j]["issuetime"].replace(new RegExp("-","gm"),"/");
 		  		_bookTm = (new Date(_bookTm)).getTime();
-		  			_price=_price.toFixed(1)
+		  			_price=_price.toFixed(2)
 		  			var _ggf=0;
 		  			for(var g=0;g<data["content"][j]["details"].length;g++){
 		  				_ggf+=Number(data["content"][j]["details"][g]["itemcount"])
@@ -165,7 +172,10 @@ function shopList(pg){
 				   	_shopList="<dt>进行中的</dt>"+_shopList;
 						$("#dl2").html(_historyList)
 						$("#dl1").html(_shopList);
-						$(".orderlistbox").html($(".orderlistbox").html()+"<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>")
+						if(_fd==1){
+							$(".orderlistbox").html($(".orderlistbox").html()+"<div class="+"\"loadings\""+"style="+"\"display:none;width:100%;height:50px;background:url(../../image/shop/loading.gif) no-repeat 50% 50%;background-size:3rem 3rem\""+"></div>")
+							_fd=0
+						}
 						_historyList="";
 						_shopList="";
 						_flag=1;
