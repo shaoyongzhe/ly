@@ -967,7 +967,7 @@ function fnserach() {
     keyLogin();
     $(".content").val("");
     var _ti=1;
-    $("input").focus(function(){
+    $("#searchInp").focus(function(){
     	$("footer").css({display:"none"})
     }).blur(function(){
     	$("footer").css({display:"-webkit-box"})

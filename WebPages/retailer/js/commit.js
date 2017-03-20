@@ -246,7 +246,7 @@ function oJz(){
                     if (JSON.stringify(_dx) == "{}") {
                         _dx = ""
                     }
-                    console.log(JSON.stringify(_dx))
+                    console.log(_dx)
                     if (data[_indd]["specialprice"]) {
                         $("#vv").css({ display: "-webkit-box" })
                         $("#vv span").text(data[_indd]["specialprice"].toFixed(2))
@@ -353,7 +353,7 @@ function oJz(){
                     remark: $("#inp2").val(),
                     deliverdate: $("#beginTime").val(),
                     submitids: _Id,
-                    manzeng: _dx == "" ? "" : _dx
+                    manzeng:_dx == "" ? "" : JSON.stringify(_dx)
                 },
                 error: function () {
                     	$(".ms").text("网络异常");
