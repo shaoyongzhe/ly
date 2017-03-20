@@ -155,7 +155,7 @@
                 complete: function () { if (pageIndex == 1) { common.loading.hide(); } },
                 success: function (json) {                    
                     //分页加锁
-                    
+                    console.log(json);
                     common.loading.hide();
                     json = json || {};   /* 统一加这句话 */
                     if (jQuery.isEmptyObject(json)) {

@@ -147,19 +147,6 @@
 					loaddata(null);
 				},
 				methods: {
-//					nameSearch: function() {
-//						var _self = this;
-//						$.ajax({
-//							type: 'GET',
-//							url: "/retailer/data/mdTickeList.json",
-//							success: function(data) {
-//								_self.items = data;
-//								setTimeout(function() {
-//									mySwiper()
-//								}, 500)
-//							}
-//						});
-//					},
 					toItems: function(activityId) {
 						location.href = "/retailer/page/suppercouponitems.html?activity_id=" + activityId;
 					},
@@ -178,9 +165,9 @@
 				$.ajax({
 					type: 'GET',
 					dataType: 'json',
-//					data: ajaxdata,
-//					url: '/webapi/retailer/weixin/activities',
-					url: "/retailer/data/mdTickeList.json",
+					data: ajaxdata,
+					url: '/webapi/retailer/weixin/activities',
+//					url: "/retailer/data/mdTickeList.json",
 					beforeSend: function() { if(pageIndex == 1) { common.loading.show(); } },
 					complete: function() { if(pageIndex == 1) { common.loading.hide(); } },
 					success: function(json) {

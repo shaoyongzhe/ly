@@ -1,62 +1,89 @@
-﻿$(function () {
-    var s = new invitationfans("container");
-    s.render(wxjsshare);
+﻿
+var myApp = new Vue({
+	el: ".myCon",
+	data: {
+		items: '',
+		isShow: false,
+		itemsVal:[]
+	},
+	mounted: function() {
+		var s = new invitationfans("container");
+    	s.render(wxjsshare);
+		this.nameSearch(wxjsshare);
+	},
+	methods: {
+		nameSearch: function(sharefunction) {
+			common.loading.show();
+			var _self = this;
+			var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "ticket" };
+	        if (wxjsconfig.sharekey != null)
+	            ajaxdata[wxjsconfig.sharekey] = "_";
+	        var activity_id = common.getUrlParam('activity_id');
 
-    vm.GetInfo(wxjsshare)
-});
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function () { common.loading.show(); },
+                complete: function () { common.loading.hide(); },
+                data: ajaxdata,
+                url: "/webapi/distributor/weixin/activities/" + activity_id + "/ticket",
+//				url: "/retailer/data/mdTickeDetails.json",
+                success: function (json) {
+                	console.log(json);
+                    common.loading.hide();//隐藏转圈动画
 
+                    json = json || {};   /* 统一加这句话 */
+                    if (json.error) {
+                        toasterextend.showtips(json.error, "error");
+                        return;
+                    }
+                    if (json.user_notification) {
+                        toasterextend.showtips(json.user_notification, "info");
+                        return;
+                    }
 
-var vm = avalon.define({
-    $id: "suppercouponitems",
-    jsondata: {},
-    isShow: false,
-    GetInfo: function (sharefunction) {
-        common.loading.show();
+                    _self.isShow = json.data.length > 0
+		            _self.items = json.data;
+		            if ($.isFunction(sharefunction)) {
+		                var share = json.share || {};
+		                sharefunction($.extend(share, { activity_id: activity_id }));
+		            }
+                    $.each(json.data[0].items, function(i,o) {
+                    	_self.itemsVal.push(o);
+                    });
+//                  if (json.data[0].activitystate != '已生效') {
+//                      $("#title-right").css("background", " rgba(51,51,51,.9)");
+//                      $(".div-list .div-top .li-img p").addClass("p_css1")
+//                  }
+//                  else {
+//                      $("#title-right").css("background", " rgba(220,0,0,.8)");
+//                      $(".div-list .div-top .li-img p").addClass("p_css2")
+//                  }
+//                  
+//                  $("#div_qrcode").css("display", "block")
+					
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    common.loading.hide();//隐藏转圈动画
 
-        var ajaxdata = { activitykind: "distributor_to_consumer", activitytype: "ticket" };
-        if (wxjsconfig.sharekey != null)
-            ajaxdata[wxjsconfig.sharekey] = "_";
-        var activity_id = common.getUrlParam('activity_id');
+                    var errormsg = "访问异常";
+//					console.log(XMLHttpRequest.status,XMLHttpRequest.responseText);
+                    if (XMLHttpRequest.status != null && XMLHttpRequest.status != 200) {
+                        var json = JSON.parse(XMLHttpRequest.responseText);
+                        errormsg = JSON.parse(json.Message).error;
+                        if (errormsg == undefined || errormsg == '')
+                            errormsg = "Http error: " + XMLHttpRequest.statusText;
+                    }
 
-        // 'webapi/distributor/weixin/activities/{activity_id}/ticket',
-        $.getJSON2("/webapi/distributor/weixin/activities/" + activity_id + "/ticket", ajaxdata, function (data) {
-            common.loading.hide();
-            vm.isShow = data.data.length > 0
-            vm.jsondata = data.data[0]
-            if ($.isFunction(sharefunction)) {
-                var share = data.share || {};
-                sharefunction($.extend(share, { activity_id: activity_id }));
-            }
-
-            if (vm.jsondata.activitystate != '已生效') {
-                $("#title-right").css("background", " rgba(51,51,51,.9)");
-                $(".div-list .div-top .li-img p").addClass("p_css1")
-            }
-            else {
-                $("#title-right").css("background", " rgba(220,0,0,.8)");
-                $(".div-list .div-top .li-img p").addClass("p_css2")
-            }
-        });
-
-
-    },
-    topicClick: function (el) {
-        var topicid = "";
-        $.each(el.topiclist, function (index, item, array) {
-            if (index<=20) {
-                topicid += "," + item.topicid
-            }
-        });
-
-        location.href = "../page/active.html?topicid=" + topicid.substring(1)
-    },
-    getheadcount: function (el) {
-        var headcount = 0;
-        $.each(el, function (i, v) {
-            headcount += v.headcount
-        })
-
-        return headcount
-    }
+                    toasterextend.showtips(errormsg, "error");
+                }
+            });
+	 	},
+	 	showMore:function(skipTo){
+	 		if(skipTo == 0){
+//	 			location.href = "";
+	 			alert('跳转到哪个页面?');
+	 		}
+	 	}
+	}
 })
-
