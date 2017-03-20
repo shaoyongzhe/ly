@@ -85,13 +85,13 @@ $(document).ready(function () {
                 } else if (billdata[i]["itemkind"] == "买赠") {
                     //_price+=data[i]["price"]*data[i]["itemcount"];
                     for (var r = 0; r < billdata.length; r++) {
-                        if (billdata[r]["billid_class"] === "tblbillgift") {
+                        if (billdata[r]["billid_class"] === "tblbillgift" && billdata[r]["ruleid"] && billdata[r]["ruleid"] ==billdata[i]["ruleid"] ) {
                             _zengg = billdata[r]["itemobj"]["itemname"] + (billdata[r]["itemobj"]["specification"]==null?"":billdata[r]["itemobj"]["specification"]) + "<span style=\"float:right\">" + billdata[r]["itemcount"] + (billdata[r]["itemobj"]["packagetypename"] == null ? "" : billdata[r]["itemobj"]["packagetypename"]) + "</span>"
-                        }
-                        if (billdata[r]["toexpirecount"] > 0) {
-                            _lln = "(临期)"
-                        } else {
-                            _lln = ""
+	                        if (billdata[r]["toexpirecount"] > 0) {
+	                            _lln = "(临期)"
+	                        } else {
+	                            _lln = ""
+	                        }
                         }
                     }
                     _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + billdata[i]["itemobj"]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
@@ -102,14 +102,15 @@ $(document).ready(function () {
                 } else if (billdata[i]["itemkind"] == "有礼") {
                     //_price+=data[i]["price"]*data[i]["itemcount"];
                     for (var r = 0; r < billdata.length; r++) {
-                        if (billdata[r]["billid_class"] === "tblbillgift") {
+                        if (billdata[r]["billid_class"] === "tblbillgift" && billdata[r]["ruleid"] && billdata[r]["ruleid"] ==billdata[i]["ruleid"] ) {
                             _zengg = billdata[r]["itemobj"]["itemname"] + (billdata[r]["itemobj"]["specification"]==null?"":billdata[r]["itemobj"]["specification"]) + "<span style=\"float:right\">" + billdata[r]["itemcount"] + (billdata[r]["itemobj"]["packagetypename"] == null ? "" : billdata[r]["itemobj"]["packagetypename"]) + "</span>"
+	                        if (billdata[r]["toexpirecount"] > 0) {
+	                            _lln = "(临期)"
+	                        } else {
+	                            _lln = ""
+	                        }
                         }
-                        if (billdata[r]["toexpirecount"] > 0) {
-                            _lln = "(临期)"
-                        } else {
-                            _lln = ""
-                        }
+                        
                     }
                     _list += "<li><div class=" + "\"shop-con\"" + "><img src=" + billdata[i]["itemobj"]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + "><div class=" + "\"shop-tit\"" +
             ">" + billdata[i]["itemobj"]["itemname"] + _img + "</div><div class=" + "\"shop-body\"" + ">￥" + billdata[i]["itemunitcost"].toFixed(2) + "</div><div class=" + "\"number\"" +
