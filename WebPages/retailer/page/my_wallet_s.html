@@ -39,7 +39,7 @@
                 <h1>
                     ￥{{mymoney.balance}}
                 </h1>
-                <div v-bind:class="[mymoney.balance>0 ? 'valid' : 'invalid', 'deposit']" v-on:click="userwithdraw()"><a href="javascript:void(0)">提现</a></div>
+                <div v-bind:class="[mymoney.balance>=1 ? 'valid' : 'invalid', 'deposit']" v-on:click="userwithdraw()"><a href="javascript:void(0)">提现</a></div>
             </div>
             <div class="Wallet_nav mt46">
                 <p class="border_efeef4"></p>
@@ -176,6 +176,7 @@
                 categoryChange: function (type) {
                     vm.category = type
                     if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
+                        $(".dropload-down").remove()
                         vm.getAssetFlow(1, null)
                     }
                 },
@@ -397,7 +398,7 @@
                         tmdropme3.resetload();
                 },
                 userwithdraw: function () {//用户提现
-                    if (vm.mymoney.balance > 0)
+                    if (vm.mymoney.balance >= 1)
                         $.ajax({
                             type: 'GET',
                             dataType: 'json',

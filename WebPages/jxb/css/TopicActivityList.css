@@ -487,7 +487,7 @@ header img:nth-of-type(2) {
 
   /*刷新按钮*/
   .refresh {
-    left: 879px;
+    left: 842px;
     top: 12px; }
 
   .contentCont {
@@ -530,9 +530,9 @@ header img:nth-of-type(2) {
     text-align: center; }
 
   .conCon {
-    width: 705px;
+    width: 680px;
     height: 159px;
-    left: 10px; }
+    left: 5px; }
 
   .cCHeadSp1 {
     font-size: 14px;

@@ -70,6 +70,7 @@ var vm = avalon.define({
         vm.category = type
 
         if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
+            $(".dropload-down").remove()
             vm.getAssetFlow(1, null)
         }
     },
@@ -274,7 +275,7 @@ var vm = avalon.define({
             tmdropme3.resetload();
     },
     userwithdraw: function () {//用户提现
-        if (vm.Moneys.balance > 0)
+        if (vm.Moneys.balance >= 1)
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
