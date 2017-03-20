@@ -167,9 +167,9 @@ function ajaxActivityDetails(a,b){
 				var widthNum=0;//$(".BbtsmRright12")宽度
 				var textWidth=0;//文本的宽度0218加,用于控制有3列的时候，2种屏幕的宽度。
 				var l=0;//控制变量
-				var l_2=0;//控制变量
+				var l_2=0;//控制变量，控制BbtsmRright2Content的左偏移量
 				if($(window).width()>1000){		
-					l=8.5;
+					l=7;//margin-left为6，这里为7才行，1px跑哪里了。
 					l_2=0;
 					if(Object.keys(data.subsidy_description).length<=3){
 						widthNum=876;
@@ -184,16 +184,13 @@ function ajaxActivityDetails(a,b){
 	//				console.log("if")
 					textWidth=214;
 				}else{
-					l=11;
-					if(Object.keys(data.subsidy_description).length%3==1){
-						l_2=7;
-					}else if(Object.keys(data.subsidy_description).length%3==2){
-						l_2=3;
-					}
+					l=6;//margin-left为4，border为1*2
 					if(Object.keys(data.subsidy_description).length<=3){
+						l_2=0;
 						widthNum=725;
 					}else{
-						widthNum=700;
+						l_2=-4;
+						widthNum=693;
 					}
 					$(".BbtsmRright12").width(widthNum)
 /*					console.log(widthNum);
@@ -235,12 +232,19 @@ function ajaxActivityDetails(a,b){
 				//最后一行的宽度
 				if(Object.keys(data.subsidy_description).length%3!=0){
 					var n=Object.keys(data.subsidy_description).length%3;
-					$(".btsm").eq(-n).outerWidth(widthNum/n-l-l_2);		
-					$(".btsm").eq(-n).nextAll(".btsm").outerWidth(widthNum/n-l-l_2);		
-					//最后一行文本的宽度,-30是左右padding的和，16是序号所在span的宽度，一共2个span，一个是序号一个是文本。
-					$(".btsm").eq(-n).find(".btsmPs").find("span:last").outerWidth(widthNum/n-l-2-30-16)
-					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").outerWidth(widthNum/n-l-2-30-16)
+					$(".btsm").eq(-n).outerWidth(widthNum/n-l);		
+					$(".btsm").eq(-n).nextAll(".btsm").outerWidth(widthNum/n-l);		
+					//最后一行文本的宽度,-30是左右padding的和，16是序号所在span的宽度，一共2个span，一个是序号一个是文本。-2是除border
+					$(".btsm").eq(-n).find(".btsmPs").find("span:last").outerWidth(widthNum/n-l-30-16-2)
+					$(".btsm").eq(-n).nextAll(".btsm").find(".btsmPs").find("span:last").outerWidth(widthNum/n-l-30-16-2)
 				}
+				//BbtsmRright2Content左移动来平衡每行第一个btsm的偏移量
+				$(".BbtsmRright2Content").css({
+					"marginLeft":l_2,
+				})
+				$(".BbtsmRright1").css({
+					"marginLeft":4,
+				})
 				//生成滚动条
 				$(".btsm").each(function(i){
 					$(this).find(".btsmD1IscrollCon").addClass("isoll_"+i);

@@ -350,13 +350,14 @@ a.less {
   box-sizing: border-box;
   width: 1000px;
   border: 1px solid transparent;
-  margin-top: 10px; }
+  margin-top: 10px;
+  display: -webkit-flex;
+  display: flex; }
 
 .BbtsmL {
   box-sizing: border-box;
   width: 66px;
-  margin-top: 3%;
-  display: table-cell; }
+  margin-top: 3%; }
 
 .BbtsmL img {
   width: 63px;
@@ -365,11 +366,11 @@ a.less {
 .BbtsmR {
   width: 932px;
   border-radius: 5px;
-  display: table-cell; }
+  display: -webkit-flex;
+  display: flex; }
 
 .BbtsmRleft {
   box-sizing: border-box;
-  height: 100%;
   width: 37px;
   background: #FFAD33;
   font-family: "微软雅黑";
@@ -400,11 +401,12 @@ a.less {
   padding: 0px 10px;
   box-sizing: border-box;
   width: 898px;
-  border: 1px solid #FFAD33; }
+  border: 1px solid #FFAD33;
+  display: -webkit-flex;
+  display: flex; }
 
 .BbtsmRright12 {
-  width: 837px;
-  display: table-cell; }
+  width: 837px; }
 
 .BbtsmRright1 {
   height: 30px;
@@ -434,24 +436,22 @@ a.less {
 .BbtsmRright2Content {
   width: 100%;
   overflow: hidden;
-  margin-left: -7px; }
+  margin-left: -6px; }
 
 .maxHeight180 {
   max-height: 137px; }
 
 .BbtsmRright3 {
-  margin-left: -8px;
+  margin-left: -4px;
   width: 44px;
   box-sizing: border-box;
   padding-left: 10px;
   padding-right: 10px;
-  height: 100%;
-  position: relative;
-  display: table-cell; }
+  position: relative; }
 
 .BbtsmRright3 img {
-  width: 46px;
-  margin-left: -2px;
+  width: 36px;
+  margin-left: 2px;
   cursor: pointer;
   position: absolute;
   left: 57%;
@@ -468,7 +468,7 @@ a.less {
   border: 1px solid #ffad33;
   border-radius: 0 30px 0 0;
   margin-bottom: 10px;
-  margin-left: 7px; }
+  margin-left: 6px; }
 
 .btsm1 {
   margin-left: 0px; }
@@ -870,6 +870,7 @@ footer {
     line-height: 20px; }
 
   .BbtsmRright {
+    margin-left: 0px;
     padding: 0px 7px;
     width: 741px;
     border: 1px solid #FFAD33; }
@@ -894,16 +895,19 @@ footer {
   .BbtsmRright2 {
     width: 100%; }
 
+  .BbtsmRright2Content {
+    margin-left: 0; }
+
   .BbtsmRright3 {
-    margin-left: -6px;
-    width: 47px;
+    margin-left: -9px;
+    width: 38px;
     padding-left: 5px;
     padding-right: 5px;
     height: 100%; }
 
   .BbtsmRright3 img {
-    width: 34px;
-    margin-left: -4px;
+    width: 28px;
+    margin-left: 0px;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -914,7 +918,8 @@ footer {
     width: 215.66667px;
     border: 1px solid #ffad33;
     border-radius: 0 30px 0 0;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    margin-left: 4px; }
 
   .btsm1 {
     margin-left: 0px; }
