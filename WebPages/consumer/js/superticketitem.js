@@ -11,7 +11,7 @@ avalon.ready(function () {
     waitloadaddress(function () {
         vm.loaddata(wxlocation.longitude, wxlocation.latitude);
     });
-    
+
     //vm.loaddata(116.357, 39.94978)
 })
 var vm = avalon.define({
@@ -53,13 +53,13 @@ var vm = avalon.define({
                 jsondata = jsondata || {};
                 if (jsondata.error) {
                     toasterextend.showtips(jsondata.error, "error", false);
-                    qrcode.href();
+                    qrcode.show();
                     return;
                 }
 
                 if (jsondata.user_notification != undefined) {
                     toasterextend.showtips(jsondata.user_notification, "info");
-                    qrcode.href();
+                    qrcode.show();
                     return;
                 }
                 vm.isShow = true
@@ -81,15 +81,15 @@ var vm = avalon.define({
                     if (errormsg == undefined || errormsg == '')
                         errormsg = "Http error: " + XMLHttpRequest.statusText;
                 }
-                qrcode.href();
+                qrcode.show();
                 toasterextend.showtips(errormsg, "error");
             }
         });
     },
     useticket: function (el) {// 码上用
         if (vm.jsondata.verifylimit > 0) {//可用状态，跳转到码上用核销界面
-            
-            var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + vm.jsondata.guid;
+
+            var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + vm.jsondata.guid;
 
             var search = window.location.search;
             var isshare = common.getUrlParam(wxjsconfig.sharekey);
@@ -134,5 +134,22 @@ var vm = avalon.define({
                 location.href = originalurl;
             }
         }
+    },
+    topicClick: function (el) {
+        var topicid = "";
+        $.each(el.topiclist, function (index, item, array) {
+            if (index < 20)
+                topicid += "," + item.topicid
+        });
+
+        location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+    },
+    getheadcount: function (el) {
+        var headcount = 0;
+        $.each(el, function (i, v) {
+            headcount += v.headcount
+        })
+
+        return headcount
     }
 })

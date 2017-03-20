@@ -8,19 +8,21 @@
     <link rel="stylesheet" href="/retailer/css/retailerstyle.css" />
     <link rel="stylesheet" href="/retailer/css/weixintips.css" />
 
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script  type="text/javascript" src="/js/wx/md5.min.js"></script><script type="text/javascript">document.writeln("<script type=\"text\/javascript\"");document.writeln("src=\"\/webapi\/retailer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">");	document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="/js/jquery/juicer-min.js"></script>
     <script type="text/javascript" src="/js/jquery/toastr.min.js"></script>
     <script type="text/javascript" src="/js/wx/configinit.js"></script>
-
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     
     <script type="text/javascript" src="/retailer/js/lib/jquery-common.js"></script>
     <script type="text/javascript" src="/retailer/js/lib/common.js"></script>
     <script type="text/javascript" src="/retailer/js/invite-fans-main.js"></script>
     <script type="text/javascript" src="/retailer/js/common-buttom-nav.js"></script>
+
 </head>
 
 <body>
@@ -40,11 +42,11 @@
 
             <!--二维码扫描-->
             <div class="weui_DPcode weui_top4em">
-                <img id="retailerqrcode" style="width:80%" alt="店铺二维码" />
+                <img id="QRCode_img" style="width:80%" alt="店铺二维码" />
                 
                 <p><div class="savepic" style="color:#c2c2c2;font-family:微软雅黑;">
 				长按二维码可保存，可用于制作扫码牌
-				</div></p>
+				</div></p><div id="qrcodediv" hidden></div>
             </div>
         </div>
         <div class="weui_Kong"></div>
@@ -52,5 +54,6 @@
     <footer>
         <div id="bottom-nav"></div>
     </footer>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>

@@ -91,13 +91,26 @@
         }
 
         .share {
-            left:0 !important;
-            margin-left:0;
+            left: 0 !important;
+            margin-left: 0;
         }
 
-        .css_color1 {background:rgba(220,0,0,.8) none repeat scroll 0% 0%;
+        .css_color1 {
+            background: rgba(220,0,0,.8) none repeat scroll 0% 0%;
         }
-          .css_color2 {background: rgba(51,51,51,.9) none repeat scroll 0% 0%;
+
+        .css_color2 {
+            background: rgba(51,51,51,.9) none repeat scroll 0% 0%;
+        }
+
+        .assetinfo {
+            width: 100%;
+            height: 40px;
+            background: url(/consumer/image/asset_consumer.png) no-repeat;
+            background-size: 100% 40px;
+            line-height: 40px;
+            padding: 0 15px 0 20px;
+            color: #fff;
         }
     </style>
 </head>
@@ -134,7 +147,7 @@
                 </div>
                 <div id="title-css" class="ceng3" style="display: none;">
                     <div id="title-left">超惠券</div>
-                    <div ms-attr-class="el.activity_flag==1?'css_color1':'css_color2'"  id="title-right">{{el.activity_flag==1?'已生效':'未生效'}}</div>
+                    <div ms-attr-class="el.activity_flag==1?'css_color1':'css_color2'" id="title-right">{{el.activity_flag==1?'已生效':'未生效'}}</div>
                     <div id="bianjiao"></div>
                 </div>
             </div>
@@ -217,7 +230,18 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="whiteblock"></div>
+                        <div class="assetinfo" ms-if="item.topiclist.length>0">
+                            <a href="javascript:;" class="assetcontent" ms-click="topicClick(item)">
+                                <div class="asset_left">
+                                    <div class="topictitle"><nobr>{{item.topiclist[0].topictitle}}</nobr></div>
+                                    <div class="topictitle_1"><small>{{item.topiclist.length>1?'等活动':''}}</small></div>
+                                </div>
+                                <div class="asset_right">
+                                    <small>已参加</small>{{getheadcount(item.topiclist)}}<small>人</small>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="whiteblock" ms-if="item.topiclist==null"></div>
                         <ul class="div-down  ">
                             <li>
                                 {{item.itemtotalnum==null?'0':item.itemtotalnum}}
@@ -229,8 +253,6 @@
                             </li>
                             <li style="border-right:none; ">
                                 &nbsp;
-                                <!--{{item.verifylimit==null?'0':item.verifylimit}}
-                                <p>今日可用</p>-->
                             </li>
                             <li style="width:40%;border-right:none">
                                 <div style="margin-top:9px" ms-attr-class="btn_css {{item.verifylimit>0?'btn_css1':' btn_css2'}}" ms-click="useticket(item)">
@@ -239,9 +261,7 @@
                             </li>
                             <div class="clear"></div>
                         </ul>
-                        <div class="rulecss " onclick="actionsheetclick()" ms-if="item.returnticket_id!=null&&item.returnticket_id!=''">
-                            已参加<font color="red"><b>{{item.participantnum}}</b></font>人
-                        </div>
+
                         <hr />
                     </div>
                     <div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; ">
@@ -280,7 +300,8 @@
         <div id="bottom-nav"></div>
     </footer>
     <div id="activityrule"></div>
-    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk?t=" + new Date().getTime() + "\">"); document.writeln("<\/script>");	</script>
+    <script type="text/javascript" src="/js/wx/md5.min.js"></script>
+    <script type="text/javascript">document.writeln("<script type=\"text\/javascript\""); document.writeln("src=\"\/webapi\/consumer\/weixin\/jssdk/" + md5(window.location.href) + ".js\">"); document.writeln("<\/script>");</script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
@@ -292,10 +313,12 @@
     <script src="/consumer/js/lib/lib.js" type="text/javascript"></script>
     <script src="/consumer/js/lib/weixintips.js"></script>
     <script type="text/javascript" src="/consumer/js/lib/common.js"></script>
-    <!--<script src="/consumer/js/lib/weixinshare-qrcode.js"></script>-->
-    <script src="/consumer/js/ticket_common.js"></script>
+    <!--<script src="/consumer/js/lib/weixinshare-qrcode.js"></script>
+    <script src="/consumer/js/ticket_common.js"></script>-->
     <script type="text/javascript" src="/consumer/js/common-buttom-nav.js"></script>
     <script src="//cdn.bootcss.com/avalon.js/1.5.6/avalon.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/qrcodeInitialize.js"></script>
     <script type="text/javascript">
         var qrcode = {};
         qrcode.href = function () {
@@ -464,7 +487,7 @@
         };
 
         function loadCss() {
-           
+
             // $('.duohdbox').css({ 'height': $divWidth * 3 / 4 });
             var $divWidth = $('.duohdbox').width();
             //$('.share').click(function () {
@@ -534,7 +557,7 @@
                 _wxjsshare.share_imgurl = vm.activity[0].posterpic
                 _wxjsshare.share_title = vm.activity.length > 1 ? "怕你还不知道，一大波优惠活动已疯狂来袭！" : "怕你还不知道，这个活动真的超级优惠！"
                 _wxjsshare.share_desc = vm.activity[0].activitytitle
-                _wxjsshare.activitytype=""
+                _wxjsshare.activitytype = ""
             } else if (type == 2 && vm.array.length > 0) {
                 _wxjsshare.share_imgurl = vm.array[0].posterpic
                 _wxjsshare.share_title = vm.array.length > 1 ? "怕你还不知道，一大波超惠券已疯狂来袭！" : "怕你还不知道，这个活动真的超级优惠！"
@@ -607,14 +630,32 @@
             },
             useticket: function (el) {// 码上用
                 if (el.verifylimit > 0) {//可用状态，跳转到码上用核销界面
-                    var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + el.guid ;
+                    var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + el.guid;
                     var qrcode_url = "http://open.weixin.qq.com/qr/code/?username=" + common.getUrlParam("originalid");
                     var shareRegisterPage = "/consumer/page/shareqrcode.html?" + encodeURIComponent(qrcode_url);
                     var url = wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))
                     location.href = url;
                 }
+            },
+            topicClick: function (el) {
+                var topicid = "";
+                $.each(el.topiclist, function (index, item, array) {
+                    if (index < 20)
+                        topicid += "," + item.topicid
+                });
+
+                location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+            },
+            getheadcount: function (el) {
+                var headcount = 0;
+                $.each(el, function (i, v) {
+                    headcount += v.headcount
+                })
+
+                return headcount
             }
         })
     </script>
+    <script src="/js/sdk/sdk.js"></script>
 </body>
 </html>

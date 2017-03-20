@@ -98,17 +98,44 @@ function shareactivities() {
                         + '<td class="tbl_td_right"> <p>已节省' + item.sparevalue + '元</p></td> </tr>'
                         + ' <tr > <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥' + item.originalprice + '</td></tr> </table>'
                     }
-                    html += ' </div> <div class="img_tag"> </div> <div class="clear"></div></div><div class="whiteblock"></div>'
-                    + '  <ul class="div-down "> <li>' + (item.itemtotalnum == null ? '0' : item.itemtotalnum) + ' <p>投放</p></li>'
+                    html += ' </div> <div class="img_tag"> </div> <div class="clear"></div></div>'
+                    if (item.topiclist != undefined && item.topiclist.length > 0) {
+                        var topicid = ""
+                        var headcount = 0;
+                        $.each(item.topiclist, function (index, items, array) {
+                            if (index < 20)
+                                topicid += "," + items.topicid
+
+                            headcount += items.headcount
+                        });
+
+                        //html += " <div class=\"assetinfo\" onclick=\"topicClick('" + topicid + "')\"><a href=\"javascript:;\" class=\"assetcontent\">  <div class=\"asset_left\">"
+                        //html += " <div class=\"topictitle\"> <nobr>" + item.topiclist[0].topictitle + "</nobr></div><div>   <div class=\"topictitle_1\"><small> </small></div> <div class=\"asset_right\">" + (item.topiclist.length > 1 ? '等活动' : '') + "<small>已参加</small>" + item.topiclist[0].headcount + "<small>人</small> </div> </a></div></div></div>"
+
+                        html += "<div class=\"assetinfo\">"
+                        html += "<a href=\"javascript:;\" class=\"assetcontent\"  onclick=\"topicClick('" + topicid + "')\">"
+                        html += "<div class=\"asset_left\">"
+                        html += "<div class=\"topictitle\"><nobr >" + item.topiclist[0].topictitle + "</nobr></div>"
+                        html += "<div class=\"topictitle_1\"><small>" + (item.topiclist.length > 1 ? '等活动' : '') + "</small></div>  </div>"
+                        html += " <div class=\"asset_right\">"
+                        html += "   <small>已参加</small>" + headcount + "<small>人</small>"
+                        html += " </div> </a> </div> "
+
+                    } else {
+                        html += '<div class="whiteblock"></div>'
+                    }
+
+                    html += '  <ul class="div-down "> <li>' + (item.itemtotalnum == null ? '0' : item.itemtotalnum) + ' <p>投放</p></li>'
                     + ' <li style="border-right:none">' + (item.totalverifynum == null ? '0' : item.totalverifynum) + ' <p>已用</p></li>'
                     + '<li style="min-height:40px;border-right:none"></li>'
                     + ' <li style="width:40%;border-right:none"><div style="margin-top:9px" class="btn_css ' + (item.verifylimit > 0 ? 'btn_css1' : ' btn_css2') + '" onclick="useticket(\'' + item.guid + '\',' + item.verifylimit + ')">'
                     + (item.verifylimit > 0 ? '码上用' : item.state == 0 ? '还未生效' : item.state == 1 ? '来晚了,已抢光' : item.state == 2 ? '明日再来' : item.state == 3 ? '您已用完' : '码上用') + '</div> </li><div class="clear"></div>'
                     + '</ul> '
-                    if (item.returnticket_id != null && item.returnticket_id != '') {
-                        html += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
-                    }
-                    html += '  <hr />  </div>'
+                    //if (item.returnticket_id != null && item.returnticket_id != '') {
+                    //    html += ' <div class="rulecss " onclick="actionsheetclick()">已参加<font color="red"><b>' + item.participantnum + '</b></font>人 </div>'
+                    //}
+
+                    html += '  <hr />  </div></div>'
                 }
                 html += '<div class="more-md-w" style="padding:0; border:none; border-bottom:solid 1px #ccc; "><div class="more-md" style="border:none">'
                 + '<div class="text"> 共有<span>' + obj.retailer_count + '</span>家门店可以用以上超惠券<br>找找你身边的门店吧!</div>'
@@ -196,7 +223,7 @@ function getFormatDate(_date) {
 }
 
 function useticket(guid, verifylimit) {
-  
+
     if (verifylimit > 0) {//可用状态，跳转到码上用核销界面
 
         var search = window.location.search;
@@ -234,9 +261,13 @@ function useticket(guid, verifylimit) {
         }
 
         var shareRegisterPage = "/" + category + "/page/shareqrcode.html?" + encodeURIComponent(qrcode_url);
-        var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + guid ;
+        var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + guid;
         var url = wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))//wxjsconfig.authurl.replace("__jump__", encodeURIComponent(encodeURIComponent(shareRegisterPage) + "-_-" + encodeURIComponent(originalurl)))
         location.href = url;
 
     }
+}
+
+function topicClick(topicid) {
+    location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
 }

@@ -24,7 +24,7 @@ var vm = avalon.define({
     useticket: function (el) {// 码上用
 
         if (el.verifylimit > 0) {//可用状态，跳转到码上用核销界面
-            var originalurl = "/consumer/page/superticket_hx.html?activity_item_guid=" + el.guid;
+            var originalurl = "/consumer/page/superticket_hx.html?activityitem_id=" + el.guid;
 
             var search = window.location.search;
             var isshare = common.getUrlParam(wxjsconfig.sharekey);
@@ -73,10 +73,27 @@ var vm = avalon.define({
 
     },
     jsondataReadered: function (e) {
-        qrcode.href()
-        console.log(tmdropme);
+        qrcode.show()
         if (tmdropme != null)
             tmdropme.resetload();
+    },
+    topicClick: function (el) {
+        var topicid = "";
+        $.each(el.topiclist, function (index, item, array) {
+            if (index <= 20) {
+                topicid += "," + item.topicid
+            }
+        });
+
+        location.href = "../page/participate1.html?topicid=" + topicid.substring(1)
+    },
+    getheadcount: function (el) {
+        var headcount = 0;
+        $.each(el, function (i, v) {
+            headcount += v.headcount
+        })
+
+        return headcount
     }
 });
 
@@ -122,7 +139,7 @@ function loaddata(longitude, latitude, dropme) {
 
             if (jsondata.error) {
                 toasterextend.showtips(jsondata.error, "error", false);
-                qrcode.href();
+                qrcode.show();
                 dealdropme(dropme);
                 return;
             }
@@ -131,7 +148,7 @@ function loaddata(longitude, latitude, dropme) {
                 toasterextend.showtips(jsondata.user_notification, "info");
                 if (pageIndex == 1)
                     $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
-                qrcode.href();
+                qrcode.show();
                 dealdropme(dropme);
                 return;
             }
@@ -139,7 +156,7 @@ function loaddata(longitude, latitude, dropme) {
             if (jsondata.data == undefined || jsondata.data.length == 0) {
                 if (pageIndex == 1)
                     $("#list").html(' <img class="lazy" src="/consumer/image/no-ticket.png"  style="width:60%;margin:120px 0 0 20%;" />');
-                qrcode.href();
+                qrcode.show();
                 dealdropme(dropme);
                 return;
             }
@@ -148,9 +165,11 @@ function loaddata(longitude, latitude, dropme) {
                 $.each(jsondata.data, function (i, v) {
                     vm.jsondata.push(v);
                 });
-            } else
+            } else {
+                qrcode.show()
                 vm.jsondata = jsondata.data;
-          
+            }
+
 
             $("img.lazy").lazyload();
 
@@ -162,8 +181,9 @@ function loaddata(longitude, latitude, dropme) {
                 if ($.isFunction(wxjsshare)) {
                     wxjsshare(jsondata.share || {});
                 }
+             
                 setTimeout(function () {
-                    qrcode.show()
+
                     $('#list').dropload({
                         scrollArea: window,
                         domDown: {
@@ -192,7 +212,7 @@ function loaddata(longitude, latitude, dropme) {
                 if (errormsg == undefined || errormsg == '')
                     errormsg = "Http error: " + XMLHttpRequest.statusText;
             }
-            qrcode.href();
+            qrcode.show();
             toasterextend.showtips(errormsg, "error");
             dealdropme(dropme);
         }
