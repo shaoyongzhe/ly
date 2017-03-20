@@ -740,15 +740,15 @@ $('.gailvok').click(function(){
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100);// * (percent /100) * cishu;
 
 		} else {
-			if(location.href.indexOf('activityModify') != -1){
-				if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+			// if(location.href.indexOf('activityModify') != -1){
+				// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
 					var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
-				} else {
-					var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
-				}
-			} else {
-				var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
-			}
+				// } else {
+				// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
+				// }
+			// } else {
+			// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
+			// }
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu;
 		}
 
@@ -768,14 +768,14 @@ $('.gailvok').click(function(){
 	} else {
 		if(location.href.indexOf('activityModify') != -1){
 			// if($(this).closest('.yaoyiyao').length ==1){
-			if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+			// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
 				$('.addSub4').eq(y1yindex-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(修改页面-摇一摇)
-			} else {
-				$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2));
-			}
+		// 	} else {
+		// 		$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2));
+		// 	}
 
-		} else {
-			$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(新建页面)
+		// } else {
+		// 	$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(新建页面)
 		}
 		butiefz();
 	}
@@ -810,12 +810,12 @@ $('.gailvok').click(function(){
 	} else {	
 		// if(location.href.indexOf('activityModify')!=-1){
 		// 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
-		// 		$(".glHidden" + y1yindex).val(JSON.stringify(probabilityObj, null, 4));
+				$(".glHidden" + y1yindex).val(JSON.stringify(probabilityObj, null, 4));
 		// 	} else {
 		// 		$(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
 		// 	}
 		// } else {
-			$(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+			// $(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
 		// }
 	}
 
