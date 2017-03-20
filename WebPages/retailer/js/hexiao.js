@@ -69,41 +69,54 @@ function writeOff(callback) {
                     clearInterval(_timer);
                     $(".f-p").text("处罚已结束");
                     $(".f-p").next().hide()
-                    vm.scanwx()
+                    var _tt=setTimeout(function(){
+						clearTimeout(_tt);
+						vm.scanwx();
+					},8000)
                 }else{
                 	var _timer = setInterval(function () {
                 		var _newt=new Date().getTime()
-	                    _Day = Math.floor((_endTm - _newt) / 1000 / 60 / 60 / 24);
-	                    _durnt = (_endTm - _newt) - _Day * 24 * 60 * 60 * 1000;
-	                    _Hour = Math.floor(_durnt / 1000 / 60 / 60);
-	                    _durnt = _durnt - _Hour * 1000 * 60 * 60;
-	                    _Minus = Math.floor(_durnt / 1000 / 60);
-	                    _durnt = _durnt - _Minus * 1000 * 60;
-	                    _Seconds = Math.floor(_durnt / 1000);
-	                    if (_Hour < 10) {
-	                        $(".sp1").text("0" + _Hour);
-	                    } else {
-	                        $(".sp1").text(_Hour);
-	                    }
-	                    if (_Minus < 10) {
-	                        $(".sp2").text("0" + _Minus);
-	                    } else {
-	                        $(".sp2").text(_Minus);
-	                    }
-	                    if (_Seconds < 10) {
-	                        $(".sp3").text("0" + _Seconds);
-	                    } else {
-	                        $(".sp3").text(_Seconds);
-	                    }
-	                    $(".sp4").text(_Day + "天 ");
+						if(_endTm -_newt>=0){	                    
+							_Day = Math.floor((_endTm - _newt) / 1000 / 60 / 60 / 24);
+							_durnt = (_endTm - _newt) - _Day * 24 * 60 * 60 * 1000;
+							_Hour = Math.floor(_durnt / 1000 / 60 / 60);
+							_durnt = _durnt - _Hour * 1000 * 60 * 60;
+							_Minus = Math.floor(_durnt / 1000 / 60);
+							_durnt = _durnt - _Minus * 1000 * 60;
+							_Seconds = Math.floor(_durnt / 1000);
+							if (_Hour < 10) {
+								$(".sp1").text("0" + _Hour);
+							} else {
+								$(".sp1").text(_Hour);
+							}
+							if (_Minus < 10) {
+								$(".sp2").text("0" + _Minus);
+							} else {
+								$(".sp2").text(_Minus);
+							}
+							if (_Seconds < 10) {
+								$(".sp3").text("0" + _Seconds);
+							} else {
+								$(".sp3").text(_Seconds);
+							}
+							$(".sp4").text(_Day + "天 ");
+						}else{
+							$(".punish").text("处罚结束");
+							$(".sp1").text("00");
+							$(".sp2").text("00");
+							$(".sp3").text("00");
+							clearInterval(_timer);
+							$(".f-p").text("处罚已结束");
+							$(".f-p").next().hide()
+							var _tt=setTimeout(function(){
+								clearTimeout(_tt);
+								vm.scanwx();
+							},8000)
+						}
+
                 	}, 1000)
                 }
             
-        }else{
-            var _tt=setTimeout(function(){
-                clearTimeout(_tt);
-                vm.scanwx();
-            },8000)
         }
 
 
