@@ -142,7 +142,7 @@ function getList(isEnd, handle, searchForm) {
             + "</td><td>" + td[i].area
             + "</td><td>" + td[i].description
             + "</td><td class='templateid'>" + td[i].gateway_templateid
-            + "</td><td title='" + content + "'><span class='content templatecontent'>" + content
+            + "</td><td title=''><span class='content templatecontent specialTd'>" + content
             + "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
             + "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
             + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'><img src='images/iconss1.png'/></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn1 modify'>修改</span><span class='arrow-right'></span></div></div></div></td></tr>";
@@ -151,6 +151,9 @@ function getList(isEnd, handle, searchForm) {
         $('td span.content').each(function () {
             $(this).text($(this).html())
         });
+
+
+
         if (handle) {
             $('.layui-layer-close').click();
             if (handle == 'add') {
@@ -559,7 +562,9 @@ $('table.templateList')
                          state: tr.find('td:eq(8)').text(),
                          isdefault: tr.find('td:eq(9)').text().trim() == "默认" ? 1 : 0
                      };
+                     console.log(data)
                      var jsonStr = JSON.stringify(data);
+
                      // var template = jsonStr.replace("\"","");
                      // localStorage.template=JSON.stringify(data);    
                      // localStorage.ajaxType='modify';//纪录当前模式为修改。
