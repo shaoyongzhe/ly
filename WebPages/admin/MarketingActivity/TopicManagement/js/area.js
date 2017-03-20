@@ -106,15 +106,23 @@ function setChoosedProvinceCharge(_this, _thisProvince, choosedData)
 
 	$.each(choosedData, function(i, item)
 	{
-		if (item.name == _thisProvince && item.charge.guid)
-		{
-			_this.find('select').append('<option guid='+ item.charge.guid +' oid='+ item.charge.oid +' >'+ item.charge.name +'</option>');
-			findChoosedCharge["finded"] = true;
-			findChoosedCharge["chargeid"] = item.charge.guid;
-		}
+		// try {
+
+			if (item.name == _thisProvince && item.charge.guid)
+			{
+				_this.find('select').append('<option guid='+ item.charge.guid +' oid='+ item.charge.oid +' >'+ item.charge.name +'</option>');
+				findChoosedCharge["finded"] = true;
+				findChoosedCharge["chargeid"] = item.charge.guid;
+			}
+
+		// } catch(e) {
+		// 	console.log(e);
+		// }
+
 	});
 	
 	return findChoosedCharge;
+	
 }
 
 function setChoosedCityCharge(_this, _thisProvince, _thisCity, choosedData)
@@ -150,15 +158,15 @@ function fillChargeData (_this, savedPro, _thisdistrict, findChoosedCharge)
 	
 	if (!findProvinceFlag["finded"])
 	{
-		for(var item in savedPro.content)
+		$.each(savedPro.content, function (index, item)
 		{
-			if (item.province == _thisdistrict)
+			if (item.provice == _thisdistrict)
 			{
 				_this.find('select').append('<option guid='+ item.charge.guid +' oid='+ item.charge.oid +' >'+ item.charge.name +'</option>');
 				findProvinceFlag["finded"] = true;
 				findProvinceFlag["chargeid"] = item.guid;
 			}
-		}
+		})
 	}
 	
 	// 如果没有找到负责人

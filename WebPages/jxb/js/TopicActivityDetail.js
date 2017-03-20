@@ -1,4 +1,4 @@
-//20170221老大修改了一部分代码
+//20170221老大修改了一部分代码20170317
 //alert(5)
 //用于城市列表展开收起的变量，主要是收起状态下
 //目前情况是，省、市都不可共行，如果有一天，省，市也可以共行了，那就修改一下。
@@ -667,8 +667,9 @@ function returnToList(){
 	}
 	$(".returnToList .p1").click(function(){
 //		engine.call('ClosePage',"");
-		window.history.back();
-		return false;
+		/*window.history.back();
+		return false;*/
+		history.go(-1);
 //		location.reload();
 		console.log("返回主题活动列表触发")
 	})
