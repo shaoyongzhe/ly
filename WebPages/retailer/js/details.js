@@ -165,7 +165,7 @@ $(document).ready(function () {
                 "</div></div></div></div><div class=" +
                 "\"discount\"" + "></li>";
         } else {
-        	_ll = billdata[i]["itemobj"]["itemname"] + " " + billdata[i]["itemobj"]["specification"];
+        	_ll = billdata[i]["itemobj"]["itemname"] + " " + (billdata[i]["itemobj"]["specification"]==null?"":billdata[i]["itemobj"]["specification"]);
             _kk = Number(billdata[i]["itemcount"]) + billdata[i]["itemobj"]["packagetypename"];
             if (_flag == 1) {
                 _give += "<li><div class=" + "\"gg\"" + ">满赠</div><span class=" + "\"gif\"" + ">" + _ll + "<span>×" + _kk + "</span></span></li>"
