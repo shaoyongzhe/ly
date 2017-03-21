@@ -81,14 +81,14 @@ function getList(isEnd, handle, searchForm) {
         commonPaging.pageindex++;
         if (data.content.length == 0) {
             isBottom = true;
-            console.log("pageindex:" + commonPaging.pageindex);
+            //console.log("pageindex:" + commonPaging.pageindex);
             // commonPaging.current = {
             //                 "index": 100000,
             //                 "start": { "oid": 1000000 },
             //                 "end" : { "oid": 1000000 },
             //                 "sort": [{ "oid": "asc" }]
             //             };
-            console.log("end ", JSON.stringfy(commonPaging));
+            //console.log("end ", JSON.stringfy(commonPaging));
             $(".finished").fadeIn(500).delay(1000).fadeOut(500);
             return;
             //layer.msg('已全部加载完毕');
@@ -190,8 +190,11 @@ $('#refresh').click(function () {
     initPageData();
     getList(false, 'search', getSearchForm());
     getModulePeopleList();
-})
+});
 
+$('table').on('click', '.specialTd', function () {
+    layer.tips($(this).text(), $(this))
+})
 function getModulePeopleList(curr, handle, searchForm) {
     var url = '/webapi/operation/' + "notification" + '/managers';
     _ajax("get", url, {}, '刷新列表', function (data) {
@@ -642,7 +645,7 @@ var _ajax = function (type, url, data, tip, success) {
             var error = JSON.parse(xhr.responseText);
             layer.msg("失败" + error.error);
             $('#refresh').click();
-            console.warn(tip + " error,errMsg is ", xhr.status);
+            //console.warn(tip + " error,errMsg is ", xhr.status);
         }
     });
 }
