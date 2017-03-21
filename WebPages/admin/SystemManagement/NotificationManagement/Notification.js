@@ -190,6 +190,10 @@ $('#refresh').click(function () {
     initPageData();
     getList(false, 'search', getSearchForm());
     getModulePeopleList();
+});
+
+$('table').on('click','.specialTd',function(){
+    layer.tips($(this).text(),$(this))
 })
 
 function getModulePeopleList(curr, handle, searchForm) {
