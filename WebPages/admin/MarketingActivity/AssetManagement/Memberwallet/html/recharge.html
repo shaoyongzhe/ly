@@ -3,11 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>会员钱包充值登记</title>
-    <link rel="stylesheet" href="../css/rechargeANDwithdraw.css"/>
-    <link rel="stylesheet" href=""/>
+    <link rel="stylesheet" href="/admin/MarketingActivity/AssetManagement/Memberwallet/css/rechargeANDwithdraw.css"/>
 </head>
 <body>
-
+<!--会员钱包充值登记-->
 <div class="cz_dialog">
     <div class="cz_dialog_top">
         <p>会员充值登记</p>
@@ -119,7 +118,7 @@
         </ul>
         <ul class="bom_3" id="warp">
             <li>
-                <img src="../images/2.png" id="imgShow_WU_FILE_0" width="240px" height="138px"/>
+                <img src="../images/uppicture.png" id="imgShow_WU_FILE_0" width="240px" height="138px"/>
                 <span>* 图片大小小于500K</span>
                 <a href="javascript:;">上传充值凭证<input type="file" id="up_img_WU_FILE_0" /></a>
             </li>
@@ -131,16 +130,14 @@
         <input class="confirm" type="submit" value="确认充值登记"/>
         <button class="revise">修 改</button>
     </div>
-
 </div>
 
-<script type="text/javascript" src="../../../../lib/jquery/1.9.1/jquery.min.js"></script>
-<script src="../javascript/selectivizr.js"></script>
-<script src="../javascript/cityLink.js"></script>
-<script src="../javascript/uploadPreview.js"></script>
-<script type="text/javascript" src="../javascript/reANDwi.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/selectivizr.js"></script>
+<script src="/admin/lib/district/js/cityLink.js"></script>
+<script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/uploadPreview.js"></script>
+<script type="text/javascript" src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/reANDwi.js"></script>
 <script>
-
     $(function(){
         /*付款方--账户类型*/
         $('.pay_right_4').on('click',function(){
@@ -154,7 +151,7 @@
         })
         $('.zh_mold li').on('click',function(){
             $('.pay_right_4 input').val($(this).html())
-
+            //判断银行卡 银行显示隐藏
             if($(".pay_right_4 input").val()=="银行卡"){
                 $(".pay_left_5").css("display","block");
                 $(".pay_right_5").css("display","block");
@@ -176,7 +173,7 @@
         })
         $('.coll_zh_mold li').on('click',function(){
             $('.collection_right_1 input').val($(this).html())
-
+            //判断银行卡 银行显示隐藏
             if($(".collection_right_1 input").val()=="银行卡"){
                 $(".collection_right_2").css("display","block");
                 $(".collection_left_2").css("display","block");
@@ -185,15 +182,8 @@
                 $(".collection_right_2").css("display","none");
             }
         })
-
         
-        
-
-
-            
-
-        
-        /*银行类型*/
+       /*银行类型*/
        // $('.pay_right_2').on('click',function(){
        //     $(this).find('.zh_bank').stop().slideToggle(200);
        // })
@@ -204,24 +194,8 @@
        //     $(this).delay(100).fadeOut(300);
        // })
 
-
-
-
-        
-
-
-
-
-
     })
 
-
-
-
-
 </script>
-
-
-
 </body>
 </html>

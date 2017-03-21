@@ -17,19 +17,19 @@ $(function(){
                 $(".reset_b").click(function(){
                     $(".edit_input.serialnumber").val("");
                 })
-//                    console.log(data.content[0].serialnumber)
+                //console.log(data.content[0].serialnumber)
                 var arr = new Array();
-//                    console.log(data.content)
+                //console.log(data.content)
                 $(data.content).each(function(i){
-//                        console.log($(data.content)[i].serialnumber)
-//                        console.log(typeof $(data.content)[i].serialnumber)
+                    //console.log($(data.content)[i].serialnumber)
+                    //console.log(typeof $(data.content)[i].serialnumber)
                     var ww=data.content[i].serialnumber.toString();
                     arr.push(ww)
-//                        console.log(typeof  arr[1])
+                    //console.log(typeof  arr[1])
                 })
                 console.log(arr)
-//                    var arr=JSON.parse(data.content)
-//                    console.log(arr);
+                    //var arr=JSON.parse(data.content)
+                    //console.log(arr);
                 if(data != null && data.content != null) {
                     $('#orgNameCom').autocomplete({
                         max: 12,    //列表里的条目数
@@ -48,14 +48,14 @@ $(function(){
     
     /*重置按钮*/
     $(".reset_b").click(function(){
-//                $(".membertype").val("");
+        //$(".membertype").val(""); //会员类型
         myDate();
         $("#city em").html("市");
         $("#province em").html("省");
         $("#area em").html("区");
         $("#serialnumber").val("");
         $(".expenses_son").val("");
-//                $(".resonDown").val("");
+        //$(".resonDown").val(""); //收支事由
         $(".de_ipt1 input").val("");
         $(".de_ipt2 input").val("");
         $("#start").val(today + " 00:00:00");
@@ -64,11 +64,12 @@ $(function(){
         $("#end").val("");
         $("#ipacasher").val("");
         $("#register_time").val("");
-        $(".check").css("background",'url("./images/check1.png") no-repeat')
+        // $(".check").css("background",'url("./images/check1.png") no-repeat')
+        $(".check").removeClass('checked'); //只看登记
     })
 
-    //    在页面中显示出列表页的
-    /* **会员类型*/
+    //在页面中显示出列表页的
+    /*会员类型*/
     mumberClass();
     function mumberClass (){
         $.ajax({
@@ -77,17 +78,16 @@ $(function(){
             success:function(data){
                 var str="";
                 var str_M=data.member_class[0];
-//                    console.log(str_M)
                 for(var key in str_M){
                     str+='<li>'+ key +'</li>'
                 }
-                $(".type_son").html(str)
+                $(".type_son").html(str) //会员类型渲染到页面
                 /*重置按钮*/
                 $(".reset_b").click(function(){
                     $(".membertype").val("");
                 })
 
-                /*会员类型*/
+                /*会员类型动画卷上卷下*/
                 $('.type_wrap').on('click',function(){
                     $('.type_son').stop().slideToggle(200);
                     $(".membertype").focus(function(){
@@ -174,6 +174,7 @@ $(function(){
         })
     }
 
+    //登记人
     registrant();
      function  registrant () {
          $.ajax({
@@ -210,7 +211,7 @@ $(function(){
 
      }
 
-
+    //只看登记的小三角
     $('.check').click(function() {
         $(this).toggleClass('checked');
     });
@@ -219,11 +220,11 @@ $(function(){
 
 
 
-//            /*******搜索全部会员******/
-
+    /*******搜索全部会员   会员名称******/
     $("#search_text").bind("input properychange",function(event){
         var search=event.target.value;
-        if ($(".membertype").val() == "" || $(".membertype").val() == "--请选择--") {
+        //判断会员类型是不是空 如果是空就提醒用户
+        if ($(".membertype").val() == "" || $(".membertype").val() == "--请选择--") {  
             $("#search_text").val("");
             alert("请选择正确的会员类型");
             return false;
@@ -238,13 +239,13 @@ $(function(){
         }
         members={
             member_search_text:search,
-//                    "member_id":
-            member_class:memberTap
-//                    "area_province":$("#province em").html(),
-//                    "area_city":$("#city em").html(),
-//                    "area_district":$("#area em").html(),
+            //"member_id":
+            member_class:memberTap //上面的switch  根据会员类型的值切换对应不同的字段
+            //"area_province":$("#province em").html(),
+            //"area_city":$("#city em").html(),
+            //"area_district":$("#area em").html(),
         }
-//                    console.log(value)
+            //console.log(value)
 
         if($("#search_text").val() && $("#search_text").val()!="全部会员"){
             $(".table2").fadeIn(300);
@@ -257,14 +258,12 @@ $(function(){
             $(".tab_header li:nth-child(3)").css("visibility","hidden")
             $("#search_text").val("全部会员");
         })
-
-
     })
 
     
 
 
-    //所有会员 Ajax
+    //全部会员 Ajax
     function allmemberAjax () {
         $.ajax({
             type:"GET",
@@ -274,11 +273,8 @@ $(function(){
             dataType:"json",
             success:function(data) {
                 var str = "";
-                console.log(data.content);
-                console.log(0);
                 $(data.content).each(function (i) {
                     // if (this.member_name.indexOf($("#search_text").val()) != -1) {
-//                                    console.log(333)
                         str += '<tr><td><span class="lei">'
                             + this.member_name
                             + '</span><span>' + this.member_class
@@ -306,7 +302,7 @@ $(function(){
     comSelect();
     selectCity();
 
-    /*收支类型*/
+    /*收支类型 卷上卷下 下拉放值*/
     $('.expenses_wrap').on('click',function(){
         $('.expenses_wrap_son').stop().slideToggle(200);
         $(".expenses_son").focus(function(){
@@ -321,8 +317,7 @@ $(function(){
     })
 
     
-
-    /*全部会员排序*/
+    /*全部会员排序 卷上卷下 下拉放值*/
     $('.sore').on('click',function(){
         $('.numberSort').stop().slideToggle(300);
         $(".sore").focus(function(){
@@ -336,8 +331,8 @@ $(function(){
         $('.sore').val($(this).html());
     })
 
-    /*-----------dialog-----------------------------*/
-
+    
+//**************充值提现ifram弹出层**********************//
     layui.use('layer', function(){ //独立版的layer无需执行这一句
         var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
         //触发事件
@@ -347,12 +342,12 @@ $(function(){
                 //多窗口模式，层叠置顶
                 layer.open({
                     type: 2 //iframe
-//                          , title: 'recharge'
-                    , area: ['1150px', '650px']
-                    , shade: 0.8
+                    //, title: 'recharge'
+                    ,area: ['1150px', '700px']
+                    ,shade: 0.8
                     ,title: false
                     ,scrollbar: false
-                    , content: 'html/recharge.html'
+                    ,content: 'html/recharge.html'
                     ,closeBtn:2
                     ,shadeClose:true
                 })
@@ -362,18 +357,19 @@ $(function(){
                 //多窗口模式，层叠置顶
                 layer.open({
                     type: 2 //iframe
-//                          , title: 'recharge'
-                    , area: ['1150px', '650px']
-                    , shade: 0.8
+                    //, title: 'recharge'
+                    ,area: ['1150px', '700px']
+                    ,shade: 0.8
                     ,title: false
                     ,scrollbar: false
-                    ,shadeClose:true
-                    , content: 'html/withdraw.html'
+                    ,shadeClose: true
+                    ,content: 'html/withdraw.html'
                 })
             },
         };
         $('.site-demo-layer').on('click', function(){
             var type = $(this).data('type');
+            console.log(type)
             active[type] ? active[type].call(this) : '';
         });
 
@@ -381,15 +377,14 @@ $(function(){
 
 
 
-    /*-----------laydate时间插件---------------------*/
+/*-----------laydate时间插件---------------------*/
     layui.use('laydate', function(){
         var laydate = layui.laydate;
-
         var start = {
             elem: "#start",
             istime: true,
             format: 'YYYY/MM/DD hh:mm:ss',
-//                    start: '2016-12-15 23:00:00',  //开始日期
+            //start: '2016-12-15 23:00:00',  //开始日期
             min: laydate.now(-1000)
             ,max: '2099-06-16 23:59:59'
             ,istoday: false
@@ -398,7 +393,6 @@ $(function(){
                 end.start = datas //将结束日的初始值设定为开始日
             }
         };
-
         var end = {
             elem: "#end",
             istime: true,
@@ -410,7 +404,6 @@ $(function(){
                 start.max = datas; //结束日选好后，重置开始日的最大日期
             }
         };
-
         document.getElementById('start').onclick = function(){
             start.elem = this;
             laydate(start);
@@ -436,7 +429,7 @@ $(function(){
 
 
 
-})
+})//就绪函数结束标签
 
 
 

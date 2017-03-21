@@ -216,18 +216,15 @@
 
     <script>
         $(function(){
-
-           /* 交互部分*/
-           
+/************************运营账号充值管理*************************/         
             /*ajax交互封装*/
             function timeAjax (matchDay){
- 
                 $.ajax({
-               // url:"http://127.0.0.1:40010/webapi/asset/ipaloma/forecast?parameters=" + JSON.stringify(matchDay),
-//                    url:"http://127.0.0.1:40010/webapi/asset/member/dict/member_class",
-                    // url:"javascript/summary.json",
+                    type:'GET',
+                    //url:"http://127.0.0.1:40010/webapi/asset/ipaloma/forecast?parameters=" + JSON.stringify(matchDay),
+                    //url:"http://127.0.0.1:40010/webapi/asset/member/dict/member_class",
+                    //url:"javascript/summary.json",
                     dataType:"json",
-        
                     success:function(data){
                         console.log(data)
                         /*第一部分*/                     
@@ -242,19 +239,19 @@
                         str3+="<li>" + data.content.account_1.asset_balance + " 元</li><li>"
                             + data.content.account_1.pending_withdraw + " 元</li>";
                         str4+="<span>" + data.content.account_1.gap + " 元</span>"
-                        $(".distributor .dis_side").html(str1);
-                        $(".distributor .dis_r_T2").html(str2);
-                        $(".distributor .dis_min_T2").html(str3);
-                        $(".distributor .breach").html(str4); 
                         var Formula= data.content.account_1.asset_balance - data.content.account_1.pending_withdraw + " 元";
-                        console.log(Formula);
-                        $('.distributor .available_balance').html(Formula);
+
+                        $(".distributor .dis_side").html(str1); //左侧标题
+                        $(".distributor .dis_r_T2").html(str2); //预算、总审批、总发放 
+                        $(".distributor .dis_min_T2").html(str3); //账户余额、会员待提现
+                        $(".distributor .breach").html(str4); //缺口
+                        $('.distributor .available_balance').html(Formula); //可用余额
+
                         /*第二部分*/
                         var str_a="";
                         var str_b="";
                         var str_c="";   
-                        var str_d="";   
-                                                 
+                        var str_d="";         
                         str_a+="<p id='"+ data.content.account_2.assetid + "'>" + data.content.account_2.asset_name + "</p>";
                         str_b+="<li>" + data.content.account_2.budget_count + " 笔</li><li>"
                             + data.content.account_2.budget_approved + " 元</li><li>"
@@ -262,13 +259,14 @@
                         str_c+="<li>" + data.content.account_2.asset_balance + " 元</li><li>"
                             + data.content.account_2.pending_withdraw + " 元</li>";
                         str_d+="<span>" + data.content.account_2.gap + " 元</span>"
-                        $(".sell .dis_side").html(str_a);
-                        $(".sell .dis_r_T2").html(str_b);
-                        $(".sell .dis_min_T2").html(str_c);
-                        $(".sell .breach").html(str_d); 
                         var Formula2= data.content.account_2.asset_balance - data.content.account_2.pending_withdraw + " 元";
-                        console.log(Formula2);
-                        $('.sell .available_balance').html(Formula2);
+
+                        $(".sell .dis_side").html(str_a); //左侧标题
+                        $(".sell .dis_r_T2").html(str_b); //预算、总审批、总发放 
+                        $(".sell .dis_min_T2").html(str_c); //账户余额、会员待提现
+                        $(".sell .breach").html(str_d);  //缺口
+                        $('.sell .available_balance').html(Formula2); //可用余额
+
                         /*第三部分*/
                         var str_q="";
                         var str_w="";
@@ -281,13 +279,13 @@
                         str_e+="<li>" + data.content.account_3.asset_balance + " 元</li><li>"
                             + data.content.account_3.pending_withdraw + " 元</li>";
                         str_r+="<span>" + data.content.account_3.gap + " 元</span>"
-                        $(".buy .dis_side").html(str_q);
-                        $(".buy .dis_r_T2").html(str_w);
-                        $(".buy .dis_min_T2").html(str_e);
-                        $(".buy .breach").html(str_r); 
                         var Formula3= data.content.account_3.asset_balance - data.content.account_3.pending_withdraw + " 元";
-                        console.log(Formula3);
-                        $('.buy .available_balance').html(Formula3);
+
+                        $(".buy .dis_side").html(str_q); //左侧标题
+                        $(".buy .dis_r_T2").html(str_w); //预算、总审批、总发放 
+                        $(".buy .dis_min_T2").html(str_e); //账户余额、会员待提现
+                        $(".buy .breach").html(str_r); //缺口
+                        $('.buy .available_balance').html(Formula3);//可用余额
 
 
 
@@ -311,7 +309,7 @@
 
 
 
-            /*预测时间段*/
+            /***************预测时间段   start  **************/
             $(".dis_R_title li:not(li:first-child)").on("click",function(e){
                 $(this).css({border:"1px solid #4778c7",color:"#4778c7"}).siblings("li").css({border:"1px solid #e3e3e3",color:"#000"})
                 var target= e.target;
@@ -328,7 +326,7 @@
                         "border-left":"none",
                         "color":"#000"
                     })
-//                    $(".tians input").val("");
+                    //$(".tians input").val("");
                     $(this).parents(".dis_R_title").find(".tians").html("");
                     $(this).parents(".dis_R_title").find(".tians").html('近' + '<input type="text" value="">' +'天')
                     keyDown();
@@ -368,7 +366,8 @@
                     }
                 });
             }
-
+    
+            //重置按钮
             $(".dis_R_title button").click(function(){
                 $(this).parent(".dis_R_title").find("li:not(li:first-child)").css({border:"1px solid #fff",color:"#000"});
                 $(this).parent(".dis_R_title").find("span").css({
@@ -380,14 +379,16 @@
                 $(this).parents(".dis_R_title").find(".tians").html("");
                 $(this).parents(".dis_R_title").find(".tians").html('近' + '<input type="text" value="">' +'天')
 
-//                $(this).parent(".dis_R_title").find(".tian input").val("");
+                //$(this).parent(".dis_R_title").find(".tian input").val("");
                 keyDown();
             })
 
+        /***************预测时间段   end  **************/
 
             /*交易明细跳转*/            
             $('.distributor .jymx').on("click",function(e){      
                 var assetID=$(".distributor").find($(".dis_side p")).attr("id");
+                // var assetID=$(this).closest('.distributor_b').prev('.distributor_t').find($(".dis_side p")).attr("id"); //如果是这句代码 其他两个就可以隐藏掉了
                 if(assetID){
                     sendStorage(assetID);
                 }
@@ -408,9 +409,7 @@
                 }
                 window.location.href="html/distributor.html";
             })
-            /**
-            将所选择的交易明细对应的assetid保存到localstrorage
-            */
+            /**将所选择的交易明细对应的assetid保存到localstrorage*/
             function sendStorage (id) {
                 if(!window.localStorage){
                     alert("浏览器不支持localstorage");
@@ -420,7 +419,7 @@
                     //写入字段
                     storage.assetid=id;
                     console.log(storage.assetid);
-                }          
+                }         
             }
 
 
@@ -435,7 +434,7 @@
                         //多窗口模式，层叠置顶
                         layer.open({
                             type: 2 //iframe
-//                          , title: 'recharge'
+                            //, title: 'recharge'
                             , area: ['1150px', '650px']
                             , shade: 0.8
                             ,title: false
@@ -448,7 +447,7 @@
                         //多窗口模式，层叠置顶
                         layer.open({
                             type: 2 //iframe
-//                          , title: 'recharge'
+                            //, title: 'recharge'
                             , area: ['1150px', '650px']
                             , shade: 0.8
                             ,title: false
@@ -459,10 +458,11 @@
                 };
                 $('.site-demo-layer').on('click', function(){
                     var type = $(this).data('type');
-                    active[type] ? active[type].call(this) : '';
+                       active[type] ? active[type].call(this) : '';
                 });
             });
 
+            //可用余额公式
             $(".formula span").hover(function(i){
                 $(this).parents(".formula").find("p").fadeIn();
             },function(i){
@@ -473,7 +473,7 @@
 
 
 
-        })
+        })//就绪函数结束标签 
 
 
 

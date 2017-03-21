@@ -1,4 +1,4 @@
-﻿
+﻿//**********************上传图片代码*************************//
 var uploadPreview = function(setting) {
     /*
     *work:this(当前对象)
@@ -71,7 +71,7 @@ var uploadPreview = function(setting) {
                     alert("too large");
                     return false;
                 }else{
-                    alert("ok");
+                    alert("上传成功");
                 }
                 if (navigator.userAgent.indexOf("MSIE") > -1) {
                     try {

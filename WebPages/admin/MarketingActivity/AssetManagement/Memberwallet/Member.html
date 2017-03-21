@@ -219,6 +219,7 @@
             </div>
 
         </div>
+        
 
     </div>
     <!-- <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
@@ -232,9 +233,9 @@
     <script src="javascript/member.js"></script>
      -->
     <script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script type="text/javascript" src="./admin/lib/layui/layui.js"></script> 
+    <script type="text/javascript" src="/admin/lib/layui/layui.js"></script> 
     <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/selectivizr.js"></script>
-    <script src="javascript/cityLink.js"></script>
+    <script src="/admin/lib/district/js/cityLink.js"></script>
     <!-- <script src="../../../lib/distirct/js/area_select.js"></script> -->
     <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/autocomplate/jquery.autocomplete.js"></script>
     <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/autocomplate/jquery.mockjax.js"></script>
@@ -243,9 +244,11 @@
 
     <script>
 
-        
-
-
+            
+//***********************会员钱包************************//
+//***********************查询按钮功能代码************************//
+ 
+ 
         $(".find_b").click(function(){
             $(".noData").css("display","none");
             //console.log(flag);
@@ -277,10 +280,12 @@
             }
         })
 
+
+
         getList(getSearch());
         function getList(searchForm) {
             $(".table1 tbody").empty();
-//            $('.layui-layer-close').click();
+            //$('.layui-layer-close').click();
             console.log(searchForm)
             // if (curr == undefined || curr == "") {
             //     curr = 1;
@@ -307,8 +312,6 @@
                 loadDownFn: function(me) {
                     pageindex++;
                     
-
-
                     // 拼接HTML
                     var df = {};
                     df = searchForm;
@@ -321,18 +324,13 @@
                         dataType: "json",
                         beforeSend: function() {
                             $(".find_b").html("查询中")
-//                          alert(1)
                         },
                         success: function(data) {
                             $(".noData").css("display","none");
                             // console.log("term");
-//                        alert("ok");
                             var str="";
                             var shouru="";
                             var zhichu="";
-//                        console.log(data.content[0].member_class)
-                            // console.log(data)
-//                        console.log(data.content[0].member_class)
                             $('.dropload-load').css('display', 'none');
                             if(data.content.length>0){
                                 console.log(data.content)
@@ -412,6 +410,7 @@
         };
 
         /*创建日期函数*/
+
         function myDate(){
             var d = new Date();
             var year = d.getFullYear();
@@ -481,9 +480,6 @@
             if (searchForm.area_district == "" || searchForm.area_district == "区县"  || searchForm.area_district == "区") {
                 delete searchForm.area_district;
             };
-
-
-
             if (searchForm.trading_begintime == "") {
                 myDate(); 
                 searchForm.trading_begintime=today + " 00:00:00";
