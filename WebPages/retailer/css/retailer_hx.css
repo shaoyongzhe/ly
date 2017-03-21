@@ -1,0 +1,119 @@
+html{
+	width: 100%;
+	background-color: #ededed;
+}
+.doorBox{
+	padding: 0.13rem 0.1rem 0.13rem;
+	background-color: #ededed;
+}
+/* top */
+.f_top{
+	width: 100%;
+	margin-bottom: 0.14rem;
+}
+.f_search{
+	float: left;
+	width: 5.53rem;
+	height: 0.35rem;
+	background-color: #fff;
+	border-radius: 0.23rem;
+	padding: 0.06rem 0 0.05rem 0;	
+}
+.f_search>form>select,.f_search>form>input{
+	border: 0;
+	font-size: 0.23rem;
+	line-height: 0.35rem;
+}
+.f_search>form>select{
+	margin-left: 0.25rem;
+	border-right: 1px solid #d0d0d0;	
+}
+.f_search>form>input{
+	width: 3.53rem;	
+}
+.f_search>form>img{
+	width: 0.27rem;
+	height: 0.27rem;
+	float: right;
+	margin-right: 0.22rem;
+	margin-top: 0.04rem;
+}
+.f_btn{
+	float: left;
+	margin-left: 0.25rem;
+	width: 0.34rem;
+	height: 0.37rem;
+	margin-top: 0.05rem;
+	background: url(../images/btn.jpg) no-repeat center;
+	background-size: 100%;
+}
+
+/*
+ * 自身的CSS  修改后页面样式
+ */
+.yhq_details>dl>dd>div{
+	margin-bottom: 0.28rem!important;
+}
+.yhq_details>dl>dd>div>span{
+	width: 0.6rem;
+	height: 0.34rem;
+	margin-right: 0.1rem;
+	display: inline-block;
+	text-align: center;
+	line-height: 0.34rem;
+	font-size: 0.24rem;
+	color: #fff;
+}
+.yhq_details>dl>dd>div>span.shangj{
+	background-color: #19ae58;
+}
+.yhq_details>dl>dd>div>span.huip{
+	background-color: #6699ec;
+}
+.yhq_details>dl>dd>div>span.disNone{
+	display: none;
+}
+.yhq_details>dl>dd>div>a{
+	text-decoration: none;	
+	display: inline-block;
+}
+.yhq_details>dl>dd>div>a>span{
+	color: #ff8401;
+	font-size: 0.24rem;	
+}
+/*.txtOne*/
+.yhq_details>dl>dd>div>a>span.txtOne{
+    width: 1.8rem;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-transform: translateX(1.4rem) translateY(-0.32rem);
+}
+/*.txtMore*/
+.yhq_details>dl>dd>div>a>span.txtMore{
+    width: 3.07rem;
+    display: block;
+    float: left;
+    -webkit-transform: translateX(0.7rem) translateY(-0.4rem);
+}
+.yhq_details>dl>dd>div>a>i{
+	display: inline-block;
+	font-style: normal;
+    float: right;
+    color: #bcbcbc;
+    font-size: 0.24rem;
+        -webkit-transform: translateX(1.65rem) translateY(-0.36rem);
+}
+.yhq_details>dl>dd>div>a>i.txtMore{
+	display: none;
+}
+.yhq_details>dl>dd>div>a:hover{
+	text-decoration: none;
+}
+/*
+ * 与common冲突的样式
+ */
+.yhq_data>li {
+    width: 1.34rem!important;
+}
