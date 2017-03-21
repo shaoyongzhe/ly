@@ -96,10 +96,10 @@
 				<p class="bg" v-if=item.flag></p>
 				<div class="swiper-container" v-else>
 					<div class="swiper-wrapper slideTop">
-						<div class="swiper-slide slide1 slide" @click="toTopic()">
-							<a class="youzi1" href="javascript:;">
+						<div class="swiper-slide slide1 slide"  @click="toTopic(item.guid)">
+							<i class="youzi1">
 								{{item.data.msg}}
-							</a>
+							</i>
 							<span>{{item.data.butie}}万</span>
 						</div>
 						<div class="swiper-slide slide2 slide">
