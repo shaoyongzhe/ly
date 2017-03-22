@@ -126,16 +126,16 @@ function writeOff(callback) {
             $(".stop").text("警告通知");
             $(".change").attr("src", "../image/punish1.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv2") {
-            $(".stop").html("暂停核销<span> 1天<span>");
+            $(".stop").html("暂停核销<span> 6小时<span>");
             $(".change").attr("src", "../image/punish2.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv3") {
-            $(".stop").html("暂停核销<span> 7天<span>");
+            $(".stop").html("暂停核销<span> 1天<span>");
             $(".change").attr("src", "../image/punish3.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv4") {
-            $(".stop").html("暂停核销<span> 30天<span>");
+            $(".stop").html("暂停核销<span> 7天<span>");
             $(".change").attr("src", "../image/punish4.jpg")
         } else if (data.anticheating.breakruleslevel == "Lv5") {
-            $(".stop").html("暂停核销<span> 1年<span>");
+            $(".stop").html("暂停核销<span> 30天<span>");
             $(".change").attr("src", "../image/punish5.jpg")
         }
     }
