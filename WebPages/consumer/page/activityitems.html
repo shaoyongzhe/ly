@@ -143,11 +143,16 @@
                     else
                         imgUrl = productObj.imgUrl;
 
+
+                    var ruledesc = itemsobj.ruledesc;
+                    if (ruledesc == 'undefined') {
+                        ruledesc = '';
+                    }
                     html += '</div></div><div class="activebox-right"><div class="proimgbox"><div class="img"><img src="' + imgUrl
                         + '" /></div><div class="' + productObj.getFlagCss(itemsobj.activity_flag) + '">'
                         + itemsobj.time_to_end_text + '</div></div> </a></div></div></div>'
                         + '<div class="remark"><span>备注：</span>'
-                        + itemsobj.ruledesc + '</div></div> <div class="title">支持门店<span>('
+                        + ruledesc + '</div></div> <div class="title">支持门店<span>('
                         + itemsobj.retailerdata.length + ')</span></div>';
 
                     var n = itemsobj.retailerdata.length;
