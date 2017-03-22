@@ -530,7 +530,7 @@ function fncuxiao(data) {
         }
         //折扣和降价活动时
         if(data[k1]["itemkind"] == "折扣" || data[k1]["itemkind"] == "降价") {
-            oli += "<li id=\""+k1+"\">" +
+            oli += "<li>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -578,7 +578,7 @@ function fncuxiao(data) {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
             oli += "</div></div></div></div>" +
-                "<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + (data[k1]["giftitemobj"]["packagetypename"]==null?"":data[k1]["giftitemobj"]["packagetypename"]);
+                "<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 <span>" + data[k1]["salecount"] + "</span> " + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + (data[k1]["giftitemobj"]["packagetypename"]==null?"":data[k1]["giftitemobj"]["packagetypename"]);
             if(data[k1]["giftitemquality"]){
                 data[k1]["giftitemquality"] == 0 ? oli += "(临期)" : oli += "";
             }else{
@@ -673,7 +673,7 @@ function fnyibanlist2(data) {
         } else if(data[k1]["itemkind"] == "有礼" || data[k1]["itemkind"] == "买赠") {
             //有礼和买赠活动时
             dataid.itemprice = Number(data[k1]["saleprice"] || data[k1]["unitprice"]).toFixed(2);
-            oli += "<li active='active' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
+            oli += "<li id="+k1+" active='active' class='" + data[k1].supplierid + "' itemcategory='" + data[k1]["itemcategory"] + "' itemsubcategory='" + data[k1]["itemsubcategory"] + "'>" +
                 "<div class='cgl-top hori'> " +
                 "<img src='" + data[k1]["itemimage"] + "' alt=''> " +
                 "<div class='the-xiangxi'> " +
@@ -692,7 +692,7 @@ function fnyibanlist2(data) {
                 oli += "<span class='jian'></span><span class='price-z'>" + data[k1]["itemcount"] + "</span><span class='add'></span>";
             }
             oli += "</div></div></div></div>" +
-                "<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 " + data[k1]["salecount"] + " " + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + (data[k1]["giftitemobj"]["packagetypename"]==null?"":data[k1]["giftitemobj"]["packagetypename"]);
+                "<div class='cgl-active'><span>" + data[k1]["itemkind"] + "</span><p class='youligift'>购买 <span>" + data[k1]["salecount"] + "</span> " + (data[k1]["packagetypename"]==undefined?"":data[k1]["packagetypename"]) + data[k1]["itemname"] + "送" + data[k1]["giftitemobj"]["itemname"] + " " + data[k1]["giftcount"] + " " + (data[k1]["giftitemobj"]["packagetypename"]==null?"":data[k1]["giftitemobj"]["packagetypename"]);
             if(data[k1]["giftitemquality"]){
                 data[k1]["giftitemquality"] == 0 ? oli += "(临期)" : oli += "";
             }else{
@@ -810,7 +810,7 @@ function fncarnum(data) {
     $("#cgl-cont").off().on("tap", ".jian", function() {
         var num = Number($(this).next().html());
         if($(this).parent().parent().parent().parent().parent().attr("id") && num>1){
-            if(num==data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
+            if(num==$(this).parent().parent().parent().parent().next().find(".youligift>span").text()){
 
                 $(".ammount").html($(".ammount").html() - num);
                 $(".num").html($(".ammount").html())
@@ -843,8 +843,8 @@ function fncarnum(data) {
         if(xian && Number($(this).prev().text())>=xian) {
             console.log("购买已到上限")
         } else {
-            if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id") && data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"]){
-                num+=Number(data[$(this).parent().parent().parent().parent().parent().attr("id")]["salecount"])
+            if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id")){
+                num+=Number($(this).parent().parent().parent().parent().next().find(".youligift>span").text())
                 var _l=(Number($(".price>i").html())+(num-Number($(this).prev().html()))*Number($(this).parent().prev().find("i").html())).toFixed(2)
                 $(".ammount").html(Number($(".ammount").html()) +num);
                 $(this).prev().html(Number($(this).prev().html())+num).show().prev().show();
