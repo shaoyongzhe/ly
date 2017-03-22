@@ -82,7 +82,7 @@
         });
 
         function loaddata(longitude, latitude, dropme) {
-            var ajaxdata = { activitykind: "distributor_to_consumer", pageindex: pageIndex };//, activitytype: "activity"
+            var ajaxdata = { activitykind: "distributor_to_consumer,retailer_to_consumer", pageindex: pageIndex };//, activitytype: "activity"
 
             var search = window.location.search;
             if (search.length > 0) {
