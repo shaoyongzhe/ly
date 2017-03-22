@@ -220,8 +220,8 @@ $(document).ready(function () {
                             }
                             _price = _price.toFixed(2)
                             var _ggf = 0;
-                            for (var g = 0; g < data["content"][j]["details"].length; g++) {
-                                _ggf += Number(data["content"][j]["details"][g]["itemcount"])
+                            for (var gg = 0; gg < data["content"][j]["details"].length; gg++) {
+                                _ggf += Number(data["content"][j]["details"][gg]["itemcount"])
                             }
                             if (data["content"][j]["openflag"] == "0") {
                                 if (data["content"][j]["shishou"] && Number(data["content"][j]["shishou"]) > 0) {
@@ -406,7 +406,7 @@ $(document).ready(function () {
                                                     _heji = "合计：";
                                                     _hisprice = "0.00";
                                                 }
-                                                _shopList += "<dd style=" + "\"padding-top:20px;\"" + " idd=" + curPageing["pageindex"] + " index=" + r + "><div class=" + "\"image2box\"" + ">" + _img + "</div><i class=" + "\"ammount\"" + ">共" + _gff + "件</i><div class=" + "\"descbox\"" + "><p>订单号：" + data2["content"][r]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data2["content"][r]["billexpecteddelivertime"].split(" ")[0] + "</i><i class=" + "\"ir\"" + ">合计：<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>";
+                                                _shopList += "<dd style=" + "\"padding-top:20px;\"" + " idd=" + curPageing["pageindex"] + " index=" + r + "><div class=" + "\"image2box\"" + ">" + _img + "</div><i class=" + "\"ammount\"" + ">共" + _gff + "件</i><div class=" + "\"descbox\"" + "><p>订单号：" + data2["content"][r]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data2["content"][r]["billexpecteddelivertime"].split(" ")[0] + "</i><i class=" + "\"ir\"" + ">"+_heji+"<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>";
                                             }
                                             _img = "";
                                         } else if (data2["content"][r]["details"].length > 0 && data2["content"][r]["details"].length <= 1) {
@@ -483,7 +483,7 @@ $(document).ready(function () {
                                                     _hisprice = "0.00";
                                                 }
                                                 _shopList += "<dd style=" + "\"padding-top:20px;\"" + " idd=" + curPageing["pageindex"] + " index=" + r + "><div style=\"display:flex;display:-webkit-box;width:100%\"><div class=" + "\"imagebox\"" + "><a href=" + "\"#\"" + "><img src=" + data2["content"][r]["details"][0]["itemobj"]["itemimage"] + " ></a></div><div class=" + "\"dectitlebox\""
-                                        + "><div class=" + "\"iconbox\"" + ">" + _icn + "</div><a style=" + "\"float:left;\"" + " href=" + "\"#\"" + ">" + data2["content"][r]["details"][0]["itemobj"]["itemname"] + "</a><i>共" + _fgg + "件</i></div></div><div class=" + "\"descbox\"" + "><p>订单号：" + data2["content"][r]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data2["content"][r]["billexpecteddelivertime"].split(" ")[0] + "</i><i class=" + "\"ir\"" + ">合计：<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>"
+                                        + "><div class=" + "\"iconbox\"" + ">" + _icn + "</div><a style=" + "\"float:left;\"" + " href=" + "\"#\"" + ">" + data2["content"][r]["details"][0]["itemobj"]["itemname"] + "</a><i>共" + _fgg + "件</i></div></div><div class=" + "\"descbox\"" + "><p>订单号：" + data2["content"][r]["serialnumber"] + "</p><i class=" + "\"il\"" + ">送货时间：" + data2["content"][r]["billexpecteddelivertime"].split(" ")[0] + "</i><i class=" + "\"ir\"" + ">"+_heji+"<span class=" + "\"pricstyle\"" + ">￥" + _hisprice + "</span></i></div></dd>"
                                             }
 
                                         }

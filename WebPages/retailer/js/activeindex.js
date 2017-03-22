@@ -88,7 +88,7 @@ function fnpricenum() {
 //打电话滚动隐藏与显示
 function xiala() {
     var heig=$(".proTitleBox").outerHeight()+$(".proDetailBox").outerHeight();
-/*
+
 
     $(".zhankai").on("click","span",function () {
         if($(".toptop").height()>80){
@@ -96,18 +96,18 @@ function xiala() {
                 "height":"80px"
             },300,function () {
                 $(".dealer-header").show();
-                $(".zhankai>span").css({"background-image":"url('../../image/shop/xiala.png')"});
+                $(".zhankai>span>img").removeClass("xuanz");
             });
         }else {
             $(".dealer-header").hide();
             $(".toptop").animate({
                 "height":heig
             },300,function () {
-                $(".zhankai>span").css({"background-image":"url('../../image/shop/shouqi.png')"});
+                $(".zhankai>span>img").addClass("xuanz");
             });
         }
     });
-*/
+
     //禁用手机默认的触屏滚动行为
    /* $(".huadong")[0].addEventListener('touchmove', function(event) {
         event.preventDefault();

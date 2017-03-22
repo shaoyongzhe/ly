@@ -182,17 +182,20 @@ $(document).ready(function () {
     $("#pp span").text(_discount.toFixed(2))
     console.log(_data1)
     if (data["content"][commodity]["iswechatdiscount"] == true) {
-        $("#vv").css({ display: "flex", display: "-webkit-box" })
         if (data["content"][commodity]["openflag"] == 1) {
             if (_data1[_indd]["specialprice"]) {
                 _discount += Number(_data1[_indd]["specialprice"])
                 $("#vv span").text(Number(_data1[_indd]["specialprice"]).toFixed(2))
+                $("#vv").css({ display: "flex", display: "-webkit-box" })
+            }else{
+            	$("#vv").css({ display: "none" })
             }
 
         } else {
             if (data["content"][commodity]["wechatdiscount"] && data["content"][commodity]["wechatdiscount"]>0) {
                 _discount += Number(data["content"][commodity]["wechatdiscount"])
                 $("#vv span").text(Number(data["content"][commodity]["wechatdiscount"]).toFixed(2))
+                $("#vv").css({ display: "flex", display: "-webkit-box" })
             } else {
                 $("#vv").css({ display: "none" })
             }
