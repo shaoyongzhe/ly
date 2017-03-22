@@ -131,21 +131,21 @@ function ajaxActivityDetails(a,b){
 				data.budget.obtained=0;
 			}			
 			//最高补贴
-			$(".BsubsidyAP1S1").text(data.budget.subisdytotal+"元");//情形1			
-			$(".BsubsidyBP1").text(data.budget.subisdytotal);//情形2
+			$(".BsubsidyAP1S1").text(data.budget.subisdytotal);//情形1			
+			$(".BsubsidyBP1S1").text(data.budget.subisdytotal);//情形2
 			//已发放
-			$(".BsubsidyAP2S1").text(data.budget.subsidyreleased+"元");//情形1	
-			$(".BsubsidyBP2").text(data.budget.subsidyreleased);//情形2
+			$(".BsubsidyAP2S1").text(data.budget.subsidyreleased);//情形1	
+			$(".BsubsidyBP2S1").text(data.budget.subsidyreleased);//情形2
 			//已享受补贴时间
-			$(".BsubsidyAP3").text(data.budget.days);
+			$(".BsubsidyAP3S1").text(data.budget.days);
 			//已获得多少元
-			$(".BsubsidyAP4").text(data.budget.obtained);
+			$(".BsubsidyAP4S1").text(data.budget.obtained);
 			//活动补贴说明开始
 			//0103添加会员参与时间//有结束时间则是范围，没有结束时间则是开始时间
 //			$(".BbtsmRright12 span").text(data.latestjointime?data.earliestjointime+'-'+data.latestjointime:data.earliestjointime);	
 			$(".BbtsmRright12 span").text(data.latestjointime?timeSymbol(data.earliestjointime,"-",".")+'-'+timeSymbol(data.latestjointime,"-","."):timeSymbol(data.earliestjointime,"-","."));	
 			/*倒计时*/
-			countDownCirculation($(".BsubsidyB span"),data.endtime);
+			countDownCirculation($(".daojishi span"),data.endtime);
 
 			/*生成btsm*/
 			$(".BbtsmRright2Content").empty();

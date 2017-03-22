@@ -262,7 +262,10 @@ a.less {
 .BtuwenWenP3{
     //无
 }
-//补贴类型A
+
+
+
+/*补贴类型A*/
 .BsubsidyA{
 //  width:1000px;//来自下面图片尺寸
 //  height:148px;//来自下面图片尺寸
@@ -273,38 +276,78 @@ a.less {
     width:1000px;//来自最上面.BwrapUp的1280-140*2
     height:148px;//来自等比例缩放   
 }
-.BsubsidyA p{
-    position:absolute;
+.BsubsidyAP1{
+//  background: orange;
+    position: absolute;
+    left: 46px;
+    top: 64px;
+    font-family: "微软雅黑";
+    font-size: 24px;
+    color: #fff;
+}    
+.BsubsidyAP1S1{
+    font-style: italic;
+    text-indent: 10px;
+    display: inline-block;
 }
-.BsubsidyAP1 span,.BsubsidyAP2 span,.BsubsidyAP3,.BsubsidyAP4{
+.BsubsidyAP1_unit{
+    text-indent: 10px;
+    display: inline-block;
+}
+.BsubsidyAP2{
+//  background: yellow;
+    position:absolute;
+    left:231px;
+    top:105px; 
     font-family: "微软雅黑";
     font-size:30px;
-    color:#fff;
-    font-style:italic;
+    color:#fff;     
 }
-.BsubsidyAP1{   
-    left:205px;
-    top:64px;
+.BsubsidyAP2S1{
+    @extend .BsubsidyAP1S1;
 }
-.BsubsidyAP2{    
-    left:275px;
-    top:105px;   
+.BsubsidyAP2_unit{
+    @extend .BsubsidyAP1_unit;
 }
 .BsubsidyAP3{
-    left: 611px;
+//  background: yellowgreen;
+    position: absolute;
+    left: 452px;
     top: 82px;
-//  background: blue;
-    width: 63px;
+    font-size: 43px;
+    /* width: 63px; */
     text-align: center;
+    font-family: "微软雅黑";
+    font-size: 30px;
+    color: #fff;
 }
-.BsubsidyAP4{    
-    left: 804px;
+.BsubsidyAP3S1{
+    display: inline-block;
+    width: 56px;
+    font-weight: bold;    
+}
+.BsubsidyAP4{
+//  background: gold;
+    position: absolute;
+    left: 731px;
     top: 82px;
-    width: 100px;
-//  background: blue;
+    /* width: 100px; */
     text-align: center;
+    font-family: "微软雅黑";
+    font-size: 30px;
+    color: #fff;
 }
-//补贴类型B
+.BsubsidyAP4S1{
+    width: 105px;
+    display: inline-block;
+//  background: red;    
+}
+.BsubsidyAP4S1_unit{
+    text-indent: 14px;
+    display: inline-block;    
+}
+
+/*补贴类型B*/
 .BsubsidyB{
     width:1000px;//来自最上面.BwrapUp的1280-140*2
     height:100px;//来自等比例缩放
@@ -315,16 +358,73 @@ a.less {
     width:1000px;
     height:100px;
 }
-.BsubsidyB p,.BsubsidyB span{
-    position:absolute;
-}
-.BsubsidyB p{
+
+/*平台最高补贴 */
+.BsubsidyBP1{
+//  background: gray;
+    position: absolute;
+    width: 327px;
+    left: 36px;
+    top: 37px;
+    /* text-align: center; */
     font-family: "arial black";
+    font-size: 28px;
+    color: #fff;
+    /* font-style: italic; */
+    font-weight: bold;
+    font-family: "微软雅黑";
     font-size:30px;
     color:#fff;
-    font-style:italic;
 }
-.BsubsidyB span{
+.BsubsidyBP1S1{
+    width: 117px;
+//  background: red;
+    display: inline-block;
+    text-align: center;    
+    font-style: italic;
+}
+/*已发放11元*/
+.BsubsidyBP2{
+//  background: green;
+    position: absolute;
+    /* width: 104px; */
+    left: 398px;
+    text-align: center;
+    top: 37px;
+    font-family: "arial black";
+    font-size: 30px;
+    color: #fff;
+    /* font-style: italic; */
+    font-weight: bold;
+    font-family: "微软雅黑";
+    font-size:30px;
+    color:#fff;
+}
+.BsubsidyBP2S1{
+    width: 117px;
+//  background: red;
+    display: inline-block;
+    text-align: center;    
+    font-style: italic;
+}
+
+.BsubsidyAP1 span,.BsubsidyAP2 span,.BsubsidyAP3,.BsubsidyAP4{
+    font-family: "微软雅黑";
+    font-size:30px;
+    color:#fff;
+//  font-style:italic;
+}
+
+
+
+
+
+
+/*倒计时*/
+.BsubsidyB .daojishi span{
+    position:absolute;
+}
+.BsubsidyB .daojishi span{
     font-family: arial;
     font-weight: bold;
     font-size:24px;
@@ -335,20 +435,7 @@ a.less {
     text-align: center;
     line-height: 35px; 
 }
-.BsubsidyBP1{   
-    width: 119px;
-//  background: blue;
-    left: 198px;
-    top: 37px;
-    text-align: center;
-}
-.BsubsidyBP2{   
-    width: 104px;
-//  background: blue;
-    left: 481px;
-    text-align: center;
-    top: 37px; 
-}
+
 .BsubsidyBS1{
     left: 738px;
     top: 48px;
@@ -987,7 +1074,7 @@ footer{
     font-size: 30px;
   }
 
-  .BsubsidyB span {
+  .BsubsidyB .daojishi span {
     font-size: 24px;
         width: 20px;//
     height: 30px;//
