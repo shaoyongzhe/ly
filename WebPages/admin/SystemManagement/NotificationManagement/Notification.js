@@ -82,12 +82,6 @@ function getList(isEnd, handle, searchForm) {
         if (data.content.length == 0) {
             isBottom = true;
             console.log("pageindex:" + commonPaging.pageindex);
-            // commonPaging.current = {
-            //                 "index": 100000,
-            //                 "start": { "oid": 1000000 },
-            //                 "end" : { "oid": 1000000 },
-            //                 "sort": [{ "oid": "asc" }]
-            //             };
             console.log("end ", JSON.stringfy(commonPaging));
             $(".finished").fadeIn(500).delay(1000).fadeOut(500);
             return;
@@ -95,9 +89,6 @@ function getList(isEnd, handle, searchForm) {
         }
 
         $(".totalcount").text(data.totalcount);
-        // $("table.notify tbody").empty();
-        //console.log(JSON.stringify(data, null, 4));
-        // alert(data.content.length)
         var isSet = "<span class='btn1 btn2 setDefault'>设为默认</span><span class='btn1 del' title='删除'>删除</span>",
         autoW = "132",//75
         tr = "",
