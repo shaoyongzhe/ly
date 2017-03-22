@@ -60,14 +60,20 @@ function oJz(){
         cache: false,
         dataType: "json",
         type: "get",
-        error: function () { },
+        error: function () { $(".loads").css({ display: "none" }) },
         success: function (data) {
         	//遍历data，渲染页面
         	console.log(data)
+        	$(".loads").css({ display: "none" })
         	if(data){
-	        	if(!data.error){
-	        		$(".loads").css({ display: "none" })
-	        	}else{
+	        	if(data.info && data.info=="shoppingcartchanged"){
+	        		$(".tsh").css({display:"block"});
+	        		$(".ms").text("购物车中的商品已发送变动，请重新提交！")
+	        		$(".cfm").click(function(){
+	        			window.history.go(-1)
+	        		})
+	        	}
+	        	else if(data.error){
 	        		$(".tsh").css({displat:"block"});
 	        		$(".ms").text("出错了！")
 	        		$(".cfm").click(function(){
@@ -345,16 +351,18 @@ function oJz(){
             localStorage.removeItem("Id");
             $(".submit").text("提交中...")
             $(".loads2").css({ display: "block" })
-            $.ajax({
-                url: "/webapi/distributor/" + getRetailerid() + "/orderform",
-                type: "post",
-                data: {
+            var _rr={
                     distributor_id: localStorage.disId,
                     remark: $("#inp2").val(),
                     deliverdate: $("#beginTime").val(),
                     submitids: _Id,
-                    manzeng:_dx == "" ? "" : JSON.stringify(_dx)
-                },
+                    manzeng:_dx == "" ? "" :_dx
+               };
+            $.ajax({
+                url: "/webapi/distributor/" + getRetailerid() + "/orderform",
+                type: "post",
+                contentType:"application/json; charset=utf-8",
+                data: JSON.stringify(_rr),
                 error: function () {
                     	$(".ms").text("网络异常");
 //                      $(".loads2 div").text(data.error + "...")
@@ -369,22 +377,22 @@ function oJz(){
                 success: function (data) {
                     console.log(_Id)
                     console.log(data)
+                    $(".loads2").css({ display: "none" }) 
                     if (data.result == true) {
                     	localStorage.removeItem("date")
-                        $(".loads2").css({ display: "none" })
                         $(".loads2 div").text("提交中...")
                         window.location = "myorder.html"
                     } else if(data.result == error){
                     	$(".ms").text(data.error);
 //                      $(".loads2 div").text(data.error + "...")
-                        $(".loads2").css({ display: "none" })
                         $(".tsh").css({display:"block"})
                         $(".cfm").click(function(){
                             $(".tsh").css({display:"none"})
                             $(".submit").text("提交订单")
                             $("body").css({ overflow: "auto" })                        	
                         })
-                    }else if(data.info=="shoppingcartchanged"){
+                    }else if(data.info && data.info=="shoppingcartchanged"){
+                    	$(".tsh").css({display:"block"})
                     	$(".ms").text("购物车中的商品已发送变动，请重新提交！");
                     	$(".cfm").click(function(){
                     		window.history.go(-1)
