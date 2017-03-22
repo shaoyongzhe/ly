@@ -5,7 +5,8 @@ html,body{
     height:100%;
 }
 *{
-padding:0;
+    padding:0;
+    font-family: "微软雅黑";
 }
 .fr{
     float:right;
@@ -47,7 +48,7 @@ padding:0;
 //非通用样式
 .Cwrap{
     width: 260px;////////////////rem(260);//;
-    height: 654px;////////////////rem(654);//;
+    height: 718px;////////////////rem(654);//;
 //  background:greenyellow;
     position:relative;
 //  overflow-y: scroll;//原生不好用，还是模拟滚动吧，因为要考虑滚动条尺寸，所以可能要改好多尺寸
@@ -104,7 +105,7 @@ padding:0;
 }
 .Ccontent{
     width: 260px;////////////////rem(260);//;
-    height:534px ;////////////////rem(534);//;
+    height:595px ;////////////////rem(534);//;
 //  margin-top:69px;//躲开固定定位占位
 //  background:beige;
 //  box-sizing: border-box;
@@ -143,31 +144,33 @@ padding:0;
     position:relative;
 }
 .CcButieMax{
+    font-family: "微软雅黑";
     position:absolute;
     top:104px ;////////////////rem(104);//;
     left:81px ;////////////////rem(81);//;
 //  background:red;
-    font-family: arial;
+//  font-family: arial;
     font-weight: bold;
     font-size: 20px ;////////////////rem(20);//;
     color:#ffff36;
     width: 100px;////////////////rem(100);//;
     height:20px ;////////////////rem(20);//;
-    text-align: center;
+    text-align: center;   
 }
 .CcButieAlready{
+    font-family: "微软雅黑";
     position:absolute;
     width:73px ;////////////////rem(73);//;
     top: 145px;////////////////rem(145);//;
     left: 117px;////////////////rem(117);//;
 //  background:red;
-    font-family: arial;
+//  font-family: arial;
     font-weight: bold;
     font-size: 18px;////////////////rem(20);//;
     color:#fff;   
     text-align: center;
     transform-origin: left;
-    -webkit-transform-origin:left;
+    -webkit-transform-origin:left;   
 //  transform: rotate(-15deg);//稍后补充
 }
 .CcButieLeft{

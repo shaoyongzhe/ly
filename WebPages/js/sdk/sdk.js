@@ -19,8 +19,7 @@
     server_url: 'http://ipaloma.cloud.sensorsdata.cn:8006/sa?token=7e374f4ba1aca25f'
 });
 sa.quick('autoTrack');
-
-
+sa.quick('allTrack');
 
 (function(){function k(){this.c="1261404981";this.R="z";this.N="";this.K="";this.M="";this.r="1488535699";this.P="z13.cnzz.com";this.L="";this.u="CNZZDATA"+this.c;this.t="_CNZZDbridge_"+this.c;this.F="_cnzz_CV"+this.c;this.G="CZ_UUID"+this.c;this.v="0";this.A={};this.a={};this.la()}function g(a,b){try{var c=
 [];c.push("siteid=1261404981");c.push("name="+f(a.name));c.push("msg="+f(a.message));c.push("r="+f(h.referrer));c.push("page="+f(e.location.href));c.push("agent="+f(e.navigator.userAgent));c.push("ex="+f(b));c.push("rnd="+Math.floor(2147483648*Math.random()));(new Image).src="http://jserr.cnzz.com/log.php?"+c.join("&")}catch(d){}}var h=document,e=window,f=encodeURIComponent,l=decodeURIComponent,n=unescape;k.prototype={la:function(){try{this.U(),this.J(),this.ia(),this.H(),this.o(),this.ga(),

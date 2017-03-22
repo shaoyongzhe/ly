@@ -165,8 +165,10 @@ function loaddata(longitude, latitude, dropme) {
                 $.each(jsondata.data, function (i, v) {
                     vm.jsondata.push(v);
                 });
-            } else
+            } else {
+                qrcode.show()
                 vm.jsondata = jsondata.data;
+            }
 
 
             $("img.lazy").lazyload();
@@ -179,7 +181,7 @@ function loaddata(longitude, latitude, dropme) {
                 if ($.isFunction(wxjsshare)) {
                     wxjsshare(jsondata.share || {});
                 }
-                qrcode.show()
+             
                 setTimeout(function () {
 
                     $('#list').dropload({

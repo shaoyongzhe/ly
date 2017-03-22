@@ -1461,7 +1461,7 @@ textarea{
 	width:848px;
 	margin-top: 40px;
 }
-/*.addSubSubsidyPolicy内模拟下拉 */
+/*.addSubSubsidyPolicy内模拟下?*/
 .addSubSubsidyPolicy .selectWrapL ul{
 	list-style: none;
 	padding: 0;
@@ -1531,7 +1531,7 @@ textarea{
 .addSubSubsidyPolicy .disabled{
 	background-color: #faf9f9;
 }			
-/*仅限选择一种补贴条件 文字*/
+/*仅限选择一种补贴条?文字*/
 .subsidyConditionWarn{
 	color:#ff4242;
 	font-size: 14px;
@@ -1555,7 +1555,7 @@ textarea{
 	height: 0;
 	clear: both;
 }
-/*补贴项目，如 开头会员系统，拉粉等 */
+/*补贴项目，如 开头会员系统，拉粉?*/
 .subsidyConditionItem{
 	width:202px;
 	height:50px;
@@ -1585,6 +1585,7 @@ textarea{
 	position:relative;
 	box-sizing: border-box;
 	display: none;
+	z-index: 1;
 }
 .addSubSubsidyPolicy:before{
 	content: "";
@@ -1737,4 +1738,9 @@ textarea{
 
 .addSubSubsidyPolicy .title{
 	padding-left: 3px;
+}
+
+.shengfzr-wrap .x,
+.charge-name .x{
+	display: none;
 }

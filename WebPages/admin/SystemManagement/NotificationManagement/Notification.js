@@ -58,8 +58,8 @@ function getList(isEnd, handle, searchForm) {
 
     var df = {};
     if (handle == 'search') {
-        df = searchForm;
         initPageData();
+        df = searchForm;
         $("table.templateList tbody").empty();
 
     } else if (handle == 'page') {
@@ -81,8 +81,8 @@ function getList(isEnd, handle, searchForm) {
         commonPaging.pageindex++;
         if (data.content.length == 0) {
             isBottom = true;
-            console.log("pageindex:" + commonPaging.pageindex);
-            console.log("end ", JSON.stringfy(commonPaging));
+            //console.log("pageindex:" + commonPaging.pageindex);
+            //console.log("end ", JSON.stringfy(commonPaging));
             $(".finished").fadeIn(500).delay(1000).fadeOut(500);
             return;
             //layer.msg('已全部加载完毕');
@@ -133,7 +133,7 @@ function getList(isEnd, handle, searchForm) {
             + "</td><td>" + td[i].area
             + "</td><td>" + td[i].description
             + "</td><td class='templateid'>" + td[i].gateway_templateid
-            + "</td><td title='" + content + "'><span class='content templatecontent'>" + content
+            + "</td><td title=''><span class='content templatecontent specialTd'>" + content
             + "</span></td><td>" + (td[i].state == "Normal" ? "正常状态" : "新增待编辑")
             + "</td><td class='state'>" + (td[i].isdefault == "1" ? "默认" : "")
             + " </td><td style='overflow: visible;'><div class='handle'><div class='Hui-iconfont'><img src='images/iconss1.png'/></div><div class='handle-btns-wrap' style='width:" + autoW + "px'><div class='handle-btns'>" + isSet + "<span class='btn1 modify'>修改</span><span class='arrow-right'></span></div></div></div></td></tr>";
@@ -142,6 +142,9 @@ function getList(isEnd, handle, searchForm) {
         $('td span.content').each(function () {
             $(this).text($(this).html())
         });
+
+
+
         if (handle) {
             $('.layui-layer-close').click();
             if (handle == 'add') {
@@ -178,8 +181,11 @@ $('#refresh').click(function () {
     initPageData();
     getList(false, 'search', getSearchForm());
     getModulePeopleList();
-})
+});
 
+$('table').on('click', '.specialTd', function () {
+    layer.tips($(this).text(), $(this))
+})
 function getModulePeopleList(curr, handle, searchForm) {
     var url = '/webapi/operation/' + "notification" + '/managers';
     _ajax("get", url, {}, '刷新列表', function (data) {
@@ -550,7 +556,9 @@ $('table.templateList')
                          state: tr.find('td:eq(8)').text(),
                          isdefault: tr.find('td:eq(9)').text().trim() == "默认" ? 1 : 0
                      };
+                     console.log(data)
                      var jsonStr = JSON.stringify(data);
+
                      // var template = jsonStr.replace("\"","");
                      // localStorage.template=JSON.stringify(data);    
                      // localStorage.ajaxType='modify';//纪录当前模式为修改。
@@ -582,7 +590,7 @@ $('table.modulePeople')
                         });
                     });// 单行修改 弹出插件本身
 
-$("#refresh").click(function () {
+$("#reset-btn").click(function () {
     isBottom = false;
     getList(false, 'refresh', getSearchForm());
 });
@@ -623,9 +631,12 @@ var _ajax = function (type, url, data, tip, success) {
             success(json);
 
         },
-        error: function (ex) {
-            layer.msg("失败");
-            console.warn(tip + " error,errMsg is ", ex);
+        error: function (xhr) {
+            console.log(xhr)
+            var error = JSON.parse(xhr.responseText);
+            layer.msg("失败" + error.error);
+            $('#refresh').click();
+            //console.warn(tip + " error,errMsg is ", xhr.status);
         }
     });
 }
@@ -675,3 +686,5 @@ $('.select').on('click', '.option', function (e) {
 $(document).click(function () {
     $('.select').hide();
 });
+
+
