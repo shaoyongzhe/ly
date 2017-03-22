@@ -56,7 +56,7 @@ function render(resdata){
     basic.find('.endtime').val(activity.endtime);
     basic.find('.earliestjointime').val(activity.earliestjointime);
     basic.find('.latestjointime').val(activity.latestjointime);
-    basic.find('.activityTitle').val(activity.activitytitle);
+    basic.find('.activityTitle').val(activity.activitytitle); $('.flag').text(activity.activitytitle + "  " + activity.guid);
     basic.find('.activityTitle').attr("guid",activity.guid);//0124添加
     basic.find('.tel').val(tel);
     basic.find('.quhao').val(quhao);
@@ -69,7 +69,6 @@ function render(resdata){
 
     basic.find('.fzr1 .selected').attr("guid",activity.responsible_id.guid);
     basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
-
 
     if(activity.singleselection == 0){
         $('.radio:contains(是)').addClass('on').siblings().removeClass('on');

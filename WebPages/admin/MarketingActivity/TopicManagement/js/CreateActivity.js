@@ -195,9 +195,6 @@ $('body').on("click",".setRules",function(e){
 		xzfw.append("<li class='option'>按平台活动</li><li class='option'>按超惠券主题</li><li class='option'>按超惠券</li>");
 	}
 
-
-
-
 	// debugger
 	index = $(this).closest('.addSub4').index();
 	$('.set-rules .check.on').removeClass('on');
@@ -363,9 +360,9 @@ $('body').on("click",".set",function(e){
 
 		});
 
-		if($(this).text() != "次"){
-			$('.layui-layer-close').hide();
-		}
+		// if($(this).text() != "次"){
+		// 	$('.layui-layer-close').hide();
+		// }
 
 		$('.yaoyiyao').not(':last').remove();
 		$('.yaoyiyao').find('.selected').text("");
@@ -404,11 +401,30 @@ $('body').on("click",".set",function(e){
 				y1yItem.find('.Yyy4d1 input').val(y1yObj[i].timelimit).keyup();
 				y1yItem.find('.Yyy5-1 input').val(y1yObj[i].applycount);
 
-				y1yItem.find('.setgailv.on').click();
-				$('.gailvok').click();
-				$('.value_curve').closest('.layui-layer').find('.layui-layer-close').click();
 
-				y1yItem.find('.setgailv.on input').val(JSON.stringify(y1yObj[i].probability, null, 4));
+				if(y1yItem.find('.setgailv').hasClass('on')){ // 还原摇一摇中设置概率的数据
+
+					if(location.href.indexOf('activityModify') != -1){
+						y1yItem.find('.setgailv.on').click();
+						$('.Probability_value input').each(function(i){
+							$(this).val(y1yObj[1].probability.value_curve[i].percentage);
+						});
+						$('.gailvok').click();
+						$('.value_curve').closest('.layui-layer').find('.layui-layer-close').click();
+						return;
+					}
+
+					if(y1yItem.find('.ygl').length == 0){
+						y1yItem.find('.setgailv.on').append('<input type="hidden" class="ygl yglHidden'+ yglindex +'">');
+					}
+
+					y1yItem.find('.setgailv.on input.ygl').val(JSON.stringify(y1yObj[i].probability, null, 4));
+
+					y1yItem.find('.setgailv.on').click();
+					$('.gailvok').click();
+					$('.value_curve').closest('.layui-layer').find('.layui-layer-close').click();
+
+				}
 
 			}
 
@@ -651,14 +667,14 @@ $('.section3').on('click','.setgailv.on',function(){
 	// debugger;
 	if(_this.closest('.addSub4').length == 1){
 
-		index = _this.closest('.addSub4').index(); $('addSub4Index').val(_this.closest('.addSub4').index());
+		addSub4Index = _this.closest('.addSub4').index(); $('.addSub4Index').val(addSub4Index);
 
 		fwmin = parseFloat(_this.closest('.addSub4').find('.hdc4In1').val());
 		fwmax = parseFloat(_this.closest('.addSub4').find('.hdc4In2').val());
 
 		// debugger;
 		if(_this.find('.gl').length == 0){
-			_this.append('<input type="hidden" class="gl glHidden'+ index +'">');
+			_this.append('<input type="hidden" class="gl glHidden'+ addSub4Index +'">');
 			$('.Probability_value input').val(10);
 
 		} else {
@@ -683,7 +699,10 @@ $('.section3').on('click','.setgailv.on',function(){
 		// _this.find('.ygl').remove();
 		if(_this.find('.ygl').length == 0){
 			_this.append('<input type="hidden" class="ygl yglHidden'+ yglindex +'">');
-			$('.Probability_value input').val(10);
+			// if($('.layer.yao').css('display') == 'none'){
+				$('.Probability_value input').val(10);
+			// }
+
 		} else {
 			var yglObj = "";
 			if(_this.find('.ygl').val() != ""){
@@ -740,15 +759,15 @@ $('.gailvok').click(function(){
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100);// * (percent /100) * cishu;
 
 		} else {
-			// if(location.href.indexOf('activityModify') != -1){
-				// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+			if(location.href.indexOf('activityModify') != -1){
+				if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
 					var cishu = $('.addSub4').eq(y1yindex-1).find('.hdc5 input').val();
-				// } else {
-				// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
-				// }
-			// } else {
-			// 	var cishu = $('.addSub4').eq(index-1).find('.hdc5 input').val();
-			// }
+				} else {
+					var cishu = $('.addSub4').eq(addSub4Index-1).find('.hdc5 input').val();
+				}
+			} else {
+				var cishu = $('.addSub4').eq(addSub4Index-1).find('.hdc5 input').val();
+			}
 			fz += ((Number(value_curve_obj.min) + Number(value_curve_obj.max)) / 2) * (gl / 100) * cishu;
 		}
 
@@ -768,14 +787,14 @@ $('.gailvok').click(function(){
 	} else {
 		if(location.href.indexOf('activityModify') != -1){
 			// if($(this).closest('.yaoyiyao').length ==1){
-			// if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
+			if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
 				$('.addSub4').eq(y1yindex-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(修改页面-摇一摇)
-		// 	} else {
-		// 		$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2));
-		// 	}
+			} else {
+				$('.addSub4').eq(addSub4Index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2));
+			}
 
-		// } else {
-		// 	$('.addSub4').eq(index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(新建页面)
+		} else {
+			$('.addSub4').eq(addSub4Index-1).find('.fz input[disabled]').val(Number(fz).toFixed(2)); // 设置'随机'补贴峰值(新建页面)
 		}
 		butiefz();
 	}
@@ -806,16 +825,21 @@ $('.gailvok').click(function(){
 	}
 
 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
-		$(".yglHidden" + yglindex).val(JSON.stringify(probabilityObj, null, 4))//.parent().text('查看概率').addClass('o');
-	} else {	
+		// if(location.href.indexOf('activityModify')!=-1){
+		// 	$(".yglHidden" + (yglindex+1)).val(JSON.stringify(probabilityObj, null, 4));
+		// } else {
+			$(".yglHidden" + yglindex).val(JSON.stringify(probabilityObj, null, 4));//.parent().text('查看概率').addClass('o');
+		// }
+
+	} else {
 		// if(location.href.indexOf('activityModify')!=-1){
 		// 	if($(this).closest('.setProbability').find('.yaoyiyaogailv').length == 1){
-				$(".glHidden" + y1yindex).val(JSON.stringify(probabilityObj, null, 4));
+		// 		$(".glHidden" + y1yindex).val(JSON.stringify(probabilityObj, null, 4));
 		// 	} else {
-		// 		$(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+		// 		$(".glHidden" + addSub4Index).val(JSON.stringify(probabilityObj, null, 4));
 		// 	}
 		// } else {
-			// $(".glHidden" + index).val(JSON.stringify(probabilityObj, null, 4));
+			$(".glHidden" + addSub4Index).val(JSON.stringify(probabilityObj, null, 4));
 		// }
 	}
 
@@ -823,7 +847,7 @@ $('.gailvok').click(function(){
 
 });
 
-	
+
 
 var time = new Date();
 // var tomorrow = time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + (time.getDate() + 1);
@@ -1037,6 +1061,8 @@ $('.btn.next').click(function(){
 		$('.btn.prev').show();
 	}
 
+	$('.saveToDb').click();
+
 });
 
 
@@ -1152,7 +1178,6 @@ $('textarea, input').on('input',function(){
 
 // 复选 多选
 $(document).on('click','.check, .radio',function(){
-// $('.check, .radio').on('click',function(){
 
 	// debugger;
 	if($(this).parent().hasClass('butie-inner-item')){
@@ -1811,7 +1836,6 @@ $("body").on("click","li.option",function(e){
 /*通用下拉点击事件*/
 //注，特定下拉点击事件见****处
 $(".addSubSubsidyPolicy").on("click",".selectWrapL",function(e){
-//$('.selectWrapL').click(function(e){
 	e.stopPropagation();
 
 	if($(this).hasClass('s2')){
@@ -1841,7 +1865,6 @@ $(".addSubSubsidyPolicy").on("click",".selectWrapL",function(e){
 });
 
 $(".addSubSubsidyPolicy").on("click",".selectL .optionL",function(e){
-//$('.selectL .optionL').click(function(e){//点击li
 	e.stopPropagation();
 	$(this).parent().hide().prev().text($(this).text());//把li的内容放入em
 });
@@ -3011,7 +3034,7 @@ $('.saveToDb, .shenhe').click(function(){
 				// }
 				
 				if(_this.find('.setgailv').hasClass('on')){
-					if(_this.find('.setgailv.on input').length == 0){
+					if(_this.find('.setgailv.on input').length == 0 || _this.find('.setgailv.on input').val() == ""){
 
 						$("nav span").eq(2).click();
 						layer.tips('请先设置概率', _this.find('.setgailv.on'));
@@ -3019,12 +3042,6 @@ $('.saveToDb, .shenhe').click(function(){
 						finished = false;
 						return false;
 
-					} else if(_this.find('.setgailv.on input').val() == ""){
-						$("nav span").eq(2).click();
-						layer.tips('请先设置概率', _this.find('.setgailv.on'));
-						// _this.find('.selected').focus();
-						finished = false;
-						return false;
 					}
 
 				}
