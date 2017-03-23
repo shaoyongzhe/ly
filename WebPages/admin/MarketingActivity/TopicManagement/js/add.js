@@ -205,19 +205,21 @@ $("body").on("click", ".acMeD2", function(e) {
 				});
 			}
 		}
+
 		$(".addSub4").last().find(".acAd2").css({
 			"visibility": "visible",
 			"cursor": "pointer"
 		}); //新修改
 
 		butiefz();
-		$('.butieSec .sbys + p:contains(元):first').prev().blur();
+		// $('.butieSec .sbys + p:contains(元):first').prev().blur();
+		getSbys();
 
 	});
 
 	$("body").on("click", ".section3 .addSub4 .acAd2", function(e) {
 		// $(".section3 .addSub4 .acAd2").click(function(){
-		// alert(1)
+		// alert(1);
 		// debugger;
 		if($(this).closest('.addSub4').find('.setgailv').hasClass('on')){
 			if($(this).closest('.addSub4').find('.setgailv.on input').length == 0){
@@ -533,7 +535,7 @@ function addAjax(){
 					$(this).closest(".hdc1").next().find(".subsidyCondition a").text(subsidyConditionArr[num]);//0228
 					$(this).closest(".hdc1").next().find(".subsidyCondition a").attr("statistic",JSON.stringify(statisticArr[num]));//0228
 
-					$('.butieSec .sbys + p:contains(元):first').prev().blur();
+					// getSbys()
 
 				})
 

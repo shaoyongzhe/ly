@@ -1069,6 +1069,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	}
 
 	butiefz();
-	$('.butieSec .sbys + p:contains(元):first').prev().blur();
+	getSbys();
 
 }
