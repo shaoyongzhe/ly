@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>运营账号充值管理</title>
+    <!-- <link rel="stylesheet" href="css/Activityoperation.css"/> -->
+    <link rel="stylesheet" href="/admin/MarketingActivity/AssetManagement/Activityoperation/css/Activityoperation.css"/>
+</head>
+<body>
+<div class="wrap" style="background: #f2f2f2">
+    <div class="Title_Index">
+        <a href="javascript:;">财务管理</a>
+        <i>></i>
+        <a href="javascript:;">运营账户充值管理</a>
+    </div>
+    <div class="w_wrap" style="background: #ffffff">
+        <div class="b_wrap" style="background: #e3e3e3">
+            <div class="distributor">
+                <div class="distributor_t">
+                    <div class="dis_L">
+                        <p class="dis_L_title">运营账户余额状况</p>
+                        <div class="dis_side">
+                            <!-- <p>分销商公众账号</p> -->
+                        </div>
+                        <div class="dis_min">
+                            <div class="dis_min_T">
+                                <ul class="dis_min_T1">
+                                    <li>账户余额</li>
+                                    <li>会员待提现</li>
+                                </ul>
+                                <ul class="dis_min_T2">
+                                    <!-- <li>2222222 元</li>
+                                    <li>2222234 元</li> -->
+                                </ul>
+                            </div>
+                            <div class="dis_min_B formula">
+                                <li>可用余额</li>
+                                <li class="available_balance"></li>
+                                <span>公式</span>
+                                <p>可用余额 = 账户余额 - 会员带提现</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xian"></div>
+                    <div class="dis_r">
+                        <ul class="dis_R_title">
+                            <li>预测时间段</li>
+                            <li class="three">近3天</li>
+                            <li class="seven">近7天</li>
+                            <li class="thrty">近30天</li>
+                            <li class="zdy">自定义</li>
+                            <span class="tians">近<input type="text" value="">天</span>
+                            <button>重 置</button>
+                        </ul>
+                        <div class="dis_r_T">
+                            <div class="dis_R_t">
+                                <ul class="dis_r_T1">
+                                    <li>预算事由</li>
+                                    <li>总审批预算</li>
+                                    <li>总发放</li>
+                                </ul>
+                                <ul class="dis_r_T2">
+                                    <!-- <li>5 笔</li>
+                                    <li>444233 元</li>
+                                    <li>43434 元</li> -->
+                                </ul>
+                            </div>
+                             <!-- <div class="dis_R_b formula"> 
+                                <li class="dis_R_b1">
+                                    预计所需资金
+                                </li>
+                                <li class="dis_R_b2">
+                                44444 元
+                                </li>
+                                <span>公式</span>
+                                <p>可用余额：11*1*1*1*1*1*1*1**1</p>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="distributor_b">
+                    <p style="margin-left: 17.6%;">缺口</p>
+                    <p class="breach" style="color: #fe1b1b;margin-left: 7.8%"></p>
+                    <button class="withdraw site-demo-layer" data-type="withdraw" style="background: #27b56b;margin-left: 50px">提 现</button>
+                    <button class="recharge site-demo-layer" data-type="recharge" style="background: #ff6032;margin-left: 30px">充 值</button>
+                    <button class="jymx" style="background: #4c83db;margin-left: 30px">交易明细</button>
+                </div>
+
+            </div>
+            <div class="sell">
+                <div class="distributor_t">
+                    <div class="dis_L">
+                        <div class="dis_side" style="background: #009f96">
+                            <!-- <p>超惠买公众账号</p> -->
+                        </div>
+                        <div class="dis_min">
+                            <div class="dis_min_T">
+                                <ul class="dis_min_T1">
+                                    <li>账户余额</li>
+                                    <li>会员待提现</li>
+                                </ul>
+                                <ul class="dis_min_T2">
+                                    <li></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                            <div class="dis_min_B formula">
+                                <li>可用余额</li>
+                                <li class="available_balance"></li>
+                                <span>公式</span>
+                                <p>可用余额 = 账户余额 - 会员带提现</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xian"></div>
+                    <div class="dis_r">
+                        <div class="dis_r_T">
+                            <div class="dis_R_t">
+                                <ul class="dis_r_T1">
+                                    <li>预算事由</li>
+                                    <li>总审批预算</li>
+                                    <li>总发放</li>
+                                </ul>
+                                <ul class="dis_r_T2">
+                                    <!-- <li>5 笔</li>
+                                    <li></li>
+                                    <li></li> -->
+                                </ul>
+                            </div>
+                            <!-- <div class="dis_R_b">
+                                <li class="formula dis_R_b1">
+                                    预计所需资金
+                                    <span>公式</span>
+                                    <p>可用余额：11*1*1*1*1*1*1*1**1</p>
+                                </li>
+                                <li class="dis_R_b2">44444 元</li>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="distributor_b">
+                    <p style="margin-left: 17.6%;">缺口</p>
+                    <p class="breach" style="color: #fe1b1b;margin-left: 7.8%"></p>
+                    <button class="withdraw site-demo-layer" data-type="withdraw" style="background: #27b56b;margin-left: 50px">提 现</button>
+                    <button class="recharge site-demo-layer" data-type="recharge" style="background: #ff6032;margin-left: 30px">充 值</button>
+                    <button class="jymx" style="background: #4c83db;margin-left: 30px">交易明细</button>
+                </div>
+            </div>
+            <div class="buy">
+                <div class="distributor_t">
+                    <div class="dis_L">
+                        <div class="dis_side" style="background: #ff6600">
+                            <!-- <p>超惠卖公众号</p> -->
+                        </div>
+                        <div class="dis_min">
+                            <div class="dis_min_T">
+                                <ul class="dis_min_T1">
+                                    <li>账户余额</li>
+                                    <li>会员待提现</li>
+                                </ul>
+                                <ul class="dis_min_T2">
+                                   <!--  <li>2222222 元</li>
+                                    <li>2222234 元</li> -->
+                                </ul>
+                            </div>
+                            <div class="dis_min_B formula">
+                                <li>可用余额</li>
+                                <li class="available_balance"></li>
+                                <span>公式</span>
+                                <p>可用余额 = 账户余额 - 会员带提现</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xian"></div>
+                    <div class="dis_r">
+                        <div class="dis_r_T">
+                            <div class="dis_R_t">
+                                <ul class="dis_r_T1">
+                                    <li>预算事由</li>
+                                    <li>总审批预算</li>
+                                    <li>总发放</li>
+                                </ul>
+                                <ul class="dis_r_T2">
+                                   <!--  <li>5 笔</li>
+                                    <li>22222 元</li>
+                                    <li>33333 元</li> -->
+                                </ul>
+                            </div>
+                            <!-- <div class="dis_R_b">
+                                <li class="formula dis_R_b1">
+                                    预计所需资金
+                                    <span>公式</span>
+                                    <p>可用余额：11*1*1*1*1*1*1*1**1</p>
+                                </li>
+                                <li class="dis_R_b2">44444 元</li>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="distributor_b">
+                    <p style="margin-left: 17.6%;">缺口</p>
+                    <p class="breach" style="color: #fe1b1b;margin-left: 7.8%"></p>
+                    <button class="withdraw site-demo-layer" data-type="withdraw" style="background: #27b56b;margin-left: 50px">提 现</button>
+                    <button class="recharge site-demo-layer" data-type="recharge" style="background: #ff6032;margin-left: 30px">充 值</button>
+                    <button class="jymx" style="background: #4c83db;margin-left: 30px">交易明细</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- <script src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../../../lib/layui/layui.js"></script> -->
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/admin/lib/layui/layui.js"></script>
+
+    <script>
+        $(function(){
+/************************运营账号充值管理*************************/         
+            /*ajax交互封装*/
+            function timeAjax (matchDay){
+                $.ajax({
+                    type:'GET',
+                    //url:"http://127.0.0.1:40010/webapi/asset/ipaloma/forecast?parameters=" + JSON.stringify(matchDay),
+                    //url:"http://127.0.0.1:40010/webapi/asset/member/dict/member_class",
+                    //url:"javascript/summary.json",
+                    dataType:"json",
+                    success:function(data){
+                        console.log(data)
+                        /*第一部分*/                     
+                        var str1="";
+                        var str2="";
+                        var str3="";   
+                        var str4="";                                    
+                        str1+="<p id='"+ data.content.account_1.assetid + "'>" + data.content.account_1.asset_name + "</p>";
+                        str2+="<li>" + data.content.account_1.budget_count + " 笔</li><li>"
+                            + data.content.account_1.budget_approved + " 元</li><li>"
+                            + data.content.account_1.budget_expend + " 元</li>";
+                        str3+="<li>" + data.content.account_1.asset_balance + " 元</li><li>"
+                            + data.content.account_1.pending_withdraw + " 元</li>";
+                        str4+="<span>" + data.content.account_1.gap + " 元</span>"
+                        var Formula= data.content.account_1.asset_balance - data.content.account_1.pending_withdraw + " 元";
+
+                        $(".distributor .dis_side").html(str1); //左侧标题
+                        $(".distributor .dis_r_T2").html(str2); //预算、总审批、总发放 
+                        $(".distributor .dis_min_T2").html(str3); //账户余额、会员待提现
+                        $(".distributor .breach").html(str4); //缺口
+                        $('.distributor .available_balance').html(Formula); //可用余额
+
+                        /*第二部分*/
+                        var str_a="";
+                        var str_b="";
+                        var str_c="";   
+                        var str_d="";         
+                        str_a+="<p id='"+ data.content.account_2.assetid + "'>" + data.content.account_2.asset_name + "</p>";
+                        str_b+="<li>" + data.content.account_2.budget_count + " 笔</li><li>"
+                            + data.content.account_2.budget_approved + " 元</li><li>"
+                            + data.content.account_2.budget_expend + " 元</li>";
+                        str_c+="<li>" + data.content.account_2.asset_balance + " 元</li><li>"
+                            + data.content.account_2.pending_withdraw + " 元</li>";
+                        str_d+="<span>" + data.content.account_2.gap + " 元</span>"
+                        var Formula2= data.content.account_2.asset_balance - data.content.account_2.pending_withdraw + " 元";
+
+                        $(".sell .dis_side").html(str_a); //左侧标题
+                        $(".sell .dis_r_T2").html(str_b); //预算、总审批、总发放 
+                        $(".sell .dis_min_T2").html(str_c); //账户余额、会员待提现
+                        $(".sell .breach").html(str_d);  //缺口
+                        $('.sell .available_balance').html(Formula2); //可用余额
+
+                        /*第三部分*/
+                        var str_q="";
+                        var str_w="";
+                        var str_e="";   
+                        var str_r="";                                    
+                        str_q+="<p id='"+ data.content.account_3.assetid + "'>" + data.content.account_3.asset_name + "</p>";
+                        str_w+="<li>" + data.content.account_3.budget_count + " 笔</li><li>"
+                            + data.content.account_3.budget_approved + " 元</li><li>"
+                            + data.content.account_3.budget_expend + " 元</li>";
+                        str_e+="<li>" + data.content.account_3.asset_balance + " 元</li><li>"
+                            + data.content.account_3.pending_withdraw + " 元</li>";
+                        str_r+="<span>" + data.content.account_3.gap + " 元</span>"
+                        var Formula3= data.content.account_3.asset_balance - data.content.account_3.pending_withdraw + " 元";
+
+                        $(".buy .dis_side").html(str_q); //左侧标题
+                        $(".buy .dis_r_T2").html(str_w); //预算、总审批、总发放 
+                        $(".buy .dis_min_T2").html(str_e); //账户余额、会员待提现
+                        $(".buy .breach").html(str_r); //缺口
+                        $('.buy .available_balance').html(Formula3);//可用余额
+
+
+
+                    }
+                })
+            }
+
+            /*预测时间段点击事件*/
+            $(".three").click(function(){
+        
+                timeAjax(3);
+            })
+            $(".seven").click(function(){
+            
+                timeAjax(7);
+            })
+            $(".thrty").click(function(){
+            
+                timeAjax(30);
+            })
+
+
+
+            /***************预测时间段   start  **************/
+            $(".dis_R_title li:not(li:first-child)").on("click",function(e){
+                $(this).css({border:"1px solid #4778c7",color:"#4778c7"}).siblings("li").css({border:"1px solid #e3e3e3",color:"#000"})
+                var target= e.target;
+                if($(target).hasClass("zdy")){
+                    $(".tians").css({
+                        visibility:"visible",
+                        border:"1px solid #4778c7",
+                        "border-left":"none"
+                    })
+                }else {
+                    $(".tians").css({
+                        visibility: "hidden",
+                        border: "1px solid #e3e3e3",
+                        "border-left":"none",
+                        "color":"#000"
+                    })
+                    //$(".tians input").val("");
+                    $(this).parents(".dis_R_title").find(".tians").html("");
+                    $(this).parents(".dis_R_title").find(".tians").html('近' + '<input type="text" value="">' +'天')
+                    keyDown();
+                }
+            })
+            /*添加双击事件、 双击自定义时间重置*/
+            $("span.tians").dblclick(function(){
+                console.log("dodo");
+                $(".tians").css("color","#000000")
+                $(".tians").html("");
+                $(".tians").html('近' + '<input type="text" value="">' +'天')
+                keyDown();
+            });
+
+
+           /* 预测时间段--回车按键*/
+            keyDown();
+            function keyDown(){
+                $(".tians input").keydown(function(e){
+                    if(e.keyCode==13){
+                        // e.preventDefault();
+                        var reg = new RegExp("^[0-9]*$");
+                        if(!reg.test($(".tians input").val())){
+                            alert("请输入数字!");
+                            $(this).val("");
+                            return false;
+                        }else{
+//                            alert(0)
+                            $(this).parents(".tians").css("color","#4778c7")
+                            $(this).parents(".tians").html("近" + $(this).val() + "天");
+                            //自定义时间的ajax搜索
+                            var self=$(this).val();
+                            console.log(self);
+                            timeAjax(self);
+                        }
+
+                    }
+                });
+            }
+    
+            //重置按钮
+            $(".dis_R_title button").click(function(){
+                $(this).parent(".dis_R_title").find("li:not(li:first-child)").css({border:"1px solid #fff",color:"#000"});
+                $(this).parent(".dis_R_title").find("span").css({
+                    border:"1px solid #fff",
+                    visibility: 'hidden'
+                });
+
+                $(this).parents(".dis_R_title").find(".tians").css("color","#000000")
+                $(this).parents(".dis_R_title").find(".tians").html("");
+                $(this).parents(".dis_R_title").find(".tians").html('近' + '<input type="text" value="">' +'天')
+
+                //$(this).parent(".dis_R_title").find(".tian input").val("");
+                keyDown();
+            })
+
+        /***************预测时间段   end  **************/
+
+            /*交易明细跳转*/            
+            $('.distributor .jymx').on("click",function(e){      
+                var assetID=$(".distributor").find($(".dis_side p")).attr("id");
+                // var assetID=$(this).closest('.distributor_b').prev('.distributor_t').find($(".dis_side p")).attr("id"); //如果是这句代码 其他两个就可以隐藏掉了
+                if(assetID){
+                    sendStorage(assetID);
+                }
+                window.location.href="html/distributor.html";
+            })
+            $('.sell .jymx').on("click",function(e){
+                var assetID=$(".sell").find($(".dis_side p")).attr("id");
+                if(assetID){
+                    sendStorage(assetID);
+                }
+                window.location.href="html/distributor.html";
+            })
+            $('.buy .jymx').on("click",function(e){
+                var assetID=$(".buy").find($(".dis_side p")).attr("id");
+                /*做一层验证 如果存在assetid 执行回调函数*/
+                if(assetID){
+                    sendStorage(assetID);
+                }
+                window.location.href="html/distributor.html";
+            })
+            /**将所选择的交易明细对应的assetid保存到localstrorage*/
+            function sendStorage (id) {
+                if(!window.localStorage){
+                    alert("浏览器不支持localstorage");
+                    return false;
+                }else{
+                    var storage=window.localStorage;
+                    //写入字段
+                    storage.assetid=id;
+                    console.log(storage.assetid);
+                }         
+            }
+
+
+          /*  /!*****layui******!/*/
+          
+            layui.use('layer', function(){ //独立版的layer无需执行这一句
+                var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+                //触发事件
+                var active = {
+                    recharge: function(){
+                        var that = this;
+                        //多窗口模式，层叠置顶
+                        layer.open({
+                            type: 2 //iframe
+                            //, title: 'recharge'
+                            , area: ['1150px', '650px']
+                            , shade: 0.8
+                            ,title: false
+                            ,scrollbar: false
+                            , content: 'html/recharge.html'
+                        })
+                    },
+                    withdraw: function(){
+                        var that = this;
+                        //多窗口模式，层叠置顶
+                        layer.open({
+                            type: 2 //iframe
+                            //, title: 'recharge'
+                            , area: ['1150px', '650px']
+                            , shade: 0.8
+                            ,title: false
+                            ,scrollbar: false
+                            , content: 'html/withdraw.html'
+                        })
+                    },
+                };
+                $('.site-demo-layer').on('click', function(){
+                    var type = $(this).data('type');
+                       active[type] ? active[type].call(this) : '';
+                });
+            });
+
+            //可用余额公式
+            $(".formula span").hover(function(i){
+                $(this).parents(".formula").find("p").fadeIn();
+            },function(i){
+                $(this).parent(".formula").find("p").hide();
+            })
+
+
+
+
+
+        })//就绪函数结束标签 
+
+
+
+    </script>
+
+
+</body>
+</html>

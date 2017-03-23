@@ -1,0 +1,512 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>会员钱包</title>
+    <!-- <link rel="stylesheet" href="css/Member.css"/>
+    <link rel="stylesheet" href="../../../lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="css/dropload.css"/> -->
+    <link rel="stylesheet" href="/admin/MarketingActivity/AssetManagement/Memberwallet/css/Member.css"/>
+    <link rel="stylesheet" href="/admin/lib/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/admin/MarketingActivity/AssetManagement/Memberwallet/css/dropload.css"/>
+</head>
+<body>
+    <div class="wrap_M">
+        <div class="wrap">
+            <!--BG_top-->
+            <div class="Title_Index">
+                <a href="">财务管理</a>
+                <i>></i>
+                <a href="javascript:;">会员钱包</a>
+            </div>
+            <!--memberifo 会员信息-->
+            <div class="Member_Wrap">
+                <div class="M_W_inf">
+                    <!--inf_top 会员类型-->
+                    <div class="inf_top">
+                        <div class="inf_top_mod1">
+                            <div class="type_wrap mod1_son">
+                                <a href="javascript:;">会员类型</a>
+                                <div class="type mod1_lei" id="type">
+                                    <input type="text" class="membertype" id="membertype" value="" />
+                                    <!--<img src="images/2.png" height="16" width="16" alt="">-->
+                                    <ul class="type_son" style="!important;">
+                                        <!--<li>金牌会员</li>-->
+                                        <!--<li>银牌会员</li>-->
+                                        <!--<li>铜牌会员</li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="expenses_wrap mod1_son">
+                                <a href="javascript:;">收支类型</a>
+                                <div class="expenses mod1_lei">
+                                    <input class="expenses_son" type="text" value=""/>
+                                    <!--<img src="images/2.png" alt="" width="16" height="16"/>-->
+                                    <ul class="expenses_wrap_son">
+                                        <li>收入</li>
+                                        <li>支出</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="inf_top_mod2">
+                            <div class="regin_box mod2_son">
+                                <a href="javascript:;">会员所属地区</a>
+                                <div class="regin">
+                                    <!-- 城市三级联动 -->
+                                    <div class="gf-select" id="province">
+                                        <span><em>省</em><i class="icon-jt"><input type="hidden" name="province" value=""></i></span>
+                                        <ul>
+                                            <li data-value="">省份</li>
+                                        </ul>
+                                    </div>
+                                    <div class="gf-select gf-select_1" id="city">
+                                        <span><em>市</em><i class="icon-jt"><input type="hidden" name="city" value=""></i></span>
+                                        <ul>
+                                            <li data-value="">城市</li>
+                                        </ul>
+                                    </div>
+                                    <div class="gf-select gf-select_m0" id="area">
+                                        <span><em>区</em><i class="icon-jt"><input type="hidden" name="area" value=""></i></span>
+                                        <ul>
+                                            <li data-value="">区县</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reason_wrap mod2_son">
+                                <a href="javascript:;">收支事由</a>
+                                <div class="reson">
+                                    <input id="resonDown" class="resonDown" type="text" placeholder="输入关键字展开下拉事由" value=""/>
+                                    <ul class="reason_son">
+                                        <!--<li>sssss</li>-->
+                                        <!--<li>wwww</li>-->
+                                        <!--<li>wwwww</li>-->
+                                        <!--<li>wwww</li>-->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inf_top_mod3">
+                            <div class="waterM">
+                                <a href="javascript:;">流水编号</a>
+                                <input id="orgNameCom" type="text" name="ent.orgName" type="text" class="edit_input serialnumber" value=""/>
+                            </div>
+
+                            <div class="declare">
+                                <a href="javascript:;">收支金额</a>
+                                <div class="declare_box">
+                                    <li class="de_ipt1"><input type="text" placeholder="0"><span>元</span></li>
+                                    <li class="de_ipt3"><input type="button" value="-"/></li>
+                                    <li class="de_ipt2"><input type="text" placeholder="10000"><span>元</span></li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--inf_bottom 会员登记-->
+                    <div class="inf_bottom">
+                            <li class="maraR">时间</li>
+                            <li><input type="text" id="start" class="laydate-icon" placeholder="开始时间"/></li>
+                            <li>至</li>
+                            <li><input type="text" id="end" class="laydate-icon" placeholder="结束时间"/></li>
+                            <li class="check"></li>
+                            <li>只看登记</li>
+                            <li>
+                                <input type="text" id="ipacasher" placeholder="登记人"/>
+                                <div class="reg_p">
+                                    <p>登记人1</p>
+                                    <p>登记人2</p>
+                                    <p>登记人3</p>
+                                </div>
+                            </li>
+                            <li><input id="register_time" class="laydate-icon" placeholder="登记日期" onclick="layui.laydate({elem: this,istime: true,format: 'YYYY/MM/DD hh:mm:ss',})"/></li>
+
+                    </div>
+                </div>
+                <!--find and reset 右侧查询重置按钮-->
+                <div class="M_W_find">
+                    <button class="find_b">查 询</button>
+                    <button class="reset_b">重 置</button>
+                </div>
+            </div>
+            <!--body 主题部分-->
+            <div class="main">
+                <div class="w_r">
+                    <button class="withdraw site-demo-layer" data-type="withdraw">提 现</button>
+                    <button class="recharge site-demo-layer" data-type="recharge">充 值</button>
+                </div>
+                <div class="tab_header">
+                        <li>会员名称</li>
+                        <li><input id="search_text" value="全部会员" type="text" placeholder=""/></li>
+                        <li>
+                            <input type="text" class="sore" value="" placeholder="请选择排序方式"/>
+                            <div class="numberSort">
+                                <span>按会员名称排序</span>
+                                <span>按会员余额排序</span>
+                                <span>按会员类型排序</span>
+                            </div>
+                        </li>
+                        <!--<li><input type="text" value="" placeholder="按会员名查询"/><img src="images/2.png" alt=""/></li>-->
+                        <li>收入</li>
+                        <li class="shouRu"><span> 0 </span><i>元</i></li>
+                        <li>支出</li>
+                        <li class="zhiChu"><span> 0 </span><i>元</i></li>
+                        <li>
+                            <a href="javascript:;">充值记录</a> |
+                            <a href="javascript:;">提现记录</a> |
+                            <a href="javascript:;">活动记录</a>
+                        </li>
+                </div>
+                <div class="tab_wrap" id="wrapper">
+                    <table class="table1 notify" id="scroller" width="97.1%" height="543px" border="1" cellspacing="0" cellpadding="2" bordercolor="#e4e4e4">
+                        <thead>
+                            <th>会员名称</th>
+                            <th>类型</th>
+                            <th>会员所属地区</th>
+                            <th>流水编号</th>
+                            <th>收支事由</th>
+                            <th>收支金额（元）</th>
+                            <th>时间</th>
+                            <th>备注</th>
+                            <th>登记信息</th>
+                        </thead>
+                        <tbody class="pagesTbodyLong content_drop">
+                        <!--<tr>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                            <!--<td>圆圆</td>-->
+                        <!--</tr>-->
+                        </tbody>
+                    </table>
+                    <div class="noData">
+                        无数据，请重新加载...
+                    </div>
+                    <!--<ul class="loading_2">-->
+                        <!--<li>1</li>-->
+                        <!--<li>2</li>-->
+                        <!--<li>3</li>-->
+                        <!--<li>4</li>-->
+                        <!--<li>5</li>-->
+                    <!--</ul>-->
+                    <div class="totalMember">
+                        <table class="table2" width="42.2%" height="543px" border="1" cellspacing="0" cellpadding="2" bordercolor="#e4e4e4">
+                            <thead>
+                                <tr>
+                                    <th>全部会员</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <!--<tr>-->
+                                <!--<td><span>会员</span><span>会员</span><br/><span>会员</span><span>会员</span></td>-->
+                            <!--</tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+                <!-- 末尾字 -->
+                <p class="footer_logo">凌云科技版权所有 京ICP号10211557.</p>
+
+            </div>
+
+        </div>
+        
+
+    </div>
+    <!-- <script type="text/javascript" src="../../../lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../lib/layui/layui.js"></script> 
+    <script src="javascript/selectivizr.js"></script>
+    <script src="javascript/cityLink.js"></script>
+    <script src="../../../lib/distirct/js/area_select.js"></script>
+    <script src="javascript/autocomplate/jquery.autocomplete.js"></script>
+    <script src="javascript/autocomplate/jquery.mockjax.js"></script>
+    <script src="javascript/dropload.js"></script>
+    <script src="javascript/member.js"></script>
+     -->
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/admin/lib/layui/layui.js"></script> 
+    <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/selectivizr.js"></script>
+    <script src="/admin/lib/district/js/cityLink.js"></script>
+    <!-- <script src="../../../lib/distirct/js/area_select.js"></script> -->
+    <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/autocomplate/jquery.autocomplete.js"></script>
+    <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/autocomplate/jquery.mockjax.js"></script>
+    <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/dropload.js"></script>
+    <script src="/admin/MarketingActivity/AssetManagement/Memberwallet/javascript/member.js"></script>
+
+    <script>
+
+            
+//***********************会员钱包************************//
+//***********************查询按钮功能代码************************//
+ 
+ 
+        $(".find_b").click(function(){
+            $(".noData").css("display","none");
+            //console.log(flag);
+            $(".table1 tbody").html("");
+            if($(".check").hasClass("checked")){
+                // if($("#register_time").val()==""){
+                //     alert("请填写登记日期");
+                //     return false;
+                // }
+                getList(getCheck());
+            }else{
+                if($("#start").val()=="" || $("#end").val()==""){
+                    alert("请填写正确的时间");
+                    return false;
+                }
+                if($("#province em").html()!="省" && $("#province em").html()!="省份" && $(".membertype").val()==""){
+                    alert("请选择会员类型");
+                    return false;
+                }
+                if($("#city em").html()!="省" && $("#city em").html()!="省份" && $(".membertype").val()==""){
+                    alert("请选择会员类型");
+                    return false;
+                }
+                if($("#area em").html()!="省" && $("#area em").html()!="省份" && $(".membertype").val()==""){
+                    alert("请选择会员类型");
+                    return false;
+                }
+                getList(getSearch());
+            }
+        })
+
+
+
+        getList(getSearch());
+        function getList(searchForm) {
+            $(".table1 tbody").empty();
+            //$('.layui-layer-close').click();
+            console.log(searchForm)
+            // if (curr == undefined || curr == "") {
+            //     curr = 1;
+            // }
+            // "area_province":$("#province em").html(),
+            // "area_city":$("#city em").html(),
+            // "area_district":$("#area em").html(),
+
+            var df = {};
+            // if(searchForm){
+            // if (handle == 'search') {
+            df = searchForm;
+            // 页数
+            var pageindex = 0;
+            // 每页展示5个
+            var pagesize = 15;
+            // $('.content_drop .dropload-down').siblings().remove()
+            // 每次刷新的时候清空上一次的记录（加载记录）
+            $('.content_drop .dropload-down').remove();
+            // dropload
+            $('.content_drop').Drop_down_loading({
+
+                gundong: $('.table1 tbody'),
+                loadDownFn: function(me) {
+                    pageindex++;
+                    
+                    // 拼接HTML
+                    var df = {};
+                    df = searchForm;
+                    df.pagesize = pagesize;
+                    df.pageindex = pageindex;
+                    $.ajax({
+                        type: "get",
+                       url: "http://127.0.0.1:40010/webapi/asset/member/trading/list?parameters=" + JSON.stringify(df),
+                        // url: "javascript/json/list.json?parameters=" + JSON.stringify(df),
+                        dataType: "json",
+                        beforeSend: function() {
+                            $(".find_b").html("查询中")
+                        },
+                        success: function(data) {
+                            $(".noData").css("display","none");
+                            // console.log("term");
+                            var str="";
+                            var shouru="";
+                            var zhichu="";
+                            $('.dropload-load').css('display', 'none');
+                            if(data.content.length>0){
+                                console.log(data.content)
+                                $(data.content).each(function(i){
+                                    /*判断返回值是否为null或者undefined,如果是 则制空*/
+                                    if(this.member_name==null || !this.member_name){this.member_name="";}
+                                    if(this.member_class==null || !this.member_class){this.member_class="";}
+                                    if(this.area==null || !this.area){this.area="";}
+                                    if(this.flowing_id==null || !this.flowing_id){this.flowing_id="";}
+                                    if(this.count==null || !this.count){this.count="";} 
+                                    if(this.tradingtime==null || !this.tradingtime){this.tradingtime="";} 
+                                    if(this.ipacasher_name==null || !this.ipacasher_name){this.ipacasher_name="";} 
+                                    if(this.descriptioin==null || !this.descriptioin){this.descriptioin="";}    
+                                    if(this.register_time==null || !this.register_time){this.register_time="";} 
+                                   /*拼接字符串*/
+                                    str+='<tr><td>'+ this.member_name
+                                            + '</td><td>'+ this.member_class
+                                            + '</td><td>'+ this.area
+                                            + '</td><td>'+ this.flowing_id
+                                            + '</td><td>'+ this.purpose_class
+                                            + '</td><td>'+ this.count
+                                            + '</td><td>'+ this.tradingtime
+                                            + '</td><td class="ac_tip">'+ this.descriptioin
+                                            + '</td><td>'+ this.ipacasher_name
+                                            +'<br/>'+ this.register_time 
+                                            + '</td></tr>'
+                                    /*判断count值，以便在呈现*/
+                                    if(this.count > 0){
+                                        shouru+=this.count;
+                                    }else{
+                                        zhichu+=this.count;
+                                    }
+
+                                })
+                                $(".table1 tbody").append(str);
+                                if(zhichu==""){
+                                    $(".zhiChu span").html("0")
+                                }else{
+                                    $(".zhiChu span").html(zhichu);
+                                }
+                                if(shouru==""){
+                                    $(".shouRu span").html("0")
+                                }else{
+                                    $(".shouRu span").html(shouru);
+                                }                               
+                                $('.table1 tr td').on("mouseover",function(){
+                                    $(this).attr("title",$(this).text())
+                                })
+                                $('.table1 tr td:nth-child(8)').on("click",function(){
+                                    $(this).toggleClass('ac_tip');
+                                })
+                                $('.table1 tbody tr').on("click",function(){
+                                    $(this).addClass("td_tip").siblings().removeClass("td_tip");
+                                })
+                                $('.dropload-down').fadeOut(4000);
+                                me.resetload();
+                            }else{
+                                // 锁定
+                                me.lock();
+                                // 无数据
+                                 $(".noData").css("display","block");
+                               
+                                me.noData(true);
+                            }
+                        },
+                        complete: function() {
+                            $(".find_b").html("查 询")
+                        },
+                        error: function () {
+                            $('.loading').remove();
+                            // $('.dropload-load').html('没有加载到数据，请重新查询');
+                        }
+
+                    });
+                }
+            });
+        };
+
+        /*创建日期函数*/
+
+        function myDate(){
+            var d = new Date();
+            var year = d.getFullYear();
+            var month = d.getMonth() + 1; // 当前月是要+1
+            month = month < 10 ? ("0" + month) : month;
+            var dt = d.getDate();
+            dt = dt < 10 ? ("0" + dt) : dt;
+            return today = year + "-" + month + "-" + dt;
+        }
+
+        function getSearch (){
+            var str2=$(".membertype").val();
+            var memberTap2;
+            switch (str2){
+                case "厂商": memberTap2="tblretailer"; break;
+                case "分销商":memberTap2="tbldistributor";break;
+                case "门店":memberTap2="tblsupplier";break;
+                case "凌云代理商":memberTap2="tblipalomaagent";break;
+                case "":memberTap2="";break;
+            }
+
+            var searchForm = {
+//                    "member_id":$(".membertype").attr("id"),
+            member_class:memberTap2,
+//                    "area_province":$("#province em").html(),
+//                    "area_city":$("#city em").html(),
+//                    "area_district":$("#area em").html(),
+            // serialnumber:$(".serialnumber").val(),
+            transfertype:$(".expenses_son").val(),
+//                    "purpose_id":$(".resonDown").attr("id"),
+            purpose_class:$(".resonDown").val(),
+            asset_min:$(".de_ipt1 input").val(),
+            asset_max:$(".de_ipt2 input").val(),
+            trading_begintime:$("#start").val(),
+            trading_endtime:$("#end").val(),
+            "area_province":$("#province em").html(),
+            "area_city":$("#city em").html(),
+            "area_district":$("#area em").html(),
+            };
+
+            
+
+            if (searchForm.member_class == "") {
+                delete member_class;
+            };
+            if (searchForm.transfertype == "") {
+                delete searchForm.transfertype;
+            };
+            if (searchForm.member_class == "") {
+                delete searchForm.member_class;
+            };
+            if (searchForm.purpose_class == "") {
+                delete searchForm.purpose_class;
+            };
+            if (searchForm.asset_min == "") {
+                delete searchForm.asset_min;
+            };
+            if (searchForm.asset_max == "") {
+                delete searchForm.asset_max;
+            };
+            if (searchForm.area_province == "" || searchForm.area_province == "省份" || searchForm.area_province == "省") {
+                delete searchForm.area_province;
+            };
+            if (searchForm.area_city == "" || searchForm.area_city == "城市" || searchForm.area_city == "市") {
+                delete searchForm.area_city;
+            };
+            if (searchForm.area_district == "" || searchForm.area_district == "区县"  || searchForm.area_district == "区") {
+                delete searchForm.area_district;
+            };
+            if (searchForm.trading_begintime == "") {
+                myDate(); 
+                searchForm.trading_begintime=today + " 00:00:00";
+            };
+            if (searchForm.trading_endtime == "") {
+                myDate();
+                searchForm.trading_endtime=today + " 23:59:59";
+            };
+            return searchForm;
+        }
+        function getCheck (){
+            var searchForm = {
+                ipa_casher_id:$("#ipacasher").val(),
+                register_time:$("#register_time").val()
+            };
+            if (searchForm.ipa_casher_id == "") {
+                delete searchForm.ipa_casher_id;
+            };
+            if (searchForm.register_time == "") {
+                delete searchForm.register_time;
+            };
+            return searchForm;
+        }
+
+
+
+    </script>
+
+</body>
+</html>

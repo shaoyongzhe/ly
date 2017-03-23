@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>分销商公众号</title>
+    <link rel="stylesheet" href="/admin/lib/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/admin/MarketingActivity/AssetManagement/Activityoperation/css/distributor.css"/>
+
+</head>
+<body>
+    <div class="wrap">
+        <div class="w_wrap">
+            <div class="Title_Index">
+                <a href="javascript:;">财务管理</a>
+                <i>></i>
+                <a href="javascript:;">运营账户充值管理</a>
+                <i>></i>
+                <a href="javascript:;">交易详情</a>
+            </div>
+            <div class="header">
+                <div class="logo">
+                    <img src="../images/logo.png" alt=""/>
+                </div>
+                <h4>分销商公众号</h4>
+                <p>返回到&nbsp;<a href="../Activityoperation.html">运营账户充值管理</a></p>
+            </div>
+            <div class="middle">
+                <div class="mid_L">
+                    <div class="mid_L_1">
+                        <div class="lszh">
+                            <li>流水账号</li>
+                            <li><input class="flowingId" type="text"/><img src="../images/2.png" alt=""/></li>
+                        </div>
+                        <div class="jydx">
+                            <ul style="width: 60px;float: left;margin:0 0 0 6px;">交易对象</ul>
+                            <ul class="jydx_son">
+                                <li>类型
+                                    <input class="leixin" type="text"/>
+                                    <div class="jydx_type">
+                                        <!-- <span>类型1</span>
+                                        <span>类型2</span>
+                                        <span>类型3</span> -->
+                                    </div>
+                                </li>
+                                <li>对象
+                                    <input class="duixiang" type="text"/>
+                                    <div class="jydx_target">
+                                       <!--  <span>对象1</span>
+                                        <span>对象2</span>
+                                        <span>对象3</span> -->
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="width: 24.3%;float: left">
+                            <li class="szlx">
+                                <input type="text" class="transferType" value="收入"/>
+                                <div class="szlx_son">
+                                    <!-- <span>支出</span>
+                                    <span>收入</span> -->
+                                </div>
+                            </li>
+                            <li style="float: right;margin:0 5px 0 0;">收支类型</li>
+                        </div>
+
+                    </div>
+                    <div class="mid_L_2">
+                        <div style="width: 21.6%;float: left">
+                            <li style="float: left;margin:0 5px 0 10px;">收支事由</li>
+                            <li class="szsy">
+                                <input type="text" class="purposeClass"/>
+                                <div class="szsy_son">
+                                    <!-- <span>主题活动</span>
+                                    <span>超慧券</span> -->
+                                </div>
+                            </li>
+                        </div>
+                        <div style="width: 35%;float: left" class="szje_p">
+                            <ul style="margin:0 5px 0 5px;float: left">收支金额</ul>
+                            <ul class="szje">
+                                <li><input class="assetMin" type="text" value=""/>元</li>
+                                <li>-</li>
+                                <li><input class="assetMax" type="text" value=""/>元</li>
+                            </ul>
+                        </div>
+                        <div style="width: 43.4%;float: left">
+                            <ul class="jysj">                                
+                                <li><input type="text" id="start" class="laydate-icon" placeholder="开始日" onclick="layui.laydate({elem: this,istime: true,format: 'YYYY/MM/DD hh:mm'})"/></li>
+                                <li>至</li>
+                                <li><input type="text" id="end" class="laydate-icon" placeholder="结束日" onclick="layui.laydate({elem: this,istime: true,format: 'YYYY/MM/DD hh:mm'})"/></li>
+                            </ul>
+                            <ul style="float: right;margin: 0 5px 0 4px">交易时间</ul>
+                        </div>
+                    </div>
+                    <ul class="mid_L_3">
+                        <div style="width: 21.6%;float: left">
+                            <li style="float: left;width:56px;margin:0 5px 0 10px;">登记人</li>
+                            <li class="djr">
+                                <input class="ipacasherName" type="text"/>
+                                <div class="djr_son">
+                                    <!-- <span>登记人啊1</span>
+                                    <span>登记人啊2</span>
+                                    <span>登记人啊3</span> -->
+                                </div>
+                            </li>
+                        </div>
+                        <div style="width:35%;float:left;" class="djrq_p">
+                            <ul style="float: left;margin:0 5px 0 5px;">登记日期</ul>
+                            <ul class="djrq">
+                                <li><input type="text" id="start1" class="laydate-icon"  placeholder="开始日" onclick="layui.laydate({elem: this,format:'YYYY/MM/DD'})" /></li>
+                                <li>至</li>
+                                <li><input type="text" id="end1" class="laydate-icon" format= 'YYYY/MM/DD', placeholder="结束日" onclick="layui.laydate({elem: this,format:'YYYY/MM/DD'})" /></li>
+                            </ul>
+                         </div>
+                     </ul>
+                </div>
+                <div class="mid_R">
+                    <input class="find" value="查 询" type="submit">
+                    <input type="submit" class="reset" value="重 置"/>
+                </div>
+            </div>
+            <div class="mar_10"></div>
+            <div class="main">
+                <div class="main_header">
+                    <div class="income">
+                        收入
+                        <span>0</span>
+                        <i>元</i>
+                    </div>
+                    <div class="expend">
+                        支出
+                        <span>0</span>
+                        <i>元</i>
+                    </div>
+                    <div class="notes">
+                        <a href="javascript:;">充值记录</a>&nbsp; |&nbsp;
+                        <a href="javascript:;">充值记录</a>&nbsp; |&nbsp;
+                        <a href="javascript:;">充值记录</a>
+                    </div>
+                </div>
+                <div class="tab_wrap">
+                    <table class="table1" width="97.1%" height="543px" border="1" cellspacing="0" cellpadding="2" bordercolor="#e4e4e4">
+                        <thead>
+                        <tr>
+                            <th>流水编号</th>
+                            <th>交易对象</th>
+                            <th>收支事由</th>
+                            <th>完成金额（元）</th>
+                            <th>交易时间</th>
+                            <th>备注</th>
+                            <th>登记信息</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td>3784748546584</td>
+                                <td>凌云科技有限公司平台</td>
+                                <td>充值</td>
+                                <td>232434.33</td>
+                                <td>2014-03-28 13:22:33</td>
+                                <td>这是一条很炫的备注</td>
+                                <td>洪七公<br/>2014-03-28 13:22:33</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                    <div class="noData">
+                        无数据，请重新加载...
+                    </div>
+                </div>
+            </div>
+            <p class="footer_text_logo">凌云科技版权所有 京ICP号10211557.</p>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/admin/MarketingActivity/AssetManagement/Activityoperation/javascript/selectivizr.js"></script>
+    <script src="/admin/lib/layui/layui.js"></script>
+    <script src="/admin/MarketingActivity/AssetManagement/Activityoperation/javascript/cityLink.js"></script>
+    <script>
+
+    /**************交易明细  分销商公众号***************/
+        //查询按钮
+        $('.find').click(function(){  
+            findAjax();
+        })
+        //重置按钮
+        $(".reset").click(function(){
+            resetInf();
+        }) 
+        
+        function resetInf () {
+            $(".flowingId").val("");
+            $(".leixin").val("");
+            $(".duixiang").val("");
+            $(".transferType").val("收入");
+            $(".purposeClass").val("");
+            $(".assetMin").val("");
+            $(".assetMax").val("");
+            $(".ipacasherName").val("");
+            $("#start1").val("");
+            $("#end1").val("");           
+        }
+
+        function findAjax(){
+            var str2=$(".leixin").val();
+            var memberTap2;
+            switch (str2){
+                case "厂商": memberTap2="tblretailer"; break;
+                case "分销商":memberTap2="tbldistributor";break;
+                case "门店":memberTap2="tblsupplier";break;
+                case "凌云代理商":memberTap2="tblipalomaagent";break;
+            }
+            inquiry={
+                member_class:memberTap2,
+                transfertype:$(".transferType").html(),
+                purpose_class:$(".purposeClass").html(),
+                asset_min:$(".assetMin").html(),
+                asset_max:$(".assetMax").html(),
+                trading_begintime:$("#start1").html(),
+                trading_endtime:$("#end1").html(),
+
+            }
+            /*将保存在localstorage中的assetid提取出来应用于查询条件*/
+            if(!window.localStorage){  //检测浏览器是否兼容localstorage
+                alert("浏览器不支持localstorage"); 
+            }else{
+                var storage=window.localStorage; 
+                var assetid=storage.assetid;
+            }
+
+            $.ajax({
+                url:"http://127.0.0.1:40010/webapi/asset/member/" + assetid + "/asset",
+                dataType:"json",
+                data:inquiry,
+                beforeSend:function () {
+                    $(".find").html("查询中");
+                },
+                success:function(data){
+                    console.log(data.content);
+                    $(".find").html("查 询");
+                    var str="";
+                    var shouru="";
+                    var zhichu="";    
+                    if(data.content.length > 0){
+                        $(data.content).each(function(i){
+                            str+='<tr><td>' + this.flowing_id 
+                                + '</td><td>' + this.member_name 
+                                + '</td><td>' + this.purpose_desc 
+                                + '</td><td>' + this.count 
+                                + '</td><td>' + this.tradingtime 
+                                + '</td><td>' + this.description 
+                                + '</td><td>' + this.ipacasher_name 
+                                + "<br/>" + this.register_time 
+                                + '</td></tr>'
+                        })
+                        $(".table1 tbody").html(str);
+
+                        if(this.count > 0){
+                            shouru+=this.count;
+                        }else{
+                            zhichu+=this.count;
+                        } 
+                        if(zhichu==""){
+                            $(".expend span").html(" 0 ");
+                        }else{
+                            $(".expend span").html(zhichu);
+                        }
+                        if(shouru==""){
+                            $(".income span").html(" 0 ");
+                        }else{
+                            $(".income span").html(shouru);
+                        } 
+                    }else{
+                        $(".noData").css("display","block");
+                    }
+                    
+                }
+
+            })
+
+        }
+
+        
+        /********
+         *
+         * 下拉框内容
+         * **********/
+         /*交易对象-类型*/
+        memberClass();
+        function memberClass () {
+            $.ajax({
+                url:"http://127.0.0.1:40010/webapi/asset/ipaloma/dict/member_class",
+                dataType:'json',
+                success:function (data) {
+                    var str="";
+                    var str_M=data.member_class[0];
+                    for(var key in str_M){
+                        str+='<span>'+ key +'</span>'
+                    }
+                    $(".jydx_type").html(str);
+
+                    /*交易对象--类型*/
+                    $('.jydx_son li:first-child input').on('click',function(){
+                        $('.jydx_type').stop().slideToggle(200);
+                        $(".jydx_son li:first-child input").focus(function(){
+                            $(".jydx_type").slideUp();
+                        })
+                    })
+                    $(".jydx_son li:first-child input").blur(function(){
+                        $(".jydx_type").slideUp();
+                    })
+                    $('.jydx_type span').on('click',function(){
+                        $('.jydx_son li:first-child input').val($(this).html())
+                    })
+
+                }
+            })
+        }
+        /*收支类型*/
+        revenueType();
+        function revenueType () {
+            $.ajax({
+                url:'http://127.0.0.1:40010/webapi/asset/ipaloma/dict/transfertype',
+                dataType:'json',
+                success:function (data) {
+                    var str = "";
+                    $(data.transfertype).each(function(i){
+                       str+='<span>'+ data.transfertype[i] +'</span>'
+                    })
+                    $(".szlx_son").html(str);
+
+                    /*收支类型*/
+                    $('.szlx input').on('click',function(){
+                        $('.szlx_son').stop().slideToggle(200);
+                        $(".szlx input").focus(function(){
+                            $(".szlx_son").slideUp();
+                        })
+                    })
+                    $(".szlx input").blur(function(){
+                        $(".szlx_son").slideUp();
+                    })
+                    $('.szlx_son span').on('click',function(){
+                        $('.szlx input').val($(this).html());
+                        if ($(".szlx input").val() == "支出") {
+                            transferTypeTo();
+                        }else{
+                            transferTypefrom();
+                        }
+                    })
+                    if ($(".szlx input").val() == "支出") {
+                        transferTypeTo();
+                    }else{
+                        transferTypefrom();
+                    }
+                         
+                }                     
+            })
+        }
+        // transferTypeTo();
+        /*支出*/
+        function transferTypeTo () {     
+            console.log("to")       
+            $.ajax({
+                url:'http://127.0.0.1:40010/webapi/asset/ipaloma/dict/shippingto',
+                dataType:'json',
+                success:function(data){
+                    var str = "";
+                    $(data.shippingto).each(function(i){
+                       str+='<span>'+ data.shippingto[i].shippingto_id+'</span>'
+                    })
+                    $(".jydx_target").html(str);
+
+                    /*交易对象--对象*/
+                    $('.jydx_son li:last-child input').on('click',function(){
+                        $('.jydx_target').stop().slideToggle(200);
+                        $(".jydx_son li:last-child input").focus(function(){
+                            $(".jydx_target").slideUp();
+                        })
+                    })
+                    $(".jydx_son li:last-child input").blur(function(){
+                        $(".jydx_target").slideUp();
+                    })
+                    $('.jydx_target span').on('click',function(){
+                        $('.jydx_son li:last-child input').val($(this).html())
+                    }) 
+                }
+            })
+        }
+        //transferTypefrom();
+        /*收入*/
+        function transferTypefrom () { 
+         console.log("from")           
+            $.ajax({
+                url:'http://127.0.0.1:40010/webapi/asset/ipaloma/dict/shippingfrom',
+                dataType:'json',
+                success:function(data){
+                    var str = "";
+                    $(data.shippingfrom).each(function(i){
+                       str+='<span>'+ data.shippingfrom[i].shippingfrom_id +'</span>'
+                    })
+                    $(".jydx_target").html(str);
+
+                    /*交易对象--对象*/
+                    $('.jydx_son li:last-child input').on('click',function(){
+                        $('.jydx_target').stop().slideToggle(200);
+                        $(".jydx_son li:last-child input").focus(function(){
+                            $(".jydx_target").slideUp();
+                        })
+                    })
+
+                    $(".jydx_son li:last-child input").blur(function(){
+                        $(".jydx_target").slideUp();
+                    })
+                    $('.jydx_target span').on('click',function(){
+                        $('.jydx_son li:last-child input').val($(this).html())
+                    }) 
+
+                }
+            })
+        }
+        /*收支事由*/
+        revenuePurpose();
+        function revenuePurpose () {
+            $.ajax({
+                url:"http://127.0.0.1:40010/webapi/asset/ipaloma/dict/purpose",
+                dataType:'json',
+                success:function(data){
+                    var str = "";
+                    $(data.purpose).each(function(i){
+                       str+='<span>'+ data.purpose[i].purpose_name +'</span>'
+                    })
+                    $(".jydx_target").html(str);
+
+                    /*收支事由*/
+                    $('.szsy input').on('click',function(){
+                        $('.szsy_son').stop().slideToggle(200);
+                        $(".szsy input").focus(function(){
+                            $(".szsy_son").slideUp();
+                        })
+                    })
+                    $(".szsy input").blur(function(){
+                        $(".szsy_son").slideUp();
+                    })
+                    $('.szsy_son span').on('click',function(){
+                        $('.szsy input').val($(this).html())
+                    })
+
+                }
+
+            })
+        } 
+        /*登记人*/
+        ipacashEr (); 
+        function ipacashEr (){
+            $.ajax({
+                url:"http://127.0.0.1:40010/webapi/asset/ipaloma/dict/ipacasher",
+                dataType:'json',
+                success:function (data) {
+                    var str = "";
+                    console.log(data.ipacasher.ipacasher[0].ipacasher_name)
+                    $(data.ipacasher.ipacasher).each(function(i){
+                        str += '<span>' + data.ipacasher.ipacasher[i].ipacasher_name + '</span>'
+                    })
+                    $(".djr_son").html(str);
+                    /*登记人*/
+                    $('.djr input').on('click',function(){
+                        $('.djr_son').stop().slideToggle(200);
+                        $(".djr input").focus(function(){
+                            $(".djr_son").slideUp();
+                        })
+                    })
+                    $(".djr input").blur(function(){
+                        $(".djr_son").slideUp();
+                    })
+                    $('.djr_son span').on('click',function(){
+                        $('.djr input').val($(this).html())
+                    })
+                }
+            })
+        }
+            
+
+        
+
+        
+
+
+        /*-----------laydate时间插件---------------------*/
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            var start = {
+                elem: "#start",
+                istime: true,
+                format: 'YYYY/MM/DD',
+                min: laydate.now(-1000)
+                ,max: '2099-06-16 23:59:59'
+                ,istoday: false
+                ,choose: function(datas){
+                    end.min = datas; //开始日选好后，重置结束日的最小日期
+                    end.start = datas //将结束日的初始值设定为开始日
+                }
+            };
+            var end = {
+                elem: "#end",
+                istime: true,
+                format: 'YYYY/MM/DD',
+                min: laydate.now()
+                ,max: '2099-06-16 23:59:59'
+                ,istoday: false
+                ,choose: function(datas){
+                    start.max = datas; //结束日选好后，重置开始日的最大日期
+                }
+            };
+
+            var Ntime=laydate.now();
+            // $("#start1").val(Ntime)
+            // $("#end1").val(Ntime)
+            $("#start").val(Ntime + " 00:00")
+            $("#end").val(Ntime + " 23:59")
+
+            $(".reset").click(function(){
+                $("#start").val(Ntime + " 00:00")
+                $("#end").val(Ntime + " 23:59")
+            })     
+
+        });
+
+
+
+
+    </script>
+
+
+
+
+
+
+</body>
+</html>
