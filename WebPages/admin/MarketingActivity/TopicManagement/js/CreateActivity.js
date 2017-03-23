@@ -3480,7 +3480,16 @@ $('.saveToDb, .shenhe').click(function(){
             	}
 	        },
 	        error: function (xhr) {
-		    	layer.alert(optype + '失败 ' + xhr.status, {icon: 5});
+	        	if(xhr.status=='403'){
+					sessionStorage.account = '';
+	                sessionStorage.status = false;
+					sessionStorage.url = "/admin/login/signin.html"
+					location.reload()
+	             }else{
+//	               	console.log(data.status)
+					layer.alert(optype + '失败 ' + xhr.status, {icon: 5});
+	             }
+//		    	layer.alert(optype + '失败 ' + xhr.status, {icon: 5});
 		    }
 
     	});

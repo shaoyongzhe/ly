@@ -73,7 +73,10 @@
   text-align: center;
   /*background-color: #FFFFFF;*/
   /*display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;*/
-  word-wrap: break-word;
+  /*word-wrap: break-word;*/
+      white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
 .ac_tip{
@@ -606,3 +609,8 @@ pre
 
 
 
+.specialTd{
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
