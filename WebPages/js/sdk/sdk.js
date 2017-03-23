@@ -44,14 +44,14 @@ a.length,c=null,d=0;d<b;d++)a[d]&&(c="cnzz_image_"+Math.floor(2147483648*Math.ra
 k.prototype.createIcon=k.prototype.Z;m.ra()}catch(p){g(p,"main failed")}})();
 
 $(function(){
-
     for(var i = 0; i < document.getElementsByTagName('a').length; i++ ){
+    	
+    	
         var _this=document.getElementsByTagName('a')[i].getAttribute('title')=='站长统计';
         if(_this){
-            document.getElementsByTagName("body")[0].removeChild(document.getElementsByTagName('a')[i])
-        }
-    }
-
+            document.getElementsByTagName('a')[i].remove()
+    	}
+	}
 });
 
 
