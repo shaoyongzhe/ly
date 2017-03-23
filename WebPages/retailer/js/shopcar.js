@@ -683,6 +683,7 @@
 					}else{
 						var _dll="";
 						var _id=$(this).parents("li").attr("id")
+						$("#"+_id).remove();
 						_dll=data1[_id]["guid"]
 						console.log(_dll)
 						var _that2=$(this)
@@ -692,7 +693,7 @@
 						data:{
 							distributorid:_disId,
 							itemid:data1[_ind]["itemid"],
-							itemcount:that,
+							itemcount:0,
 							itemquality:data1[_ind]["itemquality"],
 							itemprice:data1[_ind]["price"],
 							isyucun:data1[_ind]["isyucun"],
@@ -751,7 +752,6 @@
 										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
 									}
 							}
-							$("#"+_id).remove();
 							fg()
 							zz()
 							if(_cun==0){
@@ -819,7 +819,7 @@
 						data:{
 							distributorid:_disId,
 							itemid:data1[_ind]["itemid"],
-							itemcount:_that2.prev().text(),
+							itemcount:0,
 							itemquality:data1[_ind]["itemquality"],
 							itemprice:data1[_ind]["price"],
 							isyucun:data1[_ind]["isyucun"],
