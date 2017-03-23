@@ -631,8 +631,6 @@
 				console.log(data1[_ind]["salecount"])
 				if(data1[_ind]["salecount"]){
 					if(Number($(this).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
-						_cun-=1;
-						_ges-=1;
 						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 						that=$(this).parent().find(".amount").text()
 						$.ajax({
@@ -662,6 +660,8 @@
 										if(_price==-0){
 											_price=0
 										}
+										_cun-=1;
+										_ges-=1;
 										$(".amountBig span").text(_price.toFixed(2))
 									}
 									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
@@ -674,18 +674,97 @@
 									fg();
 									zz()
 									$(".commit span").text("("+_ges+")")
-									$(".summ").text(_ges)									
+									$(".summ").text(_ges)
+									
 								}
 
 							}
 						});
+					}else{
+						var _dll="";
+						var _id=$(this).parents("li").attr("id")
+						_dll=data1[_id]["guid"]
+						console.log(_dll)
+						var _that2=$(this)
+						$.ajax({
+						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
+						type:"delete",
+						data:{
+							distributorid:_disId,
+							itemid:data1[_ind]["itemid"],
+							itemcount:that,
+							itemquality:data1[_ind]["itemquality"],
+							itemprice:data1[_ind]["price"],
+							isyucun:data1[_ind]["isyucun"],
+							activityitemid:data1[_ind]["activityitem_id"],
+							versiontime:formaty(),
+							remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+							prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+						},
+						error:function(){},
+						success:function(data){
+							console.log(data)
+							//$(".delete").remove($(".delete").parent().parent())
+							$("html").css({overflow:"auto"})
+							$(".ifDelt").css({display:"none"})
+							_cun-=Number($("#"+_id).find(".amount").text());$(this).parent().prev().attr("ip")
+							_Id.splice(_id,1,"a");
+							_sv.splice(_id,1,"a");
+							_pp-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
+							if(_that2.parents("li").find(".gouxuan").attr("flag")){
+								if(_that2.parents("li").find(".gouxuan").attr("flag")==1){
+									_ges-=Number(_that2.parents("li").find(".amount").text())
+									$(".summ").text(_ges)
+								}else{
+									_save-=1;
+								}								
+							}
+							console.log(_ges)
+							if(_count==_save && _count!=0){
+								$(".gg").attr("flag","1")
+								$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
+							}else{
+								$(".gg").attr("flag","0")
+								$(".gg").css({"background":"none",borderColor:"#fff"});
+							}
+							if(data1[_id]["salestop"]==0 && _that2.parents("li").find(".gouxuan").attr("flag")==1){
+								console.log(_id)
+								_price-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
+								console.log(_price)
+								if(_price==-0){
+									_price=0
+								}
+								$(".amountBig span").text(_price.toFixed(2))
+
+							}
+							if(data1[_id]["itemkind"]=="降价"){
+									_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
+									if($("#"+_id).find(".gouxuan").attr("flag")==1){
+										_discount-=(data1[_id]["originalprice"]-data1[_id]["price"])*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
+										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
+									}
+								}
+							if(data1[_id]["itemkind"]=="折扣"){
+								_dis-=(Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1))*Number(data1[_id]["itemcount"]);
+									if($("#"+_id).find(".gouxuan").attr("flag")==1){
+										_discount-=((Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1)))*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
+										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
+									}
+							}
+							$("#"+_id).remove();
+							fg()
+							zz()
+							if(_cun==0){
+								$("#kong").show()
+								$("#empty").remove()
+							}
+						}
+					})
 					}
 				}else{
 					if($(this).parent().find(".amount").text()>1){
 						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 						that=$(this).parent().find(".amount").text()
-						_cun-=1;
-						_ges-=1;
 						$.ajax({
 							type:"post",
 							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
@@ -711,6 +790,8 @@
 									if(_price==-0){
 										_price=0
 									}
+									_cun-=1;
+									_ges-=1;
 									$(".amountBig span").text(_price.toFixed(2))
 								}
 								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
@@ -735,6 +816,18 @@
 						$.ajax({
 						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
 						type:"delete",
+						data:{
+							distributorid:_disId,
+							itemid:data1[_ind]["itemid"],
+							itemcount:_that2.prev().text(),
+							itemquality:data1[_ind]["itemquality"],
+							itemprice:data1[_ind]["price"],
+							isyucun:data1[_ind]["isyucun"],
+							activityitemid:data1[_ind]["activityitem_id"],
+							versiontime:formaty(),
+							remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+							prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+						},
 						error:function(){},
 						success:function(data){
 							console.log(data)
@@ -812,8 +905,6 @@
 				}else{
 					$(this).parent().find(".amount").text(parseInt($(this).parent().find(".amount").text())+1)
 					console.log(_ges)
-					_cun+=1;
-					_ges+=1;
 					console.log(_ges)
 					var that=$(this).parent().find(".amount").text();
 					$.ajax({
@@ -845,6 +936,8 @@
 									if(_price==-0){
 										_price=0
 									}
+									_cun+=1;
+									_ges+=1;
 									$(".amountBig span").text(_price.toFixed(2))
 								}
 								console.log($(th).parent().parent().parent().parent().next().find("span:nth-child(1)"))
