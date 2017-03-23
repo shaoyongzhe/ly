@@ -1,8 +1,14 @@
 /*
 
 */
+*{
+   box-sizing: content-box
+}
+
 body{
-	min-width: 1062px!Important;}
+	min-width: 1062px!Important;
+
+}
 .page-container1{
 	background-color: #F2F2F2;
 	padding: 0 20px;
@@ -187,7 +193,7 @@ body{
 
 .upload_img .file{
 	width: 100px;
-	height: 31px;
+    height: 24px;
 	background-color: #FF6032;
 	display: inline-block;
 	text-align: center;
@@ -260,12 +266,15 @@ body{
 	color:red;
 	margin-top:16px;
 }
-
+div#laydate_box{
+   box-sizing: content-box;
+}
 #LAY_demorange_s{
 	width: 111px;
     margin-left: 0%;
     height: 20px;
-    border: solid 1px #ddd
+    border: solid 1px #ddd;
+
 }
 #LAY_demorange_s:hover{
 	border:1px solid #3bb4f2;
@@ -273,7 +282,7 @@ body{
 }
 ._button{
 	/* padding-left:23%; */
-	width: 680px;
+	width: 750px;
 	margin :60px  auto;
 }
 
