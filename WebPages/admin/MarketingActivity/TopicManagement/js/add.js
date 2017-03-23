@@ -211,8 +211,7 @@ $("body").on("click", ".acMeD2", function(e) {
 		}); //新修改
 
 		butiefz();
-		$('.butieSec .sbys + p:contains(元):first').prev().blur();
-
+		CalculateTotalBudget();
 	});
 
 	$("body").on("click", ".section3 .addSub4 .acAd2", function(e) {
