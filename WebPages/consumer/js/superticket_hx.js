@@ -302,7 +302,11 @@ var vm = avalon.define({
                         vm.hxNum = 1;
                         $("#txt_hx").val("1")
                         vm.pageStep = 1;
-                    } else {
+                    }
+                    else if (result.step == 7) {
+                        toasterextend.showtips(result.message, "info");
+                    }
+                    else {
                         Msg.show(2, result.message);
                         $("#btnlist,#btn_1,#btn_2").show();
                         $(".btn,#QRCode").hide()
