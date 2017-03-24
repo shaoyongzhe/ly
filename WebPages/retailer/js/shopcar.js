@@ -914,7 +914,7 @@
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
 				var _xx=$(this).parents(".yuu").find(".hp>span").text();
 				console.log(_xx)
-				if(_xx && Number($(this).next().text())>=Number(_xx)){
+				if(_xx && Number($(this).next().text())>=Math.floor(_xx)){
 					
 				}else{
 					$(this).parent().find(".amount").text(parseInt($(this).parent().find(".amount").text())+1)

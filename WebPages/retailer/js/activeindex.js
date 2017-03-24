@@ -907,7 +907,7 @@ function fncarnum(data) {
     				var num = Number($(_this2).prev().html());
 			        var xian = Number($(_this2).parents(".the-xiangxi").find(".cgl-syu>span").html());
 			        console.log(num)
-			        if(xian && Number($(_this2).prev().text())>=xian) {
+			        if(xian && Number($(_this2).prev().text())>=Math.floor(xian)) {
 			            console.log("购买已到上限")
 			        } else {
 			            if(num==0 && $(_this2).parent().parent().parent().parent().parent().attr("id")){
