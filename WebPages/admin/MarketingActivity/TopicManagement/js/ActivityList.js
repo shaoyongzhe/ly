@@ -96,10 +96,10 @@ $(".activityList tbody").scroll(function() {
 /*
  * 如果文档高度不大于窗口高度，(数据少的话)，就让他自动加载下方数据(其实这块是通用的别管数据多不多)
  */
-function qixiaofeiload() {
+function qxfload(isResetQuery,isShow) {
 	//  if(autoLoad){
 	if($(".activityList tbody").prop("scrollHeight") <= 500) {
-		basicQuery();
+		basicQuery(isResetQuery,isShow);
 	}
 	//  }
 }
@@ -112,7 +112,7 @@ function qixiaofeiload() {
 //  }
 //}
 
-function basicQuery(resetQueryCondition) {
+function basicQuery(resetQueryCondition,bouncedShow) {
 	/*判断是否输入了查询条件*/
 	//	if( $(".qC_aitivityTopic input").val()==""&&
 	//		$(".qC_number input").val()==""&&
@@ -260,7 +260,9 @@ function basicQuery(resetQueryCondition) {
 			if(data.content.length < 1) {
 				// layer.alert('数据已加载完', {icon: 1});
 //				$(".finished").fadeIn(500).delay(1000).fadeOut(500);
-				$(".jzw").fadeIn(10).delay(1500).fadeOut(50);
+				if(!bouncedShow){
+					$(".jzw").fadeIn(10).delay(1500).fadeOut(50);
+				}				
 				flag = 1;
 				return;
 			} else {
@@ -314,7 +316,7 @@ function basicQuery(resetQueryCondition) {
 				} else {
 					//			console.log(1)
 					flag = 0;
-					qixiaofeiload();
+					qxfload(false,bouncedShow);
 				}
 			};
 			//			flag = 1;
@@ -323,7 +325,9 @@ function basicQuery(resetQueryCondition) {
 			flag = 0;
 //			$(".loaded").fadeIn();
 			$(".jzw").hide();
-			$(".jzz").show();
+			if(!bouncedShow){
+				$(".jzz").show();
+			}
 		},
 		error: function(data) {
 			//			console.log(data)
@@ -346,7 +350,7 @@ function basicQuery(resetQueryCondition) {
 	//			autoLoad = false;
 	//		}else{
 	////			console.log(1)
-	//			qixiaofeiload();
+	//			qxfload();
 	//		}		
 	//	}
 }
@@ -368,8 +372,13 @@ $(".queryConditionButton .query").click(function() {
 		$(".activityList tbody").empty();
 		basicQuery(true);
 	}
-
 });
+
+function childClick(){
+	autoLoad = true;
+	$(".activityList tbody").empty();
+	basicQuery(true,true);
+}
 
 /*
  * 重置按钮
@@ -603,11 +612,10 @@ var DictFunction = {
 			success: function(data) {
 				if(data.error)
 					layer.alert("出错了^_^");
-				$(".jzw").hide();
-//				layer.alert(op + " 成功");
+				layer.alert(op + " 成功");
 				autoLoad = true;
 				$(".activityList tbody").empty();
-				basicQuery(true);
+				basicQuery(true,true);
 			},
 			error: function(xhr, textStatus) {
 				layer.alert("出错了^_^");
@@ -642,7 +650,7 @@ var DictFunction = {
 					layer.alert("删除成功");
 					autoLoad = true;
 					$(".activityList tbody").empty();
-					basicQuery(true);
+					basicQuery(true,true);
 				},
 				error: function(xhr, textStatus) {
 					layer.alert("出错了^_^");

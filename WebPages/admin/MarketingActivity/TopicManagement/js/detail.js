@@ -456,10 +456,10 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
-                    parent.$('.query').click();
+//                  parent.$('.query').click();
+					parent.childClick();
                     parent.layer.alert("上架成功");
                     closeLayer();
-//                  parent.basicQuery();
                 },
                 error: function (xhr, textStatus) {
                     parent.layer.alert("出错了^_^");
@@ -487,7 +487,8 @@ $(document).on('click','.xiugai',function(){
                 success: function (data) {
                     if (data.error)
                         parent.layer.alert("出错了^_^");
-                    parent.$('.query').click();
+//                  parent.$('.query').click();
+                    parent.childClick();
                     parent.layer.alert(op + " 成功");
                     closeLayer();
                 },
@@ -520,7 +521,8 @@ $(document).on('click','.xiajia',function(){
                 parent.layer.alert("出错了^_^");
             }
 
-            parent.$('.query').click();
+//          parent.$('.query').click();
+            parent.childClick();
             parent.layer.alert("下架成功");
             closeLayer();
 
