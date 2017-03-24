@@ -25,6 +25,7 @@ function fngetlist() {
       	url: "/webapi/distributor/distributors/getall",
       	//url: "../../data/fenxiaolist.json",
         data:"",
+        cache:false,
         timeout:"9000",
         dataType:"json",
         error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -34,9 +35,9 @@ function fngetlist() {
         	}
         },
         success: function(data){
-        	localStorage.retaler=data.retalerid;
+        	sessionStorage.retaler=data.retalerid;
             console.log(data);
-            localStorage.retalerdata=JSON.stringify(data);
+            sessionStorage.retalerdata=JSON.stringify(data);
             if(data.data.result==false){
             	return false;
             }
@@ -54,7 +55,7 @@ function fngetlist() {
                 var ceng3=null;
                 var thissp={
                     distributor_id:null,
-                    shopid:localStorage.getItem("retaler"),
+                    shopid:sessionStorage.getItem("retaler"),
                     distributorname:null,
                     distributorimg:null,
                     contactperson:null,
@@ -131,7 +132,7 @@ function fngetlist() {
                     }
                 }
                 $("#cgl-main").html(oli).on("click","li",function () {
-                    localStorage.index=$(this).attr("id")
+                    sessionStorage.index=$(this).attr("id")
                     var thissp1=JSON.parse($(this).attr("data-xx"));
                     thissp1.active=$(this).find(".cgl-manj").html();
                     //console.log(thissp)
@@ -156,11 +157,11 @@ function fngetlist() {
 $(function () {
 
 	
-	if(!localStorage.reload){
-		localStorage.reload=1;
+	if(!sessionStorage.reload){
+		sessionStorage.reload=1;
 		    fnfooterclick();
     		fngetlist();
-	}else if(localStorage.reload==1){
+	}else if(sessionStorage.reload==1){
 		var _tt=setInterval(function(){
 			
 				
@@ -170,7 +171,7 @@ $(function () {
     			clearInterval(_tt);
 			},100)
 		}else{
-							fnfooterclick();
+				fnfooterclick();
     			fngetlist();
 		}
 });

@@ -60,9 +60,10 @@ function fnpricenum() {
     $("#zhezao").show();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + localStorage.retaler + "/shoppingcart/" + fnurl().distributor_id + "/count",
+        url: "/webapi/distributor/" + sessionStorage.retaler + "/shoppingcart/" + fnurl().distributor_id + "/count",
         //url: "../../data/menu.json",
         data: "",
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -354,8 +355,9 @@ function fnmenu() {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/itemtypegroups",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/itemtypegroups",
         data: "",
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -410,9 +412,10 @@ function fnyucun() {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/prepayinventorys",
         //url: "../../data/activeindex.json",
         data: "",
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -484,11 +487,12 @@ function fnhqactive() {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/activity",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/activity",
         data: {
             "lastcount": 0,
             "pagecount": 5000
         },
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -603,8 +607,9 @@ function fnlist2(odata) {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/items",
         data: odata,
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -837,7 +842,6 @@ function fncarnum(data) {
     						clearInterval(timer)
     						$(_this).hide()
                     		$(_this).next().hide()
-                    		fnaddcar(_this, $(_this).next().html() - 0);
     					}
     				},200)
                 }
@@ -934,7 +938,7 @@ function fnaddcar(that, a) {
     $("#zhezao").show();
     $("#nono").hide();
     $.ajax({
-        url: "/webapi/distributor/" + localStorage.retaler + "/shoppingcart",
+        url: "/webapi/distributor/" + sessionStorage.retaler + "/shoppingcart",
         contentType: "application/json; charset=utf-8",
         async: true,
         cache: false,
@@ -1115,8 +1119,9 @@ function fnsearchyc(odata) {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/prepayinventorys",
         data: odata,
+        cache:false,
         timeout: "2000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -1148,8 +1153,9 @@ function fnserchapi(odata) {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/items",
         data: odata,
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -1259,8 +1265,9 @@ function getmore() {
                 flag++;
                 $.ajax({
                     type: "get",
-                    url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+                    url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/items",
                     data: state,
+                    cache:false,
                     timeout: "9000",
                     dataType: "json",
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1292,7 +1299,7 @@ function getmore() {
     });
 }
 $(function() {
-    if(localStorage.reload==1){
+    if(sessionStorage.reload==1){
         var _tt=setInterval(function(){
             fnpinpai(); //品牌下拉点击事件
             fnurl(); //获取地址栏参数
@@ -1309,7 +1316,7 @@ $(function() {
             getmore();
         },100)
     }else{
-        localStorage.reload=1;
+        sessionStorage.reload=1;
         fnpinpai(); //品牌下拉点击事件
         fnurl(); //获取地址栏参数
         fnpricenum(); //获取购物车总金额和总数量
