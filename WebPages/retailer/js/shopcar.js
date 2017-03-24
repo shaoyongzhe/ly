@@ -90,7 +90,7 @@
 		        }
 			})
 		function aa(){//提交订单文字变化
-			$(".commit").css({background:"#009f96",width:"24%"})
+			$(".commit").css({background:"#009f96",width:"28%"})
 			$(".commit").html("去提交"+"<span>("+_ges+")</span>")
 			console.log(_Id)
 			_qu=0
