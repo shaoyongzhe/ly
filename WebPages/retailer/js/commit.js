@@ -53,6 +53,34 @@ function oJz(){
         _sub = "&submitids=" + _Id
     }
     console.log(_Id)
+    $("body").on("click","#dateconfirm",function() {
+    	        if(new Date($("#beginTime").val()).getTime()<new Date().getTime()-1000*60*60*24){
+                	$(".tsh").show();
+                	$(".tsh").find(".ms").text("时间选择有误")
+                	$(".cfm").click(function(){
+                		$(".tsh").hide();
+                	})
+                	var _year = new Date().getFullYear()
+				    var _month = new Date().getMonth() + 1 
+				    var _jud=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime();
+				    var _day = new Date(new Date().getFullYear(),new Date().getMonth(),28).getTime()+1000*60*60*24;
+				    if(_jud-_day<=0){
+				    	if(_month<12){
+				    		_month=Number(_month)+1;
+				    	}else{
+				    		_year=Number(_year)+1
+				    		_month=1;
+				    	}
+				    	_day=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getDate()
+				    }else{
+				    	_day=new Date().getDate()+1
+				    }
+				    _day=_day >= 10 ? _day  : "0" + _day;
+				    _month=_month > 10 ? _month : ("0" + _month)
+				    console.log(_month)
+				    $("#beginTime").val(_year + "-" + _month + "-" + _day)
+                }
+    })
 	//获取提交订单数据
     $.ajax({
         url: "/webapi/distributor/" + getRetailerid() + "/orderform/items?distributor_id=" + sessionStorage.disId + _sub,
