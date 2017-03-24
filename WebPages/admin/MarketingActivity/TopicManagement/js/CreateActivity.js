@@ -1059,7 +1059,9 @@ $('.btn.next').click(function(){
 		$('.btn.prev').show();
 	}
 
-	$('.saveToDb').click();
+	if (!$('nav span:last').hasClass('on')) {
+	    $('.saveToDb').click();
+	}
 
 });
 
