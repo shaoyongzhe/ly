@@ -317,8 +317,8 @@ function getSearch() {
         state: send_state,
         // 发送对象
         push_distributor: a,
-        push_consumer: c,
-        push_retailer: b
+        push_consumer: b,
+        push_retailer: c
         // state:d
     };
     // console.log(searchForm.area);

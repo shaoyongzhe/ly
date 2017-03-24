@@ -475,3 +475,46 @@
 		height:auto;
 		overflow: hidden;
 	}
+
+/* 
+3.22改动 */
+	.more_activeRight{
+		width: 3.5rem;
+		height: 2rem;
+		background: rgba(0,0,0,0.7);
+		position: fixed;
+		left: 0;
+		bottom: 20%;
+		border-radius: 0 30px 30px 0;
+		z-index: 9999;
+	}
+	.more_activeRightpic{
+		float: left;
+		width: 0.45rem;
+		margin:0.65rem 0 0 0.2rem;
+	}
+	.more_acright p{
+		color: #fff;
+		text-align: center;
+		font-size: 0.5rem;
+	}
+	.more_acCen{
+		width: 1.2rem;
+		height: 1.2rem;
+		float: left;
+		margin:0.3rem 0 0 0.3rem;
+		color: #fff;
+		font-size: 0.5rem;
+	}
+	.more_acright{
+		width: 0.9rem;
+		height: 2rem;
+		background: #ff5050;
+		float: left;
+	}
+	.more_acright p {
+    color: #fff;
+    text-align: center;
+    font-size: 0.5rem;
+    line-height: 0.7rem;
+}
