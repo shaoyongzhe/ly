@@ -41,7 +41,7 @@
 				    	cache:false,
 				        dataType:"json",
 				        type:"delete",
-				        error:function(){},
+				        error:function(){$(".loads").hide()},
 				        success:function(dataEmpty){
 				        	if(dataEmpty.result==true){
 								$("section>ul").each(function(){
@@ -62,7 +62,7 @@
 								_empty=0;
 								$("#edit").text("编辑")
 				        	}else if(dataEmpty.result==error){
-				        		
+				        		$(".loads").hide()
 				        	}
 				        }
 					})
@@ -75,8 +75,11 @@
 		    	cache:false,
 		        dataType:"json",
 		        type:"get",
-		        error:function(){},
+		        error:function(){$(".loads").hide()},
 		        success:function(data1){
+		        	if(data1.length<=0){
+		        		$("#empty").remove()
+		        	}
 		        	console.log(data1)
 		        	if(data1){
 		        		$(".loads").css({display:"none"})
