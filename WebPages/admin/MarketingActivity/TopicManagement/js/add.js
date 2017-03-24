@@ -196,7 +196,7 @@ $("body").on("click", ".acMeD2", function(e) {
 			layer.msg("至少需要一个");
 
 		} else {
-			$(this).parents(".addSub4").remove();
+			$(this).closest(".addSub4").remove();
 			if ($(".addSub4").length <= 1) {
 				$(".addSub4 .acAd2").removeClass("hi");
 				$(".addSub4 .acAd1").css({
@@ -208,29 +208,32 @@ $("body").on("click", ".acMeD2", function(e) {
 		$(".addSub4").last().find(".acAd2").css({
 			"visibility": "visible",
 			"cursor": "pointer"
-		}); //新修改
+		}).removeClass('hi');
 
 		butiefz();
 		CalculateTotalBudget();
+
 	});
 
 	$("body").on("click", ".section3 .addSub4 .acAd2", function(e) {
 		// $(".section3 .addSub4 .acAd2").click(function(){
 		// alert(1)
 		// debugger;
-		if($(this).closest('.addSub4').find('.setgailv').hasClass('on')){
-			if($(this).closest('.addSub4').find('.setgailv.on input').length == 0){
-				layer.tips('请先设置概率',$(this).closest('.addSub4').find('.setgailv.on'));
-				return
+		var choosed = $(this).closest('.addSub4').find('a.set');
+		if(choosed.text() == '次' && !choosed.parent().hasClass('hi')){
+			layer.tips('请先设置摇一摇',$(this).closest('.addSub4').find('a.set'));
+			return;
+		}
+		
+		if($(this).closest('.addSub4').find('.select-wrap.acSe11 .selected').text().indexOf('随机') != -1){
+			var gailvVal = $(this).closest('.addSub4').find('.setgailv.on input[type=hidden]');
+			if(gailvVal.length == 0 || gailvVal.val() == ""){
+				$("nav span").eq(2).click();
+				layer.tips('请先设置概率', $(this).closest('.addSub4').find('.setgailv.on'));
+				return;
 			}
 		}
 		
-		if($(this).closest('.addSub4').find('.hdc4dB').text() == '次'){
-			$("nav span").eq(2).click();
-			layer.tips('请先设置摇一摇', $(this).closest('.addSub4').find('.hdc4d2'));
-			finished = false;
-			return
-		}
 
 		$(".addSub4 .acAd1").css({
 			"visibility": "visible",

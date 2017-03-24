@@ -56,7 +56,7 @@ function render(resdata){
     basic.find('.endtime').val(activity.endtime);
     basic.find('.earliestjointime').val(activity.earliestjointime);
     basic.find('.latestjointime').val(activity.latestjointime);
-    basic.find('.activityTitle').val(activity.activitytitle); $('.flag').text(activity.activitytitle + "  " + activity.guid);
+    basic.find('.activityTitle').val(activity.activitytitle); $('.flag').text(activity.activitytitle + "  " + activity.guid + " " + activity.activitycode);
     basic.find('.activityTitle').attr("guid",activity.guid);//0124添加
     basic.find('.tel').val(tel);
     basic.find('.quhao').val(quhao);
@@ -1069,6 +1069,5 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	}
 
 	butiefz();
-	$('.butieSec .sbys + p:contains(元):first').prev().blur();
-
+	CalculateTotalBudget();
 }
