@@ -603,7 +603,8 @@ var DictFunction = {
 			success: function(data) {
 				if(data.error)
 					layer.alert("出错了^_^");
-				layer.alert(op + " 成功");
+				$(".jzw").hide();
+//				layer.alert(op + " 成功");
 				autoLoad = true;
 				$(".activityList tbody").empty();
 				basicQuery(true);
