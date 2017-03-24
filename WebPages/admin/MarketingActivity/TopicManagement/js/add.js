@@ -211,10 +211,8 @@ $("body").on("click", ".acMeD2", function(e) {
 		}); //新修改
 
 		butiefz();
-		$('.butieSec .sbys').keyup();
-
-
-	})
+		CalculateTotalBudget();
+	});
 
 	$("body").on("click", ".section3 .addSub4 .acAd2", function(e) {
 		// $(".section3 .addSub4 .acAd2").click(function(){
@@ -533,6 +531,9 @@ function addAjax(){
 					$(this).closest(".hdc1").next().find("em").text(subsidyConditionArr[num]);
 					$(this).closest(".hdc1").next().find(".subsidyCondition a").text(subsidyConditionArr[num]);//0228
 					$(this).closest(".hdc1").next().find(".subsidyCondition a").attr("statistic",JSON.stringify(statisticArr[num]));//0228
+
+					$('.butieSec .sbys + p:contains(元):first').prev().blur();
+
 				})
 
 			} else {
