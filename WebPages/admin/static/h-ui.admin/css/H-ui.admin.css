@@ -32,7 +32,7 @@ h4{line-height:30px}
 /*组件*/
 /*logo*/
 .viewhome{ line-height:44px; padding-right:15px}
-.viewhome a{ color:#FFF; padding-left:20px; background:url(../images/icon_link.png) no-repeat 0 center}
+.viewhome a{ color:#FFF; padding-left:20px;}
 
 /*导航*/
 #Hui-nav > ul > li{ font-weight:normal}
