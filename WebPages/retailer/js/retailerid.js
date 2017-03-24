@@ -1,4 +1,4 @@
 function getRetailerid()
 {
-	   return localStorage.retaler
+	   return sessionStorage.retaler
 }
