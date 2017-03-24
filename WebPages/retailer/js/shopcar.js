@@ -474,17 +474,7 @@
 				})
 			}
     	//}
-    	function sendId(data1){
-			$.ajax({
-				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/"+data1[_indd]["distributor_id"]+"?isvalid=0",
-				dataType:"json",
-				type:"get",
-				error:function(){},
-				success:function(){
-					
-				}
-			})		
-    	}
+
 
 		function select(){//购物车商品的勾选
 			var _ll=0;
@@ -667,7 +657,7 @@
 								async:true,
 								data:{
 									distributorid:_disId,
-									itemid:data1[_ind]["guid"],
+									itemid:data1[_ind]["itemid"],
 									itemcount:that,
 									itemquality:data1[_ind]["itemquality"],
 									itemprice:data1[_ind]["price"],
@@ -758,7 +748,7 @@
 							type:"delete",
 							data:{
 								distributorid:_disId,
-								itemid:data1[_ind]["guid"],
+								itemid:data1[_ind]["itemid"],
 								itemcount:0,
 								itemquality:data1[_ind]["itemquality"],
 								itemprice:data1[_ind]["price"],
@@ -807,7 +797,7 @@
 								async:true,
 								data:{
 									distributorid:_disId,
-									itemid:data1[_ind]["guid"],
+									itemid:data1[_ind]["itemid"],
 									itemcount:that,
 									itemquality:data1[_ind]["itemquality"],
 									itemprice:data1[_ind]["price"],
@@ -889,7 +879,7 @@
 							type:"delete",
 							data:{
 								distributorid:_disId,
-								itemid:data1[_ind]["guid"],
+								itemid:data1[_ind]["itemid"],
 								itemcount:0,
 								itemquality:data1[_ind]["itemquality"],
 								itemprice:data1[_ind]["price"],
