@@ -516,3 +516,9 @@
 		height:auto;
 		overflow: hidden;
 	}
+	.more_acright p {
+    color: #fff;
+    text-align: center;
+    font-size: 0.5rem;
+    line-height: 0.7rem;
+}
