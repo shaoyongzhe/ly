@@ -636,26 +636,8 @@
 						if(Number($(this).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
 							$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 							that=$(this).parent().find(".amount").text()
-							$.ajax({
-								type:"post",
-								url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
-								async:true,
-								data:{
-									distributorid:_disId,
-									itemid:data1[_ind]["itemid"],
-									itemcount:that,
-									itemquality:data1[_ind]["itemquality"],
-									itemprice:data1[_ind]["price"],
-									isyucun:data1[_ind]["isyucun"],
-									activityitemid:data1[_ind]["activityitem_id"],
-									versiontime:formaty(),
-									remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
-									prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
-								},
-								error:function(){},
-								success:function(data){
-									if(data.result==true){
-										console.log(data);
+									
+										
 										$(tht).parent().parent().parent().parent().parent().find(".yuj").text(Math.floor(Number($(tht).prev().text())/Number(data1[_ind]["salecount"]))*Number(data1[_ind]["giftcount"]));
 										_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
 										if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
@@ -679,7 +661,26 @@
 										$(".commit span").text("("+_ges+")")
 										$(".summ").text(_ges)
 										_canClick=true;
-									}
+							$.ajax({
+								type:"post",
+								url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
+								async:true,
+								data:{
+									distributorid:_disId,
+									itemid:data1[_ind]["itemid"],
+									itemcount:that,
+									itemquality:data1[_ind]["itemquality"],
+									itemprice:data1[_ind]["price"],
+									isyucun:data1[_ind]["isyucun"],
+									activityitemid:data1[_ind]["activityitem_id"],
+									versiontime:formaty(),
+									remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+									prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+								},
+								error:function(){},
+								success:function(data){
+										console.log(data);
+									
 	
 								}
 							});
@@ -690,25 +691,7 @@
 							_dll=data1[_id]["guid"]
 							console.log(_dll)
 							var _that2=$(this)
-							$.ajax({
-							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
-							type:"delete",
-							data:{
-								distributorid:_disId,
-								itemid:data1[_ind]["itemid"],
-								itemcount:_that2.parents("li").find(".amount").text(),
-								itemquality:data1[_ind]["itemquality"],
-								itemprice:data1[_ind]["price"],
-								isyucun:data1[_ind]["isyucun"],
-								activityitemid:data1[_ind]["activityitem_id"],
-								versiontime:formaty(),
-								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
-								prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
-							},
-							error:function(){},
-							success:function(data){
-								console.log(data)
-								//$(".delete").remove($(".delete").parent().parent())
+															//$(".delete").remove($(".delete").parent().parent())
 								$("html").css({overflow:"auto"})
 								$(".ifDelt").css({display:"none"})
 								_cun-=Number(_that2.parents("li").find(".amount").text());
@@ -770,6 +753,25 @@
 									$("#empty").remove()
 								}
 								_canClick=true;
+							$.ajax({
+							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
+							type:"delete",
+							data:{
+								distributorid:_disId,
+								itemid:data1[_ind]["itemid"],
+								itemcount:_that2.parents("li").find(".amount").text(),
+								itemquality:data1[_ind]["itemquality"],
+								itemprice:data1[_ind]["price"],
+								isyucun:data1[_ind]["isyucun"],
+								activityitemid:data1[_ind]["activityitem_id"],
+								versiontime:formaty(),
+								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+								prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+							},
+							error:function(){},
+							success:function(data){
+								console.log(data)
+
 							}
 						})
 						}
@@ -777,26 +779,7 @@
 						if($(this).parent().find(".amount").text()>1){
 							$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
 							that=$(this).parent().find(".amount").text()
-							$.ajax({
-								type:"post",
-								url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
-								async:true,
-								data:{
-									distributorid:_disId,
-									itemid:data1[_ind]["itemid"],
-									itemcount:that,
-									itemquality:data1[_ind]["itemquality"],
-									itemprice:data1[_ind]["price"],
-									isyucun:data1[_ind]["isyucun"],
-									activityitemid:data1[_ind]["activityitem_id"],
-									versiontime:formaty(),
-									remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
-									prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
-								},
-								error:function(){},
-								success:function(data){
-									console.log(data);
-									_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
+																_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
 									if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
 										_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
 										if(_price==-0){
@@ -818,6 +801,26 @@
 									$(".commit span").text("("+_ges+")")
 									$(".summ").text(_ges)
 									_canClick=true;
+							$.ajax({
+								type:"post",
+								url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
+								async:true,
+								data:{
+									distributorid:_disId,
+									itemid:data1[_ind]["itemid"],
+									itemcount:that,
+									itemquality:data1[_ind]["itemquality"],
+									itemprice:data1[_ind]["price"],
+									isyucun:data1[_ind]["isyucun"],
+									activityitemid:data1[_ind]["activityitem_id"],
+									versiontime:formaty(),
+									remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+									prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+								},
+								error:function(){},
+								success:function(data){
+									console.log(data);
+
 								}
 							});						
 						}else{
@@ -827,26 +830,7 @@
 							_dll=data1[_id]["guid"]
 							console.log(_dll)
 							var _that2=$(this)
-							$.ajax({
-							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
-							type:"delete",
-							data:{
-								distributorid:_disId,
-								itemid:data1[_ind]["itemid"],
-								itemcount:0,
-								itemquality:data1[_ind]["itemquality"],
-								itemprice:data1[_ind]["price"],
-								isyucun:data1[_ind]["isyucun"],
-								activityitemid:data1[_ind]["activityitem_id"],
-								versiontime:formaty(),
-								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
-								prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
-							},
-							error:function(){},
-							success:function(data){
-								console.log(data)
-								//$(".delete").remove($(".delete").parent().parent())
-								$("html").css({overflow:"auto"})
+															$("html").css({overflow:"auto"})
 								$(".ifDelt").css({display:"none"})
 								_Id.splice(_id,1,"a");
 								_sv.splice(_id,1,"a");
@@ -900,6 +884,26 @@
 									$("#empty").remove()
 								}
 								_canClick=true;
+							$.ajax({
+							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
+							type:"delete",
+							data:{
+								distributorid:_disId,
+								itemid:data1[_ind]["itemid"],
+								itemcount:0,
+								itemquality:data1[_ind]["itemquality"],
+								itemprice:data1[_ind]["price"],
+								isyucun:data1[_ind]["isyucun"],
+								activityitemid:data1[_ind]["activityitem_id"],
+								versiontime:formaty(),
+								remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+								prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+							},
+							error:function(){},
+							success:function(data){
+								console.log(data)
+								//$(".delete").remove($(".delete").parent().parent())
+
 							}
 						})
 						}
