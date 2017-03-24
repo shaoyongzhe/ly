@@ -624,7 +624,7 @@
 		}
 		function change(data1){//购物车数量改变
 			var _canClick=true;
-			$(".change").on('tap','.reduce',function(e){
+			$(".change").on('click','.reduce',function(e){
 				e.originalEvent.stopPropagation();
 				if(_canClick){
 					_canClick=false;
@@ -667,7 +667,7 @@
 								async:true,
 								data:{
 									distributorid:_disId,
-									itemid:data1[_ind]["itemid"],
+									itemid:data1[_ind]["guid"],
 									itemcount:that,
 									itemquality:data1[_ind]["itemquality"],
 									itemprice:data1[_ind]["price"],
@@ -687,7 +687,7 @@
 						}else{
 							var _dll="";
 							var _id=$(this).parents("li").attr("id")
-							
+							$("#"+_id).remove();
 							_dll=data1[_id]["guid"]
 							console.log(_dll)
 							var _that2=$(this)
@@ -747,7 +747,7 @@
 								}
 								fg()
 								zz()
-								$("#"+_id).remove();
+								
 								if(_ges==0){
 									$("#kong").show()
 									$("#empty").remove()
@@ -758,8 +758,8 @@
 							type:"delete",
 							data:{
 								distributorid:_disId,
-								itemid:data1[_ind]["itemid"],
-								itemcount:_that2.parents("li").find(".amount").text(),
+								itemid:data1[_ind]["guid"],
+								itemcount:0,
 								itemquality:data1[_ind]["itemquality"],
 								itemprice:data1[_ind]["price"],
 								isyucun:data1[_ind]["isyucun"],
@@ -807,7 +807,7 @@
 								async:true,
 								data:{
 									distributorid:_disId,
-									itemid:data1[_ind]["itemid"],
+									itemid:data1[_ind]["guid"],
 									itemcount:that,
 									itemquality:data1[_ind]["itemquality"],
 									itemprice:data1[_ind]["price"],
@@ -889,7 +889,7 @@
 							type:"delete",
 							data:{
 								distributorid:_disId,
-								itemid:data1[_ind]["itemid"],
+								itemid:data1[_ind]["guid"],
 								itemcount:0,
 								itemquality:data1[_ind]["itemquality"],
 								itemprice:data1[_ind]["price"],
