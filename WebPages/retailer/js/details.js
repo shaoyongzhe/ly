@@ -137,7 +137,7 @@ $(document).ready(function () {
                 "</div></div></div></div><div class=" +
                 "\"discount\"" + ">" + _remark + "</li>";
             }
-        } else if (billdata[i]["promotionno"] != "mz" && billdata[i]["billid_class"] == "tblbillgift" && billdata[i]["promotionno"] != null) {
+        } else if (billdata[i]["promotionno"] != "mz" && billdata[i]["billid_class"] == "tblbillgift") {
             _zeng += Number(billdata[i]["itemunitcost"] * billdata[i]["itemcount"])
             if (billdata[i]["itemgifttype"] != 3) {
                 _list2 += "<li><div class=" + "\"shop-con\"" + "><img src=" + billdata[i]["itemobj"]["itemimage"] + " /><div class=" + "\"shop-con-bd\"" + ">" +/*_image+*/"<div class=" + "\"shop-tit\"" + ">" + _img + "<span>" + billdata[i]["itemobj"]["itemname"] + "</span></div><div class=" + "\"shop-body\"" + ">￥" + (billdata[i]["itemunitcost"]).toFixed(2) +

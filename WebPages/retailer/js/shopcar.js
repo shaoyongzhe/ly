@@ -470,7 +470,7 @@
 							$("#"+_id).remove();
 							fg()
 							zz()
-							if(_cun==0){
+							if($("section>ul>li").length==0){
 								$("#kong").show()
 							}
 						}
@@ -712,11 +712,11 @@
 										}
 										fg()
 										zz()
-										if(_ges==0){
+										$("#"+_id).remove();
+										if($("section>ul>li").length==0){
 											$("#kong").show()
 											$("#empty").remove()
 										}
-										$("#"+_id).remove();
 										_state="delete";
 										odelete(tht)
 										clearInterval(timer2)
@@ -795,7 +795,7 @@
 										fg()
 										zz()
 										$("#"+_id).remove();
-										if(_ges==0){
+										if($("section>ul>li").length==0){
 											$("#kong").show()
 											$("#empty").remove()
 										}
@@ -816,7 +816,7 @@
 				var that=$(tht).parent().find(".amount").text()
 				var _id=$(tht).parents("li").attr("id")
 				console.log(data1[_ind]["salecount"])
-			if(_state!="delete"){
+			
 				if(data1[_ind]["salecount"]){
 					if(Number($(tht).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
 						$(tht).parent().find(".amount").text($(tht).parent().find(".amount").text()-1);
@@ -898,11 +898,11 @@
 							}
 							fg()
 							zz()
-							if(_ges==0){
+							$("#"+_id).remove();
+							if($("section>ul>li").length==0){
 								$("#kong").show()
 								$("#empty").remove()
 							}
-								$("#"+_id).remove();
 								_state="delete"
 								odelete(tht)
 							}
@@ -979,7 +979,7 @@
 								fg()
 								zz()
 								$("#"+_id).remove();
-								if(_ges==0){
+								if($("section>ul>li").length==0){
 									$("#kong").show()
 									$("#empty").remove()
 								}
@@ -987,7 +987,7 @@
 								odelete(tht)
 							}
 						}
-					}
+					
 				if(_state=="reduce"){
 					reduce(tht)
 				}
