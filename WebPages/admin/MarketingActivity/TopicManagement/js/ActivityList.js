@@ -336,7 +336,7 @@ function basicQuery(resetQueryCondition,bouncedShow) {
 				sessionStorage.account = '';
 				sessionStorage.status = false;
 				sessionStorage.url = "/admin/login/signin.html";
-				location.reload();
+//				location.reload();
 			} else {
 				layer.alert('获取活动列表失败:错误' + data.status, { icon: 5 });
 //				$(".loaded").fadeOut();
@@ -509,11 +509,13 @@ function statusAjax() {
 		error: function(data) {
 			console.log(data)
 			linshiCharge = data;
-			if(data.status == '403') {
+			if(!sessionStorage.url){
+				layer.alert('获取失败,请登陆...',{ icon: 5 });
+			}else if(data.status == '403') {
 				sessionStorage.account = '';
 				sessionStorage.status = false;
 				sessionStorage.url = "/admin/login/signin.html"
-				location.reload()
+//				location.reload()
 			} else {
 				console.log(data.status)
 				layer.alert('获取负责人失败:错误' + data.status, { icon: 5 });
