@@ -141,7 +141,7 @@
 
     <div id="dropload" class="container-w " ms-if="vm.isShow">
         <!--ms-for: el in vm.jsondata-->
-        <div ms-class="['div-list',(el.activitykind=='降价'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'?'maizeng':'taocan')]">
+        <div ms-class="['div-list',(el.activitykind=='降价||el.activitykind=='降价''?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'?'maizeng':'taocan')]">
             <div class="div-top" style="padding: 10px 10px 10px 10px; overflow-x:hidden">
                 <div class="parenttitle" style="">
                     <b>{{el.parentactivitytitle}}</b>
@@ -154,14 +154,14 @@
                     </div>
                     <div class="img_tag1"></div>
                 </div>
-                <div class="li-text" ms-if="el.activitykind=='降价'">
+                <div class="li-text" ms-if="el.activitykind=='降价' || el.activitykind=='降价'">
                     <p>{{el.activitytitle}}</p>
                     <ul class="jiangjia_price">
                         <li>￥{{el.discountprice}}</li>
-                        <li>
+                        <!--<li>
                             <span>{{el.discount}}折</span>
                             <p>￥{{el.originalprice}}</p>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
                 <div class="li-text" ms-if="el.activitykind=='有礼'">
@@ -183,10 +183,10 @@
                     <p>{{el.activitytitle}}</p>
                     <ul class="jiangjia_price">
                         <li>￥{{el.discountprice}}</li>
-                        <li>
+                        <!--<li>
                             <span>已节省{{el.sparevalue}}元</span>
                             <p>￥{{el.originalprice}}</p>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
 
