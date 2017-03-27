@@ -236,6 +236,7 @@ function getactivityitem(sandbox, activityid) {
                     var youli = "";
                     var maizeng = "";
                     var taocan = "";
+                    var danpin = "";
                     var jiangjia = "";
                     var linqi = "";
                 for (var i = 0; i < items.length; i++) {
@@ -343,7 +344,40 @@ function getactivityitem(sandbox, activityid) {
 
                             // $("#ruledesc_tc").html(itemjsoncontentObj.ruledesc);
                         }
-                    } else if (itemKind == "买赠") {
+                    } else if (itemKind == "单品") {
+                        // $("#danpin").show();
+
+                        if (itemjsoncontent != null && itemjsoncontent != "") {
+                            var itemjsoncontentObj = JSON.parse(itemjsoncontent);
+                            // 齐枭飞添加
+                            // 
+                            itemjsoncontentObj.ruledesc = itemjsoncontentObj.ruledesc || "备注:";
+                            danpin += "<div class='prolist' id='danpin'>";
+                            danpin += "<div class='biaoqian'>单品</div>";
+                            danpin += "<div class='prolist-l'>";
+                            danpin += "<div class='box-info31'>";
+                            danpin += "购<span id='activitytitle_jj'>" + itemjsoncontentObj.activitytitle + "</span>";
+                            danpin += "</div>";
+                            danpin += "<div class='box-info3-w'>";
+                            danpin += "<div class='box-info3'>";
+                            danpin += "优惠价：<span id='discountprice_jj'>" + "￥" + itemjsoncontentObj.discountprice + "</span>";
+                            danpin += "</div>";
+                            danpin += "</div>";
+                            danpin += "<div class='box-info21' id='ruledesc_jj'>" + itemjsoncontentObj.ruledesc + "</div>";
+                            danpin += "</div>";
+                            danpin += "<div class='prolist-r'>";
+                            danpin += "<div class='proimg'>";
+                            danpin += "<img id='itemPic_jj' src='" + items[i].itempic + "'/>";
+                            danpin += "<div class='biaoqian'>单品</div>";
+                            danpin += "</div>";
+                            danpin += "</div>";
+                            danpin += "</div>";
+
+                            $("#danpin").html(danpin);
+
+                        }
+                    }
+                    else if (itemKind == "买赠") {
                         // $("#maizeng").show();
                         
                         if (itemjsoncontent != null && itemjsoncontent != "") {
