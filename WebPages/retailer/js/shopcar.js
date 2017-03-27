@@ -65,11 +65,15 @@
 									$("#kong").show()
 									_empty=0;
 									$("#edit").text("编辑")
+									$(".intr").remove()
 					        	}else if(dataEmpty.result==error){
 					        		$(".loads").hide()
 					        	}
 					        }
 						})						
+					})
+					$("#ifDelt2>div:nth-child(2)>span:nth-child(1)").click(function(){
+						$("#ifDelt2").hide()
 					})
 				})
 			}
