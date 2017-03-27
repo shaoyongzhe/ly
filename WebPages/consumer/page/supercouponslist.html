@@ -138,7 +138,7 @@
             <img src="../image/supercoupons/ad_img.png" />   好多超惠券，速来围观，即领即用，先用先得！
         </div>
         <div id="list" ms-if="vm.isShow">
-            <div ms-repeat="vm.jsondata" data-repeat-rendered="jsondataReadered" ms-attr-class="div-list {{el.activitykind=='降价'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'?'maizeng':'taocan'}}">
+            <div ms-repeat="vm.jsondata" data-repeat-rendered="jsondataReadered" ms-attr-class="div-list {{el.activitykind=='降价'|| el.activitykind=='单品'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'?'maizeng':'taocan'}}">
                 <a ms-attr-data-original="/consumer/page/superticketitem.html?activitiy_item_guid={{el.guid}}">
                     <div class="div-top">
                         <div class="li-img">
@@ -147,16 +147,16 @@
                                 {{el.time_to_end_text}}
                             </p>
                         </div>
-                        <div class="li-text" ms-if="el.activitykind=='降价'">
+                        <div class="li-text" ms-if="el.activitykind=='降价' || el.activitykind=='单品'">
                             <p>{{el.activitytitle}}</p>
                             <table class="tbl_tc">
                                 <tr>
                                     <td rowspan="2" class="tbl_td_left">￥{{el.discountprice}}</td>
-                                    <td class="tbl_td_right"> <p>{{el.discount}}折</p></td>
+                                   <!-- <td class="tbl_td_right"> <p>{{el.discount}}折</p></td>-->
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <td style="text-decoration:line-through;padding-left:8px;">￥{{el.originalprice}}</td>
-                                </tr>
+                                </tr>-->
                             </table>
                         </div>
                         <div class="li-text" ms-if="el.activitykind=='有礼'">
@@ -182,11 +182,11 @@
                             <table class="tbl_tc">
                                 <tr>
                                     <td rowspan="2" class="tbl_td_left">￥{{el.discountprice}}</td>
-                                    <td class="tbl_td_right"> <p>已节省{{el.sparevalue}}元</p></td>
+                                    <!--<td class="tbl_td_right"> <p>已节省{{el.sparevalue}}元</p></td>-->
                                 </tr>
-                                <tr>
+                                <!--<tr>
                                     <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥{{el.originalprice}}</td>
-                                </tr>
+                                </tr>-->
                             </table>
                         </div>
                         <div class="img_tag">

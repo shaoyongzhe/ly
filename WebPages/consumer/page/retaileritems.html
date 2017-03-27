@@ -211,7 +211,7 @@
             <div id="ad_2" class="div_ad">
                 即领即用，先用先得，用完为止，路过不要错过
             </div>
-            <div ms-repeat="vm.ticket" ms-class="div-list {{el.activitykind=='降价'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'?'maizeng':'taocan'}}" style="margin:15px 0 0 0">
+            <div ms-repeat="vm.ticket" ms-class="div-list {{el.activitykind=='降价'|| el.activitykind=='单品'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'?'maizeng':'taocan'}}" style="margin:15px 0 0 0">
                 <div class="div-top" style="padding-bottom:20px">
                     <div class="li-img">
                         <img ms-attr-src="el.itempic" alt="">
@@ -219,23 +219,23 @@
                             {{el.time_to_end_text}}
                         </p>
                     </div>
-                    <div class="li-text" ms-if="el.activitykind=='降价'">
+                    <div class="li-text" ms-if="el.activitykind=='降价'  || el.activitykind=='单品'">
                         <p>{{el.activitytitle}}</p>
-                        <!--<ul class="jiangjia_price">
+                        <ul class="jiangjia_price">
                             <li>￥{{el.discountprice}}</li>
-                            <li>
+                            <!--<li>
                                 <span>{{el.discount}}折</span>
                                 <p>￥{{el.originalprice}}</p>
-                            </li>
-                        </ul>-->
+                            </li>-->
+                        </ul>
                         <table class="tbl_tc">
                             <tr>
                                 <td rowspan="2" class="tbl_td_left">￥{{el.discountprice}}</td>
-                                <td class="tbl_td_right"> <p>{{el.discount}}折</p></td>
+                                <!--<td class="tbl_td_right"> <p>{{el.discount}}折</p></td>-->
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td style="text-decoration:line-through;padding-left:8px;">￥{{el.originalprice}}</td>
-                            </tr>
+                            </tr>-->
                         </table>
                     </div>
                     <div class="li-text" ms-if="el.activitykind=='有礼'">
@@ -265,11 +265,11 @@
                         <table class="tbl_tc">
                             <tr>
                                 <td rowspan="2" class="tbl_td_left">￥{{el.discountprice}}</td>
-                                <td class="tbl_td_right"> <p>已节省{{el.sparevalue}}元</p></td>
+                               <!-- <td class="tbl_td_right"> <p>已节省{{el.sparevalue}}元</p></td>-->
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥{{el.originalprice}}</td>
-                            </tr>
+                            </tr>-->
                         </table>
                     </div>
                     <div class="img_tag">
