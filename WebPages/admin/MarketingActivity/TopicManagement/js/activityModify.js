@@ -56,7 +56,7 @@ function render(resdata){
     basic.find('.endtime').val(activity.endtime);
     basic.find('.earliestjointime').val(activity.earliestjointime);
     basic.find('.latestjointime').val(activity.latestjointime);
-    basic.find('.activityTitle').val(activity.activitytitle);
+    basic.find('.activityTitle').val(activity.activitytitle); $('.flag').text(activity.activitytitle + "  " + activity.guid);
     basic.find('.activityTitle').attr("guid",activity.guid);//0124添加
     basic.find('.tel').val(tel);
     basic.find('.quhao').val(quhao);
@@ -69,7 +69,6 @@ function render(resdata){
 
     basic.find('.fzr1 .selected').attr("guid",activity.responsible_id.guid);
     basic.find('.fzr2 .selected').attr("guid",activity.responsible2nd_id.guid);
-
 
     if(activity.singleselection == 0){
         $('.radio:contains(是)').addClass('on').siblings().removeClass('on');
@@ -429,7 +428,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        +               '</div>'
 	        +           '</div>';   
 	    $('.addSub2:last').before(activityManger_addSub2Html);
-//	  debugger;
 	    $('.addSub2Mange:last').find(".acSe4 .selected").text(participants);
 	    if(participants!="分销商"){
 	    	$('.addSub2Mange:last').find(".acMeI1").attr("disabled","disabled");	 
@@ -946,33 +944,9 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 		    $(".addSub4Mange:last").find(".subsidyCondition a").attr("statistic",addSub4MangeStatistic);	    	
 	    }
 	    
-	    //*************************************0216删除此注释掉的内容**************************************
-//	    if(activityManger_addSub4Data[i].probability){//prize_content
-//	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
-//	    		$(".addSub4Mange:last").find(".hdc7 .gl").val(addSub4MangeProbability);   
-//	    }
-//	    $(".addSub4Mange:last").find(".hdc7 .gl").addClass("glHidden"+(i+1));
-	    //***************************************************************************	    
 	
 	    /*补贴形式*/
-	//  $(".addSub4Mange:last").find(".acSe11 .selected").text(activityManger_addSub4Data[i].refund_content);
 	    $(".addSub4Mange:last").find(".acSe11 .selected").text(btType);
-	
-	    /*三种类型的范围值*/
-	//  $(".addSub4Mange:last").find(".addsub4_fanweizhi").addClass("hi");  
-	//  if(activityManger_addSub4Data[i].max&&activityManger_addSub4Data[i].min){
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi1").removeClass("hi");
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi1 .hdc4In1").val(activityManger_addSub4Data[i].min);
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi1 .hdc4In2").val(activityManger_addSub4Data[i].max);
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi1 .hdc4P2").text(activityManger_addSub4Data[i].unit);
-	//  }else if(activityManger_addSub4Data[i].max||activityManger_addSub4Data[i].min){
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi2").removeClass("hi");
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi2 .hdc4In1").val(activityManger_addSub4Data[i].min);
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi2 .hdc4P2").val(activityManger_addSub4Data[i].unit);
-	//  }else{//摇一摇
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi3").removeClass("hi");
-	//      $(".addSub4Mange:last").find(".addsub4_fanweizhi3").text("有相关字段的时候，改变这里");      
-	//  }
 	
 	    if(activityManger_addSub4Data[i].refund_content!="摇一摇"){//shake
 	     // debugger
@@ -989,11 +963,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	        }
 	    }else if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
 	        $(".addSub4Mange:last").find(".hdc4d2").removeClass('hi');
-	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');     
-	        // $(".addSub4Mange:last").find(".hdc4dB").addClass("set").text("次");
-
-	        // alert(1)
-
+	        $(".addSub4Mange:last").find(".hdc4d1").addClass('hi');
 	    }
 	
 	    /*发放上限*/
@@ -1003,46 +973,18 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub4Mange:last").find(".acSe13 input").val(activityManger_addSub4Data[i].ceiling);
 	    var subsidyTopValue=activityManger_addSub4Data[i].max?activityManger_addSub4Data[i].max:activityManger_addSub4Data[i].min;
 
-
-	  //   if(btType.indexOf('随机') != -1){
-	  //       $(".addSub4Mange:last").find('.setgailv').addClass('on');
-	  //       activityManger_addSub4Data[i].probability.value_curve.forEach( function(item, index) {
-			// 	randfz += ((Number(item.min) + Number(item.max)) / 2) * (item.percentage / 100);
-			// });
-			// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(randfz.toFixed(2))
-	  //   } else {
-
-	    	// if(activityManger_addSub4Data[i].refund_content=="摇一摇"){
-	    		// var yaofz = 0;
-	    		// activityManger_addSub4Data[i].prize_content.forEach(function(item, index){
-	    		// 	yaofz += item.applycount;
-	    		// });
-	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
-	    		
-	    		// $(".addSub4Mange:last").find('.set').click();
-	    		// $('.yaook').click();
-
-
-	    	// } else {
-	    		// $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(subsidyTopValue*activityManger_addSub4Data[i].ceiling);
-	    		$(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
-	    	// }
-
-
-	    // }
-
+	    $(".addSub4Mange:last").find(".acSe14:eq(0) input").val(activityManger_addSub4Data[i].crest);
+	    
 		$(".addSub4Mange:last").find(".acSe14:eq(0) p").text(activityManger_addSub4Data[i].unit);//单位
 
 	    /*申报预算*/
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) input").val(activityManger_addSub4Data[i].applycount); 
 	    $(".addSub4Mange:last").find(".acSe14:eq(1) p").text(activityManger_addSub4Data[i].unit);//单位
 
-
 			/*设置摇一摇*/
 			if(activityManger_addSub4Data[i].prize_content){
 				var addSub4MangeYaoyiyao=JSON.stringify(activityManger_addSub4Data[i].prize_content, null, 4);
-				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao); 
-
+				$(".addSub4Mange:last").find(".hdc4d2 .y1y").val(addSub4MangeYaoyiyao);
 	    		$(".addSub4Mange:last").find(".fz p").text('元');//单位  
 
 	    		var yaoText = "";
@@ -1061,17 +1003,14 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    		});
 	    		$(".addSub4Mange:last").find(".hdc6-2 input").val(yaoSbys);
 
-
-
-
 			}
-			 $(".addSub4Mange:last").find(".hdc4d2 .y1y").addClass("y1yHidden"+(i+1));
-
+			
+			$(".addSub4Mange:last").find(".hdc4d2 .y1y").addClass("y1yHidden"+(i+1));
 
 	    /*设置概率*/
 	    if(activityManger_addSub4Data[i].probability){//prize_content
-	    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
-	    		$(".addSub4Mange:last").find(".hdc7 .gl").val(addSub4MangeProbability);   
+    		var addSub4MangeProbability=JSON.stringify(activityManger_addSub4Data[i].probability, null, 4);
+    		$(".addSub4Mange:last").find(".hdc7 .gl").val(addSub4MangeProbability);   
 	    }
 	    $(".addSub4Mange:last").find(".hdc7 .gl").addClass("glHidden"+(i+1));
 	
@@ -1096,10 +1035,6 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	
 	// $("*").removeClass("mangeStyle");
 	$(".mangeStyle").removeClass("mangeStyle");
-//	$(".addSub4Mange input").removeAttr("disabled");
-//	$(".addSub3Mange input").removeAttr("disabled");
-//	$(".addSub2Mange input").removeAttr("disabled");
-//	$(".addSub1Mange input").removeAttr("disabled");
 	/*只保留有数据的控件，加号再其后*/
 	if(location.href.indexOf("activityModify.html")!=-1){         
 	    //控件1
@@ -1133,12 +1068,7 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    $(".addSub5Mange:last").find(".acAd2").removeClass("hi");//最后一个控件加号显示       
 	}
 
-
-
 	butiefz();
-	$('.butieSec .sbys').keyup();
+	$('.butieSec .sbys + p:contains(元):first').prev().blur();
 
 }
-
-
-

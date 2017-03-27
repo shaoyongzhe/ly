@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -43,8 +43,7 @@
     <script id="companytemplate" type="text/template">
         <div class="m-company-top">
             <!--<div class="userimg"><img src="{@if distributor_pic ==''}/distributor/image/cs04.jpg {@else}${distributor_pic}{@/if}" /></div>-->
-            <!--<div class="userimg"><img src="{@if distributor_pic ==''}"+"/distributor/image/cs04.jpg"+" {@else}${distributor_pic}{@/if}" /></div>-->
-            <div class="userimg"><img src="{distributor_pic ==''?'/distributor/image/cs04.jpg':distributor_pic}" /></div>
+            <div class="userimg"><img src="{@if distributor_pic ==''}"+"/distributor/image/cs04.jpg"+" {@else}${distributor_pic}{@/if}" /></div>
             <div class="userinfo">
                 <div class="zi">
                     <span>${distributorname}</span><br />
