@@ -476,6 +476,7 @@
 							zz()
 							if($("section>ul>li").length==0){
 								$("#kong").show()
+								$("#empty").remove()
 							}
 						}
 					})
