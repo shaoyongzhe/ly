@@ -392,7 +392,7 @@ function getactivityitem(sandbox, activityid) {
                             
                             // $("#ruledesc_mz").html(itemjsoncontentObj.ruledesc);
                         }
-                    } else if (itemKind == "降价") {
+                    } else if (itemKind == "单品") {
                         // $("#jiangjia").show();
                         
                         if (itemjsoncontent != null && itemjsoncontent != "") {
@@ -400,8 +400,8 @@ function getactivityitem(sandbox, activityid) {
                             // 齐枭飞添加
                             // 
                              itemjsoncontentObj.ruledesc=itemjsoncontentObj.ruledesc||"备注:";
-                            jiangjia+="<div class='prolist' id='jiangjia'>";
-                            jiangjia+="<div class='biaoqian'>降价</div>";
+                            jiangjia+="<div class='prolist' id='danpin'>";
+                            jiangjia += "<div class='biaoqian'>单品</div>";
                             jiangjia+="<div class='prolist-l'>";
                             jiangjia+="<div class='box-info31'>";
                             jiangjia+="购<span id='activitytitle_jj'>"+itemjsoncontentObj.activitytitle+"</span>";
@@ -414,7 +414,7 @@ function getactivityitem(sandbox, activityid) {
                             jiangjia+="优惠价：<span id='discountprice_jj'>"+"￥" + itemjsoncontentObj.discountprice+"</span>";
                             jiangjia+="</div>";
                             jiangjia+="<div class='box-info3'>";
-                            jiangjia+="折扣价：<span id='discount_jj'>"+itemjsoncontentObj.discount + "折"+"</span>";
+                            //jiangjia+="折扣价：<span id='discount_jj'>"+itemjsoncontentObj.discount + "折"+"</span>";
                             jiangjia+="</div>";
                             jiangjia+="</div>";
                             jiangjia+="<div class='box-info21' id='ruledesc_jj'>"+itemjsoncontentObj.ruledesc+"</div>";
@@ -422,7 +422,7 @@ function getactivityitem(sandbox, activityid) {
                             jiangjia+="<div class='prolist-r'>";
                             jiangjia+="<div class='proimg'>";
                             jiangjia+="<img id='itemPic_jj' src='"+items[i].itempic+"'/>";
-                            jiangjia+="<div class='biaoqian'>降价</div>";
+                            jiangjia += "<div class='biaoqian'>单品</div>";
                             jiangjia+="</div>";
                             jiangjia+="</div>";
                             jiangjia+="</div>";
@@ -431,7 +431,7 @@ function getactivityitem(sandbox, activityid) {
                             // $("#discountprice_jj").text("￥" + itemjsoncontentObj.discountprice);
                             // $("#discount_jj").text(itemjsoncontentObj.discount + "折");
                             // // 齐枭飞添加
-                            $("#jiangjia").html(jiangjia);
+                            $("#danpin").html(jiangjia);
                             // $("#itemPic_jj").attr("src", itemPic);
                             // 齐枭飞添加备注标题
                             // if(!itemjsoncontentObj.ruledesc){
