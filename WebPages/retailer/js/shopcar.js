@@ -36,36 +36,40 @@
 			console.log(_tt)
 			function empty(){
 				$("#empty").click(function(){
-					$.ajax({//获取购物车业的数据
-						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid=",
-						async:true,
-				    	cache:false,
-				        dataType:"json",
-				        type:"delete",
-				        error:function(){$(".loads").hide()},
-				        success:function(dataEmpty){
-				        	if(dataEmpty.result==true){
-								$("section>ul").each(function(){
-									$(this).remove()
-								})
-								$("#empty").remove()
-								_price=0;
-								_pp=0;
-								_discount=0;
-								_dis=0;
-								_ges=0;
-								_cun=0;
-								$(".amountBig span").text(_price.toFixed(2))
-								$(".ab span:nth-child(2)").text(_discount.toFixed(2))
-								$(".summ").text(_ges)
-								zz()
-								$("#kong").show()
-								_empty=0;
-								$("#edit").text("编辑")
-				        	}else if(dataEmpty.result==error){
-				        		$(".loads").hide()
-				        	}
-				        }
+					$("#ifDelt2").show()
+					$("#ifDelt2>div:nth-child(2)>span:nth-child(2)").click(function(){
+						$("#ifDelt2").hide()
+						$.ajax({//获取购物车业的数据
+							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid=",
+							async:true,
+					    	cache:false,
+					        dataType:"json",
+					        type:"delete",
+					        error:function(){$(".loads").hide()},
+					        success:function(dataEmpty){
+					        	if(dataEmpty.result==true){
+									$("section>ul").each(function(){
+										$(this).remove()
+									})
+									$("#empty").remove()
+									_price=0;
+									_pp=0;
+									_discount=0;
+									_dis=0;
+									_ges=0;
+									_cun=0;
+									$(".amountBig span").text(_price.toFixed(2))
+									$(".ab span:nth-child(2)").text(_discount.toFixed(2))
+									$(".summ").text(_ges)
+									zz()
+									$("#kong").show()
+									_empty=0;
+									$("#edit").text("编辑")
+					        	}else if(dataEmpty.result==error){
+					        		$(".loads").hide()
+					        	}
+					        }
+						})						
 					})
 				})
 			}
@@ -331,10 +335,10 @@
 				})
 				$(".delete").click(function(){
 					_dll=$(this).parent().parent().find(".amount").text()
-					$(".ifDelt").css({display:"block"})
+					$("#ifDelt").css({display:"block"})
 					$("html").css({overflow:"hidden"})
-					$(".ifDelt div:nth-child(1)").attr("id","y"+$(this).parent().parent().attr("id"))
-					$(".ifDelt div:nth-child(1)").attr("ip",$(this).parent().parent().attr("ip"))
+					$("#ifDelt div:nth-child(1)").attr("id","y"+$(this).parent().parent().attr("id"))
+					$("#ifDelt div:nth-child(1)").attr("ip",$(this).parent().parent().attr("ip"))
 					_arr.splice($(this).parent().parent().attr("ip"),1,-2)
 				})
 				$(".ly").click(function(){
@@ -404,11 +408,11 @@
 						success:function(data){}
 					})
 				})
-				$(".ifDelt span:nth-child(1)").click(function(){
-					$(".ifDelt").css({display:"none"})
+				$("#ifDelt span:nth-child(1)").click(function(){
+					$("#ifDelt").css({display:"none"})
 					$("html").css({overflow:"auto"})
 				})
-				$(".ifDelt span:nth-child(2)").click(function(){
+				$("#ifDelt span:nth-child(2)").click(function(){
 					var _ar=[];
 					_id=$(this).parent().prev().attr("id").replace("y","");
 					 var _that=$(this)
@@ -422,7 +426,7 @@
 							console.log(data)
 							//$(".delete").remove($(".delete").parent().parent())
 							$("html").css({overflow:"auto"})
-							$(".ifDelt").css({display:"none"})
+							$("#ifDelt").css({display:"none"})
 							_cun-=Number($("#"+_id).find(".amount").text());$(this).parent().prev().attr("ip")
 							_Id.splice(_that.parent().prev().attr("ip"),1,"a");
 							_sv.splice(_that.parent().prev().attr("ip"),1,"a");
@@ -660,7 +664,7 @@
 									}else{
 															//$(".delete").remove($(".delete").parent().parent())
 										$("html").css({overflow:"auto"})
-										$(".ifDelt").css({display:"none"})
+										$("#ifDelt").css({display:"none"})
 										_cun-=Number($(tht).parents("li").find(".amount").text());
 										_Id.splice(_id,1,"a");
 										_sv.splice(_id,1,"a");
@@ -748,7 +752,7 @@
 										_state="reduce"
 									}else{
 										$("html").css({overflow:"auto"})
-										$(".ifDelt").css({display:"none"})
+										$("#ifDelt").css({display:"none"})
 										_Id.splice(_id,1,"a");
 										_sv.splice(_id,1,"a");
 										_pp-=Number($(tht).parents("li").find(".pp1").text().replace("￥",""))*Number($(tht).prev().text())
@@ -846,7 +850,7 @@
 						}else{
 							//$(".delete").remove($(".delete").parent().parent())
 							$("html").css({overflow:"auto"})
-							$(".ifDelt").css({display:"none"})
+							$("#ifDelt").css({display:"none"})
 							_cun-=Number($(tht).parents("li").find(".amount").text());
 							_Id.splice(_id,1,"a");
 							_sv.splice(_id,1,"a");
@@ -933,7 +937,7 @@
 								_state="reduce"
 							}else{
 								$("html").css({overflow:"auto"})
-								$(".ifDelt").css({display:"none"})
+								$("#ifDelt").css({display:"none"})
 								_Id.splice(_id,1,"a");
 								_sv.splice(_id,1,"a");
 								_pp-=Number($(tht).parents("li").find(".pp1").text().replace("￥",""))*Number($(tht).prev().text())
