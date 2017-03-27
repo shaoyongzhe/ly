@@ -84,7 +84,7 @@
         </div>
         {@each data[0].items as item}
 
-        {@if item.activitykind =="降价" || item.activitykind == ""}
+        {@if item.activitykind =="降价" || item.activitykind =="单品" || item.activitykind == ""}
         <div class="div-list jiangjia">
             {@else if item.activitykind == "有礼"}
             <div class="div-list youli">
@@ -98,17 +98,14 @@
                                 <img src="${item.itempic}" alt="">
                                 <p>${data[0].time_to_end_text}</p>
                             </div>
-                            {@if item.activitykind ==="降价" || item.activitykind == ""}
+                            {@if item.activitykind ==="降价" || item.activitykind == "" || item.activitykind == "单品"}
                             <div class="li-text">
                                 <p>  ${item.activitytitle}</p>
 
                                 <table class="tbl_tc">
                                     <tr>
                                         <td rowspan="2" class="tbl_td_left">￥${item.discountprice}</td>
-                                        <td class="tbl_td_right"> <p>${item.discount}折</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-decoration:line-through;padding-left:8px;">￥${item.originalprice}</td>
+                                        <!--<td class="tbl_td_right"> <p>${item.discount}折</p></td>-->
                                     </tr>
                                 </table>
                             </div>
@@ -135,10 +132,7 @@
                                 <table class="tbl_tc">
                                     <tr>
                                         <td rowspan="2" class="tbl_td_left">￥${item.discountprice}</td>
-                                        <td class="tbl_td_right"> <p>已节省${item.sparevalue}元</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥${item.originalprice}</td>
+                                        <!--<td class="tbl_td_right"> <p>已节省${item.sparevalue}元</p></td>-->
                                     </tr>
                                 </table>
                             </div>
