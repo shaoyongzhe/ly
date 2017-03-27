@@ -6,7 +6,7 @@ avalon.ready(function () {
 
     vm.getMoney()
 
-    vm.getAssetFlow(1, null)
+
 
     setTimeout(function () { qrcode.href(); }, 500)
 })
@@ -19,7 +19,6 @@ var vm = avalon.define({
     $id: 'mywallet',
     Moneys: { balance: 0 },
     category: "all",
-    //list: { all_array: [], income_array: [], expend_array: [] },
     alllist: { array: [], paging: {}, pageIndex: 1 },//全部
     incomelist: { array: [], paging: {}, pageIndex: 1 },//收入
     expendlist: { array: [], paging: {}, pageIndex: 1 },//支出
@@ -29,8 +28,8 @@ var vm = avalon.define({
             dataType: 'json',
             url: '/webapi/asset/member/my/asset',
             data: { assettype: '现金', withemployer: false },
-            beforeSend: function () { common.loading.show(); },
-            complete: function () { common.loading.hide(); },
+            beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "加载中..." }) },
+            //complete: function () { common.loading.hide(); },
             success: function (json) {
                 console.log(json)
                 common.loading.hide();
@@ -49,6 +48,8 @@ var vm = avalon.define({
                     })
                     vm.Moneys = account == undefined || account == "" ? {} : account[0];
                 }
+
+                vm.getAssetFlow(1, null)
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 common.loading.hide();//隐藏转圈动画
@@ -75,6 +76,7 @@ var vm = avalon.define({
         }
     },
     getAssetFlow: function (index, me) {
+
         var paging = { pageindex: index, current: {} }
         if (index > 1) {
             if (vm.category == "all") {//全部
@@ -84,7 +86,6 @@ var vm = avalon.define({
             } else {
                 paging = $.extend({}, vm.expendlist.paging.$model, { pageindex: index });
             }
-
         }
         var data = {
             paging: JSON.stringify(paging),
@@ -92,18 +93,22 @@ var vm = avalon.define({
             category: vm.category,
             assettype: "现金"
         }
+
         $.ajax({
             type: 'GET',
             dataType: 'json',
             url: '/webapi/asset/member/my/asset/flowing',
             data: data,
+            beforeSend: function () { index > 1 ? '' : shelter.init({ icos: "/js/shelter/image/loading.gif", title: "明细加载中..." }) },
+            complete: function () { shelter.close() },
             success: function (json) {
                 if (vm.category == "all") {
                     tmdropme = me
                 } else if (vm.category == "income") {
                     tmdropme2 = me
-                } else
+                } else {
                     tmdropme3 = me
+                }
                 json = json || {};   /* 统一加这句话 */
                 if (json.error) {
                     dealdropme(me);
@@ -212,7 +217,7 @@ var vm = avalon.define({
         });
     },
     jsondataReadered: function (e) {
-        if (vm.alllist.pageIndex == 1) {
+        if (vm.alllist.pageIndex == 1 && vm.alllist.array.length >= 15) {
             $(".dropload-down").remove()
             $('#list_1').dropload({
                 scrollArea: window,
@@ -223,9 +228,11 @@ var vm = avalon.define({
                     domNoData: '<div class="dropload-noData">暂无数据</div>'
                 },
                 loadDownFn: function (me) {
-                    vm.alllist.pageIndex++
-                    tmdropme = me;
-                    vm.getAssetFlow(vm.alllist.pageIndex, me)
+                    if (vm.category == "all") {//全部
+                        vm.alllist.pageIndex++
+                        tmdropme = me;
+                        vm.getAssetFlow(vm.alllist.pageIndex, me)
+                    }
                 }
             });
         }
@@ -233,7 +240,7 @@ var vm = avalon.define({
             tmdropme.resetload();
     },
     jsondataReadered2: function (e) {
-        if (vm.incomelist.pageIndex == 1) {
+        if (vm.incomelist.pageIndex == 1 && vm.incomelist.array.length >= 15) {
             $(".dropload-down").remove()
             $('#list_2').dropload({
                 scrollArea: window,
@@ -244,9 +251,11 @@ var vm = avalon.define({
                     domNoData: '<div class="dropload-noData">暂无数据</div>'
                 },
                 loadDownFn: function (me) {
-                    vm.incomelist.pageIndex++
-                    tmdropme2 = me;
-                    vm.getAssetFlow(vm.incomelist.pageIndex, me)
+                    if (vm.category == "income") {//
+                        vm.incomelist.pageIndex++
+                        tmdropme2 = me;
+                        vm.getAssetFlow(vm.incomelist.pageIndex, me)
+                    }
                 }
             });
         }
@@ -254,7 +263,7 @@ var vm = avalon.define({
             tmdropme2.resetload();
     },
     jsondataReadered3: function (e) {
-        if (vm.expendlist.pageIndex == 1) {
+        if (vm.expendlist.pageIndex == 1 && vm.expendlist.array.length >= 15) {
             $(".dropload-down").remove()
             $('#list_3').dropload({
                 scrollArea: window,
@@ -265,9 +274,11 @@ var vm = avalon.define({
                     domNoData: '<div class="dropload-noData">暂无数据</div>'
                 },
                 loadDownFn: function (me) {
-                    vm.expendlist.pageIndex++
-                    tmdropme3 = me;
-                    vm.getAssetFlow(vm.expendlist.pageIndex, me)
+                    if (vm.category == "expend") {//
+                        vm.expendlist.pageIndex++
+                        tmdropme3 = me;
+                        vm.getAssetFlow(vm.expendlist.pageIndex, me)
+                    }
                 }
             });
         }
