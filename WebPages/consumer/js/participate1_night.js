@@ -20,6 +20,10 @@ $(function(){
 				type:'get',
 				dataType:'json',
 				// data:{},
+				beforeSend:function(){
+					$('.more_active').hide();
+					$('.more_activeRight').hide();
+				},
 				success:function(data){ 
 					console.log(data);
 					var str_sum='';
@@ -324,6 +328,7 @@ $(function(){
 								});
 								$('.active1font').html();
 								$('.more_active').hide();
+								$('.more_activeRight').hide();
 							}else{
 								$('.activesmallpic').attr({
 									src:"../image/5-1.png"
@@ -362,13 +367,35 @@ $(function(){
 			});
 
 	}
-				function swiper2(){
-					var Swiper2 = new Swiper ('.swiper2', {
-					    loop: false, //禁止循环 
-					    speed:1200,
-					    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
-						observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
-						autoHeight:true,
-					})
+		function swiper2(){
+			var Swiper2 = new Swiper ('.swiper2', {
+			    loop: false, //禁止循环 
+			    speed:1200,
+			    observer:true,//修改swiper2自己或子元素时，自动初始化swiper2
+				observeParents:true,//修改swiper2的父元素时，自动初始化swiper2
+				autoHeight:true,
+				onReachBeginning: function(swiper){
+				    // console.log('到了第一个slide');
+				    $('.more_activeRight').hide();
+				    $('.more_active').show();
+				},
+				onReachEnd: function(swiper){
+			        // console.log('到了最后一个slide');
+			        $('.more_active').hide();
+			        $('.more_activeRight').show();
+			    },
+			    onTouchEnd: function(swiper){
+				   if(new_arr.length>=1){
+						if(Swiper2.isBeginning){
+							// alert('是');
+						}else if(Swiper2.isEnd){
+							// alert('不是');
+						}else{
+							$('.more_active').show();
+					        $('.more_activeRight').show();
+						}
+					}
 				}
+			})
+		}
 })

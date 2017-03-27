@@ -266,6 +266,7 @@ function shakeAfter() {
         } else {//没有抽奖次数
             vm.shakeStatus = 3;
             audio.pause();
+            vm.IsShake = false;
             $('.red-tc').css('display', 'block');
         }
     }
