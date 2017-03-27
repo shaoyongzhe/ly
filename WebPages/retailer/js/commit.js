@@ -33,14 +33,14 @@ function oJz(){
     var _discount = 0;
     var _mz = "";
     var _dx = {};
-    var _indd = localStorage.index;
+    var _indd = sessionStorage.index;
     var _index = [];
     
     var _sub = "";
     var _url = location.href;
 	var _Id = "";
-	if (localStorage.Id) {
-		_Id = localStorage.Id
+	if (sessionStorage.Id) {
+		_Id = sessionStorage.Id
 
 	
        
@@ -53,9 +53,37 @@ function oJz(){
         _sub = "&submitids=" + _Id
     }
     console.log(_Id)
+    $("body").on("click","#dateconfirm",function() {
+    	        if(new Date($("#beginTime").val()).getTime()<new Date().getTime()-1000*60*60*24){
+                	$(".tsh").show();
+                	$(".tsh").find(".ms").text("时间选择有误")
+                	$(".cfm").click(function(){
+                		$(".tsh").hide();
+                	})
+                	var _year = new Date().getFullYear()
+				    var _month = new Date().getMonth() + 1 
+				    var _jud=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getTime();
+				    var _day = new Date(new Date().getFullYear(),new Date().getMonth(),28).getTime()+1000*60*60*24;
+				    if(_jud-_day<=0){
+				    	if(_month<12){
+				    		_month=Number(_month)+1;
+				    	}else{
+				    		_year=Number(_year)+1
+				    		_month=1;
+				    	}
+				    	_day=new Date(new Date().getFullYear(),new Date().getMonth()+1,1).getDate()
+				    }else{
+				    	_day=new Date().getDate()+1
+				    }
+				    _day=_day >= 10 ? _day  : "0" + _day;
+				    _month=_month > 10 ? _month : ("0" + _month)
+				    console.log(_month)
+				    $("#beginTime").val(_year + "-" + _month + "-" + _day)
+                }
+    })
 	//获取提交订单数据
     $.ajax({
-        url: "/webapi/distributor/" + getRetailerid() + "/orderform/items?distributor_id=" + localStorage.disId + _sub,
+        url: "/webapi/distributor/" + getRetailerid() + "/orderform/items?distributor_id=" + sessionStorage.disId + _sub,
         async: true,
         cache: false,
         dataType: "json",
@@ -230,7 +258,7 @@ function oJz(){
             }
             sdd()//计算分销商活动满足条件
             function sdd() {
-                data = JSON.parse(localStorage.retalerdata).data;
+                data = JSON.parse(sessionStorage.retalerdata).data;
                 console.log(data)
                 console.log(_Id)
                 $("#distributorName>span").text(data[_indd]["distributorname"])
@@ -304,7 +332,7 @@ function oJz(){
 			if(_yucun==0){
 				$("#ee").hide()
 			}
-            if (JSON.parse(localStorage.retalerdata).data["itemkind"] == "满减") {
+            if (JSON.parse(sessionStorage.retalerdata).data["itemkind"] == "满减") {
                 if (_price >= 100 && _price < 500) {
                     $("#same-ss div:nth-child(3)").text("￥10.0")
                 } else if (_price >= 500) {
@@ -320,7 +348,7 @@ function oJz(){
 
 
             
-            $(".shoplist").html((localStorage.mz?localStorage.mz:"")+_list)
+            $(".shoplist").html((sessionStorage.mz?sessionStorage.mz:"")+_list)
             if (_distrgive != "") {
                 $("#sp3").text(_zz + _mzg)
             } else {
@@ -341,18 +369,18 @@ function oJz(){
     });
 
     //ajax结束
-    if (localStorage.Id != "") {//判断存储id是否存在
+    if (sessionStorage.Id != "") {//判断存储id是否存在
         $(".submit").click(function () {//提交订单函数触发
-        	localStorage.removeItem("tx");
-        	localStorage.removeItem("add");
+        	sessionStorage.removeItem("tx");
+        	sessionStorage.removeItem("add");
             $("body").css({ overflow: "hidden" })
             console.log(_Id)
-            console.log(localStorage.disId)
-            localStorage.removeItem("Id");
+            console.log(sessionStorage.disId)
+            sessionStorage.removeItem("Id");
             $(".submit").text("提交中...")
             $(".loads2").css({ display: "block" })
             var _rr={
-                    distributor_id: localStorage.disId,
+                    distributor_id: sessionStorage.disId,
                     remark: $("#inp2").val(),
                     deliverdate: $("#beginTime").val(),
                     submitids: _Id,
@@ -379,7 +407,7 @@ function oJz(){
                     console.log(data)
                     $(".loads2").css({ display: "none" }) 
                     if (data.result == true) {
-                    	localStorage.removeItem("date")
+                    	sessionStorage.removeItem("date")
                         $(".loads2 div").text("提交中...")
                         window.location = "myorder.html"
                     } else if(data.result == error){

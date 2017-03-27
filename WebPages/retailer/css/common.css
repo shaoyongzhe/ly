@@ -161,7 +161,7 @@
 	position:absolute;background:#009f96;right:0;bottom: 0;width:24%;height:100%;line-height: 70px;font-size: 1.7rem;text-align: center;color:#fff
 }
 .totalsum div span{
-	font-size: 1.7rem;
+	font-size: 1.5rem;
 }
 .bottomlayout .bottompanel2{ float:left; width:70%; height:4rem; background:#3a3635; color:#fff; position:relative;}
 .bottomlayout .bottompanel2 .shopcartammount{padding:0; margin:0;font-size:2.2rem; height:4rem; line-height:4rem;  padding-left:20px; float:left; position:absolute; top:10px; z-index:99999; }

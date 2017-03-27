@@ -60,9 +60,10 @@ function fnpricenum() {
     $("#zhezao").show();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + localStorage.retaler + "/shoppingcart/" + fnurl().distributor_id + "/count",
+        url: "/webapi/distributor/" + sessionStorage.retaler + "/shoppingcart/" + fnurl().distributor_id + "/count",
         //url: "../../data/menu.json",
         data: "",
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -354,8 +355,9 @@ function fnmenu() {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/itemtypegroups",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/itemtypegroups",
         data: "",
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -410,9 +412,10 @@ function fnyucun() {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/prepayinventorys",
         //url: "../../data/activeindex.json",
         data: "",
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -484,11 +487,12 @@ function fnhqactive() {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/activity",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/activity",
         data: {
             "lastcount": 0,
             "pagecount": 5000
         },
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -552,7 +556,7 @@ function fncuxiao(data) {
                 " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(2) + "</del></div>" +
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span><span>" + data[k1]["discount"] + " 折</span></div> ";
-            if(data[k1]["ruledesc"] != null) {
+            if(data[k1]["ruledesc"] != null && data[k1]["ruledesc"] != "") {
                 oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
@@ -585,7 +589,7 @@ function fncuxiao(data) {
                 data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
             }
             oli += "</p></div>";
-            if(data[k1]["ruledesc"] != null) {
+            if(data[k1]["ruledesc"] != null && data[k1]["ruledesc"] != "") {
                 oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
@@ -603,8 +607,9 @@ function fnlist2(odata) {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/items",
         data: odata,
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -666,7 +671,7 @@ function fnyibanlist2(data) {
                 " </div><del>￥" + Number(data[k1]["originalprice"] || data[k1]["price"]).toFixed(2) + "</del></div>" +
                 "</div> " +
                 "<div class='cgl-active'> <span>" + data[k1]["itemkind"] + "</span><span>" + data[k1]["discount"] + " 折</span></div> ";
-            if(data[k1]["ruledesc"] != null) {
+            if(data[k1]["ruledesc"] != null && data[k1]["ruledesc"] != "") {
                 oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
@@ -699,7 +704,7 @@ function fnyibanlist2(data) {
                 data[k1]["itemquality"] == 0 ? oli += "(临期)" : oli += "";
             }
             oli += "</p></div>";
-            if(data[k1]["ruledesc"] != null) {
+            if(data[k1]["ruledesc"] != null && data[k1]["ruledesc"] != "") {
                 oli += "<div class='cgl-beizhu'><span>备注：" + (data[k1]["ruledesc"] == null ? "" : data[k1]["ruledesc"]) + "</span></div>";
             }
             oli += "</li>";
@@ -807,57 +812,120 @@ function fnggmore() {
 }
 //商品数量加减
 function fncarnum(data) {
-    $("#cgl-cont").off().on("tap", ".jian", function() {
-        var num = Number($(this).next().html());
-        if($(this).parent().parent().parent().parent().parent().attr("id") && num>1){
-            if(num==$(this).parent().parent().parent().parent().next().find(".youligift>span").text()){
+	var _count=0;
+    $("#cgl-cont").off().on("touchstart", ".jian", function() {
+    	_count=0
+    	    var i = 0;
+            var _this = this;
+            timer = setInterval(function(){
+                i+=10;
+                if(i >= 1000){
+                    i = 0;
+                    clearInterval(timer)
+                    timer=setInterval(function(){
+                    	_count+=1
+                    	if($(_this).parents("li").attr("id") && $(_this).next().html()==data[$(_this).parents("li").attr("id")]["salecount"]){
+	    					$(_this).next().html(Number($(_this).next().html())-data[$(_this).parents("li").attr("id")]["salecount"]);
+	    					$(".ammount").html($(".ammount").html() - data[$(_this).parents("li").attr("id")]["salecount"]);
+	    					$(".num").html($(".ammount").html())
+	    					$(".price>i").html((Number($(".price>i").html())-(Number($(_this).parent().prev().find("i").html())*data[$(_this).parents("li").attr("id")]["salecount"])).toFixed(2));
+    						clearInterval(timer)
+    						$(_this).hide()
+                    		$(_this).next().hide()	    					
+                    	}else{
+	    					$(_this).next().html(Number($(_this).next().html())-1);
+	    					$(".ammount").html($(".ammount").html() - 1);
+	    					$(".num").html($(".ammount").html())
+	    					$(".price>i").html((Number($(".price>i").html())-(Number($(_this).parent().prev().find("i").html()))).toFixed(2));
+                    	}
+    					if($(_this).next().html()==0){
+    						clearInterval(timer)
+    						$(_this).hide()
+                    		$(_this).next().hide()
+    					}
+    				},200)
+                }
+            },10)
+    }).on("touchend",".jian",function(){
+    	var _this = this;
+    	if(_count==0){
+    		if($(_this).parents("li").attr("id") && $(_this).next().html()==data[$(_this).parents("li").attr("id")]["salecount"]){
+    			$(_this).next().html(Number($(_this).next().html())-data[$(_this).parents("li").attr("id")]["salecount"]);
+	    		$(".ammount").html($(".ammount").html() - data[$(_this).parents("li").attr("id")]["salecount"]);
+	    		$(".num").html($(".ammount").html())
+	    		$(".price>i").html((Number($(".price>i").html())-(Number($(_this).parent().prev().find("i").html())*data[$(_this).parents("li").attr("id")]["salecount"])).toFixed(2));
+    		}else{
+	    		$(_this).next().html(Number($(_this).next().html())-1);
+		    	$(".ammount").html($(".ammount").html() - 1);
+		    	$(".num").html($(".ammount").html())
+		    	$(".price>i").html((Number($(".price>i").html())-(Number($(_this).parent().prev().find("i").html()))).toFixed(2));    			
+    		}
 
-                $(".ammount").html($(".ammount").html() - num);
-                $(".num").html($(".ammount").html())
-                num=0
-                $(".price>i").html((Number($(".price>i").html())-(Number($(this).next().html())-num)*Number($(this).parent().prev().find("i").html())).toFixed(2));
-                $(this).hide().next().hide().html(0);
-            }else{
-                $(".price>i").html((Number($(".price>i").html())-Number($(this).parent().prev().find("i").html())).toFixed(2));
-                $(".ammount").html($(".ammount").html() - 1);
-                $(".num").html($(".ammount").html())
-                $(this).next().html(Number($(this).next().html())-1)
-            }
-        }else{
-            if(num <= 1) {
-                $(this).hide().next().hide().html(0);
-                $(".ammount").html($(".ammount").html() - 1);
-                $(".num").html($(".ammount").html());
-            } else {
-                $(this).next().html(num - 1);
-                $(".ammount").html($(".ammount").html() - 1);
-                $(".num").html($(".ammount").html());
-            }
-            $(".price>i").html(($(".price>i").html()-$(this).parent().prev().find("i").html()).toFixed(2));
-        }
+    	}
+    	if($(_this).next().html()==0){
+    		clearInterval(timer)
+    		$(_this).hide()
+       		$(_this).next().hide()
+            fnaddcar(_this, $(_this).next().html() - 0);
+		}
         fnaddcar(this, $(this).next().html() - 0);
-    }).on("tap", ".add", function() {
-        var num = Number($(this).prev().html());
-        var xian = Number($(this).parents(".the-xiangxi").find(".cgl-syu>span").html());
-        console.log($(this).prev().text())
-        if(xian && Number($(this).prev().text())>=xian) {
-            console.log("购买已到上限")
-        } else {
-            if(num==0 && $(this).parent().parent().parent().parent().parent().attr("id")){
-                num+=Number($(this).parent().parent().parent().parent().next().find(".youligift>span").text())
-                var _l=(Number($(".price>i").html())+(num-Number($(this).prev().html()))*Number($(this).parent().prev().find("i").html())).toFixed(2)
-                $(".ammount").html(Number($(".ammount").html()) +num);
-                $(this).prev().html(Number($(this).prev().html())+num).show().prev().show();
-                $(".price>i").html(_l);
+        clearInterval(timer)
+    }).on("touchstart", ".add", function() {
+    	var j = 0;
+            var _this2 = this;
+            timer2 = setInterval(function(){
+                j+=10;
+                if(j >= 1000){
+                    j = 0;
+                    clearInterval(timer2)
+                    timer2=setInterval(function(){
+                    	if($(_this2).prev().html()==0){
+                    		$(_this2).prev().show()
+                    		$(_this2).prev().prev().show()
+                    	}
+                    	if($(_this2).parents("li").attr("id") && $(_this2).prev().html()==0){
+	               		    $(_this2).prev().html(Number($(_this2).prev().html())+data[$(_this2).parents("li").attr("id")]["salecount"]);
+		    				$(".ammount").html(Number($(".ammount").html()) +data[$(_this2).parents("li").attr("id")]["salecount"]);
+		    				$(".num").html($(".ammount").html())
+		    				$(".price>i").html((Number($(".price>i").html())+(Number($(_this2).parent().prev().find("i").html())*data[$(_this2).parents("li").attr("id")]["salecount"])).toFixed(2));                    		
+                    	}else{
+	               		    $(_this2).next().html(Number($(_this2).next().html())+1);
+		    				$(".ammount").html(Number($(".ammount").html()) +1);
+		    				$(".num").html($(".ammount").html())
+		    				$(".price>i").html((Number($(".price>i").html())+(Number($(_this2).parent().prev().find("i").html()))).toFixed(2));                    		
+                    	}
 
-            }else{
-                $(".ammount").html(Number($(".ammount").html()) +1);
-                $(this).prev().html(num + 1).show().prev().show();
-                $(".price>i").html((Number($(".price>i").html())+Number($(this).parent().prev().find("i").html())).toFixed(2));
-            }
-            $(".num").html($(".ammount").html());
-            fnaddcar(this, $(this).prev().html() - 0);
-        }
+
+    					$(_this2).prev().html(Number($(_this2).prev().html())+1);
+    				},200)
+                }
+            },10)
+
+    }).on("touchend",".add",function(){
+    	clearInterval(timer2)
+    	var _this2 = this;
+    				var num = Number($(_this2).prev().html());
+			        var xian = Number($(_this2).parents(".the-xiangxi").find(".cgl-syu>span").html());
+			        console.log(num)
+			        if(xian && Number($(_this2).prev().text())>=Math.floor(xian)) {
+			            console.log("购买已到上限")
+			        } else {
+			            if(num==0 && $(_this2).parent().parent().parent().parent().parent().attr("id")){
+			                num+=Number($(_this2).parent().parent().parent().parent().next().find(".youligift>span").text())
+			                var _l=(Number($(".price>i").html())+(num-Number($(_this2).prev().html()))*Number($(_this2).parent().prev().find("i").html())).toFixed(2)
+			                $(".ammount").html(Number($(".ammount").html()) +num);
+			                $(_this2).prev().html(Number($(_this2).prev().html())+num).show().prev().show();
+			                $(".price>i").html(_l);
+			
+			            }else{
+			                $(".ammount").html(Number($(".ammount").html()) +1);
+			                $(_this2).prev().html(num + 1).show().prev().show();
+			                $(".price>i").html((Number($(".price>i").html())+Number($(_this2).parent().prev().find("i").html())).toFixed(2));
+			            }
+			            $(".num").html($(".ammount").html());
+			            fnaddcar(_this2, $(_this2).prev().html() - 0);
+			        }  
+    	
     });
 }
 //添加购物车
@@ -870,7 +938,7 @@ function fnaddcar(that, a) {
     $("#zhezao").show();
     $("#nono").hide();
     $.ajax({
-        url: "/webapi/distributor/" + localStorage.retaler + "/shoppingcart",
+        url: "/webapi/distributor/" + sessionStorage.retaler + "/shoppingcart",
         contentType: "application/json; charset=utf-8",
         async: true,
         cache: false,
@@ -1051,8 +1119,9 @@ function fnsearchyc(odata) {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/prepayinventorys",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/prepayinventorys",
         data: odata,
+        cache:false,
         timeout: "2000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -1084,8 +1153,9 @@ function fnserchapi(odata) {
     $("#nono").hide();
     $.ajax({
         type: "get",
-        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+        url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/items",
         data: odata,
+        cache:false,
         timeout: "9000",
         dataType: "json",
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -1195,8 +1265,9 @@ function getmore() {
                 flag++;
                 $.ajax({
                     type: "get",
-                    url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + localStorage.retaler + "/items",
+                    url: "/webapi/distributor/" + fnurl().distributor_id + "/customer/" + sessionStorage.retaler + "/items",
                     data: state,
+                    cache:false,
                     timeout: "9000",
                     dataType: "json",
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1228,7 +1299,7 @@ function getmore() {
     });
 }
 $(function() {
-    if(localStorage.reload==1){
+    if(sessionStorage.reload==1){
         var _tt=setInterval(function(){
             fnpinpai(); //品牌下拉点击事件
             fnurl(); //获取地址栏参数
@@ -1245,7 +1316,7 @@ $(function() {
             getmore();
         },100)
     }else{
-        localStorage.reload=1;
+        sessionStorage.reload=1;
         fnpinpai(); //品牌下拉点击事件
         fnurl(); //获取地址栏参数
         fnpricenum(); //获取购物车总金额和总数量

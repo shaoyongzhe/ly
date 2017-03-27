@@ -14,7 +14,7 @@ $(document).ready(function () {
     var _fd = 1;
     var _heji = "";
     var _rt = 0;
-    localStorage.list = 0;
+    sessionStorage.list = 0;
     var _cc = 1;
     var pg=0;
     //  var _tuihuo=0;
@@ -32,8 +32,8 @@ $(document).ready(function () {
     var _historyList = "";
     var _d = new Date().getTime();
     var _data1 = "";
-    if (localStorage.retalerdata && JSON.parse(localStorage.retalerdata).data.result != false) {
-        data1 = JSON.parse(localStorage.retalerdata).data;
+    if (sessionStorage.retalerdata && JSON.parse(sessionStorage.retalerdata).data.result != false) {
+        data1 = JSON.parse(sessionStorage.retalerdata).data;
         _data1 = data1;
         console.log(_data1)
         for (var i = 0; i < _data1.length; i++) {
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
 
         $("#select>ul>li").click(function () {
-            localStorage.list = $(this).attr("id")
+            sessionStorage.list = $(this).attr("id")
             $("#select li").removeClass("selected")
             $(this).attr("class", "selected");
             that = $(this);
@@ -100,7 +100,7 @@ $(document).ready(function () {
                 var _imgs = "";
                 if (data["error"] == "") {
                     curPageing = data["paging"];
-                    localStorage.setItem("pg" + curPageing["pageindex"], JSON.stringify(data))
+                    sessionStorage.setItem("pg" + curPageing["pageindex"], JSON.stringify(data))
                     _ty = data["content"].length < 15 ? 0 : 1;
                     console.log(data)
                     for (var j = 0; j < data["content"].length; j++) {
@@ -323,7 +323,7 @@ $(document).ready(function () {
                                 curPageing = data2["paging"];
                                 $(".loadings").css({ display: "none" })
                                 if (data2["error"] == "") {
-                                    localStorage.setItem("pg" + curPageing["pageindex"], JSON.stringify(data2))
+                                    sessionStorage.setItem("pg" + curPageing["pageindex"], JSON.stringify(data2))
                                     for (var r = 0; r < data2["content"].length; r++) {
                                         _icn = ""
                                         _price2 = 0;

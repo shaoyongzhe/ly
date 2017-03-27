@@ -12,7 +12,7 @@ $(document).ready(function () {
     var _flag = 1;
     var _price = 0;
     var _amount = 0;
-    var _data1 = JSON.parse(localStorage.retalerdata).data
+    var _data1 = JSON.parse(sessionStorage.retalerdata).data
     var _pp = "";
     var _image = "";
     var _img = "";
@@ -20,14 +20,14 @@ $(document).ready(function () {
     var _zeng = 0;
     var _tuihuo = 0;
     var _get = 0;
-    var _indd = localStorage.list;
+    var _indd = sessionStorage.list;
     var _ly = "";
     var _zengg = "";
     var _lln = "";
     var _yucun = 0;
     console.log(pg)
     console.log(commodity)
-    var data = JSON.parse(localStorage.getItem("pg" + pg))
+    var data = JSON.parse(sessionStorage.getItem("pg" + pg))
     console.log(data)
     console.log(data)
     var billdata = data["content"][commodity]["details"];

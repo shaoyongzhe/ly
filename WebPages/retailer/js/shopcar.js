@@ -27,11 +27,11 @@
 		var _ges=0;
 		var _cun=0;
 		var _empty=1;
-		var _indd=localStorage.index
+		var _indd=sessionStorage.index
 		_disId=location.search.replace("distributor_id=","").replace("?","");
-		localStorage.disId=_disId
+		sessionStorage.disId=_disId
 		console.log(_disId)
-			_tt=JSON.parse(localStorage.retalerdata).data;
+			_tt=JSON.parse(sessionStorage.retalerdata).data;
 			console.log(_tt)
 			function empty(){
 				$("#empty").click(function(){
@@ -41,7 +41,7 @@
 				    	cache:false,
 				        dataType:"json",
 				        type:"delete",
-				        error:function(){},
+				        error:function(){$(".loads").hide()},
 				        success:function(dataEmpty){
 				        	if(dataEmpty.result==true){
 								$("section>ul").each(function(){
@@ -62,7 +62,7 @@
 								_empty=0;
 								$("#edit").text("编辑")
 				        	}else if(dataEmpty.result==error){
-				        		
+				        		$(".loads").hide()
 				        	}
 				        }
 					})
@@ -75,8 +75,11 @@
 		    	cache:false,
 		        dataType:"json",
 		        type:"get",
-		        error:function(){},
+		        error:function(){$(".loads").hide()},
 		        success:function(data1){
+		        	if(data1.length<=0){
+		        		$("#empty").remove()
+		        	}
 		        	console.log(data1)
 		        	if(data1){
 		        		$(".loads").css({display:"none"})
@@ -90,16 +93,16 @@
 		        }
 			})
 		function aa(){//提交订单文字变化
-			$(".commit").css({background:"#009f96",width:"24%"})
+			$(".commit").css({background:"#009f96",width:"28%"})
 			$(".commit").html("去提交"+"<span>("+_ges+")</span>")
 			console.log(_Id)
 			_qu=0
 			
 				$(".commit").click(function(){
 					if($(".intr").css("display")!="none"){
-						localStorage.mz=$(".intr").prop("outerHTML")
-					}else if(localStorage.mz){
-						localStorage.removeItem("mz")
+						sessionStorage.mz=$(".intr").prop("outerHTML")
+					}else if(sessionStorage.mz){
+						sessionStorage.removeItem("mz")
 					}
 					if(_qu==0){
 						for(var tc=0;tc<_Id.length;tc++){
@@ -107,7 +110,7 @@
 								_Id.splice(tc,1)
 							}
 						}
-						localStorage.Id=_Id.join(",").replace(/\,+$/g,"").replace(/^\,+/,"")
+						sessionStorage.Id=_Id.join(",").replace(/\,+$/g,"").replace(/^\,+/,"")
 						location.href="commit.html"
 					}
 				})	
@@ -474,17 +477,7 @@
 				})
 			}
     	//}
-    	function sendId(data1){
-			$.ajax({
-				url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart/"+data1[_indd]["distributor_id"]+"?isvalid=0",
-				dataType:"json",
-				type:"get",
-				error:function(){},
-				success:function(){
-					
-				}
-			})		
-    	}
+
 
 		function select(){//购物车商品的勾选
 			var _ll=0;
@@ -623,24 +616,143 @@
 			});
 		}
 		function change(data1){//购物车数量改变
-			$(".change").on('tap','.reduce',function(e){
+			var _canClick=true;
+			$(".change").on('click','.reduce',function(e){
 				e.originalEvent.stopPropagation();
-				var tht=this					
-				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
-				var that=$(this).parent().find(".amount").text()
-				console.log(data1[_ind]["salecount"])
-				if(data1[_ind]["salecount"]){
-					if(Number($(this).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
-						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
-						that=$(this).parent().find(".amount").text()
-						$.ajax({
-							type:"post",
-							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
-							async:true,
+				if(_canClick){
+					_canClick=false;
+					var tht=this					
+					var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
+					var that=$(this).parent().find(".amount").text()
+					console.log(data1[_ind]["salecount"])
+					if(data1[_ind]["salecount"]){
+						if(Number($(this).parent().find(".amount").text())>Number(data1[_ind]["salecount"])){
+							$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
+							that=$(this).parent().find(".amount").text()
+									
+										
+										$(tht).parent().parent().parent().parent().parent().find(".yuj").text(Math.floor(Number($(tht).prev().text())/Number(data1[_ind]["salecount"]))*Number(data1[_ind]["giftcount"]));
+										_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
+										if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
+											_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
+											if(_price==-0){
+												_price=0
+											}
+											_cun-=1;
+											_ges-=1;
+											$(".amountBig span").text(_price.toFixed(2))
+										}
+										if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
+											_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+											if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
+												_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+												$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
+											}									
+										}
+										fg();
+										zz()
+										$(".commit span").text("("+_ges+")")
+										$(".summ").text(_ges)
+										_canClick=true;
+							$.ajax({
+								type:"post",
+								url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
+								async:true,
+								data:{
+									distributorid:_disId,
+									itemid:data1[_ind]["itemid"],
+									itemcount:that,
+									itemquality:data1[_ind]["itemquality"],
+									itemprice:data1[_ind]["price"],
+									isyucun:data1[_ind]["isyucun"],
+									activityitemid:data1[_ind]["activityitem_id"],
+									versiontime:formaty(),
+									remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+									prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+								},
+								error:function(){},
+								success:function(data){
+										console.log(data);
+									
+	
+								}
+							});
+						}else{
+							var _dll="";
+							var _id=$(this).parents("li").attr("id")
+							$("#"+_id).remove();
+							_dll=data1[_id]["guid"]
+							console.log(_dll)
+							var _that2=$(this)
+															//$(".delete").remove($(".delete").parent().parent())
+								$("html").css({overflow:"auto"})
+								$(".ifDelt").css({display:"none"})
+								_cun-=Number(_that2.parents("li").find(".amount").text());
+								_Id.splice(_id,1,"a");
+								_sv.splice(_id,1,"a");
+								_pp-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
+								if(_that2.parents("li").find(".gouxuan").attr("flag")){
+									if(_that2.parents("li").find(".gouxuan").attr("flag")==1){
+										_ges-=Number(_that2.parents("li").find(".amount").text())
+										$(".summ").text(_ges)
+									}else{
+										_save-=1;
+									}								
+								}
+								console.log(_ges)
+								if(_count==_save && _count!=0){
+									$(".gg").attr("flag","1")
+									$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
+								}else{
+									$(".gg").attr("flag","0")
+									$(".gg").css({"background":"none",borderColor:"#fff"});
+								}
+								if(data1[_id]["salestop"]==0 && _that2.parents("li").find(".gouxuan").attr("flag")==1){
+									console.log(_id)
+									_price-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
+									console.log(_price)
+									if(_price==-0){
+										_price=0
+									}
+									$(".amountBig span").text(_price.toFixed(2))
+	
+								}
+								if(data1[_id]["itemkind"]=="降价"){
+										_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
+										if($("#"+_id).find(".gouxuan").attr("flag")==1){
+											_discount-=(data1[_id]["originalprice"]-data1[_id]["price"])*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
+											$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
+										}
+									}
+								if(data1[_id]["itemkind"]=="折扣"){
+									_dis-=(Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1))*Number(data1[_id]["itemcount"]);
+										if($("#"+_id).find(".gouxuan").attr("flag")==1){
+											_discount-=((Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1)))*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
+											if(_discount>0){
+												$(".ab span:nth-child(2)").text(_discount.toFixed(2))
+											}else{
+												_discount=0
+												_dis=0;
+												$(".ab span:nth-child(2)").text("0.00")
+											}
+											
+										}
+								}
+								fg()
+								zz()
+								
+								if(_ges==0){
+									$("#kong").show()
+									$("#empty").remove()
+								}
+								_canClick=true;
+							$.ajax({
+							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
+							type:"delete",
 							data:{
 								distributorid:_disId,
 								itemid:data1[_ind]["itemid"],
-								itemcount:that,
+								itemcount:0,
 								itemquality:data1[_ind]["itemquality"],
 								itemprice:data1[_ind]["price"],
 								isyucun:data1[_ind]["isyucun"],
@@ -651,10 +763,16 @@
 							},
 							error:function(){},
 							success:function(data){
-								if(data.result==true){
-									console.log(data);
-									$(tht).parent().parent().parent().parent().parent().find(".yuj").text(Math.floor(Number($(tht).prev().text())/Number(data1[_ind]["salecount"]))*Number(data1[_ind]["giftcount"]));
-									_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
+								console.log(data)
+
+							}
+						})
+						}
+					}else{
+						if($(this).parent().find(".amount").text()>1){
+							$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
+							that=$(this).parent().find(".amount").text()
+																_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
 									if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
 										_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
 										if(_price==-0){
@@ -671,108 +789,101 @@
 											$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
 										}									
 									}
-									fg();
+									fg()
 									zz()
 									$(".commit span").text("("+_ges+")")
 									$(".summ").text(_ges)
-									
-								}
+									_canClick=true;
+							$.ajax({
+								type:"post",
+								url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
+								async:true,
+								data:{
+									distributorid:_disId,
+									itemid:data1[_ind]["itemid"],
+									itemcount:that,
+									itemquality:data1[_ind]["itemquality"],
+									itemprice:data1[_ind]["price"],
+									isyucun:data1[_ind]["isyucun"],
+									activityitemid:data1[_ind]["activityitem_id"],
+									versiontime:formaty(),
+									remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
+									prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
+								},
+								error:function(){},
+								success:function(data){
+									console.log(data);
 
-							}
-						});
-					}else{
-						var _dll="";
-						var _id=$(this).parents("li").attr("id")
-						_dll=data1[_id]["guid"]
-						console.log(_dll)
-						var _that2=$(this)
-						$.ajax({
-						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
-						type:"delete",
-						data:{
-							distributorid:_disId,
-							itemid:data1[_ind]["itemid"],
-							itemcount:that,
-							itemquality:data1[_ind]["itemquality"],
-							itemprice:data1[_ind]["price"],
-							isyucun:data1[_ind]["isyucun"],
-							activityitemid:data1[_ind]["activityitem_id"],
-							versiontime:formaty(),
-							remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
-							prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
-						},
-						error:function(){},
-						success:function(data){
-							console.log(data)
-							//$(".delete").remove($(".delete").parent().parent())
-							$("html").css({overflow:"auto"})
-							$(".ifDelt").css({display:"none"})
-							_cun-=Number($("#"+_id).find(".amount").text());$(this).parent().prev().attr("ip")
-							_Id.splice(_id,1,"a");
-							_sv.splice(_id,1,"a");
-							_pp-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
-							if(_that2.parents("li").find(".gouxuan").attr("flag")){
-								if(_that2.parents("li").find(".gouxuan").attr("flag")==1){
-									_ges-=Number(_that2.parents("li").find(".amount").text())
-									$(".summ").text(_ges)
+								}
+							});						
+						}else{
+							var _dll="";
+							var _id=$(this).parents("li").attr("id")
+							
+							_dll=data1[_id]["guid"]
+							console.log(_dll)
+							var _that2=$(this)
+															$("html").css({overflow:"auto"})
+								$(".ifDelt").css({display:"none"})
+								_Id.splice(_id,1,"a");
+								_sv.splice(_id,1,"a");
+								_pp-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
+								if(_that2.parents("li").find(".gouxuan").attr("flag")){
+									if(_that2.parents("li").find(".gouxuan").attr("flag")==1){
+										_ges-=1
+										$(".summ").text(_ges)
+										_cun-=1
+									}else{
+										_save-=1;
+									}								
+								}
+								console.log(_ges)
+								if(_count==_save && _count!=0){
+									$(".gg").attr("flag","1")
+									$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
 								}else{
-									_save-=1;
-								}								
-							}
-							console.log(_ges)
-							if(_count==_save && _count!=0){
-								$(".gg").attr("flag","1")
-								$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
-							}else{
-								$(".gg").attr("flag","0")
-								$(".gg").css({"background":"none",borderColor:"#fff"});
-							}
-							if(data1[_id]["salestop"]==0 && _that2.parents("li").find(".gouxuan").attr("flag")==1){
-								console.log(_id)
-								_price-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
-								console.log(_price)
-								if(_price==-0){
-									_price=0
+									$(".gg").attr("flag","0")
+									$(".gg").css({"background":"none",borderColor:"#fff"});
 								}
-								$(".amountBig span").text(_price.toFixed(2))
-
-							}
-							if(data1[_id]["itemkind"]=="降价"){
-									_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
-									if($("#"+_id).find(".gouxuan").attr("flag")==1){
-										_discount-=(data1[_id]["originalprice"]-data1[_id]["price"])*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
-										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
+								if(data1[_id]["salestop"]==0 && _that2.parents("li").find(".gouxuan").attr("flag")==1){
+									console.log(_id)
+									_price-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
+									console.log(_price)
+									if(_price==-0){
+										_price=0
 									}
+									$(".amountBig span").text(_price.toFixed(2))
+	
 								}
-							if(data1[_id]["itemkind"]=="折扣"){
-								_dis-=(Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1))*Number(data1[_id]["itemcount"]);
-									if($("#"+_id).find(".gouxuan").attr("flag")==1){
-										_discount-=((Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1)))*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
-										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
+									if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
+										_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+										if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
+											_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
+											if(_discount>0){
+												$(".ab span:nth-child(2)").text(_discount.toFixed(2))
+											}else{
+												_discount=0
+												_dis=0
+												$(".ab span:nth-child(2)").text("0.00")
+											}
+										}									
 									}
-							}
-							$("#"+_id).remove();
-							fg()
-							zz()
-							if(_cun==0){
-								$("#kong").show()
-								$("#empty").remove()
-							}
-						}
-					})
-					}
-				}else{
-					if($(this).parent().find(".amount").text()>1){
-						$(this).parent().find(".amount").text($(this).parent().find(".amount").text()-1);
-						that=$(this).parent().find(".amount").text()
-						$.ajax({
-							type:"post",
-							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart",
-							async:true,
+								
+								fg()
+								zz()
+								$("#"+_id).remove();
+								if(_ges==0){
+									$("#kong").show()
+									$("#empty").remove()
+								}
+								_canClick=true;
+							$.ajax({
+							url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
+							type:"delete",
 							data:{
 								distributorid:_disId,
 								itemid:data1[_ind]["itemid"],
-								itemcount:that,
+								itemcount:0,
 								itemquality:data1[_ind]["itemquality"],
 								itemprice:data1[_ind]["price"],
 								isyucun:data1[_ind]["isyucun"],
@@ -783,113 +894,16 @@
 							},
 							error:function(){},
 							success:function(data){
-								console.log(data);
-								_pp-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""));
-								if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
-									_price-=Number($(tht).parent().parent().find(".pp1").text().replace("￥",""))
-									if(_price==-0){
-										_price=0
-									}
-									_cun-=1;
-									_ges-=1;
-									$(".amountBig span").text(_price.toFixed(2))
-								}
-								if($(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="降价" || $(tht).parent().parent().parent().parent().next().find("span:nth-child(1)").text()=="折扣"){
-									_dis-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-									if($(tht).parent().parent().parent().prev().children().attr("flag")==1){
-										_discount-=(Number($(tht).parent().next().next().find("span").text().replace("￥",""))-Number($(tht).parent().next().text().replace("￥","")))
-										$(".amountBig").next().find("span:nth-child(2)").text(_discount.toFixed(2))
-									}									
-								}
-								fg()
-								zz()
-								$(".commit span").text("("+_ges+")")
-								$(".summ").text(_ges)
-							}
-						});						
-					}else{
-						var _dll="";
-						var _id=$(this).parents("li").attr("id")
-						_dll=data1[_id]["guid"]
-						console.log(_dll)
-						var _that2=$(this)
-						$.ajax({
-						url:"/webapi/distributor/"+getRetailerid()+"/shoppingcart?distributor_id="+_disId+"&guid="+_dll,
-						type:"delete",
-						data:{
-							distributorid:_disId,
-							itemid:data1[_ind]["itemid"],
-							itemcount:_that2.prev().text(),
-							itemquality:data1[_ind]["itemquality"],
-							itemprice:data1[_ind]["price"],
-							isyucun:data1[_ind]["isyucun"],
-							activityitemid:data1[_ind]["activityitem_id"],
-							versiontime:formaty(),
-							remark:$(tht).parents(".list").parent().find(".disc2>div>textarea").val(),
-							prepayid:data1[_ind]["isyucun"]==1?data1[_ind]["prepayguid"]:""
-						},
-						error:function(){},
-						success:function(data){
-							console.log(data)
-							//$(".delete").remove($(".delete").parent().parent())
-							$("html").css({overflow:"auto"})
-							$(".ifDelt").css({display:"none"})
-							_cun-=Number($("#"+_id).find(".amount").text());$(this).parent().prev().attr("ip")
-							_Id.splice(_id,1,"a");
-							_sv.splice(_id,1,"a");
-							_pp-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
-							if(_that2.parents("li").find(".gouxuan").attr("flag")){
-								if(_that2.parents("li").find(".gouxuan").attr("flag")==1){
-									_ges-=Number(_that2.parents("li").find(".amount").text())
-									$(".summ").text(_ges)
-								}else{
-									_save-=1;
-								}								
-							}
-							console.log(_ges)
-							if(_count==_save && _count!=0){
-								$(".gg").attr("flag","1")
-								$(".gg").css({"background":"url(../../image/shop/crect.jpg) no-repeat center center",backgroundSize:"20px 20px",borderColor:"#3a3635"});
-							}else{
-								$(".gg").attr("flag","0")
-								$(".gg").css({"background":"none",borderColor:"#fff"});
-							}
-							if(data1[_id]["salestop"]==0 && _that2.parents("li").find(".gouxuan").attr("flag")==1){
-								console.log(_id)
-								_price-=Number(_that2.parents("li").find(".pp1").text().replace("￥",""))*Number(_that2.prev().text())
-								console.log(_price)
-								if(_price==-0){
-									_price=0
-								}
-								$(".amountBig span").text(_price.toFixed(2))
+								console.log(data)
+								//$(".delete").remove($(".delete").parent().parent())
 
 							}
-							if(data1[_id]["itemkind"]=="降价"){
-									_dis-=((Number(data1[_id]["originalprice"])-Number(data1[_id]["price"]))*(Number(data1[_id]["itemcount"])))
-									if($("#"+_id).find(".gouxuan").attr("flag")==1){
-										_discount-=(data1[_id]["originalprice"]-data1[_id]["price"])*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
-										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
-									}
-								}
-							if(data1[_id]["itemkind"]=="折扣"){
-								_dis-=(Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1))*Number(data1[_id]["itemcount"]);
-									if($("#"+_id).find(".gouxuan").attr("flag")==1){
-										_discount-=((Number(data1[_id]["price"])-(Number(data1[_id]["price"])*data1[_id]["discount"]*0.1)))*Number($("#"+_id).find(".amount").text()) || (data1[_id]["price"]-data1[_id]["price"]*data1[_id]["discount"]*0.1)*Number($("#"+_id).find(".amount").text())
-										$(".ab span:nth-child(2)").text(_discount.toFixed(2))										
-									}
-							}
-							$("#"+_id).remove();
-							fg()
-							zz()
-							if(_cun==0){
-								$("#kong").show()
-								$("#empty").remove()
-							}
+						})
 						}
-					})
-					}
-
+	
+					}					
 				}
+
 
 
 				
@@ -900,7 +914,7 @@
 				var _ind=$(this).parent().parent().parent().parent().parent().attr("id");
 				var _xx=$(this).parents(".yuu").find(".hp>span").text();
 				console.log(_xx)
-				if(_xx && Number($(this).next().text())>=Number(_xx)){
+				if(_xx && Number($(this).next().text())>=Math.floor(_xx)){
 					
 				}else{
 					$(this).parent().find(".amount").text(parseInt($(this).parent().find(".amount").text())+1)
