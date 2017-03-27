@@ -187,13 +187,13 @@
             </div>
         </div>
         <!--ms-for: el in vm.jsondata.items-->
-        <div ms-class="['div-list',(el.activitykind=='降价'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'||el.activitykind=='赠品'?'maizeng':'taocan')]">
+        <div ms-class="['div-list',(el.activitykind=='降价'||el.activitykind=='单品'?'jiangjia':el.activitykind=='有礼'?'youli':el.activitykind=='买赠'||el.activitykind=='赠品'?'maizeng':'taocan')]">
             <div class="div-top" style="position:relative">
                 <div class="li-img">
                     <img alt="" ms-attr="{src: el.itempic}">
                     <p>{{vm.jsondata.time_to_end_text}}</p>
                 </div>
-                <div class="li-text" ms-if="el.activitykind=='降价'">
+                <div class="li-text" ms-if="el.activitykind=='降价' || el.activitykind=='单品'">
                     <p>{{el.activitytitle}}</p>
                     <!--<ul class="jiangjia_price">
                         <li>￥{{el.discountprice}}</li>
@@ -205,11 +205,11 @@
                     <table class="tbl_tc">
                         <tr>
                             <td rowspan="2" class="tbl_td_left">￥{{el.discountprice}}</td>
-                            <td class="tbl_td_right"> <p>{{el.discount}}折</p></td>
+                            <!--<td class="tbl_td_right"> <p>{{el.discount}}折</p></td>-->
                         </tr>
-                        <tr>
+                        <!--<tr>
                             <td style="text-decoration:line-through;padding-left:8px;">￥{{el.originalprice}}</td>
-                        </tr>
+                        </tr>-->
                     </table>
                 </div>
                 <div class="li-text" ms-if="el.activitykind=='有礼'">
@@ -239,10 +239,7 @@
                     <table class="tbl_tc">
                         <tr>
                             <td rowspan="2" class="tbl_td_left">￥{{el.discountprice}}</td>
-                            <td class="tbl_td_right"> <p>已节省{{el.sparevalue}}元</p></td>
-                        </tr>
-                        <tr>
-                            <td style="text-decoration:line-through;padding-left:8px; color:#fff">￥{{el.originalprice}}</td>
+                            <!--<td class="tbl_td_right"> <p>已节省{{el.sparevalue}}元</p></td>-->
                         </tr>
                     </table>
                 </div>
