@@ -51,7 +51,7 @@
                         <a v-on:Click="categoryChange('income')" v-bind:class="[category == 'income' ? 'on' : '']">收入</a>
                         <a v-on:Click="categoryChange('expend')" v-bind:class="[category == 'expend' ? 'on' : '']">支出</a>
                     </p>
-                    <div id="list_1" v-if="category=='all'">
+                    <div id="list_1" v-show="category=='all'">
                         <div class="Wallet_sr ">
                             <div v-for="item in alllist.array">
                                 <h1 v-if="item.summaryperiod!=undefined"><span>{{item.summaryperiod}}</span> <b>收入￥{{item.recv}}</b><b>支出￥{{item.expend}}</b></h1>
@@ -71,7 +71,7 @@
                             <p><img src="/retailer/image/fail_icon.png"><span>暂无流水记录哦！</span></p>
                         </div>
                     </div>
-                    <div id="list_2" v-if="category=='income'">
+                    <div id="list_2" v-show="category=='income'">
                         <div>
                             <div class="Wallet_sr ">
                                 <div v-for="item in incomelist.array">
@@ -93,7 +93,7 @@
                             <p><img src="/retailer/image/fail_icon.png"><span>暂无收入流水记录哦！</span></p>
                         </div>
                     </div>
-                    <div id="list_3" v-if="category=='expend'">
+                    <div id="list_3" v-show="category=='expend'">
                         <div>
                             <div class="Wallet_sr ">
                                 <div v-for="item in expendlist.array">
@@ -133,6 +133,9 @@
                 mymoney: { balance: 0 },
                 array: [],
                 category: "all",
+                IsSearch: {
+                    all: false, income: false, expend: false
+                },
                 alllist: { array: [], paging: {}, pageIndex: 1 },//全部
                 incomelist: { array: [], paging: {}, pageIndex: 1 },//收入
                 expendlist: { array: [], paging: {}, pageIndex: 1 }//支出
@@ -144,8 +147,8 @@
                         dataType: 'json',
                         url: '/webapi/asset/member/my/asset',
                         data: { assettype: '现金', withemployer: false },
-                        beforeSend: function () { common.loading.show(); },
-                        complete: function () { common.loading.hide(); },
+                        beforeSend: function () { shelter.init({ icos: "/js/shelter/image/loading.gif", title: "加载中..." }) },
+                        // complete: function () { shelter.close() },
                         success: function (json) {
                             // console.log(json)
                             if (json.content.length > 0) {
@@ -156,6 +159,8 @@
                             } else {
                                 return vm.mymoney = { balance: 0 }
                             }
+
+                            vm.getAssetFlow(1, null)
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             common.loading.hide();//隐藏转圈动画
@@ -176,11 +181,37 @@
                 categoryChange: function (type) {
                     vm.category = type
                     if ((type == "all" && vm.alllist.array.length == 0) || (type == "income" && vm.incomelist.array.length == 0) || (type == "expend" && vm.expendlist.array.length == 0)) {
-                        $(".dropload-down").remove()
+                        //  $(".dropload-down").remove()
                         vm.getAssetFlow(1, null)
+                    }
+                    else {
+                        if (vm.category == "all") {
+                            vm.alllist.pageIndex++
+                            vm.jsondataReadered()
+                        } else if (vm.category == "income") {
+                            vm.incomelist.pageIndex++
+                            vm.jsondataReadered2()
+                        } else {
+                            vm.expendlist.pageIndex++
+                            vm.jsondataReadered3()
+                        }
                     }
                 },
                 getAssetFlow: function (index, me) {
+                    if (vm.category == "all") {
+                        if (vm.IsSearch.all)
+                            return false;
+                        vm.IsSearch.all = true;
+                    } else if (vm.category == "income") {
+                        if (vm.IsSearch.income)
+                            return false;
+                        vm.IsSearch.income = true;
+                    } else {
+                        if (vm.IsSearch.expend)
+                            return false;
+                        vm.IsSearch.expend = true;
+                    }
+
                     var paging = { pageindex: index, current: {} }
                     if (index > 1) {
                         if (vm.category == "all") {//全部
@@ -190,7 +221,6 @@
                         } else {
                             paging = $.extend({}, vm.expendlist.paging, { pageindex: index });
                         }
-
                     }
                     var data = {
                         paging: JSON.stringify(paging),
@@ -204,34 +234,47 @@
                         dataType: 'json',
                         url: '/webapi/asset/member/my/asset/flowing',
                         data: data,
+                        beforeSend: function () { index > 1 ? '' : shelter.init({ icos: "/js/shelter/image/loading.gif", title: "明细加载中..." }) },
+                        complete: function () { shelter.close() },
                         success: function (json) {
-                            var mydetailArr = [];
-                            if (json.content.length > 0) {
-
-                                for (var i = 0; i < json.content.length; i++) {
-                                    mydetailArr.push(json.content[i]);
-                                }
-
-                                vm.mydetail = mydetailArr;
-                                // console.log(mydetail)
-                            }
-
-                            if (vm.category == "all") {
-                                tmdropme = me
-                            } else if (vm.category == "income") {
-                                tmdropme2 = me
-                            } else
-                                tmdropme3 = me
+                            //var mydetailArr = [];
+                            //if (json.content.length > 0) {
+                            //    for (var i = 0; i < json.content.length; i++) {
+                            //        mydetailArr.push(json.content[i]);
+                            //    }
+                            //    vm.mydetail = mydetailArr;
+                            //     console.log(mydetail)
+                            //}
                             json = json || {};   /* 统一加这句话 */
                             if (json.error) {
                                 dealdropme(me);
-                                // toasterextend.showtips(json.error, "error");
                                 return;
                             }
                             if (json.user_notification != undefined) {
                                 dealdropme(me);
-                                //toasterextend.showtips(json.user_notification, "info");
                                 return;
+                            }
+                            if (vm.category == "all") {
+                                tmdropme = me
+                                vm.IsSearch.all = false;
+                                if (json.content.length < 15) {
+                                    dealdropme(tmdropme);
+                                    $("#list_1 .dropload-down").remove()
+                                }
+                            } else if (vm.category == "income") {
+                                tmdropme2 = me
+                                vm.IsSearch.income = false;
+                                if (json.content.length < 15) {
+                                    dealdropme(tmdropme2);
+                                    $("#list_2 .dropload-down").remove()
+                                }
+                            } else {
+                                tmdropme3 = me
+                                vm.IsSearch.expend = false;
+                                if (json.content.length < 15) {
+                                    dealdropme(tmdropme3);
+                                    $("#list_3 .dropload-down").remove()
+                                }
                             }
                             if (index != 1) {
                                 if (vm.category == "all") {//全部
@@ -250,7 +293,8 @@
                                             vm.alllist.array.push(v)
                                         }
                                     });
-                                    vm.alllist.paging = json.paging
+                                    vm.alllist.paging = {}
+                                    vm.alllist.paging = $.extend({}, {}, json.paging);
 
                                 } else if (vm.category == "income") {//收入
                                     var filterarray = $.grep(vm.incomelist.array, function (item) {
@@ -268,7 +312,8 @@
                                             vm.incomelist.array.push(v)
                                         }
                                     });
-                                    vm.incomelist.paging = json.paging
+                                    vm.incomelist.paging = {}
+                                    vm.incomelist.paging = $.extend({}, {}, json.paging);
                                 } else {
                                     var filterarray = $.grep(vm.expendlist.array, function (item) {
                                         return item.summaryperiod != undefined;//筛选出每月统计
@@ -285,38 +330,38 @@
                                             vm.expendlist.array.push(v)
                                         }
                                     });
-                                    vm.expendlist.paging = json.paging
+                                    vm.expendlist.paging = {}
+                                    vm.expendlist.paging = $.extend({}, {}, json.paging);
                                 }
-
                             } else {
                                 if (vm.category == "all") {//全部
                                     vm.alllist.array = json.content
-                                    vm.alllist.paging = json.paging
+                                    vm.alllist.paging = $.extend({}, {}, json.paging);
                                 } else if (vm.category == "income") {//收入
                                     vm.incomelist.array = json.content
-                                    vm.incomelist.paging = json.paging
+                                    vm.incomelist.paging = $.extend({}, {}, json.paging);
                                 } else {
                                     vm.expendlist.array = json.content
-                                    vm.expendlist.paging = json.paging
+                                    vm.expendlist.paging = $.extend({}, {}, json.paging);
                                 }
                             }
 
 
-                            if (json.content.length == 0 || json.content.length < 15) {
-                                dealdropme(me);
-                                $(".dropload-down").remove()
-                                return;
-                            } else {
-                                //这样可以，nextTick里面的代码会在DOM更新后执行
-                                Vue.nextTick(function () {
-                                    if (vm.category == "all") {
-                                        vm.jsondataReadered()
-                                    } else if (vm.category == "income") {
-                                        vm.jsondataReadered2()
-                                    } else
-                                        vm.jsondataReadered3()
-                                })
-                            }
+                            //if (json.content.length < 15) {
+                            //    dealdropme(me);
+                            //    $(".dropload-down").remove()
+                            //    return;
+                            //}
+
+                            //这样可以，nextTick里面的代码会在DOM更新后执行
+                            Vue.nextTick(function () {
+                                if (vm.category == "all") {
+                                    vm.jsondataReadered()
+                                } else if (vm.category == "income") {
+                                    vm.jsondataReadered2()
+                                } else
+                                    vm.jsondataReadered3()
+                            })
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -335,8 +380,8 @@
                     });
                 },
                 jsondataReadered: function (e) {
-                    if (vm.alllist.pageIndex == 1) {
-                        $(".dropload-down").remove()
+                    if (vm.alllist.pageIndex == 1 && vm.alllist.array.length >= 15) {
+                        $("#list_1 .dropload-down").remove()
                         $('#list_1').dropload({
                             scrollArea: window,
                             domDown: {
@@ -346,18 +391,20 @@
                                 domNoData: '<div class="dropload-noData">暂无数据</div>'
                             },
                             loadDownFn: function (me) {
-                                vm.alllist.pageIndex++
-                                tmdropme = me;
-                                vm.getAssetFlow(vm.alllist.pageIndex, me)
+                                if (vm.category == "all") {//全部
+                                    vm.alllist.pageIndex++
+                                    tmdropme = me;
+                                    vm.getAssetFlow(vm.alllist.pageIndex, me)
+                                }
                             }
                         });
                     }
-                    if (tmdropme != null)
+                    if (tmdropme != null && vm.alllist.array.length >= 15)
                         tmdropme.resetload();
                 },
                 jsondataReadered2: function (e) {
-                    if (vm.incomelist.pageIndex == 1) {
-                        $(".dropload-down").remove()
+                    if (vm.incomelist.pageIndex == 1 && vm.incomelist.array.length >= 15) {
+                        $("#list_2 .dropload-down").remove()
                         $('#list_2').dropload({
                             scrollArea: window,
                             domDown: {
@@ -367,18 +414,20 @@
                                 domNoData: '<div class="dropload-noData">暂无数据</div>'
                             },
                             loadDownFn: function (me) {
-                                vm.incomelist.pageIndex++
-                                tmdropme2 = me;
-                                vm.getAssetFlow(vm.incomelist.pageIndex, me)
+                                if (vm.category == "income") {
+                                    vm.incomelist.pageIndex++
+                                    tmdropme2 = me;
+                                    vm.getAssetFlow(vm.incomelist.pageIndex, me)
+                                }
                             }
                         });
                     }
-                    if (tmdropme2 != null)
+                    if (tmdropme2 != null && vm.incomelist.array.length >= 15)
                         tmdropme2.resetload();
                 },
                 jsondataReadered3: function (e) {
-                    if (vm.expendlist.pageIndex == 1) {
-                        $(".dropload-down").remove()
+                    if (vm.expendlist.pageIndex == 1 && vm.expendlist.array.length >= 15) {
+                        $("#list_3 .dropload-down").remove()
                         $('#list_3').dropload({
                             scrollArea: window,
                             domDown: {
@@ -388,13 +437,15 @@
                                 domNoData: '<div class="dropload-noData">暂无数据</div>'
                             },
                             loadDownFn: function (me) {
-                                vm.expendlist.pageIndex++
-                                tmdropme3 = me;
-                                vm.getAssetFlow(vm.expendlist.pageIndex, me)
+                                if (vm.category == "expend") {
+                                    vm.expendlist.pageIndex++
+                                    tmdropme3 = me;
+                                    vm.getAssetFlow(vm.expendlist.pageIndex, me)
+                                }
                             }
                         });
                     }
-                    if (tmdropme3 != null)
+                    if (tmdropme3 != null && vm.expendlist.array.length >= 15)
                         tmdropme3.resetload();
                 },
                 userwithdraw: function () {//用户提现
@@ -475,7 +526,7 @@
         }
         $(document).ready(function () {
             vm.getMyMoney();
-            vm.getAssetFlow(1, null)
+
         })
     </script>
 </body>
