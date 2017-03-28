@@ -56,7 +56,7 @@ function render(resdata){
     basic.find('.endtime').val(activity.endtime);
     basic.find('.earliestjointime').val(activity.earliestjointime);
     basic.find('.latestjointime').val(activity.latestjointime);
-    basic.find('.activityTitle').val(activity.activitytitle); $('.flag').text(activity.activitytitle + "  " + activity.guid);
+    basic.find('.activityTitle').val(activity.activitytitle); $('.flag').text(activity.activitytitle + "  " + activity.guid + " " + activity.activitycode);
     basic.find('.activityTitle').attr("guid",activity.guid);//0124添加
     basic.find('.tel').val(tel);
     basic.find('.quhao').val(quhao);
@@ -809,118 +809,42 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 		statisticArr.push(activityManger_addSub4Data[i].statistic);//如果有statistic就插入，没有就插入undefined
 	    $('.addSub4:last').before(activityManger_addSub4Html);
 	    
-	    
-	    	    
 	    /*补贴对象补贴条件补贴形式翻译*/
 	    var btduixiang = "";
 	    // debugger;
 	    switch(activityManger_addSub4Data[i].refund_to){
-	
-	        case "distributor":
-	            btduixiang = '分销商';
-	            break;
-	
-	        case "distributor_employee":
-	            btduixiang = '分销商人员';
-	            break;
-	
-	        case "retailer":
-	            btduixiang = '门店';
-	            break;
-	
-	        case "retailer_employee":
-	            btduixiang = '门店店员';
-	            break;
-	
-	        case "consumer":
-	            btduixiang = '消费者';
-	            break;
-	
+	        case "distributor": btduixiang = '分销商'; break;
+	        case "distributor_employee": btduixiang = '分销商人员'; break;
+	        case "retailer": btduixiang = '门店'; break;
+	        case "retailer_employee": btduixiang = '门店店员'; break;
+	        case "consumer": btduixiang = '消费者'; break;
 	    }
 	
 	    var btCond = activityManger_addSub4Data[i].event;
 	    switch(activityManger_addSub4Data[i].event){//兼容，将英文转为中文，若本身是中文则可注释掉可不注释掉
-	
-	        case "distributorinviteretailer":
-	            btCond = '门店签约分销商';
-	            break;
-	
-	        case "register":
-	            btCond = '注册';
-	            break;
-	
-	        case "invitefan":
-	            btCond = '成功邀请朋友关注';
-	            break;
-	
-	        case "verify":
-	            btCond = '首次核销?';
-	            break;
-	
-	        case "verify_first":
-	            btCond = '首次核销';
-	            break;
-	
-	        case "verify_normal":
-	            btCond = '非首次核销';
-	            break;
-	
-	        case "shareverify":
-	            btCond = '分享核销结果';
-	            break;
-	
-	        case "shareticket":
-	            btCond = '分享超惠券';
-	            break;
-	
-	        case "shareretailer":
-	            btCond = '分享门店';
-	            break;
-	
-	        case "openretailer":
-	            btCond = '自主开店';
-	            break;
-	
-	        case "openmemsys":
-	            btCond = '开通会员系统';
-	            break;
-	
+	        case "distributorinviteretailer": btCond = '门店签约分销商'; break;
+	        case "register": btCond = '注册'; break;
+	        case "invitefan": btCond = '成功邀请朋友关注'; break;
+	        case "verify": btCond = '首次核销?'; break;
+	        case "verify_first": btCond = '首次核销'; break;
+	        case "verify_normal": btCond = '非首次核销'; break;
+	        case "shareverify": btCond = '分享核销结果'; break;
+	        case "shareticket": btCond = '分享超惠券'; break;
+	        case "shareretailer": btCond = '分享门店'; break;
+	        case "openretailer": btCond = '自主开店'; break;
+	        case "openmemsys": btCond = '开通会员系统'; break;
 	    }
 	
 	    var btType = activityManger_addSub4Data[i].refund_content;
 	    switch(activityManger_addSub4Data[i].refund_content){//同上
-	
-	        case "randompoints":
-	            btType = '随机积分';
-	            break;
-	
-	        case "fixedpoints":
-	            btType = '固定积分';
-	            break;
-	
-	        case "fixedmoney":
-	            btType = '固定金额';
-	            break;
-	
-	        case "randommoney":
-	            btType = '随机金额';
-	            break;
-	
-	        case "randommoney":
-	            btType = '随机金额';
-	            break;
-	
-	        case "randomredpacket":
-	            btType = '随机微信红包';
-	            break;
-	
-	        case "fixedredpacket":
-	            btType = '固定微信红包';
-	            break;
-	
-	        case "randommoneyticket":
-	            btType = '随机金额返现券';
-	            break;
+	        case "randompoints": btType = '随机积分'; break;
+	        case "fixedpoints": btType = '固定积分'; break;
+	        case "fixedmoney": btType = '固定金额'; break;
+	        case "randommoney": btType = '随机金额'; break;
+	        case "randommoney": btType = '随机金额'; break;
+	        case "randomredpacket": btType = '随机微信红包'; break;
+	        case "fixedredpacket": btType = '固定微信红包'; break;
+	        case "randommoneyticket": btType = '随机金额返现券'; break;
 	    }
 	    /*处理是否有单位字段*/
 	    if(activityManger_addSub4Data[i].unit==""||activityManger_addSub4Data[i].unit==undefined){
@@ -943,13 +867,11 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	    	var addSub4MangeStatistic=JSON.stringify(activityManger_addSub4Data[i].statistic, null, 4);
 		    $(".addSub4Mange:last").find(".subsidyCondition a").attr("statistic",addSub4MangeStatistic);	    	
 	    }
-	    
 	
 	    /*补贴形式*/
 	    $(".addSub4Mange:last").find(".acSe11 .selected").text(btType);
-	
 	    if(activityManger_addSub4Data[i].refund_content!="摇一摇"){//shake
-	     // debugger
+	    	// debugger
 	        $(".addSub4Mange:last").find(".hdc4d1").removeClass('hi');
 	        $(".addSub4Mange:last").find(".hdc4d2").addClass('hi');
 	        $(".addSub4Mange:last").find(".acSe12 .hdc4In1").val(activityManger_addSub4Data[i].min);
@@ -1069,6 +991,5 @@ function addSubJoint(a){//把之前根据死数据拼接好的js都放到这个�
 	}
 
 	butiefz();
-	$('.butieSec .sbys + p:contains(元):first').prev().blur();
-
+	CalculateTotalBudget();
 }

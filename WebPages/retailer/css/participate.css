@@ -557,3 +557,9 @@
 		background: #ff5050;
 		float: left;
 	}
+.more_acright p {
+    color: #fff;
+    text-align: center;
+    font-size: 0.5rem;
+    line-height: 0.7rem;
+}

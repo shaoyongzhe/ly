@@ -557,7 +557,7 @@
                     <img src="../image/share_img.png">
                 </div>
                 <div class="main_content">
-                    <div class="content_box" ms-repeat="vm.topicdata">
+                    <div class="content_box" ms-repeat="vm.topicdata"  ms-click="vm.prizeClick(el)">
                         <h1>{{el.slogan}}</h1>
                         <dl class="clearfix">
                             <dt><img ms-attr-src="el.poster_url"></dt>
@@ -584,7 +584,7 @@
                     <img src="../image/share_img.png">
                 </div>
                 <div class="main_content">
-                    <div class="content_box born" ms-repeat="vm.topicdata">
+                    <div class="content_box born" ms-repeat="vm.topicdata" ms-click="vm.prizeClick(el)">
                         <h1>{{el.slogan}}</h1>
                         <dl class="clearfix">
                             <dt><img ms-attr-src="el.poster_url"></dt>

@@ -119,10 +119,10 @@ var vm = avalon.define({
                     toasterextend.showtips(msg, "error");
                     return;
                 }
-                //else if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
-                //    vm.span_tishi = "该券仅剩一张可供您使用,已为您生成二维码"
-                //    vm.btnClick();
-                //}
+                else if (vm.verifylimit == 1) {//只有一张超惠券，直接加在二维码
+                    vm.span_tishi = "该券仅剩一张可供您使用,已为您生成二维码"
+                    vm.btnClick();
+                }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 common.loading.hide();//隐藏转圈动画
@@ -342,8 +342,10 @@ var vm = avalon.define({
                             vm.topicdata = result.data
                             if (result.data.length > 1) {
                                 $('.share_pop2').remove();
+
                             } else {
                                 $('.share_pop1').remove();
+                                vm.prizeClick(result.data[0])
                             }
 
                             $('.share_pop').fadeIn(200);
@@ -377,6 +379,11 @@ var vm = avalon.define({
                 }
             }
         });
+    },
+    prizeClick: function (el) {
+        if (el.assettype == "摇一摇") {
+            location.href = "/basepages/page/shakegame.html"
+        }
     }
 })
 
