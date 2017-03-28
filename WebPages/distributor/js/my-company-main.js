@@ -3,7 +3,7 @@
         ///webapi/consumer/weixin/register_generate_code?qrtype=20&combinetext=0&combineicon=0
         this.companytemplate = [
        '<div class="m-company-top">',
-            '<div class="userimg"><img src="{@if distributor_pic ==""}','../image/cs04.jpg',' {@else}${distributor_pic}{@/if}" /></div>',
+            '<div class="userimg"><img src="{@if distributor_pic ==""}', '../image/cs04.jpg', ' {@else}${distributor_pic}{@/if}" /></div>',
             '<div class="userinfo">',
                 '<div class="zi">',
                     '<span>${distributorname}</span><br />',

@@ -4,7 +4,7 @@ function employee(containerstat, contaninemployees) {
     this.contaninemployees = $(contaninemployees);
     this.stattemplate = [
         '<div class="m-self-top">',
-        '<div class="userimg"><img src="{@if employeepic ==""}','../image/cs04.jpg',' {@else}${employeepic}{@/if}" /></div>',
+        '<div class="userimg"><img src="{@if employeepic ==""}', '../image/cs04.jpg', ' {@else}${employeepic}{@/if}" /></div>',
         '<div class="userinfo"><span>${employeename}{@if employeerolename != "" && employeerolename != null}(${employeerolename}){@/if}</span><br />${distributorname}</div>',
         '</div>',
         '<div class="title" style="border-bottom:0">我的贡献</div> ',
@@ -26,7 +26,7 @@ function employee(containerstat, contaninemployees) {
         '<div class="title">同事(${employeecount})</div>',
         '<ul class="ts-list-w">',
             '{@each employees as item}',
-            '<li><img src="{@if item.employeepic !=""}','../image/cs04.jpg',' {@else}${item.employeepic}{@/if}" />${item.username}（${item.rolename}）</li>',
+            '<li><img src="{@if item.employeepic !=""}', '../image/cs04.jpg', ' {@else}${item.employeepic}{@/if}" />${item.username}（${item.rolename}）</li>',
             '{@/each}',
         '</ul>'
     ].join('\n');
