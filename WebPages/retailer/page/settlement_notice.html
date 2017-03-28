@@ -102,7 +102,8 @@
 
                         //处理value
                         var cont = data[val.inventorytype] ? data[val.inventorytype] : '';
-                        cont += '<li class="gname"><div class="no"></div><div class="type">' + val.itemtype + '</div>' + val.itemname + ' <label class="fr">' + val.specification + '</label></li>'
+                        var itemsKind = val.itemkind ? "showKind" : "hideKind";
+                        cont += '<li class="gname"><div class="no"></div><div class="'+itemsKind+'">' + val.itemkind + '</div><div class="type">' + val.itemtype + '</div>' + val.itemname + ' <label class="fr">' + val.specification + '</label></li>'
                              + '<li class="gprice"><label>￥' + val.itemcost + '</label><label class="unit">' + val.itemcount + '</label><label>￥' + val.itemcalculate + '</label></li>';
                         data[val.inventorytype] = cont;
                     });
@@ -125,12 +126,22 @@
                             $(this).find(".no").text(i + 1);
                         });
                     });
-
-                    var priceHtml = '<div class="container box" style="border-bottom:0"><div class="title">结算</div><table cellpadding="0" cellspacing="0" id="setprice"><tr><th>销售应收：</th><td>￥' + obj.detailsdata.xiaoshouyingshou + '</td></tr>'
+					var trShow = obj.detailsdata.itemsalediscount? "" : 'hideShow';
+					var trShow1 = obj.detailsdata.gift? "" : 'hideShow';
+					var trShow2 = obj.detailsdata.wechatdiscount? "" : 'hideShow';
+					var trShow3 = obj.detailsdata.manjian? "" : 'hideShow';
+					
+                    var priceHtml = '<div class="container box box_y" style="border-bottom:0"><div class="title">结算</div><table cellpadding="0" cellspacing="0" id="setprice" style="width: 100%;">'
+                    +'<tr class="'+ trShow +'"><th>商品促销优惠：</th><td>￥' + obj.detailsdata.itemsalediscount + '</td></tr>'
+                    +'<tr class="'+ trShow1 +'"><th style="border-bottom:1px solid #c2c2c2">搭赠金额：</th><td style="border-bottom:1px solid #c2c2c2">￥' + obj.detailsdata.gift + '</td></tr>'
+                    
+                    +'<tr><th>销售应收：</th><td>￥' + obj.detailsdata.xiaoshouyingshou + '</td></tr>'
                                     + '<tr><th>预&nbsp;&nbsp;存&nbsp;&nbsp;货：</th><td>￥' + obj.detailsdata.yucunhuo + '</td></tr>'
+                                    + '<tr class="'+ trShow2 +'"><th>微信专享：</th><td>￥' + obj.detailsdata.wechatdiscount + '</td></tr>'
+                                    + '<tr class="'+ trShow3 +'"><th>满&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减：</th><td>￥' + obj.detailsdata.manjian + '</td></tr>'                                    
                                     + '<tr><th>退货应付：</th><td>￥' + obj.detailsdata.tuihuoyingfu + '</td></tr>';
                     if (obj.detailsdata.isreceive == 1) {
-                        priceHtml += '<tr><th>应收合计：</th><td>￥' + obj.detailsdata.yingshou_tui + '</td></tr>'
+                        priceHtml += '<tr><th class="c333" style="border-bottom:1px solid #c2c2c2">应收合计：</th><td class="c333" style="border-bottom:1px solid #c2c2c2">￥' + obj.detailsdata.yingshou_tui + '</td></tr>'
                                   + '<tr><th>使用预存：</th><td>￥' + obj.detailsdata.shiyongyucun + '</td></tr>'
                                   + '<tr><th>抹&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;零：</th><td>￥' + obj.detailsdata.moling + '</td></tr>'
                                   + '<tr><th>实&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;收：</th><td>￥' + obj.detailsdata.shishou_tui + '</td></tr>'
