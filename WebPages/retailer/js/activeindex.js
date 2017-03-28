@@ -199,6 +199,7 @@ function xiala() {
 
 //菜单(手风琴样式)点击事件
 function fnclick() {
+	var _fg=0;
     var Accordion = function(el, multiple) {
         this.el = el || {};
         this.multiple = multiple || false;
@@ -238,7 +239,15 @@ function fnclick() {
         $("i",".submenu").css({"background-image":'url("../../image/shop/heisanjiao.png")'});
         $(".sanji").hide().css({"height":"79px"});
         $(".cgl-contlist").find(">ul>li").show();
-        $next.stop().slideToggle(300);
+        $next.stop().slideToggle(300,function(){
+        	if(_fg==1){
+        		$this.find("i").css("transform", "rotateZ(90deg)")
+        		_fg=0
+        	}else{
+        		$this.find("i").css("transform", "rotateZ(0deg)")
+        		_fg=1;
+        	}
+        });
         $(".alllist").animate({
             "margin-top":"0"
         },300);
