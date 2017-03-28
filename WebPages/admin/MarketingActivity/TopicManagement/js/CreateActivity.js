@@ -1062,9 +1062,9 @@ $('.btn.next').click(function(){
 		$('.btn.prev').show();
 	}
 
-	if(location.href.indexOf('activityModify') != -1){
-		
-	}
+	/*if(location.href.indexOf('activityModify') != -1){
+
+	}*/
 
 	if($('nav span:last').hasClass('on') == false){
 		$('.saveToDb').click();
@@ -1653,10 +1653,7 @@ $("body").on("click","li.option",function(e){
 			$(this).parents(".addSub4").find(".hdc4d1").removeClass('hi');
 			$(this).parents(".addSub4").find(".hdc4d2").addClass('hi');					
 			var index=$(this).parents(".addSub4").find(".hdc3").find(".option").index($(this));
-			$(this).parents(".addSub4").find(".hdc4").find(".hdc4dA").text(addSub4Arr[index+1]);		
-			// $(".hdc4").find(".hdc4dA").text(addSub4Arr[index]);
-			//内部修改项开始**********************
-			//补贴峰值
+			$(this).parents(".addSub4").find(".hdc4").find(".hdc4dA").text(addSub4Arr[index+1]);
 			var text="";
 			if(addSub4Arr[index+1].indexOf("元")!=-1){
 				text="元";
@@ -1664,15 +1661,6 @@ $("body").on("click","li.option",function(e){
 				text="分";		
 			}
 			$(this).parents(".addSub4").find(".hdc6").find(".acSe14 p").text(text);
-			// $(this).parents(".addSub4").find(".hdc6.fz .acSe14 p").text(text);
-			//设置概率
-			/*$(this).parents(".addSub4").find(".hdc7").css({
-				"color": "gray",   
-			    "cursor": "default",
-			    "border": "1px solid gray"
-			})*/
-			// $(this).parents(".addSub4").find(".hdc7").removeClass('on');
-			//内部修改项结束**********************
 			shenbaoyusuanInput.removeClass('vihi');
 
 		} else {
@@ -1680,19 +1668,8 @@ $("body").on("click","li.option",function(e){
 			$(this).parents(".addSub4").find(".hdc4d1").addClass('hi');
 			$(this).parents(".addSub4").find(".hdc4d2").removeClass('hi');
 			var index=$(this).parents(".addSub4").find(".hdc3").find(".option").index($(this));
-			$(this).parents(".addSub4").find(".hdc4").find(".hdc4dB").text(addSub4Arr[index+1]);	
-			//内部修改项开始**********************
-			//补贴峰值
-			// $(this).parents(".addSub4").find(".hdc6.fz").find(".acSe14 p").text("");
+			$(this).parents(".addSub4").find(".hdc4").find(".hdc4dB").text(addSub4Arr[index+1]);
 			$(this).parents(".addSub4").find(".hdc6").find(".acSe14 p").text("");
-			//设置概率	
-			/*$(this).parents(".addSub4").find(".hdc7").css({
-				"color": "#4778C7",   
-			    "cursor": "pointer",
-			    "border": "1px solid #4778C7"
-			})*/
-			// $(this).parents(".addSub4").find(".hdc7").addClass('on');
-			//内部修改项结束**********************
 			
 			// debugger
 			if($(this).text()=="摇一摇"){
@@ -1712,7 +1689,6 @@ $("body").on("click","li.option",function(e){
 
 		}
 
-
 		// alert($(this).text().indexOf('随机'))
 		if($(this).text().indexOf('随机') != -1){
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In1').width(33);
@@ -1725,13 +1701,7 @@ $("body").on("click","li.option",function(e){
 			$(this).closest('.addSub4').find('.hdc4 .hdc4d1 .hdc4In2').hide();
 			$(this).closest('.addSub4').find('.setgailv').removeClass('on');
 		}
-		
-		//内部修改项开始**********************
-		// $(this).closest('.addSub4').find('.hdc6 .acSe14 p').width(14);		
-		//内部修改项结束**********************
 
-		// $('.addSub4 .acSe13 input').keyup();
-		// $('.butieSec .sbys').keyup();
 		butiefz();
 		CalculateTotalBudget();
 		return;
@@ -1739,7 +1709,6 @@ $("body").on("click","li.option",function(e){
 	}
 	// });
 	//结束********************************************************************************************
-
 
 
 	if(!selected){
@@ -1751,8 +1720,8 @@ $("body").on("click","li.option",function(e){
 
 
 	//开始*********************************************************************************************
-	//控件5摇一摇//****直接复制add.js中yaoyiyaoTab()并纳入$('.select').on("click",".option",function(e){}
-	if($(this).closest('.acSe15').length==1){	
+	//控件5摇一摇
+	if($(this).closest('.acSe15').length==1){
 		// debugger
 		// alert('1')
 		$(this).closest(".addSub5").find("input").val("");
@@ -2384,9 +2353,10 @@ $('.butieSec').on('focus','.acSe13 input',function(){
 		if(Number($(this).val()) > Number($(this).closest('.addSub4').find('.acSe13 input').val())){
 			layer.tips('申报预算 不可以大于 发放上限次数', $(this));
 			this.value = 0;
+		} else {
 			$(this).closest('.addSub4').find('a.set').click();
-			return;
 		}
+		return;
 	}
 
 	var _this = $(this);
@@ -2498,7 +2468,6 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 	// if(m != 0) {
 		yaoyiyao.find('.Yyy5 .Yyy5d1 input').val(Number(m * cishu * (y1ygailv / 100)).toFixed(2));
 		yaoyiyaofengzhi();
-
 	// }
 
 	// } else {
@@ -2529,10 +2498,10 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 		percentNum += Number($(this).val());
 	});
 
-	var cishuNum = 0;
-	$('.yaoWrap .Yyy4 input').each(function(){
-		cishuNum += Number($(this).val());
-	});
+	// var cishuNum = 0;
+	// $('.yaoWrap .Yyy4 input').each(function(){
+	// 	cishuNum += Number($(this).val());
+	// });
 
 	// 计算摇一摇申报预算
 	var shenbaoys = Number($('.addSub4').eq(y1yindex-1).find('.hdc6-1 input.sbys').val());
@@ -2545,20 +2514,21 @@ $('.yaoWrap').on('keyup','.yaoyiyao .Yyy4d1 input',function(){ // 奖品次数
 	} else {
 		m = min.val();
 	}
-	// $(this).closest('.addSub5').find('.Yyy5-1 input').val(Number(shenbaoys * (y1ygailvInput / 100) * m).toFixed(2));
+	$(this).closest('.addSub5').find('.Yyy5-1 input').val(Number(shenbaoys * (y1ygailvInput / 100) * m).toFixed(2));
 
 
 	if(percentNum != 100){
 		layer.msg('摇一摇概率相加必须等于100');
 		$('.yaook').addClass('disabled');
 		return;
-
-	} else if(cishuNum != shangxiancishu) {
-		layer.msg('奖品次数不等于发放上限次数' + shangxiancishu + '次');
-		$('.yaook').addClass('disabled');
+	} 
+	/*else if(cishuNum != shangxiancishu) {
+		console.log('奖品次数不等于发放上限次数' + shangxiancishu + '次');
+		// $('.yaook').addClass('disabled');
+		$('.yaook').removeClass('disabled');
 		return;
-
-	} else {
+	}*/
+	else {
 		$('.yaook').removeClass('disabled');
 	}
 
@@ -2576,7 +2546,6 @@ function yaoyiyaofengzhi(){
 		$('.layer.yao .score').text(fenNum);
 	});*/
 
-	// debugger;
 	var yuanDom = $('.yaoWrap .Yyy5d1.fz:contains(元) input');
 	var yuanL = yuanDom.length;
 	var yuanNum = 0;
@@ -2837,7 +2806,7 @@ $('.saveToDb, .shenhe').click(function(){
 											finished = false;
 											return false;
 										}
-									}	
+									}
 
 								} else {
 
@@ -3485,7 +3454,7 @@ $('.saveToDb, .shenhe').click(function(){
 	console.log(JSON.stringify(data, null, 4));
 
 	if (!$('nav span:last').hasClass('on') && $(this).text() == "保存"){
-		layer.msg('数据已保存');
+		c('数据已保存');
 		return;
 	}
 
